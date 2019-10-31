@@ -1,0 +1,57 @@
+aspectdef NewConsoleLogger
+
+	output
+		/* basic interface */
+		log
+	end
+
+/******************************************************************************/
+/******************************* AUTOMATIC SETUP ******************************/
+/******************************************************************************/
+
+
+/******************************************************************************/
+/****************************** HELPER FUNCTIONS ******************************/
+/******************************************************************************/
+
+	printf = function(msg) {
+
+		return 'System.out.println("' + msg + '");';
+	};
+
+
+/******************************************************************************/
+/******************************* BASIC INTERFACE ******************************/
+/******************************************************************************/
+
+	log = function(msg, $jp, location, lvl) {
+
+		switch(lvl) {
+			case Log.INFO:
+				lvlString = '[INFO] ';
+				break;
+			case Log.WARN:
+				lvlString = '[WARN] ';
+				break;
+			case Log.ERROR:
+				lvlString = '[ERROR] ';
+				break;
+			default:
+				lvlString = '[INFO] ';
+		}
+		
+		var finalMsg = printf(lvlString + msg);
+
+		switch(location) {
+			case Location.BEF:
+				$jp.insert before '[[finalMsg]]';
+				break;
+			case Location.AF:
+				$jp.insert after '[finalMsg]]';
+				break;
+			default:
+				$jp.insert before '[[finalMsg]]';
+		}
+
+	};
+end

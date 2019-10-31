@@ -1,0 +1,19 @@
+import weaver.Weaver;
+import weaver.WeaverJps;
+import lara.Io;
+
+aspectdef Test
+
+	//var counter = 0;
+
+	// Select binary operators in each file
+	for($op of WeaverJps.search('binaryExpression').get()) {
+
+		// Go over each ancestor to trigger construction of join points not yet implemented
+		$op.ancestor('app');
+	}
+	
+	println("Success");
+	
+
+end

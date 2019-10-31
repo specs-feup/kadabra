@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
+    <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+        <listEntry value="/WeaverGenerator/src/org/lara/interpreter/weaver/generator/commandline/WeaverGenerator.java"/>
+    </listAttribute>
+    <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+        <listEntry value="1"/>
+    </listAttribute>
+    <booleanAttribute key="org.eclipse.jdt.launching.ATTR_USE_CLASSPATH_ONLY_JAR" value="false"/>
+    <booleanAttribute key="org.eclipse.jdt.launching.ATTR_USE_START_ON_FIRST_THREAD" value="true"/>
+    <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="org.lara.interpreter.weaver.generator.commandline.WeaverGenerator"/>
+    <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-w JavaWeaver&#13;&#10;-p weaver.kadabra&#13;&#10;-o src&#13;&#10;-x src/specs/kadabra&#13;&#10;-n spoon.reflect.declaration.CtElement&#13;&#10;-e&#13;&#10;-d&#13;&#10;-j"/>
+    <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="WeaverGenerator"/>
+    <stringAttribute key="org.eclipse.jdt.launching.WORKING_DIRECTORY" value="${workspace_loc:JavaWeaver}"/>
+</launchConfiguration>

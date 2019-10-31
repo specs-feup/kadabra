@@ -1,0 +1,5 @@
+aspectdef Operators
+
+	println("This should not execute!");
+
+end

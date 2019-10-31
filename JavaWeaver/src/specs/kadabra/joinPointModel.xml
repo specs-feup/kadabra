@@ -1,0 +1,242 @@
+<?xml version="1.0"?>
+<joinpoints root_class="app">
+	
+	<!-- APPLICATION -->
+	<joinpoint class="app" tooltip="Root node that represents the application">
+		<select 					class="file" tooltip="files of the application"/>
+		<select						class="libClass" tooltip="class pertaining to a library, included in the classpath. This select may be slow, depending on the number of included types."/> 
+		<!--  select 					class="package"/> <!- - deprecated! -->
+		<!-- <select 					class="androidManifest"/>  -->
+	</joinpoint>
+	
+	<joinpoint class="libClass" extends="NamedType">
+		<select						class="libMethod" tooltip="methods pertaining to this class"/> 
+	</joinpoint>
+	
+	<joinpoint class="libMethod">
+		<select alias="param" 		class="declaration"/>
+	</joinpoint>
+	
+	
+	<!--
+	<joinpoint class="androidManifest">
+	</joinpoint>
+	 -->	
+	
+	<joinpoint class="file"> <!--  extends="TypeContainer">-->
+		<!-- Needs a select to main class/interface/enum -->
+		<select						class="type" tooltip="class, interface and enums"/> 
+		<select						class="class"/> 
+		<select 					class="interface"/>
+		<select 					class="pragma" tooltip="comments that start with @ followed by the pragma name"/>
+		<select 					class="comment"/>
+	</joinpoint>
+
+	<joinpoint class="NamedType">
+		
+	</joinpoint>
+
+	<joinpoint class="type"  tooltip="base join point that class, interface and enum extend"> <!-- 	extends="TypeContainer" -->
+		<select 					class="field" 	tooltip="fields inside a class"/>
+		<select						class="executable" tooltip="methods, constructors or static/instance blocks"/>
+		<select 					class="method" 	tooltip="methods inside a class"/>
+		<select 					class="pragma"	tooltip="comments that start with @ followed by the pragma name"/>
+		<select alias="function"	class="method"/>
+		<select 					class="comment"/>
+	</joinpoint>
+	
+	
+<!-- 	<joinpoint class="TypeContainer"> -->
+
+<!-- 	</joinpoint> -->
+	
+	<!-- CLASS -->
+	<joinpoint class="class" tooltip="join point representation of a class" extends="type">
+		<select 					class="constructor" tooltip="the class constructors"/>
+		<select						class="anonymousExec" tooltip="anonymous code blocks defined in a class"/>
+		
+<!-- 		<select alias="function"	class="method"/> -->
+	</joinpoint>
+			
+	<!-- INTERFACE -->
+	<joinpoint class="interface"  extends="type">
+<!-- 		<select 					class="field" /> -->
+<!-- 		<select 					class="method"/> -->
+<!-- 		<select alias="function"	class="method"/> -->
+	</joinpoint>
+	
+	<joinpoint class="enum"  extends="class">
+		<select alias="values" class="field"/>
+	</joinpoint>
+	
+	<!-- FIELD -->
+	<joinpoint class="field" extends="declaration"/>	
+	
+	
+	<joinpoint class="executable">
+		<select 					class="body"/>
+		<select alias="param" 		class="declaration"/>
+	</joinpoint>
+	
+	<!-- METHOD -->
+	<joinpoint class="method" extends="executable">
+	</joinpoint>
+	
+	<!-- CONSTRUCTOR -->
+	<joinpoint class="constructor" extends="executable">
+	</joinpoint>
+	
+	<!-- ANONYMOUS EXECUTABLE -->
+	<joinpoint class="anonymousExec" extends="executable">
+	</joinpoint>
+	
+	<!-- BODY -->
+	<joinpoint class="body" extends="statement">
+		<select 			 		class="statement"/>
+		<select alias="stmt" 		class="statement"/>
+		<select alias="firstStmt"	class="statement"/>
+		<select alias="lastStmt" 	class="statement"/>
+		<select alias="declaration"	class="localVariable"/>
+			
+		<select 					class="loop"/>
+		<select						class="if"/>
+		<!-- select 					class="var"/-->
+<!-- 		<select						class="call"/>			 -->
+<!-- 		<select						class="arrayAccess"/> -->
+		<select						class="return"/>
+ 		<select						class="assignment"/>
+		<select 					class="pragma"/>
+		<select 					class="comment"/>
+	</joinpoint>
+	
+	
+	<!-- DECLARATION -->
+	<joinpoint class="localVariable" extends="statement">
+		<select alias="init" 		class="expression"/>
+	</joinpoint>
+	<!-- DECLARATION -->
+	<joinpoint class="declaration">
+		<select alias="init" 		class="expression"/>
+	</joinpoint>
+	
+	<!-- LOOP -->
+	<joinpoint class="loop" extends="statement">
+		<select alias="init"			class="statement"/>				<!---->
+		<select alias="cond"			class="expression"/>			<!---->
+		<select alias="step"			class="statement"/>			<!---->
+		
+		<select alias="expr"			class="expression"/>			<!--FOR EACH LOOPS-->
+		<select							class="body"/>					<!---->
+	</joinpoint>
+	
+	<!-- IF -->
+	<joinpoint class="if" extends="statement">
+		<select alias="cond"			class="expression"/>	<!---->
+		<select alias="then"			class="body"/>			<!---->
+		<select alias="else"			class="body"/>			
+	</joinpoint>
+	
+	
+	<!-- IF -->
+	<joinpoint class="try" extends="statement">
+		<select 						class="body"/>	<!---->
+		<!--select 						class="catch"/>	-->
+		<!--select alias="finally"			class="body"/> -->			
+	</joinpoint>
+	
+	<!-- STATEMENT -->
+	<joinpoint class="statement">
+		<select 					class="var"/>
+		<select						class="call"/> 
+	</joinpoint>
+	
+	
+	<!-- <joinpoint class="expressionStatement" extends="statement">-->
+		<!-- select						class="var"/-->
+ 		<!-- select alias="unaryExpr" 	class="unaryExpression"/>-->
+	<!-- </joinpoint> -->
+	
+	<joinpoint class="assignment" extends="statement">
+		<select	alias="lhs"			class="expression"/>
+		<select	alias="rhs"			class="expression"/>
+	</joinpoint>
+	
+	<!-- EXPRESSION -->
+	<joinpoint class="expression">
+		<select alias="expr" 		class="expression"/>
+ 		<select						class="var"/>
+ 		<select						class="arrayAccess"/>
+ 		<select alias="binaryExpr" 	class="binaryExpression"/>
+<!-- 		<select				class="call"/> -->
+	</joinpoint>
+	
+		
+	<!-- VAR -->
+	<joinpoint class="var" extends="expression"/>
+	
+	
+	<!-- LITERAL -->
+	<joinpoint class="literal" extends="expression"/>
+	
+	<!-- CALL -->
+	<joinpoint class="call" extends="expression">
+		<select alias="arg" 		class="argument"/>
+	</joinpoint>
+	
+	<joinpoint class="argument" extends="expression"/>
+	
+	
+	<!-- BINARY EXPRESSION -->
+	<joinpoint class="binaryExpression" extends="expression">
+		<select alias="lhs"			class="expression"/>				
+		<select alias="rhs"			class="expression"/>			
+	</joinpoint>
+	
+	<!-- UNARY EXPRESSION -->
+	<joinpoint class="unaryExpression" extends="expression">
+		<select alias="operand"			class="expression"/>
+	</joinpoint>
+	
+	
+	
+	<!-- ARRAY ACCESS -->
+	<joinpoint class="arrayAccess" extends="expression">
+		<select alias="target"		class="expression"/>	
+		<select alias="index"		class="expression"/>
+	</joinpoint>
+	
+		<!-- RETURN -->
+	<joinpoint class="return" 		extends="statement"/>
+	
+	<joinpoint class="comment" extends="statement"/>
+	<joinpoint class="pragma" extends="comment"/>
+	
+	<joinpoint class="assert" extends="statement">
+		<select 					class="expression"/>
+		<select alias="expr"		class="expression"/>
+	</joinpoint>
+	
+	<joinpoint class="throw" extends="statement">
+		<select 					class="expression"/>
+		<select alias="expr"		class="expression"/>
+	</joinpoint>
+	<joinpoint class="switch" extends="statement">
+		<select 					class="case"/>
+	</joinpoint>
+	<joinpoint class="case" extends="statement">
+		<select 					class="expression"/>
+		<select alias="expr"		class="expression"/>
+		<select 			 		class="statement"/>
+		<select alias="stmt" 		class="statement"/>
+	</joinpoint>
+	
+	<joinpoint class="continue" extends="statement"/>
+	<joinpoint class="break" extends="statement"/>
+	
+</joinpoints>
+
+	<!-- PACKAGE - to be removed! -->
+<!-- 	<joinpoint class="package"> -->
+<!-- 		<select						class="class"/> -->
+<!-- 		<select 					class="interface"/> -->
+<!-- 	</joinpoint> -->

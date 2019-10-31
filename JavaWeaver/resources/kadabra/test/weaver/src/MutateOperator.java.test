@@ -1,0 +1,45 @@
+public class MutateOperator {
+
+    public static int[] fir(int[] x, int[] c) {
+		int[] y = new int[x.length];
+		int M = x.length;
+		int N = c.length;
+
+		for (int j = N - 1; j < M; j++) {
+			
+			int output = 0;
+			for (int i = 0; i < N; i++) {
+			
+				output += c[i] * x[j - i];
+			}
+			
+			y[j] = output;
+		}
+		return y;
+    }
+    
+    public static void unaryTest() {
+    	int a = 0;
+    	a++;
+    }
+
+
+    public static void unaryTest2() {
+    	int a = 0;
+    	a = 2 + a++;
+    	a++;
+    }
+
+    public static void unaryTest3() {
+    	int a = 0;
+    	a++;
+    }    
+    
+    public static void unaryTest4() {
+    	boolean a = false;
+    	
+    	if(!a) {
+    	
+    	}
+    }    
+}
