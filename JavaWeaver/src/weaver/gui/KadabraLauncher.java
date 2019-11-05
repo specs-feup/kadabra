@@ -17,7 +17,6 @@ import org.lara.interpreter.joptions.gui.LaraLauncher;
 
 import pt.up.fe.specs.util.SpecsSystem;
 import weaver.kadabra.JavaWeaver;
-import weaver.utils.dev.JWDevUtils;
 
 public class KadabraLauncher {
 
