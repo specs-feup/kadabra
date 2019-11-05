@@ -1,0 +1,91 @@
+import lara.code.TimerBase;
+import lara.code.Logger;
+
+import lara.util.IdGenerator;
+import lara.Platforms;
+import lara.util.TimeUnits;
+
+
+
+
+/**
+ *
+ */
+Timer.prototype.time = function($start, prefix, $end) {
+
+    if (!this._timeValidate($start, $end, 'executable')) {
+        return;
+    }
+		
+	//if($start.instanceOf("call") && $start.name==="<init>"){
+	//	return;
+	//}
+
+
+    // Build prefix
+    if (prefix === undefined) {
+        prefix = "";
+    }
+
+    if ($end === undefined) {
+        $end = $start;
+    }
+
+    //$file = $start.ancestor("file");
+
+    var codeBefore, codeAfter;
+
+    // Declare variable for time interval, which uses calculation as initialization
+    //var timeIntervalVar = IdGenerator.next("kadabra_timing_duration_");
+    //var $timingResultDecl;
+    // Add includes
+   
+
+    // get variable names
+    var startVar = IdGenerator.next("kadabra_timing_start_");
+    var intervalVar = IdGenerator.next("kadabra_timing_interval_");
+
+    codeBefore = _timer_java_now(startVar);
+    codeAfter = _timer_java_calc_interval(startVar, intervalVar, this.timeUnits.getMagnitudeFactorFromNanoseconds());
+
+    // Build message
+	if(this.print) {
+		var logger = new Logger(false, this.filename);
+
+		logger.append(prefix).appendDouble(intervalVar);
+		if (this.printUnit) {
+			logger.append(this.timeUnits.getUnitsString());
+		}
+		logger.ln();
+	}
+	
+
+
+    // Insert code
+    $start.insert before codeBefore;
+
+
+
+	// insert measuring code after $end point
+	$end.exec $timeMeasure : insertAfter(codeAfter);
+	var afterJp = $timeMeasure;
+	
+	// Print after measure code
+	if(this.print) {
+	    logger.log($timeMeasure);
+		afterJp = logger.getAfterJp();
+	}
+
+	this._setAfterJp(afterJp);
+	
+    return intervalVar;
+}
+
+//Java codedefs 
+codedef _timer_java_now(timeVar)%{
+long [[timeVar]] = System.nanoTime();
+}%end
+
+codedef _timer_java_calc_interval(timeVar, durationVar, factorConversion)%{
+double [[durationVar]] = (double)(System.nanoTime() - [[timeVar]]) /  (double)[[factorConversion]];
+}%end
