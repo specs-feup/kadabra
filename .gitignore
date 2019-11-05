@@ -21,3 +21,27 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+
+# Eclipse-related files #
+#########################
+.metadata/
+bin/
+RemoteSystemsTempFiles/
+.recommenders/
+
+
+# Custom ignores #
+##################
+
+output/
+.idea/
+### Default folder for executing applications
+**/run/**
+#!**/run/dummy.txt
+!**/run/*.launch
+**/run/*-local.launch
+
+
+### Cache for ivy 
+ivy/
