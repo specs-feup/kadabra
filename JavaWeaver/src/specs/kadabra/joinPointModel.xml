@@ -4,17 +4,17 @@
 	<!-- APPLICATION -->
 	<joinpoint class="app" tooltip="Root node that represents the application">
 		<select 					class="file" tooltip="files of the application"/>
-		<select						class="libClass" tooltip="class pertaining to a library, included in the classpath. This select may be slow, depending on the number of included types."/> 
+		<select						class="libClass" tooltip="class that is part of a library included in the classpath. This select may be slow, depending on the number of included types"/> 
 		<!--  select 					class="package"/> <!- - deprecated! -->
 		<!-- <select 					class="androidManifest"/>  -->
 	</joinpoint>
 	
-	<joinpoint class="libClass" extends="NamedType">
-		<select						class="libMethod" tooltip="methods pertaining to this class"/> 
+	<joinpoint class="libClass" extends="NamedType" tooltip="class that is part of a library, included in the classpath">
+		<select						class="libMethod" tooltip="methods that belong to this class"/> 
 	</joinpoint>
 	
-	<joinpoint class="libMethod">
-		<select alias="param" 		class="declaration"/>
+	<joinpoint class="libMethod" tooltip="method of a class that is part of a library included in the classpath">
+		<select alias="param" 		class="declaration" tooltip="parameter of a library method"/>
 	</joinpoint>
 	
 	
@@ -23,13 +23,13 @@
 	</joinpoint>
 	 -->	
 	
-	<joinpoint class="file"> <!--  extends="TypeContainer">-->
+	<joinpoint class="file" tooltip="Represents a source-code file"> <!--  extends="TypeContainer">-->
 		<!-- Needs a select to main class/interface/enum -->
-		<select						class="type" tooltip="class, interface and enums"/> 
-		<select						class="class"/> 
-		<select 					class="interface"/>
-		<select 					class="pragma" tooltip="comments that start with @ followed by the pragma name"/>
-		<select 					class="comment"/>
+		<select						class="type" tooltip="Represents classes, interfaces and enums"/> 
+		<select						class="class" tooltip="Represents Java classes"/> 
+		<select 					class="interface" tooltip="Represents Java interfaces"/>
+		<select 					class="pragma" tooltip="Comments that start with @ followed by the pragma name"/>
+		<select 					class="comment" tooltip="Java comments"/>
 	</joinpoint>
 
 	<joinpoint class="NamedType">
