@@ -236,6 +236,10 @@
 		<attribute name="operator"			type="string">
 			<def/>
 		</attribute>
+		<attribute name="operands"		type="expression[]"/>
+		<attribute name="lhs"			type="expression"/>
+		<attribute name="rhs"			type="expression"/>
+		
 	</artifact>
 	
 	

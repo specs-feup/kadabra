@@ -195,6 +195,7 @@
 	<joinpoint class="binaryExpression" extends="expression">
 		<select alias="lhs"			class="expression"/>				
 		<select alias="rhs"			class="expression"/>			
+		<select alias="operands"	class="expression"/>					
 	</joinpoint>
 	
 	<!-- UNARY EXPRESSION -->

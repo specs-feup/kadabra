@@ -2072,8 +2072,32 @@
                   "type": "attribute",
                   "children": [
                            {
+                              "type": "expression",
+                              "name": "lhs"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "children": [
+                           {
+                              "type": "expression[]",
+                              "name": "operands"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "children": [
+                           {
                               "type": "String",
                               "name": "operator"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "children": [
+                           {
+                              "type": "expression",
+                              "name": "rhs"
                            }]
                },
                {
@@ -2205,6 +2229,11 @@
                   "type": "select",
                   "clazz": "expression",
                   "alias": "rhs"
+               },
+               {
+                  "type": "select",
+                  "clazz": "expression",
+                  "alias": "operands"
                },
                {
                   "type": "select",

@@ -60,6 +60,91 @@ public abstract class ABinaryExpression extends AExpression {
     }
 
     /**
+     * Get value on attribute operands
+     * @return the attribute's value
+     */
+    public abstract AExpression[] getOperandsArrayImpl();
+
+    /**
+     * Get value on attribute operands
+     * @return the attribute's value
+     */
+    public Object getOperandsImpl() {
+        AExpression[] aExpressionArrayImpl0 = getOperandsArrayImpl();
+        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(aExpressionArrayImpl0);
+        return nativeArray0;
+    }
+
+    /**
+     * Get value on attribute operands
+     * @return the attribute's value
+     */
+    public final Object getOperands() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "operands", Optional.empty());
+        	}
+        	Object result = this.getOperandsImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "operands", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "operands", e);
+        }
+    }
+
+    /**
+     * Get value on attribute lhs
+     * @return the attribute's value
+     */
+    public abstract AExpression getLhsImpl();
+
+    /**
+     * Get value on attribute lhs
+     * @return the attribute's value
+     */
+    public final Object getLhs() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "lhs", Optional.empty());
+        	}
+        	AExpression result = this.getLhsImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "lhs", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "lhs", e);
+        }
+    }
+
+    /**
+     * Get value on attribute rhs
+     * @return the attribute's value
+     */
+    public abstract AExpression getRhsImpl();
+
+    /**
+     * Get value on attribute rhs
+     * @return the attribute's value
+     */
+    public final Object getRhs() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "rhs", Optional.empty());
+        	}
+        	AExpression result = this.getRhsImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "rhs", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "rhs", e);
+        }
+    }
+
+    /**
      * Default implementation of the method used by the lara interpreter to select lhss
      * @return 
      */
@@ -72,6 +157,14 @@ public abstract class ABinaryExpression extends AExpression {
      * @return 
      */
     public List<? extends AExpression> selectRhs() {
+        return select(weaver.kadabra.abstracts.joinpoints.AExpression.class, SelectOp.DESCENDANTS);
+    }
+
+    /**
+     * Default implementation of the method used by the lara interpreter to select operandss
+     * @return 
+     */
+    public List<? extends AExpression> selectOperands() {
         return select(weaver.kadabra.abstracts.joinpoints.AExpression.class, SelectOp.DESCENDANTS);
     }
 
@@ -255,6 +348,9 @@ public abstract class ABinaryExpression extends AExpression {
         	case "rhs": 
         		joinPointList = selectRhs();
         		break;
+        	case "operands": 
+        		joinPointList = selectOperands();
+        		break;
         	case "expr": 
         		joinPointList = selectExpr();
         		break;
@@ -311,6 +407,9 @@ public abstract class ABinaryExpression extends AExpression {
     protected final void fillWithAttributes(List<String> attributes) {
         this.aExpression.fillWithAttributes(attributes);
         attributes.add("operator");
+        attributes.add("operands");
+        attributes.add("lhs");
+        attributes.add("rhs");
     }
 
     /**
@@ -321,6 +420,7 @@ public abstract class ABinaryExpression extends AExpression {
         this.aExpression.fillWithSelects(selects);
         selects.add("lhs");
         selects.add("rhs");
+        selects.add("operands");
     }
 
     /**
@@ -358,6 +458,9 @@ public abstract class ABinaryExpression extends AExpression {
      */
     protected enum BinaryExpressionAttributes {
         OPERATOR("operator"),
+        OPERANDS("operands"),
+        LHS("lhs"),
+        RHS("rhs"),
         KIND("kind"),
         TYPE("type"),
         TEST("test"),
