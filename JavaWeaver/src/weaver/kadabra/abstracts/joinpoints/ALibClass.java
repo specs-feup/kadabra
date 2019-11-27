@@ -11,7 +11,7 @@ import java.util.Arrays;
  * Auto-Generated class for join point ALibClass
  * This class is overwritten by the Weaver Generator.
  * 
- * 
+ * class that is part of a library, included in the classpath
  * @author Lara Weaver Generator
  */
 public abstract class ALibClass extends ANamedType {
@@ -25,7 +25,7 @@ public abstract class ALibClass extends ANamedType {
         this.aNamedType = aNamedType;
     }
     /**
-     * methods pertaining to this class
+     * methods that belong to this class
      * @return 
      */
     public List<? extends ALibMethod> selectLibMethod() {

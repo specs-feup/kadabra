@@ -107,6 +107,33 @@ public abstract class APragma extends AComment {
     }
 
     /**
+     * Method used by the lara interpreter to select binaryExpressions
+     * @return 
+     */
+    @Override
+    public List<? extends ABinaryExpression> selectBinaryExpression() {
+        return this.aComment.selectBinaryExpression();
+    }
+
+    /**
+     * Method used by the lara interpreter to select binaryExprs
+     * @return 
+     */
+    @Override
+    public List<? extends ABinaryExpression> selectBinaryExpr() {
+        return this.aComment.selectBinaryExpr();
+    }
+
+    /**
+     * Method used by the lara interpreter to select arrayAccesss
+     * @return 
+     */
+    @Override
+    public List<? extends AArrayAccess> selectArrayAccess() {
+        return this.aComment.selectArrayAccess();
+    }
+
+    /**
      * 
      * @param node 
      */
@@ -198,6 +225,15 @@ public abstract class APragma extends AComment {
         		break;
         	case "call": 
         		joinPointList = selectCall();
+        		break;
+        	case "binaryExpression": 
+        		joinPointList = selectBinaryExpression();
+        		break;
+        	case "binaryExpr": 
+        		joinPointList = selectBinaryExpr();
+        		break;
+        	case "arrayAccess": 
+        		joinPointList = selectArrayAccess();
         		break;
         	default:
         		joinPointList = this.aComment.select(selectName);

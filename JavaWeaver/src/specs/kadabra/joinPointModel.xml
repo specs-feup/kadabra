@@ -148,6 +148,10 @@
 	<joinpoint class="statement">
 		<select 					class="var"/>
 		<select						class="call"/> 
+		
+		<select						class="binaryExpression"/>
+ 		<select alias="binaryExpr" 	class="binaryExpression"/>
+ 		<select						class="arrayAccess"/>
 	</joinpoint>
 	
 	
@@ -164,9 +168,10 @@
 	<!-- EXPRESSION -->
 	<joinpoint class="expression">
 		<select alias="expr" 		class="expression"/>
- 		<select						class="var"/>
- 		<select						class="arrayAccess"/>
- 		<select alias="binaryExpr" 	class="binaryExpression"/>
+ <!-- 		<select						class="var"/> -->
+<!-- 		<select						class="arrayAccess"/>  -->
+<!--    <select						class="binaryExpression"/>
+ 		<select alias="binaryExpr" 	class="binaryExpression"/> -->
 <!-- 		<select				class="call"/> -->
 	</joinpoint>
 	

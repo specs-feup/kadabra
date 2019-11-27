@@ -15,14 +15,12 @@ package weaver.kadabra.joinpoints;
 
 import java.util.List;
 
-import spoon.reflect.code.CtBinaryOperator;
 import spoon.reflect.code.CtCodeSnippetExpression;
 import spoon.reflect.code.CtInvocation;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.reference.CtExecutableReference;
 import spoon.reflect.reference.CtTypeReference;
 import weaver.kadabra.abstracts.joinpoints.AArgument;
-import weaver.kadabra.abstracts.joinpoints.ABinaryExpression;
 import weaver.kadabra.abstracts.joinpoints.ACall;
 import weaver.kadabra.abstracts.joinpoints.AExpression;
 import weaver.kadabra.abstracts.joinpoints.AMethod;
@@ -47,12 +45,12 @@ public class JCall<T> extends ACall {
         return new JCall<>(call);
     }
 
-    @Override
-    public List<? extends ABinaryExpression> selectBinaryExpr() {
-        List<JBinaryExpression<?>> select = SelectUtils.select(node, CtBinaryOperator.class,
-                JBinaryExpression::newInstance);
-        return select;
-    }
+    // @Override
+    // public List<? extends ABinaryExpression> selectBinaryExpr() {
+    // List<JBinaryExpression<?>> select = SelectUtils.select(node, CtBinaryOperator.class,
+    // JBinaryExpression::newInstance);
+    // return select;
+    // }
 
     @Override
     public String getNameImpl() {

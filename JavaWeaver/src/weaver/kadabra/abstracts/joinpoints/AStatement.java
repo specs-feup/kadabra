@@ -86,6 +86,30 @@ public abstract class AStatement extends AJavaWeaverJoinPoint {
     }
 
     /**
+     * Default implementation of the method used by the lara interpreter to select binaryExpressions
+     * @return 
+     */
+    public List<? extends ABinaryExpression> selectBinaryExpression() {
+        return select(weaver.kadabra.abstracts.joinpoints.ABinaryExpression.class, SelectOp.DESCENDANTS);
+    }
+
+    /**
+     * Default implementation of the method used by the lara interpreter to select binaryExprs
+     * @return 
+     */
+    public List<? extends ABinaryExpression> selectBinaryExpr() {
+        return select(weaver.kadabra.abstracts.joinpoints.ABinaryExpression.class, SelectOp.DESCENDANTS);
+    }
+
+    /**
+     * Default implementation of the method used by the lara interpreter to select arrayAccesss
+     * @return 
+     */
+    public List<? extends AArrayAccess> selectArrayAccess() {
+        return select(weaver.kadabra.abstracts.joinpoints.AArrayAccess.class, SelectOp.DESCENDANTS);
+    }
+
+    /**
      * 
      */
     @Override
@@ -97,6 +121,15 @@ public abstract class AStatement extends AJavaWeaverJoinPoint {
         		break;
         	case "call": 
         		joinPointList = selectCall();
+        		break;
+        	case "binaryExpression": 
+        		joinPointList = selectBinaryExpression();
+        		break;
+        	case "binaryExpr": 
+        		joinPointList = selectBinaryExpr();
+        		break;
+        	case "arrayAccess": 
+        		joinPointList = selectArrayAccess();
         		break;
         	default:
         		joinPointList = super.select(selectName);
@@ -144,6 +177,9 @@ public abstract class AStatement extends AJavaWeaverJoinPoint {
         super.fillWithSelects(selects);
         selects.add("var");
         selects.add("call");
+        selects.add("binaryExpression");
+        selects.add("binaryExpr");
+        selects.add("arrayAccess");
     }
 
     /**

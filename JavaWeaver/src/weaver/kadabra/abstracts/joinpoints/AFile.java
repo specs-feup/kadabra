@@ -15,7 +15,7 @@ import java.util.Arrays;
  * Auto-Generated class for join point AFile
  * This class is overwritten by the Weaver Generator.
  * 
- * 
+ * Represents a source-code file
  * @author Lara Weaver Generator
  */
 public abstract class AFile extends AJavaWeaverJoinPoint {
@@ -171,7 +171,7 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
     }
 
     /**
-     * class, interface and enums
+     * Represents classes, interfaces and enums
      * @return 
      */
     public List<? extends AType> selectType() {
@@ -179,7 +179,7 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
     }
 
     /**
-     * Default implementation of the method used by the lara interpreter to select classs
+     * Represents Java classes
      * @return 
      */
     public List<? extends AClass> selectClass() {
@@ -187,7 +187,7 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
     }
 
     /**
-     * Default implementation of the method used by the lara interpreter to select interfaces
+     * Represents Java interfaces
      * @return 
      */
     public List<? extends AInterface> selectInterface() {
@@ -195,7 +195,7 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
     }
 
     /**
-     * comments that start with @ followed by the pragma name
+     * Comments that start with @ followed by the pragma name
      * @return 
      */
     public List<? extends APragma> selectPragma() {
@@ -203,7 +203,7 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
     }
 
     /**
-     * Default implementation of the method used by the lara interpreter to select comments
+     * Java comments
      * @return 
      */
     public List<? extends AComment> selectComment() {

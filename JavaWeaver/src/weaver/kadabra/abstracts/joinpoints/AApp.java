@@ -81,7 +81,7 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
     }
 
     /**
-     * class pertaining to a library, included in the classpath. This select may be slow, depending on the number of included types.
+     * class that is part of a library included in the classpath. This select may be slow, depending on the number of included types
      * @return 
      */
     public List<? extends ALibClass> selectLibClass() {

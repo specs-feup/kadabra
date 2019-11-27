@@ -14,7 +14,7 @@ import java.util.Arrays;
  * Auto-Generated class for join point ALibMethod
  * This class is overwritten by the Weaver Generator.
  * 
- * 
+ * method of a class that is part of a library included in the classpath
  * @author Lara Weaver Generator
  */
 public abstract class ALibMethod extends AJavaWeaverJoinPoint {
@@ -93,7 +93,7 @@ public abstract class ALibMethod extends AJavaWeaverJoinPoint {
     }
 
     /**
-     * Default implementation of the method used by the lara interpreter to select params
+     * parameter of a library method
      * @return 
      */
     public List<? extends ADeclaration> selectParam() {

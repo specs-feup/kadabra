@@ -829,7 +829,7 @@
                   "type": "select",
                   "clazz": "libClass",
                   "alias": "",
-                  "tooltip": "class pertaining to a library, included in the classpath. This select may be slow, depending on the number of included types."
+                  "tooltip": "class that is part of a library included in the classpath. This select may be slow, depending on the number of included types"
                },
                {
                   "type": "action",
@@ -1166,23 +1166,8 @@
                },
                {
                   "type": "select",
-                  "clazz": "arrayAccess",
-                  "alias": ""
-               },
-               {
-                  "type": "select",
-                  "clazz": "binaryExpression",
-                  "alias": "binaryExpr"
-               },
-               {
-                  "type": "select",
                   "clazz": "expression",
                   "alias": "expr"
-               },
-               {
-                  "type": "select",
-                  "clazz": "var",
-                  "alias": ""
                },
                {
                   "type": "action",
@@ -1449,23 +1434,8 @@
                },
                {
                   "type": "select",
-                  "clazz": "arrayAccess",
-                  "alias": ""
-               },
-               {
-                  "type": "select",
-                  "clazz": "binaryExpression",
-                  "alias": "binaryExpr"
-               },
-               {
-                  "type": "select",
                   "clazz": "expression",
                   "alias": "expr"
-               },
-               {
-                  "type": "select",
-                  "clazz": "var",
-                  "alias": ""
                },
                {
                   "type": "action",
@@ -1716,6 +1686,21 @@
                },
                {
                   "type": "select",
+                  "clazz": "arrayAccess",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": "binaryExpr"
+               },
+               {
+                  "type": "select",
                   "clazz": "call",
                   "alias": ""
                },
@@ -1955,6 +1940,21 @@
                   "type": "select",
                   "clazz": "expression",
                   "alias": "rhs"
+               },
+               {
+                  "type": "select",
+                  "clazz": "arrayAccess",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": "binaryExpr"
                },
                {
                   "type": "select",
@@ -2208,23 +2208,8 @@
                },
                {
                   "type": "select",
-                  "clazz": "arrayAccess",
-                  "alias": ""
-               },
-               {
-                  "type": "select",
-                  "clazz": "binaryExpression",
-                  "alias": "binaryExpr"
-               },
-               {
-                  "type": "select",
                   "clazz": "expression",
                   "alias": "expr"
-               },
-               {
-                  "type": "select",
-                  "clazz": "var",
-                  "alias": ""
                },
                {
                   "type": "action",
@@ -2533,6 +2518,21 @@
                },
                {
                   "type": "select",
+                  "clazz": "arrayAccess",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": "binaryExpr"
+               },
+               {
+                  "type": "select",
                   "clazz": "call",
                   "alias": ""
                },
@@ -2754,6 +2754,21 @@
                               "type": "String",
                               "name": "srcCode"
                            }]
+               },
+               {
+                  "type": "select",
+                  "clazz": "arrayAccess",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": "binaryExpr"
                },
                {
                   "type": "select",
@@ -3050,23 +3065,8 @@
                },
                {
                   "type": "select",
-                  "clazz": "arrayAccess",
-                  "alias": ""
-               },
-               {
-                  "type": "select",
-                  "clazz": "binaryExpression",
-                  "alias": "binaryExpr"
-               },
-               {
-                  "type": "select",
                   "clazz": "expression",
                   "alias": "expr"
-               },
-               {
-                  "type": "select",
-                  "clazz": "var",
-                  "alias": ""
                },
                {
                   "type": "action",
@@ -3342,6 +3342,21 @@
                   "type": "select",
                   "clazz": "statement",
                   "alias": "stmt"
+               },
+               {
+                  "type": "select",
+                  "clazz": "arrayAccess",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": "binaryExpr"
                },
                {
                   "type": "select",
@@ -4194,6 +4209,21 @@
                },
                {
                   "type": "select",
+                  "clazz": "arrayAccess",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": "binaryExpr"
+               },
+               {
+                  "type": "select",
                   "clazz": "call",
                   "alias": ""
                },
@@ -4647,6 +4677,21 @@
                               "type": "String",
                               "name": "srcCode"
                            }]
+               },
+               {
+                  "type": "select",
+                  "clazz": "arrayAccess",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": "binaryExpr"
                },
                {
                   "type": "select",
@@ -5962,23 +6007,8 @@
                },
                {
                   "type": "select",
-                  "clazz": "arrayAccess",
-                  "alias": ""
-               },
-               {
-                  "type": "select",
-                  "clazz": "binaryExpression",
-                  "alias": "binaryExpr"
-               },
-               {
-                  "type": "select",
                   "clazz": "expression",
                   "alias": "expr"
-               },
-               {
-                  "type": "select",
-                  "clazz": "var",
-                  "alias": ""
                },
                {
                   "type": "action",
@@ -6376,6 +6406,7 @@
          "type": "joinpoint",
          "name": "file",
          "extends": "joinpoint"      ,
+         "tooltip": "Represents a source-code file",
          "children": [
                {
                   "type": "attribute",
@@ -6524,29 +6555,32 @@
                {
                   "type": "select",
                   "clazz": "class",
-                  "alias": ""
+                  "alias": "",
+                  "tooltip": "Represents Java classes"
                },
                {
                   "type": "select",
                   "clazz": "comment",
-                  "alias": ""
+                  "alias": "",
+                  "tooltip": "Java comments"
                },
                {
                   "type": "select",
                   "clazz": "interface",
-                  "alias": ""
+                  "alias": "",
+                  "tooltip": "Represents Java interfaces"
                },
                {
                   "type": "select",
                   "clazz": "pragma",
                   "alias": "",
-                  "tooltip": "comments that start with @ followed by the pragma name"
+                  "tooltip": "Comments that start with @ followed by the pragma name"
                },
                {
                   "type": "select",
                   "clazz": "type",
                   "alias": "",
-                  "tooltip": "class, interface and enums"
+                  "tooltip": "Represents classes, interfaces and enums"
                },
                {
                   "type": "action",
@@ -6906,6 +6940,21 @@
                   "type": "select",
                   "clazz": "expression",
                   "alias": "cond"
+               },
+               {
+                  "type": "select",
+                  "clazz": "arrayAccess",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": "binaryExpr"
                },
                {
                   "type": "select",
@@ -7504,6 +7553,7 @@
          "type": "joinpoint",
          "name": "libClass",
          "extends": "NamedType"      ,
+         "tooltip": "class that is part of a library, included in the classpath",
          "children": [
                {
                   "type": "attribute",
@@ -7680,7 +7730,7 @@
                   "type": "select",
                   "clazz": "libMethod",
                   "alias": "",
-                  "tooltip": "methods pertaining to this class"
+                  "tooltip": "methods that belong to this class"
                },
                {
                   "type": "action",
@@ -7783,6 +7833,7 @@
          "type": "joinpoint",
          "name": "libMethod",
          "extends": "joinpoint"      ,
+         "tooltip": "method of a class that is part of a library included in the classpath",
          "children": [
                {
                   "type": "attribute",
@@ -7908,7 +7959,8 @@
                {
                   "type": "select",
                   "clazz": "declaration",
-                  "alias": "param"
+                  "alias": "param",
+                  "tooltip": "parameter of a library method"
                },
                {
                   "type": "action",
@@ -8142,23 +8194,8 @@
                },
                {
                   "type": "select",
-                  "clazz": "arrayAccess",
-                  "alias": ""
-               },
-               {
-                  "type": "select",
-                  "clazz": "binaryExpression",
-                  "alias": "binaryExpr"
-               },
-               {
-                  "type": "select",
                   "clazz": "expression",
                   "alias": "expr"
-               },
-               {
-                  "type": "select",
-                  "clazz": "var",
-                  "alias": ""
                },
                {
                   "type": "action",
@@ -8441,6 +8478,21 @@
                   "type": "select",
                   "clazz": "expression",
                   "alias": "init"
+               },
+               {
+                  "type": "select",
+                  "clazz": "arrayAccess",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": "binaryExpr"
                },
                {
                   "type": "select",
@@ -8738,6 +8790,21 @@
                   "type": "select",
                   "clazz": "statement",
                   "alias": "step"
+               },
+               {
+                  "type": "select",
+                  "clazz": "arrayAccess",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": "binaryExpr"
                },
                {
                   "type": "select",
@@ -9369,6 +9436,21 @@
                },
                {
                   "type": "select",
+                  "clazz": "arrayAccess",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": "binaryExpr"
+               },
+               {
+                  "type": "select",
                   "clazz": "call",
                   "alias": ""
                },
@@ -9593,6 +9675,21 @@
                },
                {
                   "type": "select",
+                  "clazz": "arrayAccess",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": "binaryExpr"
+               },
+               {
+                  "type": "select",
                   "clazz": "call",
                   "alias": ""
                },
@@ -9814,6 +9911,21 @@
                               "type": "String",
                               "name": "srcCode"
                            }]
+               },
+               {
+                  "type": "select",
+                  "clazz": "arrayAccess",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": "binaryExpr"
                },
                {
                   "type": "select",
@@ -10043,6 +10155,21 @@
                   "type": "select",
                   "clazz": "case",
                   "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "arrayAccess",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": "binaryExpr"
                },
                {
                   "type": "select",
@@ -10280,6 +10407,21 @@
                },
                {
                   "type": "select",
+                  "clazz": "arrayAccess",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": "binaryExpr"
+               },
+               {
+                  "type": "select",
                   "clazz": "call",
                   "alias": ""
                },
@@ -10506,6 +10648,21 @@
                   "type": "select",
                   "clazz": "body",
                   "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "arrayAccess",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": "binaryExpr"
                },
                {
                   "type": "select",
@@ -11249,23 +11406,8 @@
                },
                {
                   "type": "select",
-                  "clazz": "arrayAccess",
-                  "alias": ""
-               },
-               {
-                  "type": "select",
-                  "clazz": "binaryExpression",
-                  "alias": "binaryExpr"
-               },
-               {
-                  "type": "select",
                   "clazz": "expression",
                   "alias": "expr"
-               },
-               {
-                  "type": "select",
-                  "clazz": "var",
-                  "alias": ""
                },
                {
                   "type": "action",
@@ -11576,23 +11718,8 @@
                },
                {
                   "type": "select",
-                  "clazz": "arrayAccess",
-                  "alias": ""
-               },
-               {
-                  "type": "select",
-                  "clazz": "binaryExpression",
-                  "alias": "binaryExpr"
-               },
-               {
-                  "type": "select",
                   "clazz": "expression",
                   "alias": "expr"
-               },
-               {
-                  "type": "select",
-                  "clazz": "var",
-                  "alias": ""
                },
                {
                   "type": "action",

@@ -18,18 +18,12 @@ import java.util.Optional;
 
 import org.lara.interpreter.weaver.interf.JoinPoint;
 
-import spoon.reflect.code.CtArrayAccess;
-import spoon.reflect.code.CtBinaryOperator;
 import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.CtStatement;
-import spoon.reflect.code.CtVariableAccess;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
-import weaver.kadabra.abstracts.joinpoints.AArrayAccess;
-import weaver.kadabra.abstracts.joinpoints.ABinaryExpression;
 import weaver.kadabra.abstracts.joinpoints.AExpression;
 import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.AStatement;
-import weaver.kadabra.abstracts.joinpoints.AVar;
 import weaver.kadabra.exceptions.JavaWeaverException;
 import weaver.kadabra.util.KadabraLog;
 import weaver.utils.SpoonUtils;
@@ -129,21 +123,13 @@ public class JExpression<T> extends AExpression {
         return node;
     }
 
-    @Override
-    public List<? extends AVar> selectVar() {
-
-        @SuppressWarnings("unchecked")
-        List<? extends AVar> select = SelectUtils.select(node, CtVariableAccess.class, JVar::newInstance);
-        return select;
-    }
-
-    @Override
-    public List<? extends ABinaryExpression> selectBinaryExpr() {
-        @SuppressWarnings("unchecked")
-        List<? extends ABinaryExpression> select = SelectUtils.select(node, CtBinaryOperator.class,
-                JBinaryExpression::newInstance);
-        return select;
-    }
+    // @Override
+    // public List<? extends AVar> selectVar() {
+    //
+    // @SuppressWarnings("unchecked")
+    // List<? extends AVar> select = SelectUtils.select(node, CtVariableAccess.class, JVar::newInstance);
+    // return select;
+    // }
 
     @Override
     public AJoinPoint[] insertImpl(String position, String code) {
@@ -198,12 +184,12 @@ public class JExpression<T> extends AExpression {
         return insertImplJExpression("after", code);
     }
 
-    @Override
-    public List<? extends AArrayAccess> selectArrayAccess() {
-        @SuppressWarnings("unchecked")
-        List<? extends AArrayAccess> select = SelectUtils.select(node, CtArrayAccess.class, JArrayAccess::newInstance);
-        return select; // TODO Auto-generated method stub
-    }
+    // @Override
+    // public List<? extends AArrayAccess> selectArrayAccess() {
+    // @SuppressWarnings("unchecked")
+    // List<? extends AArrayAccess> select = SelectUtils.select(node, CtArrayAccess.class, JArrayAccess::newInstance);
+    // return select; // TODO Auto-generated method stub
+    // }
 
     @Override
     public AJoinPoint copyImpl() {

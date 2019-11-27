@@ -60,6 +60,33 @@ public abstract class ABreak extends AStatement {
     }
 
     /**
+     * Method used by the lara interpreter to select binaryExpressions
+     * @return 
+     */
+    @Override
+    public List<? extends ABinaryExpression> selectBinaryExpression() {
+        return this.aStatement.selectBinaryExpression();
+    }
+
+    /**
+     * Method used by the lara interpreter to select binaryExprs
+     * @return 
+     */
+    @Override
+    public List<? extends ABinaryExpression> selectBinaryExpr() {
+        return this.aStatement.selectBinaryExpr();
+    }
+
+    /**
+     * Method used by the lara interpreter to select arrayAccesss
+     * @return 
+     */
+    @Override
+    public List<? extends AArrayAccess> selectArrayAccess() {
+        return this.aStatement.selectArrayAccess();
+    }
+
+    /**
      * 
      * @param node 
      */
@@ -151,6 +178,15 @@ public abstract class ABreak extends AStatement {
         		break;
         	case "call": 
         		joinPointList = selectCall();
+        		break;
+        	case "binaryExpression": 
+        		joinPointList = selectBinaryExpression();
+        		break;
+        	case "binaryExpr": 
+        		joinPointList = selectBinaryExpr();
+        		break;
+        	case "arrayAccess": 
+        		joinPointList = selectArrayAccess();
         		break;
         	default:
         		joinPointList = this.aStatement.select(selectName);
