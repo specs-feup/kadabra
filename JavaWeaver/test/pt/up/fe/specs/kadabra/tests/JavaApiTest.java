@@ -55,4 +55,9 @@ public class JavaApiTest {
     public void testEnergy() {
         newTester().test("EnergyTest.lara", "EnergyTest.java.test");
     }
+
+    @Test
+    public void testBinaryExpressionMutator() {
+        newTester().test("BinaryExpressionMutatorTest.lara", "BinaryExpressionMutator.java.test");
+    }
 }

@@ -24,6 +24,7 @@ import org.suikasoft.jOptions.Interfaces.DataStore;
 import kadabra.resources.KadabraAPIResources;
 import kadabra.resources.LaraAPIResources;
 import pt.up.fe.specs.kadabra.weaver.LaraCoreApiResource;
+import pt.up.fe.specs.kadabra.weaver.LaraKadabraApiResource;
 import pt.up.fe.specs.kadabra.weaver.LaraWeaverApiResource;
 import pt.up.fe.specs.util.SpecsCollections;
 import pt.up.fe.specs.util.SpecsIo;
@@ -452,7 +453,7 @@ public class JavaWeaver extends AJavaWeaver {
     public List<ResourceProvider> getAspectsAPI() {
         return ResourceProvider.getResourcesFromEnum(
                 Arrays.asList(LaraAPIResources.class, KadabraAPIResources.class, LaraCoreApiResource.class,
-                        LaraWeaverApiResource.class));
+                        LaraWeaverApiResource.class, LaraKadabraApiResource.class));
 
         // return ResourceProvider.getResources(LaraAPIResources.class);
     }
