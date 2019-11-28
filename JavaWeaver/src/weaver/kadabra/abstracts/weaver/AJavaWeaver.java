@@ -1,13 +1,15 @@
 package weaver.kadabra.abstracts.weaver;
 
-import org.lara.interpreter.weaver.interf.WeaverEngine;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import org.lara.interpreter.weaver.interf.WeaverEngine;
+
 import weaver.kadabra.entities.Pair;
-import weaver.kadabra.enums.LoopType;
 import weaver.kadabra.enums.CommentType;
+import weaver.kadabra.enums.LoopType;
 import weaver.kadabra.enums.RefType;
-import java.util.ArrayList;
 
 /**
  * Abstract Weaver Implementation for JavaWeaver<br>

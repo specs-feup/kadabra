@@ -215,4 +215,9 @@ public class JBody<T> extends ABody {
     // return node.getPosition().getEndLine();
     // }
 
+    @Override
+    public String toString() {
+        return "";
+    }
+
 }

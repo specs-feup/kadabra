@@ -1,11 +1,12 @@
 package weaver.kadabra.abstracts.joinpoints;
 
+import java.util.Arrays;
 import java.util.List;
-import org.lara.interpreter.weaver.interf.SelectOp;
-import org.lara.interpreter.weaver.interf.JoinPoint;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.Arrays;
+
+import org.lara.interpreter.weaver.interf.JoinPoint;
+import org.lara.interpreter.weaver.interf.SelectOp;
 
 /**
  * Auto-Generated class for join point ABody
@@ -367,11 +368,15 @@ public abstract class ABody extends AStatement {
         PARENT("parent"),
         ISSTATEMENT("isStatement"),
         CODE("code"),
+        AST("ast"),
         ISBLOCK("isBlock"),
+        CHILDREN("children"),
         LINE("line"),
         ANCESTOR("ancestor"),
+        NUMCHILDREN("numChildren"),
         SRCCODE("srcCode"),
-        DESCENDANTS("descendants");
+        DESCENDANTS("descendants"),
+        CHILD("child");
         private String name;
 
         /**

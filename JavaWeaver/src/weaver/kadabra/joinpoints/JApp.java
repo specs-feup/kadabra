@@ -169,4 +169,19 @@ public class JApp extends AApp {
                 .map(AFile::getSrcCodeImpl)
                 .collect(Collectors.joining("\n" + separator + "\n"));
     }
+
+    @Override
+    public AJoinPoint[] getChildrenArrayImpl() {
+        return selectFile().toArray(size -> new AJoinPoint[size]);
+    }
+
+    @Override
+    public AJoinPoint childImpl(Integer index) {
+        return selectFile().get(index);
+    }
+
+    @Override
+    public Integer getNumChildrenImpl() {
+        return selectFile().size();
+    }
 }

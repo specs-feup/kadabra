@@ -410,4 +410,7 @@ public class SpoonUtils {
         return target.getParent() instanceof CtBlock;
     }
 
+    public static List<CtElement> getChildren(CtElement node) {
+        return node.getElements(element -> element.getParent() == node);
+    }
 }

@@ -1,14 +1,16 @@
 package weaver.kadabra.abstracts.joinpoints;
 
-import org.lara.interpreter.weaver.interf.JoinPoint;
-import spoon.reflect.declaration.CtElement;
 import java.util.List;
-import org.lara.interpreter.weaver.interf.events.Stage;
 import java.util.Optional;
+
 import org.lara.interpreter.exception.ActionException;
 import org.lara.interpreter.exception.AttributeException;
-import weaver.kadabra.JavaWeaver;
+import org.lara.interpreter.weaver.interf.JoinPoint;
 import org.lara.interpreter.weaver.interf.SelectOp;
+import org.lara.interpreter.weaver.interf.events.Stage;
+
+import spoon.reflect.declaration.CtElement;
+import weaver.kadabra.JavaWeaver;
 
 /**
  * Abstract class containing the global attributes and default action exception.
@@ -219,6 +221,10 @@ public abstract class AJoinPoint extends JoinPoint {
         //Attributes available for all join points
         attributes.add("code");
         attributes.add("srcCode");
+        attributes.add("ast");
+        attributes.add("numChildren");
+        attributes.add("children");
+        attributes.add("child(Integer index)");
         attributes.add("parent");
         attributes.add("ancestor(String type)");
         attributes.add("line");
@@ -270,6 +276,112 @@ public abstract class AJoinPoint extends JoinPoint {
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "srcCode", e);
+        }
+    }
+
+    /**
+     * A string representation of the AST corresponding to this node
+     */
+    public abstract String getAstImpl();
+
+    /**
+     * A string representation of the AST corresponding to this node
+     */
+    public final Object getAst() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "ast", Optional.empty());
+        	}
+        	String result = this.getAstImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "ast", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "ast", e);
+        }
+    }
+
+    /**
+     * Returns the number of children of the node
+     */
+    public abstract Integer getNumChildrenImpl();
+
+    /**
+     * Returns the number of children of the node
+     */
+    public final Object getNumChildren() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "numChildren", Optional.empty());
+        	}
+        	Integer result = this.getNumChildrenImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "numChildren", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "numChildren", e);
+        }
+    }
+
+    /**
+     * Get value on attribute children
+     * @return the attribute's value
+     */
+    public abstract AJoinPoint[] getChildrenArrayImpl();
+
+    /**
+     * Returns an array with the children of the node
+     */
+    public Object getChildrenImpl() {
+        AJoinPoint[] aJoinPointArrayImpl0 = getChildrenArrayImpl();
+        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(aJoinPointArrayImpl0);
+        return nativeArray0;
+    }
+
+    /**
+     * Returns an array with the children of the node
+     */
+    public final Object getChildren() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "children", Optional.empty());
+        	}
+        	Object result = this.getChildrenImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "children", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "children", e);
+        }
+    }
+
+    /**
+     * 
+     * @param index
+     * @return 
+     */
+    public abstract AJoinPoint childImpl(Integer index);
+
+    /**
+     * 
+     * @param index
+     * @return 
+     */
+    public final Object child(Integer index) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "child", Optional.empty(), index);
+        	}
+        	AJoinPoint result = this.childImpl(index);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "child", Optional.ofNullable(result), index);
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "child", e);
         }
     }
 

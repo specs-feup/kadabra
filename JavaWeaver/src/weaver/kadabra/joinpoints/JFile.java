@@ -28,6 +28,7 @@ import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtInterface;
 import spoon.reflect.declaration.CtType;
 import spoon.support.visitor.equals.EqualsVisitor;
+import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.AClass;
 import weaver.kadabra.abstracts.joinpoints.AFile;
 import weaver.kadabra.abstracts.joinpoints.AInterface;
@@ -38,6 +39,7 @@ import weaver.kadabra.spoon.extensions.nodes.CtCompilationUnit;
 import weaver.utils.generators.MapGenerator;
 import weaver.utils.weaving.ActionUtils;
 import weaver.utils.weaving.SelectUtils;
+import weaver.utils.weaving.converters.CtElement2JoinPoint;
 import weaver.utils.weaving.converters.CtType2AType;
 
 public class JFile extends AFile {
@@ -263,5 +265,36 @@ public class JFile extends AFile {
     @Override
     public AJoinPoint getParentImpl() {
         return (AJoinPoint) getWeaverEngine().getRootJp();
+    }
+
+    @Override
+    public AJoinPoint[] getChildrenArrayImpl() {
+        List<AJoinPoint> children = new ArrayList<>();
+
+        for (var file : getNode().getCu().getDeclaredTypes()) {
+            AJavaWeaverJoinPoint type = CtElement2JoinPoint.convertTry(file).orElse(null);
+            if (type == null) {
+                continue;
+            }
+
+            children.add(type);
+        }
+
+        return children.toArray(new AJoinPoint[0]);
+    }
+
+    @Override
+    public AJoinPoint childImpl(Integer index) {
+        return getChildrenArrayImpl()[index];
+    }
+
+    @Override
+    public Integer getNumChildrenImpl() {
+        return getChildrenArrayImpl().length;
+    }
+
+    @Override
+    public String toString() {
+        return getNameImpl();
     }
 }

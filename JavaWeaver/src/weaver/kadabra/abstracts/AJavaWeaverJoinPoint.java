@@ -27,6 +27,7 @@ import weaver.kadabra.abstracts.joinpoints.AType;
 import weaver.kadabra.joinpoints.JApp;
 import weaver.kadabra.joinpoints.JFile;
 import weaver.kadabra.util.KadabraLog;
+import weaver.utils.JoinPoints;
 import weaver.utils.SpoonUtils;
 import weaver.utils.weaving.converters.CtElement2JoinPoint;
 import weaver.utils.weaving.converters.CtExecutable2AExecutable;
@@ -291,4 +292,36 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
     public AJoinPoint copyImpl() {
         throw new RuntimeException(".copy not implemented yet for join point " + getJoinPointType());
     }
+
+    public List<CtElement> getChildrenNodes() {
+        return SpoonUtils.getChildren(getNode());
+    }
+
+    @Override
+    public AJoinPoint[] getChildrenArrayImpl() {
+        return getChildrenNodes().stream()
+                .map(CtElement2JoinPoint::convert)
+                .toArray(size -> new AJoinPoint[size]);
+    }
+
+    @Override
+    public AJoinPoint childImpl(Integer index) {
+        return CtElement2JoinPoint.convert(getChildrenNodes().get(0));
+    }
+
+    @Override
+    public Integer getNumChildrenImpl() {
+        return getChildrenNodes().size();
+    }
+
+    @Override
+    public String getAstImpl() {
+        return JoinPoints.toAst(this, "");
+    }
+
+    @Override
+    public String toString() {
+        return getNode().toString();
+    }
+
 }

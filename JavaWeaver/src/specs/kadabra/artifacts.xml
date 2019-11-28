@@ -1,9 +1,17 @@
 <?xml version="1.0"?>
 <artifacts>
 
+	<!-- Global Joinpoint -->
+	<!-- These properties are shared by all joinpoints -->	
 	<global>
 		<attribute name="code"  type="String" tooltip="The source code corresponding to this join point"/>
 		<attribute name="srcCode"  type="String" tooltip="Alias for attribute 'code'"/>
+		<attribute name="ast"  type="String" tooltip="A string representation of the AST corresponding to this node"/>
+		<attribute name="numChildren" type="Integer" tooltip="Returns the number of children of the node"/>
+		<attribute name="children" type="joinpoint[]" tooltip="Returns an array with the children of the node"/>
+		<attribute name="child" type="joinpoint" tooltip="Returns the child of the node at the given index">
+			<parameter name="index" type="Integer" />
+		</attribute>
 		<attribute name="parent" type="joinpoint"/>
 		<attribute name="ancestor" type="joinpoint">
 			<parameter name="type" type="String"/>

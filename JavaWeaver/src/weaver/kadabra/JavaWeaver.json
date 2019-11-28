@@ -45,6 +45,37 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "A string representation of the AST corresponding to this node",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "ast"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the child of the node at the given index",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "child"
+                           },
+                           {
+                              "type": "Integer",
+                              "name": "index"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns an array with the children of the node",
+                  "children": [
+                           {
+                              "type": "joinpoint[]",
+                              "name": "children"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "The source code corresponding to this join point",
                   "children": [
                            {
@@ -84,6 +115,15 @@
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the number of children of the node",
+                  "children": [
+                           {
+                              "type": "Integer",
+                              "name": "numChildren"
                            }]
                },
                {
@@ -318,6 +358,37 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "A string representation of the AST corresponding to this node",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "ast"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the child of the node at the given index",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "child"
+                           },
+                           {
+                              "type": "Integer",
+                              "name": "index"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns an array with the children of the node",
+                  "children": [
+                           {
+                              "type": "joinpoint[]",
+                              "name": "children"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "The source code corresponding to this join point",
                   "children": [
                            {
@@ -357,6 +428,15 @@
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the number of children of the node",
+                  "children": [
+                           {
+                              "type": "Integer",
+                              "name": "numChildren"
                            }]
                },
                {
@@ -532,6 +612,37 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "A string representation of the AST corresponding to this node",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "ast"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the child of the node at the given index",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "child"
+                           },
+                           {
+                              "type": "Integer",
+                              "name": "index"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns an array with the children of the node",
+                  "children": [
+                           {
+                              "type": "joinpoint[]",
+                              "name": "children"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "The source code corresponding to this join point",
                   "children": [
                            {
@@ -571,6 +682,15 @@
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the number of children of the node",
+                  "children": [
+                           {
+                              "type": "Integer",
+                              "name": "numChildren"
                            }]
                },
                {
@@ -761,6 +881,37 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "A string representation of the AST corresponding to this node",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "ast"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the child of the node at the given index",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "child"
+                           },
+                           {
+                              "type": "Integer",
+                              "name": "index"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns an array with the children of the node",
+                  "children": [
+                           {
+                              "type": "joinpoint[]",
+                              "name": "children"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "The source code corresponding to this join point",
                   "children": [
                            {
@@ -800,6 +951,15 @@
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the number of children of the node",
+                  "children": [
+                           {
+                              "type": "Integer",
+                              "name": "numChildren"
                            }]
                },
                {
@@ -1106,6 +1266,37 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "A string representation of the AST corresponding to this node",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "ast"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the child of the node at the given index",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "child"
+                           },
+                           {
+                              "type": "Integer",
+                              "name": "index"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns an array with the children of the node",
+                  "children": [
+                           {
+                              "type": "joinpoint[]",
+                              "name": "children"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "The source code corresponding to this join point",
                   "children": [
                            {
@@ -1145,6 +1336,15 @@
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the number of children of the node",
+                  "children": [
+                           {
+                              "type": "Integer",
+                              "name": "numChildren"
                            }]
                },
                {
@@ -1384,6 +1584,37 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "A string representation of the AST corresponding to this node",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "ast"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the child of the node at the given index",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "child"
+                           },
+                           {
+                              "type": "Integer",
+                              "name": "index"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns an array with the children of the node",
+                  "children": [
+                           {
+                              "type": "joinpoint[]",
+                              "name": "children"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "The source code corresponding to this join point",
                   "children": [
                            {
@@ -1423,6 +1654,15 @@
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the number of children of the node",
+                  "children": [
+                           {
+                              "type": "Integer",
+                              "name": "numChildren"
                            }]
                },
                {
@@ -1656,6 +1896,37 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "A string representation of the AST corresponding to this node",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "ast"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the child of the node at the given index",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "child"
+                           },
+                           {
+                              "type": "Integer",
+                              "name": "index"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns an array with the children of the node",
+                  "children": [
+                           {
+                              "type": "joinpoint[]",
+                              "name": "children"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "The source code corresponding to this join point",
                   "children": [
                            {
@@ -1695,6 +1966,15 @@
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the number of children of the node",
+                  "children": [
+                           {
+                              "type": "Integer",
+                              "name": "numChildren"
                            }]
                },
                {
@@ -1898,6 +2178,37 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "A string representation of the AST corresponding to this node",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "ast"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the child of the node at the given index",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "child"
+                           },
+                           {
+                              "type": "Integer",
+                              "name": "index"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns an array with the children of the node",
+                  "children": [
+                           {
+                              "type": "joinpoint[]",
+                              "name": "children"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "The source code corresponding to this join point",
                   "children": [
                            {
@@ -1937,6 +2248,15 @@
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the number of children of the node",
+                  "children": [
+                           {
+                              "type": "Integer",
+                              "name": "numChildren"
                            }]
                },
                {
@@ -2172,6 +2492,37 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "A string representation of the AST corresponding to this node",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "ast"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the child of the node at the given index",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "child"
+                           },
+                           {
+                              "type": "Integer",
+                              "name": "index"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns an array with the children of the node",
+                  "children": [
+                           {
+                              "type": "joinpoint[]",
+                              "name": "children"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "The source code corresponding to this join point",
                   "children": [
                            {
@@ -2211,6 +2562,15 @@
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the number of children of the node",
+                  "children": [
+                           {
+                              "type": "Integer",
+                              "name": "numChildren"
                            }]
                },
                {
@@ -2462,6 +2822,37 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "A string representation of the AST corresponding to this node",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "ast"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the child of the node at the given index",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "child"
+                           },
+                           {
+                              "type": "Integer",
+                              "name": "index"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns an array with the children of the node",
+                  "children": [
+                           {
+                              "type": "joinpoint[]",
+                              "name": "children"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "The source code corresponding to this join point",
                   "children": [
                            {
@@ -2501,6 +2892,15 @@
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the number of children of the node",
+                  "children": [
+                           {
+                              "type": "Integer",
+                              "name": "numChildren"
                            }]
                },
                {
@@ -2741,6 +3141,37 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "A string representation of the AST corresponding to this node",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "ast"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the child of the node at the given index",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "child"
+                           },
+                           {
+                              "type": "Integer",
+                              "name": "index"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns an array with the children of the node",
+                  "children": [
+                           {
+                              "type": "joinpoint[]",
+                              "name": "children"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "The source code corresponding to this join point",
                   "children": [
                            {
@@ -2780,6 +3211,15 @@
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the number of children of the node",
+                  "children": [
+                           {
+                              "type": "Integer",
+                              "name": "numChildren"
                            }]
                },
                {
@@ -3029,6 +3469,37 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "A string representation of the AST corresponding to this node",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "ast"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the child of the node at the given index",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "child"
+                           },
+                           {
+                              "type": "Integer",
+                              "name": "index"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns an array with the children of the node",
+                  "children": [
+                           {
+                              "type": "joinpoint[]",
+                              "name": "children"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "The source code corresponding to this join point",
                   "children": [
                            {
@@ -3068,6 +3539,15 @@
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the number of children of the node",
+                  "children": [
+                           {
+                              "type": "Integer",
+                              "name": "numChildren"
                            }]
                },
                {
@@ -3314,6 +3794,37 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "A string representation of the AST corresponding to this node",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "ast"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the child of the node at the given index",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "child"
+                           },
+                           {
+                              "type": "Integer",
+                              "name": "index"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns an array with the children of the node",
+                  "children": [
+                           {
+                              "type": "joinpoint[]",
+                              "name": "children"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "The source code corresponding to this join point",
                   "children": [
                            {
@@ -3353,6 +3864,15 @@
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the number of children of the node",
+                  "children": [
+                           {
+                              "type": "Integer",
+                              "name": "numChildren"
                            }]
                },
                {
@@ -3617,6 +4137,37 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "A string representation of the AST corresponding to this node",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "ast"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the child of the node at the given index",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "child"
+                           },
+                           {
+                              "type": "Integer",
+                              "name": "index"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns an array with the children of the node",
+                  "children": [
+                           {
+                              "type": "joinpoint[]",
+                              "name": "children"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "The source code corresponding to this join point",
                   "children": [
                            {
@@ -3656,6 +4207,15 @@
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the number of children of the node",
+                  "children": [
+                           {
+                              "type": "Integer",
+                              "name": "numChildren"
                            }]
                },
                {
@@ -4183,6 +4743,37 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "A string representation of the AST corresponding to this node",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "ast"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the child of the node at the given index",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "child"
+                           },
+                           {
+                              "type": "Integer",
+                              "name": "index"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns an array with the children of the node",
+                  "children": [
+                           {
+                              "type": "joinpoint[]",
+                              "name": "children"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "The source code corresponding to this join point",
                   "children": [
                            {
@@ -4222,6 +4813,15 @@
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the number of children of the node",
+                  "children": [
+                           {
+                              "type": "Integer",
+                              "name": "numChildren"
                            }]
                },
                {
@@ -4415,6 +5015,37 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "A string representation of the AST corresponding to this node",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "ast"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the child of the node at the given index",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "child"
+                           },
+                           {
+                              "type": "Integer",
+                              "name": "index"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns an array with the children of the node",
+                  "children": [
+                           {
+                              "type": "joinpoint[]",
+                              "name": "children"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "The source code corresponding to this join point",
                   "children": [
                            {
@@ -4454,6 +5085,15 @@
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the number of children of the node",
+                  "children": [
+                           {
+                              "type": "Integer",
+                              "name": "numChildren"
                            }]
                },
                {
@@ -4639,6 +5279,37 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "A string representation of the AST corresponding to this node",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "ast"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the child of the node at the given index",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "child"
+                           },
+                           {
+                              "type": "Integer",
+                              "name": "index"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns an array with the children of the node",
+                  "children": [
+                           {
+                              "type": "joinpoint[]",
+                              "name": "children"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "The source code corresponding to this join point",
                   "children": [
                            {
@@ -4678,6 +5349,15 @@
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the number of children of the node",
+                  "children": [
+                           {
+                              "type": "Integer",
+                              "name": "numChildren"
                            }]
                },
                {
@@ -4887,6 +5567,37 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "A string representation of the AST corresponding to this node",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "ast"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the child of the node at the given index",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "child"
+                           },
+                           {
+                              "type": "Integer",
+                              "name": "index"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns an array with the children of the node",
+                  "children": [
+                           {
+                              "type": "joinpoint[]",
+                              "name": "children"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "The source code corresponding to this join point",
                   "children": [
                            {
@@ -4926,6 +5637,15 @@
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the number of children of the node",
+                  "children": [
+                           {
+                              "type": "Integer",
+                              "name": "numChildren"
                            }]
                },
                {
@@ -5164,6 +5884,37 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "A string representation of the AST corresponding to this node",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "ast"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the child of the node at the given index",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "child"
+                           },
+                           {
+                              "type": "Integer",
+                              "name": "index"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns an array with the children of the node",
+                  "children": [
+                           {
+                              "type": "joinpoint[]",
+                              "name": "children"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "The source code corresponding to this join point",
                   "children": [
                            {
@@ -5203,6 +5954,15 @@
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the number of children of the node",
+                  "children": [
+                           {
+                              "type": "Integer",
+                              "name": "numChildren"
                            }]
                },
                {
@@ -5719,6 +6479,37 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "A string representation of the AST corresponding to this node",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "ast"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the child of the node at the given index",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "child"
+                           },
+                           {
+                              "type": "Integer",
+                              "name": "index"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns an array with the children of the node",
+                  "children": [
+                           {
+                              "type": "joinpoint[]",
+                              "name": "children"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "The source code corresponding to this join point",
                   "children": [
                            {
@@ -5758,6 +6549,15 @@
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the number of children of the node",
+                  "children": [
+                           {
+                              "type": "Integer",
+                              "name": "numChildren"
                            }]
                },
                {
@@ -5951,6 +6751,37 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "A string representation of the AST corresponding to this node",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "ast"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the child of the node at the given index",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "child"
+                           },
+                           {
+                              "type": "Integer",
+                              "name": "index"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns an array with the children of the node",
+                  "children": [
+                           {
+                              "type": "joinpoint[]",
+                              "name": "children"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "The source code corresponding to this join point",
                   "children": [
                            {
@@ -5990,6 +6821,15 @@
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the number of children of the node",
+                  "children": [
+                           {
+                              "type": "Integer",
+                              "name": "numChildren"
                            }]
                },
                {
@@ -6253,6 +7093,37 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "A string representation of the AST corresponding to this node",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "ast"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the child of the node at the given index",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "child"
+                           },
+                           {
+                              "type": "Integer",
+                              "name": "index"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns an array with the children of the node",
+                  "children": [
+                           {
+                              "type": "joinpoint[]",
+                              "name": "children"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "The source code corresponding to this join point",
                   "children": [
                            {
@@ -6292,6 +7163,15 @@
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the number of children of the node",
+                  "children": [
+                           {
+                              "type": "Integer",
+                              "name": "numChildren"
                            }]
                },
                {
@@ -6518,6 +7398,37 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "A string representation of the AST corresponding to this node",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "ast"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the child of the node at the given index",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "child"
+                           },
+                           {
+                              "type": "Integer",
+                              "name": "index"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns an array with the children of the node",
+                  "children": [
+                           {
+                              "type": "joinpoint[]",
+                              "name": "children"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "The source code corresponding to this join point",
                   "children": [
                            {
@@ -6557,6 +7468,15 @@
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the number of children of the node",
+                  "children": [
+                           {
+                              "type": "Integer",
+                              "name": "numChildren"
                            }]
                },
                {
@@ -6892,6 +7812,37 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "A string representation of the AST corresponding to this node",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "ast"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the child of the node at the given index",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "child"
+                           },
+                           {
+                              "type": "Integer",
+                              "name": "index"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns an array with the children of the node",
+                  "children": [
+                           {
+                              "type": "joinpoint[]",
+                              "name": "children"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "The source code corresponding to this join point",
                   "children": [
                            {
@@ -6931,6 +7882,15 @@
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the number of children of the node",
+                  "children": [
+                           {
+                              "type": "Integer",
+                              "name": "numChildren"
                            }]
                },
                {
@@ -7189,6 +8149,37 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "A string representation of the AST corresponding to this node",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "ast"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the child of the node at the given index",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "child"
+                           },
+                           {
+                              "type": "Integer",
+                              "name": "index"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns an array with the children of the node",
+                  "children": [
+                           {
+                              "type": "joinpoint[]",
+                              "name": "children"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "The source code corresponding to this join point",
                   "children": [
                            {
@@ -7228,6 +8219,15 @@
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the number of children of the node",
+                  "children": [
+                           {
+                              "type": "Integer",
+                              "name": "numChildren"
                            }]
                },
                {
@@ -7677,6 +8677,37 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "A string representation of the AST corresponding to this node",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "ast"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the child of the node at the given index",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "child"
+                           },
+                           {
+                              "type": "Integer",
+                              "name": "index"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns an array with the children of the node",
+                  "children": [
+                           {
+                              "type": "joinpoint[]",
+                              "name": "children"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "The source code corresponding to this join point",
                   "children": [
                            {
@@ -7716,6 +8747,15 @@
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the number of children of the node",
+                  "children": [
+                           {
+                              "type": "Integer",
+                              "name": "numChildren"
                            }]
                },
                {
@@ -7907,6 +8947,37 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "A string representation of the AST corresponding to this node",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "ast"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the child of the node at the given index",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "child"
+                           },
+                           {
+                              "type": "Integer",
+                              "name": "index"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns an array with the children of the node",
+                  "children": [
+                           {
+                              "type": "joinpoint[]",
+                              "name": "children"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "The source code corresponding to this join point",
                   "children": [
                            {
@@ -7946,6 +9017,15 @@
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the number of children of the node",
+                  "children": [
+                           {
+                              "type": "Integer",
+                              "name": "numChildren"
                            }]
                },
                {
@@ -8143,6 +9223,37 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "A string representation of the AST corresponding to this node",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "ast"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the child of the node at the given index",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "child"
+                           },
+                           {
+                              "type": "Integer",
+                              "name": "index"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns an array with the children of the node",
+                  "children": [
+                           {
+                              "type": "joinpoint[]",
+                              "name": "children"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "The source code corresponding to this join point",
                   "children": [
                            {
@@ -8182,6 +9293,15 @@
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the number of children of the node",
+                  "children": [
+                           {
+                              "type": "Integer",
+                              "name": "numChildren"
                            }]
                },
                {
@@ -8458,6 +9578,37 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "A string representation of the AST corresponding to this node",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "ast"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the child of the node at the given index",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "child"
+                           },
+                           {
+                              "type": "Integer",
+                              "name": "index"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns an array with the children of the node",
+                  "children": [
+                           {
+                              "type": "joinpoint[]",
+                              "name": "children"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "The source code corresponding to this join point",
                   "children": [
                            {
@@ -8497,6 +9648,15 @@
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the number of children of the node",
+                  "children": [
+                           {
+                              "type": "Integer",
+                              "name": "numChildren"
                            }]
                },
                {
@@ -8735,6 +9895,37 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "A string representation of the AST corresponding to this node",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "ast"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the child of the node at the given index",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "child"
+                           },
+                           {
+                              "type": "Integer",
+                              "name": "index"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns an array with the children of the node",
+                  "children": [
+                           {
+                              "type": "joinpoint[]",
+                              "name": "children"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "The source code corresponding to this join point",
                   "children": [
                            {
@@ -8774,6 +9965,15 @@
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the number of children of the node",
+                  "children": [
+                           {
+                              "type": "Integer",
+                              "name": "numChildren"
                            }]
                },
                {
@@ -9078,6 +10278,37 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "A string representation of the AST corresponding to this node",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "ast"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the child of the node at the given index",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "child"
+                           },
+                           {
+                              "type": "Integer",
+                              "name": "index"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns an array with the children of the node",
+                  "children": [
+                           {
+                              "type": "joinpoint[]",
+                              "name": "children"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "The source code corresponding to this join point",
                   "children": [
                            {
@@ -9117,6 +10348,15 @@
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the number of children of the node",
+                  "children": [
+                           {
+                              "type": "Integer",
+                              "name": "numChildren"
                            }]
                },
                {
@@ -9388,6 +10628,37 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "A string representation of the AST corresponding to this node",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "ast"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the child of the node at the given index",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "child"
+                           },
+                           {
+                              "type": "Integer",
+                              "name": "index"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns an array with the children of the node",
+                  "children": [
+                           {
+                              "type": "joinpoint[]",
+                              "name": "children"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "The source code corresponding to this join point",
                   "children": [
                            {
@@ -9427,6 +10698,15 @@
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the number of children of the node",
+                  "children": [
+                           {
+                              "type": "Integer",
+                              "name": "numChildren"
                            }]
                },
                {
@@ -9612,6 +10892,37 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "A string representation of the AST corresponding to this node",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "ast"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the child of the node at the given index",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "child"
+                           },
+                           {
+                              "type": "Integer",
+                              "name": "index"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns an array with the children of the node",
+                  "children": [
+                           {
+                              "type": "joinpoint[]",
+                              "name": "children"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "The source code corresponding to this join point",
                   "children": [
                            {
@@ -9651,6 +10962,15 @@
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the number of children of the node",
+                  "children": [
+                           {
+                              "type": "Integer",
+                              "name": "numChildren"
                            }]
                },
                {
@@ -9836,6 +11156,37 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "A string representation of the AST corresponding to this node",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "ast"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the child of the node at the given index",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "child"
+                           },
+                           {
+                              "type": "Integer",
+                              "name": "index"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns an array with the children of the node",
+                  "children": [
+                           {
+                              "type": "joinpoint[]",
+                              "name": "children"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "The source code corresponding to this join point",
                   "children": [
                            {
@@ -9875,6 +11226,15 @@
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the number of children of the node",
+                  "children": [
+                           {
+                              "type": "Integer",
+                              "name": "numChildren"
                            }]
                },
                {
@@ -10060,6 +11420,37 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "A string representation of the AST corresponding to this node",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "ast"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the child of the node at the given index",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "child"
+                           },
+                           {
+                              "type": "Integer",
+                              "name": "index"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns an array with the children of the node",
+                  "children": [
+                           {
+                              "type": "joinpoint[]",
+                              "name": "children"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "The source code corresponding to this join point",
                   "children": [
                            {
@@ -10099,6 +11490,15 @@
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the number of children of the node",
+                  "children": [
+                           {
+                              "type": "Integer",
+                              "name": "numChildren"
                            }]
                },
                {
@@ -10289,6 +11689,37 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "A string representation of the AST corresponding to this node",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "ast"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the child of the node at the given index",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "child"
+                           },
+                           {
+                              "type": "Integer",
+                              "name": "index"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns an array with the children of the node",
+                  "children": [
+                           {
+                              "type": "joinpoint[]",
+                              "name": "children"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "The source code corresponding to this join point",
                   "children": [
                            {
@@ -10328,6 +11759,15 @@
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the number of children of the node",
+                  "children": [
+                           {
+                              "type": "Integer",
+                              "name": "numChildren"
                            }]
                },
                {
@@ -10523,6 +11963,37 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "A string representation of the AST corresponding to this node",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "ast"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the child of the node at the given index",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "child"
+                           },
+                           {
+                              "type": "Integer",
+                              "name": "index"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns an array with the children of the node",
+                  "children": [
+                           {
+                              "type": "joinpoint[]",
+                              "name": "children"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "The source code corresponding to this join point",
                   "children": [
                            {
@@ -10562,6 +12033,15 @@
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the number of children of the node",
+                  "children": [
+                           {
+                              "type": "Integer",
+                              "name": "numChildren"
                            }]
                },
                {
@@ -10811,6 +12291,37 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "A string representation of the AST corresponding to this node",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "ast"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the child of the node at the given index",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "child"
+                           },
+                           {
+                              "type": "Integer",
+                              "name": "index"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns an array with the children of the node",
+                  "children": [
+                           {
+                              "type": "joinpoint[]",
+                              "name": "children"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "The source code corresponding to this join point",
                   "children": [
                            {
@@ -10850,6 +12361,15 @@
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the number of children of the node",
+                  "children": [
+                           {
+                              "type": "Integer",
+                              "name": "numChildren"
                            }]
                },
                {
@@ -11263,6 +12783,37 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "A string representation of the AST corresponding to this node",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "ast"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the child of the node at the given index",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "child"
+                           },
+                           {
+                              "type": "Integer",
+                              "name": "index"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns an array with the children of the node",
+                  "children": [
+                           {
+                              "type": "joinpoint[]",
+                              "name": "children"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "The source code corresponding to this join point",
                   "children": [
                            {
@@ -11302,6 +12853,15 @@
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the number of children of the node",
+                  "children": [
+                           {
+                              "type": "Integer",
+                              "name": "numChildren"
                            }]
                },
                {
@@ -11600,6 +13160,37 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "A string representation of the AST corresponding to this node",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "ast"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the child of the node at the given index",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "child"
+                           },
+                           {
+                              "type": "Integer",
+                              "name": "index"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns an array with the children of the node",
+                  "children": [
+                           {
+                              "type": "joinpoint[]",
+                              "name": "children"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "The source code corresponding to this join point",
                   "children": [
                            {
@@ -11639,6 +13230,15 @@
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the number of children of the node",
+                  "children": [
+                           {
+                              "type": "Integer",
+                              "name": "numChildren"
                            }]
                },
                {

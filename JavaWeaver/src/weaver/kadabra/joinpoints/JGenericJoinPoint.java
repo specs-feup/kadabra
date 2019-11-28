@@ -36,4 +36,10 @@ public class JGenericJoinPoint extends AJavaWeaverJoinPoint {
     public CtElement getNode() {
         return node;
     }
+
+    @Override
+    public String toString() {
+        return "Spoon class: " + node.getClass().getSimpleName() + ", content: " + node;
+    }
+
 }
