@@ -15,6 +15,7 @@ package weaver.kadabra.joinpoints;
 
 import spoon.reflect.code.CtLiteral;
 import weaver.kadabra.abstracts.joinpoints.ALiteral;
+import weaver.utils.SpoonLiterals;
 
 public class JLiteral<T> extends ALiteral {
 
@@ -23,6 +24,8 @@ public class JLiteral<T> extends ALiteral {
     private JLiteral(CtLiteral<T> node) {
         super(new JExpression<>(node));
         this.node = node;
+        // System.out.println("VALUE TYPE: " + node.getValue().getClass());
+        // System.out.println("TYPE:" + getTypeImpl());
     }
 
     public static <T> JLiteral<T> newInstance(CtLiteral<T> node) {
@@ -41,7 +44,18 @@ public class JLiteral<T> extends ALiteral {
 
     @Override
     public String toString() {
-        // TODO Auto-generated method stub
         return getValueImpl();
+    }
+
+    @Override
+    public void defValueImpl(String value) {
+        @SuppressWarnings("unchecked") // decode literal value transform the value into T
+        T decodedValue = (T) SpoonLiterals.decodeLiteralValue(getTypeImpl(), value);
+        node.setValue(decodedValue);
+    }
+
+    @Override
+    public void setValueImpl(String value) {
+        defValueImpl(value);
     }
 }

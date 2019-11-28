@@ -105,6 +105,42 @@ public abstract class AArrayAccess extends AExpression {
     }
 
     /**
+     * Method used by the lara interpreter to select vars
+     * @return 
+     */
+    @Override
+    public List<? extends AVar> selectVar() {
+        return this.aExpression.selectVar();
+    }
+
+    /**
+     * Method used by the lara interpreter to select arrayAccesss
+     * @return 
+     */
+    @Override
+    public List<? extends AArrayAccess> selectArrayAccess() {
+        return this.aExpression.selectArrayAccess();
+    }
+
+    /**
+     * Method used by the lara interpreter to select binaryExpressions
+     * @return 
+     */
+    @Override
+    public List<? extends ABinaryExpression> selectBinaryExpression() {
+        return this.aExpression.selectBinaryExpression();
+    }
+
+    /**
+     * Method used by the lara interpreter to select binaryExprs
+     * @return 
+     */
+    @Override
+    public List<? extends ABinaryExpression> selectBinaryExpr() {
+        return this.aExpression.selectBinaryExpr();
+    }
+
+    /**
      * 
      */
     public void defTestImpl(Integer value) {
@@ -224,6 +260,18 @@ public abstract class AArrayAccess extends AExpression {
         		break;
         	case "expr": 
         		joinPointList = selectExpr();
+        		break;
+        	case "var": 
+        		joinPointList = selectVar();
+        		break;
+        	case "arrayAccess": 
+        		joinPointList = selectArrayAccess();
+        		break;
+        	case "binaryExpression": 
+        		joinPointList = selectBinaryExpression();
+        		break;
+        	case "binaryExpr": 
+        		joinPointList = selectBinaryExpr();
         		break;
         	default:
         		joinPointList = this.aExpression.select(selectName);

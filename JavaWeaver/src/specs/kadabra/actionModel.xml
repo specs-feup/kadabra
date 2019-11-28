@@ -186,5 +186,10 @@
 		<parameter name="operator" type="String"/>
 	</action>
 
+
+	<!-- LITERAL -->
+	<action name="setValue" class="literal">
+		<parameter name="value" type="String"/>
+	</action>
 	
 </actions>

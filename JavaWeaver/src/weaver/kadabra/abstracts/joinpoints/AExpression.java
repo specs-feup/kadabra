@@ -118,6 +118,38 @@ public abstract class AExpression extends AJavaWeaverJoinPoint {
     }
 
     /**
+     * Default implementation of the method used by the lara interpreter to select vars
+     * @return 
+     */
+    public List<? extends AVar> selectVar() {
+        return select(weaver.kadabra.abstracts.joinpoints.AVar.class, SelectOp.DESCENDANTS);
+    }
+
+    /**
+     * Default implementation of the method used by the lara interpreter to select arrayAccesss
+     * @return 
+     */
+    public List<? extends AArrayAccess> selectArrayAccess() {
+        return select(weaver.kadabra.abstracts.joinpoints.AArrayAccess.class, SelectOp.DESCENDANTS);
+    }
+
+    /**
+     * Default implementation of the method used by the lara interpreter to select binaryExpressions
+     * @return 
+     */
+    public List<? extends ABinaryExpression> selectBinaryExpression() {
+        return select(weaver.kadabra.abstracts.joinpoints.ABinaryExpression.class, SelectOp.DESCENDANTS);
+    }
+
+    /**
+     * Default implementation of the method used by the lara interpreter to select binaryExprs
+     * @return 
+     */
+    public List<? extends ABinaryExpression> selectBinaryExpr() {
+        return select(weaver.kadabra.abstracts.joinpoints.ABinaryExpression.class, SelectOp.DESCENDANTS);
+    }
+
+    /**
      * 
      * @param varName 
      * @param location 
@@ -156,6 +188,18 @@ public abstract class AExpression extends AJavaWeaverJoinPoint {
         switch(selectName) {
         	case "expr": 
         		joinPointList = selectExpr();
+        		break;
+        	case "var": 
+        		joinPointList = selectVar();
+        		break;
+        	case "arrayAccess": 
+        		joinPointList = selectArrayAccess();
+        		break;
+        	case "binaryExpression": 
+        		joinPointList = selectBinaryExpression();
+        		break;
+        	case "binaryExpr": 
+        		joinPointList = selectBinaryExpr();
         		break;
         	default:
         		joinPointList = super.select(selectName);
@@ -214,6 +258,10 @@ public abstract class AExpression extends AJavaWeaverJoinPoint {
     protected void fillWithSelects(List<String> selects) {
         super.fillWithSelects(selects);
         selects.add("expr");
+        selects.add("var");
+        selects.add("arrayAccess");
+        selects.add("binaryExpression");
+        selects.add("binaryExpr");
     }
 
     /**

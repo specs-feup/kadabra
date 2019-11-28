@@ -15,13 +15,9 @@ package weaver.kadabra.joinpoints;
 
 import java.util.List;
 
-import spoon.reflect.code.CtArrayAccess;
-import spoon.reflect.code.CtBinaryOperator;
 import spoon.reflect.code.CtStatement;
 import tdrc.utils.StringUtils;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
-import weaver.kadabra.abstracts.joinpoints.AArrayAccess;
-import weaver.kadabra.abstracts.joinpoints.ABinaryExpression;
 import weaver.kadabra.abstracts.joinpoints.ACall;
 import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.AStatement;
@@ -93,11 +89,12 @@ public class JStatement extends AStatement {
         return StringUtils.firstCharToLower(tempType);
     }
 
+    /*
     @Override
     public List<? extends ABinaryExpression> selectBinaryExpr() {
         return selectBinaryExpression();
     }
-
+    
     @Override
     public List<? extends ABinaryExpression> selectBinaryExpression() {
         @SuppressWarnings("unchecked")
@@ -105,12 +102,12 @@ public class JStatement extends AStatement {
                 JBinaryExpression::newInstance);
         return select;
     }
-
+    
     @Override
     public List<? extends AArrayAccess> selectArrayAccess() {
         @SuppressWarnings("unchecked")
         List<? extends AArrayAccess> select = SelectUtils.select(node, CtArrayAccess.class, JArrayAccess::newInstance);
         return select; // TODO Auto-generated method stub
     }
-
+    */
 }

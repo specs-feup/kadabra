@@ -1166,8 +1166,28 @@
                },
                {
                   "type": "select",
+                  "clazz": "arrayAccess",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": "binaryExpr"
+               },
+               {
+                  "type": "select",
                   "clazz": "expression",
                   "alias": "expr"
+               },
+               {
+                  "type": "select",
+                  "clazz": "var",
+                  "alias": ""
                },
                {
                   "type": "action",
@@ -1434,8 +1454,28 @@
                },
                {
                   "type": "select",
+                  "clazz": "arrayAccess",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": "binaryExpr"
+               },
+               {
+                  "type": "select",
                   "clazz": "expression",
                   "alias": "expr"
+               },
+               {
+                  "type": "select",
+                  "clazz": "var",
+                  "alias": ""
                },
                {
                   "type": "action",
@@ -1686,21 +1726,6 @@
                },
                {
                   "type": "select",
-                  "clazz": "arrayAccess",
-                  "alias": ""
-               },
-               {
-                  "type": "select",
-                  "clazz": "binaryExpression",
-                  "alias": ""
-               },
-               {
-                  "type": "select",
-                  "clazz": "binaryExpression",
-                  "alias": "binaryExpr"
-               },
-               {
-                  "type": "select",
                   "clazz": "call",
                   "alias": ""
                },
@@ -1940,21 +1965,6 @@
                   "type": "select",
                   "clazz": "expression",
                   "alias": "rhs"
-               },
-               {
-                  "type": "select",
-                  "clazz": "arrayAccess",
-                  "alias": ""
-               },
-               {
-                  "type": "select",
-                  "clazz": "binaryExpression",
-                  "alias": ""
-               },
-               {
-                  "type": "select",
-                  "clazz": "binaryExpression",
-                  "alias": "binaryExpr"
                },
                {
                   "type": "select",
@@ -2237,8 +2247,28 @@
                },
                {
                   "type": "select",
+                  "clazz": "arrayAccess",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": "binaryExpr"
+               },
+               {
+                  "type": "select",
                   "clazz": "expression",
                   "alias": "expr"
+               },
+               {
+                  "type": "select",
+                  "clazz": "var",
+                  "alias": ""
                },
                {
                   "type": "action",
@@ -2547,21 +2577,6 @@
                },
                {
                   "type": "select",
-                  "clazz": "arrayAccess",
-                  "alias": ""
-               },
-               {
-                  "type": "select",
-                  "clazz": "binaryExpression",
-                  "alias": ""
-               },
-               {
-                  "type": "select",
-                  "clazz": "binaryExpression",
-                  "alias": "binaryExpr"
-               },
-               {
-                  "type": "select",
                   "clazz": "call",
                   "alias": ""
                },
@@ -2783,21 +2798,6 @@
                               "type": "String",
                               "name": "srcCode"
                            }]
-               },
-               {
-                  "type": "select",
-                  "clazz": "arrayAccess",
-                  "alias": ""
-               },
-               {
-                  "type": "select",
-                  "clazz": "binaryExpression",
-                  "alias": ""
-               },
-               {
-                  "type": "select",
-                  "clazz": "binaryExpression",
-                  "alias": "binaryExpr"
                },
                {
                   "type": "select",
@@ -3094,8 +3094,28 @@
                },
                {
                   "type": "select",
+                  "clazz": "arrayAccess",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": "binaryExpr"
+               },
+               {
+                  "type": "select",
                   "clazz": "expression",
                   "alias": "expr"
+               },
+               {
+                  "type": "select",
+                  "clazz": "var",
+                  "alias": ""
                },
                {
                   "type": "action",
@@ -3371,21 +3391,6 @@
                   "type": "select",
                   "clazz": "statement",
                   "alias": "stmt"
-               },
-               {
-                  "type": "select",
-                  "clazz": "arrayAccess",
-                  "alias": ""
-               },
-               {
-                  "type": "select",
-                  "clazz": "binaryExpression",
-                  "alias": ""
-               },
-               {
-                  "type": "select",
-                  "clazz": "binaryExpression",
-                  "alias": "binaryExpr"
                },
                {
                   "type": "select",
@@ -4238,21 +4243,6 @@
                },
                {
                   "type": "select",
-                  "clazz": "arrayAccess",
-                  "alias": ""
-               },
-               {
-                  "type": "select",
-                  "clazz": "binaryExpression",
-                  "alias": ""
-               },
-               {
-                  "type": "select",
-                  "clazz": "binaryExpression",
-                  "alias": "binaryExpr"
-               },
-               {
-                  "type": "select",
                   "clazz": "call",
                   "alias": ""
                },
@@ -4706,21 +4696,6 @@
                               "type": "String",
                               "name": "srcCode"
                            }]
-               },
-               {
-                  "type": "select",
-                  "clazz": "arrayAccess",
-                  "alias": ""
-               },
-               {
-                  "type": "select",
-                  "clazz": "binaryExpression",
-                  "alias": ""
-               },
-               {
-                  "type": "select",
-                  "clazz": "binaryExpression",
-                  "alias": "binaryExpr"
                },
                {
                   "type": "select",
@@ -6036,8 +6011,28 @@
                },
                {
                   "type": "select",
+                  "clazz": "arrayAccess",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": "binaryExpr"
+               },
+               {
+                  "type": "select",
                   "clazz": "expression",
                   "alias": "expr"
+               },
+               {
+                  "type": "select",
+                  "clazz": "var",
+                  "alias": ""
                },
                {
                   "type": "action",
@@ -6969,21 +6964,6 @@
                   "type": "select",
                   "clazz": "expression",
                   "alias": "cond"
-               },
-               {
-                  "type": "select",
-                  "clazz": "arrayAccess",
-                  "alias": ""
-               },
-               {
-                  "type": "select",
-                  "clazz": "binaryExpression",
-                  "alias": ""
-               },
-               {
-                  "type": "select",
-                  "clazz": "binaryExpression",
-                  "alias": "binaryExpr"
                },
                {
                   "type": "select",
@@ -8223,8 +8203,41 @@
                },
                {
                   "type": "select",
+                  "clazz": "arrayAccess",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": "binaryExpr"
+               },
+               {
+                  "type": "select",
                   "clazz": "expression",
                   "alias": "expr"
+               },
+               {
+                  "type": "select",
+                  "clazz": "var",
+                  "alias": ""
+               },
+               {
+                  "type": "action",
+                  "children": [
+                           {
+                              "type": "void",
+                              "name": "setValue"
+                           },
+                           {
+                              "type": "String",
+                              "name": "value",
+                              "defaultValue": ""
+                           }]
                },
                {
                   "type": "action",
@@ -8507,21 +8520,6 @@
                   "type": "select",
                   "clazz": "expression",
                   "alias": "init"
-               },
-               {
-                  "type": "select",
-                  "clazz": "arrayAccess",
-                  "alias": ""
-               },
-               {
-                  "type": "select",
-                  "clazz": "binaryExpression",
-                  "alias": ""
-               },
-               {
-                  "type": "select",
-                  "clazz": "binaryExpression",
-                  "alias": "binaryExpr"
                },
                {
                   "type": "select",
@@ -8819,21 +8817,6 @@
                   "type": "select",
                   "clazz": "statement",
                   "alias": "step"
-               },
-               {
-                  "type": "select",
-                  "clazz": "arrayAccess",
-                  "alias": ""
-               },
-               {
-                  "type": "select",
-                  "clazz": "binaryExpression",
-                  "alias": ""
-               },
-               {
-                  "type": "select",
-                  "clazz": "binaryExpression",
-                  "alias": "binaryExpr"
                },
                {
                   "type": "select",
@@ -9465,21 +9448,6 @@
                },
                {
                   "type": "select",
-                  "clazz": "arrayAccess",
-                  "alias": ""
-               },
-               {
-                  "type": "select",
-                  "clazz": "binaryExpression",
-                  "alias": ""
-               },
-               {
-                  "type": "select",
-                  "clazz": "binaryExpression",
-                  "alias": "binaryExpr"
-               },
-               {
-                  "type": "select",
                   "clazz": "call",
                   "alias": ""
                },
@@ -9704,21 +9672,6 @@
                },
                {
                   "type": "select",
-                  "clazz": "arrayAccess",
-                  "alias": ""
-               },
-               {
-                  "type": "select",
-                  "clazz": "binaryExpression",
-                  "alias": ""
-               },
-               {
-                  "type": "select",
-                  "clazz": "binaryExpression",
-                  "alias": "binaryExpr"
-               },
-               {
-                  "type": "select",
                   "clazz": "call",
                   "alias": ""
                },
@@ -9940,21 +9893,6 @@
                               "type": "String",
                               "name": "srcCode"
                            }]
-               },
-               {
-                  "type": "select",
-                  "clazz": "arrayAccess",
-                  "alias": ""
-               },
-               {
-                  "type": "select",
-                  "clazz": "binaryExpression",
-                  "alias": ""
-               },
-               {
-                  "type": "select",
-                  "clazz": "binaryExpression",
-                  "alias": "binaryExpr"
                },
                {
                   "type": "select",
@@ -10184,21 +10122,6 @@
                   "type": "select",
                   "clazz": "case",
                   "alias": ""
-               },
-               {
-                  "type": "select",
-                  "clazz": "arrayAccess",
-                  "alias": ""
-               },
-               {
-                  "type": "select",
-                  "clazz": "binaryExpression",
-                  "alias": ""
-               },
-               {
-                  "type": "select",
-                  "clazz": "binaryExpression",
-                  "alias": "binaryExpr"
                },
                {
                   "type": "select",
@@ -10436,21 +10359,6 @@
                },
                {
                   "type": "select",
-                  "clazz": "arrayAccess",
-                  "alias": ""
-               },
-               {
-                  "type": "select",
-                  "clazz": "binaryExpression",
-                  "alias": ""
-               },
-               {
-                  "type": "select",
-                  "clazz": "binaryExpression",
-                  "alias": "binaryExpr"
-               },
-               {
-                  "type": "select",
                   "clazz": "call",
                   "alias": ""
                },
@@ -10677,21 +10585,6 @@
                   "type": "select",
                   "clazz": "body",
                   "alias": ""
-               },
-               {
-                  "type": "select",
-                  "clazz": "arrayAccess",
-                  "alias": ""
-               },
-               {
-                  "type": "select",
-                  "clazz": "binaryExpression",
-                  "alias": ""
-               },
-               {
-                  "type": "select",
-                  "clazz": "binaryExpression",
-                  "alias": "binaryExpr"
                },
                {
                   "type": "select",
@@ -11435,8 +11328,28 @@
                },
                {
                   "type": "select",
+                  "clazz": "arrayAccess",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": "binaryExpr"
+               },
+               {
+                  "type": "select",
                   "clazz": "expression",
                   "alias": "expr"
+               },
+               {
+                  "type": "select",
+                  "clazz": "var",
+                  "alias": ""
                },
                {
                   "type": "action",
@@ -11747,8 +11660,28 @@
                },
                {
                   "type": "select",
+                  "clazz": "arrayAccess",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": ""
+               },
+               {
+                  "type": "select",
+                  "clazz": "binaryExpression",
+                  "alias": "binaryExpr"
+               },
+               {
+                  "type": "select",
                   "clazz": "expression",
                   "alias": "expr"
+               },
+               {
+                  "type": "select",
+                  "clazz": "var",
+                  "alias": ""
                },
                {
                   "type": "action",

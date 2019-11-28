@@ -3,6 +3,7 @@ package weaver.kadabra.abstracts.joinpoints;
 import org.lara.interpreter.weaver.interf.events.Stage;
 import java.util.Optional;
 import org.lara.interpreter.exception.AttributeException;
+import org.lara.interpreter.exception.ActionException;
 import java.util.List;
 import org.lara.interpreter.weaver.interf.JoinPoint;
 import java.util.stream.Collectors;
@@ -51,6 +52,39 @@ public abstract class ALiteral extends AExpression {
     }
 
     /**
+     * 
+     */
+    public void defValueImpl(String value) {
+        throw new UnsupportedOperationException("Join point "+get_class()+": Action def value with type String not implemented ");
+    }
+
+    /**
+     * 
+     * @param value 
+     */
+    public void setValueImpl(String value) {
+        throw new UnsupportedOperationException(get_class()+": Action setValue not implemented ");
+    }
+
+    /**
+     * 
+     * @param value 
+     */
+    public final void setValue(String value) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "setValue", this, Optional.empty(), value);
+        	}
+        	this.setValueImpl(value);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "setValue", this, Optional.empty(), value);
+        	}
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "setValue", e);
+        }
+    }
+
+    /**
      * Get value on attribute kind
      * @return the attribute's value
      */
@@ -84,6 +118,42 @@ public abstract class ALiteral extends AExpression {
     @Override
     public List<? extends AExpression> selectExpr() {
         return this.aExpression.selectExpr();
+    }
+
+    /**
+     * Method used by the lara interpreter to select vars
+     * @return 
+     */
+    @Override
+    public List<? extends AVar> selectVar() {
+        return this.aExpression.selectVar();
+    }
+
+    /**
+     * Method used by the lara interpreter to select arrayAccesss
+     * @return 
+     */
+    @Override
+    public List<? extends AArrayAccess> selectArrayAccess() {
+        return this.aExpression.selectArrayAccess();
+    }
+
+    /**
+     * Method used by the lara interpreter to select binaryExpressions
+     * @return 
+     */
+    @Override
+    public List<? extends ABinaryExpression> selectBinaryExpression() {
+        return this.aExpression.selectBinaryExpression();
+    }
+
+    /**
+     * Method used by the lara interpreter to select binaryExprs
+     * @return 
+     */
+    @Override
+    public List<? extends ABinaryExpression> selectBinaryExpr() {
+        return this.aExpression.selectBinaryExpr();
     }
 
     /**
@@ -201,6 +271,18 @@ public abstract class ALiteral extends AExpression {
         	case "expr": 
         		joinPointList = selectExpr();
         		break;
+        	case "var": 
+        		joinPointList = selectVar();
+        		break;
+        	case "arrayAccess": 
+        		joinPointList = selectArrayAccess();
+        		break;
+        	case "binaryExpression": 
+        		joinPointList = selectBinaryExpression();
+        		break;
+        	case "binaryExpr": 
+        		joinPointList = selectBinaryExpr();
+        		break;
         	default:
         		joinPointList = this.aExpression.select(selectName);
         		break;
@@ -221,6 +303,13 @@ public abstract class ALiteral extends AExpression {
         	}
         	if(value instanceof String){
         		this.defLineImpl((String)value);
+        		return;
+        	}
+        	this.unsupportedTypeForDef(attribute, value);
+        }
+        case "value": {
+        	if(value instanceof String){
+        		this.defValueImpl((String)value);
         		return;
         	}
         	this.unsupportedTypeForDef(attribute, value);
@@ -263,6 +352,7 @@ public abstract class ALiteral extends AExpression {
     @Override
     protected final void fillWithActions(List<String> actions) {
         this.aExpression.fillWithActions(actions);
+        actions.add("void setValue(String)");
     }
 
     /**

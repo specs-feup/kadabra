@@ -133,7 +133,9 @@
 	</artifact>
 	
 	<artifact class="literal" default="value">
-		<attribute name="value"				type="String"/>
+		<attribute name="value"				type="String">
+			<def/>
+		</attribute>
 	</artifact>
 	
 	
@@ -232,6 +234,7 @@
 		<attribute name="returnType"		type="string"/>
 	</artifact>
 	
+	<!-- BINARY EXPRESSION -->
 	<artifact class="binaryExpression" 	default="operator">
 		<attribute name="operator"			type="string">
 			<def/>
@@ -242,7 +245,7 @@
 		
 	</artifact>
 	
-	
+	<!-- UNARY EXPRESSION -->
 	<artifact class="unaryExpression" 	default="operator">
 		<attribute name="operand"			type="expression"/>
 		<attribute name="operator"			type="string">
@@ -251,9 +254,12 @@
 	</artifact>
 	
 	
+	<!-- ASSIGNMENT -->
 	<artifact class="assignment" 		default="operator">
 		<attribute name="operator"			type="string"/>
 	</artifact>
+	
+	<!-- EXPRESSION -->
 	<artifact class="expression" 		default="exprType">
 		<attribute name="kind"			type="string"/> <!-- literal|binaryExpression|var|arrayAccess|call -->
 		<attribute name="type" 				type="string"/> <!-- int, List,...-->
