@@ -52,6 +52,16 @@ public class JavaWeaverTest {
         newTester().test("GenericJoinPoint.lara", "GenericJoinPoint.java.test");
     }
 
+    @Test
+    public void testBinaryOperator() {
+        newTester().test("BinaryOperator.lara", "BinaryOperator.java.test");
+    }
+
+    @Test
+    public void testLiteral() {
+        newTester().test("Literal.lara", "Literal.java.test");
+    }
+
     // @Test
     public void testCompilationError() {
 

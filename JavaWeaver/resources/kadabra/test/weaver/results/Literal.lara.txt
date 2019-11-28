@@ -1,0 +1,14 @@
+old value: 1
+new value: 100
+old value: 1
+new value: 100
+old value: 1.0
+new value: 100.0
+old value: 1.0
+new value: 100.0
+old value: c
+new value: 1
+old value: a string
+new value: 100
+old value: true
+new value: false

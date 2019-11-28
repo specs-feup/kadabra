@@ -1,0 +1,21 @@
+import weaver.WeaverJps;
+
+aspectdef Literal
+
+	for(var $literal of WeaverJps.search('literal').get()) {
+		println("old value: " + $literal.value);	
+		changeType($literal);
+		println("new value: " + $literal.value);	
+	}
+
+end
+
+function changeType($literal) {
+		if($literal.type === 'boolean') {
+			$literal.value = 'false';
+			return;
+		}
+		
+		// Default
+		$literal.value = "100";
+}

@@ -1,0 +1,8 @@
+operator: *
+operands: 1,2
+lhs: 1
+rhs: 2
+operator: -
+operands: b,a
+lhs: b
+rhs: a

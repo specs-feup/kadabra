@@ -1,0 +1,20 @@
+public class Literal {
+
+	public static final int IL = 1;
+	public static final long LL = 1l;
+	public static final float FL = 1.0f;	
+	public static final double DL = 1.0;	
+	public static final char CL = 'c';	
+	public static final String SL = "a string";	
+	public static final boolean BL = true;	
+	
+	/*
+	public static int foo() {
+		int a = 1;
+		double b = 2.0;
+		
+		return a + 3;
+	}
+	*/
+
+}
