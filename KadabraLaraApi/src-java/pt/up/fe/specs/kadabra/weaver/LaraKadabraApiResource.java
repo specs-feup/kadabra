@@ -19,19 +19,18 @@ import org.lara.interpreter.weaver.utils.LaraResourceProvider;
  * @author Joao Bispo
  *
  */
-public enum LaraWeaverApiResource implements LaraResourceProvider {
-
-    JOINPOINTS("JoinPoints.lara");
+public enum LaraKadabraApiResource implements LaraResourceProvider {
+    BINARY_EXPRESSION_MUTATOR("mutation/BinaryExpressionMutator.lara");
 
     private final String resource;
 
     private static final String WEAVER_PACKAGE = "kadabra/";
-    private static final String BASE_PACKAGE = "weaver/";
+    private static final String BASE_PACKAGE = "kadabra/";
 
     /**
      * @param resource
      */
-    private LaraWeaverApiResource(String resource) {
+    private LaraKadabraApiResource(String resource) {
         this.resource = WEAVER_PACKAGE + getSeparatorChar() + BASE_PACKAGE + resource;
     }
 
