@@ -10835,6 +10835,272 @@
       },
       {
          "type": "joinpoint",
+         "name": "reference",
+         "extends": "joinpoint"      ,
+         "tooltip": "Points to a named program element reference",
+         "children": [
+               {
+                  "type": "attribute",
+                  "tooltip": "The element that is being referenced",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "declaration"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Name of the element of the reference",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "name"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Type of the element of the reference",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "type"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "attributes"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "selects"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "actions"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "ancestor"
+                           },
+                           {
+                              "type": "String",
+                              "name": "type"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "A string representation of the AST corresponding to this node",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "ast"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the child of the node at the given index",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "child"
+                           },
+                           {
+                              "type": "Integer",
+                              "name": "index"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns an array with the children of the node",
+                  "children": [
+                           {
+                              "type": "joinpoint[]",
+                              "name": "children"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "The source code corresponding to this join point",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "code"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "children": [
+                           {
+                              "type": "joinpoint[]",
+                              "name": "descendants"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "true if this node is considered a block of statements",
+                  "children": [
+                           {
+                              "type": "boolean",
+                              "name": "isBlock"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "true if this node is considered a statement",
+                  "children": [
+                           {
+                              "type": "boolean",
+                              "name": "isStatement"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "children": [
+                           {
+                              "type": "int",
+                              "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Returns the number of children of the node",
+                  "children": [
+                           {
+                              "type": "Integer",
+                              "name": "numChildren"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "parent"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "Alias for attribute 'code'",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "srcCode"
+                           }]
+               },
+               {
+                  "type": "action",
+                  "children": [
+                           {
+                              "type": "void",
+                              "name": "insert"
+                           },
+                           {
+                              "type": "[before| after| replace]",
+                              "name": "position",
+                              "defaultValue": ""
+                           },
+                           {
+                              "type": "String",
+                              "name": "code",
+                              "defaultValue": ""
+                           }]
+               },
+               {
+                  "type": "action",
+                  "children": [
+                           {
+                              "type": "void",
+                              "name": "def"
+                           },
+                           {
+                              "type": "String",
+                              "name": "attribute",
+                              "defaultValue": ""
+                           },
+                           {
+                              "type": "Object",
+                              "name": "value",
+                              "defaultValue": ""
+                           }]
+               },
+               {
+                  "type": "action",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "copy"
+                           }]
+               },
+               {
+                  "type": "action",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "insertAfter"
+                           },
+                           {
+                              "type": "joinpoint",
+                              "name": "node",
+                              "defaultValue": ""
+                           }]
+               },
+               {
+                  "type": "action",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "insertAfter"
+                           },
+                           {
+                              "type": "String",
+                              "name": "code",
+                              "defaultValue": ""
+                           }]
+               },
+               {
+                  "type": "action",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "insertReplace"
+                           },
+                           {
+                              "type": "joinpoint",
+                              "name": "jp",
+                              "defaultValue": ""
+                           }]
+               },
+               {
+                  "type": "action",
+                  "children": [
+                           {
+                              "type": "joinpoint",
+                              "name": "insertReplace"
+                           },
+                           {
+                              "type": "String",
+                              "name": "code",
+                              "defaultValue": ""
+                           }]
+               }]
+      },
+      {
+         "type": "joinpoint",
          "name": "return",
          "extends": "statement"      ,
          "children": [

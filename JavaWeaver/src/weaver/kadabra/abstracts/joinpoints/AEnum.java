@@ -1,14 +1,12 @@
 package weaver.kadabra.abstracts.joinpoints;
 
-import java.util.Arrays;
 import java.util.List;
+import org.lara.interpreter.weaver.interf.SelectOp;
+import weaver.kadabra.entities.Pair;
+import org.lara.interpreter.weaver.interf.JoinPoint;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import org.lara.interpreter.weaver.interf.JoinPoint;
-import org.lara.interpreter.weaver.interf.SelectOp;
-
-import weaver.kadabra.entities.Pair;
+import java.util.Arrays;
 
 /**
  * Auto-Generated class for join point AEnum

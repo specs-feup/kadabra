@@ -286,6 +286,16 @@
 	<artifact class="pragma" default="name">
 		<attribute name="name"			type="String"/>
 	</artifact>
+
+	<!-- REFERENCE -->
+	<artifact class="reference" default="name">
+		<attribute name="name"			type="String" tooltip="Name of the element of the reference"/>
+		<attribute name="declaration"	type="joinpoint" tooltip="The element that is being referenced"/>		
+		<attribute name="type"			type="String" tooltip="Type of the element of the reference"/>		
+	</artifact>
+
+
+
 	<typedef name="Pair">
 		<attribute name="left"				type="string"/>
 		<attribute name="right"				type="string"/>

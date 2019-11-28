@@ -49,10 +49,10 @@ public class JBinaryExpression<T> extends ABinaryExpression {
         // return exprs;
     }
 
-    @Override
-    public String toString() {
-        return "Binary Expression: " + node;
-    }
+    // @Override
+    // public String toString() {
+    // return "Binary Expression: " + node;
+    // }
 
     @Override
     public List<? extends AExpression> selectRhs() {

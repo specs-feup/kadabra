@@ -1,16 +1,14 @@
 package weaver.kadabra.abstracts.joinpoints;
 
+import org.lara.interpreter.weaver.interf.JoinPoint;
+import spoon.reflect.declaration.CtElement;
 import java.util.List;
+import org.lara.interpreter.weaver.interf.events.Stage;
 import java.util.Optional;
-
 import org.lara.interpreter.exception.ActionException;
 import org.lara.interpreter.exception.AttributeException;
-import org.lara.interpreter.weaver.interf.JoinPoint;
-import org.lara.interpreter.weaver.interf.SelectOp;
-import org.lara.interpreter.weaver.interf.events.Stage;
-
-import spoon.reflect.declaration.CtElement;
 import weaver.kadabra.JavaWeaver;
+import org.lara.interpreter.weaver.interf.SelectOp;
 
 /**
  * Abstract class containing the global attributes and default action exception.

@@ -25,12 +25,14 @@ import spoon.reflect.declaration.CtExecutable;
 import spoon.reflect.declaration.CtField;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.declaration.CtVariable;
+import spoon.reflect.reference.CtReference;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 import weaver.kadabra.joinpoints.JBody;
 import weaver.kadabra.joinpoints.JComment;
 import weaver.kadabra.joinpoints.JDeclaration;
 import weaver.kadabra.joinpoints.JField;
 import weaver.kadabra.joinpoints.JGenericJoinPoint;
+import weaver.kadabra.joinpoints.JReference;
 
 /**
  * Converts a given element to the correct Join point type
@@ -60,6 +62,8 @@ public class CtElement2JoinPoint {
         CONVERTER.put(CtType.class, CtType2AType::convert);
         CONVERTER.put(CtStatement.class, CtStatement2AStatement::convert);
         CONVERTER.put(CtExpression.class, CtExpression2AExpression::convert);
+        CONVERTER.put(CtReference.class, JReference::newInstance);
+
         // CONVERTER.setDefaultFunction(element -> null);
         /**/
         CONVERTER.setDefaultFunction(JGenericJoinPoint::newInstance);

@@ -241,6 +241,12 @@
 	<joinpoint class="continue" extends="statement"/>
 	<joinpoint class="break" extends="statement"/>
 	
+	<!-- REFERENCE -->
+	<joinpoint class="reference" tooltip="Points to a named program element reference"/>
+	
+	<!-- TYPE REFERENCE -->
+	<!--  <joinpoint class="typeReference" tooltip="Reference to a type"/>  -->
+	
 </joinpoints>
 
 	<!-- PACKAGE - to be removed! -->

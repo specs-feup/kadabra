@@ -1,16 +1,14 @@
 package weaver.kadabra.abstracts.joinpoints;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
-import org.lara.interpreter.exception.ActionException;
-import org.lara.interpreter.weaver.interf.JoinPoint;
 import org.lara.interpreter.weaver.interf.SelectOp;
 import org.lara.interpreter.weaver.interf.events.Stage;
-
+import java.util.Optional;
+import org.lara.interpreter.exception.ActionException;
 import weaver.kadabra.entities.Pair;
+import org.lara.interpreter.weaver.interf.JoinPoint;
+import java.util.stream.Collectors;
+import java.util.Arrays;
 
 /**
  * Auto-Generated class for join point AClass

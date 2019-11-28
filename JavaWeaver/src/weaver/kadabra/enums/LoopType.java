@@ -1,9 +1,8 @@
 package weaver.kadabra.enums;
 
 import org.lara.interpreter.weaver.interf.NamedEnum;
-
-import pt.up.fe.specs.util.enums.EnumHelperWithValue;
 import pt.up.fe.specs.util.lazy.Lazy;
+import pt.up.fe.specs.util.enums.EnumHelperWithValue;
 
 /**
  * 
