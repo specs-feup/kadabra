@@ -1,0 +1,31 @@
+aspectdef GlobalJp
+
+	// App children
+	select app end
+	apply
+		println("app num children: " + $app.numChildren);	
+	end
+	
+	// File children
+	select file end
+	apply
+		println("file num children: " + $file.numChildren);	
+	end	
+
+	// Statement children
+	select type.method{"foo"}.statement end
+	apply
+		println("stmt children: " + $statement.children);
+		println("stmt child 0: " + $statement.child(0));
+		println("stmt num children: " + $statement.numChildren);
+		
+		break;
+	end
+
+
+	// App ast
+	select app end
+	apply
+		println("app ast:\n" + $app.ast);	
+	end
+end
