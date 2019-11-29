@@ -30,6 +30,8 @@ var BinaryExpressionMutator = function($binaryExpression) {
 BinaryExpressionMutator.prototype = Object.create(Mutator.prototype);
 
 
+/*** IMPLEMENTATION OF INSTANCE METHODS ***/
+
 BinaryExpressionMutator.prototype.hasMutations = function() {
 	return this.currentIndex < this.newOperators.length;
 }
