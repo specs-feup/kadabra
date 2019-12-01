@@ -36,6 +36,10 @@ BinaryExpressionMutator.prototype.hasMutations = function() {
 	return this.currentIndex < this.newOperators.length;
 }
 
+BinaryExpressionMutator.prototype.getMutationPoint = function() {
+	return this.$binaryExpression;
+}
+
 
 BinaryExpressionMutator.prototype._mutatePrivate = function() {
 	// Obtain new operator, increment index
