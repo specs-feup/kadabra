@@ -14,7 +14,10 @@ aspectdef BinaryExpressionMutatorTest
 				mutator.mutate();
 				
 				// Print
-				println($op.ancestor('method').srcCode);
+				if(mutator.getMutationPoint() !== undefined) {
+					println(mutator.getMutationPoint().ancestor('method').srcCode);
+				}
+
 	
 				// Restore operator
 				mutator.restore();
