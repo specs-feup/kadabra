@@ -35,8 +35,6 @@ import weaver.kadabra.util.KadabraLog;
 import weaver.utils.SpoonUtils;
 import weaver.utils.weaving.ActionUtils;
 import weaver.utils.weaving.SelectUtils;
-import weaver.utils.weaving.SnippetFactory;
-import weaver.utils.weaving.converters.CtElement2JoinPoint;
 import weaver.utils.weaving.converters.CtExpression2AExpression;
 
 public class JExpression<T> extends AExpression {
@@ -210,9 +208,9 @@ public class JExpression<T> extends AExpression {
         return insertImplJExpression("after", code);
     }
 
-    @Override
-    public AJoinPoint copyImpl() {
-        return CtElement2JoinPoint.convert(SnippetFactory.createSnippetExpression(node.getFactory(), getSrcCodeImpl()));
-    }
+    // @Override
+    // public AJoinPoint copyImpl() {
+    // return CtElement2JoinPoint.convert(SnippetFactory.createSnippetExpression(node.getFactory(), getSrcCodeImpl()));
+    // }
 
 }

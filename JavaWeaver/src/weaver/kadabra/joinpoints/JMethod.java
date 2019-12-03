@@ -15,6 +15,7 @@ package weaver.kadabra.joinpoints;
 
 import java.util.Set;
 
+import spoon.refactoring.Refactoring;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.declaration.CtType;
@@ -28,6 +29,7 @@ import weaver.utils.SpoonUtils;
 import weaver.utils.generators.AdapterGenerator;
 import weaver.utils.weaving.ActionUtils;
 import weaver.utils.weaving.TypeUtils;
+import weaver.utils.weaving.converters.CtElement2JoinPoint;
 
 public class JMethod<T> extends AMethod {
 
@@ -41,6 +43,11 @@ public class JMethod<T> extends AMethod {
 
     public static <T> JMethod<T> newInstance(CtMethod<T> node) {
         return new JMethod<>(node);
+    }
+
+    @Override
+    public AJoinPoint copyImpl() {
+        return CtElement2JoinPoint.convert(Refactoring.copyMethod(node));
     }
 
     @Override

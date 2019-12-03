@@ -20,6 +20,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import spoon.refactoring.Refactoring;
 import spoon.reflect.code.CtComment;
 import spoon.reflect.cu.CompilationUnit;
 import spoon.reflect.declaration.CtExecutable;
@@ -48,6 +49,7 @@ import weaver.utils.scanners.NodeSearcher;
 import weaver.utils.weaving.ActionUtils;
 import weaver.utils.weaving.SelectUtils;
 import weaver.utils.weaving.SnippetFactory;
+import weaver.utils.weaving.converters.CtElement2JoinPoint;
 import weaver.utils.weaving.converters.CtExecutable2AExecutable;
 
 public class JType<T> extends AType {
@@ -62,6 +64,11 @@ public class JType<T> extends AType {
 
     public static <T> JType<T> newInstance(CtType<T> node, CompilationUnit parent) {
         return new JType<>(node);// , parent);
+    }
+
+    @Override
+    public AJoinPoint copyImpl() {
+        return CtElement2JoinPoint.convert(Refactoring.copyType(node));
     }
 
     @Override

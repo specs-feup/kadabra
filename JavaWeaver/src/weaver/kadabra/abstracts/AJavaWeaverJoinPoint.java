@@ -290,7 +290,8 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
     // }
     @Override
     public AJoinPoint copyImpl() {
-        throw new RuntimeException(".copy not implemented yet for join point " + getJoinPointType());
+        return CtElement2JoinPoint.convert(getNode().clone());
+        // throw new RuntimeException(".copy not implemented yet for join point " + getJoinPointType());
     }
 
     public List<CtElement> getChildrenNodes() {
