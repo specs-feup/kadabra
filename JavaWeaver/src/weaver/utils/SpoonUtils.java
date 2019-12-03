@@ -411,6 +411,11 @@ public class SpoonUtils {
     }
 
     public static List<CtElement> getChildren(CtElement node) {
-        return node.getElements(element -> element.getParent() == node);
+        // System.out.println("NODE: " + node);
+        // System.out.println("IS PARENT: " + node.hasParent(node));
+        // System.out.println("IS PARENT INITIALIZED: " + node.isParentInitialized());
+
+        // return node.getElements(element -> element.getParent() == node);
+        return node.getElements(element -> element.hasParent(node));
     }
 }
