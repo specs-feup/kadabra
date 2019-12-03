@@ -10,6 +10,8 @@ aspectdef BinaryOperator
 	
 	}
 
+	// Ast of the operator copy
+	println(WeaverJps.search('binaryExpression').getFirst().copy().ast);
 /*
 	select file.binaryExpr end
 	apply
