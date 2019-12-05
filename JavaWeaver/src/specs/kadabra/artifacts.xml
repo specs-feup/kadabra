@@ -101,7 +101,9 @@
 	
 	<!-- EXECUTABLE -->
 	<artifact class="executable" default="name">
-   		<attribute name="name"				type="String"/>	
+   		<attribute name="name"				type="String">
+   			<def/>
+   		</attribute>	
    		<attribute name="returnType"		type="String"/>
 	</artifact>
 	

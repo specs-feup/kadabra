@@ -272,18 +272,18 @@ public class ActionUtils {
         case AROUND:
         case REPLACE:
 
-            System.out.println("PARENT: " + referenceNode.getParent().getClass());
-            System.out.println("REPLACING WITH '" + snippet + "'");
-            // Insert before node
-            env.getTable().addBefore(referenceNode, snippet);
+            // System.out.println("PARENT: " + referenceNode.getParent().getClass());
+            // System.out.println("REPLACING WITH '" + snippet + "'");
+            // // Insert before node
+            // env.getTable().addBefore(referenceNode, snippet);
+            //
+            // // Set same parent
+            // snippet.setParent(referenceNode.getParent());
+            //
+            // // Remove node from tree
+            // referenceNode.replace(Collections.emptyList());
 
-            // Set same parent
-            snippet.setParent(referenceNode.getParent());
-
-            // Remove node from tree
-            referenceNode.replace(Collections.emptyList());
-
-            // env.getTable().addReplace(referenceNode, snippet);
+            env.getTable().addReplace(referenceNode, snippet);
 
             break;
         default:

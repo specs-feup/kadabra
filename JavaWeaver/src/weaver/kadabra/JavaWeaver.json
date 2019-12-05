@@ -790,6 +790,20 @@
                },
                {
                   "type": "action",
+                  "tooltip": "Sets the name of this executable, returns the previous name",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "setName"
+                           },
+                           {
+                              "type": "String",
+                              "name": "name",
+                              "defaultValue": ""
+                           }]
+               },
+               {
+                  "type": "action",
                   "children": [
                            {
                               "type": "void",
@@ -5635,6 +5649,20 @@
                },
                {
                   "type": "action",
+                  "tooltip": "Sets the name of this executable, returns the previous name",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "setName"
+                           },
+                           {
+                              "type": "String",
+                              "name": "name",
+                              "defaultValue": ""
+                           }]
+               },
+               {
+                  "type": "action",
                   "children": [
                            {
                               "type": "void",
@@ -7232,6 +7260,20 @@
                   "type": "select",
                   "clazz": "declaration",
                   "alias": "param"
+               },
+               {
+                  "type": "action",
+                  "tooltip": "Sets the name of this executable, returns the previous name",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "setName"
+                           },
+                           {
+                              "type": "String",
+                              "name": "name",
+                              "defaultValue": ""
+                           }]
                },
                {
                   "type": "action",
@@ -11461,6 +11503,20 @@
                               "type": "method",
                               "name": "adaptMethod",
                               "defaultValue": ""
+                           },
+                           {
+                              "type": "String",
+                              "name": "name",
+                              "defaultValue": ""
+                           }]
+               },
+               {
+                  "type": "action",
+                  "tooltip": "Sets the name of this executable, returns the previous name",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "setName"
                            },
                            {
                               "type": "String",

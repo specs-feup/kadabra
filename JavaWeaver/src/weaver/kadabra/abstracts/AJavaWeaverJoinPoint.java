@@ -42,6 +42,8 @@ import weaver.utils.weaving.converters.CtType2AType;
  */
 public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
 
+    // public static final Map<CtElement, CtElement> CLONED_NODES = new HashMap<>();
+
     /**
      * Compares the two join points based on their node reference of the used compiler/parsing tool.<br>
      * This is the default implementation for comparing two join points. <br>
@@ -314,7 +316,14 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
     // }
     @Override
     public AJoinPoint copyImpl() {
-        return CtElement2JoinPoint.convert(getNode().clone());
+        // Clone the node
+        var copy = getNode().clone();
+        // Set the parent
+        copy.setParent(getNode().getParent());
+
+        // CLONED_NODES.put(copy, getNode());
+
+        return CtElement2JoinPoint.convert(copy);
         // throw new RuntimeException(".copy not implemented yet for join point " + getJoinPointType());
     }
 

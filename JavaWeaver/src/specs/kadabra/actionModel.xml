@@ -80,6 +80,12 @@
 		<parameter name="methodName" type="String"/>
 	</action>
 	
+	<!--  EXECUTABLE -->
+	<action name="setName" class="executable" return="string" tooltip="Sets the name of this executable, returns the previous name">
+		<parameter name="name" type="String"/>	
+	</action>
+	
+	
 	<!--  CLASS -->
 	<action name="newConstructor" class="class" return="constructor">
 		<parameter name="modifiers" type="String[]" default="['public']"/>

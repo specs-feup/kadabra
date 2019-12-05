@@ -306,6 +306,13 @@ public abstract class AMethod extends AExecutable {
 
     /**
      * 
+     */
+    public void defNameImpl(String value) {
+        this.aExecutable.defNameImpl(value);
+    }
+
+    /**
+     * 
      * @param node 
      */
     @Override
@@ -372,6 +379,15 @@ public abstract class AMethod extends AExecutable {
     @Override
     public void removeImpl() {
         this.aExecutable.removeImpl();
+    }
+
+    /**
+     * Sets the name of this executable, returns the previous name
+     * @param name 
+     */
+    @Override
+    public String setNameImpl(String name) {
+        return this.aExecutable.setNameImpl(name);
     }
 
     /**
@@ -450,6 +466,13 @@ public abstract class AMethod extends AExecutable {
         case "privacy": {
         	if(value instanceof String){
         		this.defPrivacyImpl((String)value);
+        		return;
+        	}
+        	this.unsupportedTypeForDef(attribute, value);
+        }
+        case "name": {
+        	if(value instanceof String){
+        		this.defNameImpl((String)value);
         		return;
         	}
         	this.unsupportedTypeForDef(attribute, value);

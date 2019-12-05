@@ -415,6 +415,10 @@ public class SpoonUtils {
         // System.out.println("IS PARENT: " + node.hasParent(node));
         // System.out.println("IS PARENT INITIALIZED: " + node.isParentInitialized());
 
+        // var originalNode = AJavaWeaverJoinPoint.CLONED_NODES.get(node);
+        // var nodeToCompare = originalNode == null ? node : originalNode;
+
+        // return node.getElements(element -> element.getParent() == nodeToCompare);
         return node.getElements(element -> element.getParent() == node);
         // return node.getElements(element -> element.hasParent(node));
     }

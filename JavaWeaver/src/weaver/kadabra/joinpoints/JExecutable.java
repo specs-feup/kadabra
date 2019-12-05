@@ -43,6 +43,18 @@ public class JExecutable<R> extends AExecutable {
     }
 
     @Override
+    public void defNameImpl(String value) {
+        node.setSimpleName(value);
+    }
+
+    @Override
+    public String setNameImpl(String name) {
+        var currentName = node.getSimpleName();
+        defNameImpl(name);
+        return currentName;
+    }
+
+    @Override
     public String getReturnTypeImpl() {
         return node.getType().getSimpleName();
     }

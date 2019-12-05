@@ -6,4 +6,7 @@ public class KadabraNodes {
 
     /* A comment replacing foo2 */
 
+	public static int foo4() {
+		return 2 + 2;
+	}	
 }

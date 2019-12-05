@@ -1,8 +1,9 @@
 import kadabra.KadabraNodes;
 import weaver.WeaverJps;
+import lara.Strings;
 
 aspectdef KadabraNodesTest
-/*
+
 	// Insert a join point before
 	var $expr = WeaverJps.search("method", {name: "foo"}).search("expression").getFirst();
 	$expr.insert before KadabraNodes.comment("A comment");
@@ -14,9 +15,18 @@ aspectdef KadabraNodesTest
 	// Remove a join point
 	var $foo3 = WeaverJps.search("method", {name: "foo3"}).getFirst();
 	$foo3.remove();
+
+	var $foo4 = WeaverJps.search("method", {name: "foo4"}).getFirst();
+	
+	// Change name
+	var previousName = $foo4.setName($foo4.name + "_" + Strings.uuid()); 
+		
+	// Restore name
+	$foo4.name = previousName; 
 	
 	println(WeaverJps.search("file").getFirst().code);
-*/
+
+/*
 	println("Original AST: " + WeaverJps.search("file").getFirst().ast);
 	println("Original Code: " + WeaverJps.search("file").getFirst().code);
 	
@@ -40,5 +50,6 @@ aspectdef KadabraNodesTest
 	println("Code: " + WeaverJps.search("file").getFirst().code);
 	println("Foo4: " + $foo4.code);
 	println("Comment: " + $comment.code);	
+	*/
 end
 

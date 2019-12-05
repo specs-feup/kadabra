@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.lara.interpreter.exception.AttributeException;
 import java.util.List;
 import org.lara.interpreter.weaver.interf.SelectOp;
+import org.lara.interpreter.exception.ActionException;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 import org.lara.interpreter.weaver.interf.JoinPoint;
 import java.util.stream.Collectors;
@@ -42,6 +43,13 @@ public abstract class AExecutable extends AJavaWeaverJoinPoint {
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "name", e);
         }
+    }
+
+    /**
+     * 
+     */
+    public void defNameImpl(String value) {
+        throw new UnsupportedOperationException("Join point "+get_class()+": Action def name with type String not implemented ");
     }
 
     /**
@@ -86,6 +94,33 @@ public abstract class AExecutable extends AJavaWeaverJoinPoint {
     }
 
     /**
+     * Sets the name of this executable, returns the previous name
+     * @param name 
+     */
+    public String setNameImpl(String name) {
+        throw new UnsupportedOperationException(get_class()+": Action setName not implemented ");
+    }
+
+    /**
+     * Sets the name of this executable, returns the previous name
+     * @param name 
+     */
+    public final String setName(String name) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "setName", this, Optional.empty(), name);
+        	}
+        	String result = this.setNameImpl(name);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "setName", this, Optional.ofNullable(result), name);
+        	}
+        	return result;
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "setName", e);
+        }
+    }
+
+    /**
      * 
      */
     @Override
@@ -122,6 +157,13 @@ public abstract class AExecutable extends AJavaWeaverJoinPoint {
         	}
         	this.unsupportedTypeForDef(attribute, value);
         }
+        case "name": {
+        	if(value instanceof String){
+        		this.defNameImpl((String)value);
+        		return;
+        	}
+        	this.unsupportedTypeForDef(attribute, value);
+        }
         default: throw new UnsupportedOperationException("Join point "+get_class()+": attribute '"+attribute+"' cannot be defined");
         }
     }
@@ -152,6 +194,7 @@ public abstract class AExecutable extends AJavaWeaverJoinPoint {
     @Override
     protected void fillWithActions(List<String> actions) {
         super.fillWithActions(actions);
+        actions.add("string setName(String)");
     }
 
     /**
