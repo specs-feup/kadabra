@@ -20,7 +20,9 @@ import org.lara.interpreter.weaver.utils.LaraResourceProvider;
  *
  */
 public enum LaraKadabraApiResource implements LaraResourceProvider {
-    BINARY_EXPRESSION_MUTATOR("mutation/BinaryExpressionMutator.lara");
+
+    ;
+    // BINARY_EXPRESSION_MUTATOR("mutation/BinaryExpressionMutator.lara");
 
     private final String resource;
 
