@@ -22,7 +22,7 @@ public enum LaraAPIResources implements ResourceProvider {
     ;
 
     private LaraAPIResources(String subPackage, String fileName) {
-	resource = basePackage + subPackage + fileName + extension;
+        resource = basePackage + subPackage + fileName + extension;
     }
 
     private final String resource;
@@ -32,7 +32,7 @@ public enum LaraAPIResources implements ResourceProvider {
     @Override
     public String getResource() {
 
-	return resource;
+        return resource;
     }
 
 }
@@ -42,4 +42,5 @@ interface PackageProvider {
     static final String monitorPackage = "monitor/";
     static final String instPackage = "inst/";
     static final String systemPackage = "system/";
+    static final String mutationPackage = "mutation/";
 }

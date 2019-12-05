@@ -1,0 +1,28 @@
+import kadabra._KadabraJavaTypes;
+
+/**
+ * Utility methods related with the creation of new join points.
+ */
+var KadabraNodes = {};
+
+
+/**
+ * @param {string} comment - The string representing the contents of a comment.
+ * @param {string} type - The type of the comment. Can be one of 'File', 'Javadoc', 'Inline' or 'Block'. If not specified, uses Block as default.
+ */
+KadabraNodes.comment= function(comment, type) {
+	if(comment === undefined) {
+		comment = "";
+	}
+
+	// Default type is block
+	if(type === undefined) {
+		type = "block";
+	}
+
+	checkString(type);
+
+	comment = comment.toString();	
+	
+	return _KadabraJavaTypes.getKadabraJoinPoints().comment(comment, type);
+}

@@ -1,0 +1,9 @@
+public class KadabraNodes {
+    public static int foo() {
+        /* A comment */
+        return 1 + 2;
+    }
+
+    /* A comment replacing foo2 */
+
+}

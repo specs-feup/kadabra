@@ -60,4 +60,9 @@ public class JavaApiTest {
     public void testBinaryExpressionMutator() {
         newTester().test("BinaryExpressionMutatorTest.lara", "BinaryExpressionMutator.java.test");
     }
+
+    @Test
+    public void testKadabraNodes() {
+        newTester().test("KadabraNodesTest.lara", "KadabraNodes.java.test");
+    }
 }

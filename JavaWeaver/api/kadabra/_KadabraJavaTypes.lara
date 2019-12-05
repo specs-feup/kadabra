@@ -1,0 +1,12 @@
+import lara._JavaTypes;
+
+/**
+ * Static variables with class names of Java classes used in the Kadabra API.
+ * @class
+ */
+var _KadabraJavaTypes = {};
+
+
+_KadabraJavaTypes.getKadabraJoinPoints = function() {
+	return _JavaTypes.getType("weaver.kadabra.importable.KadabraJoinPoints");
+}
