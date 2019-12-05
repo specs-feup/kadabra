@@ -13,7 +13,10 @@
 
 package weaver.kadabra.joinpoints;
 
+import org.lara.interpreter.weaver.interf.JoinPoint;
+
 import spoon.reflect.code.CtCodeSnippetExpression;
+import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtField;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.AField;
@@ -52,8 +55,17 @@ public class JField<T> extends AField {
     }
 
     @Override
+    public AJoinPoint[] insertImpl(String position, JoinPoint code) {
+        return new AJoinPoint[] { insertImplJField(position, (CtElement) code.getNode()) };
+    }
+
+    @Override
     public AJoinPoint[] insertImpl(String position, String code) {
         return new AJoinPoint[] { insertImplJField(position, code) };
+    }
+
+    public AJavaWeaverJoinPoint insertImplJField(String position, CtElement code) {
+        return ActionUtils.insertMember(node, code, position, getWeaverProfiler());
     }
 
     public AJavaWeaverJoinPoint insertImplJField(String position, String code) {
@@ -61,8 +73,18 @@ public class JField<T> extends AField {
     }
 
     @Override
+    public AJoinPoint insertBeforeImpl(String code) {
+        return insertImplJField("before", code);
+    }
+
+    @Override
     public AJoinPoint insertAfterImpl(String code) {
         return insertImplJField("after", code);
+    }
+
+    @Override
+    public AJoinPoint insertReplaceImpl(String code) {
+        return insertImplJField("replace", code);
     }
 
     @Override

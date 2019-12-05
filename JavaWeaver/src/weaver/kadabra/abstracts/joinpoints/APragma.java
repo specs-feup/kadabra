@@ -111,6 +111,24 @@ public abstract class APragma extends AComment {
      * @param node 
      */
     @Override
+    public AJoinPoint insertBeforeImpl(AJoinPoint node) {
+        return this.aComment.insertBeforeImpl(node);
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    @Override
+    public AJoinPoint insertBeforeImpl(String code) {
+        return this.aComment.insertBeforeImpl(code);
+    }
+
+    /**
+     * 
+     * @param node 
+     */
+    @Override
     public AJoinPoint insertAfterImpl(AJoinPoint node) {
         return this.aComment.insertAfterImpl(node);
     }
@@ -148,6 +166,14 @@ public abstract class APragma extends AComment {
     @Override
     public AJoinPoint copyImpl() {
         return this.aComment.copyImpl();
+    }
+
+    /**
+     * 
+     */
+    @Override
+    public void removeImpl() {
+        this.aComment.removeImpl();
     }
 
     /**

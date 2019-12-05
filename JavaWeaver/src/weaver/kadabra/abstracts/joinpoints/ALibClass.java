@@ -109,6 +109,24 @@ public abstract class ALibClass extends ANamedType {
      * @param node 
      */
     @Override
+    public AJoinPoint insertBeforeImpl(AJoinPoint node) {
+        return this.aNamedType.insertBeforeImpl(node);
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    @Override
+    public AJoinPoint insertBeforeImpl(String code) {
+        return this.aNamedType.insertBeforeImpl(code);
+    }
+
+    /**
+     * 
+     * @param node 
+     */
+    @Override
     public AJoinPoint insertAfterImpl(AJoinPoint node) {
         return this.aNamedType.insertAfterImpl(node);
     }
@@ -146,6 +164,14 @@ public abstract class ALibClass extends ANamedType {
     @Override
     public AJoinPoint copyImpl() {
         return this.aNamedType.copyImpl();
+    }
+
+    /**
+     * 
+     */
+    @Override
+    public void removeImpl() {
+        this.aNamedType.removeImpl();
     }
 
     /**

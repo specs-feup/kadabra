@@ -24,8 +24,8 @@ import org.suikasoft.jOptions.Interfaces.DataStore;
 import kadabra.resources.KadabraAPIResources;
 import kadabra.resources.LaraAPIResources;
 import pt.up.fe.specs.kadabra.weaver.LaraCoreApiResource;
-import pt.up.fe.specs.kadabra.weaver.LaraKadabraApiResource;
 import pt.up.fe.specs.kadabra.weaver.LaraWeaverApiResource;
+import pt.up.fe.specs.spoon.SpoonFactory;
 import pt.up.fe.specs.util.SpecsCollections;
 import pt.up.fe.specs.util.SpecsIo;
 import pt.up.fe.specs.util.SpecsLogs;
@@ -453,7 +453,7 @@ public class JavaWeaver extends AJavaWeaver {
     public List<ResourceProvider> getAspectsAPI() {
         return ResourceProvider.getResourcesFromEnum(
                 Arrays.asList(LaraAPIResources.class, KadabraAPIResources.class, LaraCoreApiResource.class,
-                        LaraWeaverApiResource.class, LaraKadabraApiResource.class));
+                        LaraWeaverApiResource.class));
 
         // return ResourceProvider.getResources(LaraAPIResources.class);
     }
@@ -492,6 +492,10 @@ public class JavaWeaver extends AJavaWeaver {
      **/
     public static JavaWeaver getJavaWeaver() {
         return (JavaWeaver) getThreadLocalWeaver();
+    }
+
+    public static SpoonFactory getFactory() {
+        return new SpoonFactory(getJavaWeaver().spoon.getFactory());
     }
 
     @Override

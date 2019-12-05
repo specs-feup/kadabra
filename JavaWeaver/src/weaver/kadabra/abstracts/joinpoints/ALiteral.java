@@ -175,6 +175,24 @@ public abstract class ALiteral extends AExpression {
      * @param node 
      */
     @Override
+    public AJoinPoint insertBeforeImpl(AJoinPoint node) {
+        return this.aExpression.insertBeforeImpl(node);
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    @Override
+    public AJoinPoint insertBeforeImpl(String code) {
+        return this.aExpression.insertBeforeImpl(code);
+    }
+
+    /**
+     * 
+     * @param node 
+     */
+    @Override
     public AJoinPoint insertAfterImpl(AJoinPoint node) {
         return this.aExpression.insertAfterImpl(node);
     }
@@ -212,6 +230,14 @@ public abstract class ALiteral extends AExpression {
     @Override
     public AJoinPoint copyImpl() {
         return this.aExpression.copyImpl();
+    }
+
+    /**
+     * 
+     */
+    @Override
+    public void removeImpl() {
+        this.aExpression.removeImpl();
     }
 
     /**

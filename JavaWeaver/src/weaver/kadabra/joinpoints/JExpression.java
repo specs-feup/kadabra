@@ -204,8 +204,18 @@ public class JExpression<T> extends AExpression {
     }
 
     @Override
+    public AJoinPoint insertBeforeImpl(String code) {
+        return insertImplJExpression("before", code);
+    }
+
+    @Override
     public AJoinPoint insertAfterImpl(String code) {
         return insertImplJExpression("after", code);
+    }
+
+    @Override
+    public AJoinPoint insertReplaceImpl(String code) {
+        return insertImplJExpression("replace", code);
     }
 
     // @Override

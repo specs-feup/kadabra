@@ -183,6 +183,24 @@ public abstract class AEnum extends AClass {
      * @param node 
      */
     @Override
+    public AJoinPoint insertBeforeImpl(AJoinPoint node) {
+        return this.aClass.insertBeforeImpl(node);
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    @Override
+    public AJoinPoint insertBeforeImpl(String code) {
+        return this.aClass.insertBeforeImpl(code);
+    }
+
+    /**
+     * 
+     * @param node 
+     */
+    @Override
     public AJoinPoint insertAfterImpl(AJoinPoint node) {
         return this.aClass.insertAfterImpl(node);
     }
@@ -220,6 +238,14 @@ public abstract class AEnum extends AClass {
     @Override
     public AJoinPoint copyImpl() {
         return this.aClass.copyImpl();
+    }
+
+    /**
+     * 
+     */
+    @Override
+    public void removeImpl() {
+        this.aClass.removeImpl();
     }
 
     /**

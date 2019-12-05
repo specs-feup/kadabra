@@ -71,11 +71,68 @@ public abstract class AJoinPoint extends JoinPoint {
      */
     @Override
     protected void fillWithActions(List<String> actions) {
+        actions.add("insertBefore(AJoinPoint node)");
+        actions.add("insertBefore(String code)");
         actions.add("insertAfter(AJoinPoint node)");
         actions.add("insertAfter(String code)");
         actions.add("insertReplace(AJoinPoint jp)");
         actions.add("insertReplace(String code)");
         actions.add("copy()");
+        actions.add("remove()");
+    }
+
+    /**
+     * 
+     * @param node 
+     */
+    public AJoinPoint insertBeforeImpl(AJoinPoint node) {
+        throw new UnsupportedOperationException(get_class()+": Action insertBefore not implemented ");
+    }
+
+    /**
+     * 
+     * @param node 
+     */
+    public final AJoinPoint insertBefore(AJoinPoint node) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "insertBefore", this, Optional.empty(), node);
+        	}
+        	AJoinPoint result = this.insertBeforeImpl(node);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "insertBefore", this, Optional.ofNullable(result), node);
+        	}
+        	return result;
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "insertBefore", e);
+        }
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    public AJoinPoint insertBeforeImpl(String code) {
+        throw new UnsupportedOperationException(get_class()+": Action insertBefore not implemented ");
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    public final AJoinPoint insertBefore(String code) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "insertBefore", this, Optional.empty(), code);
+        	}
+        	AJoinPoint result = this.insertBeforeImpl(code);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "insertBefore", this, Optional.ofNullable(result), code);
+        	}
+        	return result;
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "insertBefore", e);
+        }
     }
 
     /**
@@ -208,6 +265,30 @@ public abstract class AJoinPoint extends JoinPoint {
         	return result;
         } catch(Exception e) {
         	throw new ActionException(get_class(), "copy", e);
+        }
+    }
+
+    /**
+     * 
+     */
+    public void removeImpl() {
+        throw new UnsupportedOperationException(get_class()+": Action remove not implemented ");
+    }
+
+    /**
+     * 
+     */
+    public final void remove() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "remove", this, Optional.empty());
+        	}
+        	this.removeImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "remove", this, Optional.empty());
+        	}
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "remove", e);
         }
     }
 

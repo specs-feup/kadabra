@@ -15,6 +15,8 @@ package weaver.kadabra.joinpoints;
 
 import java.util.Set;
 
+import org.lara.interpreter.weaver.interf.JoinPoint;
+
 import spoon.refactoring.Refactoring;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtParameter;
@@ -25,9 +27,11 @@ import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.AClass;
 import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.AMethod;
+import weaver.kadabra.spoon.extensions.nodes.CtKadabraSnippetElement;
 import weaver.utils.SpoonUtils;
 import weaver.utils.generators.AdapterGenerator;
 import weaver.utils.weaving.ActionUtils;
+import weaver.utils.weaving.SnippetFactory;
 import weaver.utils.weaving.TypeUtils;
 import weaver.utils.weaving.converters.CtElement2JoinPoint;
 
@@ -160,13 +164,41 @@ public class JMethod<T> extends AMethod {
         return new AJoinPoint[] { insertImplJMethod(position, code) };
     }
 
+    @Override
+    public AJoinPoint[] insertImpl(String position, JoinPoint code) {
+        return new AJoinPoint[] { insertImplJMethod(position, (AJoinPoint) code) };
+    }
+
     public AJavaWeaverJoinPoint insertImplJMethod(String position, String code) {
-        return ActionUtils.insertMember(node, code, position, getWeaverEngine().getWeaverProfiler());
+        Factory factory = getNode().getFactory();
+        // CtCodeSnippetStatement snippet = SnippetFactory.createSnippetStatement(code, factory);
+        CtKadabraSnippetElement snippet = SnippetFactory.createSnippetElement(factory, code);
+
+        return ActionUtils.insertMember(node, snippet, position, getWeaverEngine().getWeaverProfiler());
+    }
+
+    public AJavaWeaverJoinPoint insertImplJMethod(String position, AJoinPoint code) {
+        return ActionUtils.insertMember(node, code.getNode(), position, getWeaverEngine().getWeaverProfiler());
     }
 
     @Override
     public AJoinPoint insertAfterImpl(String code) {
         return insertImplJMethod("after", code);
+    }
+
+    @Override
+    public AJoinPoint insertBeforeImpl(String code) {
+        return insertImplJMethod("before", code);
+    }
+
+    @Override
+    public AJoinPoint insertReplaceImpl(String code) {
+        return insertImplJMethod("replace", code);
+    }
+
+    @Override
+    public AJoinPoint insertReplaceImpl(AJoinPoint jp) {
+        return insertImplJMethod("replace", jp);
     }
 
     /*// Old insertImpl

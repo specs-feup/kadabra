@@ -1,3 +1,4 @@
+
 aspectdef GetOrNewClass
 	input qualifiedName, extend = null, implement = [], $target end
 	output $class end

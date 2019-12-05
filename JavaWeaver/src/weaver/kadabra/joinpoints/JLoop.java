@@ -18,6 +18,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.lara.interpreter.weaver.interf.JoinPoint;
+
 import spoon.reflect.code.CtBlock;
 import spoon.reflect.code.CtDo;
 import spoon.reflect.code.CtFor;
@@ -80,13 +82,29 @@ public abstract class JLoop extends ALoop {
         return new AJoinPoint[] { insertImplJLoop(position, code) };
     }
 
+    @Override
+    public AJoinPoint[] insertImpl(String position, JoinPoint code) {
+        return new AJoinPoint[] {
+                ActionUtils.insert(position, (CtElement) code.getNode(), node, getWeaverProfiler()) };
+    }
+
     public AJavaWeaverJoinPoint insertImplJLoop(String position, String code) {
         return ActionUtils.insert(position, code, node, getWeaverProfiler());
     }
 
     @Override
+    public AJoinPoint insertBeforeImpl(String code) {
+        return insertImplJLoop("before", code);
+    }
+
+    @Override
     public AJoinPoint insertAfterImpl(String code) {
         return insertImplJLoop("after", code);
+    }
+
+    @Override
+    public AJoinPoint insertReplaceImpl(String code) {
+        return insertImplJLoop("replace", code);
     }
 
     @Override

@@ -58,7 +58,17 @@ public class JComment extends AComment {
     }
 
     @Override
+    public AJoinPoint insertBeforeImpl(String code) {
+        return insertImplJComment("before", code);
+    }
+
+    @Override
     public AJoinPoint insertAfterImpl(String code) {
         return insertImplJComment("after", code);
+    }
+
+    @Override
+    public AJoinPoint insertReplaceImpl(String code) {
+        return insertImplJComment("replace", code);
     }
 }

@@ -15,7 +15,10 @@ package weaver.kadabra.joinpoints;
 
 import java.util.List;
 
+import org.lara.interpreter.weaver.interf.JoinPoint;
+
 import spoon.reflect.code.CtStatement;
+import spoon.reflect.declaration.CtElement;
 import tdrc.utils.StringUtils;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.ACall;
@@ -60,8 +63,17 @@ public class JStatement extends AStatement {
     }
 
     @Override
+    public AJoinPoint[] insertImpl(String position, JoinPoint code) {
+        return new AJoinPoint[] { insertImplJStatement(position, (CtElement) code.getNode()) };
+    }
+
+    @Override
     public AJoinPoint[] insertImpl(String position, String code) {
         return new AJoinPoint[] { insertImplJStatement(position, code) };
+    }
+
+    public AJavaWeaverJoinPoint insertImplJStatement(String position, CtElement code) {
+        return ActionUtils.insert(position, code, node, getWeaverProfiler());
     }
 
     public AJavaWeaverJoinPoint insertImplJStatement(String position, String code) {
@@ -69,8 +81,18 @@ public class JStatement extends AStatement {
     }
 
     @Override
+    public AJoinPoint insertBeforeImpl(String code) {
+        return insertImplJStatement("before", code);
+    }
+
+    @Override
     public AJoinPoint insertAfterImpl(String code) {
         return insertImplJStatement("after", code);
+    }
+
+    @Override
+    public AJoinPoint insertReplaceImpl(String code) {
+        return insertImplJStatement("replace", code);
     }
 
     @Override

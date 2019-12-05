@@ -46,6 +46,7 @@ import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 import weaver.kadabra.entities.Pair;
 import weaver.kadabra.exceptions.JavaWeaverException;
 import weaver.kadabra.spoon.extensions.launcher.JWEnvironment;
+import weaver.kadabra.spoon.extensions.nodes.CtKadabraSnippetElement;
 import weaver.kadabra.util.KadabraLog;
 import weaver.utils.SpoonUtils;
 import weaver.utils.scanners.NodeConverter;
@@ -135,8 +136,11 @@ public class ActionUtils {
     public static AJavaWeaverJoinPoint insert(String position, String snippetStr, CtElement node,
             WeaverProfiler weavingProfiler) {
 
+        // var snippet = snippetStr.trim().isEmpty() ? null
+        // : SnippetFactory.createSnippetStatement(snippetStr, node.getFactory());
+        //
         var snippet = snippetStr.trim().isEmpty() ? null
-                : SnippetFactory.createSnippetStatement(snippetStr, node.getFactory());
+                : SnippetFactory.createSnippetElement(node.getFactory(), snippetStr);
 
         if (snippet == null) {
             SpecsCheck.checkArgument(Location.valueOf(position.toUpperCase()).equals(Location.REPLACE),
@@ -242,10 +246,21 @@ public class ActionUtils {
      */
     public static AJavaWeaverJoinPoint insertMember(CtTypeMember referenceNode, String codeSnippet, String location,
             WeaverProfiler weavingProfiler) {
+
+        Factory factory = referenceNode.getFactory();
+        // CtCodeSnippetStatement snippet = SnippetFactory.createSnippetStatement(codeSnippet, factory);
+        CtKadabraSnippetElement snippet = SnippetFactory.createSnippetElement(factory, codeSnippet);
+
+        return insertMember(referenceNode, snippet, location, weavingProfiler);
+    }
+
+    public static AJavaWeaverJoinPoint insertMember(CtTypeMember referenceNode, CtElement snippet, String location,
+            WeaverProfiler weavingProfiler) {
+
         location = location.toUpperCase();
         Factory factory = referenceNode.getFactory();
         JWEnvironment env = getKadabraEnvironment(factory);
-        CtCodeSnippetStatement snippet = SnippetFactory.createSnippetStatement(codeSnippet, factory);
+
         switch (Location.getLocation(location)) {
         case BEFORE:
             // AnnotationsTable.getStaticTable().addBefore(referenceNode, snippet);
@@ -256,13 +271,29 @@ public class ActionUtils {
             break;
         case AROUND:
         case REPLACE:
-            env.getTable().addReplace(referenceNode, snippet);
+
+            System.out.println("PARENT: " + referenceNode.getParent().getClass());
+            System.out.println("REPLACING WITH '" + snippet + "'");
+            // Insert before node
+            env.getTable().addBefore(referenceNode, snippet);
+
+            // Set same parent
+            snippet.setParent(referenceNode.getParent());
+
+            // Remove node from tree
+            referenceNode.replace(Collections.emptyList());
+
+            // env.getTable().addReplace(referenceNode, snippet);
+
             break;
         default:
             throw new RuntimeException("Code insertion must only be done: " + Arrays.toString(Location.values())
                     + "; used '" + location + "'");
         }
-        String[] lines = codeSnippet.split("\r\n|\r|\n");
+
+        var joinPoint = CtElement2JoinPoint.convert(snippet);
+        String[] lines = joinPoint.getCodeImpl().split("\r\n|\r|\n");
+        // String[] lines = codeSnippet.split("\r\n|\r|\n");
         reportLOCs(weavingProfiler, lines.length, true);
 
         return CtElement2JoinPoint.convert(snippet);

@@ -161,6 +161,24 @@ public abstract class AField extends ADeclaration {
      * @param node 
      */
     @Override
+    public AJoinPoint insertBeforeImpl(AJoinPoint node) {
+        return this.aDeclaration.insertBeforeImpl(node);
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    @Override
+    public AJoinPoint insertBeforeImpl(String code) {
+        return this.aDeclaration.insertBeforeImpl(code);
+    }
+
+    /**
+     * 
+     * @param node 
+     */
+    @Override
     public AJoinPoint insertAfterImpl(AJoinPoint node) {
         return this.aDeclaration.insertAfterImpl(node);
     }
@@ -198,6 +216,14 @@ public abstract class AField extends ADeclaration {
     @Override
     public AJoinPoint copyImpl() {
         return this.aDeclaration.copyImpl();
+    }
+
+    /**
+     * 
+     */
+    @Override
+    public void removeImpl() {
+        this.aDeclaration.removeImpl();
     }
 
     /**

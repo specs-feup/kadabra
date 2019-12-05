@@ -3,6 +3,16 @@
 
 	<!-- GLOBAL -->
 
+	<!-- Inserts node before the given node -->
+	<action name="insertBefore" return="joinpoint">
+		<parameter name="node" type="joinpoint" />
+	</action>
+
+	<!-- Overload which accepts String -->
+	<action name="insertBefore" return="joinpoint">
+		<parameter name="code" type="String" />
+	</action>
+
 	<!-- Inserts node after the given node -->
 	<action name="insertAfter" return="joinpoint">
 		<parameter name="node" type="joinpoint" />
@@ -25,6 +35,10 @@
 	
 	<!-- Copies the node and returns the copy -->
 	<action name="copy" return="joinpoint"/>
+
+	<!-- Deletes the node -->
+	<action name="remove"/>
+
 
 	<!-- APP, FILE -->
 	<action name="newClass" class="app,file" return="class">

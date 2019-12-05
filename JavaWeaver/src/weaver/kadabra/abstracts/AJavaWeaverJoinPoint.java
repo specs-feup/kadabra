@@ -190,6 +190,25 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
         // return -1;
     }
 
+    /**
+     * Required, because original insertImpl returns JoinPoint, but abstract join points return AJoinPoint.
+     */
+    @Override
+    public AJoinPoint[] insertImpl(String position, String code) {
+        throw new RuntimeException("Not implemented yet for join point type '" + getJoinPointType() + "'");
+    }
+
+    @Override
+    public AJoinPoint insertBeforeImpl(AJoinPoint node) {
+        insertImpl("after", node);
+        return node;
+    }
+
+    @Override
+    public AJoinPoint insertBeforeImpl(String code) {
+        return (AJoinPoint) insertImpl("before", code)[0];
+    }
+
     @Override
     public AJoinPoint insertAfterImpl(AJoinPoint node) {
         insertImpl("after", node);
@@ -197,9 +216,14 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
     }
 
     @Override
-    public AJoinPoint[] insertImpl(String position, String code) {
-        return insertImpl("after", code);
+    public AJoinPoint insertAfterImpl(String code) {
+        return (AJoinPoint) insertImpl("after", code)[0];
     }
+
+    // @Override
+    // public AJoinPoint[] insertImpl(String position, String code) {
+    // return insertImpl("after", code);
+    // }
 
     @Override
     public AJoinPoint insertReplaceImpl(AJoinPoint jp) {
@@ -208,7 +232,7 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
 
     @Override
     public AJoinPoint insertReplaceImpl(String code) {
-        return insertImpl("replace", code)[0];
+        return (AJoinPoint) insertImpl("replace", code)[0];
     }
 
     // @Override
@@ -323,6 +347,11 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
     @Override
     public String toString() {
         return getNode().toString();
+    }
+
+    @Override
+    public void removeImpl() {
+        getNode().delete();
     }
 
 }

@@ -144,8 +144,18 @@ public class JBody<T> extends ABody {
     }
 
     @Override
+    public AJoinPoint insertBeforeImpl(String code) {
+        return insertImplJBody("before", code);
+    }
+
+    @Override
     public AJoinPoint insertAfterImpl(String code) {
         return insertImplJBody("after", code);
+    }
+
+    @Override
+    public AJoinPoint insertReplaceImpl(String code) {
+        return insertImplJBody("replace", code);
     }
 
     @Override

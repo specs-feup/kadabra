@@ -309,6 +309,24 @@ public abstract class AMethod extends AExecutable {
      * @param node 
      */
     @Override
+    public AJoinPoint insertBeforeImpl(AJoinPoint node) {
+        return this.aExecutable.insertBeforeImpl(node);
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    @Override
+    public AJoinPoint insertBeforeImpl(String code) {
+        return this.aExecutable.insertBeforeImpl(code);
+    }
+
+    /**
+     * 
+     * @param node 
+     */
+    @Override
     public AJoinPoint insertAfterImpl(AJoinPoint node) {
         return this.aExecutable.insertAfterImpl(node);
     }
@@ -346,6 +364,14 @@ public abstract class AMethod extends AExecutable {
     @Override
     public AJoinPoint copyImpl() {
         return this.aExecutable.copyImpl();
+    }
+
+    /**
+     * 
+     */
+    @Override
+    public void removeImpl() {
+        this.aExecutable.removeImpl();
     }
 
     /**

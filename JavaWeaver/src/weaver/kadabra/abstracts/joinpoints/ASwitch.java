@@ -73,6 +73,24 @@ public abstract class ASwitch extends AStatement {
      * @param node 
      */
     @Override
+    public AJoinPoint insertBeforeImpl(AJoinPoint node) {
+        return this.aStatement.insertBeforeImpl(node);
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    @Override
+    public AJoinPoint insertBeforeImpl(String code) {
+        return this.aStatement.insertBeforeImpl(code);
+    }
+
+    /**
+     * 
+     * @param node 
+     */
+    @Override
     public AJoinPoint insertAfterImpl(AJoinPoint node) {
         return this.aStatement.insertAfterImpl(node);
     }
@@ -110,6 +128,14 @@ public abstract class ASwitch extends AStatement {
     @Override
     public AJoinPoint copyImpl() {
         return this.aStatement.copyImpl();
+    }
+
+    /**
+     * 
+     */
+    @Override
+    public void removeImpl() {
+        this.aStatement.removeImpl();
     }
 
     /**
