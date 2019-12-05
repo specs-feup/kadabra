@@ -64,7 +64,7 @@ public class ActionUtils {
         }
     }
 
-    public static AJavaWeaverJoinPoint insert(String position, final CtElement newElement,
+    public static AJavaWeaverJoinPoint insert(String position, CtElement newElement,
             final CtElement node, WeaverProfiler weavingProfiler) {
 
         Location posIntert = Location.valueOf(position.toUpperCase());
@@ -81,15 +81,30 @@ public class ActionUtils {
         switch (Location.getLocation(position)) {
         case BEFORE:
             if (!(newElement instanceof CtStatement)) {
-                KadabraLog.info("Can only insert statements before nodes, tried to insert " + newElement);
+                // // If new element is a KadabraSnippet, convert to StatementSnippet
+                // if (newElement instanceof CtKadabraSnippetElement) {
+                // newElement = SnippetFactory.createSnippetStatement(
+                // ((CtKadabraSnippetElement) newElement).getValue(), node.getFactory());
+                // } else {
+                KadabraLog.info("Can only insert statements before nodes, tried to insert a '"
+                        + newElement.getClass() + "':" + newElement);
                 return null;
+                // }
+
             }
             referenceStmt.insertBefore((CtStatement) newElement);
             break;
         case AFTER:
             if (!(newElement instanceof CtStatement)) {
-                KadabraLog.info("Can only insert statements after nodes, tried to insert " + newElement);
+                // // If new element is a KadabraSnippet, convert to StatementSnippet
+                // if (newElement instanceof CtKadabraSnippetElement) {
+                // newElement = SnippetFactory.createSnippetStatement(
+                // ((CtKadabraSnippetElement) newElement).getValue(), node.getFactory());
+                // } else {
+                KadabraLog.info("Can only insert statements after nodes, tried to insert a '"
+                        + newElement.getClass() + "': " + newElement);
                 return null;
+                // }
             }
             referenceStmt.insertAfter((CtStatement) newElement);
             break;
@@ -136,11 +151,11 @@ public class ActionUtils {
     public static AJavaWeaverJoinPoint insert(String position, String snippetStr, CtElement node,
             WeaverProfiler weavingProfiler) {
 
-        // var snippet = snippetStr.trim().isEmpty() ? null
-        // : SnippetFactory.createSnippetStatement(snippetStr, node.getFactory());
-        //
         var snippet = snippetStr.trim().isEmpty() ? null
-                : SnippetFactory.createSnippetElement(node.getFactory(), snippetStr);
+                : SnippetFactory.createSnippetStatement(snippetStr, node.getFactory());
+        //
+        // var snippet = snippetStr.trim().isEmpty() ? null
+        // : SnippetFactory.createSnippetElement(node.getFactory(), snippetStr);
 
         if (snippet == null) {
             SpecsCheck.checkArgument(Location.valueOf(position.toUpperCase()).equals(Location.REPLACE),
