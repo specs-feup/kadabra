@@ -415,7 +415,7 @@ public class SpoonUtils {
         // System.out.println("IS PARENT: " + node.hasParent(node));
         // System.out.println("IS PARENT INITIALIZED: " + node.isParentInitialized());
 
-        // return node.getElements(element -> element.getParent() == node);
-        return node.getElements(element -> element.hasParent(node));
+        return node.getElements(element -> element.getParent() == node);
+        // return node.getElements(element -> element.hasParent(node));
     }
 }
