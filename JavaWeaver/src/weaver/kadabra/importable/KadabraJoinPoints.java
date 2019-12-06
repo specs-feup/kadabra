@@ -16,8 +16,11 @@ package weaver.kadabra.importable;
 import java.util.Arrays;
 
 import spoon.reflect.code.CtComment.CommentType;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.UnaryOperatorKind;
 import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.joinpoints.JComment;
+import weaver.utils.SpoonLiterals;
 import weaver.utils.weaving.converters.CtElement2JoinPoint;
 
 public class KadabraJoinPoints {
@@ -44,4 +47,44 @@ public class KadabraJoinPoints {
 
         return (JComment) CtElement2JoinPoint.convert(JavaWeaver.getFactory().comment(comment, typeEnum));
     }
+
+    /**
+     * Creates a new expression join point that represents the given literal.
+     * 
+     * @param type
+     *            the type of the literal
+     * @param literal
+     *            a string representing a Java literal. In the case it is signed, returns a unaryExpression instead of a
+     *            literal.
+     * @return
+     */
+    public static Object literal(String literal, String type) {
+        boolean isNegative = false;
+
+        // Check if negative
+        if (literal.startsWith("-")) {
+            isNegative = true;
+            literal = literal.substring(1);
+        }
+
+        // Check type of literal
+
+        var decodedValue = SpoonLiterals.decodeLiteralValue(type, literal);
+
+        // If a number, check if it is a negative value
+        // boolean isNegative = decodedValue instanceof Number ? ((Number) decodedValue).doubleValue() < 0 : false;
+
+        CtExpression<?> expressionNode = JavaWeaver.getFactory().literal(decodedValue);
+
+        if (isNegative) {
+            expressionNode = JavaWeaver.getFactory().unaryOperator(UnaryOperatorKind.NEG, expressionNode);
+        }
+
+        return CtElement2JoinPoint.convert(expressionNode);
+    }
+
+    // public static Object literal2(String literal, String type) {
+    // var expressionNode = JavaWeaver.getFactory().literal(Integer.valueOf(1));
+    // return CtElement2JoinPoint.convert(expressionNode);
+    // }
 }

@@ -15,6 +15,10 @@ package pt.up.fe.specs.spoon;
 
 import spoon.reflect.code.CtComment;
 import spoon.reflect.code.CtComment.CommentType;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtLiteral;
+import spoon.reflect.code.CtUnaryOperator;
+import spoon.reflect.code.UnaryOperatorKind;
 import spoon.reflect.factory.Factory;
 
 /**
@@ -37,5 +41,19 @@ public class SpoonFactory {
 
     public CtComment comment(String comment, CommentType type) {
         return factory.Code().createComment(comment, type);
+    }
+
+    public <T> CtLiteral<T> literal(T value) {
+        return factory.Code().createLiteral(value);
+    }
+
+    public <T> CtUnaryOperator<T> unaryOperator(UnaryOperatorKind kind, CtExpression<T> expression) {
+        @SuppressWarnings("unchecked")
+        var unaryOperator = (CtUnaryOperator<T>) factory.createUnaryOperator();
+
+        unaryOperator.setKind(kind);
+        unaryOperator.setOperand(expression);
+
+        return unaryOperator;
     }
 }

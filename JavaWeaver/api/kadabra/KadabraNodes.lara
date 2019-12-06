@@ -7,8 +7,12 @@ var KadabraNodes = {};
 
 
 /**
+ * Creates a comment node.
+ *
  * @param {string} comment - The string representing the contents of a comment.
- * @param {string} type - The type of the comment. Can be one of 'File', 'Javadoc', 'Inline' or 'Block'. If not specified, uses Block as default.
+ * @param {string} [type="block"] - The type of the comment. Can be one of 'File', 'Javadoc', 'Inline' or 'Block'. If not specified, uses Block as default.
+ *
+ * @return {comment} a node representing the comment
  */
 KadabraNodes.comment= function(comment, type) {
 	if(comment === undefined) {
@@ -22,7 +26,23 @@ KadabraNodes.comment= function(comment, type) {
 
 	checkString(type);
 
-	comment = comment.toString();	
+	comment = comment.toString();
+	type = type.toString();	
 	
 	return _KadabraJavaTypes.getKadabraJoinPoints().comment(comment, type);
+}
+
+/**
+ * Creates a literal node.
+ * @param {string} literal- The string representing the literal. Can pass negative literals.
+ * @param {string} type - The type of the literal. Can be one of int, long, float, double, char, String or boolean.
+ *
+ * @return {expression} an expression representing the literal. If the literal is a negative number, it will return a unaryExpression, otherwise returns a literal.
+ */
+KadabraNodes.literal = function(literal, type) {
+	checkString(literal);
+	checkString(type);
+
+
+	return _KadabraJavaTypes.getKadabraJoinPoints().literal(literal, type);
 }
