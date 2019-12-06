@@ -12,3 +12,6 @@ old value: a string
 new value: 100
 old value: true
 new value: false
+public static void foo2() {
+    int negativeOne = -(-1);
+}
