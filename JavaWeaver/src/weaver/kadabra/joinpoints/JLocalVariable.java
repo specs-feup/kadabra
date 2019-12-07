@@ -15,9 +15,11 @@ package weaver.kadabra.joinpoints;
 
 import java.util.List;
 
+import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.CtLocalVariable;
 import weaver.kadabra.abstracts.joinpoints.AExpression;
 import weaver.kadabra.abstracts.joinpoints.ALocalVariable;
+import weaver.utils.weaving.converters.CtElement2JoinPoint;
 
 public class JLocalVariable<T> extends ALocalVariable {
 
@@ -67,6 +69,31 @@ public class JLocalVariable<T> extends ALocalVariable {
     @Override
     public CtLocalVariable<T> getNode() {
         return node;
+    }
+
+    @Override
+    public AExpression getInitImpl() {
+        var defaultExpr = declaration.getNode().getDefaultExpression();
+        if (defaultExpr == null) {
+            return null;
+        }
+
+        return (AExpression) CtElement2JoinPoint.convert(defaultExpr);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public void defInitImpl(AExpression value) {
+        if (value == null) {
+            declaration.getNode().setDefaultExpression(null);
+            return;
+        }
+        declaration.getNode().setDefaultExpression((CtExpression<T>) value.getNode());
+    }
+
+    @Override
+    public void setInitImpl(AExpression init) {
+        defInitImpl(init);
     }
 
 }

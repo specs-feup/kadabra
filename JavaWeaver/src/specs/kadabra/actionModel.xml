@@ -182,12 +182,32 @@
 	<action name="interchange" class="loop">
 	 <parameter name="loop2" type="loop"/>
 	</action>
+
+	<!-- LOCAL VARIABLE -->
+	<action name="setInit" class="localVariable">
+			<parameter name="init" type="expression"/>
+	</action>
+	
+
+	<!-- ASSIGNMENT -->
+	<action name="setLhs" class="assignment">
+			<parameter name="lhs" type="expression"/>
+	</action>	
+
+	<action name="setRhs" class="assignment">
+			<parameter name="rhs" type="expression"/>
+	</action>		
 	
 	<!-- EXPR -->
 	<action name="extract" class="expression">
 		<parameter name="varName" type="String"/>
 		<parameter name="location" type="statement" default="null"/>
 		<parameter name="position" type="String" default="before"/>
+	</action>
+	
+	<!-- DECLARATION -->
+	<action name="setInit" class="declaration">
+		<parameter name="value" type="expression"/>
 	</action>
 	
 	<!-- FIELD -->

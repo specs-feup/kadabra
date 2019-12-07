@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.lara.interpreter.exception.AttributeException;
 import java.util.List;
 import org.lara.interpreter.weaver.interf.SelectOp;
+import org.lara.interpreter.exception.ActionException;
 import org.lara.interpreter.weaver.interf.JoinPoint;
 import java.util.stream.Collectors;
 import java.util.Arrays;
@@ -152,11 +153,67 @@ public abstract class ALocalVariable extends AStatement {
     }
 
     /**
+     * Initialization of this variable, if present, or undefined of unintialized
+     */
+    public abstract AExpression getInitImpl();
+
+    /**
+     * Initialization of this variable, if present, or undefined of unintialized
+     */
+    public final Object getInit() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "init", Optional.empty());
+        	}
+        	AExpression result = this.getInitImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "init", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "init", e);
+        }
+    }
+
+    /**
+     * 
+     */
+    public void defInitImpl(AExpression value) {
+        throw new UnsupportedOperationException("Join point "+get_class()+": Action def init with type AExpression not implemented ");
+    }
+
+    /**
      * Default implementation of the method used by the lara interpreter to select inits
      * @return 
      */
     public List<? extends AExpression> selectInit() {
         return select(weaver.kadabra.abstracts.joinpoints.AExpression.class, SelectOp.DESCENDANTS);
+    }
+
+    /**
+     * 
+     * @param init 
+     */
+    public void setInitImpl(AExpression init) {
+        throw new UnsupportedOperationException(get_class()+": Action setInit not implemented ");
+    }
+
+    /**
+     * 
+     * @param init 
+     */
+    public final void setInit(AExpression init) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "setInit", this, Optional.empty(), init);
+        	}
+        	this.setInitImpl(init);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "setInit", this, Optional.empty(), init);
+        	}
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "setInit", e);
+        }
     }
 
     /**
@@ -341,6 +398,13 @@ public abstract class ALocalVariable extends AStatement {
         	}
         	this.unsupportedTypeForDef(attribute, value);
         }
+        case "init": {
+        	if(value instanceof AExpression){
+        		this.defInitImpl((AExpression)value);
+        		return;
+        	}
+        	this.unsupportedTypeForDef(attribute, value);
+        }
         default: throw new UnsupportedOperationException("Join point "+get_class()+": attribute '"+attribute+"' cannot be defined");
         }
     }
@@ -356,6 +420,7 @@ public abstract class ALocalVariable extends AStatement {
         attributes.add("isArray");
         attributes.add("isPrimitive");
         attributes.add("completeType");
+        attributes.add("init");
     }
 
     /**
@@ -373,6 +438,7 @@ public abstract class ALocalVariable extends AStatement {
     @Override
     protected final void fillWithActions(List<String> actions) {
         this.aStatement.fillWithActions(actions);
+        actions.add("void setInit(expression)");
     }
 
     /**
@@ -405,6 +471,7 @@ public abstract class ALocalVariable extends AStatement {
         ISARRAY("isArray"),
         ISPRIMITIVE("isPrimitive"),
         COMPLETETYPE("completeType"),
+        INIT("init"),
         KIND("kind"),
         ENDLINE("endLine"),
         PARENT("parent"),

@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.lara.interpreter.exception.AttributeException;
 import java.util.List;
 import org.lara.interpreter.weaver.interf.SelectOp;
+import org.lara.interpreter.exception.ActionException;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 import org.lara.interpreter.weaver.interf.JoinPoint;
 import java.util.stream.Collectors;
@@ -145,11 +146,69 @@ public abstract class ADeclaration extends AJavaWeaverJoinPoint {
     }
 
     /**
+     * Get value on attribute init
+     * @return the attribute's value
+     */
+    public abstract AExpression getInitImpl();
+
+    /**
+     * Get value on attribute init
+     * @return the attribute's value
+     */
+    public final Object getInit() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "init", Optional.empty());
+        	}
+        	AExpression result = this.getInitImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "init", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "init", e);
+        }
+    }
+
+    /**
+     * 
+     */
+    public void defInitImpl(AExpression value) {
+        throw new UnsupportedOperationException("Join point "+get_class()+": Action def init with type AExpression not implemented ");
+    }
+
+    /**
      * Default implementation of the method used by the lara interpreter to select inits
      * @return 
      */
     public List<? extends AExpression> selectInit() {
         return select(weaver.kadabra.abstracts.joinpoints.AExpression.class, SelectOp.DESCENDANTS);
+    }
+
+    /**
+     * 
+     * @param value 
+     */
+    public void setInitImpl(AExpression value) {
+        throw new UnsupportedOperationException(get_class()+": Action setInit not implemented ");
+    }
+
+    /**
+     * 
+     * @param value 
+     */
+    public final void setInit(AExpression value) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "setInit", this, Optional.empty(), value);
+        	}
+        	this.setInitImpl(value);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "setInit", this, Optional.empty(), value);
+        	}
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "setInit", e);
+        }
     }
 
     /**
@@ -186,6 +245,13 @@ public abstract class ADeclaration extends AJavaWeaverJoinPoint {
         	}
         	this.unsupportedTypeForDef(attribute, value);
         }
+        case "init": {
+        	if(value instanceof AExpression){
+        		this.defInitImpl((AExpression)value);
+        		return;
+        	}
+        	this.unsupportedTypeForDef(attribute, value);
+        }
         default: throw new UnsupportedOperationException("Join point "+get_class()+": attribute '"+attribute+"' cannot be defined");
         }
     }
@@ -201,6 +267,7 @@ public abstract class ADeclaration extends AJavaWeaverJoinPoint {
         attributes.add("isArray");
         attributes.add("isPrimitive");
         attributes.add("completeType");
+        attributes.add("init");
     }
 
     /**
@@ -218,6 +285,7 @@ public abstract class ADeclaration extends AJavaWeaverJoinPoint {
     @Override
     protected void fillWithActions(List<String> actions) {
         super.fillWithActions(actions);
+        actions.add("void setInit(expression)");
     }
 
     /**
@@ -237,6 +305,7 @@ public abstract class ADeclaration extends AJavaWeaverJoinPoint {
         ISARRAY("isArray"),
         ISPRIMITIVE("isPrimitive"),
         COMPLETETYPE("completeType"),
+        INIT("init"),
         PARENT("parent"),
         ISSTATIC("isStatic"),
         CODE("code"),

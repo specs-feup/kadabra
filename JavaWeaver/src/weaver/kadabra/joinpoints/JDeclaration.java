@@ -24,6 +24,7 @@ import weaver.kadabra.abstracts.joinpoints.AExpression;
 import weaver.utils.element.CtTypeReferenceUtils;
 import weaver.utils.weaving.SelectUtils;
 import weaver.utils.weaving.TypeUtils;
+import weaver.utils.weaving.converters.CtElement2JoinPoint;
 
 public class JDeclaration<T> extends ADeclaration {
 
@@ -87,5 +88,31 @@ public class JDeclaration<T> extends ADeclaration {
     @Override
     public String toString() {
         return getNameImpl();
+    }
+
+    @Override
+    public AExpression getInitImpl() {
+        var init = node.getDefaultExpression();
+        if (init == null) {
+            return null;
+        }
+
+        return (AExpression) CtElement2JoinPoint.convert(init);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public void defInitImpl(AExpression value) {
+        if (value == null) {
+            node.setDefaultExpression(null);
+            return;
+        }
+
+        node.setDefaultExpression((CtExpression<T>) value.getNode());
+    }
+
+    @Override
+    public void setInitImpl(AExpression value) {
+        defInitImpl(value);
     }
 }

@@ -147,6 +147,9 @@
 		<attribute name="isArray"			type="Boolean"/>
    		<attribute name="isPrimitive"		type="Boolean"/>
    		<attribute name="completeType"		type="String"/>	
+   		<attribute name="init"				type="expression" tooltip="Initialization of this variable, if present, or undefined of unintialized">
+			<def/>
+   		</attribute>	
 	</artifact>
 	
 	<artifact class="literal" default="value">
@@ -163,6 +166,9 @@
 		<attribute name="isArray"			type="Boolean"/>
    		<attribute name="isPrimitive"		type="Boolean"/>
    		<attribute name="completeType"		type="String"/>	
+		<attribute name="init" 				type="expression">
+			<def/>
+		</attribute>		
 	</artifact>
 	
 	<!-- STATEMENT -->	
@@ -275,6 +281,12 @@
 	<!-- ASSIGNMENT -->
 	<artifact class="assignment" 		default="operator">
 		<attribute name="operator"			type="string"/>
+		<attribute name="lhs"				type="expression">
+			<def/>
+		</attribute>
+		<attribute name="rhs"				type="expression">
+			<def/>
+		</attribute>				
 	</artifact>
 	
 	<!-- EXPRESSION -->

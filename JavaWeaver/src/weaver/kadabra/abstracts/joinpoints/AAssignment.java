@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.lara.interpreter.exception.AttributeException;
 import java.util.List;
 import org.lara.interpreter.weaver.interf.SelectOp;
+import org.lara.interpreter.exception.ActionException;
 import org.lara.interpreter.weaver.interf.JoinPoint;
 import java.util.stream.Collectors;
 import java.util.Arrays;
@@ -52,6 +53,70 @@ public abstract class AAssignment extends AStatement {
     }
 
     /**
+     * Get value on attribute lhs
+     * @return the attribute's value
+     */
+    public abstract AExpression getLhsImpl();
+
+    /**
+     * Get value on attribute lhs
+     * @return the attribute's value
+     */
+    public final Object getLhs() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "lhs", Optional.empty());
+        	}
+        	AExpression result = this.getLhsImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "lhs", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "lhs", e);
+        }
+    }
+
+    /**
+     * 
+     */
+    public void defLhsImpl(AExpression value) {
+        throw new UnsupportedOperationException("Join point "+get_class()+": Action def lhs with type AExpression not implemented ");
+    }
+
+    /**
+     * Get value on attribute rhs
+     * @return the attribute's value
+     */
+    public abstract AExpression getRhsImpl();
+
+    /**
+     * Get value on attribute rhs
+     * @return the attribute's value
+     */
+    public final Object getRhs() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "rhs", Optional.empty());
+        	}
+        	AExpression result = this.getRhsImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "rhs", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "rhs", e);
+        }
+    }
+
+    /**
+     * 
+     */
+    public void defRhsImpl(AExpression value) {
+        throw new UnsupportedOperationException("Join point "+get_class()+": Action def rhs with type AExpression not implemented ");
+    }
+
+    /**
      * Default implementation of the method used by the lara interpreter to select lhss
      * @return 
      */
@@ -65,6 +130,58 @@ public abstract class AAssignment extends AStatement {
      */
     public List<? extends AExpression> selectRhs() {
         return select(weaver.kadabra.abstracts.joinpoints.AExpression.class, SelectOp.DESCENDANTS);
+    }
+
+    /**
+     * 
+     * @param lhs 
+     */
+    public void setLhsImpl(AExpression lhs) {
+        throw new UnsupportedOperationException(get_class()+": Action setLhs not implemented ");
+    }
+
+    /**
+     * 
+     * @param lhs 
+     */
+    public final void setLhs(AExpression lhs) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "setLhs", this, Optional.empty(), lhs);
+        	}
+        	this.setLhsImpl(lhs);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "setLhs", this, Optional.empty(), lhs);
+        	}
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "setLhs", e);
+        }
+    }
+
+    /**
+     * 
+     * @param rhs 
+     */
+    public void setRhsImpl(AExpression rhs) {
+        throw new UnsupportedOperationException(get_class()+": Action setRhs not implemented ");
+    }
+
+    /**
+     * 
+     * @param rhs 
+     */
+    public final void setRhs(AExpression rhs) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "setRhs", this, Optional.empty(), rhs);
+        	}
+        	this.setRhsImpl(rhs);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "setRhs", this, Optional.empty(), rhs);
+        	}
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "setRhs", e);
+        }
     }
 
     /**
@@ -252,6 +369,20 @@ public abstract class AAssignment extends AStatement {
         	}
         	this.unsupportedTypeForDef(attribute, value);
         }
+        case "lhs": {
+        	if(value instanceof AExpression){
+        		this.defLhsImpl((AExpression)value);
+        		return;
+        	}
+        	this.unsupportedTypeForDef(attribute, value);
+        }
+        case "rhs": {
+        	if(value instanceof AExpression){
+        		this.defRhsImpl((AExpression)value);
+        		return;
+        	}
+        	this.unsupportedTypeForDef(attribute, value);
+        }
         default: throw new UnsupportedOperationException("Join point "+get_class()+": attribute '"+attribute+"' cannot be defined");
         }
     }
@@ -263,6 +394,8 @@ public abstract class AAssignment extends AStatement {
     protected final void fillWithAttributes(List<String> attributes) {
         this.aStatement.fillWithAttributes(attributes);
         attributes.add("operator");
+        attributes.add("lhs");
+        attributes.add("rhs");
     }
 
     /**
@@ -281,6 +414,8 @@ public abstract class AAssignment extends AStatement {
     @Override
     protected final void fillWithActions(List<String> actions) {
         this.aStatement.fillWithActions(actions);
+        actions.add("void setLhs(expression)");
+        actions.add("void setRhs(expression)");
     }
 
     /**
@@ -309,6 +444,8 @@ public abstract class AAssignment extends AStatement {
      */
     protected enum AssignmentAttributes {
         OPERATOR("operator"),
+        LHS("lhs"),
+        RHS("rhs"),
         KIND("kind"),
         ENDLINE("endLine"),
         PARENT("parent"),

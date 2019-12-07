@@ -16,10 +16,12 @@ package weaver.kadabra.joinpoints;
 import java.util.List;
 
 import spoon.reflect.code.CtAssignment;
+import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.CtOperatorAssignment;
 import weaver.kadabra.abstracts.joinpoints.AAssignment;
 import weaver.kadabra.abstracts.joinpoints.AExpression;
 import weaver.utils.weaving.SelectUtils;
+import weaver.utils.weaving.converters.CtElement2JoinPoint;
 
 public class JAssignment<T, V extends T> extends AAssignment {
 
@@ -57,4 +59,35 @@ public class JAssignment<T, V extends T> extends AAssignment {
         return node;
     }
 
+    @Override
+    public AExpression getLhsImpl() {
+        return (AExpression) CtElement2JoinPoint.convert(node.getAssigned());
+    }
+
+    @Override
+    public AExpression getRhsImpl() {
+        return (AExpression) CtElement2JoinPoint.convert(node.getAssignment());
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public void defLhsImpl(AExpression value) {
+        node.setAssigned((CtExpression<T>) value.getNode());
+    }
+
+    @Override
+    public void setLhsImpl(AExpression lhs) {
+        defLhsImpl(lhs);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public void defRhsImpl(AExpression value) {
+        node.setAssignment((CtExpression<V>) value.getNode());
+    }
+
+    @Override
+    public void setRhsImpl(AExpression rhs) {
+        defRhsImpl(rhs);
+    }
 }

@@ -148,12 +148,28 @@ public abstract class AField extends ADeclaration {
     }
 
     /**
+     * Get value on attribute init
+     * @return the attribute's value
+     */
+    @Override
+    public AExpression getInitImpl() {
+        return this.aDeclaration.getInitImpl();
+    }
+
+    /**
      * Method used by the lara interpreter to select inits
      * @return 
      */
     @Override
     public List<? extends AExpression> selectInit() {
         return this.aDeclaration.selectInit();
+    }
+
+    /**
+     * 
+     */
+    public void defInitImpl(AExpression value) {
+        this.aDeclaration.defInitImpl(value);
     }
 
     /**
@@ -228,6 +244,15 @@ public abstract class AField extends ADeclaration {
 
     /**
      * 
+     * @param value 
+     */
+    @Override
+    public void setInitImpl(AExpression value) {
+        this.aDeclaration.setInitImpl(value);
+    }
+
+    /**
+     * 
      * @param position 
      * @param code 
      */
@@ -296,6 +321,13 @@ public abstract class AField extends ADeclaration {
         	}
         	this.unsupportedTypeForDef(attribute, value);
         }
+        case "init": {
+        	if(value instanceof AExpression){
+        		this.defInitImpl((AExpression)value);
+        		return;
+        	}
+        	this.unsupportedTypeForDef(attribute, value);
+        }
         default: throw new UnsupportedOperationException("Join point "+get_class()+": attribute '"+attribute+"' cannot be defined");
         }
     }
@@ -359,6 +391,7 @@ public abstract class AField extends ADeclaration {
         ISARRAY("isArray"),
         ISPRIMITIVE("isPrimitive"),
         COMPLETETYPE("completeType"),
+        INIT("init"),
         PARENT("parent"),
         ISSTATIC("isStatic"),
         CODE("code"),

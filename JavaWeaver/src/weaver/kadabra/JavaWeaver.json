@@ -2643,8 +2643,24 @@
                   "type": "attribute",
                   "children": [
                            {
+                              "type": "expression",
+                              "name": "lhs"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "children": [
+                           {
                               "type": "String",
                               "name": "operator"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "children": [
+                           {
+                              "type": "expression",
+                              "name": "rhs"
                            }]
                },
                {
@@ -2858,6 +2874,32 @@
                   "type": "select",
                   "clazz": "var",
                   "alias": ""
+               },
+               {
+                  "type": "action",
+                  "children": [
+                           {
+                              "type": "void",
+                              "name": "setLhs"
+                           },
+                           {
+                              "type": "expression",
+                              "name": "lhs",
+                              "defaultValue": ""
+                           }]
+               },
+               {
+                  "type": "action",
+                  "children": [
+                           {
+                              "type": "void",
+                              "name": "setRhs"
+                           },
+                           {
+                              "type": "expression",
+                              "name": "rhs",
+                              "defaultValue": ""
+                           }]
                },
                {
                   "type": "action",
@@ -6770,6 +6812,14 @@
                   "type": "attribute",
                   "children": [
                            {
+                              "type": "expression",
+                              "name": "init"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "children": [
+                           {
                               "type": "Boolean",
                               "name": "isArray"
                            }]
@@ -6978,6 +7028,19 @@
                   "type": "select",
                   "clazz": "expression",
                   "alias": "init"
+               },
+               {
+                  "type": "action",
+                  "children": [
+                           {
+                              "type": "void",
+                              "name": "setInit"
+                           },
+                           {
+                              "type": "expression",
+                              "name": "value",
+                              "defaultValue": ""
+                           }]
                },
                {
                   "type": "action",
@@ -8598,6 +8661,14 @@
                   "type": "attribute",
                   "children": [
                            {
+                              "type": "expression",
+                              "name": "init"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "children": [
+                           {
                               "type": "Boolean",
                               "name": "isArray"
                            }]
@@ -8816,6 +8887,19 @@
                            },
                            {
                               "type": "String",
+                              "name": "value",
+                              "defaultValue": ""
+                           }]
+               },
+               {
+                  "type": "action",
+                  "children": [
+                           {
+                              "type": "void",
+                              "name": "setInit"
+                           },
+                           {
+                              "type": "expression",
                               "name": "value",
                               "defaultValue": ""
                            }]
@@ -11566,6 +11650,15 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "Initialization of this variable, if present, or undefined of unintialized",
+                  "children": [
+                           {
+                              "type": "expression",
+                              "name": "init"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "children": [
                            {
                               "type": "Boolean",
@@ -11802,6 +11895,19 @@
                   "type": "select",
                   "clazz": "var",
                   "alias": ""
+               },
+               {
+                  "type": "action",
+                  "children": [
+                           {
+                              "type": "void",
+                              "name": "setInit"
+                           },
+                           {
+                              "type": "expression",
+                              "name": "init",
+                              "defaultValue": ""
+                           }]
                },
                {
                   "type": "action",
