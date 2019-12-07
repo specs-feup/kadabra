@@ -17,13 +17,19 @@ aspectdef KadabraNodesTest
 	$foo3.remove();
 
 	var $foo4 = WeaverJps.search("method", {name: "foo4"}).getFirst();
-	
+    var $commentStart = $foo4.insertBefore("/*");
+    var $commentEnd = $foo4.insertAfter("*/");    
+
+	$commentStart.remove();
+	$commentEnd.remove();    
+
+/*	
 	// Change name
 	var previousName = $foo4.setName($foo4.name + "_" + Strings.uuid()); 
 		
 	// Restore name
 	$foo4.name = previousName; 
-	
+*/	
 	println(WeaverJps.search("file").getFirst().code);
 
 /*
