@@ -258,16 +258,20 @@ public abstract class AContinue extends AStatement {
         KIND("kind"),
         ENDLINE("endLine"),
         PARENT("parent"),
-        ISSTATEMENT("isStatement"),
+        ISSTATIC("isStatic"),
         CODE("code"),
         AST("ast"),
         ISBLOCK("isBlock"),
-        CHILDREN("children"),
         LINE("line"),
         ANCESTOR("ancestor"),
+        MODIFIERS("modifiers"),
+        DESCENDANTS("descendants"),
+        ISSTATEMENT("isStatement"),
+        CHILDREN("children"),
+        HASMODIFIER("hasModifier"),
         NUMCHILDREN("numChildren"),
         SRCCODE("srcCode"),
-        DESCENDANTS("descendants"),
+        ISFINAL("isFinal"),
         CHILD("child");
         private String name;
 

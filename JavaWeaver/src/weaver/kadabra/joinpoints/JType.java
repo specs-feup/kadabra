@@ -113,11 +113,11 @@ public class JType<T> extends AType {
         return package1.getQualifiedName();
     }
 
-    @Override
-    public String[] getModifiersArrayImpl() {
-        List<String> collect = node.getModifiers().stream().map(ModifierKind::name).collect(Collectors.toList());
-        return collect.toArray(new String[0]);
-    }
+    // @Override
+    // public String[] getModifiersArrayImpl() {
+    // List<String> collect = node.getModifiers().stream().map(ModifierKind::name).collect(Collectors.toList());
+    // return collect.toArray(new String[0]);
+    // }
 
     @Override
     public List<? extends AField> selectField() {
@@ -314,5 +314,15 @@ public class JType<T> extends AType {
         return node.isSubtypeOf(SpoonUtils.newCtTypeReference(type, node.getFactory(), Collections.emptyList()));
 
     }
+
+    // @Override
+    // public Boolean getIsFinalImpl() {
+    // return node.hasModifier(ModifierKind.FINAL);
+    // }
+    //
+    // @Override
+    // public Boolean getIsStaticImpl() {
+    // return node.hasModifier(ModifierKind.STATIC);
+    // }
 
 }

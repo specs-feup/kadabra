@@ -310,6 +310,10 @@ public abstract class AJoinPoint extends JoinPoint {
         attributes.add("descendants");
         attributes.add("isStatement");
         attributes.add("isBlock");
+        attributes.add("modifiers");
+        attributes.add("hasModifier(String modifier)");
+        attributes.add("isFinal");
+        attributes.add("isStatic");
     }
 
     /**
@@ -633,6 +637,112 @@ public abstract class AJoinPoint extends JoinPoint {
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "isBlock", e);
+        }
+    }
+
+    /**
+     * Get value on attribute modifiers
+     * @return the attribute's value
+     */
+    public abstract String[] getModifiersArrayImpl();
+
+    /**
+     * an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array
+     */
+    public Object getModifiersImpl() {
+        String[] stringArrayImpl0 = getModifiersArrayImpl();
+        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(stringArrayImpl0);
+        return nativeArray0;
+    }
+
+    /**
+     * an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array
+     */
+    public final Object getModifiers() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "modifiers", Optional.empty());
+        	}
+        	Object result = this.getModifiersImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "modifiers", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "modifiers", e);
+        }
+    }
+
+    /**
+     * 
+     * @param modifier
+     * @return 
+     */
+    public abstract Boolean hasModifierImpl(String modifier);
+
+    /**
+     * 
+     * @param modifier
+     * @return 
+     */
+    public final Object hasModifier(String modifier) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "hasModifier", Optional.empty(), modifier);
+        	}
+        	Boolean result = this.hasModifierImpl(modifier);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "hasModifier", Optional.ofNullable(result), modifier);
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "hasModifier", e);
+        }
+    }
+
+    /**
+     * true if this node has the modifier 'final'
+     */
+    public abstract Boolean getIsFinalImpl();
+
+    /**
+     * true if this node has the modifier 'final'
+     */
+    public final Object getIsFinal() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isFinal", Optional.empty());
+        	}
+        	Boolean result = this.getIsFinalImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "isFinal", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "isFinal", e);
+        }
+    }
+
+    /**
+     * true if this node has the modifier 'static'
+     */
+    public abstract Boolean getIsStaticImpl();
+
+    /**
+     * true if this node has the modifier 'static'
+     */
+    public final Object getIsStatic() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isStatic", Optional.empty());
+        	}
+        	Boolean result = this.getIsStaticImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "isStatic", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "isStatic", e);
         }
     }
 

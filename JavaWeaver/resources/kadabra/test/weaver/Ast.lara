@@ -2,7 +2,14 @@ import weaver.WeaverJps;
 
 aspectdef Ast
 
+	// Print AST
 	println(WeaverJps.search('file').first().ast);
 
-
+	// Print modifiers
+	var $field = WeaverJps.search('field').first();
+	println("Modifiers: " + $field.modifiers.sort());
+	println("Is final: " + $field.isFinal);
+	println("Is static: " + $field.isStatic);
+	println("Has public: " + $field.hasModifier("public"));	
+	println("Has private: " + $field.hasModifier("PrIvAtE"));		
 end

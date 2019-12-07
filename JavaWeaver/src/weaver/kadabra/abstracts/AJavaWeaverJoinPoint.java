@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.lara.interpreter.weaver.interf.JoinPoint;
 import org.lara.interpreter.weaver.interf.SelectOp;
@@ -18,7 +19,9 @@ import spoon.reflect.code.CtStatement;
 import spoon.reflect.cu.SourcePosition;
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtExecutable;
+import spoon.reflect.declaration.CtModifiable;
 import spoon.reflect.declaration.CtType;
+import spoon.reflect.declaration.ModifierKind;
 import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.AExecutable;
 import weaver.kadabra.abstracts.joinpoints.AExpression;
@@ -372,4 +375,72 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
         // getNode().delete();
     }
 
+    /**
+     * If node implements CtModifiable, returns the modifiers. Otherwise, returns empty set.
+     * 
+     * @return
+     */
+    // @SuppressWarnings("unchecked")
+    public Set<ModifierKind> getModifiersInternal() {
+        var node = getNode();
+
+        if (node instanceof CtModifiable) {
+            return ((CtModifiable) node).getModifiers();
+        }
+
+        return Collections.emptySet();
+        //
+        // // Choose best method
+        // Method invokingMethod = SpecsSystem.getMethod(getNode().getClass(), "getModifiers");
+        //
+        // // Could not find method, return empty set
+        // if (invokingMethod == null) {
+        // return Collections.emptySet();
+        //
+        // }
+        //
+        // // Invoke method
+        // try {
+        // return (Set<ModifierKind>) invokingMethod.invoke(getNode());
+        // } catch (Exception e) {
+        // throw new RuntimeException("Exception while calling getModifiers(): ", e);
+        // }
+    }
+
+    @Override
+    public String[] getModifiersArrayImpl() {
+        return getModifiersInternal().stream()
+                .map(ModifierKind::name)
+                .toArray(length -> new String[length]);
+    }
+
+    @Override
+    public Boolean hasModifierImpl(String modifier) {
+        ModifierKind modifierKind = null;
+        try {
+            modifierKind = ModifierKind.valueOf(modifier.toUpperCase());
+        } catch (Exception e) {
+            throw new RuntimeException("Invalid modifier '" + modifier + "', please use one of: "
+                    + Arrays.toString(ModifierKind.values()));
+        }
+
+        return getModifiersInternal().contains(modifierKind);
+        // var modifierLowerCase = modifier.toLowerCase();
+        //
+        // return Arrays.stream(getModifiersArrayImpl())
+        // .map(String::toLowerCase)
+        // .filter(currentModifier -> currentModifier.equals(modifierLowerCase))
+        // .findFirst()
+        // .isPresent();
+    }
+
+    @Override
+    public Boolean getIsFinalImpl() {
+        return getModifiersInternal().contains(ModifierKind.FINAL);
+    }
+
+    @Override
+    public Boolean getIsStaticImpl() {
+        return getModifiersInternal().contains(ModifierKind.STATIC);
+    };
 }

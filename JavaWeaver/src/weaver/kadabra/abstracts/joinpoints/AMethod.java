@@ -27,31 +27,6 @@ public abstract class AMethod extends AExecutable {
         this.aExecutable = aExecutable;
     }
     /**
-     * Get value on attribute isStatic
-     * @return the attribute's value
-     */
-    public abstract Boolean getIsStaticImpl();
-
-    /**
-     * Get value on attribute isStatic
-     * @return the attribute's value
-     */
-    public final Object getIsStatic() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isStatic", Optional.empty());
-        	}
-        	Boolean result = this.getIsStaticImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "isStatic", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "isStatic", e);
-        }
-    }
-
-    /**
      * Get value on attribute declarator
      * @return the attribute's value
      */
@@ -487,7 +462,6 @@ public abstract class AMethod extends AExecutable {
     @Override
     protected final void fillWithAttributes(List<String> attributes) {
         this.aExecutable.fillWithAttributes(attributes);
-        attributes.add("isStatic");
         attributes.add("declarator");
         attributes.add("privacy");
         attributes.add("toReference");
@@ -539,7 +513,6 @@ public abstract class AMethod extends AExecutable {
      * 
      */
     protected enum MethodAttributes {
-        ISSTATIC("isStatic"),
         DECLARATOR("declarator"),
         PRIVACY("privacy"),
         TOREFERENCE("toReference"),
@@ -547,16 +520,20 @@ public abstract class AMethod extends AExecutable {
         NAME("name"),
         RETURNTYPE("returnType"),
         PARENT("parent"),
-        ISSTATEMENT("isStatement"),
+        ISSTATIC("isStatic"),
         CODE("code"),
         AST("ast"),
         ISBLOCK("isBlock"),
-        CHILDREN("children"),
         LINE("line"),
         ANCESTOR("ancestor"),
+        MODIFIERS("modifiers"),
+        DESCENDANTS("descendants"),
+        ISSTATEMENT("isStatement"),
+        CHILDREN("children"),
+        HASMODIFIER("hasModifier"),
         NUMCHILDREN("numChildren"),
         SRCCODE("srcCode"),
-        DESCENDANTS("descendants"),
+        ISFINAL("isFinal"),
         CHILD("child");
         private String name;
 

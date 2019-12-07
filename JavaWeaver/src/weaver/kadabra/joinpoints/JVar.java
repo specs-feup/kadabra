@@ -142,4 +142,21 @@ public class JVar<T> extends AVar {
         return node.getVariable().getSimpleName();
     }
 
+    // @Override
+    // public String[] getModifiersArrayImpl() {
+    // return node.getVariable().getModifiers().stream()
+    // .map(ModifierKind::name)
+    // .toArray(length -> new String[length]);
+    // }
+
+    // @Override
+    // public Boolean getIsFinalImpl() {
+    // return node.getVariable().getModifiers().contains(ModifierKind.FINAL);
+    // }
+    //
+    // @Override
+    // public Boolean getIsStaticImpl() {
+    // return node.getVariable().getModifiers().contains(ModifierKind.STATIC);
+    // }
+
 }

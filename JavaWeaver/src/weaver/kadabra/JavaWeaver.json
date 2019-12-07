@@ -93,11 +93,33 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the given modifier",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "hasModifier"
+                           },
+                           {
+                              "type": "String",
+                              "name": "modifier"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "true if this node is considered a block of statements",
                   "children": [
                            {
                               "type": "boolean",
                               "name": "isBlock"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'final'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isFinal"
                            }]
                },
                {
@@ -111,10 +133,28 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'static'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isStatic"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "children": [
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "modifiers"
                            }]
                },
                {
@@ -311,15 +351,6 @@
                },
                {
                   "type": "attribute",
-                  "tooltip": "the modifiers of this type",
-                  "children": [
-                           {
-                              "type": "String[]",
-                              "name": "modifiers"
-                           }]
-               },
-               {
-                  "type": "attribute",
                   "tooltip": "the simple name of the type",
                   "children": [
                            {
@@ -440,11 +471,33 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the given modifier",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "hasModifier"
+                           },
+                           {
+                              "type": "String",
+                              "name": "modifier"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "true if this node is considered a block of statements",
                   "children": [
                            {
                               "type": "boolean",
                               "name": "isBlock"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'final'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isFinal"
                            }]
                },
                {
@@ -458,10 +511,28 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'static'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isStatic"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "children": [
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "modifiers"
                            }]
                },
                {
@@ -728,11 +799,33 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the given modifier",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "hasModifier"
+                           },
+                           {
+                              "type": "String",
+                              "name": "modifier"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "true if this node is considered a block of statements",
                   "children": [
                            {
                               "type": "boolean",
                               "name": "isBlock"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'final'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isFinal"
                            }]
                },
                {
@@ -746,10 +839,28 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'static'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isStatic"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "children": [
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "modifiers"
                            }]
                },
                {
@@ -1045,11 +1156,33 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the given modifier",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "hasModifier"
+                           },
+                           {
+                              "type": "String",
+                              "name": "modifier"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "true if this node is considered a block of statements",
                   "children": [
                            {
                               "type": "boolean",
                               "name": "isBlock"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'final'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isFinal"
                            }]
                },
                {
@@ -1063,10 +1196,28 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'static'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isStatic"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "children": [
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "modifiers"
                            }]
                },
                {
@@ -1464,11 +1615,33 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the given modifier",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "hasModifier"
+                           },
+                           {
+                              "type": "String",
+                              "name": "modifier"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "true if this node is considered a block of statements",
                   "children": [
                            {
                               "type": "boolean",
                               "name": "isBlock"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'final'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isFinal"
                            }]
                },
                {
@@ -1482,10 +1655,28 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'static'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isStatic"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "children": [
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "modifiers"
                            }]
                },
                {
@@ -1816,11 +2007,33 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the given modifier",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "hasModifier"
+                           },
+                           {
+                              "type": "String",
+                              "name": "modifier"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "true if this node is considered a block of statements",
                   "children": [
                            {
                               "type": "boolean",
                               "name": "isBlock"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'final'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isFinal"
                            }]
                },
                {
@@ -1834,10 +2047,28 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'static'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isStatic"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "children": [
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "modifiers"
                            }]
                },
                {
@@ -2162,11 +2393,33 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the given modifier",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "hasModifier"
+                           },
+                           {
+                              "type": "String",
+                              "name": "modifier"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "true if this node is considered a block of statements",
                   "children": [
                            {
                               "type": "boolean",
                               "name": "isBlock"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'final'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isFinal"
                            }]
                },
                {
@@ -2180,10 +2433,28 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'static'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isStatic"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "children": [
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "modifiers"
                            }]
                },
                {
@@ -2478,11 +2749,33 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the given modifier",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "hasModifier"
+                           },
+                           {
+                              "type": "String",
+                              "name": "modifier"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "true if this node is considered a block of statements",
                   "children": [
                            {
                               "type": "boolean",
                               "name": "isBlock"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'final'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isFinal"
                            }]
                },
                {
@@ -2496,10 +2789,28 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'static'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isStatic"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "children": [
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "modifiers"
                            }]
                },
                {
@@ -2826,11 +3137,33 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the given modifier",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "hasModifier"
+                           },
+                           {
+                              "type": "String",
+                              "name": "modifier"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "true if this node is considered a block of statements",
                   "children": [
                            {
                               "type": "boolean",
                               "name": "isBlock"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'final'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isFinal"
                            }]
                },
                {
@@ -2844,10 +3177,28 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'static'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isStatic"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "children": [
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "modifiers"
                            }]
                },
                {
@@ -3190,11 +3541,33 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the given modifier",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "hasModifier"
+                           },
+                           {
+                              "type": "String",
+                              "name": "modifier"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "true if this node is considered a block of statements",
                   "children": [
                            {
                               "type": "boolean",
                               "name": "isBlock"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'final'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isFinal"
                            }]
                },
                {
@@ -3208,10 +3581,28 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'static'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isStatic"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "children": [
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "modifiers"
                            }]
                },
                {
@@ -3543,11 +3934,33 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the given modifier",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "hasModifier"
+                           },
+                           {
+                              "type": "String",
+                              "name": "modifier"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "true if this node is considered a block of statements",
                   "children": [
                            {
                               "type": "boolean",
                               "name": "isBlock"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'final'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isFinal"
                            }]
                },
                {
@@ -3561,10 +3974,28 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'static'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isStatic"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "children": [
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "modifiers"
                            }]
                },
                {
@@ -3905,11 +4336,33 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the given modifier",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "hasModifier"
+                           },
+                           {
+                              "type": "String",
+                              "name": "modifier"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "true if this node is considered a block of statements",
                   "children": [
                            {
                               "type": "boolean",
                               "name": "isBlock"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'final'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isFinal"
                            }]
                },
                {
@@ -3923,10 +4376,28 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'static'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isStatic"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "children": [
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "modifiers"
                            }]
                },
                {
@@ -4264,11 +4735,33 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the given modifier",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "hasModifier"
+                           },
+                           {
+                              "type": "String",
+                              "name": "modifier"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "true if this node is considered a block of statements",
                   "children": [
                            {
                               "type": "boolean",
                               "name": "isBlock"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'final'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isFinal"
                            }]
                },
                {
@@ -4282,10 +4775,28 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'static'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isStatic"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "children": [
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "modifiers"
                            }]
                },
                {
@@ -4513,14 +5024,6 @@
                },
                {
                   "type": "attribute",
-                  "children": [
-                           {
-                              "type": "String[]",
-                              "name": "modifiers"
-                           }]
-               },
-               {
-                  "type": "attribute",
                   "tooltip": "the simple name of the class",
                   "children": [
                            {
@@ -4641,11 +5144,33 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the given modifier",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "hasModifier"
+                           },
+                           {
+                              "type": "String",
+                              "name": "modifier"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "true if this node is considered a block of statements",
                   "children": [
                            {
                               "type": "boolean",
                               "name": "isBlock"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'final'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isFinal"
                            }]
                },
                {
@@ -4659,10 +5184,28 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'static'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isStatic"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "children": [
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "modifiers"
                            }]
                },
                {
@@ -5281,11 +5824,33 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the given modifier",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "hasModifier"
+                           },
+                           {
+                              "type": "String",
+                              "name": "modifier"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "true if this node is considered a block of statements",
                   "children": [
                            {
                               "type": "boolean",
                               "name": "isBlock"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'final'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isFinal"
                            }]
                },
                {
@@ -5299,10 +5864,28 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'static'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isStatic"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "children": [
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "modifiers"
                            }]
                },
                {
@@ -5587,11 +6170,33 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the given modifier",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "hasModifier"
+                           },
+                           {
+                              "type": "String",
+                              "name": "modifier"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "true if this node is considered a block of statements",
                   "children": [
                            {
                               "type": "boolean",
                               "name": "isBlock"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'final'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isFinal"
                            }]
                },
                {
@@ -5605,10 +6210,28 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'static'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isStatic"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "children": [
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "modifiers"
                            }]
                },
                {
@@ -5899,11 +6522,33 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the given modifier",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "hasModifier"
+                           },
+                           {
+                              "type": "String",
+                              "name": "modifier"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "true if this node is considered a block of statements",
                   "children": [
                            {
                               "type": "boolean",
                               "name": "isBlock"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'final'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isFinal"
                            }]
                },
                {
@@ -5917,10 +6562,28 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'static'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isStatic"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "children": [
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "modifiers"
                            }]
                },
                {
@@ -6221,11 +6884,33 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the given modifier",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "hasModifier"
+                           },
+                           {
+                              "type": "String",
+                              "name": "modifier"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "true if this node is considered a block of statements",
                   "children": [
                            {
                               "type": "boolean",
                               "name": "isBlock"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'final'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isFinal"
                            }]
                },
                {
@@ -6239,10 +6924,28 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'static'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isStatic"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "children": [
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "modifiers"
                            }]
                },
                {
@@ -6444,14 +7147,6 @@
                },
                {
                   "type": "attribute",
-                  "children": [
-                           {
-                              "type": "String[]",
-                              "name": "modifiers"
-                           }]
-               },
-               {
-                  "type": "attribute",
                   "tooltip": "the simple name of the class",
                   "children": [
                            {
@@ -6572,11 +7267,33 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the given modifier",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "hasModifier"
+                           },
+                           {
+                              "type": "String",
+                              "name": "modifier"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "true if this node is considered a block of statements",
                   "children": [
                            {
                               "type": "boolean",
                               "name": "isBlock"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'final'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isFinal"
                            }]
                },
                {
@@ -6590,10 +7307,28 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'static'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isStatic"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "children": [
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "modifiers"
                            }]
                },
                {
@@ -7201,11 +7936,33 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the given modifier",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "hasModifier"
+                           },
+                           {
+                              "type": "String",
+                              "name": "modifier"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "true if this node is considered a block of statements",
                   "children": [
                            {
                               "type": "boolean",
                               "name": "isBlock"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'final'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isFinal"
                            }]
                },
                {
@@ -7219,10 +7976,28 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'static'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isStatic"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "children": [
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "modifiers"
                            }]
                },
                {
@@ -7521,11 +8296,33 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the given modifier",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "hasModifier"
+                           },
+                           {
+                              "type": "String",
+                              "name": "modifier"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "true if this node is considered a block of statements",
                   "children": [
                            {
                               "type": "boolean",
                               "name": "isBlock"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'final'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isFinal"
                            }]
                },
                {
@@ -7539,10 +8336,28 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'static'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isStatic"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "children": [
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "modifiers"
                            }]
                },
                {
@@ -7897,11 +8712,33 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the given modifier",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "hasModifier"
+                           },
+                           {
+                              "type": "String",
+                              "name": "modifier"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "true if this node is considered a block of statements",
                   "children": [
                            {
                               "type": "boolean",
                               "name": "isBlock"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'final'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isFinal"
                            }]
                },
                {
@@ -7915,10 +8752,28 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'static'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isStatic"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "children": [
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "modifiers"
                            }]
                },
                {
@@ -8236,11 +9091,33 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the given modifier",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "hasModifier"
+                           },
+                           {
+                              "type": "String",
+                              "name": "modifier"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "true if this node is considered a block of statements",
                   "children": [
                            {
                               "type": "boolean",
                               "name": "isBlock"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'final'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isFinal"
                            }]
                },
                {
@@ -8254,10 +9131,28 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'static'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isStatic"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "children": [
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "modifiers"
                            }]
                },
                {
@@ -8684,11 +9579,33 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the given modifier",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "hasModifier"
+                           },
+                           {
+                              "type": "String",
+                              "name": "modifier"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "true if this node is considered a block of statements",
                   "children": [
                            {
                               "type": "boolean",
                               "name": "isBlock"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'final'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isFinal"
                            }]
                },
                {
@@ -8702,10 +9619,28 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'static'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isStatic"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "children": [
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "modifiers"
                            }]
                },
                {
@@ -8927,14 +9862,6 @@
                },
                {
                   "type": "attribute",
-                  "children": [
-                           {
-                              "type": "String[]",
-                              "name": "modifiers"
-                           }]
-               },
-               {
-                  "type": "attribute",
                   "tooltip": "the simple name of the class",
                   "children": [
                            {
@@ -9055,11 +9982,33 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the given modifier",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "hasModifier"
+                           },
+                           {
+                              "type": "String",
+                              "name": "modifier"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "true if this node is considered a block of statements",
                   "children": [
                            {
                               "type": "boolean",
                               "name": "isBlock"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'final'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isFinal"
                            }]
                },
                {
@@ -9073,10 +10022,28 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'static'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isStatic"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "children": [
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "modifiers"
                            }]
                },
                {
@@ -9488,15 +10455,6 @@
                },
                {
                   "type": "attribute",
-                  "tooltip": "the modifiers of this type",
-                  "children": [
-                           {
-                              "type": "String[]",
-                              "name": "modifiers"
-                           }]
-               },
-               {
-                  "type": "attribute",
                   "tooltip": "the simple name of the type",
                   "children": [
                            {
@@ -9617,11 +10575,33 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the given modifier",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "hasModifier"
+                           },
+                           {
+                              "type": "String",
+                              "name": "modifier"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "true if this node is considered a block of statements",
                   "children": [
                            {
                               "type": "boolean",
                               "name": "isBlock"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'final'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isFinal"
                            }]
                },
                {
@@ -9635,10 +10615,28 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'static'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isStatic"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "children": [
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "modifiers"
                            }]
                },
                {
@@ -9921,11 +10919,33 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the given modifier",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "hasModifier"
+                           },
+                           {
+                              "type": "String",
+                              "name": "modifier"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "true if this node is considered a block of statements",
                   "children": [
                            {
                               "type": "boolean",
                               "name": "isBlock"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'final'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isFinal"
                            }]
                },
                {
@@ -9939,10 +10959,28 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'static'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isStatic"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "children": [
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "modifiers"
                            }]
                },
                {
@@ -10231,11 +11269,33 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the given modifier",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "hasModifier"
+                           },
+                           {
+                              "type": "String",
+                              "name": "modifier"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "true if this node is considered a block of statements",
                   "children": [
                            {
                               "type": "boolean",
                               "name": "isBlock"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'final'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isFinal"
                            }]
                },
                {
@@ -10249,10 +11309,28 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'static'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isStatic"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "children": [
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "modifiers"
                            }]
                },
                {
@@ -10620,11 +11698,33 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the given modifier",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "hasModifier"
+                           },
+                           {
+                              "type": "String",
+                              "name": "modifier"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "true if this node is considered a block of statements",
                   "children": [
                            {
                               "type": "boolean",
                               "name": "isBlock"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'final'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isFinal"
                            }]
                },
                {
@@ -10638,10 +11738,28 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'static'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isStatic"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "children": [
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "modifiers"
                            }]
                },
                {
@@ -10971,11 +12089,33 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the given modifier",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "hasModifier"
+                           },
+                           {
+                              "type": "String",
+                              "name": "modifier"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "true if this node is considered a block of statements",
                   "children": [
                            {
                               "type": "boolean",
                               "name": "isBlock"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'final'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isFinal"
                            }]
                },
                {
@@ -10989,10 +12129,28 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'static'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isStatic"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "children": [
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "modifiers"
                            }]
                },
                {
@@ -11258,14 +12416,6 @@
                   "type": "attribute",
                   "children": [
                            {
-                              "type": "boolean",
-                              "name": "isStatic"
-                           }]
-               },
-               {
-                  "type": "attribute",
-                  "children": [
-                           {
                               "type": "String",
                               "name": "privacy"
                            }]
@@ -11388,11 +12538,33 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the given modifier",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "hasModifier"
+                           },
+                           {
+                              "type": "String",
+                              "name": "modifier"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "true if this node is considered a block of statements",
                   "children": [
                            {
                               "type": "boolean",
                               "name": "isBlock"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'final'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isFinal"
                            }]
                },
                {
@@ -11406,10 +12578,28 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'static'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isStatic"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "children": [
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "modifiers"
                            }]
                },
                {
@@ -11786,11 +12976,33 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the given modifier",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "hasModifier"
+                           },
+                           {
+                              "type": "String",
+                              "name": "modifier"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "true if this node is considered a block of statements",
                   "children": [
                            {
                               "type": "boolean",
                               "name": "isBlock"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'final'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isFinal"
                            }]
                },
                {
@@ -11804,10 +13016,28 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'static'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isStatic"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "children": [
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "modifiers"
                            }]
                },
                {
@@ -12096,11 +13326,33 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the given modifier",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "hasModifier"
+                           },
+                           {
+                              "type": "String",
+                              "name": "modifier"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "true if this node is considered a block of statements",
                   "children": [
                            {
                               "type": "boolean",
                               "name": "isBlock"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'final'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isFinal"
                            }]
                },
                {
@@ -12114,10 +13366,28 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'static'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isStatic"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "children": [
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "modifiers"
                            }]
                },
                {
@@ -12384,11 +13654,33 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the given modifier",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "hasModifier"
+                           },
+                           {
+                              "type": "String",
+                              "name": "modifier"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "true if this node is considered a block of statements",
                   "children": [
                            {
                               "type": "boolean",
                               "name": "isBlock"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'final'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isFinal"
                            }]
                },
                {
@@ -12402,10 +13694,28 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'static'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isStatic"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "children": [
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "modifiers"
                            }]
                },
                {
@@ -12682,11 +13992,33 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the given modifier",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "hasModifier"
+                           },
+                           {
+                              "type": "String",
+                              "name": "modifier"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "true if this node is considered a block of statements",
                   "children": [
                            {
                               "type": "boolean",
                               "name": "isBlock"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'final'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isFinal"
                            }]
                },
                {
@@ -12700,10 +14032,28 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'static'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isStatic"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "children": [
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "modifiers"
                            }]
                },
                {
@@ -12980,11 +14330,33 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the given modifier",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "hasModifier"
+                           },
+                           {
+                              "type": "String",
+                              "name": "modifier"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "true if this node is considered a block of statements",
                   "children": [
                            {
                               "type": "boolean",
                               "name": "isBlock"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'final'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isFinal"
                            }]
                },
                {
@@ -12998,10 +14370,28 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'static'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isStatic"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "children": [
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "modifiers"
                            }]
                },
                {
@@ -13283,11 +14673,33 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the given modifier",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "hasModifier"
+                           },
+                           {
+                              "type": "String",
+                              "name": "modifier"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "true if this node is considered a block of statements",
                   "children": [
                            {
                               "type": "boolean",
                               "name": "isBlock"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'final'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isFinal"
                            }]
                },
                {
@@ -13301,10 +14713,28 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'static'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isStatic"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "children": [
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "modifiers"
                            }]
                },
                {
@@ -13591,11 +15021,33 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the given modifier",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "hasModifier"
+                           },
+                           {
+                              "type": "String",
+                              "name": "modifier"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "true if this node is considered a block of statements",
                   "children": [
                            {
                               "type": "boolean",
                               "name": "isBlock"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'final'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isFinal"
                            }]
                },
                {
@@ -13609,10 +15061,28 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'static'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isStatic"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "children": [
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "modifiers"
                            }]
                },
                {
@@ -13825,14 +15295,6 @@
                },
                {
                   "type": "attribute",
-                  "children": [
-                           {
-                              "type": "String[]",
-                              "name": "modifiers"
-                           }]
-               },
-               {
-                  "type": "attribute",
                   "tooltip": "the simple name of the class",
                   "children": [
                            {
@@ -13953,11 +15415,33 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the given modifier",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "hasModifier"
+                           },
+                           {
+                              "type": "String",
+                              "name": "modifier"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "true if this node is considered a block of statements",
                   "children": [
                            {
                               "type": "boolean",
                               "name": "isBlock"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'final'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isFinal"
                            }]
                },
                {
@@ -13971,10 +15455,28 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'static'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isStatic"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "children": [
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "modifiers"
                            }]
                },
                {
@@ -14479,11 +15981,33 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the given modifier",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "hasModifier"
+                           },
+                           {
+                              "type": "String",
+                              "name": "modifier"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "true if this node is considered a block of statements",
                   "children": [
                            {
                               "type": "boolean",
                               "name": "isBlock"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'final'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isFinal"
                            }]
                },
                {
@@ -14497,10 +16021,28 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'static'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isStatic"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "children": [
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "modifiers"
                            }]
                },
                {
@@ -14890,11 +16432,33 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the given modifier",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "hasModifier"
+                           },
+                           {
+                              "type": "String",
+                              "name": "modifier"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "true if this node is considered a block of statements",
                   "children": [
                            {
                               "type": "boolean",
                               "name": "isBlock"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'final'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isFinal"
                            }]
                },
                {
@@ -14908,10 +16472,28 @@
                },
                {
                   "type": "attribute",
+                  "tooltip": "true if this node has the modifier 'static'",
+                  "children": [
+                           {
+                              "type": "Boolean",
+                              "name": "isStatic"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "children": [
                            {
                               "type": "int",
                               "name": "line"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "modifiers"
                            }]
                },
                {

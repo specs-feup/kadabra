@@ -59,10 +59,10 @@ public class JNamedType extends ANamedType {
         return Arrays.stream(interfaces).map(i -> i.getName()).toArray(String[]::new);
     }
 
-    @Override
-    public String[] getModifiersArrayImpl() {
-        return null;
-    }
+    // @Override
+    // public String[] getModifiersArrayImpl() {
+    // return null;
+    // }
 
     @Override
     public String getJavadocImpl() {

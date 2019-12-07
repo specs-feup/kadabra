@@ -98,15 +98,6 @@ public abstract class AEnum extends AClass {
     }
 
     /**
-     * Get value on attribute modifiersArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public String[] getModifiersArrayImpl() {
-        return this.aClass.getModifiersArrayImpl();
-    }
-
-    /**
      * Get value on attribute javadoc
      * @return the attribute's value
      */
@@ -455,20 +446,23 @@ public abstract class AEnum extends AClass {
         SUPERCLASS("superClass"),
         PACKAGE("package"),
         INTERFACES("interfaces"),
-        MODIFIERS("modifiers"),
         JAVADOC("javadoc"),
         ISSUBTYPEOF("isSubtypeOf"),
         PARENT("parent"),
-        ISSTATEMENT("isStatement"),
+        ISSTATIC("isStatic"),
         CODE("code"),
         AST("ast"),
         ISBLOCK("isBlock"),
-        CHILDREN("children"),
         LINE("line"),
         ANCESTOR("ancestor"),
+        MODIFIERS("modifiers"),
+        DESCENDANTS("descendants"),
+        ISSTATEMENT("isStatement"),
+        CHILDREN("children"),
+        HASMODIFIER("hasModifier"),
         NUMCHILDREN("numChildren"),
         SRCCODE("srcCode"),
-        DESCENDANTS("descendants"),
+        ISFINAL("isFinal"),
         CHILD("child");
         private String name;
 

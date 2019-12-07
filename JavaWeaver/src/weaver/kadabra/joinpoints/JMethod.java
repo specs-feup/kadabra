@@ -65,9 +65,13 @@ public class JMethod<T> extends AMethod {
     }
 
     @Override
-    public Boolean getIsStaticImpl() {
-        return node.getModifiers().contains(ModifierKind.STATIC);
+    public Set<ModifierKind> getModifiersInternal() {
+        return node.getModifiers();
     }
+    // @Override
+    // public Boolean getIsStaticImpl() {
+    // return node.getModifiers().contains(ModifierKind.STATIC);
+    // }
 
     @Override
     public String getToReferenceImpl() {

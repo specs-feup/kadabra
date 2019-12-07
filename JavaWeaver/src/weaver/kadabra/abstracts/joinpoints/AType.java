@@ -147,41 +147,6 @@ public abstract class AType extends AJavaWeaverJoinPoint {
     }
 
     /**
-     * Get value on attribute modifiers
-     * @return the attribute's value
-     */
-    public abstract String[] getModifiersArrayImpl();
-
-    /**
-     * Get value on attribute modifiers
-     * @return the attribute's value
-     */
-    public Object getModifiersImpl() {
-        String[] stringArrayImpl0 = getModifiersArrayImpl();
-        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(stringArrayImpl0);
-        return nativeArray0;
-    }
-
-    /**
-     * Get value on attribute modifiers
-     * @return the attribute's value
-     */
-    public final Object getModifiers() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "modifiers", Optional.empty());
-        	}
-        	Object result = this.getModifiersImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "modifiers", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "modifiers", e);
-        }
-    }
-
-    /**
      * Get value on attribute javadoc
      * @return the attribute's value
      */
@@ -607,7 +572,6 @@ public abstract class AType extends AJavaWeaverJoinPoint {
         attributes.add("superClass");
         attributes.add("package");
         attributes.add("interfaces");
-        attributes.add("modifiers");
         attributes.add("javadoc");
         attributes.add("isSubtypeOf");
     }
@@ -660,20 +624,23 @@ public abstract class AType extends AJavaWeaverJoinPoint {
         SUPERCLASS("superClass"),
         PACKAGE("package"),
         INTERFACES("interfaces"),
-        MODIFIERS("modifiers"),
         JAVADOC("javadoc"),
         ISSUBTYPEOF("isSubtypeOf"),
         PARENT("parent"),
-        ISSTATEMENT("isStatement"),
+        ISSTATIC("isStatic"),
         CODE("code"),
         AST("ast"),
         ISBLOCK("isBlock"),
-        CHILDREN("children"),
         LINE("line"),
         ANCESTOR("ancestor"),
+        MODIFIERS("modifiers"),
+        DESCENDANTS("descendants"),
+        ISSTATEMENT("isStatement"),
+        CHILDREN("children"),
+        HASMODIFIER("hasModifier"),
         NUMCHILDREN("numChildren"),
         SRCCODE("srcCode"),
-        DESCENDANTS("descendants"),
+        ISFINAL("isFinal"),
         CHILD("child");
         private String name;
 
