@@ -538,7 +538,7 @@ public class ActionUtils {
 
     }
 
-    private static JWEnvironment getKadabraEnvironment(Factory factory) {
+    public static JWEnvironment getKadabraEnvironment(Factory factory) {
         Environment environment = factory.getEnvironment();
         if (!(environment instanceof JWEnvironment)) {
             throw new RuntimeException(

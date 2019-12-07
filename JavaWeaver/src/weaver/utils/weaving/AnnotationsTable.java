@@ -104,6 +104,35 @@ public class AnnotationsTable {
     }
 
     /**********
+     * Removers *
+     **********/
+
+    /**
+     * If the snippet is found in any of the annotations, removes it.
+     * 
+     * @param snippet
+     * @return number of removals
+     */
+    public void remove(CtElement snippet) {
+        before.values().stream()
+                .forEach(list -> {
+                    while (list.remove(snippet))
+                        ;
+                });
+        after.values().stream()
+                .forEach(list -> {
+                    while (list.remove(snippet))
+                        ;
+                });
+        replace.values().stream()
+                .forEach(list -> {
+                    while (list.remove(snippet))
+                        ;
+                });
+
+    }
+
+    /**********
      * Adders *
      **********/
     /**

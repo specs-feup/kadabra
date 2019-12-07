@@ -2,6 +2,7 @@ package weaver.kadabra.abstracts;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +19,7 @@ import spoon.reflect.cu.SourcePosition;
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtExecutable;
 import spoon.reflect.declaration.CtType;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.AExecutable;
 import weaver.kadabra.abstracts.joinpoints.AExpression;
 import weaver.kadabra.abstracts.joinpoints.AFile;
@@ -26,9 +28,11 @@ import weaver.kadabra.abstracts.joinpoints.AStatement;
 import weaver.kadabra.abstracts.joinpoints.AType;
 import weaver.kadabra.joinpoints.JApp;
 import weaver.kadabra.joinpoints.JFile;
+import weaver.kadabra.spoon.extensions.launcher.JWEnvironment;
 import weaver.kadabra.util.KadabraLog;
 import weaver.utils.JoinPoints;
 import weaver.utils.SpoonUtils;
+import weaver.utils.weaving.ActionUtils;
 import weaver.utils.weaving.converters.CtElement2JoinPoint;
 import weaver.utils.weaving.converters.CtExecutable2AExecutable;
 import weaver.utils.weaving.converters.CtExpression2AExpression;
@@ -360,7 +364,12 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
 
     @Override
     public void removeImpl() {
-        getNode().delete();
+        // Delete from annotations
+        JWEnvironment env = ActionUtils.getKadabraEnvironment(JavaWeaver.getFactory().getFactory());
+        // TODO: This remove can be optimized
+        env.getTable().remove(getNode());
+        getNode().replace(Collections.emptyList());
+        // getNode().delete();
     }
 
 }
