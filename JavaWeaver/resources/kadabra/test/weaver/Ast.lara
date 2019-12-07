@@ -1,0 +1,8 @@
+import weaver.WeaverJps;
+
+aspectdef Ast
+
+	println(WeaverJps.search('file').first().ast);
+
+
+end

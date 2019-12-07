@@ -1,0 +1,16 @@
+public class Ast {
+
+	public static final int x = 0;
+	
+	private final int a = 1;
+	private final int b;
+	
+	public Ast(int b) {
+		this.b = 2;
+	}
+	
+	public int foo() {
+		final int c = 3;
+		return c;
+	}
+}

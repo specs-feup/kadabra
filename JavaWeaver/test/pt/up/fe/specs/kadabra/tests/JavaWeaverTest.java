@@ -67,6 +67,11 @@ public class JavaWeaverTest {
         newTester().test("GlobalJp.lara", "GlobalJp.java.test");
     }
 
+    @Test
+    public void testAst() {
+        newTester().test("Ast.lara", "Ast.java.test");
+    }
+
     // @Test
     public void testCompilationError() {
 
