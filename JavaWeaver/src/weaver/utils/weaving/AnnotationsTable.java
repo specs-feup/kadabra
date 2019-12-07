@@ -15,8 +15,10 @@ package weaver.utils.weaving;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtTypeMember;
@@ -32,6 +34,9 @@ public class AnnotationsTable {
     private Map<String, List<CtElement>> replace;
     // private TypeMemberKeyGeneratorVisitor keyGenerator;
 
+    // Keep track of added snippets
+    private Set<CtElement> snippets;
+
     public static AnnotationsTable getStaticTable() {
         return ANNOT_TABLE;
     }
@@ -41,6 +46,8 @@ public class AnnotationsTable {
         after = new HashMap<>();
         replace = new HashMap<>();
         // keyGenerator = new TypeMemberKeyGeneratorVisitor();
+
+        this.snippets = new HashSet<>();
     }
 
     public void reset() {
@@ -114,6 +121,11 @@ public class AnnotationsTable {
      * @return number of removals
      */
     public void remove(CtElement snippet) {
+        // If the snippet is not present, return immediately
+        if (!snippets.contains(snippet)) {
+            return;
+        }
+
         before.values().stream()
                 .forEach(list -> {
                     while (list.remove(snippet))
@@ -230,12 +242,16 @@ public class AnnotationsTable {
         return map.containsKey(key);
     }
 
-    private static int add(Map<String, List<CtElement>> map, CtElement target, CtElement snippet) {
+    private int add(Map<String, List<CtElement>> map, CtElement target, CtElement snippet) {
+        // Bookkeeping
+        snippets.add(snippet);
+
         String key = getKey(target);
         List<CtElement> annots;
         if (map.containsKey(key)) {
             annots = map.get(key);
         } else {
+            // map.put(key, annots = new ArrayList<>());
             map.put(key, annots = new ArrayList<>());
         }
         annots.add(snippet);
