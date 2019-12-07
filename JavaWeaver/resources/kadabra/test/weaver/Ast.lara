@@ -1,4 +1,5 @@
 import weaver.WeaverJps;
+import kadabra.KadabraNodes;
 
 aspectdef Ast
 
@@ -12,4 +13,20 @@ aspectdef Ast
 	println("Is static: " + $field.isStatic);
 	println("Has public: " + $field.hasModifier("public"));	
 	println("Has private: " + $field.hasModifier("PrIvAtE"));		
+	
+	// Test localVariable.init
+	var $localVariable = WeaverJps.search('method', {name: 'setLocalVariable'}).search('localVariable').first();
+	println("Local var init: " + $localVariable.init.code);
+	$localVariable.init = KadabraNodes.literal("20", $localVariable.type);
+	println("New local var init: " + $localVariable.init.code);
+	$localVariable.init = undefined;
+	println("Local var init after removing: " + $localVariable.code);
+	
+	// Test assignment.lhs and rhs
+	var $assignment = WeaverJps.search('method', {name: 'setAssignment'}).search('assignment').first();
+	println("Assignment: " + $assignment.code);
+	println("Assignment lhs: " + $assignment.lhs.code);
+	println("Assignment rhs: " + $assignment.rhs.code);
+	$assignment.rhs = KadabraNodes.literal("30", $assignment.rhs.type);	
+	println("Assignment after set: " + $assignment.code);
 end

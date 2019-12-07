@@ -46,9 +46,47 @@ file (Ast.java)
           var (c)
             reference (c - LocalVariable)
               reference (int - Type)
+    method (setLocalVariable)
+      reference (void - Type)
+      body
+        localVariable (int a = 10)
+          reference (int - Type)
+          literal (10)
+            reference (int - Type)
+    method (setAssignment)
+      reference (void - Type)
+      body
+        localVariable (int a = 10)
+          reference (int - Type)
+          literal (10)
+            reference (int - Type)
+        localVariable (int b = 20)
+          reference (int - Type)
+          literal (20)
+            reference (int - Type)
+        assignment (b = a + b)
+          reference (int - Type)
+          var (b)
+            reference (b - LocalVariable)
+              reference (int - Type)
+          binaryExpression (a + b)
+            reference (int - Type)
+            var (a)
+              reference (a - LocalVariable)
+                reference (int - Type)
+            var (b)
+              reference (b - LocalVariable)
+                reference (int - Type)
 
 Modifiers: FINAL,PUBLIC,STATIC
 Is final: true
 Is static: true
 Has public: true
 Has private: false
+Local var init: 10
+New local var init: 20
+Local var init after removing: int a
+Assignment: b = a + b
+Assignment lhs: b
+Assignment rhs: a + b
+Assignment after set: b = 30

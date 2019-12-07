@@ -13,4 +13,16 @@ public class Ast {
 		final int c = 3;
 		return c;
 	}
+	
+	public void setLocalVariable() {
+		int a = 10;
+	}
+	
+	public void setAssignment() {
+		int a = 10;
+		int b = 20;
+		
+		b = a + b;
+	}
+		
 }
