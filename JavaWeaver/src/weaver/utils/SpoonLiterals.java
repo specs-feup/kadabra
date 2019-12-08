@@ -37,6 +37,14 @@ public class SpoonLiterals {
             throw new RuntimeException("Decoding of literal values not implemented for type '" + type + "'");
         }
 
-        return decoder.apply(literalValue);
+        Object value = decoder.apply(literalValue);
+
+        if (value instanceof Number) {
+            if (((Number) value).doubleValue() < 0) {
+                throw new RuntimeException("Literal values cannot be negative: " + value);
+            }
+        }
+
+        return value;
     }
 }
