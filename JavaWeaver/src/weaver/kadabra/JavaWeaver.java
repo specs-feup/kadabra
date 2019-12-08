@@ -439,13 +439,11 @@ public class JavaWeaver extends AJavaWeaver {
 
     @Override
     public LanguageSpecification getLanguageSpecification() {
-
         return LanguageSpecification.newInstance(JOINPOINTS, ARTIFACTS, ACTIONS, true);
     }
 
     @Override
     public String getName() {
-
         return "KADABRA";
     }
 
@@ -512,4 +510,5 @@ public class JavaWeaver extends AJavaWeaver {
     public Set<String> getLanguages() {
         return LANGUAGES;
     }
+
 }
