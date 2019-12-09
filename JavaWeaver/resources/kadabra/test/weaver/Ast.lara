@@ -29,4 +29,12 @@ aspectdef Ast
 	println("Assignment rhs: " + $assignment.rhs.code);
 	$assignment.rhs = KadabraNodes.literal("30", $assignment.rhs.type);	
 	println("Assignment after set: " + $assignment.code);
+	
+	for(var $call of search('method', 'call').search('call').get()) {
+		println("sub call: " + $call.ancestor('call'));
+	}
+	
+	
+
+
 end

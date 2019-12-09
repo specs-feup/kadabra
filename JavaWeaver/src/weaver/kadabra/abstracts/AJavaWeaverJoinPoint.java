@@ -100,6 +100,11 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
 
     @Override
     public AJoinPoint getParentImpl() {
+        // If no node, no parent
+        if (getNode() == null) {
+            return null;
+        }
+
         CtElement parent = getNode().getParent();
         if (parent == null) {
             return null;

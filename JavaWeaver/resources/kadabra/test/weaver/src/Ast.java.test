@@ -24,5 +24,14 @@ public class Ast {
 		
 		b = a + b;
 	}
+	
+	public Ast fluent() {
+		return this;
+	}
+	
+	public void call() {
+		Ast ast = new Ast(10).fluent();
+		ast.fluent().foo();
+	}
 		
 }
