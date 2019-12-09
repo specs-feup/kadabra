@@ -352,7 +352,7 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
 
     @Override
     public AJoinPoint childImpl(Integer index) {
-        return CtElement2JoinPoint.convert(getChildrenNodes().get(0));
+        return CtElement2JoinPoint.convert(getChildrenNodes().get(index));
     }
 
     @Override

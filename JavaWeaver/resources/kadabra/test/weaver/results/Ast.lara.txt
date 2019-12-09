@@ -140,3 +140,11 @@ Assignment after set: b = 30
 sub call: undefined
 sub call: undefined
 sub call: ast.fluent().foo()
+Var: this.b
+Var is final: true
+Var decl: private final int b;
+Var decl is final: true
+Var num: 2
+Var child 1: this
+Var child 2: b
+Var chain length: 2

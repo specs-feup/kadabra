@@ -16384,6 +16384,14 @@
                   "type": "attribute",
                   "children": [
                            {
+                              "type": "declaration",
+                              "name": "declaration"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "children": [
+                           {
                               "type": "boolean",
                               "name": "inLoopHeader"
                            }]
@@ -16426,6 +16434,15 @@
                            {
                               "type": "RefType",
                               "name": "reference"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "the chain of references of this variable (e.g., this.field)",
+                  "children": [
+                           {
+                              "type": "joinpoint[]",
+                              "name": "referenceChain"
                            }]
                },
                {

@@ -177,6 +177,64 @@ public abstract class AVar extends AExpression {
     }
 
     /**
+     * Get value on attribute referenceChain
+     * @return the attribute's value
+     */
+    public abstract AJoinPoint[] getReferenceChainArrayImpl();
+
+    /**
+     * the chain of references of this variable (e.g., this.field)
+     */
+    public Object getReferenceChainImpl() {
+        AJoinPoint[] aJoinPointArrayImpl0 = getReferenceChainArrayImpl();
+        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(aJoinPointArrayImpl0);
+        return nativeArray0;
+    }
+
+    /**
+     * the chain of references of this variable (e.g., this.field)
+     */
+    public final Object getReferenceChain() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "referenceChain", Optional.empty());
+        	}
+        	Object result = this.getReferenceChainImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "referenceChain", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "referenceChain", e);
+        }
+    }
+
+    /**
+     * Get value on attribute declaration
+     * @return the attribute's value
+     */
+    public abstract ADeclaration getDeclarationImpl();
+
+    /**
+     * Get value on attribute declaration
+     * @return the attribute's value
+     */
+    public final Object getDeclaration() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "declaration", Optional.empty());
+        	}
+        	ADeclaration result = this.getDeclarationImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "declaration", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "declaration", e);
+        }
+    }
+
+    /**
      * Get value on attribute kind
      * @return the attribute's value
      */
@@ -452,6 +510,8 @@ public abstract class AVar extends AExpression {
         attributes.add("isPrimitive");
         attributes.add("isField");
         attributes.add("inLoopHeader");
+        attributes.add("referenceChain");
+        attributes.add("declaration");
     }
 
     /**
@@ -501,6 +561,8 @@ public abstract class AVar extends AExpression {
         ISPRIMITIVE("isPrimitive"),
         ISFIELD("isField"),
         INLOOPHEADER("inLoopHeader"),
+        REFERENCECHAIN("referenceChain"),
+        DECLARATION("declaration"),
         KIND("kind"),
         TYPE("type"),
         TEST("test"),

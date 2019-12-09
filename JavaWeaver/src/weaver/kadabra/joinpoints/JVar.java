@@ -13,7 +13,9 @@
 
 package weaver.kadabra.joinpoints;
 
+import java.util.Collections;
 import java.util.Optional;
+import java.util.Set;
 
 import spoon.reflect.code.CtArrayAccess;
 import spoon.reflect.code.CtAssignment;
@@ -23,10 +25,14 @@ import spoon.reflect.code.CtLoop;
 import spoon.reflect.code.CtUnaryOperator;
 import spoon.reflect.code.CtVariableAccess;
 import spoon.reflect.declaration.CtElement;
+import spoon.reflect.declaration.ModifierKind;
+import weaver.kadabra.abstracts.joinpoints.ADeclaration;
+import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.AVar;
 import weaver.kadabra.enums.RefType;
 import weaver.utils.SpoonUtils;
 import weaver.utils.element.CtTypeReferenceUtils;
+import weaver.utils.weaving.converters.CtElement2JoinPoint;
 
 public class JVar<T> extends AVar {
 
@@ -140,6 +146,31 @@ public class JVar<T> extends AVar {
     @Override
     public String getNameImpl() {
         return node.getVariable().getSimpleName();
+    }
+
+    @Override
+    public AJoinPoint[] getReferenceChainArrayImpl() {
+        return getChildrenArrayImpl();
+    }
+
+    @Override
+    public ADeclaration getDeclarationImpl() {
+        var decl = node.getVariable().getDeclaration();
+        if (decl == null) {
+            return null;
+        }
+
+        return (ADeclaration) CtElement2JoinPoint.convert(decl);
+    }
+
+    @Override
+    public Set<ModifierKind> getModifiersInternal() {
+        var decl = getDeclarationImpl();
+        if (decl == null) {
+            return Collections.emptySet();
+        }
+
+        return decl.getModifiersInternal();
     }
 
     // @Override

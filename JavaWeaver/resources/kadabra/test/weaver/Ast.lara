@@ -34,6 +34,18 @@ aspectdef Ast
 		println("sub call: " + $call.ancestor('call'));
 	}
 	
+	for(var $assign of search('constructor').search('assignment').get()) {
+		var $var = $assign.lhs;
+		println("Var: " + $var.code);
+		println("Var is final: " + $var.isFinal);		
+		println("Var decl: " + $var.declaration.code);
+		println("Var decl is final: " + $var.declaration.isFinal);		
+		println("Var num: " + $var.numChildren);		
+		println("Var child 1: " + $var.child(0).code);
+		println("Var child 2: " + $var.child(1).code);		
+		println("Var chain length: " + $assign.lhs.referenceChain.length);
+	}
+	
 	
 
 

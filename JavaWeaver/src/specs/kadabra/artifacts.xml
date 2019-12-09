@@ -215,6 +215,9 @@
 		<attribute name="isPrimitive"		type="boolean"/>
 		<attribute name="isField"			type="boolean"/>
 		<attribute name="inLoopHeader"		type="boolean"/>
+		<attribute name="referenceChain"	type="joinpoint[]" tooltip="the chain of references of this variable (e.g., this.field)"/>		
+		<attribute name="declaration"		type="declaration"/>
+
 		<!-- <attribute name="modifiers"			type="string[]"/>			 -->
 					
 		<!-- <attribute name="num_reads"			type="integer"/>			
