@@ -13,15 +13,15 @@
 
 package weaver.gui;
 
-import org.lara.interpreter.joptions.gui.LaraLauncher;
-
+import pt.up.fe.specs.lara.WeaverLauncher;
 import pt.up.fe.specs.util.SpecsSystem;
 import weaver.kadabra.JavaWeaver;
 
 public class KadabraLauncher {
 
     public static boolean execute(String[] args) {
-        return LaraLauncher.launch(args, new JavaWeaver());
+        // return LaraLauncher.launch(args, new JavaWeaver());
+        return new WeaverLauncher(new JavaWeaver()).launch(args);
     }
 
     public static void main(String[] args) {
