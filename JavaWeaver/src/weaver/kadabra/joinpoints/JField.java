@@ -15,14 +15,12 @@ package weaver.kadabra.joinpoints;
 
 import org.lara.interpreter.weaver.interf.JoinPoint;
 
-import spoon.reflect.code.CtCodeSnippetExpression;
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtField;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.AField;
 import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
 import weaver.utils.weaving.ActionUtils;
-import weaver.utils.weaving.SnippetFactory;
 
 public class JField<T> extends AField {
 
@@ -48,11 +46,11 @@ public class JField<T> extends AField {
         return node.getDeclaringType().getQualifiedName();
     }
 
-    @Override
-    public void initImpl(String value) {
-        CtCodeSnippetExpression<T> snippetExpression = SnippetFactory.snippetExpression(value, node.getFactory());
-        node.setDefaultExpression(snippetExpression);
-    }
+    // @Override
+    // public void initImpl(String value) {
+    // CtCodeSnippetExpression<T> snippetExpression = SnippetFactory.snippetExpression(value, node.getFactory());
+    // node.setDefaultExpression(snippetExpression);
+    // }
 
     @Override
     public AJoinPoint[] insertImpl(String position, JoinPoint code) {

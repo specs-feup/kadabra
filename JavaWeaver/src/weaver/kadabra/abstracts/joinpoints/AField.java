@@ -3,7 +3,6 @@ package weaver.kadabra.abstracts.joinpoints;
 import org.lara.interpreter.weaver.interf.events.Stage;
 import java.util.Optional;
 import org.lara.interpreter.exception.AttributeException;
-import org.lara.interpreter.exception.ActionException;
 import java.util.List;
 import org.lara.interpreter.weaver.interf.JoinPoint;
 import java.util.stream.Collectors;
@@ -73,32 +72,6 @@ public abstract class AField extends ADeclaration {
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "staticAccess", e);
-        }
-    }
-
-    /**
-     * 
-     * @param value 
-     */
-    public void initImpl(String value) {
-        throw new UnsupportedOperationException(get_class()+": Action init not implemented ");
-    }
-
-    /**
-     * 
-     * @param value 
-     */
-    public final void init(String value) {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "init", this, Optional.empty(), value);
-        	}
-        	this.initImpl(value);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "init", this, Optional.empty(), value);
-        	}
-        } catch(Exception e) {
-        	throw new ActionException(get_class(), "init", e);
         }
     }
 
@@ -356,7 +329,6 @@ public abstract class AField extends ADeclaration {
     @Override
     protected final void fillWithActions(List<String> actions) {
         this.aDeclaration.fillWithActions(actions);
-        actions.add("void init(String)");
     }
 
     /**

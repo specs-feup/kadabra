@@ -8883,19 +8883,6 @@
                   "children": [
                            {
                               "type": "void",
-                              "name": "init"
-                           },
-                           {
-                              "type": "String",
-                              "name": "value",
-                              "defaultValue": ""
-                           }]
-               },
-               {
-                  "type": "action",
-                  "children": [
-                           {
-                              "type": "void",
                               "name": "setInit"
                            },
                            {

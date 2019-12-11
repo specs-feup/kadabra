@@ -211,10 +211,11 @@
 	</action>
 	
 	<!-- FIELD -->
+<!-- 
 	<action name="init" class="field">
 		<parameter name="value" type="String"/>
 	</action>
-	
+ -->	
 	
 	<!-- BINARY EXPRESSION-->
 	<action name="setOperator" class="binaryExpression">
