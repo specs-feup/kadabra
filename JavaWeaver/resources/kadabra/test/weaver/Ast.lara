@@ -47,6 +47,8 @@ aspectdef Ast
 	}
 	
 	
+	println("Search inclusive: " + searchFromInclusive(search('method', "call").first(), 'localVariable').first().code);
+	
 
 
 end

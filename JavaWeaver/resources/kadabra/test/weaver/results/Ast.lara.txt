@@ -148,3 +148,4 @@ Var num: 2
 Var child 1: this
 Var child 2: b
 Var chain length: 2
+Search inclusive: Ast ast = new Ast(10).fluent()
