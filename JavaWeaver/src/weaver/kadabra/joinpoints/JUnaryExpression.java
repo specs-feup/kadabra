@@ -61,7 +61,7 @@ public class JUnaryExpression<T> extends AUnaryExpression {
     @Override
     public void defOperatorImpl(String value) {
         // Convert string to kind
-        UnaryOperatorKind kind = OperatorUtils.parseUnary(value).orElse(null);
+        UnaryOperatorKind kind = OperatorUtils.parseUnaryTry(value).orElse(null);
 
         if (kind == null) {
             SpecsLogs.msgInfo("Could not parse unary operator '" + value + "'");

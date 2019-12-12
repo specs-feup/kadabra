@@ -85,8 +85,15 @@ public class JExpression<T> extends AExpression {
 
     @Override
     public String getTypeImpl() {
+        var type = node.getType();
 
-        return node.getType().toString();
+        if (type == null) {
+            KadabraLog.info("Currrent expression, of join point type '" + getJoinPointType()
+                    + "', does not have a type defined: '" + getCodeImpl() + "'");
+            return null;
+        }
+
+        return type.toString();
     }
 
     @Override

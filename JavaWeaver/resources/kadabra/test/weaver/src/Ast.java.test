@@ -33,5 +33,10 @@ public class Ast {
 		Ast ast = new Ast(10).fluent();
 		ast.fluent().foo();
 	}
+	
+	public void unaryExpr() {
+		int a = -10;
+		Ast ast = new Ast(-10);
+	}
 		
 }

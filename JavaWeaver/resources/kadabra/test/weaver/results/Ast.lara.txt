@@ -124,6 +124,29 @@ file (Ast.java)
             reference (Ast - Type)
               reference ( - Package)
             reference (int - Type)
+    method (unaryExpr)
+      reference (void - Type)
+      body
+        localVariable (int a = -10)
+          reference (int - Type)
+          unaryExpression (Unary Expression: -10)
+            reference (int - Type)
+            literal (10)
+              reference (int - Type)
+        localVariable (Ast ast = new Ast((-10)))
+          reference (Ast - Type)
+            reference ( - Package)
+          expression (new Ast((-10)))
+            reference (<init> - Executable)
+              reference (Ast - Type)
+                reference ( - Package)
+              reference (Ast - Type)
+                reference ( - Package)
+              reference (int - Type)
+            unaryExpression (Unary Expression: (-10))
+              reference (int - Type)
+              literal (10)
+                reference (int - Type)
 
 Modifiers: FINAL,PUBLIC,STATIC
 Is final: true
@@ -149,3 +172,5 @@ Var child 1: this
 Var child 2: b
 Var chain length: 2
 Search inclusive: Ast ast = new Ast(10).fluent()
+UnaryExpr node: -1
+BinaryExpr node: 1 + 2

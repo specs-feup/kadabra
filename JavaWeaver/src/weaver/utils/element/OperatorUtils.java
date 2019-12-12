@@ -13,6 +13,7 @@
 
 package weaver.utils.element;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -51,6 +52,14 @@ public class OperatorUtils {
         map.put("--", UnaryOperatorKind.POSTDEC);
 
         return map;
+    }
+
+    public static Collection<String> getValidUnaryStrings() {
+        return STRING_TO_UNARY_OP.get().keySet();
+    }
+
+    public static Collection<String> getValidBinaryStrings() {
+        return STRING_TO_BINARY_OP.get().keySet();
     }
 
     public static String convert(UnaryOperatorKind kind) {
@@ -149,13 +158,26 @@ public class OperatorUtils {
 
     }
 
-    public static Optional<BinaryOperatorKind> parseBinary(String kind) {
+    public static Optional<BinaryOperatorKind> parseBinaryTry(String kind) {
         // Check binary to operator map
         return Optional.ofNullable(STRING_TO_BINARY_OP.get().get(kind));
     }
 
-    public static Optional<UnaryOperatorKind> parseUnary(String kind) {
+    public static BinaryOperatorKind parseBinary(String kind) {
+        return parseBinaryTry(kind)
+                .orElseThrow(() -> new RuntimeException(
+                        "Operator '" + kind + "' is not valid, use one of " + OperatorUtils.getValidBinaryStrings()));
+    }
+
+    public static Optional<UnaryOperatorKind> parseUnaryTry(String kind) {
         // Check unary to operator map
         return Optional.ofNullable(STRING_TO_UNARY_OP.get().get(kind));
     }
+
+    public static UnaryOperatorKind parseUnary(String kind) {
+        return parseUnaryTry(kind)
+                .orElseThrow(() -> new RuntimeException(
+                        "Operator '" + kind + "' is not valid, use one of " + OperatorUtils.getValidUnaryStrings()));
+    }
+
 }

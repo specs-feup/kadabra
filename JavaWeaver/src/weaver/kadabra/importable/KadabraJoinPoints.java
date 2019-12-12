@@ -15,12 +15,18 @@ package weaver.kadabra.importable;
 
 import java.util.Arrays;
 
+import org.lara.interpreter.weaver.interf.JoinPoint;
+
+import pt.up.fe.specs.util.SpecsCheck;
+import spoon.reflect.code.BinaryOperatorKind;
 import spoon.reflect.code.CtComment.CommentType;
 import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.UnaryOperatorKind;
 import weaver.kadabra.JavaWeaver;
+import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 import weaver.kadabra.joinpoints.JComment;
 import weaver.utils.SpoonLiterals;
+import weaver.utils.element.OperatorUtils;
 import weaver.utils.weaving.converters.CtElement2JoinPoint;
 
 public class KadabraJoinPoints {
@@ -55,7 +61,7 @@ public class KadabraJoinPoints {
      *            the type of the literal
      * @param literal
      *            a string representing a Java literal. In the case it is signed, returns a unaryExpression instead of a
-     *            literal.
+     *            literal
      * @return
      */
     public static Object literal(String literal, String type) {
@@ -81,6 +87,68 @@ public class KadabraJoinPoints {
         }
 
         return CtElement2JoinPoint.convert(expressionNode);
+    }
+
+    /**
+     * Creates a new unary operator for the given operation and expression.
+     * 
+     * @param operator
+     *            the operator of the unary expression
+     * @param operand
+     *            an expression join point
+     * @return
+     */
+    public static Object unaryOperator(String operator, Object operand) {
+
+        SpecsCheck.checkArgument(operand instanceof JoinPoint,
+                () -> "Operand must be a join point, it " + operator.getClass().getSimpleName());
+
+        AJavaWeaverJoinPoint jpOperand = (AJavaWeaverJoinPoint) operand;
+
+        SpecsCheck.checkArgument(jpOperand.instanceOf("expression"),
+                () -> "Operand must be a join point of type 'expression', is " + jpOperand.getJoinPointType());
+
+        CtExpression<?> nodeExpr = (CtExpression<?>) jpOperand.getNode();
+
+        // Convert string to kind
+        UnaryOperatorKind opKind = OperatorUtils.parseUnary(operator);
+
+        return CtElement2JoinPoint.convert(JavaWeaver.getFactory().unaryOperator(opKind, nodeExpr));
+    }
+
+    /**
+     * Creates a new unary operator for the given operation and expression.
+     * 
+     * @param operator
+     *            the operator of the binary expression
+     * @param lhs
+     *            a join point representing the left hand of the binary expression
+     * @param rhs
+     *            a join point representing the right hand of the binary expression
+     * @return
+     */
+    public static Object binaryOperator(String operator, Object lhs, Object rhs) {
+
+        SpecsCheck.checkArgument(lhs instanceof JoinPoint,
+                () -> "Lhs must be a join point, it " + operator.getClass().getSimpleName());
+        SpecsCheck.checkArgument(rhs instanceof JoinPoint,
+                () -> "Rhs must be a join point, it " + operator.getClass().getSimpleName());
+
+        AJavaWeaverJoinPoint jpLhs = (AJavaWeaverJoinPoint) lhs;
+        AJavaWeaverJoinPoint jpRhs = (AJavaWeaverJoinPoint) rhs;
+
+        SpecsCheck.checkArgument(jpLhs.instanceOf("expression"),
+                () -> "Lhs must be a join point of type 'expression', is " + jpLhs.getJoinPointType());
+        SpecsCheck.checkArgument(jpRhs.instanceOf("expression"),
+                () -> "Rhs must be a join point of type 'expression', is " + jpRhs.getJoinPointType());
+
+        CtExpression<?> nodeLhs = (CtExpression<?>) jpLhs.getNode();
+        CtExpression<?> nodeRhs = (CtExpression<?>) jpRhs.getNode();
+
+        // Convert string to kind
+        BinaryOperatorKind opKind = OperatorUtils.parseBinary(operator);
+
+        return CtElement2JoinPoint.convert(JavaWeaver.getFactory().binaryOperator(opKind, nodeLhs, nodeRhs));
     }
 
     // public static Object literal2(String literal, String type) {

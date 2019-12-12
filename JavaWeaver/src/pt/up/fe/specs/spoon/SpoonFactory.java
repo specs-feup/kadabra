@@ -13,6 +13,8 @@
 
 package pt.up.fe.specs.spoon;
 
+import spoon.reflect.code.BinaryOperatorKind;
+import spoon.reflect.code.CtBinaryOperator;
 import spoon.reflect.code.CtComment;
 import spoon.reflect.code.CtComment.CommentType;
 import spoon.reflect.code.CtExpression;
@@ -55,5 +57,12 @@ public class SpoonFactory {
         unaryOperator.setOperand(expression);
 
         return unaryOperator;
+    }
+
+    public CtBinaryOperator<?> binaryOperator(BinaryOperatorKind kind, CtExpression<?> lhs, CtExpression<?> rhs) {
+        @SuppressWarnings("unchecked")
+        var binaryOperator = (CtBinaryOperator<?>) factory.createBinaryOperator(lhs, rhs, kind);
+
+        return binaryOperator;
     }
 }

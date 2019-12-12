@@ -49,6 +49,12 @@ aspectdef Ast
 	
 	println("Search inclusive: " + searchFromInclusive(search('method', "call").first(), 'localVariable').first().code);
 	
-
+	//for(var $unaryOp of search('method', 'unaryExpr').search('unaryExpression').get()) {
+	//	println("UnaryExpr Type: " + $unaryOp.copy().code);
+	//}
+	
+	
+	println("UnaryExpr node: " + KadabraNodes.unaryExpression("-", KadabraNodes.literal("1", "int")).code);
+	println("BinaryExpr node: " + KadabraNodes.binaryExpression("+", KadabraNodes.literal("1", "int"), KadabraNodes.literal("2", "int")).code);
 
 end

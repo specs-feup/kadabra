@@ -74,7 +74,7 @@ public class JBinaryExpression<T> extends ABinaryExpression {
     @Override
     public void defOperatorImpl(String value) {
         // Convert string to kind
-        BinaryOperatorKind kind = OperatorUtils.parseBinary(value).orElse(null);
+        BinaryOperatorKind kind = OperatorUtils.parseBinaryTry(value).orElse(null);
 
         if (kind == null) {
             SpecsLogs.msgInfo("Could not parse binary operator '" + value + "'");
