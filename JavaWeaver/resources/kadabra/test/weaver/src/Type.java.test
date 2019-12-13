@@ -1,7 +1,7 @@
 public class Type {
 	
 	private String b;
-	private Type[] d;
+	private Type d; // If this is an array, it will fail not detect on Windows but it will detect on Linux
 	private Type c; 
 	
 	//Constructor

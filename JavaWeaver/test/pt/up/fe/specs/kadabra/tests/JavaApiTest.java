@@ -68,6 +68,8 @@ public class JavaApiTest {
 
     @Test
     public void testKadabraAst() {
-        newTester().test("KadabraAstTest.lara", "KadabraAst.java.test");
+        newTester()
+                // .set(LaraiKeys.VERBOSE, VerboseLevel.all).set(LaraiKeys.DEBUG_MODE)
+                .test("KadabraAstTest.lara", "KadabraAst.java.test");
     }
 }

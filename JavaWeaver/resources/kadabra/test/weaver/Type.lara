@@ -2,9 +2,9 @@ import weaver.WeaverJps;
 
 aspectdef Type
 
-	for(var $var of WeaverJps.search("var").get()) {
+	for(var $var of WeaverJps.search("var")) {
 		println("Var type: " + $var.type);
-		//var $insertedJp = $var.insertBefore(%{if(true == true) {throw new RuntimeException("TEST");}}%);
 	}
 
+		//var $insertedJp = $var.insertBefore(%{if(true == true) {throw new RuntimeException("TEST");}}%);
 end
