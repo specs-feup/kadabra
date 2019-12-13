@@ -34,6 +34,7 @@ public enum KadabraAPIResources implements ResourceProvider {
 
     KADABRA_JAVA_TYPES("_KadabraJavaTypes"),
     KADABRA_NODES("KadabraNodes"),
+    KADABRA_AST("KadabraAst"),
 
     Factory("Factory"),
     Utils("Utils"),

@@ -1,0 +1,68 @@
+import weaver.WeaverJps;
+
+/**
+ * Utility methods related with the searching join points.
+ *
+ * @class
+ */
+var KadabraAst = {};
+
+/**
+ * Searches constant values. Currently, three types of constants are returned:
+ *
+ * - Class fields which are final and initialized when declared;
+ * - Assignments to final fields;
+ * - Local variables which are final and initialized when declared;
+ * 
+ *
+ * @param @param {$jp} [$startingPoint = $root] - The join point where the search for constants will start (inclusive).
+ *
+ * @return {$jp[]} an array of join points, which can either be a $field, an $assign or a $localVariable.
+ */
+KadabraAst.getConstantInitializations = function($startingPoint) {
+
+	if($startingPoint === undefined) {
+		$startingPoint = WeaverJps.root();
+	}
+
+	var constants = [];
+
+	for(var $field of searchFromInclusive($startingPoint, 'field').get()) {
+
+		if($field.init === undefined) {
+			continue;
+		}
+
+		if(!$field.isFinal) {
+			continue;
+		}
+
+		constants.push($field);
+	}
+
+	for(var $assign of searchFromInclusive($startingPoint, 'assignment').get()) {
+		
+		if(!$assign.lhs.isFinal) {
+			continue;
+		}
+
+		constants.push($assign);
+	}	
+
+
+	for(var $localVar of WeaverJps.searchFromInclusive($startingPoint, 'localVariable').get()) {
+		if($localVar.init === undefined) {
+			continue;
+		}
+		
+		if(!$localVar.isFinal) {
+			continue;
+		}
+
+		constants.push($localVar);
+	}	
+
+	return constants;
+}
+
+
