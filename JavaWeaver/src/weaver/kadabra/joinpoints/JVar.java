@@ -26,7 +26,7 @@ import spoon.reflect.code.CtUnaryOperator;
 import spoon.reflect.code.CtVariableAccess;
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.ModifierKind;
-import weaver.kadabra.abstracts.joinpoints.ADeclaration;
+import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.AVar;
 import weaver.kadabra.enums.RefType;
@@ -90,7 +90,6 @@ public class JVar<T> extends AVar {
 
     @Override
     public String getTypeImpl() {
-
         return CtTypeReferenceUtils.getType(node.getType());
     }
 
@@ -154,13 +153,13 @@ public class JVar<T> extends AVar {
     }
 
     @Override
-    public ADeclaration getDeclarationImpl() {
+    public AJavaWeaverJoinPoint getDeclarationImpl() {
         var decl = node.getVariable().getDeclaration();
         if (decl == null) {
             return null;
         }
 
-        return (ADeclaration) CtElement2JoinPoint.convert(decl);
+        return CtElement2JoinPoint.convert(decl);
     }
 
     @Override

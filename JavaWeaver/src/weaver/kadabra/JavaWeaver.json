@@ -16371,7 +16371,7 @@
                   "type": "attribute",
                   "children": [
                            {
-                              "type": "declaration",
+                              "type": "joinpoint",
                               "name": "declaration"
                            }]
                },
