@@ -1,0 +1,3 @@
+Constant: private final int a = 0;
+Constant: this.b = b
+Constant: final int a = 0

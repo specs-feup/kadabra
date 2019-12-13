@@ -1,0 +1,19 @@
+public class KadabraAst {
+
+	private final int a = 0;
+	private final int b;
+	private int c;
+	
+	public KadabraAst(int b, int c) {
+		this.b = b;
+		this.c = c;
+	}
+	
+	public int foo() {
+		final int a = 0;
+		int b = 1;
+		
+		return a + b;
+	}
+
+}

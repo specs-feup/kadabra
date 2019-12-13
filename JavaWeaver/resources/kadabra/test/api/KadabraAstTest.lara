@@ -1,0 +1,10 @@
+import kadabra.KadabraAst;
+
+aspectdef KadabraAstTest
+
+	for(var $constant of KadabraAst.getConstantInitializations()) {
+		println("Constant: " + $constant.code);
+	}
+
+end
+
