@@ -1,0 +1,10 @@
+import weaver.WeaverJps;
+
+aspectdef Type
+
+	for(var $var of WeaverJps.search("var").get()) {
+		println("Var type: " + $var.type);
+		//var $insertedJp = $var.insertBefore(%{if(true == true) {throw new RuntimeException("TEST");}}%);
+	}
+
+end

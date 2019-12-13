@@ -1,0 +1,9 @@
+Var type: String
+Var type: String
+Var type: class Type
+Var type: Type
+Var type: Type
+Var type: int
+Var type: int
+Var type: String
+Var type: String
