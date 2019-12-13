@@ -20,27 +20,32 @@ public class CtTypeReferenceUtils {
 
     public static String getType(CtTypeReference<?> type) {
 
-	if (getIsArray(type)) {
-	    return type.getActualClass().getComponentType().toString();
-	}
-	return type.toString();
+        try {
+            if (getIsArray(type)) {
+                return type.getActualClass().getComponentType().toString();
+            }
+        } catch (Exception e) {
+            // Do nothing, sometimes it can launch exception, such as when the type of the class is not on the classpath
+        }
+
+        return type.toString();
     }
 
     public static boolean getIsArray(CtTypeReference<?> type) {
-	return type.getActualClass().isArray();
+        return type.getActualClass().isArray();
     }
 
     public static int getDimension(CtTypeReference<?> type) {
 
-	boolean isArray = type.getActualClass().isArray();
-	if (isArray) {
-	    return ((CtArrayTypeReference<?>) type).getDimensionCount();
-	}
-	return 0;
+        boolean isArray = type.getActualClass().isArray();
+        if (isArray) {
+            return ((CtArrayTypeReference<?>) type).getDimensionCount();
+        }
+        return 0;
     }
 
     public static boolean getIsPrimitive(CtTypeReference<?> type) {
-	return type.isPrimitive();
+        return type.isPrimitive();
     }
 
 }
