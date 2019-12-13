@@ -1,10 +1,17 @@
 import kadabra.KadabraAst;
+import weaver.WeaverJps;
 
 aspectdef KadabraAstTest
 
 	for(var $constant of KadabraAst.getConstantInitializations()) {
 		println("Constant: " + $constant.code);
 	}
+	
+	/*
+	for(var $chain of search("method", "loops").search("loop").search("body").children("loop").chain()) {
+		println("Loop:\n"+$chain["loop"].code);
+	}
+	*/
 
 end
 
