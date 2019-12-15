@@ -78,6 +78,91 @@ public abstract class AExecutable extends AJavaWeaverJoinPoint {
     }
 
     /**
+     * Get value on attribute body
+     * @return the attribute's value
+     */
+    public abstract ABody getBodyImpl();
+
+    /**
+     * Get value on attribute body
+     * @return the attribute's value
+     */
+    public final Object getBody() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "body", Optional.empty());
+        	}
+        	ABody result = this.getBodyImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "body", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "body", e);
+        }
+    }
+
+    /**
+     * Get value on attribute params
+     * @return the attribute's value
+     */
+    public abstract ADeclaration[] getParamsArrayImpl();
+
+    /**
+     * Get value on attribute params
+     * @return the attribute's value
+     */
+    public Object getParamsImpl() {
+        ADeclaration[] aDeclarationArrayImpl0 = getParamsArrayImpl();
+        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(aDeclarationArrayImpl0);
+        return nativeArray0;
+    }
+
+    /**
+     * Get value on attribute params
+     * @return the attribute's value
+     */
+    public final Object getParams() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "params", Optional.empty());
+        	}
+        	Object result = this.getParamsImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "params", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "params", e);
+        }
+    }
+
+    /**
+     * Get value on attribute returnRef
+     * @return the attribute's value
+     */
+    public abstract ATypeReference getReturnRefImpl();
+
+    /**
+     * Get value on attribute returnRef
+     * @return the attribute's value
+     */
+    public final Object getReturnRef() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "returnRef", Optional.empty());
+        	}
+        	ATypeReference result = this.getReturnRefImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "returnRef", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "returnRef", e);
+        }
+    }
+
+    /**
      * Default implementation of the method used by the lara interpreter to select bodys
      * @return 
      */
@@ -176,6 +261,9 @@ public abstract class AExecutable extends AJavaWeaverJoinPoint {
         super.fillWithAttributes(attributes);
         attributes.add("name");
         attributes.add("returnType");
+        attributes.add("body");
+        attributes.add("params");
+        attributes.add("returnRef");
     }
 
     /**
@@ -211,6 +299,9 @@ public abstract class AExecutable extends AJavaWeaverJoinPoint {
     protected enum ExecutableAttributes {
         NAME("name"),
         RETURNTYPE("returnType"),
+        BODY("body"),
+        PARAMS("params"),
+        RETURNREF("returnRef"),
         PARENT("parent"),
         ISSTATIC("isStatic"),
         CODE("code"),

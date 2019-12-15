@@ -217,6 +217,15 @@
 	</action>
  -->	
 	
+	<!-- BODY -->
+	<action name="insertBegin" class="body">
+		<parameter name="code" type="String"/>
+	</action>
+	
+	<action name="insertBegin" class="body">
+		<parameter name="statement" type="statement"/>
+	</action>	
+	
 	<!-- BINARY EXPRESSION-->
 	<action name="setOperator" class="binaryExpression">
 		<parameter name="operator" type="String"/>

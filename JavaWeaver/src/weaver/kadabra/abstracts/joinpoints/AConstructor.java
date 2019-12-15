@@ -69,6 +69,33 @@ public abstract class AConstructor extends AExecutable {
     }
 
     /**
+     * Get value on attribute body
+     * @return the attribute's value
+     */
+    @Override
+    public ABody getBodyImpl() {
+        return this.aExecutable.getBodyImpl();
+    }
+
+    /**
+     * Get value on attribute paramsArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public ADeclaration[] getParamsArrayImpl() {
+        return this.aExecutable.getParamsArrayImpl();
+    }
+
+    /**
+     * Get value on attribute returnRef
+     * @return the attribute's value
+     */
+    @Override
+    public ATypeReference getReturnRefImpl() {
+        return this.aExecutable.getReturnRefImpl();
+    }
+
+    /**
      * Method used by the lara interpreter to select bodys
      * @return 
      */
@@ -309,6 +336,9 @@ public abstract class AConstructor extends AExecutable {
         DECLARATOR("declarator"),
         NAME("name"),
         RETURNTYPE("returnType"),
+        BODY("body"),
+        PARAMS("params"),
+        RETURNREF("returnRef"),
         PARENT("parent"),
         ISSTATIC("isStatic"),
         CODE("code"),

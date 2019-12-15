@@ -1,96 +1,78 @@
 package weaver.kadabra.abstracts.joinpoints;
 
-import java.util.List;
-import org.lara.interpreter.weaver.interf.JoinPoint;
+import org.lara.interpreter.weaver.interf.events.Stage;
 import java.util.Optional;
+import org.lara.interpreter.exception.AttributeException;
+import org.lara.interpreter.weaver.interf.JoinPoint;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.Arrays;
 
 /**
- * Auto-Generated class for join point AAnonymousExec
+ * Auto-Generated class for join point ATypeReference
  * This class is overwritten by the Weaver Generator.
  * 
- * 
+ * Reference to a type
  * @author Lara Weaver Generator
  */
-public abstract class AAnonymousExec extends AExecutable {
+public abstract class ATypeReference extends AReference {
 
-    protected AExecutable aExecutable;
+    protected AReference aReference;
 
     /**
      * 
      */
-    public AAnonymousExec(AExecutable aExecutable){
-        this.aExecutable = aExecutable;
+    public ATypeReference(AReference aReference){
+        this.aReference = aReference;
     }
+    /**
+     * true if this is a reference to a primitive type, false otherwise
+     */
+    public abstract Boolean getIsPrimitiveImpl();
+
+    /**
+     * true if this is a reference to a primitive type, false otherwise
+     */
+    public final Object getIsPrimitive() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isPrimitive", Optional.empty());
+        	}
+        	Boolean result = this.getIsPrimitiveImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "isPrimitive", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "isPrimitive", e);
+        }
+    }
+
     /**
      * Get value on attribute name
      * @return the attribute's value
      */
     @Override
     public String getNameImpl() {
-        return this.aExecutable.getNameImpl();
+        return this.aReference.getNameImpl();
     }
 
     /**
-     * Get value on attribute returnType
+     * Get value on attribute declaration
      * @return the attribute's value
      */
     @Override
-    public String getReturnTypeImpl() {
-        return this.aExecutable.getReturnTypeImpl();
+    public AJoinPoint getDeclarationImpl() {
+        return this.aReference.getDeclarationImpl();
     }
 
     /**
-     * Get value on attribute body
+     * Get value on attribute type
      * @return the attribute's value
      */
     @Override
-    public ABody getBodyImpl() {
-        return this.aExecutable.getBodyImpl();
-    }
-
-    /**
-     * Get value on attribute paramsArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public ADeclaration[] getParamsArrayImpl() {
-        return this.aExecutable.getParamsArrayImpl();
-    }
-
-    /**
-     * Get value on attribute returnRef
-     * @return the attribute's value
-     */
-    @Override
-    public ATypeReference getReturnRefImpl() {
-        return this.aExecutable.getReturnRefImpl();
-    }
-
-    /**
-     * Method used by the lara interpreter to select bodys
-     * @return 
-     */
-    @Override
-    public List<? extends ABody> selectBody() {
-        return this.aExecutable.selectBody();
-    }
-
-    /**
-     * Method used by the lara interpreter to select params
-     * @return 
-     */
-    @Override
-    public List<? extends ADeclaration> selectParam() {
-        return this.aExecutable.selectParam();
-    }
-
-    /**
-     * 
-     */
-    public void defNameImpl(String value) {
-        this.aExecutable.defNameImpl(value);
+    public String getTypeImpl() {
+        return this.aReference.getTypeImpl();
     }
 
     /**
@@ -99,7 +81,7 @@ public abstract class AAnonymousExec extends AExecutable {
      */
     @Override
     public AJoinPoint insertBeforeImpl(AJoinPoint node) {
-        return this.aExecutable.insertBeforeImpl(node);
+        return this.aReference.insertBeforeImpl(node);
     }
 
     /**
@@ -108,7 +90,7 @@ public abstract class AAnonymousExec extends AExecutable {
      */
     @Override
     public AJoinPoint insertBeforeImpl(String code) {
-        return this.aExecutable.insertBeforeImpl(code);
+        return this.aReference.insertBeforeImpl(code);
     }
 
     /**
@@ -117,7 +99,7 @@ public abstract class AAnonymousExec extends AExecutable {
      */
     @Override
     public AJoinPoint insertAfterImpl(AJoinPoint node) {
-        return this.aExecutable.insertAfterImpl(node);
+        return this.aReference.insertAfterImpl(node);
     }
 
     /**
@@ -126,7 +108,7 @@ public abstract class AAnonymousExec extends AExecutable {
      */
     @Override
     public AJoinPoint insertAfterImpl(String code) {
-        return this.aExecutable.insertAfterImpl(code);
+        return this.aReference.insertAfterImpl(code);
     }
 
     /**
@@ -135,7 +117,7 @@ public abstract class AAnonymousExec extends AExecutable {
      */
     @Override
     public AJoinPoint insertReplaceImpl(AJoinPoint jp) {
-        return this.aExecutable.insertReplaceImpl(jp);
+        return this.aReference.insertReplaceImpl(jp);
     }
 
     /**
@@ -144,7 +126,7 @@ public abstract class AAnonymousExec extends AExecutable {
      */
     @Override
     public AJoinPoint insertReplaceImpl(String code) {
-        return this.aExecutable.insertReplaceImpl(code);
+        return this.aReference.insertReplaceImpl(code);
     }
 
     /**
@@ -152,7 +134,7 @@ public abstract class AAnonymousExec extends AExecutable {
      */
     @Override
     public AJoinPoint copyImpl() {
-        return this.aExecutable.copyImpl();
+        return this.aReference.copyImpl();
     }
 
     /**
@@ -160,16 +142,7 @@ public abstract class AAnonymousExec extends AExecutable {
      */
     @Override
     public void removeImpl() {
-        this.aExecutable.removeImpl();
-    }
-
-    /**
-     * Sets the name of this executable, returns the previous name
-     * @param name 
-     */
-    @Override
-    public String setNameImpl(String name) {
-        return this.aExecutable.setNameImpl(name);
+        this.aReference.removeImpl();
     }
 
     /**
@@ -179,7 +152,7 @@ public abstract class AAnonymousExec extends AExecutable {
      */
     @Override
     public AJoinPoint[] insertImpl(String position, String code) {
-        return this.aExecutable.insertImpl(position, code);
+        return this.aReference.insertImpl(position, code);
     }
 
     /**
@@ -189,7 +162,7 @@ public abstract class AAnonymousExec extends AExecutable {
      */
     @Override
     public AJoinPoint[] insertImpl(String position, JoinPoint code) {
-        return this.aExecutable.insertImpl(position, code);
+        return this.aReference.insertImpl(position, code);
     }
 
     /**
@@ -197,15 +170,15 @@ public abstract class AAnonymousExec extends AExecutable {
      */
     @Override
     public String toString() {
-        return this.aExecutable.toString();
+        return this.aReference.toString();
     }
 
     /**
      * 
      */
     @Override
-    public Optional<? extends AExecutable> getSuper() {
-        return Optional.of(this.aExecutable);
+    public Optional<? extends AReference> getSuper() {
+        return Optional.of(this.aReference);
     }
 
     /**
@@ -215,14 +188,8 @@ public abstract class AAnonymousExec extends AExecutable {
     public final List<? extends JoinPoint> select(String selectName) {
         List<? extends JoinPoint> joinPointList;
         switch(selectName) {
-        	case "body": 
-        		joinPointList = selectBody();
-        		break;
-        	case "param": 
-        		joinPointList = selectParam();
-        		break;
         	default:
-        		joinPointList = this.aExecutable.select(selectName);
+        		joinPointList = this.aReference.select(selectName);
         		break;
         }
         return joinPointList;
@@ -245,13 +212,6 @@ public abstract class AAnonymousExec extends AExecutable {
         	}
         	this.unsupportedTypeForDef(attribute, value);
         }
-        case "name": {
-        	if(value instanceof String){
-        		this.defNameImpl((String)value);
-        		return;
-        	}
-        	this.unsupportedTypeForDef(attribute, value);
-        }
         default: throw new UnsupportedOperationException("Join point "+get_class()+": attribute '"+attribute+"' cannot be defined");
         }
     }
@@ -261,7 +221,8 @@ public abstract class AAnonymousExec extends AExecutable {
      */
     @Override
     protected final void fillWithAttributes(List<String> attributes) {
-        this.aExecutable.fillWithAttributes(attributes);
+        this.aReference.fillWithAttributes(attributes);
+        attributes.add("isPrimitive");
     }
 
     /**
@@ -269,7 +230,7 @@ public abstract class AAnonymousExec extends AExecutable {
      */
     @Override
     protected final void fillWithSelects(List<String> selects) {
-        this.aExecutable.fillWithSelects(selects);
+        this.aReference.fillWithSelects(selects);
     }
 
     /**
@@ -277,7 +238,7 @@ public abstract class AAnonymousExec extends AExecutable {
      */
     @Override
     protected final void fillWithActions(List<String> actions) {
-        this.aExecutable.fillWithActions(actions);
+        this.aReference.fillWithActions(actions);
     }
 
     /**
@@ -286,7 +247,7 @@ public abstract class AAnonymousExec extends AExecutable {
      */
     @Override
     public final String get_class() {
-        return "anonymousExec";
+        return "typeReference";
     }
 
     /**
@@ -299,17 +260,16 @@ public abstract class AAnonymousExec extends AExecutable {
         if(isInstance) {
         	return true;
         }
-        return this.aExecutable.instanceOf(joinpointClass);
+        return this.aReference.instanceOf(joinpointClass);
     }
     /**
      * 
      */
-    protected enum AnonymousExecAttributes {
+    protected enum TypeReferenceAttributes {
+        ISPRIMITIVE("isPrimitive"),
         NAME("name"),
-        RETURNTYPE("returnType"),
-        BODY("body"),
-        PARAMS("params"),
-        RETURNREF("returnRef"),
+        DECLARATION("declaration"),
+        TYPE("type"),
         PARENT("parent"),
         ISSTATIC("isStatic"),
         CODE("code"),
@@ -331,13 +291,13 @@ public abstract class AAnonymousExec extends AExecutable {
         /**
          * 
          */
-        private AnonymousExecAttributes(String name){
+        private TypeReferenceAttributes(String name){
             this.name = name;
         }
         /**
          * Return an attribute enumeration item from a given attribute name
          */
-        public static Optional<AnonymousExecAttributes> fromString(String name) {
+        public static Optional<TypeReferenceAttributes> fromString(String name) {
             return Arrays.asList(values()).stream().filter(attr -> attr.name.equals(name)).findAny();
         }
 
@@ -345,7 +305,7 @@ public abstract class AAnonymousExec extends AExecutable {
          * Return a list of attributes in String format
          */
         public static List<String> getNames() {
-            return Arrays.asList(values()).stream().map(AnonymousExecAttributes::name).collect(Collectors.toList());
+            return Arrays.asList(values()).stream().map(TypeReferenceAttributes::name).collect(Collectors.toList());
         }
 
         /**

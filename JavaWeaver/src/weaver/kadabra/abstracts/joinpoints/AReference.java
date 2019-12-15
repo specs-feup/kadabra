@@ -91,7 +91,7 @@ public abstract class AReference extends AJavaWeaverJoinPoint {
      * 
      */
     @Override
-    public final List<? extends JoinPoint> select(String selectName) {
+    public List<? extends JoinPoint> select(String selectName) {
         List<? extends JoinPoint> joinPointList;
         switch(selectName) {
         	default:
@@ -105,7 +105,7 @@ public abstract class AReference extends AJavaWeaverJoinPoint {
      * 
      */
     @Override
-    public final void defImpl(String attribute, Object value) {
+    public void defImpl(String attribute, Object value) {
         switch(attribute){
         case "line": {
         	if(value instanceof Integer){
@@ -126,7 +126,7 @@ public abstract class AReference extends AJavaWeaverJoinPoint {
      * 
      */
     @Override
-    protected final void fillWithAttributes(List<String> attributes) {
+    protected void fillWithAttributes(List<String> attributes) {
         super.fillWithAttributes(attributes);
         attributes.add("name");
         attributes.add("declaration");
@@ -137,7 +137,7 @@ public abstract class AReference extends AJavaWeaverJoinPoint {
      * 
      */
     @Override
-    protected final void fillWithSelects(List<String> selects) {
+    protected void fillWithSelects(List<String> selects) {
         super.fillWithSelects(selects);
     }
 
@@ -145,7 +145,7 @@ public abstract class AReference extends AJavaWeaverJoinPoint {
      * 
      */
     @Override
-    protected final void fillWithActions(List<String> actions) {
+    protected void fillWithActions(List<String> actions) {
         super.fillWithActions(actions);
     }
 
@@ -154,7 +154,7 @@ public abstract class AReference extends AJavaWeaverJoinPoint {
      * @return The join point type
      */
     @Override
-    public final String get_class() {
+    public String get_class() {
         return "reference";
     }
     /**

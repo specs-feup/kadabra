@@ -13,6 +13,7 @@
 
 package weaver.kadabra.joinpoints;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -22,8 +23,10 @@ import spoon.reflect.declaration.CtParameter;
 import weaver.kadabra.abstracts.joinpoints.ABody;
 import weaver.kadabra.abstracts.joinpoints.ADeclaration;
 import weaver.kadabra.abstracts.joinpoints.AExecutable;
+import weaver.kadabra.abstracts.joinpoints.ATypeReference;
 import weaver.utils.scanners.NodeConverter;
 import weaver.utils.weaving.SelectUtils;
+import weaver.utils.weaving.converters.CtElement2JoinPoint;
 
 public class JExecutable<R> extends AExecutable {
 
@@ -60,18 +63,30 @@ public class JExecutable<R> extends AExecutable {
     }
 
     @Override
-    public List<? extends ABody> selectBody() {
-
+    public ABody getBodyImpl() {
         final CtBlock<?> body = node.getBody();
+        if (body == null) {
+            return null;
+        }
+
+        return (ABody) CtElement2JoinPoint.convert(body);
+    }
+
+    @Override
+    public List<? extends ABody> selectBody() {
+        var body = getBodyImpl();
+
+        // final CtBlock<?> body = node.getBody();
         if (body == null) {
             return Collections.emptyList();
         }
-        return SelectUtils.node2JoinPointList(body, JBody::newInstance);
+        // return SelectUtils.node2JoinPointList(body, JBody::newInstance);
+
+        return Arrays.asList(body);
     }
 
     @Override
     public List<? extends ADeclaration> selectParam() {
-
         List<CtParameter<?>> parameters = node.getParameters();
         NodeConverter<CtParameter<?>, JDeclaration<?>> converter = JDeclaration::newInstance;
         final List<JDeclaration<?>> params = SelectUtils.nodeList2JoinPointList(parameters, converter);
@@ -86,6 +101,17 @@ public class JExecutable<R> extends AExecutable {
     @Override
     public String toString() {
         return node.getSignature();
+    }
+
+    @Override
+    public ADeclaration[] getParamsArrayImpl() {
+        return SelectUtils.nodeList2JoinPointList(node.getParameters(), JDeclaration::newInstance)
+                .toArray(length -> new ADeclaration[0]);
+    }
+
+    @Override
+    public ATypeReference getReturnRefImpl() {
+        return (ATypeReference) CtElement2JoinPoint.convert(node.getType());
     }
 
 }

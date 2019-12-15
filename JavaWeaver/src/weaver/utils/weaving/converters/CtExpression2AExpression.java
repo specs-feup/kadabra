@@ -16,6 +16,7 @@ package weaver.utils.weaving.converters;
 import pt.up.fe.specs.util.classmap.FunctionClassMap;
 import spoon.reflect.code.CtArrayAccess;
 import spoon.reflect.code.CtBinaryOperator;
+import spoon.reflect.code.CtConstructorCall;
 import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.CtFieldAccess;
 import spoon.reflect.code.CtInvocation;
@@ -29,6 +30,7 @@ import weaver.kadabra.joinpoints.JCall;
 import weaver.kadabra.joinpoints.JExpression;
 import weaver.kadabra.joinpoints.JFieldAccess;
 import weaver.kadabra.joinpoints.JLiteral;
+import weaver.kadabra.joinpoints.JNew;
 import weaver.kadabra.joinpoints.JUnaryExpression;
 import weaver.kadabra.joinpoints.JVar;
 
@@ -51,6 +53,7 @@ public class CtExpression2AExpression {
         CONVERTER.put(CtFieldAccess.class, JFieldAccess::newInstance);
         CONVERTER.put(CtArrayAccess.class, JArrayAccess::newInstance);
         CONVERTER.put(CtLiteral.class, JLiteral::newInstance);
+        CONVERTER.put(CtConstructorCall.class, JNew::newInstance);
 
         // CONVERTER.put(CtAssignment.class, JAssignment::newInstance);
 

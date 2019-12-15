@@ -82,3 +82,18 @@ KadabraNodes.binaryExpression= function(operator, lhs, rhs) {
 
 	return _KadabraJavaTypes.getKadabraJoinPoints().binaryOperator(operator, lhs, rhs);
 }
+
+
+
+/**
+ * Creates an expression from code snippet.
+ *
+ * @param {string} code - The literal code that represents the expression.
+ *
+ * @return {expression} an expression representing the code snippet.
+ */
+KadabraNodes.snippetExpr= function(code) {
+	checkString(code, "KadabraNodes.snippetExpr(code)");
+
+	return _KadabraJavaTypes.getKadabraJoinPoints().snippetExpression(code);
+}

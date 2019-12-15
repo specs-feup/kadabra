@@ -23,6 +23,10 @@ aspectdef KadabraNodesTest
 	$commentStart.remove();
 	$commentEnd.remove();    
 
+
+	//println(WeaverJps.search("file").getFirst().code);
+
+
 /*	
 	// Change name
 	var previousName = $foo4.setName($foo4.name + "_" + Strings.uuid()); 
@@ -30,7 +34,6 @@ aspectdef KadabraNodesTest
 	// Restore name
 	$foo4.name = previousName; 
 */	
-	println(WeaverJps.search("file").getFirst().code);
 
 /*
 	println("Original AST: " + WeaverJps.search("file").getFirst().ast);
@@ -57,5 +60,12 @@ aspectdef KadabraNodesTest
 	println("Foo4: " + $foo4.code);
 	println("Comment: " + $comment.code);	
 	*/
+	
+	
+	for(var $chainJp of search("method", "snippetExpr").search("statement").search("new").chain()) {
+		$chainJp["new"].insertReplace(KadabraNodes.snippetExpr("null"));
+		println($chainJp["method"].code);
+	}
+
 end
 

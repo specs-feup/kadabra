@@ -112,6 +112,9 @@
    			<def/>
    		</attribute>	
    		<attribute name="returnType"		type="String"/>
+   		<attribute name="body" 			type="body"/>   		
+   		<attribute name="params" type="declaration[]"/>   		
+   		<attribute name="returnRef" type="typeReference"/>   		
 	</artifact>
 	
 	<!-- METHOD -->
@@ -319,7 +322,9 @@
 		<attribute name="type"			type="String" tooltip="Type of the element of the reference"/>		
 	</artifact>
 
-
+	<artifact class="typeReference" default="name">
+		<attribute name="isPrimitive"	type="boolean" tooltip="true if this is a reference to a primitive type, false otherwise"/>		
+	</artifact>
 
 	<typedef name="Pair">
 		<attribute name="left"				type="string"/>

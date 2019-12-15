@@ -77,6 +77,11 @@ public class JavaWeaverTest {
         newTester().test("Type.lara", "Type.java.test");
     }
 
+    @Test
+    public void testSelects() {
+        newTester().test("Selects.lara", "Selects.java.test");
+    }
+
     // @Test
     public void testCompilationError() {
 

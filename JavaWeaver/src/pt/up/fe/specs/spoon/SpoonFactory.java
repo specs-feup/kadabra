@@ -37,7 +37,7 @@ public class SpoonFactory {
         this.factory = factory;
     }
 
-    public Factory getFactory() {
+    public Factory getSpoonFactory() {
         return factory;
     }
 

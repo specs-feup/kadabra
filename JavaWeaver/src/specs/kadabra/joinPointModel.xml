@@ -190,6 +190,7 @@
 		<select alias="arg" 		class="argument"/>
 	</joinpoint>
 	
+	<!-- ARGUMENT -->
 	<joinpoint class="argument" extends="expression"/>
 	
 	
@@ -213,7 +214,10 @@
 		<select alias="index"		class="expression"/>
 	</joinpoint>
 	
-		<!-- RETURN -->
+	<!-- NEW -->
+	<joinpoint class="new" extends="expression"/>
+	
+	<!-- RETURN -->
 	<joinpoint class="return" 		extends="statement"/>
 	
 	<joinpoint class="comment" extends="statement"/>
@@ -245,7 +249,7 @@
 	<joinpoint class="reference" tooltip="Points to a named program element reference"/>
 	
 	<!-- TYPE REFERENCE -->
-	<!--  <joinpoint class="typeReference" tooltip="Reference to a type"/>  -->
+	<joinpoint class="typeReference" extends="reference" tooltip="Reference to a type"/>
 	
 </joinpoints>
 

@@ -27,6 +27,7 @@ import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 import weaver.kadabra.joinpoints.JComment;
 import weaver.utils.SpoonLiterals;
 import weaver.utils.element.OperatorUtils;
+import weaver.utils.weaving.SnippetFactory;
 import weaver.utils.weaving.converters.CtElement2JoinPoint;
 
 public class KadabraJoinPoints {
@@ -149,6 +150,17 @@ public class KadabraJoinPoints {
         BinaryOperatorKind opKind = OperatorUtils.parseBinary(operator);
 
         return CtElement2JoinPoint.convert(JavaWeaver.getFactory().binaryOperator(opKind, nodeLhs, nodeRhs));
+    }
+
+    /**
+     * Creates an expression from code snippet.
+     *
+     * @param code
+     * @return
+     */
+    public static Object snippetExpression(String code) {
+        return CtElement2JoinPoint
+                .convert(SnippetFactory.createSnippetExpression(JavaWeaver.getFactory().getSpoonFactory(), code));
     }
 
     // public static Object literal2(String literal, String type) {

@@ -226,6 +226,11 @@ public class JExpression<T> extends AExpression {
     }
 
     // @Override
+    // public String toString() {
+    // return super.toString() + " - " + getNode().getClass().getSimpleName();
+    // }
+
+    // @Override
     // public AJoinPoint copyImpl() {
     // return CtElement2JoinPoint.convert(SnippetFactory.createSnippetExpression(node.getFactory(), getSrcCodeImpl()));
     // }

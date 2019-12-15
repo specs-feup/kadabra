@@ -373,7 +373,7 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
     @Override
     public void removeImpl() {
         // Delete from annotations
-        JWEnvironment env = ActionUtils.getKadabraEnvironment(JavaWeaver.getFactory().getFactory());
+        JWEnvironment env = ActionUtils.getKadabraEnvironment(JavaWeaver.getFactory().getSpoonFactory());
         // TODO: This remove can be optimized
         env.getTable().remove(getNode());
         getNode().replace(Collections.emptyList());

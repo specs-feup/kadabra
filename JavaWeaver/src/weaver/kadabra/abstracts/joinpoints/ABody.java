@@ -2,8 +2,10 @@ package weaver.kadabra.abstracts.joinpoints;
 
 import java.util.List;
 import org.lara.interpreter.weaver.interf.SelectOp;
-import org.lara.interpreter.weaver.interf.JoinPoint;
+import org.lara.interpreter.weaver.interf.events.Stage;
 import java.util.Optional;
+import org.lara.interpreter.exception.ActionException;
+import org.lara.interpreter.weaver.interf.JoinPoint;
 import java.util.stream.Collectors;
 import java.util.Arrays;
 
@@ -110,6 +112,58 @@ public abstract class ABody extends AStatement {
      */
     public List<? extends AComment> selectComment() {
         return select(weaver.kadabra.abstracts.joinpoints.AComment.class, SelectOp.DESCENDANTS);
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    public void insertBeginImpl(String code) {
+        throw new UnsupportedOperationException(get_class()+": Action insertBegin not implemented ");
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    public final void insertBegin(String code) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "insertBegin", this, Optional.empty(), code);
+        	}
+        	this.insertBeginImpl(code);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "insertBegin", this, Optional.empty(), code);
+        	}
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "insertBegin", e);
+        }
+    }
+
+    /**
+     * 
+     * @param statement 
+     */
+    public void insertBeginImpl(AStatement statement) {
+        throw new UnsupportedOperationException(get_class()+": Action insertBegin not implemented ");
+    }
+
+    /**
+     * 
+     * @param statement 
+     */
+    public final void insertBegin(AStatement statement) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "insertBegin", this, Optional.empty(), statement);
+        	}
+        	this.insertBeginImpl(statement);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "insertBegin", this, Optional.empty(), statement);
+        	}
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "insertBegin", e);
+        }
     }
 
     /**
@@ -361,6 +415,8 @@ public abstract class ABody extends AStatement {
     @Override
     protected final void fillWithActions(List<String> actions) {
         this.aStatement.fillWithActions(actions);
+        actions.add("void insertBegin(String)");
+        actions.add("void insertBegin(statement)");
     }
 
     /**

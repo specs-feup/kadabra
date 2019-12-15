@@ -25,7 +25,7 @@ public abstract class AJavaWeaver extends WeaverEngine {
      */
     @Override
     public final List<String> getActions() {
-        String[] weaverActions= {"insertBefore", "insertBefore", "insertAfter", "insertAfter", "insertReplace", "insertReplace", "copy", "remove", "newClass", "newClass", "newInterface", "newInterface", "addClass", "addInterface", "mapVersions", "setName", "newConstructor", "newMethod", "newMethod", "insertMethod", "insertCode", "newFunctionalClass", "insertStatic", "extractInterface", "addImplement", "newField", "newField", "addComment", "addParameter", "createAdapter", "clone", "clone", "tile", "tile", "interchange", "setInit", "setLhs", "setRhs", "extract", "setInit", "setOperator", "setOperator", "setValue"};
+        String[] weaverActions= {"insertBefore", "insertBefore", "insertAfter", "insertAfter", "insertReplace", "insertReplace", "copy", "remove", "newClass", "newClass", "newInterface", "newInterface", "addClass", "addInterface", "mapVersions", "setName", "newConstructor", "newMethod", "newMethod", "insertMethod", "insertCode", "newFunctionalClass", "insertStatic", "extractInterface", "addImplement", "newField", "newField", "addComment", "addParameter", "createAdapter", "clone", "clone", "tile", "tile", "interchange", "setInit", "setLhs", "setRhs", "extract", "setInit", "insertBegin", "insertBegin", "setOperator", "setOperator", "setValue"};
         return Arrays.asList(weaverActions);
     }
 

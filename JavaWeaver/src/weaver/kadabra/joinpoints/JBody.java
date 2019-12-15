@@ -144,6 +144,17 @@ public class JBody<T> extends ABody {
     }
 
     @Override
+    public void insertBeginImpl(String code) {
+        final CtCodeSnippetStatement snippet = SnippetFactory.createSnippetStatement(code, node.getFactory());
+        node.insertBegin(snippet);
+    }
+
+    @Override
+    public void insertBeginImpl(AStatement statement) {
+        node.insertBegin((CtStatement) statement.getNode());
+    }
+
+    @Override
     public AJoinPoint insertBeforeImpl(String code) {
         return insertImplJBody("before", code);
     }

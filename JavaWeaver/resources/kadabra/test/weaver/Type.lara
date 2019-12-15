@@ -2,7 +2,7 @@ import weaver.WeaverJps;
 
 aspectdef Type
 
-	for(var $chain of WeaverJps.search("var")) {
+	for(var $chain of WeaverJps.search("var").chain()) {
 		println("Var type: " + $chain["var"].type);
 	}
 /*

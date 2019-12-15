@@ -1,0 +1,24 @@
+public class Selects {
+
+	public String newExpressionTest() {
+		String a = new String("hello");
+		a = a + new String("World");
+		
+		return new String("Bye");
+	}
+	
+	public void bodyTest1() {
+		String b = new String("bodyTest");
+	}
+	
+	public void bodyTest2() {
+	}
+	
+	public int testMethod1(boolean b, float f) {
+		return 0;
+	}
+
+	public Integer testMethod2(Boolean b, Float f) {
+		return 0;
+	}
+}

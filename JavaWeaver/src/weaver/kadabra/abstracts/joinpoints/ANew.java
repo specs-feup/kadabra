@@ -7,90 +7,106 @@ import java.util.stream.Collectors;
 import java.util.Arrays;
 
 /**
- * Auto-Generated class for join point AAnonymousExec
+ * Auto-Generated class for join point ANew
  * This class is overwritten by the Weaver Generator.
  * 
  * 
  * @author Lara Weaver Generator
  */
-public abstract class AAnonymousExec extends AExecutable {
+public abstract class ANew extends AExpression {
 
-    protected AExecutable aExecutable;
-
-    /**
-     * 
-     */
-    public AAnonymousExec(AExecutable aExecutable){
-        this.aExecutable = aExecutable;
-    }
-    /**
-     * Get value on attribute name
-     * @return the attribute's value
-     */
-    @Override
-    public String getNameImpl() {
-        return this.aExecutable.getNameImpl();
-    }
-
-    /**
-     * Get value on attribute returnType
-     * @return the attribute's value
-     */
-    @Override
-    public String getReturnTypeImpl() {
-        return this.aExecutable.getReturnTypeImpl();
-    }
-
-    /**
-     * Get value on attribute body
-     * @return the attribute's value
-     */
-    @Override
-    public ABody getBodyImpl() {
-        return this.aExecutable.getBodyImpl();
-    }
-
-    /**
-     * Get value on attribute paramsArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public ADeclaration[] getParamsArrayImpl() {
-        return this.aExecutable.getParamsArrayImpl();
-    }
-
-    /**
-     * Get value on attribute returnRef
-     * @return the attribute's value
-     */
-    @Override
-    public ATypeReference getReturnRefImpl() {
-        return this.aExecutable.getReturnRefImpl();
-    }
-
-    /**
-     * Method used by the lara interpreter to select bodys
-     * @return 
-     */
-    @Override
-    public List<? extends ABody> selectBody() {
-        return this.aExecutable.selectBody();
-    }
-
-    /**
-     * Method used by the lara interpreter to select params
-     * @return 
-     */
-    @Override
-    public List<? extends ADeclaration> selectParam() {
-        return this.aExecutable.selectParam();
-    }
+    protected AExpression aExpression;
 
     /**
      * 
      */
-    public void defNameImpl(String value) {
-        this.aExecutable.defNameImpl(value);
+    public ANew(AExpression aExpression){
+        this.aExpression = aExpression;
+    }
+    /**
+     * Get value on attribute kind
+     * @return the attribute's value
+     */
+    @Override
+    public String getKindImpl() {
+        return this.aExpression.getKindImpl();
+    }
+
+    /**
+     * Get value on attribute type
+     * @return the attribute's value
+     */
+    @Override
+    public String getTypeImpl() {
+        return this.aExpression.getTypeImpl();
+    }
+
+    /**
+     * Get value on attribute test
+     * @return the attribute's value
+     */
+    @Override
+    public Integer getTestImpl() {
+        return this.aExpression.getTestImpl();
+    }
+
+    /**
+     * Method used by the lara interpreter to select exprs
+     * @return 
+     */
+    @Override
+    public List<? extends AExpression> selectExpr() {
+        return this.aExpression.selectExpr();
+    }
+
+    /**
+     * Method used by the lara interpreter to select vars
+     * @return 
+     */
+    @Override
+    public List<? extends AVar> selectVar() {
+        return this.aExpression.selectVar();
+    }
+
+    /**
+     * Method used by the lara interpreter to select arrayAccesss
+     * @return 
+     */
+    @Override
+    public List<? extends AArrayAccess> selectArrayAccess() {
+        return this.aExpression.selectArrayAccess();
+    }
+
+    /**
+     * Method used by the lara interpreter to select binaryExpressions
+     * @return 
+     */
+    @Override
+    public List<? extends ABinaryExpression> selectBinaryExpression() {
+        return this.aExpression.selectBinaryExpression();
+    }
+
+    /**
+     * Method used by the lara interpreter to select binaryExprs
+     * @return 
+     */
+    @Override
+    public List<? extends ABinaryExpression> selectBinaryExpr() {
+        return this.aExpression.selectBinaryExpr();
+    }
+
+    /**
+     * 
+     */
+    public void defTestImpl(Integer value) {
+        this.aExpression.defTestImpl(value);
+    }
+
+    /**
+     * 
+     */
+    public void defTestImpl(AExpression value) {
+        this.aExpression.defTestImpl(value);
     }
 
     /**
@@ -99,7 +115,7 @@ public abstract class AAnonymousExec extends AExecutable {
      */
     @Override
     public AJoinPoint insertBeforeImpl(AJoinPoint node) {
-        return this.aExecutable.insertBeforeImpl(node);
+        return this.aExpression.insertBeforeImpl(node);
     }
 
     /**
@@ -108,7 +124,7 @@ public abstract class AAnonymousExec extends AExecutable {
      */
     @Override
     public AJoinPoint insertBeforeImpl(String code) {
-        return this.aExecutable.insertBeforeImpl(code);
+        return this.aExpression.insertBeforeImpl(code);
     }
 
     /**
@@ -117,7 +133,7 @@ public abstract class AAnonymousExec extends AExecutable {
      */
     @Override
     public AJoinPoint insertAfterImpl(AJoinPoint node) {
-        return this.aExecutable.insertAfterImpl(node);
+        return this.aExpression.insertAfterImpl(node);
     }
 
     /**
@@ -126,7 +142,7 @@ public abstract class AAnonymousExec extends AExecutable {
      */
     @Override
     public AJoinPoint insertAfterImpl(String code) {
-        return this.aExecutable.insertAfterImpl(code);
+        return this.aExpression.insertAfterImpl(code);
     }
 
     /**
@@ -135,7 +151,7 @@ public abstract class AAnonymousExec extends AExecutable {
      */
     @Override
     public AJoinPoint insertReplaceImpl(AJoinPoint jp) {
-        return this.aExecutable.insertReplaceImpl(jp);
+        return this.aExpression.insertReplaceImpl(jp);
     }
 
     /**
@@ -144,7 +160,7 @@ public abstract class AAnonymousExec extends AExecutable {
      */
     @Override
     public AJoinPoint insertReplaceImpl(String code) {
-        return this.aExecutable.insertReplaceImpl(code);
+        return this.aExpression.insertReplaceImpl(code);
     }
 
     /**
@@ -152,7 +168,7 @@ public abstract class AAnonymousExec extends AExecutable {
      */
     @Override
     public AJoinPoint copyImpl() {
-        return this.aExecutable.copyImpl();
+        return this.aExpression.copyImpl();
     }
 
     /**
@@ -160,16 +176,18 @@ public abstract class AAnonymousExec extends AExecutable {
      */
     @Override
     public void removeImpl() {
-        this.aExecutable.removeImpl();
+        this.aExpression.removeImpl();
     }
 
     /**
-     * Sets the name of this executable, returns the previous name
-     * @param name 
+     * 
+     * @param varName 
+     * @param location 
+     * @param position 
      */
     @Override
-    public String setNameImpl(String name) {
-        return this.aExecutable.setNameImpl(name);
+    public void extractImpl(String varName, AStatement location, String position) {
+        this.aExpression.extractImpl(varName, location, position);
     }
 
     /**
@@ -179,7 +197,7 @@ public abstract class AAnonymousExec extends AExecutable {
      */
     @Override
     public AJoinPoint[] insertImpl(String position, String code) {
-        return this.aExecutable.insertImpl(position, code);
+        return this.aExpression.insertImpl(position, code);
     }
 
     /**
@@ -189,7 +207,7 @@ public abstract class AAnonymousExec extends AExecutable {
      */
     @Override
     public AJoinPoint[] insertImpl(String position, JoinPoint code) {
-        return this.aExecutable.insertImpl(position, code);
+        return this.aExpression.insertImpl(position, code);
     }
 
     /**
@@ -197,15 +215,15 @@ public abstract class AAnonymousExec extends AExecutable {
      */
     @Override
     public String toString() {
-        return this.aExecutable.toString();
+        return this.aExpression.toString();
     }
 
     /**
      * 
      */
     @Override
-    public Optional<? extends AExecutable> getSuper() {
-        return Optional.of(this.aExecutable);
+    public Optional<? extends AExpression> getSuper() {
+        return Optional.of(this.aExpression);
     }
 
     /**
@@ -215,14 +233,23 @@ public abstract class AAnonymousExec extends AExecutable {
     public final List<? extends JoinPoint> select(String selectName) {
         List<? extends JoinPoint> joinPointList;
         switch(selectName) {
-        	case "body": 
-        		joinPointList = selectBody();
+        	case "expr": 
+        		joinPointList = selectExpr();
         		break;
-        	case "param": 
-        		joinPointList = selectParam();
+        	case "var": 
+        		joinPointList = selectVar();
+        		break;
+        	case "arrayAccess": 
+        		joinPointList = selectArrayAccess();
+        		break;
+        	case "binaryExpression": 
+        		joinPointList = selectBinaryExpression();
+        		break;
+        	case "binaryExpr": 
+        		joinPointList = selectBinaryExpr();
         		break;
         	default:
-        		joinPointList = this.aExecutable.select(selectName);
+        		joinPointList = this.aExpression.select(selectName);
         		break;
         }
         return joinPointList;
@@ -245,9 +272,13 @@ public abstract class AAnonymousExec extends AExecutable {
         	}
         	this.unsupportedTypeForDef(attribute, value);
         }
-        case "name": {
-        	if(value instanceof String){
-        		this.defNameImpl((String)value);
+        case "test": {
+        	if(value instanceof Integer){
+        		this.defTestImpl((Integer)value);
+        		return;
+        	}
+        	if(value instanceof AExpression){
+        		this.defTestImpl((AExpression)value);
         		return;
         	}
         	this.unsupportedTypeForDef(attribute, value);
@@ -261,7 +292,7 @@ public abstract class AAnonymousExec extends AExecutable {
      */
     @Override
     protected final void fillWithAttributes(List<String> attributes) {
-        this.aExecutable.fillWithAttributes(attributes);
+        this.aExpression.fillWithAttributes(attributes);
     }
 
     /**
@@ -269,7 +300,7 @@ public abstract class AAnonymousExec extends AExecutable {
      */
     @Override
     protected final void fillWithSelects(List<String> selects) {
-        this.aExecutable.fillWithSelects(selects);
+        this.aExpression.fillWithSelects(selects);
     }
 
     /**
@@ -277,7 +308,7 @@ public abstract class AAnonymousExec extends AExecutable {
      */
     @Override
     protected final void fillWithActions(List<String> actions) {
-        this.aExecutable.fillWithActions(actions);
+        this.aExpression.fillWithActions(actions);
     }
 
     /**
@@ -286,7 +317,7 @@ public abstract class AAnonymousExec extends AExecutable {
      */
     @Override
     public final String get_class() {
-        return "anonymousExec";
+        return "new";
     }
 
     /**
@@ -299,17 +330,15 @@ public abstract class AAnonymousExec extends AExecutable {
         if(isInstance) {
         	return true;
         }
-        return this.aExecutable.instanceOf(joinpointClass);
+        return this.aExpression.instanceOf(joinpointClass);
     }
     /**
      * 
      */
-    protected enum AnonymousExecAttributes {
-        NAME("name"),
-        RETURNTYPE("returnType"),
-        BODY("body"),
-        PARAMS("params"),
-        RETURNREF("returnRef"),
+    protected enum NewAttributes {
+        KIND("kind"),
+        TYPE("type"),
+        TEST("test"),
         PARENT("parent"),
         ISSTATIC("isStatic"),
         CODE("code"),
@@ -331,13 +360,13 @@ public abstract class AAnonymousExec extends AExecutable {
         /**
          * 
          */
-        private AnonymousExecAttributes(String name){
+        private NewAttributes(String name){
             this.name = name;
         }
         /**
          * Return an attribute enumeration item from a given attribute name
          */
-        public static Optional<AnonymousExecAttributes> fromString(String name) {
+        public static Optional<NewAttributes> fromString(String name) {
             return Arrays.asList(values()).stream().filter(attr -> attr.name.equals(name)).findAny();
         }
 
@@ -345,7 +374,7 @@ public abstract class AAnonymousExec extends AExecutable {
          * Return a list of attributes in String format
          */
         public static List<String> getNames() {
-            return Arrays.asList(values()).stream().map(AnonymousExecAttributes::name).collect(Collectors.toList());
+            return Arrays.asList(values()).stream().map(NewAttributes::name).collect(Collectors.toList());
         }
 
         /**
