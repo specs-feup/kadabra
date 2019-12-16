@@ -10,56 +10,52 @@ import java.util.stream.Collectors;
 import java.util.Arrays;
 
 /**
- * Auto-Generated class for join point AIf
+ * Auto-Generated class for join point ATernary
  * This class is overwritten by the Weaver Generator.
  * 
  * 
  * @author Lara Weaver Generator
  */
-public abstract class AIf extends AStatement {
+public abstract class ATernary extends AExpression {
 
-    protected AStatement aStatement;
+    protected AExpression aExpression;
 
     /**
      * 
      */
-    public AIf(AStatement aStatement){
-        this.aStatement = aStatement;
+    public ATernary(AExpression aExpression){
+        this.aExpression = aExpression;
     }
     /**
-     * Get value on attribute rank
-     * @return the attribute's value
+     * the condition of the ternary expression
      */
-    public abstract String getRankImpl();
+    public abstract AExpression getConditionImpl();
 
     /**
-     * Get value on attribute rank
-     * @return the attribute's value
+     * the condition of the ternary expression
      */
-    public final Object getRank() {
+    public final Object getCondition() {
         try {
         	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "rank", Optional.empty());
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "condition", Optional.empty());
         	}
-        	String result = this.getRankImpl();
+        	AExpression result = this.getConditionImpl();
         	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "rank", Optional.ofNullable(result));
+        		eventTrigger().triggerAttribute(Stage.END, this, "condition", Optional.ofNullable(result));
         	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
-        	throw new AttributeException(get_class(), "rank", e);
+        	throw new AttributeException(get_class(), "condition", e);
         }
     }
 
     /**
-     * Get value on attribute cond
-     * @return the attribute's value
+     * alias for attribute 'condition'
      */
     public abstract AExpression getCondImpl();
 
     /**
-     * Get value on attribute cond
-     * @return the attribute's value
+     * alias for attribute 'condition'
      */
     public final Object getCond() {
         try {
@@ -80,7 +76,7 @@ public abstract class AIf extends AStatement {
      * Get value on attribute then
      * @return the attribute's value
      */
-    public abstract ABody getThenImpl();
+    public abstract AExpression getThenImpl();
 
     /**
      * Get value on attribute then
@@ -91,7 +87,7 @@ public abstract class AIf extends AStatement {
         	if(hasListeners()) {
         		eventTrigger().triggerAttribute(Stage.BEGIN, this, "then", Optional.empty());
         	}
-        	ABody result = this.getThenImpl();
+        	AExpression result = this.getThenImpl();
         	if(hasListeners()) {
         		eventTrigger().triggerAttribute(Stage.END, this, "then", Optional.ofNullable(result));
         	}
@@ -105,7 +101,7 @@ public abstract class AIf extends AStatement {
      * Get value on attribute _else
      * @return the attribute's value
      */
-    public abstract ABody getElseImpl();
+    public abstract AExpression getElseImpl();
 
     /**
      * Get value on attribute _else
@@ -116,7 +112,7 @@ public abstract class AIf extends AStatement {
         	if(hasListeners()) {
         		eventTrigger().triggerAttribute(Stage.BEGIN, this, "else", Optional.empty());
         	}
-        	ABody result = this.getElseImpl();
+        	AExpression result = this.getElseImpl();
         	if(hasListeners()) {
         		eventTrigger().triggerAttribute(Stage.END, this, "else", Optional.ofNullable(result));
         	}
@@ -127,10 +123,10 @@ public abstract class AIf extends AStatement {
     }
 
     /**
-     * Default implementation of the method used by the lara interpreter to select conds
+     * Default implementation of the method used by the lara interpreter to select conditions
      * @return 
      */
-    public List<? extends AExpression> selectCond() {
+    public List<? extends AExpression> selectCondition() {
         return select(weaver.kadabra.abstracts.joinpoints.AExpression.class, SelectOp.DESCENDANTS);
     }
 
@@ -138,16 +134,16 @@ public abstract class AIf extends AStatement {
      * Default implementation of the method used by the lara interpreter to select thens
      * @return 
      */
-    public List<? extends ABody> selectThen() {
-        return select(weaver.kadabra.abstracts.joinpoints.ABody.class, SelectOp.DESCENDANTS);
+    public List<? extends AExpression> selectThen() {
+        return select(weaver.kadabra.abstracts.joinpoints.AExpression.class, SelectOp.DESCENDANTS);
     }
 
     /**
      * Default implementation of the method used by the lara interpreter to select elses
      * @return 
      */
-    public List<? extends ABody> selectElse() {
-        return select(weaver.kadabra.abstracts.joinpoints.ABody.class, SelectOp.DESCENDANTS);
+    public List<? extends AExpression> selectElse() {
+        return select(weaver.kadabra.abstracts.joinpoints.AExpression.class, SelectOp.DESCENDANTS);
     }
 
     /**
@@ -156,16 +152,34 @@ public abstract class AIf extends AStatement {
      */
     @Override
     public String getKindImpl() {
-        return this.aStatement.getKindImpl();
+        return this.aExpression.getKindImpl();
     }
 
     /**
-     * Get value on attribute endLine
+     * Get value on attribute type
      * @return the attribute's value
      */
     @Override
-    public Integer getEndLineImpl() {
-        return this.aStatement.getEndLineImpl();
+    public String getTypeImpl() {
+        return this.aExpression.getTypeImpl();
+    }
+
+    /**
+     * Get value on attribute test
+     * @return the attribute's value
+     */
+    @Override
+    public Integer getTestImpl() {
+        return this.aExpression.getTestImpl();
+    }
+
+    /**
+     * Method used by the lara interpreter to select exprs
+     * @return 
+     */
+    @Override
+    public List<? extends AExpression> selectExpr() {
+        return this.aExpression.selectExpr();
     }
 
     /**
@@ -174,16 +188,48 @@ public abstract class AIf extends AStatement {
      */
     @Override
     public List<? extends AVar> selectVar() {
-        return this.aStatement.selectVar();
+        return this.aExpression.selectVar();
     }
 
     /**
-     * Method used by the lara interpreter to select calls
+     * Method used by the lara interpreter to select arrayAccesss
      * @return 
      */
     @Override
-    public List<? extends ACall> selectCall() {
-        return this.aStatement.selectCall();
+    public List<? extends AArrayAccess> selectArrayAccess() {
+        return this.aExpression.selectArrayAccess();
+    }
+
+    /**
+     * Method used by the lara interpreter to select binaryExpressions
+     * @return 
+     */
+    @Override
+    public List<? extends ABinaryExpression> selectBinaryExpression() {
+        return this.aExpression.selectBinaryExpression();
+    }
+
+    /**
+     * Method used by the lara interpreter to select binaryExprs
+     * @return 
+     */
+    @Override
+    public List<? extends ABinaryExpression> selectBinaryExpr() {
+        return this.aExpression.selectBinaryExpr();
+    }
+
+    /**
+     * 
+     */
+    public void defTestImpl(Integer value) {
+        this.aExpression.defTestImpl(value);
+    }
+
+    /**
+     * 
+     */
+    public void defTestImpl(AExpression value) {
+        this.aExpression.defTestImpl(value);
     }
 
     /**
@@ -192,7 +238,7 @@ public abstract class AIf extends AStatement {
      */
     @Override
     public AJoinPoint insertBeforeImpl(AJoinPoint node) {
-        return this.aStatement.insertBeforeImpl(node);
+        return this.aExpression.insertBeforeImpl(node);
     }
 
     /**
@@ -201,7 +247,7 @@ public abstract class AIf extends AStatement {
      */
     @Override
     public AJoinPoint insertBeforeImpl(String code) {
-        return this.aStatement.insertBeforeImpl(code);
+        return this.aExpression.insertBeforeImpl(code);
     }
 
     /**
@@ -210,7 +256,7 @@ public abstract class AIf extends AStatement {
      */
     @Override
     public AJoinPoint insertAfterImpl(AJoinPoint node) {
-        return this.aStatement.insertAfterImpl(node);
+        return this.aExpression.insertAfterImpl(node);
     }
 
     /**
@@ -219,7 +265,7 @@ public abstract class AIf extends AStatement {
      */
     @Override
     public AJoinPoint insertAfterImpl(String code) {
-        return this.aStatement.insertAfterImpl(code);
+        return this.aExpression.insertAfterImpl(code);
     }
 
     /**
@@ -228,7 +274,7 @@ public abstract class AIf extends AStatement {
      */
     @Override
     public AJoinPoint insertReplaceImpl(AJoinPoint jp) {
-        return this.aStatement.insertReplaceImpl(jp);
+        return this.aExpression.insertReplaceImpl(jp);
     }
 
     /**
@@ -237,7 +283,7 @@ public abstract class AIf extends AStatement {
      */
     @Override
     public AJoinPoint insertReplaceImpl(String code) {
-        return this.aStatement.insertReplaceImpl(code);
+        return this.aExpression.insertReplaceImpl(code);
     }
 
     /**
@@ -245,7 +291,7 @@ public abstract class AIf extends AStatement {
      */
     @Override
     public AJoinPoint copyImpl() {
-        return this.aStatement.copyImpl();
+        return this.aExpression.copyImpl();
     }
 
     /**
@@ -253,7 +299,18 @@ public abstract class AIf extends AStatement {
      */
     @Override
     public void removeImpl() {
-        this.aStatement.removeImpl();
+        this.aExpression.removeImpl();
+    }
+
+    /**
+     * 
+     * @param varName 
+     * @param location 
+     * @param position 
+     */
+    @Override
+    public void extractImpl(String varName, AStatement location, String position) {
+        this.aExpression.extractImpl(varName, location, position);
     }
 
     /**
@@ -263,7 +320,7 @@ public abstract class AIf extends AStatement {
      */
     @Override
     public AJoinPoint[] insertImpl(String position, String code) {
-        return this.aStatement.insertImpl(position, code);
+        return this.aExpression.insertImpl(position, code);
     }
 
     /**
@@ -273,7 +330,7 @@ public abstract class AIf extends AStatement {
      */
     @Override
     public AJoinPoint[] insertImpl(String position, JoinPoint code) {
-        return this.aStatement.insertImpl(position, code);
+        return this.aExpression.insertImpl(position, code);
     }
 
     /**
@@ -281,15 +338,15 @@ public abstract class AIf extends AStatement {
      */
     @Override
     public String toString() {
-        return this.aStatement.toString();
+        return this.aExpression.toString();
     }
 
     /**
      * 
      */
     @Override
-    public Optional<? extends AStatement> getSuper() {
-        return Optional.of(this.aStatement);
+    public Optional<? extends AExpression> getSuper() {
+        return Optional.of(this.aExpression);
     }
 
     /**
@@ -299,8 +356,8 @@ public abstract class AIf extends AStatement {
     public final List<? extends JoinPoint> select(String selectName) {
         List<? extends JoinPoint> joinPointList;
         switch(selectName) {
-        	case "cond": 
-        		joinPointList = selectCond();
+        	case "condition": 
+        		joinPointList = selectCondition();
         		break;
         	case "then": 
         		joinPointList = selectThen();
@@ -308,14 +365,23 @@ public abstract class AIf extends AStatement {
         	case "else": 
         		joinPointList = selectElse();
         		break;
+        	case "expr": 
+        		joinPointList = selectExpr();
+        		break;
         	case "var": 
         		joinPointList = selectVar();
         		break;
-        	case "call": 
-        		joinPointList = selectCall();
+        	case "arrayAccess": 
+        		joinPointList = selectArrayAccess();
+        		break;
+        	case "binaryExpression": 
+        		joinPointList = selectBinaryExpression();
+        		break;
+        	case "binaryExpr": 
+        		joinPointList = selectBinaryExpr();
         		break;
         	default:
-        		joinPointList = this.aStatement.select(selectName);
+        		joinPointList = this.aExpression.select(selectName);
         		break;
         }
         return joinPointList;
@@ -338,6 +404,17 @@ public abstract class AIf extends AStatement {
         	}
         	this.unsupportedTypeForDef(attribute, value);
         }
+        case "test": {
+        	if(value instanceof Integer){
+        		this.defTestImpl((Integer)value);
+        		return;
+        	}
+        	if(value instanceof AExpression){
+        		this.defTestImpl((AExpression)value);
+        		return;
+        	}
+        	this.unsupportedTypeForDef(attribute, value);
+        }
         default: throw new UnsupportedOperationException("Join point "+get_class()+": attribute '"+attribute+"' cannot be defined");
         }
     }
@@ -347,8 +424,8 @@ public abstract class AIf extends AStatement {
      */
     @Override
     protected final void fillWithAttributes(List<String> attributes) {
-        this.aStatement.fillWithAttributes(attributes);
-        attributes.add("rank");
+        this.aExpression.fillWithAttributes(attributes);
+        attributes.add("condition");
         attributes.add("cond");
         attributes.add("then");
         attributes.add("else");
@@ -359,8 +436,8 @@ public abstract class AIf extends AStatement {
      */
     @Override
     protected final void fillWithSelects(List<String> selects) {
-        this.aStatement.fillWithSelects(selects);
-        selects.add("cond");
+        this.aExpression.fillWithSelects(selects);
+        selects.add("condition");
         selects.add("then");
         selects.add("else");
     }
@@ -370,7 +447,7 @@ public abstract class AIf extends AStatement {
      */
     @Override
     protected final void fillWithActions(List<String> actions) {
-        this.aStatement.fillWithActions(actions);
+        this.aExpression.fillWithActions(actions);
     }
 
     /**
@@ -379,7 +456,7 @@ public abstract class AIf extends AStatement {
      */
     @Override
     public final String get_class() {
-        return "if";
+        return "ternary";
     }
 
     /**
@@ -392,18 +469,19 @@ public abstract class AIf extends AStatement {
         if(isInstance) {
         	return true;
         }
-        return this.aStatement.instanceOf(joinpointClass);
+        return this.aExpression.instanceOf(joinpointClass);
     }
     /**
      * 
      */
-    protected enum IfAttributes {
-        RANK("rank"),
+    protected enum TernaryAttributes {
+        CONDITION("condition"),
         COND("cond"),
         THEN("then"),
         ELSE("else"),
         KIND("kind"),
-        ENDLINE("endLine"),
+        TYPE("type"),
+        TEST("test"),
         PARENT("parent"),
         ISSTATIC("isStatic"),
         CODE("code"),
@@ -425,13 +503,13 @@ public abstract class AIf extends AStatement {
         /**
          * 
          */
-        private IfAttributes(String name){
+        private TernaryAttributes(String name){
             this.name = name;
         }
         /**
          * Return an attribute enumeration item from a given attribute name
          */
-        public static Optional<IfAttributes> fromString(String name) {
+        public static Optional<TernaryAttributes> fromString(String name) {
             return Arrays.asList(values()).stream().filter(attr -> attr.name.equals(name)).findAny();
         }
 
@@ -439,7 +517,7 @@ public abstract class AIf extends AStatement {
          * Return a list of attributes in String format
          */
         public static List<String> getNames() {
-            return Arrays.asList(values()).stream().map(IfAttributes::name).collect(Collectors.toList());
+            return Arrays.asList(values()).stream().map(TernaryAttributes::name).collect(Collectors.toList());
         }
 
         /**

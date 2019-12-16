@@ -202,10 +202,13 @@
 	
 	
 	<!-- IF -->	
-		<artifact class="if">
+	<artifact class="if">
 <!-- 		<attribute name="line"				type="int"/> -->
 <!--    		<attribute name="endLine"			type="int"/> -->
    		<attribute name="rank" 				type="string"/>
+		<attribute name="cond"				type="expression"/>	<!---->
+		<attribute name="then"				type="body"/>			<!---->
+		<attribute name="else"				type="body"/>			
 	</artifact>
 	
 	<!-- VAR -->
@@ -282,7 +285,14 @@
 			<def/>
 		</attribute>
 	</artifact>
-	
+
+	<!-- TERNARY -->	
+	<artifact class="ternary">
+		<attribute name="condition"		type="expression" tooltip="the condition of the ternary expression"/>
+		<attribute name="cond"			type="expression" tooltip="alias for attribute 'condition'"/>
+		<attribute name="then"				type="expression"/>		
+		<attribute name="else"				type="expression"/>
+	</artifact>
 	
 	<!-- ASSIGNMENT -->
 	<artifact class="assignment" 		default="operator">

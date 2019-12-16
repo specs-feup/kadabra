@@ -137,7 +137,7 @@
 	</joinpoint>
 	
 	
-	<!-- IF -->
+	<!-- TRY -->
 	<joinpoint class="try" extends="statement">
 		<select 						class="body"/>	<!---->
 		<!--select 						class="catch"/>	-->
@@ -206,6 +206,12 @@
 		<select alias="operand"			class="expression"/>
 	</joinpoint>
 	
+	
+	<joinpoint class="ternary" extends="expression">
+		<select alias="condition"		class="expression"/>
+		<select alias="then"			class="expression"/>		
+		<select alias="else"			class="expression"/>
+	</joinpoint>
 	
 	
 	<!-- ARRAY ACCESS -->

@@ -13,6 +13,7 @@
 
 package weaver.kadabra.joinpoints;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -27,7 +28,7 @@ import weaver.kadabra.abstracts.joinpoints.AIf;
 import weaver.kadabra.exceptions.JavaWeaverException;
 import weaver.utils.SpoonUtils;
 import weaver.utils.element.RankCalculator;
-import weaver.utils.weaving.SelectUtils;
+import weaver.utils.weaving.converters.CtElement2JoinPoint;
 
 public class JIf extends AIf {
 
@@ -66,37 +67,72 @@ public class JIf extends AIf {
 
     @Override
     public List<? extends AExpression> selectCond() {
-        return SelectUtils.expression2JoinPointList(node.getCondition());
+        return Arrays.asList(getCondImpl());
+        // return SelectUtils.expression2JoinPointList(node.getCondition());
     }
 
     @Override
     public List<? extends ABody> selectThen() {
+        return Arrays.asList(getThenImpl());
+        // CtStatement thenStatement = node.getThenStatement();
+        // if (!(thenStatement instanceof CtBlock)) {
+        // throw new JavaWeaverException("The then statement must always be a block");
+        // }
+        //
+        // return SelectUtils.node2JoinPointList((CtBlock<?>) thenStatement, JBody::newInstance);
+    }
+
+    @Override
+    public List<? extends ABody> selectElse() {
+        var elseStatement = getElseImpl();
+
+        // CtStatement elseStatement = node.getElseStatement();
+
+        if (elseStatement == null) {
+            return Collections.emptyList();
+        }
+
+        return Arrays.asList(elseStatement);
+        // if (!(elseStatement instanceof CtBlock)) {
+        // throw new JavaWeaverException("The else statement must always be a block");
+        // }
+        //
+        // return SelectUtils.node2JoinPointList((CtBlock<?>) elseStatement, JBody::newInstance);
+    }
+
+    @Override
+    public CtIf getNode() {
+        return node;
+    }
+
+    @Override
+    public AExpression getCondImpl() {
+        return (AExpression) CtElement2JoinPoint.convert(node.getCondition());
+    }
+
+    @Override
+    public ABody getThenImpl() {
         CtStatement thenStatement = node.getThenStatement();
         if (!(thenStatement instanceof CtBlock)) {
             throw new JavaWeaverException("The then statement must always be a block");
         }
 
-        return SelectUtils.node2JoinPointList((CtBlock<?>) thenStatement, JBody::newInstance);
+        return (ABody) CtElement2JoinPoint.convert(thenStatement);
     }
 
     @Override
-    public List<? extends ABody> selectElse() {
+    public ABody getElseImpl() {
         CtStatement elseStatement = node.getElseStatement();
 
         if (elseStatement == null) {
-            return Collections.emptyList();
+            return null;
         }
 
         if (!(elseStatement instanceof CtBlock)) {
             throw new JavaWeaverException("The else statement must always be a block");
         }
 
-        return SelectUtils.node2JoinPointList((CtBlock<?>) elseStatement, JBody::newInstance);
-    }
-
-    @Override
-    public CtIf getNode() {
-        return node;
+        return (ABody) CtElement2JoinPoint.convert(elseStatement);
     }
 
 }

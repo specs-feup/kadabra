@@ -21,4 +21,8 @@ public class Selects {
 	public Integer testMethod2(Boolean b, Float f) {
 		return 0;
 	}
+	
+	public int testTernary(boolean a) {
+		return a ? 1 : 0;
+	}
 }

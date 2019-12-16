@@ -16,6 +16,7 @@ aspectdef Selects
 	$body2.insertBegin("// Comment2");
 	println($body2.code);	
 	
+	
 	// method
 	var $method1 = search("method", "testMethod1").first();
 	for(var $param of $method1.params) {
@@ -31,5 +32,9 @@ aspectdef Selects
 	}
 	println("Return is primitive? " + $method2.returnRef.isPrimitive);
 	
+	
+	// ternary
+	var $ternary = search("method", "testTernary").search("ternary").first();
+	println($ternary.code);
 	
 end
