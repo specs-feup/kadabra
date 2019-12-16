@@ -33,7 +33,7 @@ JoinPoints.prototype._filterNodes = function($jps, jpType) {
 
 }
 
-/*
+
 JoinPoints.prototype.children = function($jp, jpType) {
 	if($jp === undefined) {
 		return [];
@@ -41,7 +41,7 @@ JoinPoints.prototype.children = function($jp, jpType) {
 	
 	Check.isJoinPoint($jp);
 	
-	var children = $jp.astChildren;
+	var children = $jp.children;
 	if(jpType === undefined) {
 		return children;
 	}
@@ -54,4 +54,3 @@ JoinPoints.prototype.children = function($jp, jpType) {
 
 
 
-*/
