@@ -9,4 +9,8 @@ public class KadabraNodes {
 	public static int foo4() {
 		return 2 + 2;
 	}	
+
+    public static void snippetExpr() {
+        String a = null;
+    }	
 }

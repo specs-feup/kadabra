@@ -24,7 +24,7 @@ aspectdef KadabraNodesTest
 	$commentEnd.remove();    
 
 
-	//println(WeaverJps.search("file").getFirst().code);
+	//println(WeaverJps.search("class").getFirst().code);
 
 
 /*	
@@ -62,10 +62,13 @@ aspectdef KadabraNodesTest
 	*/
 	
 	
-	for(var $chainJp of search("method", "snippetExpr").search("statement").search("new").chain()) {
+	for(var $chainJp of search("method", "snippetExpr").search("new").chain()) {
 		$chainJp["new"].insertReplace(KadabraNodes.snippetExpr("null"));
-		println($chainJp["method"].code);
+		//println($chainJp["method"].code);
 	}
 
+
+	// Print modified file
+	println(WeaverJps.search("file").getFirst().code);
 end
 
