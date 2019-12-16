@@ -35,6 +35,7 @@ import weaver.utils.SpoonUtils;
 import weaver.utils.transformations.LoopTiling;
 import weaver.utils.weaving.AttributeUtils;
 import weaver.utils.weaving.SelectUtils;
+import weaver.utils.weaving.converters.CtElement2JoinPoint;
 
 public class JFor extends JLoop {
 
@@ -101,10 +102,15 @@ public class JFor extends JLoop {
         return SelectUtils.statementList2JoinPointList(node.getForInit());
     }
 
-    @Override
-    public List<? extends AExpression> selectCond() {
-        return SelectUtils.expression2JoinPointList(node.getExpression());
+    // @Override
+    // public List<? extends AExpression> selectCond() {
+    // return SelectUtils.expression2JoinPointList(node.getExpression());
+    //
+    // }
 
+    @Override
+    public AExpression getCondImpl() {
+        return (AExpression) CtElement2JoinPoint.convert(node.getExpression());
     }
 
     @Override

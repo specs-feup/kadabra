@@ -190,6 +190,7 @@
    		<attribute name="isInnermost"		type="boolean"/>
    		<attribute name="isOutermost"		type="boolean"/>
    		<attribute name="controlVar"		type="String"/>
+   		<attribute name="cond"				type="expression"/>   		
    		<!-- attribute name="line"				type="int"/>
    		<attribute name="endLine"			type="int"/-->   		
 	</artifact>

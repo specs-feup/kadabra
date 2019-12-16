@@ -22,6 +22,7 @@ import weaver.kadabra.abstracts.joinpoints.AExpression;
 import weaver.kadabra.abstracts.joinpoints.AStatement;
 import weaver.kadabra.enums.LoopType;
 import weaver.utils.weaving.SelectUtils;
+import weaver.utils.weaving.converters.CtElement2JoinPoint;
 
 public class JWhile extends JLoop {
 
@@ -44,10 +45,15 @@ public class JWhile extends JLoop {
         return Collections.emptyList();
     }
 
-    @Override
-    public List<? extends AExpression> selectCond() {
-        return SelectUtils.expression2JoinPointList(node.getLoopingExpression());
+    // @Override
+    // public List<? extends AExpression> selectCond() {
+    // return SelectUtils.expression2JoinPointList(node.getLoopingExpression());
+    //
+    // }
 
+    @Override
+    public AExpression getCondImpl() {
+        return (AExpression) CtElement2JoinPoint.convert(node.getLoopingExpression());
     }
 
     @Override

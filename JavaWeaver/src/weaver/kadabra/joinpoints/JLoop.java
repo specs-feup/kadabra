@@ -32,6 +32,7 @@ import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtExecutable;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.ABody;
+import weaver.kadabra.abstracts.joinpoints.AExpression;
 import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.ALoop;
 import weaver.kadabra.enums.LoopType;
@@ -119,6 +120,16 @@ public abstract class JLoop extends ALoop {
         // fact a CtBlock
         return SelectUtils.node2JoinPointList((CtBlock<?>) body, JBody::newInstance);
         // return Collections.emptyList();
+    }
+
+    @Override
+    public List<? extends AExpression> selectCond() {
+        var cond = getCondImpl();
+        if (cond == null) {
+            return Collections.emptyList();
+        }
+
+        return Arrays.asList(cond);
     }
 
     @Override

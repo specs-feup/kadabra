@@ -179,6 +179,31 @@ public abstract class ALoop extends AStatement {
     }
 
     /**
+     * Get value on attribute cond
+     * @return the attribute's value
+     */
+    public abstract AExpression getCondImpl();
+
+    /**
+     * Get value on attribute cond
+     * @return the attribute's value
+     */
+    public final Object getCond() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "cond", Optional.empty());
+        	}
+        	AExpression result = this.getCondImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "cond", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "cond", e);
+        }
+    }
+
+    /**
      * Default implementation of the method used by the lara interpreter to select inits
      * @return 
      */
@@ -513,6 +538,7 @@ public abstract class ALoop extends AStatement {
         attributes.add("isInnermost");
         attributes.add("isOutermost");
         attributes.add("controlVar");
+        attributes.add("cond");
     }
 
     /**
@@ -570,6 +596,7 @@ public abstract class ALoop extends AStatement {
         ISINNERMOST("isInnermost"),
         ISOUTERMOST("isOutermost"),
         CONTROLVAR("controlVar"),
+        COND("cond"),
         KIND("kind"),
         ENDLINE("endLine"),
         PARENT("parent"),

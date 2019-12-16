@@ -44,12 +44,19 @@ public class JForEach extends JLoop {
         return Collections.emptyList();
     }
 
-    @Override
-    public List<? extends AExpression> selectCond() {
-        SpecsLogs.msgWarn(
-                "The foreach loop does not contain a condition. The select 'cond' should only be used in 'for' loops");
-        return Collections.emptyList();
+    // @Override
+    // public List<? extends AExpression> selectCond() {
+    // SpecsLogs.msgWarn(
+    // "The foreach loop does not contain a condition. The select 'cond' should only be used in 'for' loops");
+    // return Collections.emptyList();
+    // }
 
+    @Override
+    public AExpression getCondImpl() {
+        SpecsLogs.msgWarn(
+                "The foreach loop does not contain a condition. The select 'cond' should only be used in 'for', 'while' and 'do while' loops");
+
+        return null;
     }
 
     @Override

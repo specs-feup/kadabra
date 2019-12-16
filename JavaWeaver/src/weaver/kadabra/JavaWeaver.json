@@ -12158,6 +12158,14 @@
                   "type": "attribute",
                   "children": [
                            {
+                              "type": "expression",
+                              "name": "cond"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "children": [
+                           {
                               "type": "String",
                               "name": "controlVar"
                            }]
