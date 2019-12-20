@@ -13,7 +13,9 @@
 
 package weaver.gui;
 
+import larai.LaraI;
 import pt.up.fe.specs.lara.WeaverLauncher;
+import pt.up.fe.specs.util.SpecsLogs;
 import pt.up.fe.specs.util.SpecsSystem;
 import weaver.kadabra.JavaWeaver;
 
@@ -27,6 +29,13 @@ public class KadabraLauncher {
     public static void main(String[] args) {
         SpecsSystem.programStandardInit();
 
-        execute(args);
+        boolean success = execute(args);
+
+        // Only exit if GUI is not running
+        if (!LaraI.isRunningGui()) {
+            int exitValue = success ? 0 : 1;
+            SpecsLogs.debug("Calling System.exit() on KadabraLauncher, no running GUI detected");
+            System.exit(exitValue);
+        }
     }
 }
