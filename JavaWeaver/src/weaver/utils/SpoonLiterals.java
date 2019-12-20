@@ -23,6 +23,8 @@ public class SpoonLiterals {
     static {
         LITERAL_DECODER = new HashMap<>();
         LITERAL_DECODER.put("int", Integer::decode);
+        LITERAL_DECODER.put("short", Short::decode);
+        LITERAL_DECODER.put("byte", Byte::decode);
         LITERAL_DECODER.put("long", Long::decode);
         LITERAL_DECODER.put("float", Float::valueOf);
         LITERAL_DECODER.put("double", Double::valueOf);
