@@ -101,6 +101,10 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
     @Override
     public AJoinPoint getParentImpl() {
         // If no node, no parent
+        // This condition is a bit suspicious,
+        // because if a join point returns a null node
+        // (e.g., JApp or JFile), they should have their
+        // own implementations of getParentImpl()
         if (getNode() == null) {
             return null;
         }

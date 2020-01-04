@@ -138,6 +138,14 @@ public class JApp extends AApp {
         return null;
     }
 
+    /**
+     * App is the root node, so it has not parent.
+     */
+    @Override
+    public AJoinPoint getParentImpl() {
+        return null;
+    }
+
     @Override
     public boolean compareNodes(AJoinPoint aJoinPoint) {
         return equals(aJoinPoint);
