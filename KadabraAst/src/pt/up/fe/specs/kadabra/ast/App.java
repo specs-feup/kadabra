@@ -13,41 +13,33 @@
 
 package pt.up.fe.specs.kadabra.ast;
 
+import java.io.File;
 import java.util.Collection;
 
-import org.suikasoft.jOptions.Datakey.DataKey;
-import org.suikasoft.jOptions.Datakey.KeyFactory;
 import org.suikasoft.jOptions.Interfaces.DataStore;
-import org.suikasoft.jOptions.treenode.DataNode;
+
+import pt.up.fe.specs.util.SpecsLogs;
 
 /**
- * Represents a node of the Kadabra AST.
- * 
+ * Represents a Java application.
+ *
  * @author JoaoBispo
  *
  */
-public abstract class KadabraNode extends DataNode<KadabraNode> {
+public class App extends KadabraNode {
 
-    // DATAKEYS BEGIN
-
-    /**
-     * Global object with information about the program.
-     */
-    public final static DataKey<KadabraContext> CONTEXT = KeyFactory.object("context", KadabraContext.class);
-
-    // DATAKEYS END
-
-    public KadabraNode(DataStore data, Collection<? extends KadabraNode> children) {
+    public App(DataStore data, Collection<? extends KadabraNode> children) {
         super(data, children);
     }
 
-    @Override
-    protected KadabraNode getThis() {
-        return this;
+    /**
+     * Writes the source-code of the current application to the given destination folder.
+     * 
+     * @param outputFolder
+     */
+    public void write(File outputFolder) {
+        SpecsLogs.warn("Not implemented yet");
+
     }
 
-    @Override
-    public String toContentString() {
-        return getData().toInlinedString();
-    }
 }
