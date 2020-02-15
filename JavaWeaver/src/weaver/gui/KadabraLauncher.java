@@ -21,11 +21,25 @@ import weaver.kadabra.JavaWeaver;
 
 public class KadabraLauncher {
 
+    /**
+     * Method for executing Kadabra if you want to launch it from your Java code.
+     * 
+     * @param args
+     * @return
+     */
     public static boolean execute(String[] args) {
         // return LaraLauncher.launch(args, new JavaWeaver());
         return new WeaverLauncher(new JavaWeaver()).launch(args);
     }
 
+    /**
+     * Main method.
+     * 
+     * <p>
+     * If you need to launch Kadabra from your own code, please use execute() instead.
+     * 
+     * @param args
+     */
     public static void main(String[] args) {
         SpecsSystem.programStandardInit();
 
