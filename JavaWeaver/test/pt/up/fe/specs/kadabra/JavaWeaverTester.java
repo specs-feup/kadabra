@@ -17,7 +17,9 @@ import static org.junit.Assert.*;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.lara.interpreter.joptions.config.interpreter.LaraiKeys;
 import org.lara.interpreter.joptions.config.interpreter.VerboseLevel;
@@ -27,7 +29,6 @@ import org.suikasoft.jOptions.Datakey.DataKey;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 
 import larai.LaraI;
-import pt.up.fe.specs.util.SpecsCollections;
 import pt.up.fe.specs.util.SpecsIo;
 import pt.up.fe.specs.util.SpecsLogs;
 import pt.up.fe.specs.util.SpecsStrings;
@@ -131,7 +132,16 @@ public class JavaWeaverTester {
 
     public void test(String laraResource, List<String> codeResources) {
         SpecsLogs.msgInfo("\n---- Testing '" + laraResource + "' ----\n");
-        List<ResourceProvider> codes = SpecsCollections.map(codeResources, this::buildCodeResource);
+
+        // Create map between resources and corresponding foldername
+        Map<ResourceProvider, String> codes = new HashMap<>();
+        for (var codeResource : codeResources) {
+            // Get foldername
+            ResourceProvider tempProvider = () -> codeResource;
+            var resourceLoc = tempProvider.getResourceLocation();
+            codes.put(buildCodeResource(codeResource), resourceLoc);
+        }
+        // List<ResourceProvider> codes = SpecsCollections.map(codeResources, this::buildCodeResource);
 
         File log = runJavaWeaver(() -> basePackage + laraResource, codes);
         String logContents = SpecsIo.read(log);
@@ -173,7 +183,8 @@ public class JavaWeaverTester {
         return resourceName;
     }
 
-    private File runJavaWeaver(ResourceProvider lara, List<ResourceProvider> code) {
+    // private File runJavaWeaver(ResourceProvider lara, List<ResourceProvider> code) {
+    private File runJavaWeaver(ResourceProvider lara, Map<ResourceProvider, String> code) {
         // Prepare folder
         File workFolder = SpecsIo.mkdir(WORK_FOLDER);
         SpecsIo.deleteFolderContents(workFolder);
@@ -186,10 +197,18 @@ public class JavaWeaverTester {
         }
 
         // Prepare files
-        code.forEach(resource -> resource.write(workFolder, true, JavaWeaverTester::resourceNameMapper));
+        for (var codeResource : code.entrySet()) {
+            // System.out.println("RESOURCE: " + codeResource);
+
+            var foldername = codeResource.getValue();
+
+            var realWorkFolder = foldername.isEmpty() ? workFolder : SpecsIo.mkdir(workFolder, foldername);
+            codeResource.getKey().write(realWorkFolder, true, JavaWeaverTester::resourceNameMapper);
+        }
+        // code.forEach(resource -> resource.write(workFolder, true, JavaWeaverTester::resourceNameMapper));
         File laraFile = lara.write(workFolder);
 
-        DataStore data = DataStore.newInstance("CxxWeaverTest");
+        DataStore data = DataStore.newInstance("JavaWeaverTest");
 
         // Set LaraI configurations
         data.add(LaraiKeys.LARA_FILE, laraFile);

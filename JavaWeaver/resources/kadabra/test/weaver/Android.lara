@@ -1,0 +1,10 @@
+aspectdef Android
+
+	select app.androidManifest end
+	apply
+		println("Manifest:");
+		printlnObject($androidManifest.asJson);
+	end
+
+end
+

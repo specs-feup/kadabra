@@ -82,6 +82,11 @@ public class JavaWeaverTest {
         newTester().test("Selects.lara", "Selects.java.test");
     }
 
+    @Test
+    public void testAndroid() {
+        newTester().test("Android.lara", "src/AndroidTest.java.test", "src/main/AndroidManifest.xml");
+    }
+
     // @Test
     public void testCompilationError() {
 
