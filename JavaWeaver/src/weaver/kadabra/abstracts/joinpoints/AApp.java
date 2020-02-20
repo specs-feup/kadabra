@@ -89,6 +89,14 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
     }
 
     /**
+     * Default implementation of the method used by the lara interpreter to select androidManifests
+     * @return 
+     */
+    public List<? extends AAndroidManifest> selectAndroidManifest() {
+        return select(weaver.kadabra.abstracts.joinpoints.AAndroidManifest.class, SelectOp.DESCENDANTS);
+    }
+
+    /**
      * 
      * @param name 
      * @param extend 
@@ -248,6 +256,9 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
         	case "libClass": 
         		joinPointList = selectLibClass();
         		break;
+        	case "androidManifest": 
+        		joinPointList = selectAndroidManifest();
+        		break;
         	default:
         		joinPointList = super.select(selectName);
         		break;
@@ -294,6 +305,7 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
         super.fillWithSelects(selects);
         selects.add("file");
         selects.add("libClass");
+        selects.add("androidManifest");
     }
 
     /**

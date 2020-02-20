@@ -47,5 +47,9 @@
 <!-- version 4.1.0 -->
 <!--		<dependency org="org.eclipse.jdt.core.compiler" name="ecj" rev="4.4"/>  -->
 <!--		<dependency org="fr.inria.gforge.spoon" name="spoon-core" rev="4.1.0"/> -->
+
+		<!-- For XML2JSON -->
+		<dependency org="org.json" name="json" rev="20190722"/>
+
 	</dependencies>
 </ivy-module>

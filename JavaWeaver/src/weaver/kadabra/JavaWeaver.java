@@ -97,11 +97,11 @@ public class JavaWeaver extends AJavaWeaver {
      * Set a file/folder in the weaver if it is valid file/folder type for the weaver.
      *
      * @param sources
-     *            the file with the source code
+     *                      the file with the source code
      * @param outputDir
-     *            output directory for the generated file(s)
+     *                      output directory for the generated file(s)
      * @param args
-     *            arguments to start the weaver
+     *                      arguments to start the weaver
      * @return true if the file type is valid
      */
     @Override
@@ -133,7 +133,7 @@ public class JavaWeaver extends AJavaWeaver {
         buildAndProcess();
         /* turning off path verifier as it is giving errors for new classes and code */
         spoon.getEnvironment().setNoClasspath(true);
-        jApp = JApp.newInstance(spoon);
+        jApp = JApp.newInstance(spoon, sources);
 
         return true;
     }
@@ -288,7 +288,7 @@ public class JavaWeaver extends AJavaWeaver {
      * {@link JavaWeaver} instance.
      *
      * @param sources
-     *            the input sources to parse
+     *                    the input sources to parse
      * @return
      */
     private JWSpoonLauncher newSpoon(List<File> sources, File outputDir) {
@@ -418,7 +418,7 @@ public class JavaWeaver extends AJavaWeaver {
 
     /**
      * @param clearOutputFolder
-     *            the clearOutputFolder to set
+     *                              the clearOutputFolder to set
      */
     public void setClearOutputFolder(boolean clearOutputFolder) {
         this.clearOutputFolder = clearOutputFolder;

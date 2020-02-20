@@ -6,7 +6,7 @@
 		<select 					class="file" tooltip="files of the application"/>
 		<select						class="libClass" tooltip="class that is part of a library included in the classpath. This select may be slow, depending on the number of included types"/> 
 		<!--  select 					class="package"/> <!- - deprecated! -->
-		<!-- <select 					class="androidManifest"/>  -->
+		<select 					class="androidManifest"/>
 	</joinpoint>
 	
 	<joinpoint class="libClass" extends="NamedType" tooltip="class that is part of a library, included in the classpath">
@@ -18,10 +18,9 @@
 	</joinpoint>
 	
 	
-	<!--
 	<joinpoint class="androidManifest">
 	</joinpoint>
-	 -->	
+	
 	
 	<joinpoint class="file" tooltip="Represents a source-code file"> <!--  extends="TypeContainer">-->
 		<!-- Needs a select to main class/interface/enum -->

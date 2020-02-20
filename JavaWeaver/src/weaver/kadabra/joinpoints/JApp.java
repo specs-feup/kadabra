@@ -14,6 +14,8 @@
 package weaver.kadabra.joinpoints;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,6 +30,7 @@ import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtInterface;
 import spoon.reflect.factory.Factory;
 import spoon.support.gui.SpoonModelTree;
+import weaver.kadabra.abstracts.joinpoints.AAndroidManifest;
 import weaver.kadabra.abstracts.joinpoints.AApp;
 import weaver.kadabra.abstracts.joinpoints.AClass;
 import weaver.kadabra.abstracts.joinpoints.AFile;
@@ -35,6 +38,7 @@ import weaver.kadabra.abstracts.joinpoints.AInterface;
 import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.ALibClass;
 import weaver.kadabra.util.KadabraLog;
+import weaver.utils.android.AndroidResources;
 import weaver.utils.generators.MapGenerator;
 import weaver.utils.weaving.ActionUtils;
 import weaver.utils.weaving.SelectUtils;
@@ -42,15 +46,18 @@ import weaver.utils.weaving.SelectUtils;
 public class JApp extends AApp {
 
     public final Launcher spoon;
+    public final AndroidResources androidResources;
     private List<JLibClass> libClasses;
 
-    private JApp(Launcher spoon) {
+    private JApp(Launcher spoon, AndroidResources androidResources) {
         this.spoon = spoon;
-
+        this.androidResources = androidResources;
     }
 
-    public static JApp newInstance(Launcher spoon) {
-        return new JApp(spoon);
+    public static JApp newInstance(Launcher spoon, List<File> sources) {
+        var app = new JApp(spoon, AndroidResources.newInstance(sources));
+
+        return app;
     }
 
     @Override
@@ -191,5 +198,11 @@ public class JApp extends AApp {
     @Override
     public Integer getNumChildrenImpl() {
         return selectFile().size();
+    }
+
+    @Override
+    public List<? extends AAndroidManifest> selectAndroidManifest() {
+        return androidResources.getAndroidManifest() != null ? Arrays.asList(new JAndroidManifest(androidResources))
+                : Collections.emptyList();
     }
 }

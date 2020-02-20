@@ -41,6 +41,11 @@
 	</artifact>
 	
 
+	<!-- ANDROID MANIFEST -->
+	<artifact class="androidManifest">
+		<attribute name="asJson"  type="Object"/>
+	</artifact>
+
 	<!-- PACKAGE -->
 	<artifact class="file" default="name">
 		<attribute name="name"  type="String"/>	
