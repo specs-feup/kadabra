@@ -73,6 +73,31 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
     }
 
     /**
+     * Get value on attribute manifest
+     * @return the attribute's value
+     */
+    public abstract AAndroidManifest getManifestImpl();
+
+    /**
+     * Get value on attribute manifest
+     * @return the attribute's value
+     */
+    public final Object getManifest() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "manifest", Optional.empty());
+        	}
+        	AAndroidManifest result = this.getManifestImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "manifest", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "manifest", e);
+        }
+    }
+
+    /**
      * files of the application
      * @return 
      */
@@ -295,6 +320,7 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
         super.fillWithAttributes(attributes);
         attributes.add("folder");
         attributes.add("showAST");
+        attributes.add("manifest");
     }
 
     /**
@@ -335,6 +361,7 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
     protected enum AppAttributes {
         FOLDER("folder"),
         SHOWAST("showAST"),
+        MANIFEST("manifest"),
         PARENT("parent"),
         ISSTATIC("isStatic"),
         CODE("code"),

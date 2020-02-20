@@ -38,6 +38,7 @@
 		<attribute name="showAST"  type="String">
 			<parameter name="Title" type="String"/>
 		</attribute>
+		<attribute name="manifest"  type="androidManifest"/>		
 	</artifact>
 	
 

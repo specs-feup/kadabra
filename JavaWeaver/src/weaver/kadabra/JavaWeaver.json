@@ -1406,6 +1406,14 @@
                   "type": "attribute",
                   "children": [
                            {
+                              "type": "androidManifest",
+                              "name": "manifest"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "children": [
+                           {
                               "type": "String",
                               "name": "showAST"
                            },

@@ -14,8 +14,6 @@
 package weaver.kadabra.joinpoints;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,6 +21,7 @@ import javax.swing.WindowConstants;
 
 import org.lara.interpreter.weaver.interf.JoinPoint;
 
+import pt.up.fe.specs.util.SpecsCollections;
 import spoon.Launcher;
 import spoon.reflect.cu.CompilationUnit;
 import spoon.reflect.declaration.CtClass;
@@ -202,7 +201,17 @@ public class JApp extends AApp {
 
     @Override
     public List<? extends AAndroidManifest> selectAndroidManifest() {
-        return androidResources.getAndroidManifest() != null ? Arrays.asList(new JAndroidManifest(androidResources))
-                : Collections.emptyList();
+        return SpecsCollections.asListT(AAndroidManifest.class, getManifestImpl());
+        // var manifest = getManifestImpl();
+        // return manifest != null ?
+        // return androidResources.getAndroidManifest() != null ? Arrays.asList(new JAndroidManifest(androidResources))
+        // : Collections.emptyList();
     }
+
+    @Override
+    public AAndroidManifest getManifestImpl() {
+        return androidResources.getAndroidManifest() != null ? new JAndroidManifest(androidResources)
+                : null;
+    }
+
 }
