@@ -45,7 +45,7 @@ import weaver.utils.weaving.SelectUtils;
 public class JApp extends AApp {
 
     public final Launcher spoon;
-    public final AndroidResources androidResources;
+    private final AndroidResources androidResources;
     private List<JLibClass> libClasses;
 
     private JApp(Launcher spoon, AndroidResources androidResources) {
@@ -57,6 +57,10 @@ public class JApp extends AApp {
         var app = new JApp(spoon, AndroidResources.newInstance(sources));
 
         return app;
+    }
+
+    public AndroidResources getAndroidResources() {
+        return androidResources;
     }
 
     @Override

@@ -47,4 +47,9 @@ public class JXmlElement extends AXmlElement {
     public String setAttributeImpl(String name, String value) {
         return element.setAttribute(name, value);
     }
+
+    @Override
+    public String[] getAttributeNamesArrayImpl() {
+        return element.getAttributes().toArray(length -> new String[length]);
+    }
 }

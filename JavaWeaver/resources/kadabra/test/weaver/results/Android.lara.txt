@@ -1,3 +1,7 @@
+Attributes: android:name
+Attribute value: android.intent.action.MAIN
+Attributes: android:name
+Attribute value: android.intent.action.VIEW
 Manifest:
 {
    manifest:
@@ -29,11 +33,11 @@ Manifest:
                               [
                                  {
                                     android:name:
-                                       android.intent.action.MAIN
+                                       newValue
                                  },
                                  {
                                     android:name:
-                                       android.intent.action.VIEW
+                                       newValue
                                  }
                               ],
                            category:

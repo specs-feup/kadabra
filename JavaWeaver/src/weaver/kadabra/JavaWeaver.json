@@ -18518,7 +18518,7 @@
          "children": [
                {
                   "type": "attribute",
-                  "tooltip": "returns the value associated with the given attribute",
+                  "tooltip": "the value associated with the given attribute",
                   "children": [
                            {
                               "type": "String",
@@ -18531,7 +18531,16 @@
                },
                {
                   "type": "attribute",
-                  "tooltip": "returns the name (i.e., tag) of this element",
+                  "tooltip": "a list of available attributes in this element",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "attributeNames"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "the name (i.e., tag) of this element",
                   "children": [
                            {
                               "type": "String",

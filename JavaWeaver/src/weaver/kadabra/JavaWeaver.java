@@ -178,6 +178,9 @@ public class JavaWeaver extends AJavaWeaver {
             spoon.prettyprint();
         }
 
+        // Write XML files
+        jApp.getAndroidResources().write(outputDir);
+
         // writeCode(temp, outputDir, true);
 
         if (reportGear.isActive()) {
@@ -210,6 +213,8 @@ public class JavaWeaver extends AJavaWeaver {
         buildAndProcess(newSpoon);
         newSpoon.prettyprint();
 
+        // Write XML files
+        jApp.getAndroidResources().write(outputFolder);
     }
 
     public boolean closeOld() {

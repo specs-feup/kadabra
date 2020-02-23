@@ -27,12 +27,12 @@ public abstract class AXmlElement extends AXmlNode {
         this.aXmlNode = aXmlNode;
     }
     /**
-     * returns the name (i.e., tag) of this element
+     * the name (i.e., tag) of this element
      */
     public abstract String getNameImpl();
 
     /**
-     * returns the name (i.e., tag) of this element
+     * the name (i.e., tag) of this element
      */
     public final Object getName() {
         try {
@@ -73,6 +73,39 @@ public abstract class AXmlElement extends AXmlNode {
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "attribute", e);
+        }
+    }
+
+    /**
+     * Get value on attribute attributeNames
+     * @return the attribute's value
+     */
+    public abstract String[] getAttributeNamesArrayImpl();
+
+    /**
+     * a list of available attributes in this element
+     */
+    public Object getAttributeNamesImpl() {
+        String[] stringArrayImpl0 = getAttributeNamesArrayImpl();
+        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(stringArrayImpl0);
+        return nativeArray0;
+    }
+
+    /**
+     * a list of available attributes in this element
+     */
+    public final Object getAttributeNames() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "attributeNames", Optional.empty());
+        	}
+        	Object result = this.getAttributeNamesImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "attributeNames", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "attributeNames", e);
         }
     }
 
@@ -316,6 +349,7 @@ public abstract class AXmlElement extends AXmlNode {
         this.aXmlNode.fillWithAttributes(attributes);
         attributes.add("name");
         attributes.add("attribute");
+        attributes.add("attributeNames");
     }
 
     /**
@@ -362,6 +396,7 @@ public abstract class AXmlElement extends AXmlNode {
     protected enum XmlElementAttributes {
         NAME("name"),
         ATTRIBUTE("attribute"),
+        ATTRIBUTENAMES("attributeNames"),
         ELEMENTS("elements"),
         TEXT("text"),
         PARENT("parent"),

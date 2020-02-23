@@ -47,6 +47,7 @@ public class AndroidResources {
         if (androidManifest != null) {
             File manifestFile = new File(realOutputFolder, srcFolder.getName() + "/main/AndroidManifest.xml");
             androidManifest.write(manifestFile);
+            // System.out.println("WROTE " + manifestFile.getAbsolutePath());
         }
     }
 
@@ -97,8 +98,10 @@ public class AndroidResources {
                 continue;
             }
 
-            var relativePath = SpecsIo.getRelativePath(srcFolder, source);
-
+            var relativePath = SpecsIo.getRelativePath(srcFolder.getParentFile(), source);
+            // System.out.println("SRC FOLDER: " + srcFolder);
+            // System.out.println("SOURCE: " + source);
+            // System.out.println("RELATIVE PATH: " + relativePath);
             return new AndroidResources(srcFolder, relativePath);
         }
 
