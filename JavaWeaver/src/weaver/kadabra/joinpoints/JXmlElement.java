@@ -33,4 +33,18 @@ public class JXmlElement extends AXmlElement {
         return null;
     }
 
+    @Override
+    public String getNameImpl() {
+        return element.getName();
+    }
+
+    @Override
+    public String attributeImpl(String name) {
+        return element.getAttribute(name);
+    }
+
+    @Override
+    public String setAttributeImpl(String name, String value) {
+        return element.setAttribute(name, value);
+    }
 }

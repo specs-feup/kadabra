@@ -45,7 +45,17 @@
 		<parameter name="text" type="String"/>
 	</action>
 
-
+	<!-- XML ELEMENT -->
+	<!-- 
+	<action name="setName" class="xmlElement" return="String">
+		<parameter name="name" type="String"/>
+	</action>	
+	 -->
+	 
+	<action name="setAttribute" class="xmlElement" return="String">
+		<parameter name="name" type="String"/>
+		<parameter name="value" type="String"/>		
+	</action>	
 
 	<!-- APP, FILE -->
 	<action name="newClass" class="app,file" return="class">

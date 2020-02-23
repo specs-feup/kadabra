@@ -1,8 +1,11 @@
 package weaver.kadabra.abstracts.joinpoints;
 
+import org.lara.interpreter.weaver.interf.events.Stage;
+import java.util.Optional;
+import org.lara.interpreter.exception.AttributeException;
+import org.lara.interpreter.exception.ActionException;
 import java.util.List;
 import org.lara.interpreter.weaver.interf.JoinPoint;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.Arrays;
 
@@ -23,6 +26,85 @@ public abstract class AXmlElement extends AXmlNode {
     public AXmlElement(AXmlNode aXmlNode){
         this.aXmlNode = aXmlNode;
     }
+    /**
+     * returns the name (i.e., tag) of this element
+     */
+    public abstract String getNameImpl();
+
+    /**
+     * returns the name (i.e., tag) of this element
+     */
+    public final Object getName() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "name", Optional.empty());
+        	}
+        	String result = this.getNameImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "name", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "name", e);
+        }
+    }
+
+    /**
+     * 
+     * @param name
+     * @return 
+     */
+    public abstract String attributeImpl(String name);
+
+    /**
+     * 
+     * @param name
+     * @return 
+     */
+    public final Object attribute(String name) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "attribute", Optional.empty(), name);
+        	}
+        	String result = this.attributeImpl(name);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "attribute", Optional.ofNullable(result), name);
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "attribute", e);
+        }
+    }
+
+    /**
+     * 
+     * @param name 
+     * @param value 
+     */
+    public String setAttributeImpl(String name, String value) {
+        throw new UnsupportedOperationException(get_class()+": Action setAttribute not implemented ");
+    }
+
+    /**
+     * 
+     * @param name 
+     * @param value 
+     */
+    public final String setAttribute(String name, String value) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "setAttribute", this, Optional.empty(), name, value);
+        	}
+        	String result = this.setAttributeImpl(name, value);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "setAttribute", this, Optional.ofNullable(result), name, value);
+        	}
+        	return result;
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "setAttribute", e);
+        }
+    }
+
     /**
      * Get value on attribute elementsArrayImpl
      * @return the attribute's value
@@ -232,6 +314,8 @@ public abstract class AXmlElement extends AXmlNode {
     @Override
     protected final void fillWithAttributes(List<String> attributes) {
         this.aXmlNode.fillWithAttributes(attributes);
+        attributes.add("name");
+        attributes.add("attribute");
     }
 
     /**
@@ -248,6 +332,7 @@ public abstract class AXmlElement extends AXmlNode {
     @Override
     protected final void fillWithActions(List<String> actions) {
         this.aXmlNode.fillWithActions(actions);
+        actions.add("String setAttribute(String, String)");
     }
 
     /**
@@ -275,6 +360,8 @@ public abstract class AXmlElement extends AXmlNode {
      * 
      */
     protected enum XmlElementAttributes {
+        NAME("name"),
+        ATTRIBUTE("attribute"),
         ELEMENTS("elements"),
         TEXT("text"),
         PARENT("parent"),

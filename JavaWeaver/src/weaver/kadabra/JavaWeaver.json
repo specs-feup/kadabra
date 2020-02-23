@@ -18518,6 +18518,28 @@
          "children": [
                {
                   "type": "attribute",
+                  "tooltip": "returns the value associated with the given attribute",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "attribute"
+                           },
+                           {
+                              "type": "String",
+                              "name": "name"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "returns the name (i.e., tag) of this element",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "name"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "children": [
                            {
                               "type": "xmlElement[]",
@@ -18725,6 +18747,24 @@
                   "clazz": "xmlElement",
                   "alias": "element",
                   "tooltip": "elements inside the Android manifest"
+               },
+               {
+                  "type": "action",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "setAttribute"
+                           },
+                           {
+                              "type": "String",
+                              "name": "name",
+                              "defaultValue": ""
+                           },
+                           {
+                              "type": "String",
+                              "name": "value",
+                              "defaultValue": ""
+                           }]
                },
                {
                   "type": "action",

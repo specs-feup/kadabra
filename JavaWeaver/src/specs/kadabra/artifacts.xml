@@ -60,8 +60,11 @@
 	</artifact>
 	
 	<!-- XML ELEMENT -->
-	<artifact class="xmlElement">
-	
+	<artifact class="xmlElement" default="name">
+		<attribute name="name"  type="String" tooltip="returns the name (i.e., tag) of this element"/>
+		<attribute name="attribute"  type="String" tooltip="returns the value associated with the given attribute">
+			<parameter name="name" type="String"/>
+		</attribute>		
 	</artifact>
 
 	<!-- PACKAGE -->
