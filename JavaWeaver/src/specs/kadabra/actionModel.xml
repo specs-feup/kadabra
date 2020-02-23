@@ -40,6 +40,13 @@
 	<action name="remove"/>
 
 
+	<!-- XML NODE-->
+	<action name="setText" class="xmlNode" return="String">
+		<parameter name="text" type="String"/>
+	</action>
+
+
+
 	<!-- APP, FILE -->
 	<action name="newClass" class="app,file" return="class">
 		<parameter name="name" type="String"/>

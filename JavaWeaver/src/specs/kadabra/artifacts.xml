@@ -44,13 +44,24 @@
 	
 	<!-- XML NODE -->
 	<artifact class="xmlNode">
-
+		<attribute name="elements"  type="xmlElement[]"/>
+		<attribute name="elements"  type="xmlElement[]">
+			<parameter name="name" type="String"/>
+		</attribute>
+		<attribute name="text"  type="String">
+			<def/>
+		</attribute>
 	</artifact>
 
 
 	<!-- ANDROID MANIFEST -->
 	<artifact class="androidManifest">
 		<attribute name="asJson"  type="Object"/>
+	</artifact>
+	
+	<!-- XML ELEMENT -->
+	<artifact class="xmlElement">
+	
 	</artifact>
 
 	<!-- PACKAGE -->

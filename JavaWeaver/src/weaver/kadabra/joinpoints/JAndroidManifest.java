@@ -18,6 +18,7 @@ import org.json.XML;
 import pt.up.fe.specs.util.xml.XmlDocument;
 import spoon.reflect.declaration.CtElement;
 import weaver.kadabra.abstracts.joinpoints.AAndroidManifest;
+import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
 
 public class JAndroidManifest extends AAndroidManifest {
 
@@ -49,4 +50,9 @@ public class JAndroidManifest extends AAndroidManifest {
         return "AndroidManifest";
     }
 
+    @Override
+    public AJoinPoint getParentImpl() {
+        // Parent is App
+        return (JApp) getWeaverEngine().getRootJp();
+    }
 }

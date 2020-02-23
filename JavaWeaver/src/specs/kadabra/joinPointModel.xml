@@ -18,9 +18,13 @@
 	</joinpoint>
 	
 	<joinpoint class="xmlNode">
+		<select alias="element" class="xmlElement" tooltip="elements inside the Android manifest"/>		
 	</joinpoint>
 	
 	<joinpoint class="androidManifest" extends="xmlNode">
+	</joinpoint>
+	
+	<joinpoint class="xmlElement" extends="xmlNode">
 	</joinpoint>
 	
 	

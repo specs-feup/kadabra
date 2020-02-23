@@ -1,55 +1,28 @@
 package weaver.kadabra.abstracts.joinpoints;
 
-import org.lara.interpreter.weaver.interf.events.Stage;
-import java.util.Optional;
-import org.lara.interpreter.exception.AttributeException;
 import java.util.List;
 import org.lara.interpreter.weaver.interf.JoinPoint;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.Arrays;
 
 /**
- * Auto-Generated class for join point AAndroidManifest
+ * Auto-Generated class for join point AXmlElement
  * This class is overwritten by the Weaver Generator.
  * 
  * 
  * @author Lara Weaver Generator
  */
-public abstract class AAndroidManifest extends AXmlNode {
+public abstract class AXmlElement extends AXmlNode {
 
     protected AXmlNode aXmlNode;
 
     /**
      * 
      */
-    public AAndroidManifest(AXmlNode aXmlNode){
+    public AXmlElement(AXmlNode aXmlNode){
         this.aXmlNode = aXmlNode;
     }
-    /**
-     * Get value on attribute asJson
-     * @return the attribute's value
-     */
-    public abstract Object getAsJsonImpl();
-
-    /**
-     * Get value on attribute asJson
-     * @return the attribute's value
-     */
-    public final Object getAsJson() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "asJson", Optional.empty());
-        	}
-        	Object result = this.getAsJsonImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "asJson", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "asJson", e);
-        }
-    }
-
     /**
      * Get value on attribute elementsArrayImpl
      * @return the attribute's value
@@ -259,7 +232,6 @@ public abstract class AAndroidManifest extends AXmlNode {
     @Override
     protected final void fillWithAttributes(List<String> attributes) {
         this.aXmlNode.fillWithAttributes(attributes);
-        attributes.add("asJson");
     }
 
     /**
@@ -284,7 +256,7 @@ public abstract class AAndroidManifest extends AXmlNode {
      */
     @Override
     public final String get_class() {
-        return "androidManifest";
+        return "xmlElement";
     }
 
     /**
@@ -302,8 +274,7 @@ public abstract class AAndroidManifest extends AXmlNode {
     /**
      * 
      */
-    protected enum AndroidManifestAttributes {
-        ASJSON("asJson"),
+    protected enum XmlElementAttributes {
         ELEMENTS("elements"),
         TEXT("text"),
         PARENT("parent"),
@@ -327,13 +298,13 @@ public abstract class AAndroidManifest extends AXmlNode {
         /**
          * 
          */
-        private AndroidManifestAttributes(String name){
+        private XmlElementAttributes(String name){
             this.name = name;
         }
         /**
          * Return an attribute enumeration item from a given attribute name
          */
-        public static Optional<AndroidManifestAttributes> fromString(String name) {
+        public static Optional<XmlElementAttributes> fromString(String name) {
             return Arrays.asList(values()).stream().filter(attr -> attr.name.equals(name)).findAny();
         }
 
@@ -341,7 +312,7 @@ public abstract class AAndroidManifest extends AXmlNode {
          * Return a list of attributes in String format
          */
         public static List<String> getNames() {
-            return Arrays.asList(values()).stream().map(AndroidManifestAttributes::name).collect(Collectors.toList());
+            return Arrays.asList(values()).stream().map(XmlElementAttributes::name).collect(Collectors.toList());
         }
 
         /**

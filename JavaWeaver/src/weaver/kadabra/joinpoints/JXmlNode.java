@@ -13,9 +13,16 @@
 
 package weaver.kadabra.joinpoints;
 
+import java.util.Arrays;
+import java.util.List;
+
+import pt.up.fe.specs.util.xml.XmlElement;
 import pt.up.fe.specs.util.xml.XmlNode;
 import spoon.reflect.declaration.CtElement;
+import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
+import weaver.kadabra.abstracts.joinpoints.AXmlElement;
 import weaver.kadabra.abstracts.joinpoints.AXmlNode;
+import weaver.utils.weaving.converters.XmlNode2JoinPoint;
 
 public class JXmlNode extends AXmlNode {
 
@@ -30,4 +37,56 @@ public class JXmlNode extends AXmlNode {
         return null;
     }
 
+    @Override
+    public AJoinPoint getParentImpl() {
+        return XmlNode2JoinPoint.convert(node.getParent());
+    }
+
+    @Override
+    public AJoinPoint[] getChildrenArrayImpl() {
+        return node.getChildren().stream()
+                .map(XmlNode2JoinPoint::convert)
+                .toArray(length -> new AJoinPoint[length]);
+    }
+
+    @Override
+    public AJoinPoint[] getDescendantsArrayImpl() {
+        return node.getDescendants().stream()
+                .map(XmlNode2JoinPoint::convert)
+                .toArray(length -> new AJoinPoint[length]);
+    }
+
+    @Override
+    public AXmlElement[] getElementsArrayImpl() {
+        return node.getDescendants().stream()
+                .filter(node -> node instanceof XmlElement)
+                .map(element -> (AXmlElement) XmlNode2JoinPoint.convert(element))
+                .toArray(length -> new AXmlElement[length]);
+
+    }
+
+    @Override
+    public List<? extends AXmlElement> selectElement() {
+        return Arrays.asList(getElementsArrayImpl());
+    }
+
+    @Override
+    public AXmlElement[] elementsArrayImpl(String name) {
+        return node.getElementsByName(name).toArray(length -> new AXmlElement[length]);
+    }
+
+    @Override
+    public String getTextImpl() {
+        return node.getText();
+    }
+
+    @Override
+    public void defTextImpl(String value) {
+        setTextImpl(value);
+    }
+
+    @Override
+    public String setTextImpl(String text) {
+        return node.setText(text);
+    }
 }
