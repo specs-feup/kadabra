@@ -15,17 +15,17 @@ package weaver.kadabra.joinpoints;
 
 import org.json.XML;
 
-import pt.up.fe.specs.util.SpecsIo;
+import pt.up.fe.specs.util.xml.XmlDocument;
 import spoon.reflect.declaration.CtElement;
 import weaver.kadabra.abstracts.joinpoints.AAndroidManifest;
-import weaver.utils.android.AndroidResources;
 
 public class JAndroidManifest extends AAndroidManifest {
 
-    private final AndroidResources androidResources;
+    private final XmlDocument manifest;
 
-    public JAndroidManifest(AndroidResources androidResources) {
-        this.androidResources = androidResources;
+    public JAndroidManifest(XmlDocument manifest) {
+        super(new JXmlNode(manifest));
+        this.manifest = manifest;
     }
 
     @Override
@@ -35,20 +35,18 @@ public class JAndroidManifest extends AAndroidManifest {
 
     @Override
     public Object getAsJsonImpl() {
-        var manifest = androidResources.getAndroidManifest();
-
-        if (manifest == null) {
-            return null;
-        }
-
+        // System.out.println("AS STRING: " + manifest.toString());
+        // File outputFile = new File("./xpto_test.xml");
+        // manifest.write(outputFile);
+        // System.out.println("AS FILE: " + outputFile.getAbsolutePath());
         return getWeaverEngine().getScriptEngine()
-                .eval("var lara_android_manifest = " + XML.toJSONObject(SpecsIo.read(manifest)).toString(4)
+                .eval("var lara_android_manifest = " + XML.toJSONObject(manifest.toString()).toString(4)
                         + "; lara_android_manifest;");
     }
 
     @Override
     public String toString() {
-        return "AndroidManifest (" + androidResources.getAndroidManifest() + ")";
+        return "AndroidManifest";
     }
 
 }

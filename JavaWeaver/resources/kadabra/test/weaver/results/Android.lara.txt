@@ -55,10 +55,10 @@ Manifest:
                   {
                      android:enabled:
                         true,
-                     android:name:
-                        .service.Track_Service,
                      android:exported:
-                        false
+                        false,
+                     android:name:
+                        .service.Track_Service
                   },
                android:supportsRtl:
                   true,

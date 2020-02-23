@@ -3,9 +3,8 @@ package weaver.kadabra.abstracts.joinpoints;
 import org.lara.interpreter.weaver.interf.events.Stage;
 import java.util.Optional;
 import org.lara.interpreter.exception.AttributeException;
-import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
-import java.util.List;
 import org.lara.interpreter.weaver.interf.JoinPoint;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.Arrays;
 
@@ -16,8 +15,16 @@ import java.util.Arrays;
  * 
  * @author Lara Weaver Generator
  */
-public abstract class AAndroidManifest extends AJavaWeaverJoinPoint {
+public abstract class AAndroidManifest extends AXmlNode {
 
+    protected AXmlNode aXmlNode;
+
+    /**
+     * 
+     */
+    public AAndroidManifest(AXmlNode aXmlNode){
+        this.aXmlNode = aXmlNode;
+    }
     /**
      * Get value on attribute asJson
      * @return the attribute's value
@@ -45,13 +52,119 @@ public abstract class AAndroidManifest extends AJavaWeaverJoinPoint {
 
     /**
      * 
+     * @param node 
+     */
+    @Override
+    public AJoinPoint insertBeforeImpl(AJoinPoint node) {
+        return this.aXmlNode.insertBeforeImpl(node);
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    @Override
+    public AJoinPoint insertBeforeImpl(String code) {
+        return this.aXmlNode.insertBeforeImpl(code);
+    }
+
+    /**
+     * 
+     * @param node 
+     */
+    @Override
+    public AJoinPoint insertAfterImpl(AJoinPoint node) {
+        return this.aXmlNode.insertAfterImpl(node);
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    @Override
+    public AJoinPoint insertAfterImpl(String code) {
+        return this.aXmlNode.insertAfterImpl(code);
+    }
+
+    /**
+     * 
+     * @param jp 
+     */
+    @Override
+    public AJoinPoint insertReplaceImpl(AJoinPoint jp) {
+        return this.aXmlNode.insertReplaceImpl(jp);
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    @Override
+    public AJoinPoint insertReplaceImpl(String code) {
+        return this.aXmlNode.insertReplaceImpl(code);
+    }
+
+    /**
+     * 
+     */
+    @Override
+    public AJoinPoint copyImpl() {
+        return this.aXmlNode.copyImpl();
+    }
+
+    /**
+     * 
+     */
+    @Override
+    public void removeImpl() {
+        this.aXmlNode.removeImpl();
+    }
+
+    /**
+     * 
+     * @param position 
+     * @param code 
+     */
+    @Override
+    public AJoinPoint[] insertImpl(String position, String code) {
+        return this.aXmlNode.insertImpl(position, code);
+    }
+
+    /**
+     * 
+     * @param position 
+     * @param code 
+     */
+    @Override
+    public AJoinPoint[] insertImpl(String position, JoinPoint code) {
+        return this.aXmlNode.insertImpl(position, code);
+    }
+
+    /**
+     * 
+     */
+    @Override
+    public String toString() {
+        return this.aXmlNode.toString();
+    }
+
+    /**
+     * 
+     */
+    @Override
+    public Optional<? extends AXmlNode> getSuper() {
+        return Optional.of(this.aXmlNode);
+    }
+
+    /**
+     * 
      */
     @Override
     public final List<? extends JoinPoint> select(String selectName) {
         List<? extends JoinPoint> joinPointList;
         switch(selectName) {
         	default:
-        		joinPointList = super.select(selectName);
+        		joinPointList = this.aXmlNode.select(selectName);
         		break;
         }
         return joinPointList;
@@ -83,7 +196,7 @@ public abstract class AAndroidManifest extends AJavaWeaverJoinPoint {
      */
     @Override
     protected final void fillWithAttributes(List<String> attributes) {
-        super.fillWithAttributes(attributes);
+        this.aXmlNode.fillWithAttributes(attributes);
         attributes.add("asJson");
     }
 
@@ -92,7 +205,7 @@ public abstract class AAndroidManifest extends AJavaWeaverJoinPoint {
      */
     @Override
     protected final void fillWithSelects(List<String> selects) {
-        super.fillWithSelects(selects);
+        this.aXmlNode.fillWithSelects(selects);
     }
 
     /**
@@ -100,7 +213,7 @@ public abstract class AAndroidManifest extends AJavaWeaverJoinPoint {
      */
     @Override
     protected final void fillWithActions(List<String> actions) {
-        super.fillWithActions(actions);
+        this.aXmlNode.fillWithActions(actions);
     }
 
     /**
@@ -110,6 +223,19 @@ public abstract class AAndroidManifest extends AJavaWeaverJoinPoint {
     @Override
     public final String get_class() {
         return "androidManifest";
+    }
+
+    /**
+     * Defines if this joinpoint is an instanceof a given joinpoint class
+     * @return True if this join point is an instanceof the given class
+     */
+    @Override
+    public final boolean instanceOf(String joinpointClass) {
+        boolean isInstance = get_class().equals(joinpointClass);
+        if(isInstance) {
+        	return true;
+        }
+        return this.aXmlNode.instanceOf(joinpointClass);
     }
     /**
      * 

@@ -17,8 +17,10 @@
 		<select alias="param" 		class="declaration" tooltip="parameter of a library method"/>
 	</joinpoint>
 	
+	<joinpoint class="xmlNode">
+	</joinpoint>
 	
-	<joinpoint class="androidManifest">
+	<joinpoint class="androidManifest" extends="xmlNode">
 	</joinpoint>
 	
 	

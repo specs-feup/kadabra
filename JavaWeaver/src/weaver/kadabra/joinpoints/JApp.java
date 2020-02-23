@@ -202,16 +202,16 @@ public class JApp extends AApp {
     @Override
     public List<? extends AAndroidManifest> selectAndroidManifest() {
         return SpecsCollections.asListT(AAndroidManifest.class, getManifestImpl());
-        // var manifest = getManifestImpl();
-        // return manifest != null ?
-        // return androidResources.getAndroidManifest() != null ? Arrays.asList(new JAndroidManifest(androidResources))
-        // : Collections.emptyList();
     }
 
     @Override
     public AAndroidManifest getManifestImpl() {
-        return androidResources.getAndroidManifest() != null ? new JAndroidManifest(androidResources)
-                : null;
+        var manifest = androidResources.getAndroidManifest();
+        // var elementAttrs = manifest.getElementsByName("uses-permission").stream()
+        // .map(element -> element.getAttribute("android:name"))
+        // .collect(Collectors.joining(", "));
+        // System.out.println("ELEMENTS: " + elementAttrs);
+        return manifest != null ? new JAndroidManifest(manifest) : null;
     }
 
 }

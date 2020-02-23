@@ -41,6 +41,12 @@
 		<attribute name="manifest"  type="androidManifest"/>		
 	</artifact>
 	
+	
+	<!-- XML NODE -->
+	<artifact class="xmlNode">
+
+	</artifact>
+
 
 	<!-- ANDROID MANIFEST -->
 	<artifact class="androidManifest">

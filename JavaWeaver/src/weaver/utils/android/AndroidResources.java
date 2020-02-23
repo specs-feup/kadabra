@@ -17,9 +17,10 @@ import java.io.File;
 import java.util.List;
 
 import pt.up.fe.specs.util.SpecsIo;
+import pt.up.fe.specs.util.SpecsLogs;
+import pt.up.fe.specs.util.xml.XmlDocument;
 
 /**
- * Read-only, for now.
  * 
  * @author JoaoBispo
  *
@@ -28,19 +29,56 @@ public class AndroidResources {
 
     // Can be null
     private final File srcFolder;
+    private final String relativePath;
 
-    public AndroidResources(File srcFolder) {
+    private XmlDocument androidManifest;
+
+    public AndroidResources(File srcFolder, String relativePath) {
         this.srcFolder = srcFolder;
+        this.relativePath = relativePath;
+
+        androidManifest = null;
     }
 
-    public File getAndroidManifest() {
+    public void write(File outputFolder) {
+        File realOutputFolder = SpecsIo.mkdir(outputFolder, relativePath);
+
+        // Manifest
+        if (androidManifest != null) {
+            File manifestFile = new File(realOutputFolder, srcFolder.getName() + "/main/AndroidManifest.xml");
+            androidManifest.write(manifestFile);
+        }
+    }
+
+    public File getAndroidManifestFile() {
+        var androidManifestFile = new File(srcFolder, "main/AndroidManifest.xml");
+
+        if (!androidManifestFile.isFile()) {
+            SpecsLogs.debug(() -> "There is a src folder defined ('" + srcFolder
+                    + "'), but could not find 'main/AndroidManifest.xml'");
+
+            return null;
+        }
+
+        return androidManifestFile;
+    }
+
+    public XmlDocument getAndroidManifest() {
         if (srcFolder == null) {
             return null;
         }
 
-        var androidManifest = new File(srcFolder, "main/AndroidManifest.xml");
+        if (androidManifest != null) {
+            return androidManifest;
+        }
 
-        return androidManifest.isFile() ? androidManifest : null;
+        var androidManifestFile = getAndroidManifestFile();
+        if (androidManifestFile == null) {
+            return null;
+        }
+
+        androidManifest = XmlDocument.newInstance(androidManifestFile);
+        return this.androidManifest;
     }
 
     /**
@@ -52,13 +90,27 @@ public class AndroidResources {
     public static AndroidResources newInstance(List<File> sources) {
         // Try to find a 'src' folder with a 'main/AndroidManifest.xml'
 
-        var srcFolder = sources.stream()
-                .map(AndroidResources::getSrcFolder)
-                .filter(src -> src != null)
-                .findFirst()
-                .orElse(null);
+        for (var source : sources) {
+            var srcFolder = AndroidResources.getSrcFolder(source);
 
-        return new AndroidResources(srcFolder);
+            if (srcFolder == null) {
+                continue;
+            }
+
+            var relativePath = SpecsIo.getRelativePath(srcFolder, source);
+
+            return new AndroidResources(srcFolder, relativePath);
+        }
+
+        return new AndroidResources(null, "");
+
+        // var srcFolder = sources.stream()
+        // .map(AndroidResources::getSrcFolder)
+        // .filter(src -> src != null)
+        // .findFirst()
+        // .orElse(null);
+        //
+        // return new AndroidResources(srcFolder);
     }
 
     private static File getSrcFolder(File path) {
