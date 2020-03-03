@@ -179,4 +179,9 @@ public class JCall<T> extends ACall {
         ActionUtils.insert(position, cloned, stat.getNode(), getWeaverProfiler());
         return JCall.newInstance(cloned);
     }
+
+    @Override
+    public AArgument[] getArgumentsArrayImpl() {
+        return selectArg().toArray(size -> new AArgument[size]);
+    }
 }

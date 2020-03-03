@@ -294,6 +294,7 @@
 		</attribute>
 		<attribute name="targetType"		type="type"/>
 		<attribute name="returnType"		type="string"/>
+		<attribute name="arguments"			type="argument[]"/>
 	</artifact>
 	
 	<!-- BINARY EXPRESSION -->

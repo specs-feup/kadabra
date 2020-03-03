@@ -231,6 +231,41 @@ public abstract class ACall extends AExpression {
     }
 
     /**
+     * Get value on attribute arguments
+     * @return the attribute's value
+     */
+    public abstract AArgument[] getArgumentsArrayImpl();
+
+    /**
+     * Get value on attribute arguments
+     * @return the attribute's value
+     */
+    public Object getArgumentsImpl() {
+        AArgument[] aArgumentArrayImpl0 = getArgumentsArrayImpl();
+        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(aArgumentArrayImpl0);
+        return nativeArray0;
+    }
+
+    /**
+     * Get value on attribute arguments
+     * @return the attribute's value
+     */
+    public final Object getArguments() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "arguments", Optional.empty());
+        	}
+        	Object result = this.getArgumentsImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "arguments", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "arguments", e);
+        }
+    }
+
+    /**
      * Default implementation of the method used by the lara interpreter to select args
      * @return 
      */
@@ -569,6 +604,7 @@ public abstract class ACall extends AExpression {
         attributes.add("target");
         attributes.add("targetType");
         attributes.add("returnType");
+        attributes.add("arguments");
     }
 
     /**
@@ -621,6 +657,7 @@ public abstract class ACall extends AExpression {
         TARGET("target"),
         TARGETTYPE("targetType"),
         RETURNTYPE("returnType"),
+        ARGUMENTS("arguments"),
         KIND("kind"),
         TYPE("type"),
         TEST("test"),

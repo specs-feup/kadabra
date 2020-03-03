@@ -4646,6 +4646,14 @@
                   "type": "attribute",
                   "children": [
                            {
+                              "type": "argument[]",
+                              "name": "arguments"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "children": [
+                           {
                               "type": "String",
                               "name": "declarator"
                            }]
