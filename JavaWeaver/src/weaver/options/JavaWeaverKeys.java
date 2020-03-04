@@ -31,6 +31,9 @@ public interface JavaWeaverKeys {
     static DataKey<Boolean> SHOW_LOG_INFO = KeyFactory.bool("show info").setLabel("Show Log Information");
     static DataKey<Boolean> NO_CLASSPATH = KeyFactory.bool("noclasspath").setLabel("Compile with incomplete classpath");
     static DataKey<Boolean> REPORT = KeyFactory.bool("report kadabra").setLabel("Report Metrics");
+    static DataKey<Boolean> FULLY_QUALIFIED_NAMES = KeyFactory.bool("fully_qualified_names")
+            .setLabel("Fully Qualified Names");
+
     static DataKey<FileList> INCLUDE_DIRS = LaraIKeyFactory
             .fileList("java includes dir", JFileChooser.FILES_AND_DIRECTORIES, Arrays.asList("jar"))
             .setLabel("Add Classpaths");

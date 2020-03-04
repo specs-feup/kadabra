@@ -134,6 +134,7 @@ public class JavaWeaver extends AJavaWeaver {
         /* turning off path verifier as it is giving errors for new classes and code */
         spoon.getEnvironment().setNoClasspath(true);
         jApp = JApp.newInstance(spoon, sources);
+        // spoon.getEnvironment().setAutoImports(false);
 
         return true;
     }
@@ -352,6 +353,12 @@ public class JavaWeaver extends AJavaWeaver {
         setInputSources(sources, spoon);
         spoon.addProcessor(new IfProcessor());
         // spoon.addProcessor(new CommentProcessor());
+
+        // Set fully qualified names
+        if (args.get(JavaWeaverKeys.FULLY_QUALIFIED_NAMES)) {
+            spoon.getEnvironment().setAutoImports(false);
+        }
+
         return spoon;
     }
 
