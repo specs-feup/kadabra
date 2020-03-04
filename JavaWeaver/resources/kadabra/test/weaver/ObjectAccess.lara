@@ -7,6 +7,13 @@ aspectdef ObjectAccessTest
 	//println("Code:\n" + WeaverJps.root().code);
 
 	println("Call: " + WeaverJps.search("method").search("call").first().code);
+
+/*
+	for(var $expr of WeaverJps.search("expression", {code: /^R\.*/})) {
+		println("Code -> " + $expr.code + ": " + $expr.type);
+		println("Qualified name -> " + $expr.qualifiedName);
+	}
+*/
 /*
 	select class.call end
 	apply
