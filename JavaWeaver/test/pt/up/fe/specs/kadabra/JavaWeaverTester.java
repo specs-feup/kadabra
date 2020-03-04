@@ -255,8 +255,9 @@ public class JavaWeaverTester {
             return;
         }
 
-        // Delete CWeaver folder
+        // Delete JavaWeaver folder
         File workFolder = JavaWeaverTester.getWorkFolder();
+
         if (workFolder.isDirectory()) {
             SpecsIo.deleteFolderContents(workFolder, true);
             SpecsIo.delete(workFolder);

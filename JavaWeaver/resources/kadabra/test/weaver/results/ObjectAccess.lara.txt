@@ -1,0 +1,1 @@
+Call: view.findViewById(R.id.info_text)

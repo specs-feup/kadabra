@@ -1,0 +1,16 @@
+import weaver.WeaverJps;
+
+aspectdef ObjectAccessTest
+
+	//println("AST:\n" + WeaverJps.root().ast);
+
+	//println("Code:\n" + WeaverJps.root().code);
+
+	println("Call: " + WeaverJps.search("method").search("call").first().code);
+/*
+	select class.call end
+	apply
+		println("Call: " + $call.code);
+	end
+*/
+end

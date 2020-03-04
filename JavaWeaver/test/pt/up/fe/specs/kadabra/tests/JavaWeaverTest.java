@@ -38,7 +38,7 @@ public class JavaWeaverTest {
         return new JavaWeaverTester("kadabra/test/weaver/")
                 .setSrcPackage("src/")
                 .setResultPackage("results/")
-                .setKeepWeavedFiles(true);
+                .setKeepWeavedFiles(false);
 
     }
 
@@ -95,4 +95,9 @@ public class JavaWeaverTest {
                 .test("CompilationError.lara", "CompilationError.java.test");
     }
 
+    @Test
+    public void testObjectAccess() {
+        newTester().set(JavaWeaverKeys.NO_CLASSPATH).set(JavaWeaverKeys.FULLY_QUALIFIED_NAMES).test("ObjectAccess.lara",
+                "ObjectAccess.java.test");
+    }
 }

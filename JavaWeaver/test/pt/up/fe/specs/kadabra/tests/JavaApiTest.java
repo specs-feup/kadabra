@@ -37,7 +37,7 @@ public class JavaApiTest {
         return new JavaWeaverTester("kadabra/test/api/")
                 .setSrcPackage("src/")
                 .setResultPackage("results/")
-                .setKeepWeavedFiles(true);
+                .setKeepWeavedFiles(false);
 
     }
 
