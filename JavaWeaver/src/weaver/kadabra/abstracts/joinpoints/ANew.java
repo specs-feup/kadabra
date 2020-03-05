@@ -42,6 +42,15 @@ public abstract class ANew extends AExpression {
     }
 
     /**
+     * Get value on attribute typeReference
+     * @return the attribute's value
+     */
+    @Override
+    public ATypeReference getTypeReferenceImpl() {
+        return this.aExpression.getTypeReferenceImpl();
+    }
+
+    /**
      * Get value on attribute test
      * @return the attribute's value
      */
@@ -338,6 +347,7 @@ public abstract class ANew extends AExpression {
     protected enum NewAttributes {
         KIND("kind"),
         TYPE("type"),
+        TYPEREFERENCE("typeReference"),
         TEST("test"),
         PARENT("parent"),
         ISSTATIC("isStatic"),

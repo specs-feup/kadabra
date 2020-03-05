@@ -20,8 +20,8 @@ import spoon.reflect.code.CtArrayWrite;
 import spoon.reflect.code.CtExpression;
 import weaver.kadabra.abstracts.joinpoints.AArrayAccess;
 import weaver.kadabra.abstracts.joinpoints.AExpression;
+import weaver.kadabra.abstracts.joinpoints.ATypeReference;
 import weaver.kadabra.enums.RefType;
-import weaver.utils.element.CtTypeReferenceUtils;
 import weaver.utils.weaving.SelectUtils;
 
 public class JArrayAccess<T, E extends CtExpression<?>> extends AArrayAccess {
@@ -44,14 +44,14 @@ public class JArrayAccess<T, E extends CtExpression<?>> extends AArrayAccess {
     }
 
     @Override
-    public String getTypeImpl() {
-
-        return CtTypeReferenceUtils.getType(node.getType());
+    public ATypeReference getTypeReferenceImpl() {
+        return new JTypeReference<>(node.getType());
+        // return CtTypeReferenceUtils.getType(node.getType());
     }
 
     @Override
-    public String toString() {
-        return node.toString();
+    public String getTypeImpl() {
+        return getTypeReferenceImpl().toString();
     }
 
     @Override

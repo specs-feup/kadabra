@@ -19,6 +19,7 @@ import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.CtLocalVariable;
 import weaver.kadabra.abstracts.joinpoints.AExpression;
 import weaver.kadabra.abstracts.joinpoints.ALocalVariable;
+import weaver.kadabra.abstracts.joinpoints.ATypeReference;
 import weaver.utils.weaving.converters.CtElement2JoinPoint;
 
 public class JLocalVariable<T> extends ALocalVariable {
@@ -42,8 +43,13 @@ public class JLocalVariable<T> extends ALocalVariable {
     }
 
     @Override
+    public ATypeReference getTypeReferenceImpl() {
+        return declaration.getTypeReferenceImpl();
+    }
+
+    @Override
     public String getTypeImpl() {
-        return declaration.getTypeImpl();
+        return getTypeReferenceImpl().toString();
     }
 
     @Override

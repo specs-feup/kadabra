@@ -47,7 +47,7 @@ public class JReference extends AReference {
     }
 
     @Override
-    public String getTypeImpl() {
+    public String getReferenceTypeImpl() {
         String type = node.getClass().getSimpleName();
         if (type.startsWith("Ct")) {
             type = type.substring(2);
@@ -59,9 +59,23 @@ public class JReference extends AReference {
         return type;
     }
 
+    // @Override
+    // public ATypeReference getTypeImpl() {
+    // return new JTypeReference<>(node);
+    // String type = node.getClass().getSimpleName();
+    // if (type.startsWith("Ct")) {
+    // type = type.substring(2);
+    // }
+    // if (type.endsWith("ReferenceImpl")) {
+    // type = type.substring(0, type.length() - "ReferenceImpl".length());
+    // }
+    //
+    // return type;
+    // }
+
     @Override
     public String toString() {
-        return getNameImpl() + " - " + getTypeImpl();
+        return getNameImpl() + " - " + getReferenceTypeImpl();
     }
 
 }

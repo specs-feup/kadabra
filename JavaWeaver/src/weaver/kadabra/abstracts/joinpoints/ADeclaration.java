@@ -71,6 +71,31 @@ public abstract class ADeclaration extends AJavaWeaverJoinPoint {
     }
 
     /**
+     * Get value on attribute typeReference
+     * @return the attribute's value
+     */
+    public abstract ATypeReference getTypeReferenceImpl();
+
+    /**
+     * Get value on attribute typeReference
+     * @return the attribute's value
+     */
+    public final Object getTypeReference() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "typeReference", Optional.empty());
+        	}
+        	ATypeReference result = this.getTypeReferenceImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "typeReference", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "typeReference", e);
+        }
+    }
+
+    /**
      * Get value on attribute isArray
      * @return the attribute's value
      */
@@ -264,6 +289,7 @@ public abstract class ADeclaration extends AJavaWeaverJoinPoint {
         super.fillWithAttributes(attributes);
         attributes.add("name");
         attributes.add("type");
+        attributes.add("typeReference");
         attributes.add("isArray");
         attributes.add("isPrimitive");
         attributes.add("completeType");
@@ -302,6 +328,7 @@ public abstract class ADeclaration extends AJavaWeaverJoinPoint {
     protected enum DeclarationAttributes {
         NAME("name"),
         TYPE("type"),
+        TYPEREFERENCE("typeReference"),
         ISARRAY("isArray"),
         ISPRIMITIVE("isPrimitive"),
         COMPLETETYPE("completeType"),

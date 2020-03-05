@@ -23,12 +23,14 @@ import spoon.reflect.code.CtBinaryOperator;
 import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.CtStatement;
 import spoon.reflect.code.CtVariableAccess;
+import spoon.reflect.reference.CtTypeReference;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.AArrayAccess;
 import weaver.kadabra.abstracts.joinpoints.ABinaryExpression;
 import weaver.kadabra.abstracts.joinpoints.AExpression;
 import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.AStatement;
+import weaver.kadabra.abstracts.joinpoints.ATypeReference;
 import weaver.kadabra.abstracts.joinpoints.AVar;
 import weaver.kadabra.exceptions.JavaWeaverException;
 import weaver.kadabra.util.KadabraLog;
@@ -89,8 +91,21 @@ public class JExpression<T> extends AExpression {
     }
 
     @Override
-    public String getTypeImpl() {
+    public ATypeReference getTypeReferenceImpl() {
+
+        if (getNumChildrenImpl() > 0) {
+            var firstChild = getChildrenNodes().get(0);
+            // First child should be a TypeReference
+            if (firstChild instanceof CtTypeReference) {
+                return new JTypeReference<>((CtTypeReference<?>) firstChild);
+            }
+        }
+
+        // Fallback
         var type = node.getType();
+
+        // System.out.println("FIRST CHILD: " + firstChild);
+        // System.out.println("TYPE: " + type);
 
         if (type == null) {
             KadabraLog.info("Currrent expression, of join point type '" + getJoinPointType()
@@ -98,7 +113,14 @@ public class JExpression<T> extends AExpression {
             return null;
         }
 
-        return type.toString();
+        return new JTypeReference<>(type);
+        // return type.toString();
+    }
+
+    @Override
+    public String getTypeImpl() {
+        var typeReference = getTypeReferenceImpl();
+        return typeReference != null ? typeReference.toString() : null;
     }
 
     @Override

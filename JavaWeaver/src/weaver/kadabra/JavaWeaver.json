@@ -1937,6 +1937,14 @@
                   "type": "attribute",
                   "children": [
                            {
+                              "type": "typeReference",
+                              "name": "typeReference"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "children": [
+                           {
                               "type": "String[]",
                               "name": "attributes"
                            }]
@@ -2323,6 +2331,14 @@
                            {
                               "type": "String",
                               "name": "type"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "children": [
+                           {
+                              "type": "typeReference",
+                              "name": "typeReference"
                            }]
                },
                {
@@ -3495,6 +3511,14 @@
                            {
                               "type": "String",
                               "name": "type"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "children": [
+                           {
+                              "type": "typeReference",
+                              "name": "typeReference"
                            }]
                },
                {
@@ -4728,6 +4752,14 @@
                            {
                               "type": "String",
                               "name": "type"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "children": [
+                           {
+                              "type": "typeReference",
+                              "name": "typeReference"
                            }]
                },
                {
@@ -7314,6 +7346,14 @@
                   "type": "attribute",
                   "children": [
                            {
+                              "type": "typeReference",
+                              "name": "typeReference"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "children": [
+                           {
                               "type": "String[]",
                               "name": "attributes"
                            }]
@@ -8763,6 +8803,14 @@
                   "type": "attribute",
                   "children": [
                            {
+                              "type": "typeReference",
+                              "name": "typeReference"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "children": [
+                           {
                               "type": "String[]",
                               "name": "attributes"
                            }]
@@ -9181,6 +9229,14 @@
                            {
                               "type": "String",
                               "name": "type"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "children": [
+                           {
+                              "type": "typeReference",
+                              "name": "typeReference"
                            }]
                },
                {
@@ -11768,6 +11824,14 @@
                   "type": "attribute",
                   "children": [
                            {
+                              "type": "typeReference",
+                              "name": "typeReference"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "children": [
+                           {
                               "type": "String[]",
                               "name": "attributes"
                            }]
@@ -12184,6 +12248,14 @@
                            {
                               "type": "String",
                               "name": "type"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "children": [
+                           {
+                              "type": "typeReference",
+                              "name": "typeReference"
                            }]
                },
                {
@@ -13513,6 +13585,14 @@
                   "type": "attribute",
                   "children": [
                            {
+                              "type": "typeReference",
+                              "name": "typeReference"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "children": [
+                           {
                               "type": "String[]",
                               "name": "attributes"
                            }]
@@ -14256,7 +14336,7 @@
                   "children": [
                            {
                               "type": "String",
-                              "name": "type"
+                              "name": "referenceType"
                            }]
                },
                {
@@ -15646,6 +15726,14 @@
                            {
                               "type": "String",
                               "name": "type"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "children": [
+                           {
+                              "type": "typeReference",
+                              "name": "typeReference"
                            }]
                },
                {
@@ -17310,11 +17398,38 @@
          "children": [
                {
                   "type": "attribute",
+                  "tooltip": "true if this is a reference to an array type, false otherwise",
+                  "children": [
+                           {
+                              "type": "boolean",
+                              "name": "isArray"
+                           }]
+               },
+               {
+                  "type": "attribute",
                   "tooltip": "true if this is a reference to a primitive type, false otherwise",
                   "children": [
                            {
                               "type": "boolean",
                               "name": "isPrimitive"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "package name of this type",
+                  "children": [
+                           {
+                              "type": "String",
+                              "name": "package"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "the package name of this type as an array, where each element is a part of the package",
+                  "children": [
+                           {
+                              "type": "String[]",
+                              "name": "packageNames"
                            }]
                },
                {
@@ -17341,7 +17456,7 @@
                   "children": [
                            {
                               "type": "String",
-                              "name": "type"
+                              "name": "referenceType"
                            }]
                },
                {
@@ -17694,6 +17809,14 @@
                            {
                               "type": "String",
                               "name": "type"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "children": [
+                           {
+                              "type": "typeReference",
+                              "name": "typeReference"
                            }]
                },
                {
@@ -18162,6 +18285,14 @@
                            {
                               "type": "String",
                               "name": "type"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "children": [
+                           {
+                              "type": "typeReference",
+                              "name": "typeReference"
                            }]
                },
                {

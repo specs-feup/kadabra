@@ -41,4 +41,52 @@ public class JTypeReference<T> extends ATypeReference {
         return typeReference.isPrimitive();
     }
 
+    @Override
+    public Boolean getIsArrayImpl() {
+
+        try {
+            return typeReference.getActualClass().isArray();
+        } catch (Exception e) {
+            // Do nothing, sometimes it can launch exception, such as when the type of the class is not on the classpath
+            return false;
+        }
+    }
+
+    // @Override
+    // public String getReferenceTypeImpl() {
+    // return getIsArrayImpl() ? typeReference.getActualClass().getComponentType().toString()
+    // : super.getReferenceTypeImpl();
+    // }
+
+    @Override
+    public String toString() {
+        return getNameImpl();
+    }
+
+    @Override
+    public String getPackageImpl() {
+        var ctPackage = typeReference.getPackage();
+
+        return ctPackage != null ? ctPackage.getQualifiedName() : null;
+    }
+
+    @Override
+    public String[] getPackageNamesArrayImpl() {
+        return getPackageImpl().split(".");
+    }
+
+    // @Override
+    // public String toString() {
+    // var type = getIsArrayImpl() ? typeReference.getActualClass().getComponentType().toString()
+    // : getReferenceTypeImpl();
+    //
+    // return getNameImpl() + " - " + type;
+    //
+    // // if (getIsArrayImpl()) {
+    // // return typeReference.getActualClass().getComponentType().toString();
+    // // }
+    // //
+    // // return getReferenceTypeImpl();
+    // }
+
 }

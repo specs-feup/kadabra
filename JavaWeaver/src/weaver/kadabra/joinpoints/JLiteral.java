@@ -50,7 +50,7 @@ public class JLiteral<T> extends ALiteral {
     @Override
     public void defValueImpl(String value) {
         @SuppressWarnings("unchecked") // decode literal value transform the value into T
-        T decodedValue = (T) SpoonLiterals.decodeLiteralValue(getTypeImpl(), value);
+        T decodedValue = (T) SpoonLiterals.decodeLiteralValue(getTypeImpl().toString(), value);
         node.setValue(decodedValue);
     }
 

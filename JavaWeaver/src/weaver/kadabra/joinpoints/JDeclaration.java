@@ -21,6 +21,7 @@ import spoon.reflect.declaration.CtVariable;
 import spoon.reflect.reference.CtTypeReference;
 import weaver.kadabra.abstracts.joinpoints.ADeclaration;
 import weaver.kadabra.abstracts.joinpoints.AExpression;
+import weaver.kadabra.abstracts.joinpoints.ATypeReference;
 import weaver.utils.element.CtTypeReferenceUtils;
 import weaver.utils.weaving.SelectUtils;
 import weaver.utils.weaving.TypeUtils;
@@ -44,14 +45,23 @@ public class JDeclaration<T> extends ADeclaration {
     }
 
     @Override
-    public String getTypeImpl() {
+    public ATypeReference getTypeReferenceImpl() {
 
         CtTypeReference<?> type2 = node.getType();
+        return type2 != null ? new JTypeReference<>(type2) : null;
+        /*
         if (type2 == null) {
             return "unknown";
         }
         String type = CtTypeReferenceUtils.getType(type2);
         return type != null ? type : "unknown";
+        */
+    }
+
+    @Override
+    public String getTypeImpl() {
+        var typeReference = getTypeReferenceImpl();
+        return typeReference != null ? typeReference.toString() : "unknown";
     }
 
     @Override

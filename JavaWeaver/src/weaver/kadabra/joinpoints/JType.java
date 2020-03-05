@@ -106,6 +106,7 @@ public class JType<T> extends AType {
 
     @Override
     public String getPackageImpl() {
+
         CtPackage package1 = node.getPackage();
         if (package1 == null) {
             return "";

@@ -49,6 +49,85 @@ public abstract class ATypeReference extends AReference {
     }
 
     /**
+     * true if this is a reference to an array type, false otherwise
+     */
+    public abstract Boolean getIsArrayImpl();
+
+    /**
+     * true if this is a reference to an array type, false otherwise
+     */
+    public final Object getIsArray() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isArray", Optional.empty());
+        	}
+        	Boolean result = this.getIsArrayImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "isArray", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "isArray", e);
+        }
+    }
+
+    /**
+     * package name of this type
+     */
+    public abstract String getPackageImpl();
+
+    /**
+     * package name of this type
+     */
+    public final Object getPackage() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "package", Optional.empty());
+        	}
+        	String result = this.getPackageImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "package", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "package", e);
+        }
+    }
+
+    /**
+     * Get value on attribute packageNames
+     * @return the attribute's value
+     */
+    public abstract String[] getPackageNamesArrayImpl();
+
+    /**
+     * the package name of this type as an array, where each element is a part of the package
+     */
+    public Object getPackageNamesImpl() {
+        String[] stringArrayImpl0 = getPackageNamesArrayImpl();
+        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(stringArrayImpl0);
+        return nativeArray0;
+    }
+
+    /**
+     * the package name of this type as an array, where each element is a part of the package
+     */
+    public final Object getPackageNames() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "packageNames", Optional.empty());
+        	}
+        	Object result = this.getPackageNamesImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "packageNames", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "packageNames", e);
+        }
+    }
+
+    /**
      * Get value on attribute name
      * @return the attribute's value
      */
@@ -67,12 +146,12 @@ public abstract class ATypeReference extends AReference {
     }
 
     /**
-     * Get value on attribute type
+     * Get value on attribute referenceType
      * @return the attribute's value
      */
     @Override
-    public String getTypeImpl() {
-        return this.aReference.getTypeImpl();
+    public String getReferenceTypeImpl() {
+        return this.aReference.getReferenceTypeImpl();
     }
 
     /**
@@ -223,6 +302,9 @@ public abstract class ATypeReference extends AReference {
     protected final void fillWithAttributes(List<String> attributes) {
         this.aReference.fillWithAttributes(attributes);
         attributes.add("isPrimitive");
+        attributes.add("isArray");
+        attributes.add("package");
+        attributes.add("packageNames");
     }
 
     /**
@@ -267,9 +349,12 @@ public abstract class ATypeReference extends AReference {
      */
     protected enum TypeReferenceAttributes {
         ISPRIMITIVE("isPrimitive"),
+        ISARRAY("isArray"),
+        PACKAGE("package"),
+        PACKAGENAMES("packageNames"),
         NAME("name"),
         DECLARATION("declaration"),
-        TYPE("type"),
+        REFERENCETYPE("referenceType"),
         PARENT("parent"),
         ISSTATIC("isStatic"),
         CODE("code"),

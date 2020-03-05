@@ -94,6 +94,15 @@ public abstract class AField extends ADeclaration {
     }
 
     /**
+     * Get value on attribute typeReference
+     * @return the attribute's value
+     */
+    @Override
+    public ATypeReference getTypeReferenceImpl() {
+        return this.aDeclaration.getTypeReferenceImpl();
+    }
+
+    /**
      * Get value on attribute isArray
      * @return the attribute's value
      */
@@ -360,6 +369,7 @@ public abstract class AField extends ADeclaration {
         STATICACCESS("staticAccess"),
         NAME("name"),
         TYPE("type"),
+        TYPEREFERENCE("typeReference"),
         ISARRAY("isArray"),
         ISPRIMITIVE("isPrimitive"),
         COMPLETETYPE("completeType"),
