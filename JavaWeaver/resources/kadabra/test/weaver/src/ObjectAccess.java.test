@@ -7,7 +7,7 @@ public class ObjectAccess {
 
    public static void test(View view) {
         TextView info_text;
-        File f = new File("./");
+        //File f = new File("./");
         
         info_text = view.findViewById(R.id.info_text);
     }

@@ -1,1 +1,3 @@
 Call: view.findViewById(R.id.info_text)
+Arg type type: info_text
+Arg type package: R.id

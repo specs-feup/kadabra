@@ -7,8 +7,8 @@ operands: b,a
 lhs: b
 rhs: a
 binaryExpression (1 * 2)
-  typeReference (int - Type)
+  typeReference (int)
   literal (1)
-    typeReference (int - Type)
+    typeReference (int)
   literal (2)
-    typeReference (int - Type)
+    typeReference (int)

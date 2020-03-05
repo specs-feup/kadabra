@@ -8,12 +8,18 @@ aspectdef ObjectAccessTest
 
 	println("Call: " + WeaverJps.search("method").search("call").first().code);
 
-/*
-	for(var $expr of WeaverJps.search("expression", {code: /^R\.*/})) {
-		println("Code -> " + $expr.code + ": " + $expr.type);
-		println("Qualified name -> " + $expr.qualifiedName);
-	}
-*/
+
+
+	//println("Arg arg ast: " + WeaverJps.search("method").search("call").first().arguments[0].ast);
+	println("Arg type type: " + WeaverJps.search("method", {name: "test"}).search("call").first().arguments[0].typeReference);
+	println("Arg type package: " + WeaverJps.search("method", {name: "test"}).search("call").first().arguments[0].typeReference.package);	
+
+
+//	for(var $expr of WeaverJps.search("expression", {code: /^R\.*/})) {
+//		println("Code -> " + $expr.code + ": " + $expr.type);
+//		println("Qualified name -> " + $expr.qualifiedName);
+//	}
+
 /*
 	select class.call end
 	apply

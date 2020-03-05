@@ -1,7 +1,7 @@
 app num children: 1
 file num children: 1
-stmt children: int - Type,0
-stmt child 0: int - Type
+stmt children: int,0
+stmt child 0: int
 stmt num children: 2
 app ast:
 app (Java application)
@@ -11,27 +11,27 @@ app (Java application)
         body
           call (super())
             reference (<init> - Executable)
-              typeReference (Object - Type)
+              typeReference (Object)
                 reference (java.lang - Package)
-              typeReference (Object - Type)
+              typeReference (Object)
                 reference (java.lang - Package)
       method (foo)
-        typeReference (int - Type)
+        typeReference (int)
         body
           localVariable (int a = 0)
-            typeReference (int - Type)
+            typeReference (int)
             literal (0)
-              typeReference (int - Type)
+              typeReference (int)
           localVariable (int b = 1)
-            typeReference (int - Type)
+            typeReference (int)
             literal (1)
-              typeReference (int - Type)
+              typeReference (int)
           return (return a + b)
             binaryExpression (a + b)
-              typeReference (int - Type)
+              typeReference (int)
               var (a)
                 reference (a - LocalVariable)
-                  typeReference (int - Type)
+                  typeReference (int)
               var (b)
                 reference (b - LocalVariable)
-                  typeReference (int - Type)
+                  typeReference (int)
