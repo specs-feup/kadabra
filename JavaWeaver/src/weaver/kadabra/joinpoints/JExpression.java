@@ -119,8 +119,13 @@ public class JExpression<T> extends AExpression {
 
     @Override
     public String getTypeImpl() {
-        var typeReference = getTypeReferenceImpl();
-        return typeReference != null ? typeReference.toString() : null;
+        try {
+            return getTypeReferenceImpl().toString();
+        } catch (Exception e) {
+            return null;
+        }
+        // var typeReference = getTypeReferenceImpl();
+        // return typeReference != null ? typeReference.toString() : null;
     }
 
     @Override
