@@ -100,4 +100,11 @@ public class JavaWeaverTest {
         newTester().set(JavaWeaverKeys.NO_CLASSPATH).set(JavaWeaverKeys.FULLY_QUALIFIED_NAMES).test("ObjectAccess.lara",
                 "ObjectAccess.java.test");
     }
+
+    @Test
+    public void testObjectInheritanceIPCMutator() {
+        newTester().set(JavaWeaverKeys.NO_CLASSPATH)
+                .set(JavaWeaverKeys.FULLY_QUALIFIED_NAMES)
+                .test("InheritanceIPCMutator.lara", "InheritanceIPCTest.java.test");
+    }
 }
