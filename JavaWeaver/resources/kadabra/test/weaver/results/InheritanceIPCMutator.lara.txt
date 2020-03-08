@@ -21,7 +21,7 @@ public class InheritanceIPCTest {
             K = (K) | 4;
         }
 
-        public MotherClass(java.lang.String s) {
+        public MotherClass(String s) {
             K = s.length();
             int c = ~(K);
             int d = K;
@@ -85,7 +85,7 @@ public class InheritanceIPCTest {
             K = (K) | 4;
         }
 
-        public MotherClass(java.lang.String s) {
+        public MotherClass(String s) {
             K = s.length();
             int c = ~(K);
             int d = K;
@@ -149,7 +149,7 @@ public class InheritanceIPCTest {
             K = (K) | 4;
         }
 
-        public MotherClass(java.lang.String s) {
+        public MotherClass(String s) {
             K = s.length();
             int c = ~(K);
             int d = K;
@@ -213,7 +213,7 @@ public class InheritanceIPCTest {
             K = (K) | 4;
         }
 
-        public MotherClass(java.lang.String s) {
+        public MotherClass(String s) {
             K = s.length();
             int c = ~(K);
             int d = K;
