@@ -363,7 +363,7 @@
 		<attribute name="name"			type="String" tooltip="Name of the element of the reference"/>
 		<attribute name="declaration"	type="joinpoint" tooltip="The element that is being referenced"/>		
 		<!-- <attribute name="type"			type="typeReference" tooltip="Type of the element of the reference"/>	 -->
-		<attribute name="referenceType" type="String" tooltip="Type of the element of the reference"/>				
+		<attribute name="type" type="String" tooltip="Type of the element of the reference"/>				
 	</artifact>
 
 	<artifact class="typeReference" default="name">

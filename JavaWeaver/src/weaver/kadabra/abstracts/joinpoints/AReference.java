@@ -67,23 +67,23 @@ public abstract class AReference extends AJavaWeaverJoinPoint {
     /**
      * Type of the element of the reference
      */
-    public abstract String getReferenceTypeImpl();
+    public abstract String getTypeImpl();
 
     /**
      * Type of the element of the reference
      */
-    public final Object getReferenceType() {
+    public final Object getType() {
         try {
         	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "referenceType", Optional.empty());
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "type", Optional.empty());
         	}
-        	String result = this.getReferenceTypeImpl();
+        	String result = this.getTypeImpl();
         	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "referenceType", Optional.ofNullable(result));
+        		eventTrigger().triggerAttribute(Stage.END, this, "type", Optional.ofNullable(result));
         	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
-        	throw new AttributeException(get_class(), "referenceType", e);
+        	throw new AttributeException(get_class(), "type", e);
         }
     }
 
@@ -130,7 +130,7 @@ public abstract class AReference extends AJavaWeaverJoinPoint {
         super.fillWithAttributes(attributes);
         attributes.add("name");
         attributes.add("declaration");
-        attributes.add("referenceType");
+        attributes.add("type");
     }
 
     /**
@@ -163,7 +163,7 @@ public abstract class AReference extends AJavaWeaverJoinPoint {
     protected enum ReferenceAttributes {
         NAME("name"),
         DECLARATION("declaration"),
-        REFERENCETYPE("referenceType"),
+        TYPE("type"),
         PARENT("parent"),
         ISSTATIC("isStatic"),
         CODE("code"),

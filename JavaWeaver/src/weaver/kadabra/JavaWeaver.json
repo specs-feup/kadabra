@@ -14336,7 +14336,7 @@
                   "children": [
                            {
                               "type": "String",
-                              "name": "referenceType"
+                              "name": "type"
                            }]
                },
                {
@@ -17456,7 +17456,7 @@
                   "children": [
                            {
                               "type": "String",
-                              "name": "referenceType"
+                              "name": "type"
                            }]
                },
                {

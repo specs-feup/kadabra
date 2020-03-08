@@ -47,7 +47,7 @@ public class JReference extends AReference {
     }
 
     @Override
-    public String getReferenceTypeImpl() {
+    public String getTypeImpl() {
         String type = node.getClass().getSimpleName();
         if (type.startsWith("Ct")) {
             type = type.substring(2);
@@ -75,7 +75,7 @@ public class JReference extends AReference {
 
     @Override
     public String toString() {
-        return getNameImpl() + " - " + getReferenceTypeImpl();
+        return getNameImpl() + " - " + getTypeImpl();
     }
 
 }

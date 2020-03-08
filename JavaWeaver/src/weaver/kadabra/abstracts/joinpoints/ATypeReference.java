@@ -146,12 +146,12 @@ public abstract class ATypeReference extends AReference {
     }
 
     /**
-     * Get value on attribute referenceType
+     * Get value on attribute type
      * @return the attribute's value
      */
     @Override
-    public String getReferenceTypeImpl() {
-        return this.aReference.getReferenceTypeImpl();
+    public String getTypeImpl() {
+        return this.aReference.getTypeImpl();
     }
 
     /**
@@ -354,7 +354,7 @@ public abstract class ATypeReference extends AReference {
         PACKAGENAMES("packageNames"),
         NAME("name"),
         DECLARATION("declaration"),
-        REFERENCETYPE("referenceType"),
+        TYPE("type"),
         PARENT("parent"),
         ISSTATIC("isStatic"),
         CODE("code"),
