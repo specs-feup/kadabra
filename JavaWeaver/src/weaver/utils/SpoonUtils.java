@@ -410,7 +410,15 @@ public class SpoonUtils {
         return target.getParent() instanceof CtBlock;
     }
 
-    public static List<CtElement> getChildren(CtElement node) {
+    public static List<? extends CtElement> getChildren(CtElement node) {
+
+        // Special case: if node is a list of statements, return the statements
+        // if (node instanceof CtStatementList) {
+        // System.out.println("GET STATEMENTS: " + ((CtStatementList) node).getStatements());
+        // System.out.println("GET ELEMENTS: " + node.getElements(element -> element.getParent() == node));
+        // return ((CtStatementList) node).getStatements();
+        // }
+
         // System.out.println("NODE: " + node);
         // System.out.println("IS PARENT: " + node.hasParent(node));
         // System.out.println("IS PARENT INITIALIZED: " + node.isParentInitialized());

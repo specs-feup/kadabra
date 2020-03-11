@@ -343,7 +343,7 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
         // throw new RuntimeException(".copy not implemented yet for join point " + getJoinPointType());
     }
 
-    public List<CtElement> getChildrenNodes() {
+    public List<? extends CtElement> getChildrenNodes() {
         return SpoonUtils.getChildren(getNode());
     }
 
