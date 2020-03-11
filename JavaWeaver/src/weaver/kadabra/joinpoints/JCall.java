@@ -76,7 +76,8 @@ public class JCall<T> extends ACall {
 
     @Override
     public String getTargetImpl() {
-        return String.valueOf(node.getTarget());
+        var target = node.getTarget();
+        return target != null ? String.valueOf(target) : null;
     }
 
     @Override
