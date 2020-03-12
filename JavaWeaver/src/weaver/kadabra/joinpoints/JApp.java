@@ -193,15 +193,15 @@ public class JApp extends AApp {
         return selectFile().toArray(size -> new AJoinPoint[size]);
     }
 
-    @Override
-    public AJoinPoint childImpl(Integer index) {
-        return selectFile().get(index);
-    }
+    // @Override
+    // public AJoinPoint childImpl(Integer index) {
+    // return selectFile().get(index);
+    // }
 
-    @Override
-    public Integer getNumChildrenImpl() {
-        return selectFile().size();
-    }
+    // @Override
+    // public Integer getNumChildrenImpl() {
+    // return selectFile().size();
+    // }
 
     @Override
     public List<? extends AAndroidManifest> selectAndroidManifest() {

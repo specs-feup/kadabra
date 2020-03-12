@@ -23,10 +23,12 @@ import spoon.reflect.reference.CtTypeReference;
 import weaver.kadabra.abstracts.joinpoints.AArgument;
 import weaver.kadabra.abstracts.joinpoints.ACall;
 import weaver.kadabra.abstracts.joinpoints.AExpression;
+import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.AMethod;
 import weaver.kadabra.abstracts.joinpoints.AStatement;
 import weaver.kadabra.abstracts.joinpoints.AType;
 import weaver.kadabra.exceptions.JavaWeaverException;
+import weaver.utils.SpoonUtils;
 import weaver.utils.weaving.ActionUtils;
 import weaver.utils.weaving.SelectUtils;
 import weaver.utils.weaving.SnippetFactory;
@@ -43,6 +45,19 @@ public class JCall<T> extends ACall {
 
     public static <T> JCall<T> newInstance(CtInvocation<T> call) {
         return new JCall<>(call);
+    }
+
+    /**
+     * If this Call is the call of a CallStatement, return CallStatement.
+     */
+    @Override
+    public AJoinPoint getParentImpl() {
+
+        if (SpoonUtils.isStatementInBlock(node)) {
+            return new JCallStatement<>(node);
+        }
+
+        return super.getParentImpl();
     }
 
     // @Override

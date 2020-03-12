@@ -37,4 +37,9 @@ aspectdef Selects
 	var $ternary = search("method", "testTernary").search("ternary").first();
 	println($ternary.code);
 	
+	println("Statements test");
+	for(var $stmt of search("constructor").search("statement")) {
+		println($stmt.joinPointType);
+	}
+
 end

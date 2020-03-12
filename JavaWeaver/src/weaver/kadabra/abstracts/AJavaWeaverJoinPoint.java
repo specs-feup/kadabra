@@ -1,11 +1,11 @@
 package weaver.kadabra.abstracts;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import org.lara.interpreter.weaver.interf.JoinPoint;
 import org.lara.interpreter.weaver.interf.SelectOp;
@@ -23,14 +23,12 @@ import spoon.reflect.declaration.CtModifiable;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.declaration.ModifierKind;
 import weaver.kadabra.JavaWeaver;
+import weaver.kadabra.abstracts.joinpoints.ACallStatement;
 import weaver.kadabra.abstracts.joinpoints.AExecutable;
 import weaver.kadabra.abstracts.joinpoints.AExpression;
-import weaver.kadabra.abstracts.joinpoints.AFile;
 import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.AStatement;
 import weaver.kadabra.abstracts.joinpoints.AType;
-import weaver.kadabra.joinpoints.JApp;
-import weaver.kadabra.joinpoints.JFile;
 import weaver.kadabra.spoon.extensions.launcher.JWEnvironment;
 import weaver.kadabra.util.KadabraLog;
 import weaver.utils.JoinPoints;
@@ -114,7 +112,14 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
             return null;
         }
 
-        return CtElement2JoinPoint.convert(parent);
+        var parentJp = CtElement2JoinPoint.convert(parent);
+
+        // Special case: if parent is a CallStatement, return the Call instead
+        if (parentJp instanceof ACallStatement) {
+            return ((ACallStatement) parentJp).getCallImpl();
+        }
+
+        return parentJp;
     }
 
     /**
@@ -137,9 +142,10 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
         // if (type.equals("statement")) { // TODO: need to deal with special cases such as statement and expression
         // return stmtAncestor(type);
         // }
-
+        // System.out.println("ANCESTOR OF " + this + " that is a " + type);
         AJoinPoint currentNode = getParentImpl();
         while (currentNode != null) {
+            // System.out.println("PARENT: " + currentNode);
             if (currentNode.instanceOf(type)) {
                 return currentNode;
             }
@@ -169,7 +175,7 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
     }
 
     protected AExpression toAExpression(CtExpression<?> expression) {
-        return CtExpression2AExpression.convert(expression);
+        return CtExpression2AExpression.convertToExpression(expression);
     }
 
     protected AStatement toAStatement(CtStatement statement) {
@@ -275,9 +281,11 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
     @Override
     public AJoinPoint[] getDescendantsArrayImpl() {
 
+        return getJpDescendantsStream().toArray(size -> new AJoinPoint[size]);
+        /*
         if (this instanceof JApp) {
             JApp app = (JApp) this;
-
+        
             List<AJoinPoint> descendants = new ArrayList<>();
             for (AFile file : app.selectFile()) {
                 descendants.add(file);
@@ -286,39 +294,40 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
             // for (ALibClass libClass : app.selectLibClass()) {
             // descendants.addAll(Arrays.asList(libClass.getDescendantsArrayImpl()));
             // }
-
+        
             return descendants.toArray(new AJoinPoint[0]);
         }
-
+        
         if (this instanceof JFile) {
             JFile jfile = (JFile) this;
-
+        
             List<AJoinPoint> descendants = new ArrayList<>();
             for (var file : jfile.getNode().getCu().getDeclaredTypes()) {
                 AJavaWeaverJoinPoint type = CtElement2JoinPoint.convertTry(file).orElse(null);
                 if (type == null) {
                     continue;
                 }
-
+        
                 descendants.add(type);
                 descendants.addAll(Arrays.asList(type.getDescendantsArrayImpl()));
             }
-
+        
             return descendants.toArray(new AJoinPoint[0]);
         }
-
+        
         return getNode().getElements(element -> true)
                 .stream()
                 .map(CtElement2JoinPoint::convertTry)
                 .filter(Optional::isPresent)
                 .map(Optional::get)
                 .toArray(size -> new AJoinPoint[size]);
-
+        */
     }
 
     @Override
     public Boolean getIsStatementImpl() {
-        return getNode() instanceof CtStatement;
+        return this instanceof AStatement;
+        // return getNode() instanceof CtStatement;
     }
 
     @Override
@@ -343,8 +352,18 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
         // throw new RuntimeException(".copy not implemented yet for join point " + getJoinPointType());
     }
 
-    public List<? extends CtElement> getChildrenNodes() {
+    private List<? extends CtElement> getChildrenNodes() {
         return SpoonUtils.getChildren(getNode());
+    }
+
+    @Override
+    public Stream<JoinPoint> getJpChildrenStream() {
+        return Arrays.stream(getChildrenArrayImpl());
+    }
+
+    @Override
+    public JoinPoint getJpParent() {
+        return getParentImpl();
     }
 
     @Override
@@ -356,12 +375,14 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
 
     @Override
     public AJoinPoint childImpl(Integer index) {
-        return CtElement2JoinPoint.convert(getChildrenNodes().get(index));
+        return getChildrenArrayImpl()[index];
+        // return CtElement2JoinPoint.convert(getChildrenNodes().get(index));
     }
 
     @Override
     public Integer getNumChildrenImpl() {
-        return getChildrenNodes().size();
+        return getChildrenArrayImpl().length;
+        // return getChildrenNodes().size();
     }
 
     @Override

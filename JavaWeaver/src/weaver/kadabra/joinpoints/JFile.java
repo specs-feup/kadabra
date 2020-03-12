@@ -283,15 +283,15 @@ public class JFile extends AFile {
         return children.toArray(new AJoinPoint[0]);
     }
 
-    @Override
-    public AJoinPoint childImpl(Integer index) {
-        return getChildrenArrayImpl()[index];
-    }
+    // @Override
+    // public AJoinPoint childImpl(Integer index) {
+    // return getChildrenArrayImpl()[index];
+    // }
 
-    @Override
-    public Integer getNumChildrenImpl() {
-        return getChildrenArrayImpl().length;
-    }
+    // @Override
+    // public Integer getNumChildrenImpl() {
+    // return getChildrenArrayImpl().length;
+    // }
 
     @Override
     public String toString() {

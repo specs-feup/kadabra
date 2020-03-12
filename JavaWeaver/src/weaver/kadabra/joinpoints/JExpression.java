@@ -23,7 +23,6 @@ import spoon.reflect.code.CtBinaryOperator;
 import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.CtStatement;
 import spoon.reflect.code.CtVariableAccess;
-import spoon.reflect.reference.CtTypeReference;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.AArrayAccess;
 import weaver.kadabra.abstracts.joinpoints.ABinaryExpression;
@@ -63,7 +62,7 @@ public class JExpression<T> extends AExpression {
     }
 
     public static <K> AExpression newInstance(CtExpression<K> expr) {
-        return CtExpression2AExpression.convert(expr);
+        return CtExpression2AExpression.convertToExpression(expr);
         // if (expr instanceof CtBinaryOperator) {
         // return JBinaryExpression.newInstance((CtBinaryOperator<T>) expr);
         // }
@@ -92,14 +91,24 @@ public class JExpression<T> extends AExpression {
 
     @Override
     public ATypeReference getTypeReferenceImpl() {
+        var children = getChildrenArrayImpl();
 
-        if (getNumChildrenImpl() > 0) {
-            var firstChild = getChildrenNodes().get(0);
+        if (children.length > 0) {
+            var firstChild = children[0];
             // First child should be a TypeReference
-            if (firstChild instanceof CtTypeReference) {
-                return new JTypeReference<>((CtTypeReference<?>) firstChild);
+            if (firstChild instanceof ATypeReference) {
+                return (ATypeReference) firstChild;
+                // return new JTypeReference<>((CtTypeReference<?>) firstChild);
             }
         }
+
+        // if (getNumChildrenImpl() > 0) {
+        // var firstChild = getChildrenNodes().get(0);
+        // // First child should be a TypeReference
+        // if (firstChild instanceof CtTypeReference) {
+        // return new JTypeReference<>((CtTypeReference<?>) firstChild);
+        // }
+        // }
 
         // Fallback
         var type = node.getType();

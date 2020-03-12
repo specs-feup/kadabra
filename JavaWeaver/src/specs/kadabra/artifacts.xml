@@ -211,6 +211,11 @@
    		<attribute name="endLine"			type="int"/> 
 	</artifact>
 	
+	<artifact class="callStatement">
+		<attribute name="call"			type="call"/>
+	</artifact>	
+	
+	
 	<!-- LOOP -->	
 	<artifact class="loop" default="type">
 <!--    		<attribute name="type"				type="{for,while,do-while,foreach}"/> -->

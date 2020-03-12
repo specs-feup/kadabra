@@ -160,7 +160,9 @@
  		<select						class="arrayAccess"/>
  -->
 	</joinpoint>
-	
+
+	<joinpoint class="callStatement" extends="statement">
+	</joinpoint>
 	
 	<!-- <joinpoint class="expressionStatement" extends="statement">-->
 		<!-- select						class="var"/-->

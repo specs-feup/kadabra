@@ -1,5 +1,17 @@
 public class Selects {
 
+	int intDummy;
+
+	public Selects(int intDummy) {
+		super();
+		
+		this.intDummy = intDummy;
+	}
+	
+	public Selects() {
+		this(10);
+	}
+
 	public String newExpressionTest() {
 		String a = new String("hello");
 		a = a + new String("World");
