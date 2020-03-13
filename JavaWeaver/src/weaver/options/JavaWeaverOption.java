@@ -23,6 +23,7 @@ public enum JavaWeaverOption {
     Includes("I", OptionArguments.ONE_ARG, "path", "Include folders in classpath", JavaWeaverKeys.INCLUDE_DIRS),
     Xignore("X", "Compile with incomplete classpath", JavaWeaverKeys.NO_CLASSPATH),
     FullNames("Q", "Uses fully qualified names", JavaWeaverKeys.FULLY_QUALIFIED_NAMES),
+    CopyResources("CR", "Copy resources to output folder", JavaWeaverKeys.COPY_RESOURCES),
     Format("F", "Format Code and organize imports", JavaWeaverKeys.FORMAT),
     Clear("C", "Clear output folder", JavaWeaverKeys.CLEAR_OUTPUT_FOLDER),
     Log("L", "Show logging information", JavaWeaverKeys.SHOW_LOG_INFO),

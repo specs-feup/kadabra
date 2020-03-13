@@ -237,6 +237,7 @@ public class JavaWeaver extends AJavaWeaver {
             }
 
         }
+
         if (prettyPrint) {
             spoon.prettyprint();
             spoon = newSpoon(Arrays.asList(temp), outputDir);
@@ -426,6 +427,8 @@ public class JavaWeaver extends AJavaWeaver {
         if (args.get(JavaWeaverKeys.FULLY_QUALIFIED_NAMES)) {
             spoon.getEnvironment().setAutoImports(false);
         }
+
+        spoon.getEnvironment().setCopyResources(args.get(JavaWeaverKeys.COPY_RESOURCES));
 
         return spoon;
     }

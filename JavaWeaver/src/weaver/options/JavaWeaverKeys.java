@@ -33,6 +33,8 @@ public interface JavaWeaverKeys {
     static DataKey<Boolean> REPORT = KeyFactory.bool("report kadabra").setLabel("Report Metrics");
     static DataKey<Boolean> FULLY_QUALIFIED_NAMES = KeyFactory.bool("fully_qualified_names")
             .setLabel("Fully Qualified Names");
+    static DataKey<Boolean> COPY_RESOURCES = KeyFactory.bool("copy_resources")
+            .setLabel("Copy resources to output folder");
 
     static DataKey<FileList> INCLUDE_DIRS = LaraIKeyFactory
             .fileList("java includes dir", JFileChooser.FILES_AND_DIRECTORIES, Arrays.asList("jar"))
