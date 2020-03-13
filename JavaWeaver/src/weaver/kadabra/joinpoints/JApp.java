@@ -65,6 +65,9 @@ public class JApp extends AApp {
 
     @Override
     public List<? extends AFile> selectFile() {
+        // return getJpChildrenStream()
+        // .map(jp -> (AFile) jp)
+        // .collect(Collectors.toList());
         final List<JFile> files = spoon.getFactory().CompilationUnit().getMap().values().stream().map(JFile::new)
                 .collect(Collectors.toList());
         return files;
@@ -216,6 +219,17 @@ public class JApp extends AApp {
         // .collect(Collectors.joining(", "));
         // System.out.println("ELEMENTS: " + elementAttrs);
         return manifest != null ? new JAndroidManifest(manifest) : null;
+    }
+
+    // @Override
+    // public Stream<JoinPoint> getJpChildrenStream() {
+    // return spoon.getFactory().CompilationUnit().getMap().values().stream().map(JFile::new);
+    // }
+    //
+    @Override
+    public AFile[] getFilesArrayImpl() {
+        return selectFile().toArray(size -> new AFile[size]);
+        // return getJpChildrenStream().toArray(size -> new AFile[size]);
     }
 
 }

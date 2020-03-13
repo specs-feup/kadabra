@@ -98,6 +98,41 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
     }
 
     /**
+     * Get value on attribute files
+     * @return the attribute's value
+     */
+    public abstract AFile[] getFilesArrayImpl();
+
+    /**
+     * Get value on attribute files
+     * @return the attribute's value
+     */
+    public Object getFilesImpl() {
+        AFile[] aFileArrayImpl0 = getFilesArrayImpl();
+        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(aFileArrayImpl0);
+        return nativeArray0;
+    }
+
+    /**
+     * Get value on attribute files
+     * @return the attribute's value
+     */
+    public final Object getFiles() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "files", Optional.empty());
+        	}
+        	Object result = this.getFilesImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "files", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "files", e);
+        }
+    }
+
+    /**
      * files of the application
      * @return 
      */
@@ -321,6 +356,7 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
         attributes.add("folder");
         attributes.add("showAST");
         attributes.add("manifest");
+        attributes.add("files");
     }
 
     /**
@@ -362,6 +398,7 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
         FOLDER("folder"),
         SHOWAST("showAST"),
         MANIFEST("manifest"),
+        FILES("files"),
         PARENT("parent"),
         ISSTATIC("isStatic"),
         CODE("code"),

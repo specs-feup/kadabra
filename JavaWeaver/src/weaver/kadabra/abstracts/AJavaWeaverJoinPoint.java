@@ -358,6 +358,8 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
 
     @Override
     public Stream<JoinPoint> getJpChildrenStream() {
+        // return getChildrenNodes().stream()
+        // .map(CtElement2JoinPoint::convert);
         return Arrays.stream(getChildrenArrayImpl());
     }
 
@@ -368,6 +370,8 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
 
     @Override
     public AJoinPoint[] getChildrenArrayImpl() {
+        // return getJpChildrenStream()
+        // .toArray(size -> new AJoinPoint[size]);
         return getChildrenNodes().stream()
                 .map(CtElement2JoinPoint::convert)
                 .toArray(size -> new AJoinPoint[size]);

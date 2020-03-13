@@ -1445,6 +1445,14 @@
                   "type": "attribute",
                   "children": [
                            {
+                              "type": "file[]",
+                              "name": "files"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "children": [
+                           {
                               "type": "String",
                               "name": "folder"
                            }]

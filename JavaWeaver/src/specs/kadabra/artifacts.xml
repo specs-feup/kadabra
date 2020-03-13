@@ -39,6 +39,7 @@
 			<parameter name="Title" type="String"/>
 		</attribute>
 		<attribute name="manifest"  type="androidManifest"/>		
+		<attribute name="files"  type="file[]"/>				
 	</artifact>
 	
 	
