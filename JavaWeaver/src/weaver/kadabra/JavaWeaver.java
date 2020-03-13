@@ -6,7 +6,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -30,6 +33,7 @@ import pt.up.fe.specs.util.SpecsCollections;
 import pt.up.fe.specs.util.SpecsIo;
 import pt.up.fe.specs.util.SpecsLogs;
 import pt.up.fe.specs.util.providers.ResourceProvider;
+import pt.up.fe.specs.util.utilities.LineStream;
 import spoon.Launcher;
 import spoon.OutputType;
 import spoon.compiler.Environment;
@@ -128,7 +132,11 @@ public class JavaWeaver extends AJavaWeaver {
             // this.setInputSources(Arrays.asList(temp), spoon);
         }
 
-        spoon = newSpoon(sources, outputDir);
+        // Pass only Java files to spoon
+        var javaSources = getJavaSources(sources);
+
+        spoon = newSpoon(javaSources, outputDir);
+        // spoon = newSpoon(sources, outputDir);
         this.currentOutputDir = outputDir;
         buildAndProcess();
         /* turning off path verifier as it is giving errors for new classes and code */
@@ -137,6 +145,66 @@ public class JavaWeaver extends AJavaWeaver {
         // spoon.getEnvironment().setAutoImports(false);
 
         return true;
+    }
+
+    private List<File> getJavaSources(List<File> sources) {
+        List<File> javaSources = new ArrayList<>();
+        Map<String, File> seenTypes = new HashMap<>();
+        for (var source : sources) {
+            var javaFiles = SpecsIo.getFilesRecursive(source, Arrays.asList("java"));
+
+            for (var javaFile : javaFiles) {
+                // Extract Java package
+                String packageDecl = getPackage(javaFile).orElse("");
+
+                var separator = packageDecl.isEmpty() ? "" : ".";
+
+                var javaKey = packageDecl + separator + javaFile.getName();
+
+                if (seenTypes.containsKey(javaKey)) {
+
+                    SpecsLogs.info("Found duplicate class '" + javaFile.getAbsolutePath() + "', already added '"
+                            + seenTypes.get(javaKey) + "'");
+                    continue;
+                }
+
+                javaSources.add(javaFile);
+                seenTypes.put(javaKey, javaFile);
+            }
+        }
+
+        return javaSources;
+    }
+
+    private Optional<String> getPackage(File javaFile) {
+        // Read each line until 'package' is found
+        try (var lines = LineStream.newInstance(javaFile)) {
+            while (lines.hasNextLine()) {
+                var line = lines.nextLine().strip().toLowerCase();
+
+                // Found package
+                if (line.startsWith("package ")) {
+                    var packageName = line.substring("package ".length()).strip();
+                    int colonIndex = packageName.indexOf(';');
+                    if (colonIndex == -1) {
+                        SpecsLogs.info("Found package, but could not find ';': " + line);
+                        return Optional.empty();
+                    }
+
+                    return Optional.of(packageName.substring(0, colonIndex).strip());
+                }
+
+                // Stop when import, class, interface or modifier is found
+                if (line.startsWith("import ") || line.startsWith("public ") || line.startsWith("class ")
+                        || line.startsWith("interface ") || line.startsWith("enum ")) {
+                    break;
+                }
+
+                // Ignore other lines
+            }
+        }
+
+        return Optional.empty();
     }
 
     /**
