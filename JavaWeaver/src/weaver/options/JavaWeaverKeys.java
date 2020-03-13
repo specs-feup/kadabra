@@ -26,6 +26,8 @@ import spoon.OutputType;
 
 public interface JavaWeaverKeys {
 
+    static DataKey<Boolean> WRITE_CODE = KeyFactory.bool("write_code")
+            .setLabel("Writes the AST Java code to the output folder").setDefault(() -> true);
     static DataKey<Boolean> CLEAR_OUTPUT_FOLDER = KeyFactory.bool("clear_output").setLabel("Clear the output folder");
     static DataKey<Boolean> FORMAT = KeyFactory.bool("format").setLabel("Format Code and organize imports");
     static DataKey<Boolean> SHOW_LOG_INFO = KeyFactory.bool("show info").setLabel("Show Log Information");

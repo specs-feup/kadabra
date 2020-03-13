@@ -133,9 +133,10 @@ public class JavaWeaver extends AJavaWeaver {
         }
 
         // Pass only Java files to spoon
+        // Method can do some processing, such as filtering duplicate classes
         var javaSources = getJavaSources(sources);
-
         spoon = newSpoon(javaSources, outputDir);
+
         // spoon = newSpoon(sources, outputDir);
         this.currentOutputDir = outputDir;
         buildAndProcess();
@@ -238,14 +239,16 @@ public class JavaWeaver extends AJavaWeaver {
 
         }
 
-        if (prettyPrint) {
-            spoon.prettyprint();
-            spoon = newSpoon(Arrays.asList(temp), outputDir);
-            spoon.getEnvironment().setNoClasspath(true);
-            buildAndProcess();
-            spoon.prettyprint();
-        } else {
-            spoon.prettyprint();
+        if (args.get(JavaWeaverKeys.WRITE_CODE)) {
+            if (prettyPrint) {
+                spoon.prettyprint();
+                spoon = newSpoon(Arrays.asList(temp), outputDir);
+                spoon.getEnvironment().setNoClasspath(true);
+                buildAndProcess();
+                spoon.prettyprint();
+            } else {
+                spoon.prettyprint();
+            }
         }
 
         // Write XML files
