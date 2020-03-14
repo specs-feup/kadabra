@@ -24,6 +24,7 @@ import spoon.reflect.code.CtCodeSnippetStatement;
 import spoon.reflect.cu.CompilationUnit;
 import spoon.reflect.declaration.CtAnonymousExecutable;
 import spoon.reflect.declaration.CtClass;
+import spoon.reflect.declaration.CtCompilationUnit;
 import spoon.reflect.declaration.CtConstructor;
 import spoon.reflect.declaration.CtInterface;
 import spoon.reflect.declaration.CtMethod;
@@ -47,9 +48,9 @@ import weaver.utils.weaving.SnippetFactory;
 public class JClass<T> extends AClass {
 
     private final CtClass<T> originClass;
-    private final CompilationUnit parent;
+    private final CtCompilationUnit parent;
 
-    private JClass(CtClass<T> node, CompilationUnit parent) {
+    private JClass(CtClass<T> node, CtCompilationUnit parent) {
         super(JType.newInstance(node, parent));
         this.originClass = node;
         this.parent = parent;
@@ -60,7 +61,7 @@ public class JClass<T> extends AClass {
         return originClass.getQualifiedName();
     }
 
-    public static <T> JClass<T> newInstance(CtClass<T> node, CompilationUnit parent) {
+    public static <T> JClass<T> newInstance(CtClass<T> node, CtCompilationUnit parent) {
         return new JClass<>(node, parent);
     }
 

@@ -22,8 +22,8 @@ import java.util.stream.Stream;
 import org.lara.interpreter.weaver.interf.JoinPoint;
 
 import spoon.reflect.code.CtComment;
-import spoon.reflect.cu.CompilationUnit;
 import spoon.reflect.declaration.CtClass;
+import spoon.reflect.declaration.CtCompilationUnit;
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtInterface;
 import spoon.reflect.declaration.CtType;
@@ -35,7 +35,6 @@ import weaver.kadabra.abstracts.joinpoints.AInterface;
 import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.APragma;
 import weaver.kadabra.abstracts.joinpoints.AType;
-import weaver.kadabra.spoon.extensions.nodes.CtKadabraCompilationUnit;
 import weaver.utils.generators.MapGenerator;
 import weaver.utils.weaving.ActionUtils;
 import weaver.utils.weaving.SelectUtils;
@@ -44,20 +43,20 @@ import weaver.utils.weaving.converters.CtType2AType;
 
 public class JFile extends AFile {
 
-    private final CompilationUnit node;
+    private final CtCompilationUnit node;
 
-    public JFile(CompilationUnit node) {
+    public JFile(CtCompilationUnit node) {
         this.node = node;
     }
 
-    public JFile(CtKadabraCompilationUnit node) {
-        this.node = node.getCu();
-    }
+    // public JFile(CtKadabraCompilationUnit node) {
+    // this.node = node.getCu();
+    // }
 
-    @Override
-    public String getCodeImpl() {
-        return node.toString();
-    }
+    // @Override
+    // public String getCodeImpl() {
+    // return node.toString();
+    // }
 
     @Override
     public boolean compareNodes(AJoinPoint aJoinPoint) {
@@ -66,7 +65,7 @@ public class JFile extends AFile {
             return false;
         }
         // Verify source file equality
-        CompilationUnit other = ((JFile) aJoinPoint).node;
+        CtCompilationUnit other = ((JFile) aJoinPoint).node;
         if (!node.getFile().equals(other.getFile())) {
             return false;
         }
@@ -131,8 +130,8 @@ public class JFile extends AFile {
     }
 
     @Override
-    public CtKadabraCompilationUnit getNode() {
-        return new CtKadabraCompilationUnit(node);
+    public CtCompilationUnit getNode() {
+        return node;
     }
 
     @Override
@@ -276,7 +275,7 @@ public class JFile extends AFile {
     public AJoinPoint[] getChildrenArrayImpl() {
         List<AJoinPoint> children = new ArrayList<>();
 
-        for (var file : getNode().getCu().getDeclaredTypes()) {
+        for (var file : getNode().getDeclaredTypes()) {
             AJavaWeaverJoinPoint type = CtElement2JoinPoint.convertTry(file).orElse(null);
             if (type == null) {
                 continue;

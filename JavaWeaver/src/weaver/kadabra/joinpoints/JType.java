@@ -24,7 +24,7 @@ import org.lara.interpreter.weaver.interf.JoinPoint;
 
 import spoon.refactoring.Refactoring;
 import spoon.reflect.code.CtComment;
-import spoon.reflect.cu.CompilationUnit;
+import spoon.reflect.declaration.CtCompilationUnit;
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtExecutable;
 import spoon.reflect.declaration.CtField;
@@ -65,7 +65,7 @@ public class JType<T> extends AType {
         // this.parent = parent;
     }
 
-    public static <T> JType<T> newInstance(CtType<T> node, CompilationUnit parent) {
+    public static <T> JType<T> newInstance(CtType<T> node, CtCompilationUnit parent) {
         return new JType<>(node);// , parent);
     }
 

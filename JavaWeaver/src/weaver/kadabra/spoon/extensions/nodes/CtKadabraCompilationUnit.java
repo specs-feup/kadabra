@@ -28,9 +28,12 @@ import weaver.kadabra.spoon.extensions.printer.KadabraPrettyPrinter;
 /**
  * This class works as just a wrapper for the {@link CompilationUnit} class so it can be used as a {@link CtElement}
  * 
+ * @deprecated
+ * 
  * @author tiago
  *
  */
+@Deprecated
 public class CtKadabraCompilationUnit extends CtElementImpl {
 
     /**
