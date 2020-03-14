@@ -188,7 +188,7 @@ public class JApp extends AApp {
         String separator = "/************/";
         return selectFile().stream()
                 .map(AFile::getSrcCodeImpl)
-                .collect(Collectors.joining("\n" + separator + "\n"));
+                .collect(Collectors.joining("\n" + separator + "\n", "", "\n"));
     }
 
     @Override
