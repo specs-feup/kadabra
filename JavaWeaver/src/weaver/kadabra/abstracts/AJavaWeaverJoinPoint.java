@@ -404,9 +404,13 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
         // Delete from annotations
         JWEnvironment env = ActionUtils.getKadabraEnvironment(JavaWeaver.getFactory().getSpoonFactory());
         // TODO: This remove can be optimized
+        // System.out.println("NODE HAS PARENT? " + getNode().isParentInitialized());
+        // System.out.println("NODE PARENT? " + getNode().getParent());
         env.getTable().remove(getNode());
-        getNode().replace(Collections.emptyList());
-        // getNode().delete();
+
+        // getNode().replace(Collections.emptyList()); // Spoon 6
+        getNode().delete(); // Spoon 8
+
     }
 
     /**

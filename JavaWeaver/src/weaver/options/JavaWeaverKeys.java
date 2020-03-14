@@ -37,6 +37,8 @@ public interface JavaWeaverKeys {
             .setLabel("Fully Qualified Names");
     static DataKey<Boolean> COPY_RESOURCES = KeyFactory.bool("copy_resources")
             .setLabel("Copy resources to output folder");
+    static DataKey<Integer> JAVA_COMPLIANCE_LEVEL = KeyFactory.integer("java_compliance_level")
+            .setLabel("Java compliance level (e.g., 8)").setDefault(() -> 11);
 
     static DataKey<FileList> INCLUDE_DIRS = LaraIKeyFactory
             .fileList("java includes dir", JFileChooser.FILES_AND_DIRECTORIES, Arrays.asList("jar"))

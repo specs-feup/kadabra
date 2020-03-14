@@ -66,7 +66,7 @@ public class JWSpoonCompiler extends JDTBasedSpoonCompiler {
     }
 
     private void setOutputFolder(File outputDirectory) {
-        setSourceOutputDirectory(outputDirectory);
+        // setSourceOutputDirectory(outputDirectory); // Spoon 6
         // this.outputDirectory = outputDirectory;
     }
 

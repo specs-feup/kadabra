@@ -17,11 +17,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
 import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
 import pt.up.fe.specs.util.SpecsLogs;
 import spoon.compiler.Environment;
+import spoon.processing.Processor;
 import spoon.reflect.code.CtBlock;
 import spoon.reflect.code.CtCodeSnippetStatement;
 import spoon.reflect.code.CtComment;
@@ -36,8 +40,12 @@ import spoon.reflect.code.CtWhile;
 import spoon.reflect.declaration.CtClass;
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtTypeMember;
+import spoon.reflect.visitor.DefaultImportComparator;
 import spoon.reflect.visitor.DefaultJavaPrettyPrinter;
 import spoon.reflect.visitor.DefaultTokenWriter;
+import spoon.reflect.visitor.ForceImportProcessor;
+import spoon.reflect.visitor.ImportCleaner;
+import spoon.reflect.visitor.ImportConflictDetector;
 import spoon.reflect.visitor.PrinterHelper;
 import spoon.reflect.visitor.printer.CommentOffset;
 // import spoon.reflect.visitor.printer.PrinterHelper;
@@ -73,6 +81,25 @@ public class KadabraPrettyPrinter extends DefaultJavaPrettyPrinter {
 
         // table = AnnotationsTable.getStaticTable();
         table = ((JWEnvironment) env).getTable();
+
+        // Enable AutoImport
+        if (env.isAutoImports()) {
+            List<Processor<CtElement>> preprocessors = Collections
+                    .unmodifiableList(Arrays.<Processor<CtElement>> asList(
+                            // try to import as much types as possible
+                            new ForceImportProcessor(),
+                            // remove unused imports first. Do not add new imports at time when conflicts are not
+                            // resolved
+                            new ImportCleaner().setCanAddImports(false),
+                            // solve conflicts, the current imports are relevant too
+                            new ImportConflictDetector(),
+                            // compute final imports
+                            new ImportCleaner().setImportComparator(new DefaultImportComparator())));
+            setIgnoreImplicit(false);
+            setPreprocessors(preprocessors);
+
+        }
+
     }
 
     @Override
@@ -84,7 +111,8 @@ public class KadabraPrettyPrinter extends DefaultJavaPrettyPrinter {
         printer.incTab();
         for (CtStatement statement : block.getStatements()) {
             if (!statement.isImplicit()) {
-                printer.writeln().writeTabs();
+                printer.writeln();
+                // printer.writeTabs(); // Spoon 6
                 writeStatement(statement);
             }
         }
@@ -94,7 +122,8 @@ public class KadabraPrettyPrinter extends DefaultJavaPrettyPrinter {
                 printer.write("}");
             }
         } else {
-            printer.writeln().writeTabs();
+            printer.writeln();
+            // printer.writeTabs(); // Spoon 6
             if (!block.isImplicit()) {
                 printer.write("}");
             }
@@ -162,12 +191,12 @@ public class KadabraPrettyPrinter extends DefaultJavaPrettyPrinter {
     private void scanLn(CtElement e) {
         super.scan(e);
         printer.writeln();
-        printer.writeTabs();
+        // printer.writeTabs(); // Spoon 6
     }
 
     private void lnScan(CtElement e) {
         printer.writeln();
-        printer.writeTabs();
+        // printer.writeTabs(); // Spoon 6
         super.scan(e);
     }
 
@@ -235,7 +264,9 @@ public class KadabraPrettyPrinter extends DefaultJavaPrettyPrinter {
                 line = line.trim();
                 int takeOne = line.startsWith("}") ? 1 : 0;
                 setIndentLevel(indent - takeOne);
-                printer.writeln().writeTabs().write(line);
+                printer.writeln();
+                // printer.writeTabs(); // Spoon 6
+                printer.write(line);
                 indent = indentLevelForNextLine(line) + takeOne;
 
             }

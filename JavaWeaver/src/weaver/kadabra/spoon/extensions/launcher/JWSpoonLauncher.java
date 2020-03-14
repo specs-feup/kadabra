@@ -61,7 +61,7 @@ public class JWSpoonLauncher extends Launcher {
         // building
         // comp.setEncoding(getArguments().getString("encoding"));
         env.setEncoding(Charset.forName(getArguments().getString("encoding")));
-        comp.setBuildOnlyOutdatedFiles(jsapActualArgs.getBoolean("buildOnlyOutdatedFiles"));
+        // comp.setBuildOnlyOutdatedFiles(jsapActualArgs.getBoolean("buildOnlyOutdatedFiles")); // Spoon 6
         comp.setBinaryOutputDirectory(jsapActualArgs.getFile("destination"));
         // comp.setSourceOutputDirectory(jsapActualArgs.getFile("output"));
         env.setSourceOutputDirectory(jsapActualArgs.getFile("output"));

@@ -413,9 +413,10 @@ public class JavaWeaver extends AJavaWeaver {
                 throw new JavaWeaverException("setting the classpath", e);
             }
         }
-        environment.setSelfChecks(false);
+        // environment.disableConsistencyChecks(); // Spoon 8
+        // environment.setSelfChecks(false); // Spoon 6
         // environment.setSelfChecks(true);
-        environment.setAutoImports(true);
+        // environment.setAutoImports(true);
         environment.setCommentEnabled(true);
         // environment.setGenerateJavadoc(true);
 
@@ -427,11 +428,17 @@ public class JavaWeaver extends AJavaWeaver {
         // spoon.addProcessor(new CommentProcessor());
 
         // Set fully qualified names
+        // spoon.getEnvironment().setAutoImports(true);
+        // spoon.getEnvironment().setAutoImports(!args.get(JavaWeaverKeys.FULLY_QUALIFIED_NAMES));
         if (args.get(JavaWeaverKeys.FULLY_QUALIFIED_NAMES)) {
             spoon.getEnvironment().setAutoImports(false);
+        } else {
+            spoon.getEnvironment().setAutoImports(true);
         }
 
         spoon.getEnvironment().setCopyResources(args.get(JavaWeaverKeys.COPY_RESOURCES));
+
+        spoon.getEnvironment().setComplianceLevel(args.get(JavaWeaverKeys.JAVA_COMPLIANCE_LEVEL));
 
         return spoon;
     }
@@ -443,7 +450,8 @@ public class JavaWeaver extends AJavaWeaver {
     }
 
     private static void setOutputProcessor(File outputDir, Launcher spoon, Environment environment) {
-        JavaOutputProcessor outProcessor = spoon.createOutputWriter(outputDir, environment);
+        // JavaOutputProcessor outProcessor = spoon.createOutputWriter(outputDir, environment); // Spoon 6
+        JavaOutputProcessor outProcessor = spoon.createOutputWriter(); // Spoon 8
         environment.setDefaultFileGenerator(outProcessor); // Define output folder (needed for the output type: classes)
 
         // spoon.setOutputDirectory(IoUtils.getCanonicalPath(outputDir)); // Define output folder AGAIN (needed for the

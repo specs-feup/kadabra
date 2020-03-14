@@ -22,6 +22,7 @@ public enum JavaWeaverOption {
 
     Includes("I", OptionArguments.ONE_ARG, "path", "Include folders in classpath", JavaWeaverKeys.INCLUDE_DIRS),
     Xignore("X", "Compile with incomplete classpath", JavaWeaverKeys.NO_CLASSPATH),
+    JavaComplianceLevel("JCL", "Java compliance level (e.g., 8)", JavaWeaverKeys.JAVA_COMPLIANCE_LEVEL),
     FullNames("Q", "Uses fully qualified names", JavaWeaverKeys.FULLY_QUALIFIED_NAMES),
     WriteCode("WC", "Writes the AST code to the output folder", JavaWeaverKeys.WRITE_CODE),
     CopyResources("CR", "Copy resources to output folder", JavaWeaverKeys.COPY_RESOURCES),

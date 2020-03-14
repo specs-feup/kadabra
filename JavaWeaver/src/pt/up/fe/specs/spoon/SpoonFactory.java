@@ -60,7 +60,7 @@ public class SpoonFactory {
     }
 
     public CtBinaryOperator<?> binaryOperator(BinaryOperatorKind kind, CtExpression<?> lhs, CtExpression<?> rhs) {
-        @SuppressWarnings("unchecked")
+        // @SuppressWarnings("unchecked")
         var binaryOperator = (CtBinaryOperator<?>) factory.createBinaryOperator(lhs, rhs, kind);
 
         return binaryOperator;
