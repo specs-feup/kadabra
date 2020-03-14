@@ -26,6 +26,6 @@
 	</info>
 	
 	<dependencies>
-		<dependency org="fr.inria.gforge.spoon" name="spoon-core" rev="8.1.0-beta-9"/>
+		<dependency org="fr.inria.gforge.spoon" name="spoon-core" rev="8.1.0-beta-18"/>
 	</dependencies>
 </ivy-module>

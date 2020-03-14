@@ -31,7 +31,7 @@ import weaver.kadabra.spoon.extensions.printer.KadabraPrettyPrinter;
  * @author tiago
  *
  */
-public class CtCompilationUnit extends CtElementImpl {
+public class CtKadabraCompilationUnit extends CtElementImpl {
 
     /**
      * 
@@ -39,7 +39,7 @@ public class CtCompilationUnit extends CtElementImpl {
     private static final long serialVersionUID = 1L;
     private CompilationUnit cu;
 
-    public CtCompilationUnit(CompilationUnit cu) {
+    public CtKadabraCompilationUnit(CompilationUnit cu) {
         this.setCu(cu);
         this.setFactory(cu.getFactory());
     }
@@ -67,10 +67,10 @@ public class CtCompilationUnit extends CtElementImpl {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof CtCompilationUnit)) {
+        if (!(o instanceof CtKadabraCompilationUnit)) {
             return false;
         }
-        CtCompilationUnit other = (CtCompilationUnit) o;
+        CtKadabraCompilationUnit other = (CtKadabraCompilationUnit) o;
         List<CtType<?>> declaredTypes = cu.getDeclaredTypes();
         List<CtType<?>> otherDeclaredTypes = other.cu.getDeclaredTypes();
 
@@ -91,6 +91,7 @@ public class CtCompilationUnit extends CtElementImpl {
         List<CtType<?>> toBePrinted = cu.getDeclaredTypes();
         Environment environment = getFactory().getEnvironment();
         PrettyPrinter printer = new KadabraPrettyPrinter(environment);
+        // PrettyPrinter printer = JavaWeaver.getJavaWeaver().getPrinter();
         printer.calculate(cu, toBePrinted);
         return printer.getResult();
     }

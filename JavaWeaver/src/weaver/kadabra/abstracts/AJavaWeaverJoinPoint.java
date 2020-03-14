@@ -67,7 +67,36 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
 
     @Override
     public String getCodeImpl() {
-        return getNode().toString(); // temporary
+        // return getNode().getFactory().getEnvironment().createPrettyPrinter().printElement(getNode());
+
+        return JavaWeaver.getJavaWeaver().getSourceCodePrinter().getSourceCode(getNode());
+
+        // return new DefaultJavaPrettyPrinter(getNode().getFactory().getEnvironment()).printElement(getNode());
+
+        // return new SourceCodePrinter(getNode().getFactory().getEnvironment()).printElement(getNode());
+
+        // DefaultJavaPrettyPrinter printer = JavaWeaver.getJavaWeaver().getPrinter();
+        // var node = getNode();
+        // String errorMessage = "";
+        // try {
+        // // we do not want to compute imports of for CtImport and CtReference
+        // // as it may change the print of a reference
+        // if (!(node instanceof CtImport) && !(node instanceof CtReference)) {
+        // printer.getImportsContext().computeImports(this);
+        // }
+        // printer.scan(node);
+        // } catch (ParentNotInitializedException ignore) {
+        // SpecsLogs.debug("Could not get code for " + this + ": " + ignore);
+        // // throw new RuntimeException("Could not get code for node " + this, ignore);
+        // // LOGGER.error(ERROR_MESSAGE_TO_STRING, ignore);
+        // // errorMessage = ERROR_MESSAGE_TO_STRING;
+        // }
+        // // in line-preservation mode, newlines are added at the beginning to matches the lines
+        // // removing them from the toString() representation
+        // return printer.toString().replaceFirst("^\\s+", "") + errorMessage;
+
+        // return getNode().toString(); // temporary
+        // return getNode().toString() + "\n"; // temporary
     }
 
     @Override

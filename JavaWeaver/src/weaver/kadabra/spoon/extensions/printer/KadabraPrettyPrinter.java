@@ -38,7 +38,9 @@ import spoon.reflect.code.CtSynchronized;
 import spoon.reflect.code.CtTry;
 import spoon.reflect.code.CtWhile;
 import spoon.reflect.declaration.CtClass;
+import spoon.reflect.declaration.CtConstructor;
 import spoon.reflect.declaration.CtElement;
+import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtTypeMember;
 import spoon.reflect.visitor.DefaultImportComparator;
 import spoon.reflect.visitor.DefaultJavaPrettyPrinter;
@@ -276,6 +278,47 @@ public class KadabraPrettyPrinter extends DefaultJavaPrettyPrinter {
 
     }
 
+    @Override
+    public <T> void visitCtMethod(CtMethod<T> m) {
+        // Call original method
+        super.visitCtMethod(m);
+
+        // Add a newline at the end
+        printer.writeln();
+    }
+
+    @Override
+    public <T> void visitCtConstructor(CtConstructor<T> constructor) {
+        // Call original method
+        super.visitCtConstructor(constructor);
+
+        // Add a newline at the end
+        printer.writeln();
+    }
+    //
+    // @Override
+    // public String printElement(CtElement element) {
+    // String errorMessage = "";
+    // try {
+    // System.out.println("CLONING");
+    // // now that pretty-printing can change the model, we only do it on a clone
+    // CtElement clone = element.clone();
+    //
+    // // required: in DJPP some decisions are taken based on the content of the parent
+    // if (element.isParentInitialized()) {
+    // clone.setParent(element.getParent());
+    // }
+    // applyPreProcessors(clone);
+    // scan(clone);
+    // } catch (ParentNotInitializedException ignore) {
+    // LOGGER.error(ERROR_MESSAGE_TO_STRING, ignore);
+    // errorMessage = ERROR_MESSAGE_TO_STRING;
+    // }
+    // // in line-preservation mode, newlines are added at the beginning to matches the lines
+    // // removing them from the toString() representation
+    // return toString().replaceFirst("^\\s+", "") + errorMessage;
+    // }
+
     private void setIndentLevel(int indent) {
         while (indent < 0) {
             printer.decTab();
@@ -290,4 +333,12 @@ public class KadabraPrettyPrinter extends DefaultJavaPrettyPrinter {
     private static int indentLevelForNextLine(String line) {
         return StringUtils.countMatches(line, "{") - StringUtils.countMatches(line, "}");
     }
+
+    public String getSourceCode(CtElement element) {
+        // Reset buffer
+        reset();
+
+        return printElement(element);
+    }
+
 }

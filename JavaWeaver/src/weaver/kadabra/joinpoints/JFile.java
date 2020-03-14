@@ -35,7 +35,7 @@ import weaver.kadabra.abstracts.joinpoints.AInterface;
 import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.APragma;
 import weaver.kadabra.abstracts.joinpoints.AType;
-import weaver.kadabra.spoon.extensions.nodes.CtCompilationUnit;
+import weaver.kadabra.spoon.extensions.nodes.CtKadabraCompilationUnit;
 import weaver.utils.generators.MapGenerator;
 import weaver.utils.weaving.ActionUtils;
 import weaver.utils.weaving.SelectUtils;
@@ -50,8 +50,13 @@ public class JFile extends AFile {
         this.node = node;
     }
 
-    public JFile(CtCompilationUnit node) {
+    public JFile(CtKadabraCompilationUnit node) {
         this.node = node.getCu();
+    }
+
+    @Override
+    public String getCodeImpl() {
+        return node.toString();
     }
 
     @Override
@@ -126,8 +131,8 @@ public class JFile extends AFile {
     }
 
     @Override
-    public CtCompilationUnit getNode() {
-        return new CtCompilationUnit(node);
+    public CtKadabraCompilationUnit getNode() {
+        return new CtKadabraCompilationUnit(node);
     }
 
     @Override

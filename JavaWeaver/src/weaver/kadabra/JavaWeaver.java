@@ -45,6 +45,7 @@ import weaver.kadabra.gears.LoggingGear;
 import weaver.kadabra.gears.Report;
 import weaver.kadabra.joinpoints.JApp;
 import weaver.kadabra.spoon.extensions.launcher.JWSpoonLauncher;
+import weaver.kadabra.spoon.extensions.printer.KadabraPrettyPrinter;
 import weaver.kadabra.util.KadabraLog;
 import weaver.options.JavaWeaverKeys;
 import weaver.options.JavaWeaverOption;
@@ -80,6 +81,7 @@ public class JavaWeaver extends AJavaWeaver {
     private boolean clearOutputFolder;
     private boolean prettyPrint;
     private File currentOutputDir;
+    private KadabraPrettyPrinter sourceCodePrinter;
 
     private boolean noClassPath = false; // Continues even if an error of missing lib occurs
     private OutputType outType = OutputType.COMPILATION_UNITS;
@@ -247,6 +249,7 @@ public class JavaWeaver extends AJavaWeaver {
                 buildAndProcess();
                 spoon.prettyprint();
             } else {
+                // System.out.println("PRESERVE? " + spoon.getEnvironment().isPreserveLineNumbers());
                 spoon.prettyprint();
             }
         }
@@ -428,19 +431,28 @@ public class JavaWeaver extends AJavaWeaver {
         // spoon.addProcessor(new CommentProcessor());
 
         // Set fully qualified names
-        // spoon.getEnvironment().setAutoImports(true);
-        // spoon.getEnvironment().setAutoImports(!args.get(JavaWeaverKeys.FULLY_QUALIFIED_NAMES));
+        // environment.setAutoImports(true);
+        // environment.setAutoImports(!args.get(JavaWeaverKeys.FULLY_QUALIFIED_NAMES));
         if (args.get(JavaWeaverKeys.FULLY_QUALIFIED_NAMES)) {
-            spoon.getEnvironment().setAutoImports(false);
+            environment.setAutoImports(false);
         } else {
-            spoon.getEnvironment().setAutoImports(true);
+            environment.setAutoImports(true);
         }
 
-        spoon.getEnvironment().setCopyResources(args.get(JavaWeaverKeys.COPY_RESOURCES));
+        // environment.setPreserveLineNumbers(false);
 
-        spoon.getEnvironment().setComplianceLevel(args.get(JavaWeaverKeys.JAVA_COMPLIANCE_LEVEL));
+        environment.setCopyResources(args.get(JavaWeaverKeys.COPY_RESOURCES));
+
+        environment.setComplianceLevel(args.get(JavaWeaverKeys.JAVA_COMPLIANCE_LEVEL));
+
+        // Set pretty printer
+        this.sourceCodePrinter = SpoonUtils.createSourcePrinter(environment);
 
         return spoon;
+    }
+
+    public KadabraPrettyPrinter getSourceCodePrinter() {
+        return sourceCodePrinter;
     }
 
     private static void setInputSources(List<File> sources, Launcher spoon) {

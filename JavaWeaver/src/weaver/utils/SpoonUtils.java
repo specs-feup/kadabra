@@ -38,7 +38,7 @@ import spoon.reflect.declaration.ModifierKind;
 import spoon.reflect.factory.Factory;
 import spoon.reflect.reference.CtLocalVariableReference;
 import spoon.reflect.reference.CtTypeReference;
-import spoon.reflect.visitor.PrettyPrinter;
+import spoon.reflect.visitor.DefaultJavaPrettyPrinter;
 import weaver.kadabra.exceptions.JavaWeaverException;
 import weaver.kadabra.spoon.extensions.nodes.CtCommentWrapper;
 import weaver.kadabra.spoon.extensions.printer.KadabraPrettyPrinter;
@@ -48,8 +48,13 @@ import weaver.utils.weaving.ActionUtils;
 
 public class SpoonUtils {
 
-    public static PrettyPrinter createPrettyPrinter(Environment env) {
+    public static DefaultJavaPrettyPrinter createPrettyPrinter(Environment env) {
         // return new JavaPoetPrettyPrinter(new JWJavaPrettyPrinter(env));
+        return new KadabraPrettyPrinter(env);
+    }
+
+    public static KadabraPrettyPrinter createSourcePrinter(Environment env) {
+        // return new SourceCodePrinter(env);
         return new KadabraPrettyPrinter(env);
     }
 
