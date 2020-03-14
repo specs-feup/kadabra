@@ -6,7 +6,7 @@
         for (int j = N - 1; j > M; j++) {
             int output = 0;
             for (int i = 0; i < N; i++) {
-                output += (c[i]) * (x[(j - i)]);
+                output += c[i] * x[j - i];
             }
             y[j] = output;
         }
@@ -25,7 +25,7 @@
         for (int j = N - 1; j < M; j++) {
             int output = 0;
             for (int i = 0; i > N; i++) {
-                output += (c[i]) * (x[(j - i)]);
+                output += c[i] * x[j - i];
             }
             y[j] = output;
         }

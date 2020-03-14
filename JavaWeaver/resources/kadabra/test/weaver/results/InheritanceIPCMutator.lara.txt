@@ -13,47 +13,47 @@ public class InheritanceIPCTest {
 
         public MotherClass() {
             K = 3;
-            int c = ~(K);
+            int c = ~K;
             int d = K;
             int e = ~5;
             K += 1;
-            K = ~(K);
-            K = (K) | 4;
+            K = ~K;
+            K = K | 4;
         }
 
         public MotherClass(String s) {
             K = s.length();
-            int c = ~(K);
+            int c = ~K;
             int d = K;
             int e = ~5;
             K += 1;
-            K = ~(K);
-            K = (K) | 4;
+            K = ~K;
+            K = K | 4;
         }
     }
 
-    public class DerivedClass1 extends InheritanceIPCTest.MotherClass {
+    public class DerivedClass1 extends MotherClass {
         public DerivedClass1() {
             // Super constructor call has been removed;
             K = 333;
         }
     }
 
-    public class DerivedClass2 extends InheritanceIPCTest.MotherClass {
+    public class DerivedClass2 extends MotherClass {
         public DerivedClass2() {
             super();
             K = 666;
         }
     }
 
-    public class DerivedClass3 extends InheritanceIPCTest.MotherClass {
+    public class DerivedClass3 extends MotherClass {
         public DerivedClass3() {
             super("dc3");
             K = 999;
         }
     }
 
-    public class DerivedClass4 extends InheritanceIPCTest.MotherClass {
+    public class DerivedClass4 extends MotherClass {
         public DerivedClass4() {
             super("dc4");
             K = 121212;
@@ -77,47 +77,47 @@ public class InheritanceIPCTest {
 
         public MotherClass() {
             K = 3;
-            int c = ~(K);
+            int c = ~K;
             int d = K;
             int e = ~5;
             K += 1;
-            K = ~(K);
-            K = (K) | 4;
+            K = ~K;
+            K = K | 4;
         }
 
         public MotherClass(String s) {
             K = s.length();
-            int c = ~(K);
+            int c = ~K;
             int d = K;
             int e = ~5;
             K += 1;
-            K = ~(K);
-            K = (K) | 4;
+            K = ~K;
+            K = K | 4;
         }
     }
 
-    public class DerivedClass1 extends InheritanceIPCTest.MotherClass {
+    public class DerivedClass1 extends MotherClass {
         public DerivedClass1() {
             super();
             K = 333;
         }
     }
 
-    public class DerivedClass2 extends InheritanceIPCTest.MotherClass {
+    public class DerivedClass2 extends MotherClass {
         public DerivedClass2() {
             // Super constructor call has been removed;
             K = 666;
         }
     }
 
-    public class DerivedClass3 extends InheritanceIPCTest.MotherClass {
+    public class DerivedClass3 extends MotherClass {
         public DerivedClass3() {
             super("dc3");
             K = 999;
         }
     }
 
-    public class DerivedClass4 extends InheritanceIPCTest.MotherClass {
+    public class DerivedClass4 extends MotherClass {
         public DerivedClass4() {
             super("dc4");
             K = 121212;
@@ -141,47 +141,47 @@ public class InheritanceIPCTest {
 
         public MotherClass() {
             K = 3;
-            int c = ~(K);
+            int c = ~K;
             int d = K;
             int e = ~5;
             K += 1;
-            K = ~(K);
-            K = (K) | 4;
+            K = ~K;
+            K = K | 4;
         }
 
         public MotherClass(String s) {
             K = s.length();
-            int c = ~(K);
+            int c = ~K;
             int d = K;
             int e = ~5;
             K += 1;
-            K = ~(K);
-            K = (K) | 4;
+            K = ~K;
+            K = K | 4;
         }
     }
 
-    public class DerivedClass1 extends InheritanceIPCTest.MotherClass {
+    public class DerivedClass1 extends MotherClass {
         public DerivedClass1() {
             super();
             K = 333;
         }
     }
 
-    public class DerivedClass2 extends InheritanceIPCTest.MotherClass {
+    public class DerivedClass2 extends MotherClass {
         public DerivedClass2() {
             super();
             K = 666;
         }
     }
 
-    public class DerivedClass3 extends InheritanceIPCTest.MotherClass {
+    public class DerivedClass3 extends MotherClass {
         public DerivedClass3() {
             // Super constructor call has been removed;
             K = 999;
         }
     }
 
-    public class DerivedClass4 extends InheritanceIPCTest.MotherClass {
+    public class DerivedClass4 extends MotherClass {
         public DerivedClass4() {
             super("dc4");
             K = 121212;
@@ -205,47 +205,47 @@ public class InheritanceIPCTest {
 
         public MotherClass() {
             K = 3;
-            int c = ~(K);
+            int c = ~K;
             int d = K;
             int e = ~5;
             K += 1;
-            K = ~(K);
-            K = (K) | 4;
+            K = ~K;
+            K = K | 4;
         }
 
         public MotherClass(String s) {
             K = s.length();
-            int c = ~(K);
+            int c = ~K;
             int d = K;
             int e = ~5;
             K += 1;
-            K = ~(K);
-            K = (K) | 4;
+            K = ~K;
+            K = K | 4;
         }
     }
 
-    public class DerivedClass1 extends InheritanceIPCTest.MotherClass {
+    public class DerivedClass1 extends MotherClass {
         public DerivedClass1() {
             super();
             K = 333;
         }
     }
 
-    public class DerivedClass2 extends InheritanceIPCTest.MotherClass {
+    public class DerivedClass2 extends MotherClass {
         public DerivedClass2() {
             super();
             K = 666;
         }
     }
 
-    public class DerivedClass3 extends InheritanceIPCTest.MotherClass {
+    public class DerivedClass3 extends MotherClass {
         public DerivedClass3() {
             super("dc3");
             K = 999;
         }
     }
 
-    public class DerivedClass4 extends InheritanceIPCTest.MotherClass {
+    public class DerivedClass4 extends MotherClass {
         public DerivedClass4() {
             // Super constructor call has been removed;
             K = 121212;

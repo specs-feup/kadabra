@@ -111,6 +111,7 @@ public class JavaWeaverTest {
 
     @Test
     public void testConstructorCallMutator() {
-        newTester().test("ConstructorCallMutator.lara", "ConstructorCallTest.java.test");
+        newTester().set(JavaWeaverKeys.FULLY_QUALIFIED_NAMES).test("ConstructorCallMutator.lara",
+                "ConstructorCallTest.java.test");
     }
 }
