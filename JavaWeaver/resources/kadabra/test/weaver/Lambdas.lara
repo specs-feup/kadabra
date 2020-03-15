@@ -1,0 +1,23 @@
+import weaver.WeaverJps;
+
+aspectdef LambdasTest
+
+//	println(WeaverJps.root().ast);
+//	println(WeaverJps.root().code);
+
+
+
+	var code = "";
+	for(var $jp of WeaverJps.root().descendants) {
+		//println("Adding code for method "+$method.name+":\n" + $method.code);
+		if($jp.joinPointType === 'method' || $jp.joinPointType === 'constructor') {
+			code += $jp.code;		
+		}
+
+	}
+	
+	println("Code from methods:\n"+code);
+
+
+	println("Code from app:\n" + WeaverJps.root().code);
+end

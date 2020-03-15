@@ -1,0 +1,39 @@
+Code from methods:
+public Lambdas() {
+}
+public void getHelpers() {
+    Function<Integer, Integer> a = ( c) -> {
+        try {
+            return c + 10;
+        } catch (Exception e) {
+            // Nothing
+        }
+    };
+}
+public Function<Integer, Integet> foo() {
+    return ( a) -> a + 10;
+}
+
+Code from app:
+import java.util.function.Function;
+public class Lambdas {
+    public Lambdas() {
+    }
+
+
+    public void getHelpers() {
+        Function<Integer, Integer> a = ( c) -> {
+            try {
+                return c + 10;
+            } catch (Exception e) {
+                // Nothing
+            }
+        };
+    }
+
+
+    public Function<Integer, Integet> foo() {
+        return ( a) -> a + 10;
+    }
+
+}
