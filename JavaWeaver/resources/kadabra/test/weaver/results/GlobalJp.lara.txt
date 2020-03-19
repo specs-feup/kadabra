@@ -7,15 +7,6 @@ app ast:
 app (Java application)
   file (GlobalJp.java)
     class (GlobalJp)
-      constructor (GlobalJp())
-        body
-          callStatement (super())
-            call (super())
-              reference (<init> - Executable)
-                typeReference (Object)
-                  reference (java.lang - Package)
-                typeReference (Object)
-                  reference (java.lang - Package)
       method (foo)
         typeReference (int)
         body
