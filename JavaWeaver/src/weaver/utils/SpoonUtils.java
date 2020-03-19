@@ -18,6 +18,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.lara.interpreter.profile.WeaverProfiler;
 
@@ -432,7 +433,12 @@ public class SpoonUtils {
         // var nodeToCompare = originalNode == null ? node : originalNode;
 
         // return node.getElements(element -> element.getParent() == nodeToCompare);
-        return node.getElements(element -> element.getParent() == node);
+        // return node.getElements(element -> element.getParent() == node && !element.isImplicit());
         // return node.getElements(element -> element.hasParent(node));
+
+        return node.getDirectChildren().stream()
+                // Remove implicit nodes
+                .filter(child -> !child.isImplicit())
+                .collect(Collectors.toList());
     }
 }
