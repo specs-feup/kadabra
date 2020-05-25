@@ -15,6 +15,7 @@ package weaver.utils.visitors;
 
 import pt.up.fe.specs.util.classmap.FunctionClassMap;
 import spoon.reflect.declaration.CtAnonymousExecutable;
+import spoon.reflect.declaration.CtConstructor;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.declaration.CtTypeMember;
 
@@ -26,6 +27,7 @@ public class TypeMemberKeyGenerator {
         KEY_GENERATOR = new FunctionClassMap<>(TypeMemberKeyGenerator::generateNormalKey);
         KEY_GENERATOR.put(CtType.class, TypeMemberKeyGenerator::qualifiedName);
         KEY_GENERATOR.put(CtAnonymousExecutable.class, TypeMemberKeyGenerator::anonymousKey);
+        KEY_GENERATOR.put(CtConstructor.class, TypeMemberKeyGenerator::constructor);
     }
 
     public static String generate(CtTypeMember member) {
@@ -63,6 +65,15 @@ public class TypeMemberKeyGenerator {
         // if (position != null) {
         // return position.toString();
         // }
+        return e.getSignature();
+    }
+
+    /**
+     * 
+     * @param m
+     * @return
+     */
+    private static String constructor(CtConstructor<?> e) {
         return e.getSignature();
     }
 }
