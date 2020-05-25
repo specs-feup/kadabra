@@ -119,4 +119,9 @@ public class JavaWeaverTest {
     public void testLambdas() {
         newTester().set(JavaWeaverKeys.NO_CLASSPATH).test("Lambdas.lara", "Lambdas.java.test");
     }
+
+    @Test
+    public void testConstructor() {
+        newTester().test("Constructor.lara", "Constructor.java.test");
+    }
 }

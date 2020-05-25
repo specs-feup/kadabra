@@ -1,0 +1,19 @@
+class Constructor {
+    private final int anInt;
+
+    public Constructor(app.ClassMutator app) {
+        this(0);
+    }
+    public Constructor() {
+        this(0);
+    }
+
+
+    public Constructor(app.ClassMutator app, int anInt) {
+        this.anInt = anInt;
+    }
+    public Constructor(int anInt) {
+        this.anInt = anInt;
+    }
+
+}

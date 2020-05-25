@@ -1,0 +1,45 @@
+import lara.Strings;
+
+aspectdef ConstructorTest
+
+//	var constructors = [];
+//	var constructorsSrc = [];
+
+	select constructor end
+	apply
+//		constructors.push($constructor);
+//		constructorsSrc.push($constructor.srcCode);
+
+		var replaceString = "(app.ClassMutator app";
+		if($constructor.params.length > 0) {
+			replaceString = replaceString + ", ";
+		}
+		
+//		println("Construtor original:\n" + $constructor.srcCode);
+//		println("Params: " + $constructor.params);
+		var code =  Strings.replacer( $constructor.srcCode,/\(/ , replaceString);
+		$constructor.insertBefore(code);
+		
+	end
+	/*
+	for(var i = 0; i<constructors.length; i++) {
+		var $constructor = constructors[i];
+		var srcCode = constructorsSrc[i];
+		var replaceString = "(app.ClassMutator app";
+		if($constructor.params.length > 0) {
+			replaceString = replaceString + ", ";
+		}
+		
+		println("SRC CODE: '" + srcCode + "'");
+		println("CONST SRC BEFORE: '" + $constructor.srcCode + "'");
+		var code =  Strings.replacer( srcCode,/\(/ , replaceString);
+		$constructor.insertBefore(code);
+		println("CONST SRC AFTER: '" + $constructor.srcCode + "'");		
+	}
+*/
+	select app end
+	apply
+		println($app.srcCode);
+	end
+end
+
