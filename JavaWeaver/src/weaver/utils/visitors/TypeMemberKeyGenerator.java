@@ -13,6 +13,7 @@
 
 package weaver.utils.visitors;
 
+import pt.up.fe.specs.util.SpecsLogs;
 import pt.up.fe.specs.util.classmap.FunctionClassMap;
 import spoon.reflect.declaration.CtAnonymousExecutable;
 import spoon.reflect.declaration.CtConstructor;
@@ -41,6 +42,8 @@ public class TypeMemberKeyGenerator {
      * @return
      */
     private static String generateNormalKey(CtTypeMember m) {
+        SpecsLogs.info("TypeMemberKeyGenerator: using default key for type " + m.getClass()
+                + ", please add a custom generator");
         return m.getDeclaringType().getQualifiedName() + "#" + m.getShortRepresentation();
     }
 
