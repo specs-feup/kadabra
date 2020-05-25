@@ -167,6 +167,11 @@ public class JClass<T> extends AClass {
 
     @Override
     public List<? extends AConstructor> selectConstructor() {
+        // Apparently, Spoon returns the same hashCode for different constructors
+        // for (var c : originClass.getConstructors()) {
+        // System.out.println("C: " + c.hashCode());
+        // }
+
         return SelectUtils.nodeList2JoinPointList(originClass.getConstructors(), JConstructor::newInstance);
     }
 

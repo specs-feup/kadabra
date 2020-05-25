@@ -56,6 +56,46 @@ public class JConstructor<T> extends AConstructor {
     }
 
     // @Override
+    // public AJoinPoint[] insertImpl(String position, String code) {
+    // return new AJoinPoint[] { insertImplExecutable(position, code) };
+    // }
+    //
+    // @Override
+    // public AJoinPoint insertBeforeImpl(String code) {
+    // return insertImplExecutable("before", code);
+    // }
+
+    // @Override
+    // public AJoinPoint[] insertImpl(String position, JoinPoint code) {
+    // return new AJoinPoint[] { insertImplExecutable(position, (AJoinPoint) code) };
+    // }
+
+    // public AJavaWeaverJoinPoint insertImplExecutable(String position, String code) {
+    // Factory factory = getNode().getFactory();
+    //
+    // var clonedConstructor = node.clone();
+    // var constructorClass = getAncestor(CtClass.class);
+    // constructorClass.addConstructor(clonedConstructor);
+    //
+    // var snippetNode = factory.Code()
+    //
+    // var params = clonedConstructor.getParameters();
+    // var newParams = new ArrayList<>(params);
+    // newParams.clear();
+    // clonedConstructor.setParameters(newParams);
+    //
+    // // System.out.println("CODE:'" + code + "'");
+    // // var snippetNode = factory.Code()
+    // // .createCodeSnippetStatement(code).compile();
+    // //
+    // // System.out.println("SNIPPET CLASS: " + snippetNode.getClass());
+    // return null;
+    // // CtKadabraSnippetElement snippet = SnippetFactory.createSnippetElement(factory, code);
+    // //
+    // // return ActionUtils.insertMember(node, snippet, position, getWeaverEngine().getWeaverProfiler());
+    // }
+
+    // @Override
     // public void insertImpl(String position, String code) {
     //
     // ActionUtils.insertMember(node, code, position, getWeaverProfiler());

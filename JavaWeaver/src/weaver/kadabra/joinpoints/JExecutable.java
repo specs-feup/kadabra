@@ -17,15 +17,23 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.lara.interpreter.weaver.interf.JoinPoint;
+
 import spoon.reflect.code.CtBlock;
 import spoon.reflect.declaration.CtExecutable;
 import spoon.reflect.declaration.CtParameter;
+import spoon.reflect.factory.Factory;
+import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.ABody;
 import weaver.kadabra.abstracts.joinpoints.ADeclaration;
 import weaver.kadabra.abstracts.joinpoints.AExecutable;
+import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.ATypeReference;
+import weaver.kadabra.spoon.extensions.nodes.CtKadabraSnippetElement;
 import weaver.utils.scanners.NodeConverter;
+import weaver.utils.weaving.ActionUtils;
 import weaver.utils.weaving.SelectUtils;
+import weaver.utils.weaving.SnippetFactory;
 import weaver.utils.weaving.converters.CtElement2JoinPoint;
 
 public class JExecutable<R> extends AExecutable {
@@ -112,6 +120,34 @@ public class JExecutable<R> extends AExecutable {
     @Override
     public ATypeReference getReturnRefImpl() {
         return (ATypeReference) CtElement2JoinPoint.convert(node.getType());
+    }
+
+    @Override
+    public AJoinPoint[] insertImpl(String position, String code) {
+        return new AJoinPoint[] { insertImplExecutable(position, code) };
+    }
+
+    @Override
+    public AJoinPoint[] insertImpl(String position, JoinPoint code) {
+        return new AJoinPoint[] { insertImplExecutable(position, (AJoinPoint) code) };
+    }
+
+    public AJavaWeaverJoinPoint insertImplExecutable(String position, String code) {
+        Factory factory = getNode().getFactory();
+
+        // System.out.println("CODE:'" + code + "'");
+        // var snippetNode = factory.Code()
+        // .createCodeSnippetStatement(code).compile();
+        //
+        // System.out.println("SNIPPET CLASS: " + snippetNode.getClass());
+
+        CtKadabraSnippetElement snippet = SnippetFactory.createSnippetElement(factory, code);
+
+        return ActionUtils.insertMember(node, snippet, position, getWeaverEngine().getWeaverProfiler());
+    }
+
+    public AJavaWeaverJoinPoint insertImplExecutable(String position, AJoinPoint code) {
+        return ActionUtils.insertMember(node, code.getNode(), position, getWeaverEngine().getWeaverProfiler());
     }
 
 }

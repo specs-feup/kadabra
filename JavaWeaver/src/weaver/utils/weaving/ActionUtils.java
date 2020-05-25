@@ -35,7 +35,6 @@ import spoon.reflect.declaration.CtInterface;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtPackage;
 import spoon.reflect.declaration.CtType;
-import spoon.reflect.declaration.CtTypeMember;
 import spoon.reflect.declaration.ModifierKind;
 import spoon.reflect.factory.CompilationUnitFactory;
 import spoon.reflect.factory.ConstructorFactory;
@@ -59,6 +58,7 @@ public class ActionUtils {
         AFTER,
         AROUND,
         REPLACE;
+
         public static Location getLocation(String location) {
             return Location.valueOf(location.toUpperCase());
         }
@@ -259,7 +259,7 @@ public class ActionUtils {
      * @param location
      * @param weavingProfiler
      */
-    public static AJavaWeaverJoinPoint insertMember(CtTypeMember referenceNode, String codeSnippet, String location,
+    public static AJavaWeaverJoinPoint insertMember(CtElement referenceNode, String codeSnippet, String location,
             WeaverProfiler weavingProfiler) {
 
         Factory factory = referenceNode.getFactory();
@@ -269,7 +269,7 @@ public class ActionUtils {
         return insertMember(referenceNode, snippet, location, weavingProfiler);
     }
 
-    public static AJavaWeaverJoinPoint insertMember(CtTypeMember referenceNode, CtElement snippet, String location,
+    public static AJavaWeaverJoinPoint insertMember(CtElement referenceNode, CtElement snippet, String location,
             WeaverProfiler weavingProfiler) {
 
         location = location.toUpperCase();
@@ -318,6 +318,7 @@ public class ActionUtils {
             WeaverProfiler weavingProfiler) {
         location = location.toUpperCase();
         Factory factory = referenceNode.getFactory();
+
         JWEnvironment env = getKadabraEnvironment(factory);
         CtCodeSnippetStatement snippet = SnippetFactory.createSnippetStatement(codeSnippet, factory);
         switch (Location.getLocation(location)) {
