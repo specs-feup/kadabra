@@ -17,6 +17,8 @@ import pt.up.fe.specs.util.SpecsLogs;
 import pt.up.fe.specs.util.classmap.FunctionClassMap;
 import spoon.reflect.declaration.CtAnonymousExecutable;
 import spoon.reflect.declaration.CtConstructor;
+import spoon.reflect.declaration.CtField;
+import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.declaration.CtTypeMember;
 
@@ -29,6 +31,8 @@ public class TypeMemberKeyGenerator {
         KEY_GENERATOR.put(CtType.class, TypeMemberKeyGenerator::qualifiedName);
         KEY_GENERATOR.put(CtAnonymousExecutable.class, TypeMemberKeyGenerator::anonymousKey);
         KEY_GENERATOR.put(CtConstructor.class, TypeMemberKeyGenerator::constructor);
+        KEY_GENERATOR.put(CtMethod.class, TypeMemberKeyGenerator::method);
+        KEY_GENERATOR.put(CtField.class, TypeMemberKeyGenerator::field);
     }
 
     public static String generate(CtTypeMember member) {
@@ -77,6 +81,24 @@ public class TypeMemberKeyGenerator {
      * @return
      */
     private static String constructor(CtConstructor<?> e) {
-        return e.getSignature();
+        return e.getDeclaringType().getQualifiedName() + "#" + e.getSignature();
+    }
+
+    /**
+     * 
+     * @param m
+     * @return
+     */
+    private static String method(CtMethod<?> e) {
+        return e.getDeclaringType().getQualifiedName() + "#" + e.getSignature();
+    }
+
+    /**
+     * 
+     * @param m
+     * @return
+     */
+    private static String field(CtField<?> e) {
+        return e.getDeclaringType().getQualifiedName() + "#" + e.getSimpleName();
     }
 }
