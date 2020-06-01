@@ -51,7 +51,11 @@ public class JMethod<T> extends AMethod {
 
     @Override
     public AJoinPoint copyImpl() {
-        return CtElement2JoinPoint.convert(Refactoring.copyMethod(node));
+        var methodName = getNameImpl();
+        var copy = Refactoring.copyMethod(node);
+        // Refactor method changes the name of the method, appends copy at the end. Restore original name
+        copy.setSimpleName(methodName);
+        return CtElement2JoinPoint.convert(copy);
     }
 
     @Override
