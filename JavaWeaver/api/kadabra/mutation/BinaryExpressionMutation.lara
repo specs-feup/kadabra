@@ -1,11 +1,11 @@
-import lara.mutation.GeneratorMutation;
+import lara.mutation.IterativeMutation;
 
 /**
  *  @param {String[] | String...} newOperators - Operators that will be used to mutate the binaryExpression.
  */
 var BinaryExpressionMutation = function() {
 	// Parent constructor
-    GeneratorMutation.call(this, "BinaryExpressionMutation");
+    IterativeMutation.call(this, "BinaryExpressionMutation");
 
 	// Instance variables
 	this.newOperators = arrayFromArgs(arguments);
@@ -14,7 +14,7 @@ var BinaryExpressionMutation = function() {
 };
 
 // Inheritance
-BinaryExpressionMutation.prototype = Object.create(GeneratorMutation.prototype);
+BinaryExpressionMutation.prototype = Object.create(IterativeMutation.prototype);
 
 
 /// IMPLEMENTATION OF INSTANCE METHODS 
