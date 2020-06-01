@@ -124,4 +124,5 @@ public class JavaWeaverTest {
     public void testConstructor() {
         newTester().test("Constructor.lara", "Constructor.java.test");
     }
+
 }

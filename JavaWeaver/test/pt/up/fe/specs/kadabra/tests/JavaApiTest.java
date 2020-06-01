@@ -62,6 +62,11 @@ public class JavaApiTest {
     }
 
     @Test
+    public void testBinaryExpressionMutation() {
+        newTester().test("BinaryExpressionMutationTest.lara", "BinaryExpressionMutation.java.test");
+    }
+
+    @Test
     public void testKadabraNodes() {
         newTester().test("KadabraNodesTest.lara", "KadabraNodes.java.test");
     }
