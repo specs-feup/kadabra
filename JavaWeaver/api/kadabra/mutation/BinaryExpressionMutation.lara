@@ -19,15 +19,18 @@ BinaryExpressionMutation.prototype = Object.create(GeneratorMutation.prototype);
 /**
  * BinaryExpressionMutation iterator, which generates mutations iteratively.
  */
+ /*
 var _BinaryExpressionMutationIterator = function(binaryOpMutation, $jp) {
 	this.binaryOpMutation = binaryOpMutation;
 	this.$jp = $jp;
 };
+*/
 
 
 /**
  * @return {$jp} each mutated point, iteratively.
  */
+ /*
 _BinaryExpressionMutationIterator.prototype[Symbol.iterator] = function* () {
 	
 	for(var newOp of this.binaryOpMutation.newOperators) {
@@ -36,7 +39,16 @@ _BinaryExpressionMutationIterator.prototype[Symbol.iterator] = function* () {
 		yield mutation;
 	}
 }
-
+*/
+/*
+BinaryExpressionMutation.prototype._generator = function* ($jp) {
+	for(var newOp of this.newOperators) {
+		var mutation = $jp.copy();
+		mutation.operator = newOp;
+		yield mutation;
+	}	
+}
+*/
 
 /// IMPLEMENTATION OF INSTANCE METHODS 
 
@@ -44,10 +56,30 @@ BinaryExpressionMutation.prototype.isMutationPoint = function($jp) {
 	return $jp.instanceOf("binaryExpression");
 }
 
+/*
 BinaryExpressionMutation.prototype.iterator = function($jp) {
 	return new _BinaryExpressionMutationIterator(this, $jp);
 }
+*/
 
+
+BinaryExpressionMutation.prototype.iterator = function* ($jp) {
+	for(var newOp of this.newOperators) {
+		var mutation = $jp.copy();
+		mutation.operator = newOp;
+		yield mutation;
+	}	
+}
+
+/*
+BinaryExpressionMutation.prototype._generator = function* ($jp) {
+	for(var newOp of this.newOperators) {
+		var mutation = $jp.copy();
+		mutation.operator = newOp;
+		yield mutation;
+	}	
+}
+*/
 
 /*
 BinaryExpressionMutation.prototype.mutate = function($jp) {
