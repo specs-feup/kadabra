@@ -1,0 +1,65 @@
+import lara.mutation.GeneratorMutation;
+
+/**
+ *  @param {String[] | String...} newOperators - Operators that will be used to mutate the binaryExpression.
+ */
+var BinaryExpressionMutation = function() {
+	// Parent constructor
+    GeneratorMutation.call(this, "BinaryExpressionMutation");
+
+	// Instance variables
+	this.newOperators = arrayFromArgs(arguments);
+
+	// TODO: Check if operators are valid
+};
+
+// Inheritance
+BinaryExpressionMutation.prototype = Object.create(GeneratorMutation.prototype);
+
+/**
+ * BinaryExpressionMutation iterator, which generates mutations iteratively.
+ */
+var _BinaryExpressionMutationIterator = function(binaryOpMutation, $jp) {
+	this.binaryOpMutation = binaryOpMutation;
+	this.$jp = $jp;
+};
+
+
+/**
+ * @return {$jp} each mutated point, iteratively.
+ */
+_BinaryExpressionMutationIterator.prototype[Symbol.iterator] = function* () {
+	
+	for(var newOp of this.binaryOpMutation.newOperators) {
+		var mutation = this.$jp.copy();
+		mutation.operator = newOp;
+		yield mutation;
+	}
+}
+
+
+/// IMPLEMENTATION OF INSTANCE METHODS 
+
+BinaryExpressionMutation.prototype.isMutationPoint = function($jp) {
+	return $jp.instanceOf("binaryExpression");
+}
+
+BinaryExpressionMutation.prototype.iterator = function($jp) {
+	return new _BinaryExpressionMutationIterator(this, $jp);
+}
+
+
+/*
+BinaryExpressionMutation.prototype.mutate = function($jp) {
+	var mutations = [];
+
+	var iterator = new BinaryExpressionMutationIterator(this.newOperators, $jp);
+
+	for(var mutation of iterator) {
+		mutations.push(mutation);	
+	}
+	
+	return mutations;
+}
+*/
+

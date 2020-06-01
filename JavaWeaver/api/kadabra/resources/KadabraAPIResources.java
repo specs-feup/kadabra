@@ -30,6 +30,7 @@ public enum KadabraAPIResources implements ResourceProvider {
     VersionTester(PackageProvider.adaptPackage, "VersionTester"),
     CpuInfo(PackageProvider.systemPackage, "CpuInfo"),
 
+    BinaryExpressionMutation("mutation/", "BinaryExpressionMutation"),
     BinaryExpressionMutator("mutation/", "BinaryExpressionMutator"),
 
     KADABRA_JAVA_TYPES("_KadabraJavaTypes"),
