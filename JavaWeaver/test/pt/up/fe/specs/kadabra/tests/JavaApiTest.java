@@ -67,6 +67,11 @@ public class JavaApiTest {
     }
 
     @Test
+    public void testIterativeMutator() {
+        newTester().test("IterativeMutatorTest.lara", "IterativeMutator.java.test");
+    }
+
+    @Test
     public void testKadabraNodes() {
         newTester().test("KadabraNodesTest.lara", "KadabraNodes.java.test");
     }
