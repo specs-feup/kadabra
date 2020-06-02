@@ -1,0 +1,9 @@
+ArithmeticOperatorDeletion
+return 1
+return 2
+ConditionalOperatorDeletionMutation
+if (a) {
+}
+(a) ? 0 : 1
+while (a) {
+} 

@@ -72,6 +72,11 @@ public class JavaApiTest {
     }
 
     @Test
+    public void testMutations() {
+        newTester().test("MutationsTest.lara", "Mutations.java.test");
+    }
+
+    @Test
     public void testKadabraNodes() {
         newTester().test("KadabraNodesTest.lara", "KadabraNodes.java.test");
     }
