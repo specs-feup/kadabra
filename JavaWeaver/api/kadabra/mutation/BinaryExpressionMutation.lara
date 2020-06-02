@@ -26,6 +26,12 @@ BinaryExpressionMutation.prototype.isMutationPoint = function($jp) {
 
 BinaryExpressionMutation.prototype.mutate = function* ($jp) {
 	for(var newOp of this.newOperators) {
+	
+		// Skip when operators are the same
+		if($jp.operator === newOp) {
+			continue;
+		}
+		
 		var mutation = $jp.copy();
 		mutation.operator = newOp;
 		yield mutation;

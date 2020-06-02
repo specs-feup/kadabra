@@ -243,6 +243,10 @@ public class ActionUtils {
         node.replace(snippet);
         // System.out.println("SNIPPET: " + snippet.getClass());
 
+        // Removes parent from original node
+        // Dropped - apparently Spoon nodes do not loose their parents
+        // node.setParent(null);
+
         var joinPoint = CtElement2JoinPoint.convert(snippet);
         String[] lines = joinPoint.getSrcCodeImpl().split("\r\n|\r|\n");
         reportLOCs(weaverProfiler, lines.length, true);

@@ -259,7 +259,7 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
 
     @Override
     public AJoinPoint insertBeforeImpl(String code) {
-        return (AJoinPoint) insertImpl("before", code)[0];
+        return insertImpl("before", code)[0];
     }
 
     @Override
@@ -270,7 +270,7 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
 
     @Override
     public AJoinPoint insertAfterImpl(String code) {
-        return (AJoinPoint) insertImpl("after", code)[0];
+        return insertImpl("after", code)[0];
     }
 
     // @Override
@@ -285,7 +285,7 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
 
     @Override
     public AJoinPoint insertReplaceImpl(String code) {
-        return (AJoinPoint) insertImpl("replace", code)[0];
+        return insertImpl("replace", code)[0];
     }
 
     // @Override
