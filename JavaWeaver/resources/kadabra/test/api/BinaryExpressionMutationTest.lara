@@ -13,9 +13,11 @@ aspectdef BinaryExpressionMutatorTest
 			
 			//var mutatedOps = mutation.mutate($op);
 			//for(var $mutatedOp of mutatedOps) {
-			for(var $mutatedOp of mutation.mutate($op)) {			
+			for(var mutationResult of mutation.mutate($op)) {			
 			//for(var $mutatedOp of mutation.getMutants($op)) {					
 			//for(var $mutatedOp of mutation._generator($op)) {			
+				var $mutatedOp = mutationResult.getMutation();
+				
 				// Mutate code
 				$op.insertReplace($mutatedOp);
 				

@@ -1,4 +1,5 @@
 import lara.mutation.IterativeMutation;
+import lara.mutation.MutationResult;
 
 
 /**
@@ -36,6 +37,6 @@ ConditionalOperatorDeletionMutation.prototype.mutate = function* ($jp) {
 	debug("Mutating operator: "+ $jp +" to "+ mutation);
 	debug("/*--------------------------------------*/");		
 	
-	yield mutation;
+	yield new MutationResult(mutation);
 
 }

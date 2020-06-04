@@ -1,4 +1,5 @@
 import lara.mutation.IterativeMutation;
+import lara.mutation.MutationResult;
 
 /**
  *  @param {String[] | String...} newOperators - Operators that will be used to mutate the binaryExpression.
@@ -34,6 +35,6 @@ BinaryExpressionMutation.prototype.mutate = function* ($jp) {
 		
 		var mutation = $jp.copy();
 		mutation.operator = newOp;
-		yield mutation;
+		yield new MutationResult(mutation);
 	}	
 }

@@ -1,4 +1,5 @@
 import lara.mutation.IterativeMutation;
+import lara.mutation.MutationResult;
 
 var ArithmeticOperatorDeletionMutation = function() {
 	//Parent constructor
@@ -26,7 +27,7 @@ ArithmeticOperatorDeletionMutation.prototype.mutate = function* ($jp) {
 	debug("Mutating operator: "+ $jp +" to "+ leftOperand); 
 	debug("/*--------------------------------------*/");
 
-	yield leftOperand;
+	yield new MutationResult(leftOperand);
 	
 	
 	var rightOperand = $jp.rhs.copy();
@@ -35,5 +36,5 @@ ArithmeticOperatorDeletionMutation.prototype.mutate = function* ($jp) {
 	debug("Mutating operator: "+ $jp +" to "+ rightOperand); 
 	debug("/*--------------------------------------*/");	
 	
-	yield rightOperand;
+	yield new MutationResult(rightOperand);
 }
