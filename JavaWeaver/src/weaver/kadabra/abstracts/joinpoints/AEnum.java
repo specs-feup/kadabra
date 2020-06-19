@@ -241,6 +241,15 @@ public abstract class AEnum extends AClass {
 
     /**
      * 
+     * @param annotation 
+     */
+    @Override
+    public void removeAnnotationImpl(AAnnotation annotation) {
+        this.aClass.removeAnnotationImpl(annotation);
+    }
+
+    /**
+     * 
      * @param name 
      * @param keyType 
      * @param _interface 
@@ -455,6 +464,7 @@ public abstract class AEnum extends AClass {
         ISBLOCK("isBlock"),
         LINE("line"),
         ANCESTOR("ancestor"),
+        ANNOTATIONS("annotations"),
         MODIFIERS("modifiers"),
         DESCENDANTS("descendants"),
         ISSTATEMENT("isStatement"),

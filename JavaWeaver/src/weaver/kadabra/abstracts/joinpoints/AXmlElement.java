@@ -253,6 +253,15 @@ public abstract class AXmlElement extends AXmlNode {
 
     /**
      * 
+     * @param annotation 
+     */
+    @Override
+    public void removeAnnotationImpl(AAnnotation annotation) {
+        this.aXmlNode.removeAnnotationImpl(annotation);
+    }
+
+    /**
+     * 
      * @param text 
      */
     @Override
@@ -406,6 +415,7 @@ public abstract class AXmlElement extends AXmlNode {
         ISBLOCK("isBlock"),
         LINE("line"),
         ANCESTOR("ancestor"),
+        ANNOTATIONS("annotations"),
         MODIFIERS("modifiers"),
         DESCENDANTS("descendants"),
         ISSTATEMENT("isStatement"),

@@ -167,6 +167,15 @@ public abstract class ALibClass extends ANamedType {
 
     /**
      * 
+     * @param annotation 
+     */
+    @Override
+    public void removeAnnotationImpl(AAnnotation annotation) {
+        this.aNamedType.removeAnnotationImpl(annotation);
+    }
+
+    /**
+     * 
      * @param position 
      * @param code 
      */
@@ -303,6 +312,7 @@ public abstract class ALibClass extends ANamedType {
         ISBLOCK("isBlock"),
         LINE("line"),
         ANCESTOR("ancestor"),
+        ANNOTATIONS("annotations"),
         MODIFIERS("modifiers"),
         DESCENDANTS("descendants"),
         ISSTATEMENT("isStatement"),

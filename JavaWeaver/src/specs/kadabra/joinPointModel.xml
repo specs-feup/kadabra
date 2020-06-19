@@ -184,6 +184,10 @@
 <!-- 		<select				class="call"/> -->
 	</joinpoint>
 	
+	
+	
+	<!-- ANNOTATION -->
+	<joinpoint class="annotation" extends="expression"/>	
 		
 	<!-- VAR -->
 	<joinpoint class="var" extends="expression"/>

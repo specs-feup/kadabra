@@ -226,6 +226,15 @@ public abstract class AField extends ADeclaration {
 
     /**
      * 
+     * @param annotation 
+     */
+    @Override
+    public void removeAnnotationImpl(AAnnotation annotation) {
+        this.aDeclaration.removeAnnotationImpl(annotation);
+    }
+
+    /**
+     * 
      * @param value 
      */
     @Override
@@ -381,6 +390,7 @@ public abstract class AField extends ADeclaration {
         ISBLOCK("isBlock"),
         LINE("line"),
         ANCESTOR("ancestor"),
+        ANNOTATIONS("annotations"),
         MODIFIERS("modifiers"),
         DESCENDANTS("descendants"),
         ISSTATEMENT("isStatement"),

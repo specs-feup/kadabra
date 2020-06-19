@@ -226,6 +226,15 @@ public abstract class ATypeReference extends AReference {
 
     /**
      * 
+     * @param annotation 
+     */
+    @Override
+    public void removeAnnotationImpl(AAnnotation annotation) {
+        this.aReference.removeAnnotationImpl(annotation);
+    }
+
+    /**
+     * 
      * @param position 
      * @param code 
      */
@@ -362,6 +371,7 @@ public abstract class ATypeReference extends AReference {
         ISBLOCK("isBlock"),
         LINE("line"),
         ANCESTOR("ancestor"),
+        ANNOTATIONS("annotations"),
         MODIFIERS("modifiers"),
         DESCENDANTS("descendants"),
         ISSTATEMENT("isStatement"),

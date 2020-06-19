@@ -469,6 +469,15 @@ public abstract class ACall extends AExpression {
 
     /**
      * 
+     * @param annotation 
+     */
+    @Override
+    public void removeAnnotationImpl(AAnnotation annotation) {
+        this.aExpression.removeAnnotationImpl(annotation);
+    }
+
+    /**
+     * 
      * @param varName 
      * @param location 
      * @param position 
@@ -678,6 +687,7 @@ public abstract class ACall extends AExpression {
         ISBLOCK("isBlock"),
         LINE("line"),
         ANCESTOR("ancestor"),
+        ANNOTATIONS("annotations"),
         MODIFIERS("modifiers"),
         DESCENDANTS("descendants"),
         ISSTATEMENT("isStatement"),

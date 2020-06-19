@@ -79,6 +79,7 @@ public abstract class AJoinPoint extends JoinPoint {
         actions.add("insertReplace(String code)");
         actions.add("copy()");
         actions.add("remove()");
+        actions.add("removeAnnotation(AAnnotation annotation)");
     }
 
     /**
@@ -294,6 +295,32 @@ public abstract class AJoinPoint extends JoinPoint {
 
     /**
      * 
+     * @param annotation 
+     */
+    public void removeAnnotationImpl(AAnnotation annotation) {
+        throw new UnsupportedOperationException(get_class()+": Action removeAnnotation not implemented ");
+    }
+
+    /**
+     * 
+     * @param annotation 
+     */
+    public final void removeAnnotation(AAnnotation annotation) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "removeAnnotation", this, Optional.empty(), annotation);
+        	}
+        	this.removeAnnotationImpl(annotation);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "removeAnnotation", this, Optional.empty(), annotation);
+        	}
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "removeAnnotation", e);
+        }
+    }
+
+    /**
+     * 
      */
     @Override
     protected void fillWithAttributes(List<String> attributes) {
@@ -314,6 +341,7 @@ public abstract class AJoinPoint extends JoinPoint {
         attributes.add("hasModifier(String modifier)");
         attributes.add("isFinal");
         attributes.add("isStatic");
+        attributes.add("annotations");
     }
 
     /**
@@ -743,6 +771,39 @@ public abstract class AJoinPoint extends JoinPoint {
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "isStatic", e);
+        }
+    }
+
+    /**
+     * Get value on attribute annotations
+     * @return the attribute's value
+     */
+    public abstract AAnnotation[] getAnnotationsArrayImpl();
+
+    /**
+     * an array of the annotations of this node
+     */
+    public Object getAnnotationsImpl() {
+        AAnnotation[] aAnnotationArrayImpl0 = getAnnotationsArrayImpl();
+        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(aAnnotationArrayImpl0);
+        return nativeArray0;
+    }
+
+    /**
+     * an array of the annotations of this node
+     */
+    public final Object getAnnotations() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "annotations", Optional.empty());
+        	}
+        	Object result = this.getAnnotationsImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "annotations", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "annotations", e);
         }
     }
 

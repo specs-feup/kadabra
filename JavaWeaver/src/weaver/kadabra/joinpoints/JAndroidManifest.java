@@ -55,4 +55,5 @@ public class JAndroidManifest extends AAndroidManifest {
         // Parent is App
         return (JApp) getWeaverEngine().getRootJp();
     }
+
 }

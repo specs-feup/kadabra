@@ -274,6 +274,15 @@ public abstract class ABody extends AStatement {
 
     /**
      * 
+     * @param annotation 
+     */
+    @Override
+    public void removeAnnotationImpl(AAnnotation annotation) {
+        this.aStatement.removeAnnotationImpl(annotation);
+    }
+
+    /**
+     * 
      * @param position 
      * @param code 
      */
@@ -453,6 +462,7 @@ public abstract class ABody extends AStatement {
         ISBLOCK("isBlock"),
         LINE("line"),
         ANCESTOR("ancestor"),
+        ANNOTATIONS("annotations"),
         MODIFIERS("modifiers"),
         DESCENDANTS("descendants"),
         ISSTATEMENT("isStatement"),

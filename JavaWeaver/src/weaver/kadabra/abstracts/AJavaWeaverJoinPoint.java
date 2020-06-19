@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.lara.interpreter.weaver.interf.JoinPoint;
@@ -17,12 +18,14 @@ import spoon.reflect.code.CtBlock;
 import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.CtStatement;
 import spoon.reflect.cu.SourcePosition;
+import spoon.reflect.declaration.CtAnnotation;
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtExecutable;
 import spoon.reflect.declaration.CtModifiable;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.declaration.ModifierKind;
 import weaver.kadabra.JavaWeaver;
+import weaver.kadabra.abstracts.joinpoints.AAnnotation;
 import weaver.kadabra.abstracts.joinpoints.ACallStatement;
 import weaver.kadabra.abstracts.joinpoints.AExecutable;
 import weaver.kadabra.abstracts.joinpoints.AExpression;
@@ -34,6 +37,7 @@ import weaver.kadabra.util.KadabraLog;
 import weaver.utils.JoinPoints;
 import weaver.utils.SpoonUtils;
 import weaver.utils.weaving.ActionUtils;
+import weaver.utils.weaving.SelectUtils;
 import weaver.utils.weaving.converters.CtElement2JoinPoint;
 import weaver.utils.weaving.converters.CtExecutable2AExecutable;
 import weaver.utils.weaving.converters.CtExpression2AExpression;
@@ -510,4 +514,19 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
     public Boolean getIsStaticImpl() {
         return getModifiersInternal().contains(ModifierKind.STATIC);
     };
+
+    @Override
+    public AAnnotation[] getAnnotationsArrayImpl() {
+
+        return getNode().getAnnotations().stream()
+                .map(annotation -> (AAnnotation) SelectUtils.expression2JoinPoint(annotation))
+                .collect(Collectors.toList())
+                .toArray(size -> new AAnnotation[size]);
+    }
+
+    @Override
+    public void removeAnnotationImpl(AAnnotation annotation) {
+        getNode().removeAnnotation((CtAnnotation<?>) annotation.getNode());
+    }
+
 }

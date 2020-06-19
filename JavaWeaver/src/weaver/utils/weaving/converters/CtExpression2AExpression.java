@@ -24,8 +24,10 @@ import spoon.reflect.code.CtInvocation;
 import spoon.reflect.code.CtLiteral;
 import spoon.reflect.code.CtUnaryOperator;
 import spoon.reflect.code.CtVariableAccess;
+import spoon.reflect.declaration.CtAnnotation;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.AExpression;
+import weaver.kadabra.joinpoints.JAnnotation;
 import weaver.kadabra.joinpoints.JArrayAccess;
 import weaver.kadabra.joinpoints.JBinaryExpression;
 import weaver.kadabra.joinpoints.JCall;
@@ -61,6 +63,7 @@ public class CtExpression2AExpression {
         CONVERTER.put(CtLiteral.class, JLiteral::newInstance);
         CONVERTER.put(CtConstructorCall.class, JNew::newInstance);
         CONVERTER.put(CtConditional.class, JTernary::newInstance);
+        CONVERTER.put(CtAnnotation.class, JAnnotation::new);
 
         // CONVERTER.put(CtAssignment.class, JAssignment::newInstance);
 

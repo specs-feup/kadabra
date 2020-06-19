@@ -212,6 +212,15 @@ public abstract class AInterface extends AType {
     }
 
     /**
+     * 
+     * @param annotation 
+     */
+    @Override
+    public void removeAnnotationImpl(AAnnotation annotation) {
+        this.aType.removeAnnotationImpl(annotation);
+    }
+
+    /**
      * insert a given class inside the target
      * @param newClass 
      */
@@ -456,6 +465,7 @@ public abstract class AInterface extends AType {
         ISBLOCK("isBlock"),
         LINE("line"),
         ANCESTOR("ancestor"),
+        ANNOTATIONS("annotations"),
         MODIFIERS("modifiers"),
         DESCENDANTS("descendants"),
         ISSTATEMENT("isStatement"),

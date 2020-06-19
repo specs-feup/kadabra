@@ -384,6 +384,15 @@ public abstract class AMethod extends AExecutable {
     }
 
     /**
+     * 
+     * @param annotation 
+     */
+    @Override
+    public void removeAnnotationImpl(AAnnotation annotation) {
+        this.aExecutable.removeAnnotationImpl(annotation);
+    }
+
+    /**
      * Sets the name of this executable, returns the previous name
      * @param name 
      */
@@ -556,6 +565,7 @@ public abstract class AMethod extends AExecutable {
         ISBLOCK("isBlock"),
         LINE("line"),
         ANCESTOR("ancestor"),
+        ANNOTATIONS("annotations"),
         MODIFIERS("modifiers"),
         DESCENDANTS("descendants"),
         ISSTATEMENT("isStatement"),

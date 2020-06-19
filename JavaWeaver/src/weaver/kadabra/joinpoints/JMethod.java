@@ -41,7 +41,6 @@ public class JMethod<T> extends AMethod {
 
     private JMethod(CtMethod<T> node) {
         super(JExecutable.newInstance(node));
-
         this.node = node;
     }
 

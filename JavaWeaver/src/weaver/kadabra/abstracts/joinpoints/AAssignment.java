@@ -292,6 +292,15 @@ public abstract class AAssignment extends AStatement {
 
     /**
      * 
+     * @param annotation 
+     */
+    @Override
+    public void removeAnnotationImpl(AAnnotation annotation) {
+        this.aStatement.removeAnnotationImpl(annotation);
+    }
+
+    /**
+     * 
      * @param position 
      * @param code 
      */
@@ -455,6 +464,7 @@ public abstract class AAssignment extends AStatement {
         ISBLOCK("isBlock"),
         LINE("line"),
         ANCESTOR("ancestor"),
+        ANNOTATIONS("annotations"),
         MODIFIERS("modifiers"),
         DESCENDANTS("descendants"),
         ISSTATEMENT("isStatement"),

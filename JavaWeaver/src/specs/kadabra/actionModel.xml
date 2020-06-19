@@ -39,6 +39,10 @@
 	<!-- Deletes the node -->
 	<action name="remove"/>
 
+	<!-- Removes an annotation -->
+	<action name="removeAnnotation">
+		<parameter name="annotation" type="annotation" />
+	</action>
 
 	<!-- XML NODE-->
 	<action name="setText" class="xmlNode" return="String">

@@ -178,6 +178,15 @@ public abstract class APragma extends AComment {
 
     /**
      * 
+     * @param annotation 
+     */
+    @Override
+    public void removeAnnotationImpl(AAnnotation annotation) {
+        this.aComment.removeAnnotationImpl(annotation);
+    }
+
+    /**
+     * 
      * @param position 
      * @param code 
      */
@@ -315,6 +324,7 @@ public abstract class APragma extends AComment {
         ISBLOCK("isBlock"),
         LINE("line"),
         ANCESTOR("ancestor"),
+        ANNOTATIONS("annotations"),
         MODIFIERS("modifiers"),
         DESCENDANTS("descendants"),
         ISSTATEMENT("isStatement"),
