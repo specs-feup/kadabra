@@ -1,7 +1,10 @@
+import lara.util.StringSet;
 import weaver.WeaverJps;
 
+import kadabra._KadabraJavaTypes;
+
 /**
- * Utility methods related with the searching join points.
+ * Utility methods related with the searching join points and AST properties.
  *
  * @class
  */
@@ -65,4 +68,45 @@ KadabraAst.getConstantInitializations = function($startingPoint) {
 	return constants;
 }
 
+KadabraAst._BINARY_OP_SET = undefined;
+
+/**
+ * @return {lara.util.StringSet} String set with valid binary operators
+ */
+KadabraAst.getBinaryOperators = function() {
+
+	// Initialize, if undefined
+	if(KadabraAst._BINARY_OP_SET === undefined) {
+		KadabraAst._BINARY_OP_SET = new StringSet();
+		
+		for(var binaryOp of _KadabraJavaTypes.getOperatorUtils().getValidBinaryStrings()) {
+			KadabraAst._BINARY_OP_SET.add(binaryOp);
+		}
+		
+		// TODO: Lock set?
+	}
+
+	return KadabraAst._BINARY_OP_SET;
+}
+
+KadabraAst._UNARY_OP_SET = undefined;
+
+/**
+ * @return {lara.util.StringSet} String set with valid unary operators
+ */
+KadabraAst.getUnaryOperators = function() {
+
+	// Initialize, if undefined
+	if(KadabraAst._UNARY_OP_SET === undefined) {
+		KadabraAst._UNARY_OP_SET = new StringSet();
+		
+		for(var unaryOp of _KadabraJavaTypes.getOperatorUtils().getValidUnaryStrings()) {
+			KadabraAst._UNARY_OP_SET.add(unaryOp);
+		}
+		
+		// TODO: Lock set?
+	}
+
+	return KadabraAst._UNARY_OP_SET;
+}
 

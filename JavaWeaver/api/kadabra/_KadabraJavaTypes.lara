@@ -10,3 +10,7 @@ var _KadabraJavaTypes = {};
 _KadabraJavaTypes.getKadabraJoinPoints = function() {
 	return _JavaTypes.getType("weaver.kadabra.importable.KadabraJoinPoints");
 }
+
+_KadabraJavaTypes.getOperatorUtils = function() {
+	return _JavaTypes.getType("weaver.utils.element.OperatorUtils");
+}
