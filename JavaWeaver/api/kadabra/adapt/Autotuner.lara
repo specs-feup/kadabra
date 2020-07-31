@@ -215,7 +215,7 @@ aspectdef GenerateTuner
 			%{return [[tuner.measurer.getProvider()]];}%);
 		$autotuner.exec newMethod(['protected'], Autotuner.MANAGER_PACKAGE+'ConfigProvider<'+tuner.algorithmType+'>', 'configurationProvider', [], 
 			%{return [[tuner.configuration]];}%);
-		$autotuner.exec newMethod(['protected'], 'java.util.function.BiFunction<'+tuner.datasetType+','+tuner.datasetType+',Double>', 'distanceProvider', [], 
+		$autotuner.exec newMethod(['protected'], 'java.util.function.BiFunction<'+tuner.datasetType+','+tuner.datasetType+',java.lang.Double>', 'distanceProvider', [], 
 			%{return [[tuner.distanceMethod]];}%);
 		
 		var algProviderType = Algorithm.PROVIDER_PACKAGE+'AlgorithmProvider<'+tuner.algorithmType+'>';
@@ -399,7 +399,7 @@ aspectdef GenerateKnobTuner
 		$autotuner.exec newMethod(['protected'], 'java.util.function.Supplier<'+tuner.measurer.qualifiedType()+'>', 'measurerProvider', [], 
 			%{return [[tuner.measurer.getProvider()]];}%);
 				
-		$autotuner.exec newMethod(['protected'], 'java.util.function.BiFunction<'+tuner.datasetType+','+tuner.datasetType+',Double>', 'distanceProvider', [], 
+		$autotuner.exec newMethod(['protected'], 'java.util.function.BiFunction<'+tuner.datasetType+','+tuner.datasetType+',java.lang.Double>', 'distanceProvider', [], 
 			%{return [[tuner.distanceMethod]];}%);
 
 		var knobProviderType = 'KnobProvider<'+tuner.knobType+'>';

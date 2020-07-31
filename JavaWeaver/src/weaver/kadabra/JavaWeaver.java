@@ -143,7 +143,8 @@ public class JavaWeaver extends AJavaWeaver {
         this.currentOutputDir = outputDir;
         buildAndProcess();
         /* turning off path verifier as it is giving errors for new classes and code */
-        spoon.getEnvironment().setNoClasspath(true);
+        // spoon.getEnvironment().setNoClasspath(true);
+        // spoon.getEnvironment().setNoClasspath(false);
         jApp = JApp.newInstance(spoon, sources);
         // spoon.getEnvironment().setAutoImports(false);
 
@@ -245,7 +246,8 @@ public class JavaWeaver extends AJavaWeaver {
             if (prettyPrint) {
                 spoon.prettyprint();
                 spoon = newSpoon(Arrays.asList(temp), outputDir);
-                spoon.getEnvironment().setNoClasspath(true);
+                // spoon.getEnvironment().setNoClasspath(true);
+                // spoon.getEnvironment().setNoClasspath(false);
                 buildAndProcess();
                 spoon.prettyprint();
             } else {
@@ -285,7 +287,8 @@ public class JavaWeaver extends AJavaWeaver {
         spoon.prettyprint();
 
         var newSpoon = newSpoon(Arrays.asList(inputFolder), outputFolder);
-        newSpoon.getEnvironment().setNoClasspath(true);
+        // newSpoon.getEnvironment().setNoClasspath(true);
+        // newSpoon.getEnvironment().setNoClasspath(false);
         buildAndProcess(newSpoon);
         newSpoon.prettyprint();
 
@@ -426,6 +429,7 @@ public class JavaWeaver extends AJavaWeaver {
         setOutputProcessor(outputDir, spoon, environment);
         // the output type: compilation units)
         environment.setNoClasspath(noClassPath);
+        // environment.setNoClasspath(false);
         setInputSources(sources, spoon);
         spoon.addProcessor(new IfProcessor());
         // spoon.addProcessor(new CommentProcessor());
