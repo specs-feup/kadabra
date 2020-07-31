@@ -26,6 +26,7 @@ import org.apache.commons.io.IOUtils;
 import spoon.Launcher;
 import spoon.SpoonException;
 import spoon.compiler.Environment;
+import spoon.reflect.cu.CompilationUnit;
 import spoon.reflect.declaration.CtPackage;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.factory.Factory;
@@ -49,9 +50,10 @@ public class JWSpoonCompiler extends JDTBasedSpoonCompiler {
     }
 
     @Override
-    protected InputStream getCompilationUnitInputStream(String path) {
+    // protected InputStream getCompilationUnitInputStream(String path) {
+    protected InputStream getCompilationUnitInputStream(CompilationUnit cu) {
         Environment env = factory.getEnvironment();
-        spoon.reflect.cu.CompilationUnit cu = factory.CompilationUnit().getMap().get(path);
+        // spoon.reflect.cu.CompilationUnit cu = factory.CompilationUnit().getMap().get(path);
         List<CtType<?>> toBePrinted = cu.getDeclaredTypes();
 
         PrettyPrinter printer = SpoonUtils.createPrettyPrinter(env);// new JWJavaPrettyPrinter(env);
@@ -133,7 +135,8 @@ public class JWSpoonCompiler extends JDTBasedSpoonCompiler {
                 file.createNewFile();
 
                 // the path must be given relatively to to the working directory
-                try (InputStream is = getCompilationUnitInputStream(cu.getFile().getPath());
+                // try (InputStream is = getCompilationUnitInputStream(cu.getFile().getPath());
+                try (InputStream is = getCompilationUnitInputStream(cu);
                         FileOutputStream outFile = new FileOutputStream(file);) {
 
                     IOUtils.copy(is, outFile);
