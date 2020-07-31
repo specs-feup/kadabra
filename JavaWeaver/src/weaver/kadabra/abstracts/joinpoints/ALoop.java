@@ -420,6 +420,24 @@ public abstract class ALoop extends AStatement {
 
     /**
      * 
+     * @param jp 
+     */
+    @Override
+    public AJoinPoint replaceWithImpl(AJoinPoint jp) {
+        return this.aStatement.replaceWithImpl(jp);
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    @Override
+    public AJoinPoint replaceWithImpl(String code) {
+        return this.aStatement.replaceWithImpl(code);
+    }
+
+    /**
+     * 
      */
     @Override
     public AJoinPoint copyImpl() {

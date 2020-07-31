@@ -225,6 +225,24 @@ public abstract class AEnum extends AClass {
 
     /**
      * 
+     * @param jp 
+     */
+    @Override
+    public AJoinPoint replaceWithImpl(AJoinPoint jp) {
+        return this.aClass.replaceWithImpl(jp);
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    @Override
+    public AJoinPoint replaceWithImpl(String code) {
+        return this.aClass.replaceWithImpl(code);
+    }
+
+    /**
+     * 
      */
     @Override
     public AJoinPoint copyImpl() {

@@ -269,6 +269,24 @@ public abstract class AUnaryExpression extends AExpression {
 
     /**
      * 
+     * @param jp 
+     */
+    @Override
+    public AJoinPoint replaceWithImpl(AJoinPoint jp) {
+        return this.aExpression.replaceWithImpl(jp);
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    @Override
+    public AJoinPoint replaceWithImpl(String code) {
+        return this.aExpression.replaceWithImpl(code);
+    }
+
+    /**
+     * 
      */
     @Override
     public AJoinPoint copyImpl() {

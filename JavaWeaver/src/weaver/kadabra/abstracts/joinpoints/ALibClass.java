@@ -151,6 +151,24 @@ public abstract class ALibClass extends ANamedType {
 
     /**
      * 
+     * @param jp 
+     */
+    @Override
+    public AJoinPoint replaceWithImpl(AJoinPoint jp) {
+        return this.aNamedType.replaceWithImpl(jp);
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    @Override
+    public AJoinPoint replaceWithImpl(String code) {
+        return this.aNamedType.replaceWithImpl(code);
+    }
+
+    /**
+     * 
      */
     @Override
     public AJoinPoint copyImpl() {

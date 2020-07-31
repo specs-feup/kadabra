@@ -210,6 +210,24 @@ public abstract class ATypeReference extends AReference {
 
     /**
      * 
+     * @param jp 
+     */
+    @Override
+    public AJoinPoint replaceWithImpl(AJoinPoint jp) {
+        return this.aReference.replaceWithImpl(jp);
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    @Override
+    public AJoinPoint replaceWithImpl(String code) {
+        return this.aReference.replaceWithImpl(code);
+    }
+
+    /**
+     * 
      */
     @Override
     public AJoinPoint copyImpl() {

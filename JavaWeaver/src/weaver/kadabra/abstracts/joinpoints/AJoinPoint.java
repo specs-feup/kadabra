@@ -77,6 +77,8 @@ public abstract class AJoinPoint extends JoinPoint {
         actions.add("insertAfter(String code)");
         actions.add("insertReplace(AJoinPoint jp)");
         actions.add("insertReplace(String code)");
+        actions.add("replaceWith(AJoinPoint jp)");
+        actions.add("replaceWith(String code)");
         actions.add("copy()");
         actions.add("remove()");
         actions.add("removeAnnotation(AAnnotation annotation)");
@@ -241,6 +243,60 @@ public abstract class AJoinPoint extends JoinPoint {
         	return result;
         } catch(Exception e) {
         	throw new ActionException(get_class(), "insertReplace", e);
+        }
+    }
+
+    /**
+     * 
+     * @param jp 
+     */
+    public AJoinPoint replaceWithImpl(AJoinPoint jp) {
+        throw new UnsupportedOperationException(get_class()+": Action replaceWith not implemented ");
+    }
+
+    /**
+     * 
+     * @param jp 
+     */
+    public final AJoinPoint replaceWith(AJoinPoint jp) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "replaceWith", this, Optional.empty(), jp);
+        	}
+        	AJoinPoint result = this.replaceWithImpl(jp);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "replaceWith", this, Optional.ofNullable(result), jp);
+        	}
+        	return result;
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "replaceWith", e);
+        }
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    public AJoinPoint replaceWithImpl(String code) {
+        throw new UnsupportedOperationException(get_class()+": Action replaceWith not implemented ");
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    public final AJoinPoint replaceWith(String code) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "replaceWith", this, Optional.empty(), code);
+        	}
+        	AJoinPoint result = this.replaceWithImpl(code);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "replaceWith", this, Optional.ofNullable(result), code);
+        	}
+        	return result;
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "replaceWith", e);
         }
     }
 

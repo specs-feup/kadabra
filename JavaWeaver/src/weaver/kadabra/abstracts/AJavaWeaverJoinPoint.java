@@ -284,11 +284,23 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
 
     @Override
     public AJoinPoint insertReplaceImpl(AJoinPoint jp) {
-        return insertImpl("replace", jp)[0];
+        // return insertImpl("replace", jp)[0];
+        return replaceWithImpl(jp);
     }
 
     @Override
     public AJoinPoint insertReplaceImpl(String code) {
+        // return insertImpl("replace", code)[0];
+        return replaceWithImpl(code);
+    }
+
+    @Override
+    public AJoinPoint replaceWithImpl(AJoinPoint jp) {
+        return insertImpl("replace", jp)[0];
+    }
+
+    @Override
+    public AJoinPoint replaceWithImpl(String code) {
         return insertImpl("replace", code)[0];
     }
 

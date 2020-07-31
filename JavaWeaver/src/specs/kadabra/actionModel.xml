@@ -33,6 +33,16 @@
 		<parameter name="code" type="String" />
 	</action>
 	
+	<!-- Replaces join point with the given node -->
+	<action name="replaceWith" return="joinpoint">
+		<parameter name="jp" type="joinpoint" />
+	</action>
+	
+	<!-- Overload which accepts String -->
+	<action name="replaceWith" return="joinpoint">
+		<parameter name="code" type="String" />
+	</action>
+	
 	<!-- Copies the node and returns the copy -->
 	<action name="copy" return="joinpoint"/>
 
