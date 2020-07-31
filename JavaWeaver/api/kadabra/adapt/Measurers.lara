@@ -32,5 +32,5 @@ Measurer.avgTime = function(timer){
 //		timer = t;
 //	}
 	timer = timer || Timer.nanoTimer();
-	return new Measurer('Long', timer.start(), timer.stop(), timer.getTime(), 'new '+Measurer.PACKAGE+'AvgLongMeasurer("'+timer.unit+'")');
+	return new Measurer('java.lang.Long', timer.start(), timer.stop(), timer.getTime(), 'new '+Measurer.PACKAGE+'AvgLongMeasurer("'+timer.unit+'")');
 }

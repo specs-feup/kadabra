@@ -112,7 +112,7 @@ aspectdef VersionTester
 	$class.exec $warmup: 		newField(mods, "int", "warmup", 0);
 	$class.exec $numRuns: 		newField(mods, "int", "numRuns", 0);
 	$class.exec $bestVersion: 	newField(mods, convert.wrapper, "bestVersion", null);
-	$class.exec $bestTime:		newField(mods, "long", "bestTime", "Long.MAX_VALUE");
+	$class.exec $bestTime:		newField(mods, "long", "bestTime", "java.lang.Long.MAX_VALUE");
 	$class.exec $testTime:		newField(mods, "long", "testTime", 0);
 	$class.exec $adapt: 		newField(mods, "boolean", "adapt", false);
 	$class.exec $init: 			newField(mods, "boolean", "initialized", false);
