@@ -1,6 +1,8 @@
 package weaver.kadabra;
 
-import static weaver.specification.JavaWeaverResource.*;
+import static weaver.specification.JavaWeaverResource.ACTIONS;
+import static weaver.specification.JavaWeaverResource.ARTIFACTS;
+import static weaver.specification.JavaWeaverResource.JOINPOINTS;
 
 import java.io.File;
 import java.io.IOException;
@@ -103,11 +105,11 @@ public class JavaWeaver extends AJavaWeaver {
      * Set a file/folder in the weaver if it is valid file/folder type for the weaver.
      *
      * @param sources
-     *                      the file with the source code
+     *            the file with the source code
      * @param outputDir
-     *                      output directory for the generated file(s)
+     *            output directory for the generated file(s)
      * @param args
-     *                      arguments to start the weaver
+     *            arguments to start the weaver
      * @return true if the file type is valid
      */
     @Override
@@ -372,7 +374,7 @@ public class JavaWeaver extends AJavaWeaver {
      * {@link JavaWeaver} instance.
      *
      * @param sources
-     *                    the input sources to parse
+     *            the input sources to parse
      * @return
      */
     private JWSpoonLauncher newSpoon(List<File> sources, File outputDir) {
@@ -528,7 +530,7 @@ public class JavaWeaver extends AJavaWeaver {
 
     /**
      * @param clearOutputFolder
-     *                              the clearOutputFolder to set
+     *            the clearOutputFolder to set
      */
     public void setClearOutputFolder(boolean clearOutputFolder) {
         this.clearOutputFolder = clearOutputFolder;
