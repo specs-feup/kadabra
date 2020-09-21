@@ -413,6 +413,12 @@ public class SpoonUtils {
         if (!(target instanceof CtStatement)) {
             return false;
         }
+
+        // If parent not initialized, then is not in Block
+        // if (!target.isParentInitialized()) {
+        // return false;
+        // }
+
         return target.getParent() instanceof CtBlock;
     }
 

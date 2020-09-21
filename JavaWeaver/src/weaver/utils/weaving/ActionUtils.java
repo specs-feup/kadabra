@@ -233,14 +233,19 @@ public class ActionUtils {
         // var snippet2 = SnippetFactory.createSnippetStatement(snippet.toString(), node.getFactory());
         // var snippet2 = SnippetFactory.createSnippetExpression(node.getFactory(), snippet.toString());
         // node.replace(snippet2);
+        // System.out.println("NODE: " + node);
+        // System.out.println("PARENT INIT:" + node.isParentInitialized());
 
         // Special case if expression is a block statement
         if (SpoonUtils.isStatementInBlock(node)) {
             var code = snippet.toString();
             snippet = SnippetFactory.createSnippetStatement(code, node.getFactory());
+            // System.out.println("SPECIAL");
         }
 
         node.replace(snippet);
+
+        // System.out.println("SNIPPET INIT:" + snippet.isParentInitialized());
         // System.out.println("SNIPPET: " + snippet.getClass());
 
         // Removes parent from original node
