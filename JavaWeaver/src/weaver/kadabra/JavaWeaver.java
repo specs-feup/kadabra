@@ -19,6 +19,7 @@ import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecutor;
 import org.apache.commons.io.FileUtils;
 import org.lara.interpreter.joptions.config.interpreter.LaraiKeys;
+import org.lara.interpreter.weaver.ast.AstMethods;
 import org.lara.interpreter.weaver.interf.AGear;
 import org.lara.interpreter.weaver.interf.JoinPoint;
 import org.lara.interpreter.weaver.options.WeaverOption;
@@ -51,6 +52,7 @@ import weaver.kadabra.spoon.extensions.printer.KadabraPrettyPrinter;
 import weaver.kadabra.util.KadabraLog;
 import weaver.options.JavaWeaverKeys;
 import weaver.options.JavaWeaverOption;
+import weaver.utils.KadabraAstMethods;
 import weaver.utils.SpoonUtils;
 import weaver.utils.processors.IfProcessor;
 import weaver.utils.weaving.AnnotationsTable;
@@ -621,6 +623,11 @@ public class JavaWeaver extends AJavaWeaver {
     @Override
     public Set<String> getLanguages() {
         return LANGUAGES;
+    }
+
+    @Override
+    public AstMethods getAstMethods() {
+        return new KadabraAstMethods(this);
     }
 
 }
