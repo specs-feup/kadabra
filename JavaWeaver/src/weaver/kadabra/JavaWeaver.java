@@ -48,6 +48,7 @@ import weaver.kadabra.gears.LoggingGear;
 import weaver.kadabra.gears.Report;
 import weaver.kadabra.joinpoints.JApp;
 import weaver.kadabra.spoon.extensions.launcher.JWSpoonLauncher;
+import weaver.kadabra.spoon.extensions.nodes.CtApp;
 import weaver.kadabra.spoon.extensions.printer.KadabraPrettyPrinter;
 import weaver.kadabra.util.KadabraLog;
 import weaver.options.JavaWeaverKeys;
@@ -630,4 +631,8 @@ public class JavaWeaver extends AJavaWeaver {
         return new KadabraAstMethods(this);
     }
 
+    @Override
+    public Object getRootNode() {
+        return new CtApp(spoon);
+    }
 }

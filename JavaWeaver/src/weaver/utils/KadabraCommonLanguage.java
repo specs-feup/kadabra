@@ -20,6 +20,7 @@ import spoon.reflect.declaration.CtCompilationUnit;
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtNamedElement;
+import weaver.kadabra.spoon.extensions.nodes.CtApp;
 
 public class KadabraCommonLanguage {
 
@@ -31,7 +32,7 @@ public class KadabraCommonLanguage {
         JOINPOINT_MAPPER.put(CtMethod.class, "FunctionJp");
         JOINPOINT_MAPPER.put(CtNamedElement.class, "DeclJp");
         JOINPOINT_MAPPER.put(CtCompilationUnit.class, "FileJp");
-        // JOINPOINT_MAPPER.put(, "ProgramJp");
+        JOINPOINT_MAPPER.put(CtApp.class, "ProgramJp");
         JOINPOINT_MAPPER.put(CtElement.class, "JoinPoint");
     }
 
