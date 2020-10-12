@@ -18,6 +18,7 @@ import org.lara.interpreter.weaver.interf.JoinPoint;
 import org.lara.interpreter.weaver.interf.WeaverEngine;
 
 import spoon.reflect.code.CtBodyHolder;
+import spoon.reflect.declaration.CtCompilationUnit;
 import spoon.reflect.declaration.CtElement;
 import weaver.utils.weaving.converters.CtElement2JoinPoint;
 
@@ -44,6 +45,12 @@ public class KadabraAstMethods extends AAstMethods<CtElement> {
 
     @Override
     protected Object[] getChildrenImpl(CtElement node) {
+
+    	if(node instanceof CtCompilationUnit)
+    		return ((CtCompilationUnit) node).getDeclaredTypes().stream()
+    				.filter(declType -> declType != null)
+    				.toArray();
+    	
         return SpoonUtils.getChildren(node).toArray();
     }
 
