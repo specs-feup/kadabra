@@ -16,6 +16,7 @@ package weaver.utils;
 import pt.up.fe.specs.util.classmap.ClassMap;
 import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.CtInvocation;
+import spoon.reflect.declaration.CtClass;
 import spoon.reflect.declaration.CtCompilationUnit;
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtMethod;
@@ -31,6 +32,7 @@ public class KadabraCommonLanguage {
         JOINPOINT_MAPPER.put(CtExpression.class, "ExprJp");
         JOINPOINT_MAPPER.put(CtMethod.class, "FunctionJp");
         JOINPOINT_MAPPER.put(CtNamedElement.class, "DeclJp");
+        JOINPOINT_MAPPER.put(CtClass.class, "ClassJp");
         JOINPOINT_MAPPER.put(CtCompilationUnit.class, "FileJp");
         JOINPOINT_MAPPER.put(CtApp.class, "ProgramJp");
         JOINPOINT_MAPPER.put(CtElement.class, "JoinPoint");

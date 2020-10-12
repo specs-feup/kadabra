@@ -20,7 +20,9 @@ import org.lara.interpreter.weaver.utils.LaraResourceProvider;
  *
  */
 public enum LaraWeaverApiResource implements LaraResourceProvider {
-
+	KADABRA_CLASS_JP("jp/KadabraClassJp.lara"),
+    KADABRA_JOIN_POINT("jp/KadabraJoinPoint.lara"),
+    KADABRA_JOIN_POINTS("jp/KadabraJoinPoints.lara"),
     JOINPOINTS("JoinPoints.lara");
 
     private final String resource;
