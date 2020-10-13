@@ -11,5 +11,5 @@ ClassJp.prototype.superClasses = function() {
 	if(superClass === null)
 		return [];
 	else 
-		return [CommonJoinPoints.toJoinPoint(superClass)];
+		return [CommonJoinPoints.toJoinPoint(superClass.getDeclaration())];
 }
