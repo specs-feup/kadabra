@@ -1,0 +1,15 @@
+import weaver.jp.MethodJp;
+import weaver.Weaver;
+
+_lara_dummy_ = Object.defineProperty(MethodJp.prototype, 'class', {
+	get: function () {
+		return CommonJoinPoints.toJoinPoint(this.astNode.getDeclaringType());
+	}
+});
+
+_lara_dummy_ = Object.defineProperty(MethodJp.prototype, 'signature', {
+	configurable: true,
+	get: function () {  
+		return this.class.name + "::" + this.astNode.signature; 
+	}
+});

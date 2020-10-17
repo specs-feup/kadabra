@@ -1,0 +1,14 @@
+import weaver.jp.MemberCallJp;
+import weaver.Weaver;
+
+_lara_dummy_ = Object.defineProperty(MemberCallJp.prototype, 'class', {
+	get: function () {
+		return CommonJoinPoints.toJoinPoint(this.astNode.getExecutable().getDeclaringType().getDeclaration());
+	}
+});
+
+_lara_dummy_ = Object.defineProperty(MemberCallJp.prototype, 'method', {
+	get: function () {
+		return this.function;
+	}
+});
