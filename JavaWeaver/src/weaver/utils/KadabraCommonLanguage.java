@@ -28,9 +28,9 @@ public class KadabraCommonLanguage {
     private static final ClassMap<CtElement, String> JOINPOINT_MAPPER;
     static {
         JOINPOINT_MAPPER = new ClassMap<>();
-        JOINPOINT_MAPPER.put(CtInvocation.class, "CallJp");
+        JOINPOINT_MAPPER.put(CtInvocation.class, "MemberCallJp");
         JOINPOINT_MAPPER.put(CtExpression.class, "ExprJp");
-        JOINPOINT_MAPPER.put(CtMethod.class, "FunctionJp");
+        JOINPOINT_MAPPER.put(CtMethod.class, "MethodJp");
         JOINPOINT_MAPPER.put(CtNamedElement.class, "DeclJp");
         JOINPOINT_MAPPER.put(CtClass.class, "ClassJp");
         JOINPOINT_MAPPER.put(CtCompilationUnit.class, "FileJp");
