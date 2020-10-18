@@ -8,4 +8,6 @@ import weaver.jp.KadabraMethodJp;
 import weaver.jp.KadabraFunctionJp;
 import weaver.jp.KadabraCallJp;
 import weaver.jp.KadabraMemberCallJp;
+import weaver.jp.KadabraFieldJp;
+import weaver.jp.KadabraFieldRefJp;
 
