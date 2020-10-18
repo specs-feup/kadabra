@@ -19,8 +19,10 @@ import spoon.reflect.code.CtInvocation;
 import spoon.reflect.declaration.CtClass;
 import spoon.reflect.declaration.CtCompilationUnit;
 import spoon.reflect.declaration.CtElement;
+import spoon.reflect.declaration.CtField;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtNamedElement;
+import spoon.reflect.reference.CtFieldReference;
 import weaver.kadabra.spoon.extensions.nodes.CtApp;
 
 public class KadabraCommonLanguage {
@@ -28,6 +30,8 @@ public class KadabraCommonLanguage {
     private static final ClassMap<CtElement, String> JOINPOINT_MAPPER;
     static {
         JOINPOINT_MAPPER = new ClassMap<>();
+        JOINPOINT_MAPPER.put(CtFieldReference.class, "FieldRefJp");
+        JOINPOINT_MAPPER.put(CtField.class, "FieldJp");
         JOINPOINT_MAPPER.put(CtInvocation.class, "MemberCallJp");
         JOINPOINT_MAPPER.put(CtExpression.class, "ExprJp");
         JOINPOINT_MAPPER.put(CtMethod.class, "MethodJp");
