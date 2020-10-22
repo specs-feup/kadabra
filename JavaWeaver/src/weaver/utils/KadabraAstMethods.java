@@ -64,4 +64,9 @@ public class KadabraAstMethods extends AAstMethods<CtElement> {
         return new Object[0];
     }
 
+	@Override
+	protected Object getParentImpl(CtElement node) {
+		return node.getParent();
+	}
+
 }
