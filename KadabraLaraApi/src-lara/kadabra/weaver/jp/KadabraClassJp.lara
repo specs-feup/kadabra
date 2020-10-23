@@ -22,3 +22,11 @@ _lara_dummy_ = Object.defineProperty(ClassJp.prototype, 'methods', {
 		return CommonJoinPoints.toJoinPoints(Weaver.toJs(this.astNode.getMethods()));
 	}
 });
+
+ClassJp.prototype.equals = function(classJp) {
+	if(!this.sameTypeAs(classJp))
+		return false;
+		
+	return this.name === classJp.name;
+	
+}

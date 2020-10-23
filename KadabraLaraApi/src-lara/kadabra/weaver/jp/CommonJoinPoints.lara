@@ -1,7 +1,7 @@
 // Patches weaver.JoinPoint and other classes
 import weaver.jp.JoinPointsCommonPath;
 
-// Enable Clava version of common join points
+// Enable Kadabra version of common join points
 import weaver.jp.KadabraJoinPoint;
 import weaver.jp.KadabraClassJp;
 import weaver.jp.KadabraMethodJp;
@@ -10,4 +10,7 @@ import weaver.jp.KadabraCallJp;
 import weaver.jp.KadabraMemberCallJp;
 import weaver.jp.KadabraFieldJp;
 import weaver.jp.KadabraFieldRefJp;
-
+import weaver.jp.KadabraTypeJp;
+import weaver.jp.KadabraVarDeclJp;
+import weaver.jp.KadabraVarRefJp;
+import weaver.jp.KadabraParamJp;

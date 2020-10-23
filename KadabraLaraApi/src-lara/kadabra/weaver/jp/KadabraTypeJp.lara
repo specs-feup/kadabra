@@ -1,0 +1,52 @@
+import weaver.jp.TypeJp;
+import weaver.Weaver;
+
+
+_lara_dummy_ = Object.defineProperty(TypeJp.prototype, 'kind', {
+	get: function () { 
+		return this.astNode.getClass().getSimpleName();  
+	}
+});
+
+
+_lara_dummy_ = Object.defineProperty(TypeJp.prototype, 'isArray', {
+	get: function () { 
+		return this.astNode.isArray();  
+	}
+});
+
+_lara_dummy_ = Object.defineProperty(TypeJp.prototype, 'isPointer', {
+	get: function () { 
+		return false;  
+	}
+});
+
+_lara_dummy_ = Object.defineProperty(TypeJp.prototype, 'isPrimitive', {
+	get: function () { 
+		return this.astNode.isPrimitive();
+	}
+});
+
+// TODO:  Every object is a class
+_lara_dummy_ = Object.defineProperty(TypeJp.prototype, 'isClass', {
+	get: function () {
+		return this.astNode.isClass();
+	}
+});
+
+_lara_dummy_ = Object.defineProperty(TypeJp.prototype, 'decl', {
+	get: function () {
+		return CommonJoinPoints.toJoinPoint(this.astNode.getDeclaration());
+	}
+});
+
+// TODO: It currently returns duplicates
+_lara_dummy_ = Object.defineProperty(TypeJp.prototype, 'usedTypes', {
+	get: function () {
+		return [this].concat(this.descendants);
+	
+	}
+});
+
+
+

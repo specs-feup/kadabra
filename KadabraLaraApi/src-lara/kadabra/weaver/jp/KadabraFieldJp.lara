@@ -13,3 +13,10 @@ _lara_dummy_ = Object.defineProperty(FieldJp.prototype, 'class', {
 		return CommonJoinPoints.toJoinPoint(this.astNode.getDeclaringType());
 	}
 });
+
+_lara_dummy_ = Object.defineProperty(FieldJp.prototype, 'type', {
+	get: function () {
+		return CommonJoinPoints.toJoinPoint(this.astNode.getType());
+	}
+});
+

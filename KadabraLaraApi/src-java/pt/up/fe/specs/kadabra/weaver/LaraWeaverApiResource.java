@@ -20,6 +20,10 @@ import org.lara.interpreter.weaver.utils.LaraResourceProvider;
  *
  */
 public enum LaraWeaverApiResource implements LaraResourceProvider {
+	KADABRA_PARAM_JP("jp/KadabraParamJp.lara"),
+	KADABRA_VAR_REF_JP("jp/KadabraVarRefJp.lara"),
+	KADABRA_VAR_DECL_JP("jp/KadabraVarDeclJp.lara"),	
+	KADABRA_TYPE_JP("jp/KadabraTypeJp.lara"),
 	KADABRA_FIELD_JP("jp/KadabraFieldJp.lara"),
 	KADABRA_FIELD_REF_JP("jp/KadabraFieldRefJp.lara"),
 	KADABRA_MEMBER_CALL_JP("jp/KadabraMemberCallJp.lara"),
