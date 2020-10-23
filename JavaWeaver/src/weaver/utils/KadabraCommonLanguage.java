@@ -16,13 +16,17 @@ package weaver.utils;
 import pt.up.fe.specs.util.classmap.ClassMap;
 import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtLocalVariable;
 import spoon.reflect.declaration.CtClass;
 import spoon.reflect.declaration.CtCompilationUnit;
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtField;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtNamedElement;
+import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.reference.CtFieldReference;
+import spoon.reflect.reference.CtLocalVariableReference;
+import spoon.reflect.reference.CtTypeReference;
 import weaver.kadabra.spoon.extensions.nodes.CtApp;
 
 public class KadabraCommonLanguage {
@@ -30,13 +34,17 @@ public class KadabraCommonLanguage {
     private static final ClassMap<CtElement, String> JOINPOINT_MAPPER;
     static {
         JOINPOINT_MAPPER = new ClassMap<>();
+        JOINPOINT_MAPPER.put(CtLocalVariableReference.class, "VarRefJp");
+        JOINPOINT_MAPPER.put(CtLocalVariable.class, "VarDeclJp");
+        JOINPOINT_MAPPER.put(CtParameter.class, "ParamJp");
+        JOINPOINT_MAPPER.put(CtTypeReference.class, "TypeJp");        
         JOINPOINT_MAPPER.put(CtFieldReference.class, "FieldRefJp");
         JOINPOINT_MAPPER.put(CtField.class, "FieldJp");
         JOINPOINT_MAPPER.put(CtInvocation.class, "MemberCallJp");
         JOINPOINT_MAPPER.put(CtExpression.class, "ExprJp");
         JOINPOINT_MAPPER.put(CtMethod.class, "MethodJp");
+        JOINPOINT_MAPPER.put(CtClass.class, "ClassJp");     
         JOINPOINT_MAPPER.put(CtNamedElement.class, "DeclJp");
-        JOINPOINT_MAPPER.put(CtClass.class, "ClassJp");
         JOINPOINT_MAPPER.put(CtCompilationUnit.class, "FileJp");
         JOINPOINT_MAPPER.put(CtApp.class, "ProgramJp");
         JOINPOINT_MAPPER.put(CtElement.class, "JoinPoint");
