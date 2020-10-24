@@ -30,13 +30,17 @@ _lara_dummy_ = Object.defineProperty(TypeJp.prototype, 'isPrimitive', {
 // TODO:  Every object is a class
 _lara_dummy_ = Object.defineProperty(TypeJp.prototype, 'isClass', {
 	get: function () {
+		// TODO: This is required because CtArrayTypeReferenceImpl.isClass() gives an error
+		if(this.isArray)
+			return false;
+
 		return this.astNode.isClass();
 	}
 });
 
 _lara_dummy_ = Object.defineProperty(TypeJp.prototype, 'decl', {
 	get: function () {
-		return CommonJoinPoints.toJoinPoint(this.astNode.getDeclaration());
+		return CommonJoinPoints.toJoinPoint(this.astNode.getTypeDeclaration());
 	}
 });
 

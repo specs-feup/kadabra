@@ -9,12 +9,12 @@ _lara_dummy_ = Object.defineProperty(FieldRefJp.prototype, 'name', {
 
 _lara_dummy_ = Object.defineProperty(FieldRefJp.prototype, 'class', {
 	get: function () {
-		return CommonJoinPoints.toJoinPoint(this.astNode.getDeclaringType().getDeclaration());
+		return CommonJoinPoints.toJoinPoint(this.astNode.getDeclaringType().getTypeDeclaration());
 	}
 });
 
 _lara_dummy_ = Object.defineProperty(FieldRefJp.prototype, 'field', {
 	get: function () {
-		return CommonJoinPoints.toJoinPoint(this.astNode.getDeclaration());
+		return CommonJoinPoints.toJoinPoint(this.astNode.getFieldDeclaration());
 	}
 });

@@ -1,6 +1,12 @@
 import weaver.jp.ClassJp;
 import weaver.Weaver;
 
+_lara_dummy_ = Object.defineProperty(ClassJp.prototype, 'id', {
+	get: function () { 
+		return this.name; 
+	}
+});
+
 _lara_dummy_ = Object.defineProperty(ClassJp.prototype, 'name', {
 	get: function () { 
 		return Weaver.AST_METHODS.toJavaJoinPoint(this.astNode).name; 
@@ -13,7 +19,7 @@ _lara_dummy_ = Object.defineProperty(ClassJp.prototype, 'superClasses', {
 		if(superClass === null)
 			return [];
 		else 
-			return [CommonJoinPoints.toJoinPoint(superClass.getDeclaration())];
+			return [CommonJoinPoints.toJoinPoint(superClass.getTypeDeclaration())];
 	}
 });
 
