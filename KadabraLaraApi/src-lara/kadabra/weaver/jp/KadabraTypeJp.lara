@@ -30,11 +30,11 @@ _lara_dummy_ = Object.defineProperty(TypeJp.prototype, 'isPrimitive', {
 // TODO:  Every object is a class
 _lara_dummy_ = Object.defineProperty(TypeJp.prototype, 'isClass', {
 	get: function () {
-		// TODO: This is required because CtArrayTypeReferenceImpl.isClass() gives an error
-		if(this.isArray)
-			return false;
-
-		return this.astNode.isClass();
+		//This is required because CtArrayTypeReferenceImpl.isClass() gives an error
+		//when class is user defined
+		return !this.isArray 
+			&& !this.isPrimitive
+			&& this.astNode.isClass();
 	}
 });
 
