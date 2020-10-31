@@ -3,6 +3,20 @@ import weaver.Weaver;
 
 _lara_dummy_ = Object.defineProperty(JoinPoint.prototype, 'line', {
 	get: function () { 
-		return Weaver.AST_METHODS.toJavaJoinPoint(this.astNode).line; 
+		return this.astNode.getPosition().getLine(); 
+	}
+});
+
+
+_lara_dummy_ = Object.defineProperty(JoinPoint.prototype, 'endLine', {
+	get: function () { 
+		return this.astNode.getPosition().getEndLine(); 
+	}
+});
+
+
+_lara_dummy_ = Object.defineProperty(JoinPoint.prototype, 'code', {
+	get: function () { 
+		return Weaver.AST_METHODS.toJavaJoinPoint(this.astNode).code; 
 	}
 });

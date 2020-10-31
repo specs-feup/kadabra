@@ -11,6 +11,11 @@ import weaver.jp.KadabraTypeJp;
 import weaver.jp.KadabraVarDeclJp;
 import weaver.jp.KadabraVarRefJp;
 import weaver.jp.KadabraParamJp;
+import weaver.jp.KadabraConstructorJp;
+import weaver.jp.KadabraConstructorCallJp;
+import weaver.jp.KadabraLoopJp;
+import weaver.jp.KadabraIfJp;
+import weaver.jp.KadabraBinaryJp;
 
 // Patches weaver.JoinPoint and other classes
 import weaver.jp.JoinPointsCommonPath;

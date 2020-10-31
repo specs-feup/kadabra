@@ -8,7 +8,6 @@ _lara_dummy_ = Object.defineProperty(MethodJp.prototype, 'class', {
 });
 
 _lara_dummy_ = Object.defineProperty(MethodJp.prototype, 'signature', {
-	configurable: true,
 	get: function () {  
 		return this.class.name + "::" + this.astNode.signature; 
 	}

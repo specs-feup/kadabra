@@ -1,6 +1,11 @@
 import weaver.jp.FieldJp;
 import weaver.Weaver;
 
+_lara_dummy_ = Object.defineProperty(FieldJp.prototype, 'id', {
+	get: function () { 
+		return this.name; 
+	}
+});
 
 _lara_dummy_ = Object.defineProperty(FieldJp.prototype, 'name', {
 	get: function () { 

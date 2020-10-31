@@ -1,0 +1,53 @@
+import weaver.jp.BinaryJp;
+import weaver.Weaver;
+
+_lara_dummy_ = Object.defineProperty(BinaryJp.prototype, 'kind', {
+	get: function () {
+		var kind = this.astNode.getKind().toString();
+		switch (kind) {
+		  	case 'AND':
+		    	return '&&';
+			case 'BITAND':
+		    	return '&';
+		    case 'BITOR':
+		    	return '|';
+			case 'BITXOR':
+		    	return '^';
+		    case 'DIV':
+		    	return '/';
+			case 'EQ':
+		    	return '==';
+		    case 'GE':
+		    	return '>=';
+			case 'GT':
+		    	return '>';
+		    case 'INSTANCEOF':
+		    	return 'instanceof';
+			case 'LE':
+		    	return '<=';
+		    case 'LT':
+		    	return '<';
+			case 'MINUS':
+		    	return '-';
+		    case 'MOD':
+		    	return '%';
+		    case 'MUL':
+		    	return '*';
+		    case 'NE':
+		    	return '!=';
+		    case 'OR':
+		    	return '||';
+			case 'PLUS':
+		    	return '+';
+		    case 'SL':
+		    	return '<<';
+		    case 'SR':
+		    	return '>>';
+		    case 'USR':
+		    	return '>>>';
+		  	default:
+		  		throw "Not recognized binary Operator: " + kind; 
+		}	 
+
+	}
+});

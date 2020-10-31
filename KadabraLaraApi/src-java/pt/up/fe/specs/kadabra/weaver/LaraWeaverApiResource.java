@@ -20,6 +20,11 @@ import org.lara.interpreter.weaver.utils.LaraResourceProvider;
  *
  */
 public enum LaraWeaverApiResource implements LaraResourceProvider {
+	KADABRA_LOOP_JP("jp/KadabraLoopJp.lara"),
+	KADABRA_IF_JP("jp/KadabraIfJp.lara"),
+	KADABRA_BINARY_JP("jp/KadabraBinaryJp.lara"),
+	KADABRA_CONSTRUCTOR_CALL_JP("jp/KadabraConstructorCallJp.lara"),
+	KADABRA_CONSTRUCTOR_JP("jp/KadabraConstructorJp.lara"),
 	KADABRA_PARAM_JP("jp/KadabraParamJp.lara"),
 	KADABRA_VAR_REF_JP("jp/KadabraVarRefJp.lara"),
 	KADABRA_VAR_DECL_JP("jp/KadabraVarDeclJp.lara"),	
