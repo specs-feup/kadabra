@@ -73,6 +73,11 @@ public class JavaWeaverTest {
     }
 
     @Test
+    public void testAst2() {
+        newTester().test("Ast2.lara", "Ast2.java.test");
+    }
+
+    @Test
     public void testType() {
         newTester().test("Type.lara", "Type.java.test");
     }
