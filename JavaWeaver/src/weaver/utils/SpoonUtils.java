@@ -444,7 +444,19 @@ public class SpoonUtils {
 
         return node.getDirectChildren().stream()
                 // Remove implicit nodes
-                .filter(child -> !child.isImplicit())
+                // .filter(child -> !child.isImplicit())
+                .filter(SpoonUtils::isValidChild)
                 .collect(Collectors.toList());
+    }
+
+    private static boolean isValidChild(CtElement node) {
+
+        // Always return blocks of statements, even if implicit
+        if (node instanceof CtBlock) {
+            return true;
+        }
+
+        // If node is implicit, remove by default
+        return !node.isImplicit();
     }
 }
