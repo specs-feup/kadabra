@@ -12,3 +12,10 @@ _lara_dummy_ = Object.defineProperty(MethodJp.prototype, 'signature', {
 		return this.class.name + "::" + this.astNode.signature; 
 	}
 });
+
+_lara_dummy_ = Object.defineProperty(MethodJp.prototype, 'isCustom', {
+	get: function () {		
+		return !this.astNode.isShadow(); 
+	}
+});
+

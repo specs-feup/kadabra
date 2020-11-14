@@ -38,3 +38,9 @@ _lara_dummy_ = Object.defineProperty(LoopJp.prototype, 'hasCondition', {
 	}
 });
 
+_lara_dummy_ = Object.defineProperty(LoopJp.prototype, 'body', {
+	get: function () {	
+		return CommonJoinPoints.toJoinPoint(this.astNode.getBody());
+	}
+});
+

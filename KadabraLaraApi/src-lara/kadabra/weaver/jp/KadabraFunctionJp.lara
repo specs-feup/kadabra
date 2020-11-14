@@ -3,7 +3,7 @@ import weaver.Weaver;
 
 _lara_dummy_ = Object.defineProperty(FunctionJp.prototype, 'id', {
 	get: function () {
-		return this.name; 
+		return this.signature; 
 	}
 });
 

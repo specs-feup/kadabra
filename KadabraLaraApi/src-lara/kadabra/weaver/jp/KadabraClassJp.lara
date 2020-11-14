@@ -67,3 +67,12 @@ ClassJp.prototype.equals = function(classJp) {
 	return this.name === classJp.name;
 	
 }
+
+_lara_dummy_ = Object.defineProperty(ClassJp.prototype, 'isCustom', {
+	get: function () {
+		
+		return !this.astNode.isShadow(); 
+	}
+});
+
+

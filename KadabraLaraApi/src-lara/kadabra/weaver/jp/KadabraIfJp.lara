@@ -7,3 +7,9 @@ _lara_dummy_ = Object.defineProperty(IfJp.prototype, 'condition', {
 	}
 });
 
+_lara_dummy_ = Object.defineProperty(IfJp.prototype, 'then', {
+	get: function () {
+		return CommonJoinPoints.toJoinPoint(this.astNode.getThenStatement());
+	}
+});
+
