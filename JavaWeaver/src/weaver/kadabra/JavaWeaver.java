@@ -415,7 +415,19 @@ public class JavaWeaver extends AJavaWeaver {
         if (!classPath.isEmpty()) {
 
             try {
-                List<String> filesStr = classPath.stream().map(SpecsIo::getCanonicalPath).collect(Collectors.toList());
+                // Process classpath
+                // If there are JARs present in folders, add them as indivual classpaths
+                List<File> processedClasspath = new ArrayList<>();
+                processedClasspath.addAll(classPath);
+                var additionalJars = classPath.stream()
+                        .filter(classPath -> classPath.isDirectory())
+                        .flatMap(folder -> SpecsIo.getFiles(folder, "jar").stream())
+                        .collect(Collectors.toList());
+                SpecsLogs.debug("Adding JARs to classpath: " + additionalJars);
+                processedClasspath.addAll(additionalJars);
+
+                List<String> filesStr = processedClasspath.stream().map(SpecsIo::getCanonicalPath)
+                        .collect(Collectors.toList());
                 String[] classPathArray = filesStr.toArray(new String[0]);
                 // KadabraLog.info(filesStr);
                 environment.setSourceClasspath(classPathArray);
