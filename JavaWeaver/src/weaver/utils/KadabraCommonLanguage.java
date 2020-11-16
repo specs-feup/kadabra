@@ -13,6 +13,7 @@
 
 package weaver.utils;
 
+
 import pt.up.fe.specs.util.classmap.FunctionClassMap;
 import spoon.reflect.code.CtBinaryOperator;
 import spoon.reflect.code.CtBreak;
@@ -63,7 +64,7 @@ public class KadabraCommonLanguage {
 		JOINPOINT_MAPPER.put(CtCase.class, KadabraCommonLanguage::ctCase);
 		JOINPOINT_MAPPER.put(CtSwitch.class, node -> "SwitchJp");
 		JOINPOINT_MAPPER.put(CtIf.class, node -> "IfJp");
-		JOINPOINT_MAPPER.put(CtStatement.class, node -> "StmtJp");
+		JOINPOINT_MAPPER.put(CtStatement.class, KadabraCommonLanguage::ctStatement);
 		JOINPOINT_MAPPER.put(CtConstructorCall.class, node -> "ConstructorCallJp");
 		JOINPOINT_MAPPER.put(CtConstructor.class, node -> "ConstructorJp");
 		JOINPOINT_MAPPER.put(CtLocalVariableReference.class, node -> "VarRefJp");
@@ -95,5 +96,22 @@ public class KadabraCommonLanguage {
 		return "CaseJp";
 
 	}
+	
+	private static String ctStatement(CtStatement node) {
+
+		if (node.getParent() instanceof CtIf) {
+			CtIf ifStmt = (CtIf) node.getParent();
+
+			if (ifStmt.getElseStatement() != null && ifStmt.getElseStatement() == node)
+				return "ElseJp";
+
+			if (ifStmt.getThenStatement() != null && ifStmt.getThenStatement() == node)
+				return "ThenJp";
+
+		}
+			return "StmtJp";
+
+	}
+
 
 }
