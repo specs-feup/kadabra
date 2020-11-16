@@ -20,6 +20,7 @@ import org.lara.interpreter.weaver.utils.LaraResourceProvider;
  *
  */
 public enum LaraWeaverApiResource implements LaraResourceProvider {
+	KADABRA_ELSE_JP("jp/KadabraElseJp.lara"),
 	KADABRA_FILE_JP("jp/KadabraFileJp.lara"),
 	KADABRA_LOOP_JP("jp/KadabraLoopJp.lara"),
 	KADABRA_IF_JP("jp/KadabraIfJp.lara"),

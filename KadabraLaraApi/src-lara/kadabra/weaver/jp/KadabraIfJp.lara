@@ -13,3 +13,23 @@ _lara_dummy_ = Object.defineProperty(IfJp.prototype, 'then', {
 	}
 });
 
+_lara_dummy_ = Object.defineProperty(IfJp.prototype, 'else', {
+	get: function () {
+		if(this.hasElse)
+			return CommonJoinPoints.toJoinPoint(this.astNode.getElseStatement());
+		return null;
+	}
+});
+
+_lara_dummy_ = Object.defineProperty(IfJp.prototype, 'hasElse', {
+	get: function () {
+		return this.astNode.getElseStatement() !== null;
+	}
+});
+
+_lara_dummy_ = Object.defineProperty(IfJp.prototype, 'isElseIf', {
+	get: function () { 
+		return this.parent.instanceOf("else") && this.parent.isElseIf; 
+	}
+});
+

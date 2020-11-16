@@ -1,0 +1,9 @@
+import weaver.jp.ElseJp;
+import weaver.Weaver;
+
+_lara_dummy_ = Object.defineProperty(ElseJp.prototype, 'isElseIf', {
+	get: function () { 
+		return this.children.length === 1 && this.children[0].instanceOf("if"); 
+	}
+});
+

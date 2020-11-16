@@ -17,6 +17,7 @@ import weaver.jp.KadabraLoopJp;
 import weaver.jp.KadabraIfJp;
 import weaver.jp.KadabraBinaryJp;
 import weaver.jp.KadabraFileJp;
+import weaver.jp.KadabraElseJp;
 
 // Patches weaver.JoinPoint and other classes
 import weaver.jp.JoinPointsCommonPath;
