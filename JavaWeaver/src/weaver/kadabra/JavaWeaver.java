@@ -416,7 +416,7 @@ public class JavaWeaver extends AJavaWeaver {
 
             try {
                 // Process classpath
-                // If there are JARs present in folders, add them as indivual classpaths
+                // If there are JARs present in folders, add them as individual classpaths
                 List<File> processedClasspath = new ArrayList<>();
                 processedClasspath.addAll(classPath);
                 var additionalJars = classPath.stream()
