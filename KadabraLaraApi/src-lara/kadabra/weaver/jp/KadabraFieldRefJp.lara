@@ -15,6 +15,9 @@ _lara_dummy_ = Object.defineProperty(FieldRefJp.prototype, 'class', {
 
 _lara_dummy_ = Object.defineProperty(FieldRefJp.prototype, 'field', {
 	get: function () {
-		return CommonJoinPoints.toJoinPoint(this.astNode.getFieldDeclaration());
+		var field = this.astNode.getFieldDeclaration();
+		if(field!==null)
+			return CommonJoinPoints.toJoinPoint(field);
+		else return null;
 	}
 });

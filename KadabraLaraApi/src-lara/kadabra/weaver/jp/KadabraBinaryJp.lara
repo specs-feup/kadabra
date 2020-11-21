@@ -51,3 +51,33 @@ _lara_dummy_ = Object.defineProperty(BinaryJp.prototype, 'kind', {
 
 	}
 });
+
+_lara_dummy_ = Object.defineProperty(BinaryJp.prototype, 'isInnerExpr', {
+	get: function () {
+		var parent = this.parent;
+		
+		if(parent !== null && parent.instanceOf('expr'))
+			return true;
+
+		return false;    
+
+	}
+});
+
+_lara_dummy_ = Object.defineProperty(BinaryJp.prototype, 'outerExpr', {
+	get: function () {
+		var parent = this.parent;
+
+		if(parent !== null && parent.instanceOf('expr'))
+			return parent;
+
+		return false;    
+	}
+});
+
+_lara_dummy_ = Object.defineProperty(BinaryJp.prototype, 'isLogicOp', {
+	get: function () { 
+		var kind = this.kind;
+		return kind === '&&' || kind === '||'; 
+	}
+});

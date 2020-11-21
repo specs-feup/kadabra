@@ -1,3 +1,16 @@
 import weaver.jp.ConstructorJp;
 import weaver.Weaver;
 
+
+lara_dummy_ = Object.defineProperty(ConstructorJp.prototype, 'name', {
+	get: function () {
+		return this.class.name;
+	}
+});
+
+
+_lara_dummy_ = Object.defineProperty(ConstructorJp.prototype, 'superCalls', {
+	get: function () {
+		return []; 
+	}
+});
