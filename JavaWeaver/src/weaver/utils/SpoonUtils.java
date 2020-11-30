@@ -449,6 +449,14 @@ public class SpoonUtils {
                 .collect(Collectors.toList());
     }
 
+    public static CtElement[] getChildrenArray(CtElement node) {
+        return node.getDirectChildren().stream()
+                // Remove implicit nodes
+                // .filter(child -> !child.isImplicit())
+                .filter(SpoonUtils::isValidChild)
+                .toArray(size -> new CtElement[size]);
+    }
+
     private static boolean isValidChild(CtElement node) {
 
         // Always return blocks of statements, even if implicit

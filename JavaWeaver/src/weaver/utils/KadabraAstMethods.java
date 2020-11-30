@@ -46,27 +46,28 @@ public class KadabraAstMethods extends AAstMethods<CtElement> {
     @Override
     protected Object[] getChildrenImpl(CtElement node) {
 
-    	if(node instanceof CtCompilationUnit)
-    		return ((CtCompilationUnit) node).getDeclaredTypes().stream()
-    				.filter(declType -> declType != null)
-    				.toArray();
-    	
-        return SpoonUtils.getChildren(node).toArray();
+        if (node instanceof CtCompilationUnit)
+            return ((CtCompilationUnit) node).getDeclaredTypes().stream()
+                    .filter(declType -> declType != null)
+                    .toArray();
+
+        return SpoonUtils.getChildrenArray(node);
     }
 
     @Override
     protected Object[] getScopeChildrenImpl(CtElement node) {
         if (node instanceof CtBodyHolder) {
             var body = ((CtBodyHolder) node).getBody();
-            return SpoonUtils.getChildren(body).toArray();
+
+            return SpoonUtils.getChildrenArray(body);
         }
 
         return new Object[0];
     }
 
-	@Override
-	protected Object getParentImpl(CtElement node) {
-		return node.getParent();
-	}
+    @Override
+    protected Object getParentImpl(CtElement node) {
+        return node.getParent();
+    }
 
 }
