@@ -3,7 +3,14 @@ import weaver.Weaver;
 
 _lara_dummy_ = Object.defineProperty(MemberCallJp.prototype, 'class', {
 	get: function () {
-		return CommonJoinPoints.toJoinPoint(this.astNode.getExecutable().getDeclaringType().getTypeDeclaration());
+		var classType = this.astNode.getExecutable().getDeclaringType();
+		if(classType !==null){
+			var classDecl = classType.getTypeDeclaration();
+			if(classDecl !==null){
+				return CommonJoinPoints.toJoinPoint(classDecl);
+			}		
+		}
+		return null;
 	}
 });
 

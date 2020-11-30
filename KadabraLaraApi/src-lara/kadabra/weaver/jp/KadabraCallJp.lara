@@ -8,8 +8,11 @@ _lara_dummy_ = Object.defineProperty(CallJp.prototype, 'name', {
 });
 
 _lara_dummy_ = Object.defineProperty(CallJp.prototype, 'function', {
-	get: function () {	
-		return CommonJoinPoints.toJoinPoint(this.astNode.getExecutable().getExecutableDeclaration());			
+	get: function () {
+		var func = this.astNode.getExecutable().getExecutableDeclaration();
+		if(func !== null)	
+			return CommonJoinPoints.toJoinPoint(func);
+		return null;			
 	}
 });
 

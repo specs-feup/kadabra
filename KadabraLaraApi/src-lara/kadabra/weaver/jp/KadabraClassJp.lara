@@ -16,10 +16,13 @@ _lara_dummy_ = Object.defineProperty(ClassJp.prototype, 'name', {
 _lara_dummy_ = Object.defineProperty(ClassJp.prototype, 'superClasses', {
 	get: function () { 
 		var superClass = this.astNode.getSuperclass();
-		if(superClass === null)
-			return [];
-		else 
+		//println(superClass);
+		
+		if(superClass !== null && superClass.getTypeDeclaration() !== null)
 			return [CommonJoinPoints.toJoinPoint(superClass.getTypeDeclaration())];
+		
+		return [];
+		
 	}
 });
 
@@ -37,7 +40,7 @@ _lara_dummy_ = Object.defineProperty(ClassJp.prototype, 'allSuperClasses', {
 });
 
 _lara_dummy_ = Object.defineProperty(ClassJp.prototype, 'methods', {
-	get: function () { 	
+	get: function () { 
 		return CommonJoinPoints.toJoinPoints(Weaver.toJs(this.astNode.getMethods()));
 	}
 });
