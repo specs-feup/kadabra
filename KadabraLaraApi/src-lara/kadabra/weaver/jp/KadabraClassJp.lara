@@ -2,8 +2,16 @@ import weaver.jp.ClassJp;
 import weaver.Weaver;
 
 _lara_dummy_ = Object.defineProperty(ClassJp.prototype, 'id', {
+	get: function () {
+		if(this._package === "unnamed package")
+			return this.name;
+		return this._package+"."+this.name; 
+	}
+});
+
+_lara_dummy_ = Object.defineProperty(ClassJp.prototype, '_package', {
 	get: function () { 
-		return this.name; 
+		return this.astNode.getPackage().toString(); 
 	}
 });
 
