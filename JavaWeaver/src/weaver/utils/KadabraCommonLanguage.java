@@ -25,6 +25,7 @@ import spoon.reflect.code.CtContinue;
 import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.CtIf;
 import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtLambda;
 import spoon.reflect.code.CtLocalVariable;
 import spoon.reflect.code.CtLoop;
 import spoon.reflect.code.CtStatement;
@@ -49,7 +50,8 @@ public class KadabraCommonLanguage {
 	private static final FunctionClassMap<CtElement, String> JOINPOINT_MAPPER;
 	static {
 		JOINPOINT_MAPPER = new FunctionClassMap<>();
-
+		
+		JOINPOINT_MAPPER.put(CtLambda.class, node -> "LambdaJp");
 		JOINPOINT_MAPPER.put(CtContinue.class, node -> "ContinueJp");
 		JOINPOINT_MAPPER.put(CtBreak.class, node -> "BreakJp");
 		JOINPOINT_MAPPER.put(CtThrow.class, node -> "ThrowJp");
@@ -76,7 +78,7 @@ public class KadabraCommonLanguage {
 		JOINPOINT_MAPPER.put(CtInvocation.class, node -> "MemberCallJp");
 		JOINPOINT_MAPPER.put(CtExpression.class, node -> "ExprJp");
 		JOINPOINT_MAPPER.put(CtMethod.class, node -> "MethodJp");
-		JOINPOINT_MAPPER.put(CtClass.class, node -> "ClassJp");
+		JOINPOINT_MAPPER.put(CtClass.class, KadabraCommonLanguage::ctClass);
 		JOINPOINT_MAPPER.put(CtNamedElement.class, node -> "DeclJp");
 		JOINPOINT_MAPPER.put(CtCompilationUnit.class, node -> "FileJp");
 		JOINPOINT_MAPPER.put(CtApp.class, node -> "ProgramJp");
@@ -111,6 +113,16 @@ public class KadabraCommonLanguage {
 		}
 			return "StmtJp";
 
+	}
+	
+	@SuppressWarnings("rawtypes")
+	private static String ctClass(CtClass node) {
+		
+		if(node.isAnonymous())
+			return "JoinPoint";
+		
+		return "ClassJp";	
+		
 	}
 
 
