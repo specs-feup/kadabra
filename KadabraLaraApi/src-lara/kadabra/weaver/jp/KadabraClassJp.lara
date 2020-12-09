@@ -3,9 +3,8 @@ import weaver.Weaver;
 
 _lara_dummy_ = Object.defineProperty(ClassJp.prototype, 'id', {
 	get: function () {
-		if(this._package === "unnamed package" || this._package === null)
-			return this.name;
-		return this._package+"."+this.name; 
+		return this._qualifiedName.replace(/$/g, '.');
+		//return this._qualifiedName.split('$').join('.');
 	}
 });
 
@@ -14,6 +13,12 @@ _lara_dummy_ = Object.defineProperty(ClassJp.prototype, '_package', {
 		if(this.astNode.getPackage() === null)
 			return null; 
 		return this.astNode.getPackage().toString(); 
+	}
+});
+
+_lara_dummy_ = Object.defineProperty(ClassJp.prototype, '_qualifiedName', {
+	get: function () { 
+		return this.astNode.getQualifiedName(); 
 	}
 });
 

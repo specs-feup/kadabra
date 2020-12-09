@@ -9,11 +9,21 @@ _lara_dummy_ = Object.defineProperty(FileJp.prototype, 'name', {
 	}
 });
 
-_lara_dummy_ = Object.defineProperty(FileJp.prototype, 'path', {
+_lara_dummy_ = Object.defineProperty(FileJp.prototype, 'absolutePath', {
 	get: function () { 
 		return this.astNode.getFile().getPath().toString(); 
 	}
 });
+
+_lara_dummy_ = Object.defineProperty(FileJp.prototype, 'path', {
+	get: function () {		
+		var workspacePath = WeaverOptions.getData().get("workspace").toString();
+		var relativePath = this.absolutePath.slice(workspacePath.length + 1);
+		return relativePath; 
+	}
+});
+
+
 
 _lara_dummy_ = Object.defineProperty(FileJp.prototype, 'id', {
 
