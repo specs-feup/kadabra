@@ -3,8 +3,8 @@ import weaver.Weaver;
 
 _lara_dummy_ = Object.defineProperty(ClassJp.prototype, 'id', {
 	get: function () {
-		return this._qualifiedName.replace(/$/g, '.');
-		//return this._qualifiedName.split('$').join('.');
+		//return this._qualifiedName.replace(/\$/g, '.');
+		return this._qualifiedName;
 	}
 });
 
