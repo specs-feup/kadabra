@@ -93,6 +93,7 @@
    		<attribute name="name"				type="String" tooltip="the simple name of the class"/>	
    		<attribute name="qualifiedName"		type="String" tooltip="the qualified name of this class, includes packages"/>	
    		<attribute name="superClass"		type="String" tooltip="name of the superclass this class extends"/>
+  		<attribute name="superClassJp"		type="typeReference" tooltip="the superclass this class extends, or undefined if the class extends java.lang.Object"/>
    		<attribute name="package"			type="String" tooltip="package name of this class"/>
    		<attribute name="interfaces"		type="String[]" tooltip="list of names of interfaces that this class implements" />
    		<attribute name="javadoc"			type="String" />
@@ -310,6 +311,7 @@
 		</attribute>
 		<attribute name="targetType"		type="type"/>
 		<attribute name="returnType"		type="string"/>
+		<attribute name="returnTypeJp"		type="typeReference"/>		
 		<attribute name="arguments"			type="argument[]"/>
 	</artifact>
 	

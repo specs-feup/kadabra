@@ -6028,6 +6028,14 @@
                   "type": "attribute",
                   "children": [
                            {
+                              "type": "typeReference",
+                              "name": "returnTypeJp"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "children": [
+                           {
                               "type": "String",
                               "name": "target"
                            }]
@@ -7434,6 +7442,15 @@
                            {
                               "type": "String",
                               "name": "superClass"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "the superclass this class extends, or undefined if the class extends java.lang.Object",
+                  "children": [
+                           {
+                              "type": "typeReference",
+                              "name": "superClassJp"
                            }]
                },
                {
@@ -9960,6 +9977,15 @@
                            {
                               "type": "String",
                               "name": "superClass"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "the superclass this class extends, or undefined if the class extends java.lang.Object",
+                  "children": [
+                           {
+                              "type": "typeReference",
+                              "name": "superClassJp"
                            }]
                },
                {
@@ -13167,6 +13193,15 @@
                            {
                               "type": "String",
                               "name": "superClass"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "the superclass this class extends, or undefined if the class extends java.lang.Object",
+                  "children": [
+                           {
+                              "type": "typeReference",
+                              "name": "superClassJp"
                            }]
                },
                {
@@ -20623,6 +20658,15 @@
                            {
                               "type": "String",
                               "name": "superClass"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "tooltip": "the superclass this class extends, or undefined if the class extends java.lang.Object",
+                  "children": [
+                           {
+                              "type": "typeReference",
+                              "name": "superClassJp"
                            }]
                },
                {

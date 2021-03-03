@@ -77,6 +77,7 @@ public class JClass<T> extends AClass {
 
     @Override
     public void insertStaticImpl(String code) {
+
         Factory factory = originClass.getFactory();
         CtCodeSnippetStatement snippetStmt = SnippetFactory.createSnippetStatement(code, factory);
         // CtBlock<Void> newBlock = factory.Code().createCtBlock(snippetStmt);

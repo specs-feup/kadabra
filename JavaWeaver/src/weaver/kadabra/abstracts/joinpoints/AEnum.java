@@ -80,6 +80,15 @@ public abstract class AEnum extends AClass {
     }
 
     /**
+     * Get value on attribute superClassJp
+     * @return the attribute's value
+     */
+    @Override
+    public ATypeReference getSuperClassJpImpl() {
+        return this.aClass.getSuperClassJpImpl();
+    }
+
+    /**
      * Get value on attribute _package
      * @return the attribute's value
      */
@@ -471,6 +480,7 @@ public abstract class AEnum extends AClass {
         NAME("name"),
         QUALIFIEDNAME("qualifiedName"),
         SUPERCLASS("superClass"),
+        SUPERCLASSJP("superClassJp"),
         PACKAGE("package"),
         INTERFACES("interfaces"),
         JAVADOC("javadoc"),

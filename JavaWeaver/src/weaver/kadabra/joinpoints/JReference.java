@@ -43,7 +43,12 @@ public class JReference extends AReference {
 
     @Override
     public AJoinPoint getDeclarationImpl() {
-        return CtElement2JoinPoint.convert(node.getDeclaration());
+        var decl = node.getDeclaration();
+        if (decl == null) {
+            return null;
+        }
+
+        return CtElement2JoinPoint.convert(decl);
     }
 
     @Override

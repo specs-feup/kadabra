@@ -223,6 +223,15 @@ public abstract class AClass extends AType {
     }
 
     /**
+     * Get value on attribute superClassJp
+     * @return the attribute's value
+     */
+    @Override
+    public ATypeReference getSuperClassJpImpl() {
+        return this.aType.getSuperClassJpImpl();
+    }
+
+    /**
      * Get value on attribute _package
      * @return the attribute's value
      */
@@ -656,6 +665,7 @@ public abstract class AClass extends AType {
         NAME("name"),
         QUALIFIEDNAME("qualifiedName"),
         SUPERCLASS("superClass"),
+        SUPERCLASSJP("superClassJp"),
         PACKAGE("package"),
         INTERFACES("interfaces"),
         JAVADOC("javadoc"),

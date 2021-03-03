@@ -231,6 +231,31 @@ public abstract class ACall extends AExpression {
     }
 
     /**
+     * Get value on attribute returnTypeJp
+     * @return the attribute's value
+     */
+    public abstract ATypeReference getReturnTypeJpImpl();
+
+    /**
+     * Get value on attribute returnTypeJp
+     * @return the attribute's value
+     */
+    public final Object getReturnTypeJp() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "returnTypeJp", Optional.empty());
+        	}
+        	ATypeReference result = this.getReturnTypeJpImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "returnTypeJp", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "returnTypeJp", e);
+        }
+    }
+
+    /**
      * Get value on attribute arguments
      * @return the attribute's value
      */
@@ -640,6 +665,7 @@ public abstract class ACall extends AExpression {
         attributes.add("target");
         attributes.add("targetType");
         attributes.add("returnType");
+        attributes.add("returnTypeJp");
         attributes.add("arguments");
     }
 
@@ -693,6 +719,7 @@ public abstract class ACall extends AExpression {
         TARGET("target"),
         TARGETTYPE("targetType"),
         RETURNTYPE("returnType"),
+        RETURNTYPEJP("returnTypeJp"),
         ARGUMENTS("arguments"),
         KIND("kind"),
         TYPE("type"),

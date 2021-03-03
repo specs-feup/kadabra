@@ -43,6 +43,7 @@ import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.AMethod;
 import weaver.kadabra.abstracts.joinpoints.APragma;
 import weaver.kadabra.abstracts.joinpoints.AType;
+import weaver.kadabra.abstracts.joinpoints.ATypeReference;
 import weaver.kadabra.entities.Pair;
 import weaver.kadabra.exceptions.JavaWeaverException;
 import weaver.kadabra.spoon.extensions.nodes.CtKadabraSnippetElement;
@@ -84,6 +85,17 @@ public class JType<T> extends AType {
 
         final String qualifiedName = superclass.getQualifiedName();
         return qualifiedName;
+    }
+
+    @Override
+    public ATypeReference getSuperClassJpImpl() {
+        final CtTypeReference<?> superclass = node.getSuperclass();
+        if (superclass == null) {
+            return null;
+        }
+
+        return (ATypeReference) CtElement2JoinPoint.convert(superclass);
+
     }
 
     @Override

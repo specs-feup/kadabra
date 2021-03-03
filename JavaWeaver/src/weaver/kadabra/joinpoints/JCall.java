@@ -15,6 +15,7 @@ package weaver.kadabra.joinpoints;
 
 import java.util.List;
 
+import pt.up.fe.specs.util.SpecsCheck;
 import spoon.reflect.code.CtCodeSnippetExpression;
 import spoon.reflect.code.CtInvocation;
 import spoon.reflect.declaration.CtType;
@@ -27,11 +28,13 @@ import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.AMethod;
 import weaver.kadabra.abstracts.joinpoints.AStatement;
 import weaver.kadabra.abstracts.joinpoints.AType;
+import weaver.kadabra.abstracts.joinpoints.ATypeReference;
 import weaver.kadabra.exceptions.JavaWeaverException;
 import weaver.utils.SpoonUtils;
 import weaver.utils.weaving.ActionUtils;
 import weaver.utils.weaving.SelectUtils;
 import weaver.utils.weaving.SnippetFactory;
+import weaver.utils.weaving.converters.CtElement2JoinPoint;
 import weaver.utils.weaving.converters.CtType2AType;
 
 public class JCall<T> extends ACall {
@@ -105,7 +108,24 @@ public class JCall<T> extends ACall {
 
     @Override
     public String getReturnTypeImpl() {
-        return node.getType().toString();
+        var returnType = getReturnTypeJpImpl();
+        return returnType != null ? returnType.toString() : null;
+        // return getReturnTypeJpImpl().getCodeImpl();
+        // return node.getType().toString();
+    }
+
+    @Override
+    public ATypeReference getReturnTypeJpImpl() {
+        var executable = node.getExecutable();
+        SpecsCheck.checkNotNull(executable, () -> "Call should have an executable");
+
+        var declaringType = executable.getDeclaringType();
+
+        if (declaringType == null) {
+            return null;
+        }
+
+        return (ATypeReference) CtElement2JoinPoint.convert(declaringType);
     }
 
     @Override

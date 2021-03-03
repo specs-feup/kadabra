@@ -91,6 +91,29 @@ public abstract class AType extends AJavaWeaverJoinPoint {
     }
 
     /**
+     * the superclass this class extends, or undefined if the class extends java.lang.Object
+     */
+    public abstract ATypeReference getSuperClassJpImpl();
+
+    /**
+     * the superclass this class extends, or undefined if the class extends java.lang.Object
+     */
+    public final Object getSuperClassJp() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "superClassJp", Optional.empty());
+        	}
+        	ATypeReference result = this.getSuperClassJpImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "superClassJp", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "superClassJp", e);
+        }
+    }
+
+    /**
      * package name of this class
      */
     public abstract String getPackageImpl();
@@ -570,6 +593,7 @@ public abstract class AType extends AJavaWeaverJoinPoint {
         attributes.add("name");
         attributes.add("qualifiedName");
         attributes.add("superClass");
+        attributes.add("superClassJp");
         attributes.add("package");
         attributes.add("interfaces");
         attributes.add("javadoc");
@@ -622,6 +646,7 @@ public abstract class AType extends AJavaWeaverJoinPoint {
         NAME("name"),
         QUALIFIEDNAME("qualifiedName"),
         SUPERCLASS("superClass"),
+        SUPERCLASSJP("superClassJp"),
         PACKAGE("package"),
         INTERFACES("interfaces"),
         JAVADOC("javadoc"),
