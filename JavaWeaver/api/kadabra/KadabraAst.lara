@@ -1,5 +1,6 @@
 import lara.util.StringSet;
 import weaver.WeaverJps;
+import weaver.Query;
 
 import kadabra._KadabraJavaTypes;
 
@@ -110,3 +111,29 @@ KadabraAst.getUnaryOperators = function() {
 	return KadabraAst._UNARY_OP_SET;
 }
 
+/**
+ * Creates an object representing the class hierarchy of the current program.
+ *
+ * @return {map{string:$class[]}} map where the keys are String with the fully qualified name of the class, and the value is an array with $class join points that are subclasses of the class represented by the key. If the map returns undefined, this means that the class has no subclasses.
+ */
+KadabraAst.getHierarchy = function() {
+
+    var hierarchy = {};
+
+    for($jp of Query.search("class")) {
+        var superClass = $jp.superClass;
+        var subClasses = hierarchy[superClass];
+        
+        // Initialize array if needed
+        if(subClasses === undefined) {
+            subClasses = [];
+            hierarchy[superClass] = subClasses;
+        }
+
+        subClasses.push($jp);
+        
+        //println("Name: " + $jp.qualifiedName);
+    }
+    
+	return hierarchy;
+}
