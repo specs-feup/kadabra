@@ -422,7 +422,8 @@ public class JavaWeaver extends AJavaWeaver {
                 processedClasspath.addAll(classPath);
                 var additionalJars = classPath.stream()
                         .filter(classPath -> classPath.isDirectory())
-                        .flatMap(folder -> SpecsIo.getFiles(folder, "jar").stream())
+                        // .flatMap(folder -> SpecsIo.getFiles(folder, "jar").stream())
+                        .flatMap(folder -> SpecsIo.getFilesRecursive(folder, "jar").stream())
                         .collect(Collectors.toList());
                 SpecsLogs.debug("Adding JARs to classpath: " + additionalJars);
                 processedClasspath.addAll(additionalJars);
