@@ -102,7 +102,7 @@ public class SnippetFactory {
                 }
             }
         } catch (IOException e) {
-            SpecsLogs.msgWarn("Error message:\n", e);
+            SpecsLogs.warn("Error message:\n", e);
         }
 
         return builder.toString();

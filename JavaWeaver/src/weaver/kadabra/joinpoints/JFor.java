@@ -121,7 +121,7 @@ public class JFor extends JLoop {
 
     @Override
     public List<? extends AExpression> selectExpr() {
-        SpecsLogs.msgWarn(
+        SpecsLogs.warn(
                 "The for loop does not contain a single expression. The select 'expr' should only be used in 'for-each' loops");
         return Collections.emptyList();
     }

@@ -13,7 +13,8 @@
 
 package pt.up.fe.specs.kadabra;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.util.Arrays;
@@ -263,9 +264,6 @@ public class JavaWeaverTester {
             SpecsIo.delete(workFolder);
         }
 
-        // Delete weaver files
-        // ClangAstParser.getTempFiles().stream()
-        // .forEach(filename -> new File(filename).delete());
     }
 
     public <T, ET extends T> JavaWeaverTester set(DataKey<T> key, ET value) {

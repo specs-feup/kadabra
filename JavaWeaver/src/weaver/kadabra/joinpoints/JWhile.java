@@ -40,7 +40,7 @@ public class JWhile extends JLoop {
     @Override
     public List<? extends AStatement> selectInit() {
 
-        SpecsLogs.msgWarn(
+        SpecsLogs.warn(
                 "The while loop does not contain an init. The select 'init' should only be used in 'for' loops");
         return Collections.emptyList();
     }
@@ -58,7 +58,7 @@ public class JWhile extends JLoop {
 
     @Override
     public List<? extends AStatement> selectStep() {
-        SpecsLogs.msgWarn(
+        SpecsLogs.warn(
                 "The while loop does not contain a step. The select 'step' should only be used in 'for' loops");
         return Collections.emptyList();
     }

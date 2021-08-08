@@ -388,13 +388,13 @@ public class JavaWeaver extends AJavaWeaver {
         // try {
         // Launcher.LOGGER.addAppender(new FileAppender(new SimpleLayout(), "logg.txt"));
         // } catch (IOException e1) {
-        // SpecsLogs.msgWarn("Error message:\n", e1);
+        // SpecsLogs.warn("Error message:\n", e1);
         // }
 
         // try {
         // BasicConfigurator.configure(new FileAppender(new SimpleLayout(), "logg.txt"));
         // } catch (IOException e1) {
-        // SpecsLogs.msgWarn("Error message:\n", e1);
+        // SpecsLogs.warn("Error message:\n", e1);
         // }
 
         JWSpoonLauncher spoon = new JWSpoonLauncher(sources);
@@ -612,7 +612,7 @@ public class JavaWeaver extends AJavaWeaver {
             executor.setWorkingDirectory(outputDir);
             executor.execute(astyle);
         } catch (IOException e) {
-            SpecsLogs.msgWarn("[Kadabra] Formatting code: " + e.getMessage());
+            SpecsLogs.warn("[Kadabra] Formatting code: " + e.getMessage());
         }
     }
 
