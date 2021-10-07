@@ -227,4 +227,15 @@ public class JCall<T> extends ACall {
     public AArgument[] getArgumentsArrayImpl() {
         return selectArg().toArray(size -> new AArgument[size]);
     }
+
+    @Override
+    public AType getDeclImpl() {
+        var decl = node.getExecutable().getDeclaringType().getTypeDeclaration();
+
+        if (decl == null) {
+            return null;
+        }
+
+        return JType.newInstance(decl);
+    }
 }

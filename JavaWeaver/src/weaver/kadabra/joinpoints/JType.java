@@ -66,7 +66,19 @@ public class JType<T> extends AType {
         // this.parent = parent;
     }
 
+    /**
+     * @deprecated use version that does not need the parent paramenter
+     * @param <T>
+     * @param node
+     * @param parent
+     * @return
+     */
+    @Deprecated
     public static <T> JType<T> newInstance(CtType<T> node, CtCompilationUnit parent) {
+        return newInstance(node);
+    }
+
+    public static <T> JType<T> newInstance(CtType<T> node) {
         return new JType<>(node);// , parent);
     }
 

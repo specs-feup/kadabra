@@ -5988,6 +5988,14 @@
                   "type": "attribute",
                   "children": [
                            {
+                              "type": "type",
+                              "name": "decl"
+                           }]
+               },
+               {
+                  "type": "attribute",
+                  "children": [
+                           {
                               "type": "String",
                               "name": "declarator"
                            }]

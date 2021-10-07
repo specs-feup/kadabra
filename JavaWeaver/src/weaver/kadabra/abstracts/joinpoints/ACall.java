@@ -53,6 +53,31 @@ public abstract class ACall extends AExpression {
     }
 
     /**
+     * Get value on attribute decl
+     * @return the attribute's value
+     */
+    public abstract AType getDeclImpl();
+
+    /**
+     * Get value on attribute decl
+     * @return the attribute's value
+     */
+    public final Object getDecl() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "decl", Optional.empty());
+        	}
+        	AType result = this.getDeclImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "decl", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "decl", e);
+        }
+    }
+
+    /**
      * Get value on attribute simpleDecl
      * @return the attribute's value
      */
@@ -676,6 +701,7 @@ public abstract class ACall extends AExpression {
     protected final void fillWithAttributes(List<String> attributes) {
         this.aExpression.fillWithAttributes(attributes);
         attributes.add("name");
+        attributes.add("decl");
         attributes.add("simpleDecl");
         attributes.add("qualifiedDecl");
         attributes.add("declarator");
@@ -731,6 +757,7 @@ public abstract class ACall extends AExpression {
      */
     protected enum CallAttributes {
         NAME("name"),
+        DECL("decl"),
         SIMPLEDECL("simpleDecl"),
         QUALIFIEDDECL("qualifiedDecl"),
         DECLARATOR("declarator"),
