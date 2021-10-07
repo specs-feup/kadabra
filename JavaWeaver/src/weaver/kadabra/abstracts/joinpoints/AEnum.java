@@ -353,14 +353,6 @@ public abstract class AEnum extends AClass {
      * 
      */
     @Override
-    public String toString() {
-        return this.aClass.toString();
-    }
-
-    /**
-     * 
-     */
-    @Override
     public Optional<? extends AClass> getSuper() {
         return Optional.of(this.aClass);
     }

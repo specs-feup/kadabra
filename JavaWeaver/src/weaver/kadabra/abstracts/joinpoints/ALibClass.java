@@ -216,14 +216,6 @@ public abstract class ALibClass extends ANamedType {
      * 
      */
     @Override
-    public String toString() {
-        return this.aNamedType.toString();
-    }
-
-    /**
-     * 
-     */
-    @Override
     public Optional<? extends ANamedType> getSuper() {
         return Optional.of(this.aNamedType);
     }

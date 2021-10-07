@@ -180,14 +180,6 @@ public abstract class AContinue extends AStatement {
      * 
      */
     @Override
-    public String toString() {
-        return this.aStatement.toString();
-    }
-
-    /**
-     * 
-     */
-    @Override
     public Optional<? extends AStatement> getSuper() {
         return Optional.of(this.aStatement);
     }

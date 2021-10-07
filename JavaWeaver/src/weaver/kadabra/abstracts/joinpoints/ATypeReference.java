@@ -275,14 +275,6 @@ public abstract class ATypeReference extends AReference {
      * 
      */
     @Override
-    public String toString() {
-        return this.aReference.toString();
-    }
-
-    /**
-     * 
-     */
-    @Override
     public Optional<? extends AReference> getSuper() {
         return Optional.of(this.aReference);
     }

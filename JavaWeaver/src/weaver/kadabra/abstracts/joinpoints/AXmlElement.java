@@ -311,14 +311,6 @@ public abstract class AXmlElement extends AXmlNode {
      * 
      */
     @Override
-    public String toString() {
-        return this.aXmlNode.toString();
-    }
-
-    /**
-     * 
-     */
-    @Override
     public Optional<? extends AXmlNode> getSuper() {
         return Optional.of(this.aXmlNode);
     }

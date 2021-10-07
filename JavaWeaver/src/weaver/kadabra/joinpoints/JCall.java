@@ -88,6 +88,13 @@ public class JCall<T> extends ACall {
     }
 
     @Override
+    public String getSimpleDeclImpl() {
+        var qualifiedDecl = getQualifiedDeclImpl();
+        var index = qualifiedDecl.lastIndexOf(".");
+        return index == -1 ? qualifiedDecl : qualifiedDecl.substring(index + 1);
+    }
+
+    @Override
     public String getExecutableImpl() {
         return node.getExecutable().getSimpleName();
     }

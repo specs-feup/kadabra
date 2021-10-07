@@ -227,14 +227,6 @@ public abstract class APragma extends AComment {
      * 
      */
     @Override
-    public String toString() {
-        return this.aComment.toString();
-    }
-
-    /**
-     * 
-     */
-    @Override
     public Optional<? extends AComment> getSuper() {
         return Optional.of(this.aComment);
     }

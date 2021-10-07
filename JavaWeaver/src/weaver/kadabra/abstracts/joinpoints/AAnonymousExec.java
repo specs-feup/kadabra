@@ -223,14 +223,6 @@ public abstract class AAnonymousExec extends AExecutable {
      * 
      */
     @Override
-    public String toString() {
-        return this.aExecutable.toString();
-    }
-
-    /**
-     * 
-     */
-    @Override
     public Optional<? extends AExecutable> getSuper() {
         return Optional.of(this.aExecutable);
     }

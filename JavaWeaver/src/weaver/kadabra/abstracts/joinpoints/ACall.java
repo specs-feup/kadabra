@@ -53,6 +53,31 @@ public abstract class ACall extends AExpression {
     }
 
     /**
+     * Get value on attribute simpleDecl
+     * @return the attribute's value
+     */
+    public abstract String getSimpleDeclImpl();
+
+    /**
+     * Get value on attribute simpleDecl
+     * @return the attribute's value
+     */
+    public final Object getSimpleDecl() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "simpleDecl", Optional.empty());
+        	}
+        	String result = this.getSimpleDeclImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "simpleDecl", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "simpleDecl", e);
+        }
+    }
+
+    /**
      * Get value on attribute qualifiedDecl
      * @return the attribute's value
      */
@@ -554,14 +579,6 @@ public abstract class ACall extends AExpression {
      * 
      */
     @Override
-    public String toString() {
-        return this.aExpression.toString();
-    }
-
-    /**
-     * 
-     */
-    @Override
     public Optional<? extends AExpression> getSuper() {
         return Optional.of(this.aExpression);
     }
@@ -659,6 +676,7 @@ public abstract class ACall extends AExpression {
     protected final void fillWithAttributes(List<String> attributes) {
         this.aExpression.fillWithAttributes(attributes);
         attributes.add("name");
+        attributes.add("simpleDecl");
         attributes.add("qualifiedDecl");
         attributes.add("declarator");
         attributes.add("executable");
@@ -713,6 +731,7 @@ public abstract class ACall extends AExpression {
      */
     protected enum CallAttributes {
         NAME("name"),
+        SIMPLEDECL("simpleDecl"),
         QUALIFIEDDECL("qualifiedDecl"),
         DECLARATOR("declarator"),
         EXECUTABLE("executable"),

@@ -223,14 +223,6 @@ public abstract class AAndroidManifest extends AXmlNode {
      * 
      */
     @Override
-    public String toString() {
-        return this.aXmlNode.toString();
-    }
-
-    /**
-     * 
-     */
-    @Override
     public Optional<? extends AXmlNode> getSuper() {
         return Optional.of(this.aXmlNode);
     }
