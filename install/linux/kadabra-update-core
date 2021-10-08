@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+
+# Function for downloading
+# $1: url
+# $2: filename
+# $3: timestamp
+download_file () {
+   # Call timestamp version
+   if [ "$3" = true ]; then
+	wget -N $1$2   
+   # Overwrite file
+   else
+	wget -O $2 $1$2      
+   fi
+}
+
+
+# Absolute path to this script, e.g. /home/user/bin/foo.sh
+SCRIPT=$(readlink -f "$0")
+# Absolute path this script is in, thus /home/user/bin
+SCRIPTPATH=$(dirname "$SCRIPT")
+
+# Options
+TIME_STAMP=true
+
+#echo "Current timestamp: $TIME_STAMP"
+
+# Check arguments
+
+while test $# != 0
+do
+
+    # Using ifs for increased compatibility (e.g. MacOS)
+
+    # Disable time-stamping of wget
+    if [ "$1" = "-f" ]; then TIME_STAMP=false; fi
+    # Print help and exit
+    if [ "$1" = "-h" ]; then printf "Kadabra Updater and Installer\n\nAvailable options:\n-f: force download\n-h or --help: this help\n"; exit 0; fi 
+    if [ "$1" = "--help" ] ; then printf "Kadabra Updater and Installer\n\nAvailable options:\n-f: force download\n-h or --help: this help\n"; exit 0; fi
+
+
+    shift
+done
+
+
+#Check if Java exists
+command -v java >/dev/null 2>&1 || { echo >&2 "I require 'java' but it's not installed.  Aborting."; exit 1; }
+
+#Check if wget exists
+command -v wget >/dev/null 2>&1 || { echo >&2 "I require 'wget' but it's not installed.  Aborting."; exit 1; }
+
+# Should be running on the folder where kadabra.jar will by
+# get the zip, unzip and save it inside a kadabra directory
+download_file "specs.fe.up.pt/tools/" "kadabra.zip" $TIME_STAMP
+
+#Check if unzip exists
+command -v unzip >/dev/null 2>&1 || { echo >&2 "I require 'unzip' but it's not installed.  Aborting."; exit 1; }
+
+unzip -o kadabra.zip
+
+# Go to the previous folder
+cd ..
+
+
+# get the kadabra script
+download_file "specs.fe.up.pt/tools/kadabra/" "kadabra" $TIME_STAMP
+chmod +x kadabra
+
+# get the kadabra-unit script
+download_file "specs.fe.up.pt/tools/kadabra/" "kadabra-unit" $TIME_STAMP
+chmod +x kadabra-unit
+
+# get the kadabra-doc script
+download_file "specs.fe.up.pt/tools/kadabra/" "kadabra-doc" $TIME_STAMP
+chmod +x kadabra-doc

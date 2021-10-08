@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# Absolute path to this script, e.g. /home/user/bin/foo.sh
+SCRIPT=$(readlink -f "$0")
+# Absolute path this script is in, thus /home/user/bin
+SCRIPTPATH=$(dirname "$SCRIPT")
+
+
+# Update kadabra-update-core
+mkdir -p $SCRIPTPATH/Kadabra
+cd $SCRIPTPATH/Kadabra
+wget -N specs.fe.up.pt/tools/kadabra/kadabra-update-core
+chmod +x kadabra-update-core
+
+# Run kadabra-update-core
+./kadabra-update-core $@
+
