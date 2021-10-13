@@ -55,5 +55,8 @@
 		<!-- For XML2JSON -->
 		<dependency org="org.json" name="json" rev="20190722"/>
 
+		<!-- Unit tests are asking -->
+		<dependency org="org.junit.platform" name="junit-platform-commons" rev="1.8.1"/>
+
 	</dependencies>
 </ivy-module>
