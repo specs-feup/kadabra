@@ -90,4 +90,8 @@ public class JField<T> extends AField {
         return getDeclaratorImpl() + "." + getNameImpl();
     }
 
+    @Override
+    public String toString() {
+        return getNameImpl();
+    }
 }
