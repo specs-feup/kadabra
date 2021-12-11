@@ -20,6 +20,8 @@ import org.suikasoft.jOptions.Datakey.KeyFactory;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import org.suikasoft.jOptions.treenode.DataNode;
 
+import pt.up.fe.specs.kadabra.KadabraNodeFactory;
+
 /**
  * Represents a node of the Kadabra AST.
  * 
@@ -34,6 +36,16 @@ public abstract class KadabraNode extends DataNode<KadabraNode> {
      * Global object with information about the program.
      */
     public final static DataKey<KadabraContext> CONTEXT = KeyFactory.object("context", KadabraContext.class);
+
+    /**
+     * Id of the node.
+     */
+    public final static DataKey<String> ID = KeyFactory.string("id");
+
+    /**
+     * Factory for building nodes.
+     */
+    public final static DataKey<KadabraNodeFactory> FACTORY = KeyFactory.object("factory", KadabraNodeFactory.class);
 
     // DATAKEYS END
 
