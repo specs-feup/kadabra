@@ -14,17 +14,24 @@
 package pt.up.fe.specs.kadabra.parser;
 
 import java.io.File;
+import java.util.Collections;
 import java.util.List;
 
-import pt.up.fe.specs.kadabra.ast.App;
-import pt.up.fe.specs.kadabra.ast.KadabraContext;
-import pt.up.fe.specs.util.exceptions.NotImplementedException;
+import org.suikasoft.jOptions.DataStore.ADataClass;
+import org.suikasoft.jOptions.Datakey.DataKey;
+import org.suikasoft.jOptions.Datakey.KeyFactory;
 
-public class SpoonParser extends KadabraParser {
+/**
+ * Represents Java parsing information.
+ * 
+ * @author JoaoBispo
+ *
+ */
+public class KadabraParserConfig extends ADataClass<KadabraParserConfig> {
 
-    @Override
-    public App parse(List<File> sources, List<String> compilerOptions, KadabraContext context) {
-        throw new NotImplementedException(this);
-    }
+    public static final DataKey<List<File>> CLASSPATH = KeyFactory.list("classpath", File.class)
+            .setDefault(() -> Collections.emptyList());
+    public static final DataKey<Boolean> NO_CLASSPATH = KeyFactory.bool("noClasspath");
+    public static final DataKey<Integer> JAVA_VERSION = KeyFactory.integer("javaVersion").setDefault(() -> 11);
 
 }

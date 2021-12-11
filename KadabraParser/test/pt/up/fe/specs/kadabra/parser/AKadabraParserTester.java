@@ -166,7 +166,8 @@ public abstract class AKadabraParserTester {
 
         File workFolder = new File(AKadabraParserTester.OUTPUT_FOLDERNAME);
 
-        App ast = codeParser.parse(Arrays.asList(workFolder), compilerOptions);
+        App ast = codeParser.parse(Arrays.asList(workFolder));
+        // App ast = codeParser.parse(Arrays.asList(workFolder), compilerOptions);
 
         ast.write(SpecsIo.mkdir(AKadabraParserTester.OUTPUT_FOLDERNAME + "/outputFirst"));
         if (onePass) {
@@ -179,7 +180,8 @@ public abstract class AKadabraParserTester {
 
         File firstOutputFolder = new File(AKadabraParserTester.OUTPUT_FOLDERNAME + "/outputFirst");
 
-        App testClavaAst = testCodeParser.parse(Arrays.asList(firstOutputFolder), compilerOptions);
+        App testClavaAst = testCodeParser.parse(Arrays.asList(firstOutputFolder));
+        // App testClavaAst = testCodeParser.parse(Arrays.asList(firstOutputFolder), compilerOptions);
         // App testClavaAst = testCodeParser.parseParallel(Arrays.asList(firstOutputFolder), compilerOptions);
         testClavaAst.write(SpecsIo.mkdir(AKadabraParserTester.OUTPUT_FOLDERNAME + "/outputSecond"));
 

@@ -21,7 +21,7 @@ import org.suikasoft.jOptions.Datakey.DataKey;
 import org.suikasoft.jOptions.Datakey.KeyFactory;
 
 import pt.up.fe.specs.kadabra.ast.App;
-import pt.up.fe.specs.kadabra.ast.KadabraContext;
+import pt.up.fe.specs.kadabra.parser.spoon.SpoonParser;
 
 /**
  * Parses Java code into a Kadabra AST.
@@ -38,18 +38,18 @@ public abstract class KadabraParser extends ADataClass<KadabraParser> {
 
     // END DATAKEY
 
-    public abstract App parse(List<File> sources, List<String> compilerOptions, KadabraContext context);
-
-    public App parse(List<File> sources, List<String> compilerOptions) {
-        return parse(sources, compilerOptions, new KadabraContext());
-    }
+    public abstract App parse(List<File> sources);
 
     /**
      * Creates a new KadabraParser instance.
      * 
      * @return
      */
+    public static KadabraParser newInstance(KadabraParserConfig config) {
+        return new SpoonParser(config);
+    }
+
     public static KadabraParser newInstance() {
-        return new SpoonParser();
+        return newInstance(new KadabraParserConfig());
     }
 }
