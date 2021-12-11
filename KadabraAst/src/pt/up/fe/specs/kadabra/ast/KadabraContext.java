@@ -14,6 +14,10 @@
 package pt.up.fe.specs.kadabra.ast;
 
 import org.suikasoft.jOptions.DataStore.ADataClass;
+import org.suikasoft.jOptions.Datakey.DataKey;
+import org.suikasoft.jOptions.Datakey.KeyFactory;
+
+import pt.up.fe.specs.util.utilities.IdGenerator;
 
 /**
  * Represents global information about the program.
@@ -23,4 +27,17 @@ import org.suikasoft.jOptions.DataStore.ADataClass;
  */
 public class KadabraContext extends ADataClass<KadabraContext> {
 
+    /**
+     * IDs generator
+     */
+    public final static DataKey<IdGenerator> ID_GENERATOR = KeyFactory
+            .object("idGenerator", IdGenerator.class)
+            .setDefault(() -> new IdGenerator())
+            .setCopyFunction(id -> new IdGenerator(id));
+
+    @Override
+    public String toString() {
+        return "KadabraContext " + hashCode();
+
+    }
 }
