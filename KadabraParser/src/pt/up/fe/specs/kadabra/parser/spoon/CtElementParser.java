@@ -14,6 +14,7 @@
 package pt.up.fe.specs.kadabra.parser.spoon;
 
 import java.util.ArrayList;
+import java.util.function.Function;
 
 import pt.up.fe.specs.kadabra.KadabraNodeFactory;
 import pt.up.fe.specs.kadabra.ast.CompilationUnit;
@@ -36,7 +37,9 @@ public class CtElementParser {
     }
 
     private FunctionClassMap<CtElement, KadabraNode> getNodeBuilders() {
-        var nodeBuilders = new FunctionClassMap<CtElement, KadabraNode>(this::defaultBuilder);
+        // Jenkins complained about call to constructor being ambiguous
+        Function<CtElement, KadabraNode> defaultFunction = this::defaultBuilder;
+        var nodeBuilders = new FunctionClassMap<CtElement, KadabraNode>(defaultFunction);
 
         nodeBuilders.put(CtCompilationUnit.class, this::compilationUnit);
 
