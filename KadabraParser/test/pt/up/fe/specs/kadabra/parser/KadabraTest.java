@@ -31,6 +31,6 @@ public class KadabraTest {
 
     @Test
     public void testLiteral() {
-        // new KadabraTester("Literal.java.test").test();
+        new KadabraTester("Literal.java.test").test();
     }
 }
