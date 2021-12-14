@@ -17,7 +17,7 @@ import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class KadabraTest {
+public class KadabraTestDisabled {
 
     @BeforeClass
     public static void setup() throws Exception {
