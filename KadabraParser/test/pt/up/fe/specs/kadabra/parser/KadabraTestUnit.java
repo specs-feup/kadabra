@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 SPeCS.
+ * Copyright 2021 SPeCS.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,12 +13,30 @@
 
 package pt.up.fe.specs.kadabra.parser;
 
-import org.junit.Test;
+import java.util.Arrays;
+import java.util.List;
 
-public class KadabraTestDisabled extends KadabraTestUnit {
+import org.junit.After;
+import org.junit.BeforeClass;
 
-    @Test
-    public void testLiteral() {
-        setup("Literal.java.test").test();
+public abstract class KadabraTestUnit {
+
+    @BeforeClass
+    public static void setup() throws Exception {
+        AKadabraParserTester.clear();
     }
+
+    @After
+    public void tearDown() throws Exception {
+        AKadabraParserTester.clear();
+    }
+
+    public KadabraTester setup(String... files) {
+        return setup(Arrays.asList(files));
+    }
+
+    public KadabraTester setup(List<String> files) {
+        return new KadabraTester(files);
+    }
+
 }
