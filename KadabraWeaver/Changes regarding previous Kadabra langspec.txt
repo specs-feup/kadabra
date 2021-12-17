@@ -1,0 +1,63 @@
+#Missing
+
+
+argument (expression)
+executable (decl)
+anonymousExec (block)
+assignment (binaryOp)
+callStatement (exprStmt)
+pragma (java has pragmas? Implemented as a special comment)
+libMethod (method)
+typeReference (extends reference)
+NamedType (not sure what this represents)
+libClass (also not sure)
+
+# Future
+
+xmlNode
+androidManifest
+xmlElement
+
+
+#Present
+
+arrayAccess
+call
+literal
+new
+assert
+break
+comment
+continue
+if
+loop
+return
+switch
+throw
+try
+case
+reference
+annotation
+
+
+#Equivalence (previous -> new) (Can keep old names)
+
+expression -> expr
+binaryExpression -> binaryOp
+ternary -> ternaryOp  
+unaryExpression -> unaryOp
+var -> varAccess
+constructor -> constructorDecl
+method -> methodDecl
+body -> block
+statement -> stmt
+localVariable -> varDecl
+app -> program
+type -> typeDecl
+class -> classDecl
+enum -> enumDecl
+interface -> interfaceDecl
+field -> fieldDecl
+
+
+
