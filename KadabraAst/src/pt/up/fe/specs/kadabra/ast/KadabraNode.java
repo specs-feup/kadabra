@@ -43,6 +43,11 @@ public abstract class KadabraNode extends DataNode<KadabraNode> {
     public final static DataKey<String> ID = KeyFactory.string("id");
 
     /**
+     * If this node was automatically generated from another node, returns the id of that node, otherwise returns empty.
+     */
+    public final static DataKey<String> PREVIOUS_ID = KeyFactory.string("previousId");
+
+    /**
      * Factory for building nodes.
      */
     public final static DataKey<KadabraNodeFactory> FACTORY = KeyFactory.object("factory", KadabraNodeFactory.class);
@@ -61,5 +66,46 @@ public abstract class KadabraNode extends DataNode<KadabraNode> {
     @Override
     public String toContentString() {
         return getData().toInlinedString();
+    }
+
+    @Override
+    protected Class<KadabraNode> getBaseClass() {
+        return KadabraNode.class;
+    }
+
+    /**
+     * By default, copying a node creates an new, unique id for the new copy.
+     */
+    @Override
+    public KadabraNode copy() {
+        return copy(false);
+    }
+
+    /**
+     * 
+     * @param keepId
+     *            if true, the id of the copy will be the same as the id of the original node
+     * @return
+     */
+    public KadabraNode copy(boolean keepId) {
+        // Copy node, without children
+        var newNode = copyPrivate();
+
+        // Change id, if needed
+        if (!keepId) {
+            String previousId = newNode.get(ID);
+            String newId = get(CONTEXT).get(KadabraContext.ID_GENERATOR).next("node_");
+
+            newNode.set(ID, newId);
+            newNode.set(PREVIOUS_ID, previousId);
+        }
+
+        // Copy children
+        for (var child : getChildren()) {
+            var newChild = child.copy(keepId);
+            newNode.addChild(newChild);
+        }
+
+        return newNode;
     }
 }
