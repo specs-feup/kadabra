@@ -31,7 +31,9 @@ public class KadabraParserConfig extends ADataClass<KadabraParserConfig> {
 
     public static final DataKey<List<File>> CLASSPATH = KeyFactory.list("classpath", File.class)
             .setDefault(() -> Collections.emptyList());
-    public static final DataKey<Boolean> NO_CLASSPATH = KeyFactory.bool("noClasspath");
+    public static final DataKey<Boolean> NO_CLASSPATH = KeyFactory.bool("noClasspath")
+            .setDefault(() -> true);
+    // .setDefault(() -> false);
     public static final DataKey<Integer> JAVA_VERSION = KeyFactory.integer("javaVersion").setDefault(() -> 11);
 
 }

@@ -21,9 +21,12 @@ import java.util.stream.Collectors;
 import pt.up.fe.specs.kadabra.KadabraNodeFactory;
 import pt.up.fe.specs.kadabra.ast.App;
 import pt.up.fe.specs.kadabra.ast.CompilationUnit;
+import pt.up.fe.specs.kadabra.ast.GenericKadabraNode;
 import pt.up.fe.specs.kadabra.ast.KadabraContext;
+import pt.up.fe.specs.kadabra.ast.KadabraNode;
 import pt.up.fe.specs.kadabra.parser.KadabraParser;
 import pt.up.fe.specs.kadabra.parser.KadabraParserConfig;
+import pt.up.fe.specs.kadabra.parser.spoon.elementparser.MainParser;
 import pt.up.fe.specs.util.SpecsIo;
 import pt.up.fe.specs.util.SpecsLogs;
 import spoon.Launcher;
@@ -40,6 +43,9 @@ public class SpoonParser extends KadabraParser {
     @Override
     public App parse(List<File> sources) {
 
+        // TODO: to enable parallel parsing, parse each file separately, with a KadabraContext initialized to a
+        // different id (e.g. file1_)
+
         var spoonLaucher = buildLauncher(sources);
         spoonLaucher.buildModel();
         spoonLaucher.process();
@@ -47,7 +53,7 @@ public class SpoonParser extends KadabraParser {
         var compUnits = spoonLaucher.getFactory().CompilationUnit().getMap().values();
 
         var kadabraContext = new KadabraContext();
-        var elementParser = new CtElementParser(kadabraContext);
+        var elementParser = new MainParser(kadabraContext);
 
         var app = new KadabraNodeFactory(kadabraContext).newNode(App.class);
 
@@ -61,6 +67,8 @@ public class SpoonParser extends KadabraParser {
         // }
 
         app.setChildren(compilationUnits);
+
+        verifyPreviousId(app);
 
         System.out.println("SOURCES: " + sources);
         System.out.println("COMP UNITS: " + spoonLaucher.getFactory().CompilationUnit().getMap());
@@ -79,6 +87,21 @@ public class SpoonParser extends KadabraParser {
     // compUnit.getDirectChildren()
     // return new CompilationUnit(, null)
     // }
+
+    private void verifyPreviousId(App app) {
+        // If any of the tree nodes has a previousId and is not a generic node, this could indicate a problem
+        var astNodesWithPreviousId = app.getDescendantsAndSelfStream()
+                .filter(node -> !(node instanceof GenericKadabraNode) && !node.get(KadabraNode.PREVIOUS_ID).isEmpty())
+                .collect(Collectors.toList());
+
+        if (!astNodesWithPreviousId.isEmpty()) {
+            SpecsLogs.info("Found nodes with previous id:");
+            astNodesWithPreviousId.stream().forEach(node -> SpecsLogs.info(node.toString()));
+        } else {
+            SpecsLogs.info("Passed verification 'previous id'");
+        }
+
+    }
 
     private Launcher buildLauncher(List<File> sources) {
         var spoon = new KadabraSpoonLauncher(sources);

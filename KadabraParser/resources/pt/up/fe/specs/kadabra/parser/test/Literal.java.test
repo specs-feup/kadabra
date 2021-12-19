@@ -1,4 +1,6 @@
-public class Literal {
+import test.NonExistentClass;
+
+public class Literal extends NonExistentClass {
 
 	public static void foo1() {
 		int IL = 1;
@@ -8,12 +10,22 @@ public class Literal {
 		char CL = 'c';	
 		String SL = "a string";	
 		boolean BL = true;	
+		
+		System.out.println("Printing int: " + IL);
+		System.out.println("Reprinting int: " + IL);
 	}
 
 	public static void foo2() {	
 		int negativeOne = -1;		
 	}
 
+	static class A {
+		B b;
+	}
+
+	static class B {
+		A a;
+	}
 	
 	/*
 	public static int foo() {
