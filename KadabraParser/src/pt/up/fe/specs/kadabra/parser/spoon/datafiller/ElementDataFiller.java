@@ -32,6 +32,7 @@ public class ElementDataFiller {
     public void ctElement(KadabraNode node, CtElement element) {
         // Add data common to all nodes
 
+        // TODO: Position
     }
 
     public void ctCompilationUnit(KadabraNode node, CtCompilationUnit element) {

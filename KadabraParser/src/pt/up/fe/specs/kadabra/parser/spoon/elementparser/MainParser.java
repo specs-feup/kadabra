@@ -14,26 +14,31 @@
 package pt.up.fe.specs.kadabra.parser.spoon.elementparser;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 
 import pt.up.fe.specs.kadabra.KadabraNodeFactory;
-import pt.up.fe.specs.kadabra.ast.CompilationUnit;
 import pt.up.fe.specs.kadabra.ast.KadabraContext;
 import pt.up.fe.specs.kadabra.ast.KadabraNode;
+import pt.up.fe.specs.kadabra.ast.decl.TypeDecl;
+import pt.up.fe.specs.kadabra.ast.generic.GenericKadabraNode;
+import pt.up.fe.specs.kadabra.ast.generic.GenericTypeDecl;
 import pt.up.fe.specs.kadabra.parser.spoon.datafiller.DataFillers;
+import pt.up.fe.specs.kadabra.parser.spoon.nodes.UnresolvedNode;
+import pt.up.fe.specs.kadabra.parser.spoon.nodes.UnresolvedTypeDecl;
 import pt.up.fe.specs.util.classmap.FunctionClassMap;
-import spoon.reflect.declaration.CtCompilationUnit;
 import spoon.reflect.declaration.CtElement;
 
 public class MainParser {
 
     private final KadabraContext context;
     private final KadabraNodeFactory factory;
-    private final FunctionClassMap<CtElement, KadabraNode> nodeBuilders;
+    private final FunctionClassMap<CtElement, KadabraNode> nodeParsers;
     private final Map<CtElement, KadabraNode> nodeMap;
     // Represents nodes that are currently being parsed
     // Needed to detect cyclic dependencies
@@ -43,38 +48,37 @@ public class MainParser {
     public MainParser(KadabraContext context) {
         this.context = context;
         this.factory = new KadabraNodeFactory(context);
-        this.nodeBuilders = getBaseNodeBuilders();
+        this.nodeParsers = initNodeParsers();
         this.nodeMap = new HashMap<>();
         this.parsing = new HashSet<>();
         this.dataFillers = new DataFillers(this);
 
-        // Add parsers for elements
-        DeclParsers.registerParsers(this);
-
-        // Add parsers for decls
+        // Register parsers
+        ElementParsers.registerParsers(this);
         DeclParsers.registerParsers(this);
     }
 
-    FunctionClassMap<CtElement, KadabraNode> getNodeBuilders() {
-        return nodeBuilders;
+    public FunctionClassMap<CtElement, KadabraNode> getNodeBuilders() {
+        return nodeParsers;
     }
 
     public KadabraNodeFactory getFactory() {
         return factory;
     }
 
-    private FunctionClassMap<CtElement, KadabraNode> getBaseNodeBuilders() {
+    private FunctionClassMap<CtElement, KadabraNode> initNodeParsers() {
         // Jenkins complained about call to constructor being ambiguous
-        Function<CtElement, KadabraNode> defaultFunction = this::defaultBuilder;
-        var nodeBuilders = new FunctionClassMap<CtElement, KadabraNode>(defaultFunction);
+        Function<CtElement, KadabraNode> defaultFunction = this::defaultNodeParser;
+
+        var nodeParsers = new FunctionClassMap<CtElement, KadabraNode>(defaultFunction);
 
         // Add parsers for miscellaneous nodes
-        nodeBuilders.put(CtCompilationUnit.class, this::compilationUnit);
+        // nodeBuilders.put(CtCompilationUnit.class, this::compilationUnit);
 
-        return nodeBuilders;
+        return nodeParsers;
     }
 
-    private KadabraNode defaultBuilder(CtElement element) {
+    private KadabraNode defaultNodeParser(CtElement element) {
         var node = factory.genericKadabraNode(element.getClass().getSimpleName());
 
         var children = parseChildren(element);
@@ -100,7 +104,12 @@ public class MainParser {
         if (!parsing.add(element)) {
             // TODO: Return special node that is later replaced? But references to it would need to be updated also
             // Can be detected in fields by overloading KadabraNode.add()
-            throw new RuntimeException("Element already being parsed: " + element);
+
+            var unresolved = factory.newNode(UnresolvedNode.class);
+            unresolved.set(UnresolvedNode.ORIGINAL_ELEMENT, element);
+
+            return unresolved;
+            // throw new RuntimeException("Element already being parsed: " + element);
         }
 
         if (!element.getAllMetadata().isEmpty()) {
@@ -108,7 +117,7 @@ public class MainParser {
         }
 
         // Apply parser to given element
-        node = nodeBuilders.apply(element);
+        node = nodeParsers.apply(element);
 
         // Store mapping between element and node
         nodeMap.put(element, node);
@@ -130,7 +139,12 @@ public class MainParser {
     // return Optional.of(node);
     // }
 
-    private ArrayList<KadabraNode> parseChildren(CtElement element) {
+    public List<KadabraNode> parseChildren(CtElement element) {
+        // Only parse children for nodes from which we have source code
+        if (!element.getPosition().isValidPosition()) {
+            return Collections.emptyList();
+        }
+
         // Apply parser to children
         var children = new ArrayList<KadabraNode>();
 
@@ -145,38 +159,23 @@ public class MainParser {
         return children;
     }
 
-    public CompilationUnit compilationUnit(CtCompilationUnit compilationUnit) {
-
-        var children = new ArrayList<KadabraNode>();
-
-        // TODO
-
-        // Package
-
-        // Imports
-
-        // Declared types
-        compilationUnit.getDeclaredTypes().stream()
-                .map(this::parse)
-                .forEach(children::add);
-
-        // var name = compilationUnit.getMainType().getSimpleName();
-        // var file = compilationUnit.getFile();
-        // var unit = factory.compilationUnit(name, file, children);
-        var unit = factory.newNode(CompilationUnit.class, children);
-        dataFillers.element().ctCompilationUnit(unit, compilationUnit);
-        // var unit = factory.newNode(CompilationUnit.class, children);
-        //
-        // // Set attributes
-        //
-        // unit.set(CompilationUnit.NAME, compilationUnit.getMainType().getSimpleName());
-        // unit.set(CompilationUnit.FILE, Optional.ofNullable(compilationUnit.getFile()));
-
-        return unit;
-    }
-
     public DataFillers getDataFillers() {
         return dataFillers;
     }
 
+    public TypeDecl toTypeDecl(KadabraNode node) {
+        if (node instanceof TypeDecl) {
+            return (TypeDecl) node;
+        }
+
+        if (node instanceof GenericKadabraNode) {
+            return new GenericTypeDecl(node.getData(), node.getChildren());
+        }
+
+        if (node instanceof UnresolvedNode) {
+            return new UnresolvedTypeDecl(node.getData(), node.getChildren());
+        }
+
+        throw new RuntimeException("Not implemented for " + node);
+    }
 }

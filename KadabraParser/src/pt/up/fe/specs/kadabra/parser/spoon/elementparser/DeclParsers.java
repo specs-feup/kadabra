@@ -13,54 +13,88 @@
 
 package pt.up.fe.specs.kadabra.parser.spoon.elementparser;
 
-import java.util.ArrayList;
-
-import pt.up.fe.specs.kadabra.KadabraNodeFactory;
 import pt.up.fe.specs.kadabra.ast.KadabraNode;
 import pt.up.fe.specs.kadabra.ast.decl.ClassDecl;
+import pt.up.fe.specs.kadabra.ast.decl.ReflectedClassDecl;
 import pt.up.fe.specs.kadabra.ast.decl.TypeDecl;
 import pt.up.fe.specs.kadabra.parser.spoon.datafiller.DeclDataFiller;
+import pt.up.fe.specs.util.SpecsCheck;
+import pt.up.fe.specs.util.classmap.FunctionClassMap;
 import spoon.reflect.declaration.CtClass;
+import spoon.reflect.declaration.CtElement;
 import spoon.reflect.reference.CtTypeReference;
 
-public class DeclParsers {
+public class DeclParsers extends SpoonParsers {
 
-    private final MainParser generalParser;
-    // private final DeclDataFiller dataFiller;
+    private DeclParsers(MainParser mainParser) {
+        super(mainParser);
+    }
 
-    private DeclParsers(MainParser generalParser) {
-        this.generalParser = generalParser;
-        // this.dataFiller = new DeclDataFiller(generalParser);
+    @Override
+    protected void registerParsers(FunctionClassMap<CtElement, KadabraNode> parsers) {
+        parsers.put(CtClass.class, this::ctClass);
+        parsers.put(CtTypeReference.class, this::ctTypeReference);
     }
 
     public static void registerParsers(MainParser mainParser) {
-        // Create parser instance
-        var parsers = new DeclParsers(mainParser);
-
-        // Obtain and fill node builders
-        var nodeBuilders = mainParser.getNodeBuilders();
-        // nodeBuilders.put(CtClass.class, parsers::ctClass);
-        // nodeBuilders.put(CtTypeReference.class, parsers::ctTypeReference);
-
+        new DeclParsers(mainParser);
     }
 
-    private KadabraNodeFactory factory() {
-        return generalParser.getFactory();
-    }
+    // public static void registerParsers(MainParser mainParser) {
+    // // Create parser instance
+    // var parsers = new DeclParsers(mainParser);
+    //
+    // // Obtain and fill node builders
+    // var nodeBuilders = mainParser.getNodeBuilders();
+    // // nodeBuilders.put(CtClass.class, parsers::ctClass);
+    // // nodeBuilders.put(CtTypeReference.class, parsers::ctTypeReference);
+    //
+    // }
+    //
+    // @Override
+    // private KadabraNodeFactory factory() {
+    // return generalParser.getFactory();
+    // }
 
     private DeclDataFiller decl() {
-        return generalParser.getDataFillers().decl();
+        return dataFillers().decl();
     }
 
     public ClassDecl ctClass(CtClass<?> ctClass) {
-        // TODO: Parse children
-        var children = new ArrayList<KadabraNode>();
+
+        // var children = new ArrayList<KadabraNode>();
 
         // Create node
-        var classDecl = factory().newNode(ClassDecl.class, children);
+        // If this is a class that there is no source code available, instantiate as a ReflectedClassDecl
+        var hasSourceCode = ctClass.getPosition().isValidPosition();
+        var classDecl = hasSourceCode ? factory().newNode(ClassDecl.class)
+                : factory().newNode(ReflectedClassDecl.class);
 
         // Fill data
         decl().ctClass(classDecl, ctClass);
+
+        // Only add children if there is source code
+
+        if (hasSourceCode) {
+            var children = ctClass.getDirectChildren();
+
+            // If class has super, first child is the super type
+            int startingIndex = 0;
+            if (ctClass.getSuperclass() != null) {
+                SpecsCheck.checkArgument(children.get(0).equals(ctClass.getSuperclass()),
+                        () -> "Expected child to be super class. Child: " + children.get(0) + "; Super: "
+                                + ctClass.getSuperclass());
+                startingIndex++;
+            }
+
+            // Add children
+            for (int i = startingIndex; i < children.size(); i++) {
+                classDecl.addChild(parser().parse(children.get(i)));
+            }
+
+            // parser().parseChildren(ctClass).stream()
+            // .forEach(classDecl::addChild);
+        }
 
         return classDecl;
     }
@@ -72,7 +106,32 @@ public class DeclParsers {
      * @return
      */
     public TypeDecl ctTypeReference(CtTypeReference<?> ctTypeReference) {
-        return null;
+
+        var ctType = ctTypeReference.getTypeDeclaration();
+
+        // If declaration present, parse as declaration
+        if (ctType != null) {
+            return parser().toTypeDecl(parser().parse(ctType));
+        }
+
+        // System.out.println("Super: " + ctClass.getSuperclass());
+        // System.out.println("Super package: " + ctClass.getSuperclass().getQualifiedName());
+        // System.out.println("Super decl: " + ctClass.getSuperclass().getDeclaration());
+        // System.out.println("Super decl v2: " + ctClass.getSuperclass().getTypeDeclaration());
+
+        // Type references can be incomplete, if it is the case parse as an incomplete type reference
+
+        // Otherwise, parse declaration directly
+
+        // Create node
+        var typeDecl = factory().newNode(TypeDecl.class);
+
+        // Fill data
+        decl().ctTypeReference(typeDecl, ctTypeReference);
+
+        // TODO: Add children
+
+        return typeDecl;
     }
 
 }

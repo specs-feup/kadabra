@@ -1,3 +1,5 @@
+package org.literal;
+
 import test.NonExistentClass;
 
 public class Literal extends NonExistentClass {

@@ -35,4 +35,26 @@ public class DataFillers {
     public ElementDataFiller element() {
         return elementFiller;
     }
+
+    public static String extractQualifiedPrefix(String qualifiedName, String simpleName) {
+        if (!qualifiedName.endsWith(simpleName)) {
+            throw new RuntimeException("Expected qualified name to have the simple name at the end. Qualified name: '"
+                    + qualifiedName + "'; Simple name: '" + simpleName + "'");
+        }
+
+        var qualifiedPrefix = qualifiedName.substring(0, qualifiedName.length() - simpleName.length());
+
+        // if (qualifiedPrefix.endsWith(".")) {
+        // If last character is not an alphabetic character, assume it is a separator
+        if (!qualifiedPrefix.isBlank()
+                && !Character.isAlphabetic(qualifiedPrefix.charAt(qualifiedPrefix.length() - 1))) {
+
+            qualifiedPrefix = qualifiedPrefix.substring(0, qualifiedPrefix.length() - 1);
+        }
+
+        // System.out.println("PREFIX: " + qualifiedPrefix);
+
+        return qualifiedPrefix;
+    }
+
 }
