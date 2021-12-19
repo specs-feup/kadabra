@@ -13,14 +13,34 @@
 
 package pt.up.fe.specs.kadabra.ast;
 
+import java.io.File;
 import java.util.Collection;
+import java.util.Optional;
 
+import org.suikasoft.jOptions.Datakey.DataKey;
+import org.suikasoft.jOptions.Datakey.KeyFactory;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 
 public class CompilationUnit extends KadabraNode {
 
+    /// DATAKEYS BEGIN
+
+    public static final DataKey<String> NAME = KeyFactory.string("name");
+
+    public static final DataKey<Optional<File>> FILE = KeyFactory.optional("file");
+
+    /// DATAKEYS END
+
     public CompilationUnit(DataStore data, Collection<? extends KadabraNode> children) {
         super(data, children);
     }
+
+    /// TODO: Getters
+
+    // getPackage (specific node for unnamed package)
+
+    // Imports
+
+    // Declared types
 
 }

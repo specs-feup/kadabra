@@ -13,9 +13,11 @@
 
 package pt.up.fe.specs.kadabra;
 
+import java.io.File;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import org.suikasoft.jOptions.storedefinition.StoreDefinitions;
@@ -104,8 +106,14 @@ public class KadabraNodeFactory {
         // return new App(data, compilationUnits);
     }
 
-    // public CompilationUnit compilationUnit() {
-    // return new CompilationUnit(newDataStore(CompilationUnit.class), null);
-    // }
+    public CompilationUnit compilationUnit(String name, File file, List<KadabraNode> children) {
+        var unit = newNode(CompilationUnit.class, children);
+
+        // Set attributes
+        unit.set(CompilationUnit.NAME, name);
+        unit.set(CompilationUnit.FILE, Optional.ofNullable(file));
+
+        return unit;
+    }
 
 }
