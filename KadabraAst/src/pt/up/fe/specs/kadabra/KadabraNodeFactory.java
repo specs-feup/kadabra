@@ -24,9 +24,9 @@ import org.suikasoft.jOptions.storedefinition.StoreDefinitions;
 
 import pt.up.fe.specs.kadabra.ast.App;
 import pt.up.fe.specs.kadabra.ast.CompilationUnit;
-import pt.up.fe.specs.kadabra.ast.GenericKadabraNode;
 import pt.up.fe.specs.kadabra.ast.KadabraContext;
 import pt.up.fe.specs.kadabra.ast.KadabraNode;
+import pt.up.fe.specs.kadabra.ast.generic.GenericKadabraNode;
 
 public class KadabraNodeFactory {
 

@@ -11,25 +11,17 @@
  * specific language governing permissions and limitations under the License. under the License.
  */
 
-package pt.up.fe.specs.kadabra.ast.decl;
+package pt.up.fe.specs.kadabra.ast.generic;
 
 import java.util.Collection;
 
-import org.suikasoft.jOptions.Datakey.DataKey;
-import org.suikasoft.jOptions.Datakey.KeyFactory;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 
 import pt.up.fe.specs.kadabra.ast.KadabraNode;
 
-public class Decl extends KadabraNode {
+public class GenericKadabraNode extends KadabraNode implements GenericNodeKeys {
 
-    /// DATAKEYS BEGIN
-
-    public final static DataKey<String> NAME = KeyFactory.string("name");
-
-    /// DATAKEYS END
-
-    public Decl(DataStore data, Collection<? extends KadabraNode> children) {
+    public GenericKadabraNode(DataStore data, Collection<? extends KadabraNode> children) {
         super(data, children);
     }
 

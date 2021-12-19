@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 SPeCS.
+ * Copyright 2020 SPeCS.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -11,25 +11,18 @@
  * specific language governing permissions and limitations under the License. under the License.
  */
 
-package pt.up.fe.specs.kadabra.ast.decl;
+package pt.up.fe.specs.kadabra.ast.generic;
 
 import java.util.Collection;
 
-import org.suikasoft.jOptions.Datakey.DataKey;
-import org.suikasoft.jOptions.Datakey.KeyFactory;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 
 import pt.up.fe.specs.kadabra.ast.KadabraNode;
+import pt.up.fe.specs.kadabra.ast.LiteralNode;
 
-public class Decl extends KadabraNode {
+public class GenericLiteralNode extends KadabraNode implements LiteralNode {
 
-    /// DATAKEYS BEGIN
-
-    public final static DataKey<String> NAME = KeyFactory.string("name");
-
-    /// DATAKEYS END
-
-    public Decl(DataStore data, Collection<? extends KadabraNode> children) {
+    public GenericLiteralNode(DataStore data, Collection<? extends KadabraNode> children) {
         super(data, children);
     }
 

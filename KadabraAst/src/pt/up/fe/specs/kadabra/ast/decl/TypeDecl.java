@@ -26,6 +26,8 @@ public class TypeDecl extends Decl {
 
     /// DATAKEYS BEGIN
 
+    public final static DataKey<String> QUALIFIED_PREFIX = KeyFactory.string("qualifiedPrefix");
+
     public static final DataKey<Optional<TypeDecl>> SUPER = KeyFactory.optional("super");
 
     // If using noclasspath mode, TypeDecl may be incomplete and have less information

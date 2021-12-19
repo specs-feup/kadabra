@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 SPeCS.
+ * Copyright 2021 SPeCS.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -11,15 +11,17 @@
  * specific language governing permissions and limitations under the License. under the License.
  */
 
-package pt.up.fe.specs.kadabra.ast;
+package pt.up.fe.specs.kadabra.ast.decl;
 
 import java.util.Collection;
 
 import org.suikasoft.jOptions.Interfaces.DataStore;
 
-public class GenericLiteralNode extends KadabraNode implements LiteralNode {
+import pt.up.fe.specs.kadabra.ast.KadabraNode;
 
-    public GenericLiteralNode(DataStore data, Collection<? extends KadabraNode> children) {
+public class ReflectedClassDecl extends ClassDecl {
+
+    public ReflectedClassDecl(DataStore data, Collection<? extends KadabraNode> children) {
         super(data, children);
     }
 
