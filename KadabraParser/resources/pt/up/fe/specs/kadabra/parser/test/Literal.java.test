@@ -2,6 +2,10 @@ package org.literal;
 
 import test.NonExistentClass;
 
+/**
+ * Literal comments
+ */
+ @Test
 public class Literal extends NonExistentClass {
 
 	public static void foo1() {
@@ -37,5 +41,10 @@ public class Literal extends NonExistentClass {
 		return a + 3;
 	}
 	*/
+	
+	public static void foo3() {	
+	}
 
+	public static void foo4() {	
+	}
 }
