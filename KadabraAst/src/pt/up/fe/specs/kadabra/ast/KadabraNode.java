@@ -21,6 +21,7 @@ import org.suikasoft.jOptions.Interfaces.DataStore;
 import org.suikasoft.jOptions.treenode.DataNode;
 
 import pt.up.fe.specs.kadabra.KadabraNodeFactory;
+import pt.up.fe.specs.kadabra.ast.decl.TypeDecl;
 
 /**
  * Represents a node of the Kadabra AST.
@@ -51,6 +52,17 @@ public abstract class KadabraNode extends DataNode<KadabraNode> {
      * Factory for building nodes.
      */
     public final static DataKey<KadabraNodeFactory> FACTORY = KeyFactory.object("factory", KadabraNodeFactory.class);
+
+    /**
+     * If using noclasspath mode, node may not have access to source code
+     */
+    public final static DataKey<Boolean> HAS_SOURCE = KeyFactory.bool("hasSource");
+
+    /**
+     * The type returned by this node, or TypeDecl.getNoType() if node does not have a return type.
+     */
+    public final static DataKey<TypeDecl> TYPE = KeyFactory.object("type", TypeDecl.class)
+            .setDefault(() -> TypeDecl.getNoType());
 
     // DATAKEYS END
 
@@ -107,5 +119,9 @@ public abstract class KadabraNode extends DataNode<KadabraNode> {
         }
 
         return newNode;
+    }
+
+    public boolean hasType() {
+        return !TypeDecl.isNoType(get(TYPE));
     }
 }
