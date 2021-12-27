@@ -14,7 +14,9 @@
 package pt.up.fe.specs.kadabra.parser.spoon.datafiller;
 
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import pt.up.fe.specs.kadabra.ast.KadabraNode;
 import pt.up.fe.specs.kadabra.ast.decl.ClassDecl;
 import pt.up.fe.specs.kadabra.ast.decl.Decl;
 import pt.up.fe.specs.kadabra.ast.decl.TypeDecl;
@@ -23,6 +25,7 @@ import pt.up.fe.specs.util.SpecsCheck;
 import spoon.reflect.declaration.CtClass;
 import spoon.reflect.declaration.CtNamedElement;
 import spoon.reflect.declaration.CtType;
+import spoon.reflect.declaration.CtTypeInformation;
 import spoon.reflect.reference.CtTypeReference;
 
 public class DeclDataFiller {
@@ -37,6 +40,37 @@ public class DeclDataFiller {
         return mainParser.getDataFillers().element();
     }
 
+    private void ctTypeInformation(KadabraNode node, CtTypeInformation element) {
+        var qualifiedPrefix = DataFillers.extractQualifiedPrefix(element.getQualifiedName(), node.get(Decl.NAME));
+        node.set(TypeDecl.QUALIFIED_PREFIX, qualifiedPrefix);
+
+        var superClass = element.getSuperclass();
+
+        // If not present, do nothing
+        if (superClass == null) {
+            return;
+        }
+
+        // Parse reference
+        var superType = mainParser.toTypeDecl(mainParser.parse(superClass));
+        node.set(TypeDecl.SUPER, Optional.of(superType));
+
+        var interfaces = element.getSuperInterfaces();
+
+        // Parse reference
+        var interfaceDecls = interfaces.stream()
+                .map(ref -> mainParser.toTypeDecl(mainParser.parse(ref)))
+                .collect(Collectors.toList());
+
+        node.set(TypeDecl.INTERFACES, interfaceDecls);
+    }
+
+    // private void addInterfaces(KadabraNode node, Collection<CtTypeReference<?>> interfaces) {
+    //
+    // }
+
+    /// Element parsers
+
     public void ctNamedElement(Decl node, CtNamedElement ctNamedElement) {
         element().ctElement(node, ctNamedElement);
 
@@ -44,22 +78,11 @@ public class DeclDataFiller {
         node.set(Decl.NAME, ctNamedElement.getSimpleName());
     }
 
-    public void ctType(TypeDecl node, CtType<?> ctType) {
+    public void ctType(TypeDecl node, CtType<?> element) {
         // Hierarchy
-        ctNamedElement(node, ctType);
+        ctNamedElement(node, element);
 
-        var qualifiedPrefix = DataFillers.extractQualifiedPrefix(ctType.getQualifiedName(), node.get(Decl.NAME));
-        node.set(TypeDecl.QUALIFIED_PREFIX, qualifiedPrefix);
-
-        var superClass = ctType.getSuperclass();
-
-        // If present, has super
-        if (superClass != null) {
-            // Parse reference
-            var superType = mainParser.toTypeDecl(mainParser.parse(ctType.getSuperclass()));
-            node.set(TypeDecl.SUPER, Optional.of(superType));
-        }
-
+        ctTypeInformation(node, element);
     }
 
     public void ctClass(ClassDecl node, CtClass<?> ctClass) {
@@ -68,24 +91,21 @@ public class DeclDataFiller {
 
     }
 
-    public void ctTypeReference(TypeDecl typeDecl, CtTypeReference<?> ctTypeReference) {
+    public void ctTypeReference(TypeDecl node, CtTypeReference<?> element) {
+        SpecsCheck.checkArgument(element.getTypeDeclaration() == null,
+                () -> "Expected type declaration to be null: " + element);
+
+        // Hierarchy
+        element().ctElement(node, element);
+
+        // Decl
+        node.set(Decl.NAME, element.getSimpleName());
+
+        // TypeDecl
+        ctTypeInformation(node, element);
+
         // Assume that if this function is being called, then type is incomplete
-
-        SpecsCheck.checkArgument(ctTypeReference.getTypeDeclaration() == null,
-                () -> "Expected type declaration to be null: " + ctTypeReference);
-
-        typeDecl.set(TypeDecl.IS_INCOMPLETE, true);
-        typeDecl.set(Decl.NAME, ctTypeReference.getSimpleName());
-
-        var qualifiedPrefix = DataFillers.extractQualifiedPrefix(ctTypeReference.getQualifiedName(),
-                typeDecl.get(Decl.NAME));
-        typeDecl.set(TypeDecl.QUALIFIED_PREFIX, qualifiedPrefix);
-
-        // TODO Auto-generated method stub
-
-        // System.out.println("Super: " + element.getSuperclass());
-        // System.out.println("Super package: " + element.getSuperclass().getQualifiedName());
-        // System.out.println("Super decl: " + element.getSuperclass().getDeclaration());
+        node.set(TypeDecl.IS_INCOMPLETE, true);
 
     }
 }

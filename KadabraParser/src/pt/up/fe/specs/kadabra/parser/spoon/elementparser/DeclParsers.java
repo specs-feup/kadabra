@@ -13,15 +13,17 @@
 
 package pt.up.fe.specs.kadabra.parser.spoon.elementparser;
 
+import java.util.ArrayList;
+
 import pt.up.fe.specs.kadabra.ast.KadabraNode;
 import pt.up.fe.specs.kadabra.ast.decl.ClassDecl;
 import pt.up.fe.specs.kadabra.ast.decl.ReflectedClassDecl;
 import pt.up.fe.specs.kadabra.ast.decl.TypeDecl;
 import pt.up.fe.specs.kadabra.parser.spoon.datafiller.DeclDataFiller;
-import pt.up.fe.specs.util.SpecsCheck;
 import pt.up.fe.specs.util.classmap.FunctionClassMap;
 import spoon.reflect.declaration.CtClass;
 import spoon.reflect.declaration.CtElement;
+import spoon.reflect.declaration.CtType;
 import spoon.reflect.reference.CtTypeReference;
 
 public class DeclParsers extends SpoonParsers {
@@ -76,27 +78,55 @@ public class DeclParsers extends SpoonParsers {
         // Only add children if there is source code
 
         if (hasSourceCode) {
-            var children = ctClass.getDirectChildren();
-
-            // If class has super, first child is the super type
-            int startingIndex = 0;
-            if (ctClass.getSuperclass() != null) {
-                SpecsCheck.checkArgument(children.get(0).equals(ctClass.getSuperclass()),
-                        () -> "Expected child to be super class. Child: " + children.get(0) + "; Super: "
-                                + ctClass.getSuperclass());
-                startingIndex++;
-            }
-
-            // Add children
-            for (int i = startingIndex; i < children.size(); i++) {
-                classDecl.addChild(parser().parse(children.get(i)));
-            }
-
-            // parser().parseChildren(ctClass).stream()
-            // .forEach(classDecl::addChild);
+            addCtClassChildren(classDecl, ctClass);
         }
 
         return classDecl;
+    }
+
+    public void addCtTypeChildren(ClassDecl classDecl, CtType<?> ctType) {
+
+        // Get type members
+        var members = new ArrayList<>(ctType.getTypeMembers());
+
+        parser().processChildren(members);
+
+        members.stream()
+                .map(member -> parser().parse(member))
+                .forEach(classDecl::addChild);
+
+    }
+
+    public void addCtClassChildren(ClassDecl classDecl, CtClass<?> ctClass) {
+        addCtTypeChildren(classDecl, ctClass);
+        // scan(CtRole.ANNOTATION, ctClass.getAnnotations());
+        // scan(CtRole.SUPER_TYPE, ctClass.getSuperclass());
+        // scan(CtRole.INTERFACE, ctClass.getSuperInterfaces());
+        // scan(CtRole.TYPE_PARAMETER, ctClass.getFormalCtTypeParameters());
+        // scan(CtRole.TYPE_MEMBER, ctClass.getTypeMembers());
+        // scan(CtRole.COMMENT, ctClass.getComments());
+
+        /*
+        var children = ctClass.getDirectChildren();
+        
+        // If class has super, first child is the super type
+        int startingIndex = 0;
+        if (ctClass.getSuperclass() != null) {
+            SpecsCheck.checkArgument(children.get(0).equals(ctClass.getSuperclass()),
+                    () -> "Expected child to be super class. Child: " + children.get(0) + "; Super: "
+                            + ctClass.getSuperclass());
+            startingIndex++;
+        }
+        
+        // Add children
+        for (int i = startingIndex; i < children.size(); i++) {
+            classDecl.addChild(parser().parse(children.get(i)));
+        }
+        
+        // parser().parseChildren(ctClass).stream()
+        // .forEach(classDecl::addChild);
+         
+         */
     }
 
     /**
@@ -129,7 +159,7 @@ public class DeclParsers extends SpoonParsers {
         // Fill data
         decl().ctTypeReference(typeDecl, ctTypeReference);
 
-        // TODO: Add children
+        // Since parsed as an incomplete TypeDecl, do not add children
 
         return typeDecl;
     }
