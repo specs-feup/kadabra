@@ -95,8 +95,10 @@ public class SpoonParser extends KadabraParser {
                 .collect(Collectors.toList());
 
         if (!astNodesWithPreviousId.isEmpty()) {
-            SpecsLogs.info("Found nodes with previous id:");
-            astNodesWithPreviousId.stream().forEach(node -> SpecsLogs.info(node.toString()));
+            // SpecsLogs.info("Found nodes with previous id:");
+            // astNodesWithPreviousId.stream().forEach(node -> SpecsLogs.info("PrevId: " + node.toString()));
+
+            SpecsLogs.info("Nodes with previous id: " + astNodesWithPreviousId.stream().count());
         } else {
             SpecsLogs.info("Passed verification 'previous id'");
         }

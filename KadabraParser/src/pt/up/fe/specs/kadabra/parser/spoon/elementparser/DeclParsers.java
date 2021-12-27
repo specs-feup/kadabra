@@ -14,15 +14,17 @@
 package pt.up.fe.specs.kadabra.parser.spoon.elementparser;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import pt.up.fe.specs.kadabra.ast.KadabraNode;
 import pt.up.fe.specs.kadabra.ast.decl.ClassDecl;
-import pt.up.fe.specs.kadabra.ast.decl.ReflectedClassDecl;
+import pt.up.fe.specs.kadabra.ast.decl.MethodDecl;
 import pt.up.fe.specs.kadabra.ast.decl.TypeDecl;
 import pt.up.fe.specs.kadabra.parser.spoon.datafiller.DeclDataFiller;
 import pt.up.fe.specs.util.classmap.FunctionClassMap;
 import spoon.reflect.declaration.CtClass;
 import spoon.reflect.declaration.CtElement;
+import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.reference.CtTypeReference;
 
@@ -36,27 +38,21 @@ public class DeclParsers extends SpoonParsers {
     protected void registerParsers(FunctionClassMap<CtElement, KadabraNode> parsers) {
         parsers.put(CtClass.class, this::ctClass);
         parsers.put(CtTypeReference.class, this::ctTypeReference);
+        parsers.put(CtMethod.class, this::ctMethod);
+        // parsers.put(CtMethod.class, );
     }
+
+    // protected <N extends KadabraNode, E extends CtElement> Function<E, N> newParser(
+    // Class<N> kadabraNodeClass, BiConsumer<N, E> dataFiller, BiConsumer<N, E> childrenAdder) {
+    //
+    // var spoonParser = new GenericSpoonParser<>(kadabraNodeClass, dataFiller, childrenAdder, factory());
+    //
+    // return spoonParser::parse;
+    // }
 
     public static void registerParsers(MainParser mainParser) {
         new DeclParsers(mainParser);
     }
-
-    // public static void registerParsers(MainParser mainParser) {
-    // // Create parser instance
-    // var parsers = new DeclParsers(mainParser);
-    //
-    // // Obtain and fill node builders
-    // var nodeBuilders = mainParser.getNodeBuilders();
-    // // nodeBuilders.put(CtClass.class, parsers::ctClass);
-    // // nodeBuilders.put(CtTypeReference.class, parsers::ctTypeReference);
-    //
-    // }
-    //
-    // @Override
-    // private KadabraNodeFactory factory() {
-    // return generalParser.getFactory();
-    // }
 
     private DeclDataFiller decl() {
         return dataFillers().decl();
@@ -64,24 +60,31 @@ public class DeclParsers extends SpoonParsers {
 
     public ClassDecl ctClass(CtClass<?> ctClass) {
 
-        // var children = new ArrayList<KadabraNode>();
-
         // Create node
-        // If this is a class that there is no source code available, instantiate as a ReflectedClassDecl
-        var hasSourceCode = ctClass.getPosition().isValidPosition();
-        var classDecl = hasSourceCode ? factory().newNode(ClassDecl.class)
-                : factory().newNode(ReflectedClassDecl.class);
+        var classDecl = factory().newNode(ClassDecl.class);
 
         // Fill data
         decl().ctClass(classDecl, ctClass);
 
         // Only add children if there is source code
-
-        if (hasSourceCode) {
+        if (classDecl.get(KadabraNode.HAS_SOURCE)) {
             addCtClassChildren(classDecl, ctClass);
         }
 
         return classDecl;
+    }
+
+    public MethodDecl ctMethod(CtMethod<?> ctMethod) {
+        return newParser(MethodDecl.class, decl()::ctMethod, this::getCtMethodChildren).parse(ctMethod);
+    }
+
+    public List<CtElement> getCtMethodChildren(CtMethod<?> ctMethod) {
+        var children = new ArrayList<CtElement>();
+
+        children.addAll(ctMethod.getParameters());
+        children.add(ctMethod.getBody());
+
+        return children;
     }
 
     public void addCtTypeChildren(ClassDecl classDecl, CtType<?> ctType) {
@@ -99,34 +102,7 @@ public class DeclParsers extends SpoonParsers {
 
     public void addCtClassChildren(ClassDecl classDecl, CtClass<?> ctClass) {
         addCtTypeChildren(classDecl, ctClass);
-        // scan(CtRole.ANNOTATION, ctClass.getAnnotations());
-        // scan(CtRole.SUPER_TYPE, ctClass.getSuperclass());
-        // scan(CtRole.INTERFACE, ctClass.getSuperInterfaces());
-        // scan(CtRole.TYPE_PARAMETER, ctClass.getFormalCtTypeParameters());
-        // scan(CtRole.TYPE_MEMBER, ctClass.getTypeMembers());
-        // scan(CtRole.COMMENT, ctClass.getComments());
 
-        /*
-        var children = ctClass.getDirectChildren();
-        
-        // If class has super, first child is the super type
-        int startingIndex = 0;
-        if (ctClass.getSuperclass() != null) {
-            SpecsCheck.checkArgument(children.get(0).equals(ctClass.getSuperclass()),
-                    () -> "Expected child to be super class. Child: " + children.get(0) + "; Super: "
-                            + ctClass.getSuperclass());
-            startingIndex++;
-        }
-        
-        // Add children
-        for (int i = startingIndex; i < children.size(); i++) {
-            classDecl.addChild(parser().parse(children.get(i)));
-        }
-        
-        // parser().parseChildren(ctClass).stream()
-        // .forEach(classDecl::addChild);
-         
-         */
     }
 
     /**
@@ -144,14 +120,7 @@ public class DeclParsers extends SpoonParsers {
             return parser().toTypeDecl(parser().parse(ctType));
         }
 
-        // System.out.println("Super: " + ctClass.getSuperclass());
-        // System.out.println("Super package: " + ctClass.getSuperclass().getQualifiedName());
-        // System.out.println("Super decl: " + ctClass.getSuperclass().getDeclaration());
-        // System.out.println("Super decl v2: " + ctClass.getSuperclass().getTypeDeclaration());
-
-        // Type references can be incomplete, if it is the case parse as an incomplete type reference
-
-        // Otherwise, parse declaration directly
+        // Otherwise, parse as an incomplete type reference
 
         // Create node
         var typeDecl = factory().newNode(TypeDecl.class);

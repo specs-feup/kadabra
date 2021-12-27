@@ -33,6 +33,10 @@ public class ElementDataFiller {
         // Add data common to all nodes
 
         // TODO: Position
+
+        // Set has source
+        node.set(KadabraNode.HAS_SOURCE, element.getPosition().isValidPosition());
+
     }
 
     public void ctCompilationUnit(KadabraNode node, CtCompilationUnit element) {

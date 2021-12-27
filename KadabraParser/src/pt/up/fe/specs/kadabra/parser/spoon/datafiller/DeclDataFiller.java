@@ -19,13 +19,20 @@ import java.util.stream.Collectors;
 import pt.up.fe.specs.kadabra.ast.KadabraNode;
 import pt.up.fe.specs.kadabra.ast.decl.ClassDecl;
 import pt.up.fe.specs.kadabra.ast.decl.Decl;
+import pt.up.fe.specs.kadabra.ast.decl.MethodDecl;
 import pt.up.fe.specs.kadabra.ast.decl.TypeDecl;
 import pt.up.fe.specs.kadabra.parser.spoon.elementparser.MainParser;
 import pt.up.fe.specs.util.SpecsCheck;
+import pt.up.fe.specs.util.SpecsCollections;
 import spoon.reflect.declaration.CtClass;
+import spoon.reflect.declaration.CtExecutable;
+import spoon.reflect.declaration.CtFormalTypeDeclarer;
+import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtNamedElement;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.declaration.CtTypeInformation;
+import spoon.reflect.declaration.CtTypeMember;
+import spoon.reflect.declaration.CtTypedElement;
 import spoon.reflect.reference.CtTypeReference;
 
 public class DeclDataFiller {
@@ -38,6 +45,10 @@ public class DeclDataFiller {
 
     private ElementDataFiller element() {
         return mainParser.getDataFillers().element();
+    }
+
+    private TypeDecl toTypeDecl(KadabraNode node) {
+        return mainParser.toTypeDecl(node);
     }
 
     private void ctTypeInformation(KadabraNode node, CtTypeInformation element) {
@@ -78,11 +89,32 @@ public class DeclDataFiller {
         node.set(Decl.NAME, ctNamedElement.getSimpleName());
     }
 
+    public void ctExecutable(Decl node, CtExecutable<?> element) {
+        ctNamedElement(node, element);
+
+        var thrownTypes = SpecsCollections.map(element.getThrownTypes(),
+                thrownType -> toTypeDecl(mainParser.parse(thrownType)));
+
+        node.set(Decl.THROWN_TYPES, thrownTypes);
+    }
+
     public void ctType(TypeDecl node, CtType<?> element) {
         // Hierarchy
         ctNamedElement(node, element);
 
         ctTypeInformation(node, element);
+        ctFormalTypeDeclarer(node, element);
+    }
+
+    private void ctFormalTypeDeclarer(Decl node, CtFormalTypeDeclarer element) {
+        var typeParams = SpecsCollections.map(element.getFormalCtTypeParameters(),
+                typeParam -> toTypeDecl(mainParser.parse(typeParam)));
+
+        // var typeParams = element.getFormalCtTypeParameters().stream()
+        // .map(typeParam -> (TypeDecl) mainParser.parse(typeParam))
+        // .collect(Collectors.toList());
+
+        node.set(Decl.GENERIC_PARAMS, typeParams);
     }
 
     public void ctClass(ClassDecl node, CtClass<?> ctClass) {
@@ -101,11 +133,42 @@ public class DeclDataFiller {
         // Decl
         node.set(Decl.NAME, element.getSimpleName());
 
+        // Assume that if this function is being called, then decl is incomplete
+        node.set(Decl.IS_INCOMPLETE, true);
+
         // TypeDecl
         ctTypeInformation(node, element);
 
-        // Assume that if this function is being called, then type is incomplete
-        node.set(TypeDecl.IS_INCOMPLETE, true);
+    }
 
+    public void ctMethod(MethodDecl node, CtMethod<?> element) {
+        // Hierarchy
+        ctNamedElement(node, element);
+
+        ctFormalTypeDeclarer(node, element);
+
+        ctTypedElement(node, element);
+
+        ctTypeMember(node, element);
+
+        node.set(MethodDecl.IS_DEFAULT, element.isDefaultMethod());
+    }
+
+    private void ctTypeMember(Decl node, CtTypeMember element) {
+        node.set(Decl.DECLARING_TYPE, toTypeDecl(mainParser.parse(element.getDeclaringType())));
+
+        var topLevelType = element.getTopLevelType();
+
+        // Set top level type if present
+        if (topLevelType != element) {
+            node.set(Decl.TOP_LEVEL_TYPE, toTypeDecl(mainParser.parse(topLevelType)));
+        }
+
+    }
+
+    private void ctTypedElement(KadabraNode node, CtTypedElement<?> element) {
+        var declType = toTypeDecl(mainParser.parse(element.getType()));
+
+        node.set(KadabraNode.TYPE, declType);
     }
 }
