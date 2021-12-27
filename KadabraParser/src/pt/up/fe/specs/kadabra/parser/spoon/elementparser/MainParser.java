@@ -30,10 +30,12 @@ import pt.up.fe.specs.kadabra.ast.decl.TypeDecl;
 import pt.up.fe.specs.kadabra.ast.generic.GenericKadabraNode;
 import pt.up.fe.specs.kadabra.ast.generic.GenericTypeDecl;
 import pt.up.fe.specs.kadabra.parser.spoon.datafiller.DataFillers;
+import pt.up.fe.specs.kadabra.parser.spoon.elements.CtLabel;
 import pt.up.fe.specs.kadabra.parser.spoon.nodes.UnresolvedNode;
 import pt.up.fe.specs.kadabra.parser.spoon.nodes.UnresolvedTypeDecl;
 import pt.up.fe.specs.util.SpecsCollections;
 import pt.up.fe.specs.util.classmap.FunctionClassMap;
+import spoon.reflect.code.CtStatement;
 import spoon.reflect.declaration.CtElement;
 
 public class MainParser {
@@ -62,6 +64,7 @@ public class MainParser {
         // Register parsers
         ElementParsers.registerParsers(this);
         DeclParsers.registerParsers(this);
+        StmtParsers.registerParsers(this);
 
         // Tip: check CtScanner to find out the children of a CtElement
     }
@@ -156,6 +159,14 @@ public class MainParser {
 
         textElements.addAll(element.getAnnotations());
         textElements.addAll(element.getComments());
+
+        // Add labels as separate nodes
+        if (element instanceof CtStatement) {
+            var label = new CtLabel(((CtStatement) element).getLabel());
+            label.setPosition(element.getPosition());
+            textElements.add(label);
+        }
+
         /*
         var siblings = new ArrayList<CtElement>();
         

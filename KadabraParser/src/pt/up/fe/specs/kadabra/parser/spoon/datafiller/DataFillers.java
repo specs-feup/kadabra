@@ -20,16 +20,22 @@ public class DataFillers {
     private final MainParser generalParser;
     private final ElementDataFiller elementFiller;
     private final DeclDataFiller declFiller;
+    private final StmtDataFiller stmtFiller;
 
-    public DataFillers(MainParser generalParser) {
-        this.generalParser = generalParser;
+    public DataFillers(MainParser mainParser) {
+        this.generalParser = mainParser;
 
-        this.elementFiller = new ElementDataFiller(generalParser);
-        this.declFiller = new DeclDataFiller(generalParser);
+        this.elementFiller = new ElementDataFiller(mainParser);
+        this.declFiller = new DeclDataFiller(mainParser);
+        this.stmtFiller = new StmtDataFiller(mainParser);
     }
 
     public DeclDataFiller decl() {
         return declFiller;
+    }
+
+    public StmtDataFiller stmt() {
+        return stmtFiller;
     }
 
     public ElementDataFiller element() {

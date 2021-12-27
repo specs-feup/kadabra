@@ -35,23 +35,23 @@ import spoon.reflect.declaration.CtTypeMember;
 import spoon.reflect.declaration.CtTypedElement;
 import spoon.reflect.reference.CtTypeReference;
 
-public class DeclDataFiller {
-
-    private final MainParser mainParser;
+public class DeclDataFiller extends DataFiller {
 
     public DeclDataFiller(MainParser generalParser) {
-        this.mainParser = generalParser;
+        super(generalParser);
     }
+    //
+    // @Override
+    // private ElementDataFiller element() {
+    // return mainParser.getDataFillers().element();
+    // }
+    //
+    // @Override
+    // private TypeDecl toTypeDecl(KadabraNode node) {
+    // return mainParser.toTypeDecl(node);
+    // }
 
-    private ElementDataFiller element() {
-        return mainParser.getDataFillers().element();
-    }
-
-    private TypeDecl toTypeDecl(KadabraNode node) {
-        return mainParser.toTypeDecl(node);
-    }
-
-    private void ctTypeInformation(KadabraNode node, CtTypeInformation element) {
+    public void ctTypeInformation(KadabraNode node, CtTypeInformation element) {
         var qualifiedPrefix = DataFillers.extractQualifiedPrefix(element.getQualifiedName(), node.get(Decl.NAME));
         node.set(TypeDecl.QUALIFIED_PREFIX, qualifiedPrefix);
 
@@ -63,14 +63,14 @@ public class DeclDataFiller {
         }
 
         // Parse reference
-        var superType = mainParser.toTypeDecl(mainParser.parse(superClass));
+        var superType = parser().toTypeDecl(parser().parse(superClass));
         node.set(TypeDecl.SUPER, Optional.of(superType));
 
         var interfaces = element.getSuperInterfaces();
 
         // Parse reference
         var interfaceDecls = interfaces.stream()
-                .map(ref -> mainParser.toTypeDecl(mainParser.parse(ref)))
+                .map(ref -> parser().toTypeDecl(parser().parse(ref)))
                 .collect(Collectors.toList());
 
         node.set(TypeDecl.INTERFACES, interfaceDecls);
@@ -93,7 +93,7 @@ public class DeclDataFiller {
         ctNamedElement(node, element);
 
         var thrownTypes = SpecsCollections.map(element.getThrownTypes(),
-                thrownType -> toTypeDecl(mainParser.parse(thrownType)));
+                thrownType -> toTypeDecl(parser().parse(thrownType)));
 
         node.set(Decl.THROWN_TYPES, thrownTypes);
     }
@@ -106,12 +106,12 @@ public class DeclDataFiller {
         ctFormalTypeDeclarer(node, element);
     }
 
-    private void ctFormalTypeDeclarer(Decl node, CtFormalTypeDeclarer element) {
+    public void ctFormalTypeDeclarer(Decl node, CtFormalTypeDeclarer element) {
         var typeParams = SpecsCollections.map(element.getFormalCtTypeParameters(),
-                typeParam -> toTypeDecl(mainParser.parse(typeParam)));
+                typeParam -> toTypeDecl(parser().parse(typeParam)));
 
         // var typeParams = element.getFormalCtTypeParameters().stream()
-        // .map(typeParam -> (TypeDecl) mainParser.parse(typeParam))
+        // .map(typeParam -> (TypeDecl) parser().parse(typeParam))
         // .collect(Collectors.toList());
 
         node.set(Decl.GENERIC_PARAMS, typeParams);
@@ -120,7 +120,6 @@ public class DeclDataFiller {
     public void ctClass(ClassDecl node, CtClass<?> ctClass) {
         // Hierarchy
         ctType(node, ctClass);
-
     }
 
     public void ctTypeReference(TypeDecl node, CtTypeReference<?> element) {
@@ -154,20 +153,20 @@ public class DeclDataFiller {
         node.set(MethodDecl.IS_DEFAULT, element.isDefaultMethod());
     }
 
-    private void ctTypeMember(Decl node, CtTypeMember element) {
-        node.set(Decl.DECLARING_TYPE, toTypeDecl(mainParser.parse(element.getDeclaringType())));
+    public void ctTypeMember(Decl node, CtTypeMember element) {
+        node.set(Decl.DECLARING_TYPE, toTypeDecl(parser().parse(element.getDeclaringType())));
 
         var topLevelType = element.getTopLevelType();
 
         // Set top level type if present
         if (topLevelType != element) {
-            node.set(Decl.TOP_LEVEL_TYPE, toTypeDecl(mainParser.parse(topLevelType)));
+            node.set(Decl.TOP_LEVEL_TYPE, toTypeDecl(parser().parse(topLevelType)));
         }
 
     }
 
-    private void ctTypedElement(KadabraNode node, CtTypedElement<?> element) {
-        var declType = toTypeDecl(mainParser.parse(element.getType()));
+    public void ctTypedElement(KadabraNode node, CtTypedElement<?> element) {
+        var declType = toTypeDecl(parser().parse(element.getType()));
 
         node.set(KadabraNode.TYPE, declType);
     }

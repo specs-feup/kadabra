@@ -170,6 +170,10 @@ public abstract class AKadabraParserTester {
         App ast = codeParser.parse(Arrays.asList(workFolder));
         // App ast = codeParser.parse(Arrays.asList(workFolder), compilerOptions);
 
+        if (showCode) {
+            SpecsLogs.info("Code:\n" + ast.getCode());
+        }
+
         ast.write(SpecsIo.mkdir(AKadabraParserTester.OUTPUT_FOLDERNAME + "/outputFirst"));
         if (onePass) {
             return;
