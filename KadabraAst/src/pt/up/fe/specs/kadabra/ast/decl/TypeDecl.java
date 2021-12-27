@@ -14,6 +14,7 @@
 package pt.up.fe.specs.kadabra.ast.decl;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import org.suikasoft.jOptions.Datakey.DataKey;
@@ -29,6 +30,8 @@ public class TypeDecl extends Decl {
     public final static DataKey<String> QUALIFIED_PREFIX = KeyFactory.string("qualifiedPrefix");
 
     public static final DataKey<Optional<TypeDecl>> SUPER = KeyFactory.optional("super");
+
+    public static final DataKey<List<TypeDecl>> INTERFACES = KeyFactory.list("interfaces", TypeDecl.class);
 
     // If using noclasspath mode, TypeDecl may be incomplete and have less information
     public static final DataKey<Boolean> IS_INCOMPLETE = KeyFactory.bool("isIncomplete");

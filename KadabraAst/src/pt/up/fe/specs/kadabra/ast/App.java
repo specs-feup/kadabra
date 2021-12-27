@@ -15,6 +15,7 @@ package pt.up.fe.specs.kadabra.ast;
 
 import java.io.File;
 import java.util.Collection;
+import java.util.List;
 
 import org.suikasoft.jOptions.Interfaces.DataStore;
 
@@ -42,8 +43,8 @@ public class App extends KadabraNode {
 
     }
 
-    // TODO
-
-    // getCompilationUnits
+    public List<CompilationUnit> getCompilationUnits() {
+        return getChildrenOf(CompilationUnit.class);
+    }
 
 }
