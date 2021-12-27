@@ -14,12 +14,13 @@
 package pt.up.fe.specs.kadabra.ast;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import org.suikasoft.jOptions.Interfaces.DataStore;
 
-import pt.up.fe.specs.util.SpecsLogs;
+import pt.up.fe.specs.util.SpecsIo;
 
 /**
  * Represents a Java application.
@@ -38,13 +39,38 @@ public class App extends KadabraNode {
      * 
      * @param outputFolder
      */
-    public void write(File outputFolder) {
-        SpecsLogs.warn("Not implemented yet");
+    public List<File> write(File outputFolder) {
+        List<File> writtenFiles = new ArrayList<>();
+
+        for (var tUnit : getCompilationUnits()) {
+            // TODO: Get package and use as base folder
+
+            var file = new File(outputFolder, tUnit.get(CompilationUnit.NAME) + ".java");
+            SpecsIo.write(file, tUnit.getCode());
+            writtenFiles.add(file);
+        }
+
+        return writtenFiles;
 
     }
 
     public List<CompilationUnit> getCompilationUnits() {
         return getChildrenOf(CompilationUnit.class);
+    }
+
+    @Override
+    public String getCode() {
+        StringBuilder code = new StringBuilder();
+
+        for (var tu : getCompilationUnits()) {
+            // TODO: Use package name
+            code.append("/**** File '" + tu.get(CompilationUnit.NAME) + "' ****/"
+                    + ln() + ln());
+            code.append(tu.getCode());
+            code.append(ln() + "/**** End File ****/" + ln() + ln());
+        }
+
+        return code.toString();
     }
 
 }

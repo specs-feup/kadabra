@@ -22,6 +22,7 @@ import org.suikasoft.jOptions.treenode.DataNode;
 
 import pt.up.fe.specs.kadabra.KadabraNodeFactory;
 import pt.up.fe.specs.kadabra.ast.decl.TypeDecl;
+import pt.up.fe.specs.util.utilities.PrintOnce;
 
 /**
  * Represents a node of the Kadabra AST.
@@ -123,5 +124,11 @@ public abstract class KadabraNode extends DataNode<KadabraNode> {
 
     public boolean hasType() {
         return !TypeDecl.isNoType(get(TYPE));
+    }
+
+    public String getCode() {
+        PrintOnce.info("getCode() not implemented for nodes of type " + getClass());
+
+        return "\n/*<.getCode() not implemented for node " + this.getClass() + ">*/";
     }
 }

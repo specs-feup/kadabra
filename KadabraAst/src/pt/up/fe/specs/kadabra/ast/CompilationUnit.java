@@ -16,6 +16,7 @@ package pt.up.fe.specs.kadabra.ast;
 import java.io.File;
 import java.util.Collection;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.suikasoft.jOptions.Datakey.DataKey;
 import org.suikasoft.jOptions.Datakey.KeyFactory;
@@ -33,6 +34,15 @@ public class CompilationUnit extends KadabraNode {
 
     public CompilationUnit(DataStore data, Collection<? extends KadabraNode> children) {
         super(data, children);
+    }
+
+    @Override
+    public String getCode() {
+        String body = getChildrenStream()
+                .map(KadabraNode::getCode)
+                .collect(Collectors.joining(ln()));
+
+        return body;
     }
 
     /// TODO: Getters
