@@ -62,6 +62,8 @@ public class MainParser {
         // Register parsers
         ElementParsers.registerParsers(this);
         DeclParsers.registerParsers(this);
+
+        // Tip: check CtScanner to find out the children of a CtElement
     }
 
     public FunctionClassMap<CtElement, KadabraNode> getNodeBuilders() {

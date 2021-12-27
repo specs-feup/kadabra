@@ -14,7 +14,7 @@
 package pt.up.fe.specs.kadabra.parser.spoon.elementparser;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
@@ -25,11 +25,11 @@ public class GenericSpoonParser<N extends KadabraNode, E extends CtElement> {
 
     private final Class<N> kadabraNodeClass;
     private final BiConsumer<N, E> dataFiller;
-    private final Function<E, List<CtElement>> childrenGetter;
+    private final Function<E, Collection<? extends CtElement>> childrenGetter;
     private final MainParser parser;
 
     public GenericSpoonParser(Class<N> kadabraNodeClass, BiConsumer<N, E> dataFiller,
-            Function<E, List<CtElement>> childrenGetter,
+            Function<E, Collection<? extends CtElement>> childrenGetter,
             MainParser parser) {
         this.kadabraNodeClass = kadabraNodeClass;
         this.dataFiller = dataFiller;

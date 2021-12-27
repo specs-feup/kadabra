@@ -14,6 +14,8 @@
 package pt.up.fe.specs.kadabra.parser.spoon.elementparser;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import pt.up.fe.specs.kadabra.ast.KadabraNode;
@@ -42,14 +44,6 @@ public class DeclParsers extends SpoonParsers {
         // parsers.put(CtMethod.class, );
     }
 
-    // protected <N extends KadabraNode, E extends CtElement> Function<E, N> newParser(
-    // Class<N> kadabraNodeClass, BiConsumer<N, E> dataFiller, BiConsumer<N, E> childrenAdder) {
-    //
-    // var spoonParser = new GenericSpoonParser<>(kadabraNodeClass, dataFiller, childrenAdder, factory());
-    //
-    // return spoonParser::parse;
-    // }
-
     public static void registerParsers(MainParser mainParser) {
         new DeclParsers(mainParser);
     }
@@ -59,19 +53,20 @@ public class DeclParsers extends SpoonParsers {
     }
 
     public ClassDecl ctClass(CtClass<?> ctClass) {
-
-        // Create node
-        var classDecl = factory().newNode(ClassDecl.class);
-
-        // Fill data
-        decl().ctClass(classDecl, ctClass);
-
-        // Only add children if there is source code
-        if (classDecl.get(KadabraNode.HAS_SOURCE)) {
-            addCtClassChildren(classDecl, ctClass);
-        }
-
-        return classDecl;
+        return newParser(ClassDecl.class, decl()::ctClass, this::getCtClassChildren).parse(ctClass);
+        //
+        // // Create node
+        // var classDecl = factory().newNode(ClassDecl.class);
+        //
+        // // Fill data
+        // decl().ctClass(classDecl, ctClass);
+        //
+        // // Only add children if there is source code
+        // if (classDecl.get(KadabraNode.HAS_SOURCE)) {
+        // addCtClassChildren(classDecl, ctClass);
+        // }
+        //
+        // return classDecl;
     }
 
     public MethodDecl ctMethod(CtMethod<?> ctMethod) {
@@ -87,7 +82,7 @@ public class DeclParsers extends SpoonParsers {
         return children;
     }
 
-    public void addCtTypeChildren(ClassDecl classDecl, CtType<?> ctType) {
+    public void addCtTypeChildren(TypeDecl classDecl, CtType<?> ctType) {
 
         // Get type members
         var members = new ArrayList<>(ctType.getTypeMembers());
@@ -98,6 +93,14 @@ public class DeclParsers extends SpoonParsers {
                 .map(member -> parser().parse(member))
                 .forEach(classDecl::addChild);
 
+    }
+
+    public Collection<? extends CtElement> getCtTypeChildren(CtType<?> ctType) {
+        return ctType.getTypeMembers();
+    }
+
+    public Collection<? extends CtElement> getCtClassChildren(CtClass<?> ctClass) {
+        return getCtTypeChildren(ctClass);
     }
 
     public void addCtClassChildren(ClassDecl classDecl, CtClass<?> ctClass) {
@@ -121,16 +124,19 @@ public class DeclParsers extends SpoonParsers {
         }
 
         // Otherwise, parse as an incomplete type reference
-
-        // Create node
-        var typeDecl = factory().newNode(TypeDecl.class);
-
-        // Fill data
-        decl().ctTypeReference(typeDecl, ctTypeReference);
-
         // Since parsed as an incomplete TypeDecl, do not add children
+        return newParser(TypeDecl.class, decl()::ctTypeReference, element -> Collections.emptyList())
+                .parse(ctTypeReference);
 
-        return typeDecl;
+        // // Create node
+        // var typeDecl = factory().newNode(TypeDecl.class);
+        //
+        // // Fill data
+        // decl().ctTypeReference(typeDecl, ctTypeReference);
+        //
+        // // Since parsed as an incomplete TypeDecl, do not add children
+        //
+        // return typeDecl;
     }
 
 }
