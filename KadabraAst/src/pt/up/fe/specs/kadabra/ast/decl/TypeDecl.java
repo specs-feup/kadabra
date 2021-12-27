@@ -14,6 +14,7 @@
 package pt.up.fe.specs.kadabra.ast.decl;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,10 +34,25 @@ public class TypeDecl extends Decl {
 
     public static final DataKey<List<TypeDecl>> INTERFACES = KeyFactory.list("interfaces", TypeDecl.class);
 
-    // If using noclasspath mode, TypeDecl may be incomplete and have less information
-    public static final DataKey<Boolean> IS_INCOMPLETE = KeyFactory.bool("isIncomplete");
-
     /// DATAKEYS END
+
+    private static final TypeDecl NO_TYPE;
+    static {
+        var data = DataStore.newInstance(TypeDecl.class);
+        NO_TYPE = new TypeDecl(data, Collections.emptyList());
+    }
+
+    /**
+     * 
+     * @return a singleton TypeDecl representing "No type"
+     */
+    public static TypeDecl getNoType() {
+        return NO_TYPE;
+    }
+
+    public static boolean isNoType(TypeDecl type) {
+        return type == NO_TYPE;
+    }
 
     public TypeDecl(DataStore data, Collection<? extends KadabraNode> children) {
         super(data, children);
