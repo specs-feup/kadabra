@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import pt.up.fe.specs.kadabra.KadabraNodeFactory;
 import pt.up.fe.specs.kadabra.ast.KadabraContext;
@@ -31,6 +32,7 @@ import pt.up.fe.specs.kadabra.ast.generic.GenericTypeDecl;
 import pt.up.fe.specs.kadabra.parser.spoon.datafiller.DataFillers;
 import pt.up.fe.specs.kadabra.parser.spoon.nodes.UnresolvedNode;
 import pt.up.fe.specs.kadabra.parser.spoon.nodes.UnresolvedTypeDecl;
+import pt.up.fe.specs.util.SpecsCollections;
 import pt.up.fe.specs.util.classmap.FunctionClassMap;
 import spoon.reflect.declaration.CtElement;
 
@@ -40,10 +42,13 @@ public class MainParser {
     private final KadabraNodeFactory factory;
     private final FunctionClassMap<CtElement, KadabraNode> nodeParsers;
     private final Map<CtElement, KadabraNode> nodeMap;
+
     // Represents nodes that are currently being parsed
     // Needed to detect cyclic dependencies
     private final Set<CtElement> parsing;
     private final DataFillers dataFillers;
+    // private final List<Runnable> queuedActions;
+    private final List<CtElement> textElements;
 
     public MainParser(KadabraContext context) {
         this.context = context;
@@ -52,6 +57,7 @@ public class MainParser {
         this.nodeMap = new HashMap<>();
         this.parsing = new HashSet<>();
         this.dataFillers = new DataFillers(this);
+        this.textElements = new ArrayList<>();
 
         // Register parsers
         ElementParsers.registerParsers(this);
@@ -92,12 +98,12 @@ public class MainParser {
     public KadabraNode parse(CtElement element) {
         // Should separate parsing the node from the children?
         // If we were doing a final step to connect declarations, it could be done
-        // Since we are using Spoon connections, and establish them during parsing, probably not
+        // Since we are using Spoon connections, we can establish them during parsing and avoid that step
 
         // Check if element has already been parsed
         var node = nodeMap.get(element);
         if (node != null) {
-            System.out.println("REUSING NODE FOR : " + element);
+            // System.out.println("REUSING NODE FOR : " + element);
             return node;
         }
 
@@ -122,6 +128,9 @@ public class MainParser {
         // Store mapping between element and node
         nodeMap.put(element, node);
 
+        // Queue insertion of comments and annotations
+        collectTextElements(element);
+
         // TODO: Comments
         // Queue action to convert comments and insert before the node?
 
@@ -138,6 +147,43 @@ public class MainParser {
     // private static Optional<KadabraNode> replacementProvider(KadabraNode node) {
     // return Optional.of(node);
     // }
+
+    private void collectTextElements(CtElement element) {
+        // Text elements might be siblings or children
+        // On this phase just collect them, to insert later
+
+        textElements.addAll(element.getAnnotations());
+        textElements.addAll(element.getComments());
+        /*
+        var siblings = new ArrayList<CtElement>();
+        
+        siblings.add(element);
+        siblings.addAll(element.getAnnotations());
+        siblings.addAll(element.getComments());
+        
+        for (var sib : siblings) {
+            var pos = sib.getPosition();
+            System.out.println("Pos: " + pos);
+            System.out.println("Line: " + pos.getLine());
+            System.out.println("Start: " + pos.getSourceStart());
+            System.out.println("End: " + pos.getSourceEnd());
+            System.out.println("Type: " + sib.getClass());
+            // System.out.println("Node:\n" + sib);
+        
+        }
+        
+        System.out.println("Siblings before: "
+                + siblings.stream().map(ct -> ct.getClass().getSimpleName()).collect(Collectors.joining(", ")));
+        
+        // Order nodes by position
+        Collections.sort(siblings, SpoonParsers::compare);
+        
+        System.out.println("Siblings after: "
+                + siblings.stream().map(ct -> ct.getClass().getSimpleName()).collect(Collectors.joining(", ")));
+        
+        // Separate by the position of the base element
+        */
+    }
 
     public List<KadabraNode> parseChildren(CtElement element) {
         // Only parse children for nodes from which we have source code
@@ -177,5 +223,29 @@ public class MainParser {
         }
 
         throw new RuntimeException("Not implemented for " + node);
+    }
+
+    public void print(String prefix, List<? extends CtElement> elements) {
+        var message = elements.stream()
+                .map(element -> element.getClass().getSimpleName() + "->" + element.getPosition())
+                .collect(Collectors.joining("\n", prefix + "\n", ""));
+
+        System.out.println(message);
+    }
+
+    public void removeNoSource(List<? extends CtElement> elements) {
+        SpecsCollections.remove(elements, element -> !element.getPosition().isValidPosition());
+
+    }
+
+    public void processChildren(List<? extends CtElement> elements) {
+        // Remove elements that have no source
+        removeNoSource(elements);
+
+        // print("Before: ", elements);
+        // Sort elements
+        SpoonParsers.sort(elements);
+        // print("After: ", elements);
+
     }
 }
