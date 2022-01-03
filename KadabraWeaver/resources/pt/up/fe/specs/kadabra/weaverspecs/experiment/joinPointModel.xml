@@ -1,0 +1,186 @@
+<?xml version="1.0"?>
+
+<joinpoints root_class="program">
+
+	<!-- PROGRAM -->
+	<joinpoint class="program" tooltip="Represents the complete program and is the top-most joinpoint in the hierarchy"/>
+
+	<!-- COMPILATION UNIT -->
+	<joinpoint class="compilationUnit" tooltip="Represents a source file (e.g. .java)"/>
+
+	<!-- COMMENT -->
+	<joinpoint class="comment" tooltip="Represents a comment"/>
+
+	<!-- DECL -->
+	<joinpoint class="decl" tooltip="Represents a declaration"/>
+	
+	<!-- IMPORT DECL -->
+	<joinpoint class="importDecl" extends="decl" tooltip="Represents a Java import"/>
+
+	<!-- PACKAGE DECL -->
+	<joinpoint class="packageDecl" extends="decl" tooltip="Represents a Java package"/>
+	
+	<!-- NAMED DECL -->
+	<joinpoint class="namedDecl" extends="decl" tooltip="Represents a decl with a name"/>
+
+	<!-- TYPE DECL -->
+	<joinpoint class="typeDecl" extends="namedDecl" tooltip="Represents a Java type declaration (e.g., class, interface, enum)"/>
+
+	<!-- INTERFACE DECL -->
+	<joinpoint class="interfaceDecl" extends="typeDecl" tooltip="Represents a Java interface declaration"/>
+	
+	<!-- CLASS DECL -->
+	<joinpoint class="classDecl" extends="typeDecl" tooltip="Represents a Java class declaration"/>
+	
+	<!-- ENUM DECL -->
+	<joinpoint class="enumDecl" extends="classDecl" tooltip="Represents a Java enum declaration"/>
+	
+	<!-- RECORD DECL -->
+	<joinpoint class="recordDecl" extends="classDecl" tooltip="Represents a Java record declaration"/>	
+		
+	<!-- METHOD DECL -->
+	<joinpoint class="methodDecl" extends="namedDecl" tooltip="Represents a Java method declaration"/>		
+
+	<!-- CONSTRUCTOR DECL -->
+	<joinpoint class="constructorDecl" extends="methodDecl" tooltip="Represents a Java constructor declaration"/>	
+
+	<!-- FIELD DECL -->
+	<joinpoint class="fieldDecl" extends="namedDecl" tooltip="Represents a field declaration"/>		
+
+	<!-- VAR DECL -->
+ 	<joinpoint class="varDecl" extends="namedDecl" tooltip="Represents a variable declaration"/>
+
+	<!-- PARAM DECL -->
+ 	<joinpoint class="paramDecl" extends="varDecl" tooltip="Represents a method parameter"/>
+
+	<!-- ENUM CONSTANT DECL -->
+ 	<joinpoint class="enumConstDecl" extends="namedDecl" tooltip="Represents the declaration of an enum constant"/>
+
+
+
+	<!-- TYPE -->
+	<joinpoint class="type" tooltip="Represents the type of a value (e.g. int, class reference)"/>
+	
+	<!-- PRIMITIVE TYPE -->
+	<joinpoint class="primitiveType" extends="type" tooltip="Represents a Java primitive type (e.g. int, boolean)"/>
+
+	<!-- REFERENCE TYPE -->
+	<joinpoint class="referenceType" extends="type" tooltip="Represents a Java reference type (e.g. Object)"/>
+
+
+
+	<!-- STATEMENT -->
+	<joinpoint class="stmt" tooltip="Represents a Java statement"/>
+
+	<!-- BLOCK STMT -->
+	<joinpoint class="block" extends="stmt" tooltip="Represents a group of statements"/>
+
+	<!-- TRY STMT -->
+	<joinpoint class="try" extends="stmt" tooltip="Represents a try statement"/>
+
+	<!-- EXPR STMT -->
+	<joinpoint class="exprStmt" extends="stmt" tooltip="Represents a statement with a single expression"/>
+	
+	<!-- DECL STMT -->
+	<joinpoint class="declStmt" extends="stmt" tooltip="Represents a statement with one or more declarations"/>
+
+	<!-- LABEL STMT -->
+	<joinpoint class="label" extends="stmt" tooltip="Represents a label statement"/>	
+
+	<!-- IF STMT -->
+	<joinpoint class="if" extends="stmt" tooltip="Represents an if statement"/>	
+
+	<!-- LOOP STMT -->
+	<joinpoint class="loop" extends="stmt" tooltip="Represents a loop (e.g. for, while)"/>		
+
+	<!-- FOR STMT -->
+	<joinpoint class="for" extends="loop" tooltip="Represents a for statement"/>	
+
+	<!-- WHILE STMT -->
+	<joinpoint class="while" extends="loop" tooltip="Represents a while statement"/>	
+
+	<!-- DO STMT -->
+	<joinpoint class="do" extends="loop" tooltip="Represents a do-while statement"/>	
+
+	<!-- EMPTY STMT -->
+	<joinpoint class="emptyStmt" extends="stmt" tooltip="Represents an empty statement "/>	
+
+	<!-- ASSERT STMT -->
+	<joinpoint class="assert" extends="stmt" tooltip="Represents an assert statement"/>	
+
+	<!-- SWITCH STMT -->
+	<joinpoint class="switch" extends="stmt" tooltip="Represents a switch statement"/>	
+
+	<!-- BREAK STMT -->
+	<joinpoint class="break" extends="stmt" tooltip="Represents a break statement"/>	
+
+	<!-- CONTINUE STMT -->
+	<joinpoint class="continue" extends="stmt" tooltip="Represents a continue statement"/>	
+
+	<!-- RETURN STMT -->
+	<joinpoint class="return" extends="stmt" tooltip="Represents a return statement"/>	
+
+	<!-- SYNCHRONIZED STMT -->
+	<joinpoint class="synchronized" extends="stmt" tooltip="Represents a synchronized statement"/>		
+
+	<!-- THROW STMT -->
+	<joinpoint class="throw" extends="stmt" tooltip="Represents a throw statement"/>	
+	
+	<!-- YIELD STMT -->
+	<joinpoint class="yield" extends="stmt" tooltip="Represents a yield statement"/>		
+	
+	<!-- WRAPPER STMT -->
+	<joinpoint class="commentStmt" extends="stmt" tooltip="Represents a comment as a statement"/>		
+
+
+
+
+	<!-- EXPR -->
+	<joinpoint class="expr" tooltip="Represents a Java expression"/>
+
+	<!-- LAMBDA EXPR -->
+	<joinpoint class="lambda" extends="expr" tooltip="Represents a lambda expression"/>
+
+	<!-- LITERAL -->
+	<joinpoint class="literal" extends="expr" tooltip="Represents a Java literal expression"/>
+
+	<!-- CLASS LITERAL -->
+	<joinpoint class="classLiteral" extends="literal" tooltip="Represents a Java class literal expression (e.g. Object.class)"/>
+
+	<!-- VAR ACCESS -->
+	<joinpoint class="varAccess" extends="expr" tooltip="Represents an access to a variable"/>
+	
+	<!-- ARRAY ACCESS -->
+	<joinpoint class="arrayAccess" extends="varAccess" tooltip="Represents an access to an array"/>
+
+	<!-- FIELD ACCESS -->
+	<joinpoint class="fieldAccess" extends="varAccess" tooltip="Represents an access to field"/>
+	
+	<!-- CALL -->
+	<joinpoint class="call" extends="expr" tooltip="Represents a method invocation"/>	
+	
+	<!-- METHOD REFERENCE -->
+	<joinpoint class="methodReference" extends="expr" tooltip="Represents a method reference"/>	
+
+	<!-- NEW EXPR -->
+	<joinpoint class="new" extends="expr" tooltip="Represents a new expression"/>
+
+	<!-- OP -->
+	<joinpoint class="op" extends="expr" tooltip="Represents an operation"/>	
+
+	<!-- UNARY OP -->
+	<joinpoint class="unaryOp" extends="op" tooltip="Represents a unary operation"/>	
+
+	<!-- BINARY OP -->
+	<joinpoint class="binaryOp" extends="op" tooltip="Represents a binary operation"/>	
+
+	<!-- TERNARY OP -->
+	<joinpoint class="ternaryOp" extends="op" tooltip="Represents a ternary operation"/>	
+
+	<!-- CAST -->
+	<joinpoint class="cast" extends="expr" tooltip="Represents a cast expression"/>
+
+	<!-- SWITCH EXPR -->
+	<joinpoint class="switchExpr" extends="expr" tooltip="Represents a switch expression"/>
+	
+</joinpoints>
