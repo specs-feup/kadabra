@@ -13,6 +13,7 @@
 
 package weaver.utils;
 
+import pt.up.fe.specs.util.utilities.StringLines;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 
 /**
@@ -36,7 +37,8 @@ public class JoinPoints {
 
         builder.append(node.getJoinPointType());
         var nodeString = node.toString();
-        if (!nodeString.isBlank()) {
+
+        if (!nodeString.isBlank() && StringLines.getLines(nodeString).size() < 2) {
             builder.append(" (");
             builder.append(node.toString());
             builder.append(")");

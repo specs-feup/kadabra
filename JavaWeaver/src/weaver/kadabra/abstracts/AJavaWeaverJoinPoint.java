@@ -441,6 +441,7 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
 
     @Override
     public String toString() {
+        // return getJoinPointType();
         return getNode().toString();
     }
 
