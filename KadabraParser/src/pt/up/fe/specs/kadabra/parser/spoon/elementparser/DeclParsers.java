@@ -16,14 +16,16 @@ package pt.up.fe.specs.kadabra.parser.spoon.elementparser;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 import pt.up.fe.specs.kadabra.ast.KadabraNode;
 import pt.up.fe.specs.kadabra.ast.decl.ClassDecl;
+import pt.up.fe.specs.kadabra.ast.decl.LocalVarDecl;
 import pt.up.fe.specs.kadabra.ast.decl.MethodDecl;
 import pt.up.fe.specs.kadabra.ast.decl.TypeDecl;
 import pt.up.fe.specs.kadabra.parser.spoon.datafiller.DeclDataFiller;
+import pt.up.fe.specs.util.SpecsCollections;
 import pt.up.fe.specs.util.classmap.FunctionClassMap;
+import spoon.reflect.code.CtLocalVariable;
 import spoon.reflect.declaration.CtClass;
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtMethod;
@@ -41,6 +43,7 @@ public class DeclParsers extends SpoonParsers {
         parsers.put(CtClass.class, this::ctClass);
         parsers.put(CtTypeReference.class, this::ctTypeReference);
         parsers.put(CtMethod.class, this::ctMethod);
+        parsers.put(CtLocalVariable.class, this::ctLocalVariable);
     }
 
     public static void registerParsers(MainParser mainParser) {
@@ -80,7 +83,12 @@ public class DeclParsers extends SpoonParsers {
         return newParser(MethodDecl.class, decl()::ctMethod, this::getCtMethodChildren).parse(ctMethod);
     }
 
-    public List<CtElement> getCtMethodChildren(CtMethod<?> ctMethod) {
+    public LocalVarDecl ctLocalVariable(CtLocalVariable<?> ctLocalVariable) {
+        return newParser(LocalVarDecl.class, decl()::ctLocalVariable, this::getCtLocalVariableChildren)
+                .parse(ctLocalVariable);
+    }
+
+    public Collection<CtElement> getCtMethodChildren(CtMethod<?> ctMethod) {
         var children = new ArrayList<CtElement>();
 
         children.addAll(ctMethod.getParameters());
@@ -95,6 +103,11 @@ public class DeclParsers extends SpoonParsers {
 
     public Collection<? extends CtElement> getCtClassChildren(CtClass<?> ctClass) {
         return getCtTypeChildren(ctClass);
+    }
+
+    public Collection<? extends CtElement> getCtLocalVariableChildren(CtLocalVariable<?> element) {
+        // Has one optional child, the assignment
+        return SpecsCollections.asListT(CtElement.class, element.getAssignment());
     }
 
 }

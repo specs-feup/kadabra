@@ -19,11 +19,14 @@ import java.util.stream.Collectors;
 import pt.up.fe.specs.kadabra.ast.KadabraNode;
 import pt.up.fe.specs.kadabra.ast.decl.ClassDecl;
 import pt.up.fe.specs.kadabra.ast.decl.Decl;
+import pt.up.fe.specs.kadabra.ast.decl.LocalVarDecl;
 import pt.up.fe.specs.kadabra.ast.decl.MethodDecl;
 import pt.up.fe.specs.kadabra.ast.decl.TypeDecl;
+import pt.up.fe.specs.kadabra.ast.decl.VarDecl;
 import pt.up.fe.specs.kadabra.parser.spoon.elementparser.MainParser;
 import pt.up.fe.specs.util.SpecsCheck;
 import pt.up.fe.specs.util.SpecsCollections;
+import spoon.reflect.code.CtLocalVariable;
 import spoon.reflect.declaration.CtClass;
 import spoon.reflect.declaration.CtExecutable;
 import spoon.reflect.declaration.CtFormalTypeDeclarer;
@@ -33,6 +36,7 @@ import spoon.reflect.declaration.CtType;
 import spoon.reflect.declaration.CtTypeInformation;
 import spoon.reflect.declaration.CtTypeMember;
 import spoon.reflect.declaration.CtTypedElement;
+import spoon.reflect.declaration.CtVariable;
 import spoon.reflect.reference.CtTypeReference;
 
 public class DeclDataFiller extends DataFiller {
@@ -170,4 +174,19 @@ public class DeclDataFiller extends DataFiller {
 
         node.set(KadabraNode.TYPE, declType);
     }
+
+    public void ctVariable(VarDecl node, CtVariable<?> element) {
+        // Hierarchy
+        ctNamedElement(node, element);
+
+        ctTypedElement(node, element);
+
+        // Get modifiers
+        node.set(VarDecl.MODIFIERS, getModifiers(element));
+    }
+
+    public void ctLocalVariable(LocalVarDecl node, CtLocalVariable<?> element) {
+        ctVariable(node, element);
+    }
+
 }

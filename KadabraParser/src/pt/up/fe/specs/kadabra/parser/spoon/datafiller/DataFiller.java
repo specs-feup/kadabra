@@ -13,9 +13,15 @@
 
 package pt.up.fe.specs.kadabra.parser.spoon.datafiller;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import pt.up.fe.specs.kadabra.ast.KadabraNode;
+import pt.up.fe.specs.kadabra.ast.data.Modifier;
+import pt.up.fe.specs.kadabra.ast.data.ModifierKind;
 import pt.up.fe.specs.kadabra.ast.decl.TypeDecl;
 import pt.up.fe.specs.kadabra.parser.spoon.elementparser.MainParser;
+import spoon.reflect.declaration.CtModifiable;
 
 public abstract class DataFiller {
 
@@ -37,4 +43,14 @@ public abstract class DataFiller {
         return mainParser.toTypeDecl(node);
     }
 
+    public List<Modifier> getModifiers(CtModifiable element) {
+
+        return element.getExtendedModifiers().stream()
+                .map(modifier -> new Modifier(translate(modifier.getKind()), modifier.isImplicit()))
+                .collect(Collectors.toList());
+    }
+
+    public ModifierKind translate(spoon.reflect.declaration.ModifierKind modifier) {
+        return ModifierKind.valueOf(modifier.name());
+    }
 }
