@@ -21,6 +21,7 @@ public class DataFillers {
     private final ElementDataFiller elementFiller;
     private final DeclDataFiller declFiller;
     private final StmtDataFiller stmtFiller;
+    private final ExprDataFiller exprFiller;
 
     public DataFillers(MainParser mainParser) {
         this.generalParser = mainParser;
@@ -28,6 +29,7 @@ public class DataFillers {
         this.elementFiller = new ElementDataFiller(mainParser);
         this.declFiller = new DeclDataFiller(mainParser);
         this.stmtFiller = new StmtDataFiller(mainParser);
+        this.exprFiller = new ExprDataFiller(mainParser);
     }
 
     public DeclDataFiller decl() {
@@ -36,6 +38,10 @@ public class DataFillers {
 
     public StmtDataFiller stmt() {
         return stmtFiller;
+    }
+
+    public ExprDataFiller expr() {
+        return exprFiller;
     }
 
     public ElementDataFiller element() {

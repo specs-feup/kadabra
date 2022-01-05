@@ -183,10 +183,15 @@ public class DeclDataFiller extends DataFiller {
 
         // Get modifiers
         node.set(VarDecl.MODIFIERS, getModifiers(element));
+
+        // node.set(VarDecl.INIT, toExpression(parser().parse(element.getDefaultExpression())));
+
     }
 
     public void ctLocalVariable(LocalVarDecl node, CtLocalVariable<?> element) {
         ctVariable(node, element);
+
+        node.set(LocalVarDecl.IS_INFERRED, element.isInferred());
     }
 
 }

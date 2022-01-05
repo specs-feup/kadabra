@@ -65,6 +65,7 @@ public class MainParser {
         ElementParsers.registerParsers(this);
         DeclParsers.registerParsers(this);
         StmtParsers.registerParsers(this);
+        ExprParsers.registerParsers(this);
 
         // Tip: check CtScanner to find out the children of a CtElement
     }

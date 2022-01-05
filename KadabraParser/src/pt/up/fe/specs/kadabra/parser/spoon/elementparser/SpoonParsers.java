@@ -56,6 +56,12 @@ public abstract class SpoonParsers {
         return new GenericSpoonParser<>(kadabraNodeClass, dataFiller, childrenGetter, mainParser);
     }
 
+    protected <N extends KadabraNode, E extends CtElement> GenericSpoonParser<N, E> newParser(
+            Class<N> kadabraNodeClass, BiConsumer<N, E> dataFiller) {
+
+        return newParser(kadabraNodeClass, dataFiller, element -> Collections.emptyList());
+    }
+
     /**
      * Uses the SourcePosition of the elements for comparison.
      * 
