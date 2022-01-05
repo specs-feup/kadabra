@@ -33,7 +33,15 @@ public class VarDecl extends Decl {
 
     /// DATAKEYS BEGIN
 
+    /**
+     * Modifiers (e.g. public, private) associated with this declaration.
+     */
     public static final DataKey<List<Modifier>> MODIFIERS = KeyFactory.list("modifiers", Modifier.class);
+
+    /**
+     * Initialization associated with this declaration, if present.
+     */
+    // public static final DataKey<Optional<Expression>> INIT = KeyFactory.optional("init");
 
     /// DATAKEYS END
 

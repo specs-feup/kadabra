@@ -15,6 +15,8 @@ package pt.up.fe.specs.kadabra.ast.decl;
 
 import java.util.Collection;
 
+import org.suikasoft.jOptions.Datakey.DataKey;
+import org.suikasoft.jOptions.Datakey.KeyFactory;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 
 import pt.up.fe.specs.kadabra.ast.KadabraNode;
@@ -26,6 +28,15 @@ import pt.up.fe.specs.kadabra.ast.KadabraNode;
  *
  */
 public class LocalVarDecl extends VarDecl {
+
+    /// DATAKEYS BEGIN
+
+    /**
+     * True if this variable's type was defined using the 'var' keyword of Java 10.
+     */
+    public static final DataKey<Boolean> IS_INFERRED = KeyFactory.bool("isInferred");
+
+    /// DATAKEYS END
 
     public LocalVarDecl(DataStore data, Collection<? extends KadabraNode> children) {
         super(data, children);
