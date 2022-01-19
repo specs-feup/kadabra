@@ -13,6 +13,28 @@
 
 package pt.up.fe.specs.kadabra.ast.data;
 
-public record Modifier(ModifierKind kind, boolean isImplicit) {
+public class Modifier {
+
+    private final ModifierKind kind;
+    private final boolean isImplicit;
+
+    public Modifier(ModifierKind kind, boolean isImplicit) {
+        this.kind = kind;
+        this.isImplicit = isImplicit;
+    }
+
+    /**
+     * @return the kind
+     */
+    public ModifierKind getKind() {
+        return kind;
+    }
+
+    /**
+     * @return the isImplicit
+     */
+    public boolean isImplicit() {
+        return isImplicit;
+    }
 
 }
