@@ -5,4 +5,4 @@ Java Source-to-Source Tool based on LARA and Spoon
 
 A ZIP file with the compiled JAR for Kadabra can be downloaded from [here](http://specs.fe.up.pt/tools/kadabra.zip).
 
-For an online demo version of Kadabra, please click [here](http://specs.fe.up.pt/tools/kadabra/).
+For an online demo version of Kadabra, please click [here](http://specs.fe.up.pt/tools/kadabra/) ([previous releases](https://drive.google.com/drive/folders/1-w6o7UM5zPoPPwy1SMqdGZ_soLZYUWHM?usp=sharing)).
