@@ -52,5 +52,13 @@ _lara_dummy_ = Object.defineProperty(TypeJp.prototype, 'usedTypes', {
 	}
 });
 
+_lara_dummy_ = Object.defineProperty(TypeJp.prototype, 'isClassType', {
+	get: function () { '.isClassType not implemented in kadabra'; }
+});
+
+_lara_dummy_ = Object.defineProperty(TypeJp.prototype, 'classType', {
+	get: function () { '.classType not implemented in kadabra'; }
+});
+
 
 

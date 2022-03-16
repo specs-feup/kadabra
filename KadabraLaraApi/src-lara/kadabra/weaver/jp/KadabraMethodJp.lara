@@ -19,3 +19,12 @@ _lara_dummy_ = Object.defineProperty(MethodJp.prototype, 'isCustom', {
 	}
 });
 
+_lara_dummy_ = Object.defineProperty(MethodJp.prototype, 'params', {
+	get: function () {
+		var params = [];
+		for (var param of Weaver.AST_METHODS.toJavaJoinPoint(this.astNode).params) {
+			params.push(CommonJoinPoints.toJoinPoint(param.node));
+		}
+		return params;// CommonJoinPoints.toJoinPoint(this.astNode.params);
+	}
+});

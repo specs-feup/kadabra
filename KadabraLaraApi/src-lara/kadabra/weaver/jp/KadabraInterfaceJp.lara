@@ -1,0 +1,13 @@
+import weaver.jp.InterfaceJp;
+import weaver.Weaver;
+
+
+_lara_dummy_ = Object.defineProperty(InterfaceJp.prototype, 'methods', {
+	configurable: true,
+	get: function () { throw '.methods not implemented in Kadrabra'; }
+});
+
+_lara_dummy_ = Object.defineProperty(InterfaceJp.prototype, 'interfaces', {
+	configurable: true,
+	get: function () { throw '.interfaces not implemented in Kadabra'; }
+});

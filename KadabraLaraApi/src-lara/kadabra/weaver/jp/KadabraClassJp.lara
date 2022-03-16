@@ -94,3 +94,7 @@ _lara_dummy_ = Object.defineProperty(ClassJp.prototype, 'isCustom', {
 });
 
 
+_lara_dummy_ = Object.defineProperty(ClassJp.prototype, 'interfaces', {
+	get: function () { '.interfaces not implemented in Kadabra'; }
+});
+
