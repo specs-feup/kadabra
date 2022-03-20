@@ -37,6 +37,7 @@ import spoon.reflect.declaration.CtCompilationUnit;
 import spoon.reflect.declaration.CtConstructor;
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtField;
+import spoon.reflect.declaration.CtInterface;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtNamedElement;
 import spoon.reflect.declaration.CtParameter;
@@ -79,10 +80,11 @@ public class KadabraCommonLanguage {
 		JOINPOINT_MAPPER.put(CtExpression.class, node -> "ExprJp");
 		JOINPOINT_MAPPER.put(CtMethod.class, node -> "MethodJp");
 		JOINPOINT_MAPPER.put(CtClass.class, KadabraCommonLanguage::ctClass);
+        JOINPOINT_MAPPER.put(CtInterface.class, KadabraCommonLanguage::ctInterface);
 		JOINPOINT_MAPPER.put(CtNamedElement.class, node -> "DeclJp");
 		JOINPOINT_MAPPER.put(CtCompilationUnit.class, node -> "FileJp");
 		JOINPOINT_MAPPER.put(CtApp.class, node -> "ProgramJp");
-		JOINPOINT_MAPPER.put(CtElement.class, node -> "JoinPoint");
+        JOINPOINT_MAPPER.put(CtElement.class, node -> "JoinPoint");
 	}
 
 	public static String getJoinPointName(CtElement node) {
@@ -114,16 +116,26 @@ public class KadabraCommonLanguage {
 			return "StmtJp";
 
 	}
-	
-	@SuppressWarnings("rawtypes")
-	private static String ctClass(CtClass node) {
-		
-		if(node.isAnonymous())
-			return "JoinPoint";
-		
-		return "ClassJp";	
-		
-	}
+    
+    @SuppressWarnings("rawtypes")
+    private static String ctClass(CtClass node) {
+        
+        if(node.isAnonymous())
+            return "JoinPoint";
+        
+        return "ClassJp";   
+        
+    }
+    
+    @SuppressWarnings("rawtypes")
+    private static String ctInterface(CtInterface node) {
+
+        if(node.isAnonymous())
+            return "JoinPoint";
+        
+        return "InterfaceJp";
+        
+    }
 
 
 }
