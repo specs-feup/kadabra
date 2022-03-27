@@ -29,6 +29,8 @@ import org.suikasoft.jOptions.Interfaces.DataStore;
 
 import kadabra.resources.KadabraAPIResources;
 import kadabra.resources.LaraAPIResources;
+import pt.up.fe.specs.jadx.DecompilationFailedException;
+import pt.up.fe.specs.jadx.SpecsJadx;
 import pt.up.fe.specs.kadabra.weaver.LaraCoreApiResource;
 import pt.up.fe.specs.kadabra.weaver.LaraWeaverApiResource;
 import pt.up.fe.specs.lara.lcl.LaraCommonLanguageApiResource;
@@ -161,6 +163,15 @@ public class JavaWeaver extends AJavaWeaver {
         List<File> javaSources = new ArrayList<>();
         Map<String, File> seenTypes = new HashMap<>();
         for (var source : sources) {
+
+            if (SpecsIo.getExtension(source).toLowerCase().equals("apk")) {
+                try {
+                    source = new SpecsJadx().decompileAPK(source);
+                } catch (DecompilationFailedException e) {
+                    SpecsLogs.warn(String.format("Jadx: DECOMPILE FAILED | %s", e.getMessage()));
+                }
+            }
+
             var javaFiles = SpecsIo.getFilesRecursive(source, Arrays.asList("java"));
 
             for (var javaFile : javaFiles) {
