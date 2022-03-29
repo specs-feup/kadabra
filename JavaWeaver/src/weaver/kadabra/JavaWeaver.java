@@ -166,7 +166,8 @@ public class JavaWeaver extends AJavaWeaver {
 
             if (SpecsIo.getExtension(source).toLowerCase().equals("apk")) {
                 try {
-                    source = new SpecsJadx().decompileAPK(source);
+                    var filterList = args.get(JavaWeaverKeys.APK_PACKAGE_FILTER).getStringList();
+                    source = new SpecsJadx().decompileAPK(source, filterList);
                 } catch (DecompilationFailedException e) {
                     SpecsLogs.warn(String.format("Jadx: DECOMPILE FAILED | %s", e.getMessage()));
                 }

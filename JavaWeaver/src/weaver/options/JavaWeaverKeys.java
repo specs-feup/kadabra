@@ -22,6 +22,7 @@ import org.lara.interpreter.joptions.keys.FileList;
 import org.suikasoft.jOptions.Datakey.DataKey;
 import org.suikasoft.jOptions.Datakey.KeyFactory;
 
+import pt.up.fe.specs.util.utilities.StringList;
 import spoon.OutputType;
 
 public interface JavaWeaverKeys {
@@ -46,5 +47,8 @@ public interface JavaWeaverKeys {
     static DataKey<OutputType> OUTPUT_TYPE = KeyFactory.enumeration("outputType", OutputType.class)
             .setDefault(() -> OutputType.COMPILATION_UNITS)
             .setLabel("Output Type");
+
+    static DataKey<StringList> APK_PACKAGE_FILTER = KeyFactory.stringList("apkPackageFilter")
+            .setLabel("APK Package Filter");
 
 }
