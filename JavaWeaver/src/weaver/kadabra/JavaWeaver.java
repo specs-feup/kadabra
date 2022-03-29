@@ -4,7 +4,11 @@ import static weaver.specification.JavaWeaverResource.ACTIONS;
 import static weaver.specification.JavaWeaverResource.ARTIFACTS;
 import static weaver.specification.JavaWeaverResource.JOINPOINTS;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -43,7 +47,9 @@ import pt.up.fe.specs.util.utilities.LineStream;
 import spoon.Launcher;
 import spoon.OutputType;
 import spoon.compiler.Environment;
+import spoon.reflect.factory.Factory;
 import spoon.support.JavaOutputProcessor;
+import spoon.support.SerializationModelStreamer;
 import weaver.kadabra.abstracts.weaver.AJavaWeaver;
 import weaver.kadabra.exceptions.JavaWeaverException;
 import weaver.kadabra.gears.KadabraMetrics;
@@ -82,7 +88,7 @@ public class JavaWeaver extends AJavaWeaver {
     // Fields
     private DataStore args;
     private File outputDir;
-    private JWSpoonLauncher spoon;
+    private Launcher spoon;
     private JApp jApp;
     private AnnotationsTable table;
     private List<File> classPath;
@@ -543,6 +549,39 @@ public class JavaWeaver extends AJavaWeaver {
     private void buildAndProcess() {
         spoon.buildModel();
         spoon.process();
+
+        File f = SpecsIo.getTempFile("test", "kadabramodel");
+        System.out.println(f.getAbsolutePath());
+
+        try {
+            saveSpoonLauncher(spoon, f);
+            Launcher l = loadSpoonLauncher(f);
+
+        } catch (IOException e) {
+            SpecsLogs.warn("Error message:\n", e);
+        }
+    }
+
+    public void saveSpoonLauncher(Launcher spoonLauncher, File outputModelFile) throws IOException {
+        try (ByteArrayOutputStream outstr = new ByteArrayOutputStream()) {
+            new SerializationModelStreamer().save(spoonLauncher.getFactory(), outstr);
+
+            try (FileOutputStream outputStream = new FileOutputStream(outputModelFile)) {
+                outstr.writeTo(outputStream);
+            }
+        }
+    }
+
+    public Launcher loadSpoonLauncher(File inputModelFile) throws IOException {
+        try (FileInputStream instr = new FileInputStream(inputModelFile)) {
+            Factory loadedFactory = new SerializationModelStreamer()
+                    .load(new ByteArrayInputStream(instr.readAllBytes()));
+
+            // spoon
+            // loadedFactory.
+
+            return new Launcher(loadedFactory);
+        }
     }
 
     private void buildAndProcess(Launcher spoonLauncher) {
