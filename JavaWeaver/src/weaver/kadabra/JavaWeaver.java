@@ -88,7 +88,7 @@ public class JavaWeaver extends AJavaWeaver {
     // Fields
     private DataStore args;
     private File outputDir;
-    private Launcher spoon;
+    private JWSpoonLauncher spoon;
     private JApp jApp;
     private AnnotationsTable table;
     private List<File> classPath;
@@ -549,17 +549,6 @@ public class JavaWeaver extends AJavaWeaver {
     private void buildAndProcess() {
         spoon.buildModel();
         spoon.process();
-
-        File f = SpecsIo.getTempFile("test", "kadabramodel");
-        System.out.println(f.getAbsolutePath());
-
-        try {
-            saveSpoonLauncher(spoon, f);
-            Launcher l = loadSpoonLauncher(f);
-
-        } catch (IOException e) {
-            SpecsLogs.warn("Error message:\n", e);
-        }
     }
 
     public void saveSpoonLauncher(Launcher spoonLauncher, File outputModelFile) throws IOException {
@@ -576,9 +565,6 @@ public class JavaWeaver extends AJavaWeaver {
         try (FileInputStream instr = new FileInputStream(inputModelFile)) {
             Factory loadedFactory = new SerializationModelStreamer()
                     .load(new ByteArrayInputStream(instr.readAllBytes()));
-
-            // spoon
-            // loadedFactory.
 
             return new Launcher(loadedFactory);
         }
