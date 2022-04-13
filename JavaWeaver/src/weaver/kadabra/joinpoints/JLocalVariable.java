@@ -52,6 +52,15 @@ public class JLocalVariable<T> extends ALocalVariable {
         return getTypeReferenceImpl().toString();
     }
 
+    // @Override
+    // public AType getTypeJpImpl() {
+    // var typeRef = (CtVariable<?>) declaration.getTypeReferenceImpl().getNode();
+    // JType<?>()
+    // typeRef.getType().getTypeDeclaration()
+    // // TODO Auto-generated method stub
+    // return null;
+    // }
+
     @Override
     public Boolean getIsArrayImpl() {
         return declaration.getIsArrayImpl();

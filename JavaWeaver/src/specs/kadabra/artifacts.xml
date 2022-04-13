@@ -13,6 +13,7 @@
 			<parameter name="index" 	type="Integer" />
 		</attribute>
 		<attribute name="parent" 		type="joinpoint"/>
+		<attribute name="astParent" 	type="joinpoint" tooltip="Alias of attribute 'parent'"/>		
 		<attribute name="ancestor" 		type="joinpoint">
 			<parameter name="type" 		type="String"/>
 		</attribute>
@@ -179,6 +180,7 @@
 		<attribute name="name"				type="String"/>
 		<attribute name="type"				type="String"/>
 		<attribute name="typeReference"		type="typeReference"/>
+		<!-- <attribute name="typeJp"			type="type"/>	 -->	
 		<attribute name="isArray"			type="Boolean"/>
    		<attribute name="isPrimitive"		type="Boolean"/>
    		<attribute name="completeType"		type="String"/>	

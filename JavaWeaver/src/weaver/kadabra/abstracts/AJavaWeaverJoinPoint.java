@@ -155,6 +155,11 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
         return parentJp;
     }
 
+    @Override
+    public AJoinPoint getAstParentImpl() {
+        return getParentImpl();
+    }
+
     /**
      *
      * @param ancestorType
