@@ -43,6 +43,7 @@ edge [fontsize=10]
 "statement"->"joinpoint"
 "switch"->"statement"
 "ternary"->"expression"
+"this"->"expression"
 "throw"->"statement"
 "try"->"statement"
 "type"->"joinpoint"

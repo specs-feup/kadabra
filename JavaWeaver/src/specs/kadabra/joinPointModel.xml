@@ -234,6 +234,9 @@
 	<!-- NEW -->
 	<joinpoint class="new" extends="expression"/>
 	
+	<!-- THIS -->
+	<joinpoint class="this" extends="expression"/>
+	
 	<!-- RETURN -->
 	<joinpoint class="return" 		extends="statement"/>
 	
