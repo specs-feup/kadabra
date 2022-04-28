@@ -56,7 +56,7 @@ public abstract class ACall extends AExpression {
      * Get value on attribute decl
      * @return the attribute's value
      */
-    public abstract AType getDeclImpl();
+    public abstract AMethod getDeclImpl();
 
     /**
      * Get value on attribute decl
@@ -67,7 +67,7 @@ public abstract class ACall extends AExpression {
         	if(hasListeners()) {
         		eventTrigger().triggerAttribute(Stage.BEGIN, this, "decl", Optional.empty());
         	}
-        	AType result = this.getDeclImpl();
+        	AMethod result = this.getDeclImpl();
         	if(hasListeners()) {
         		eventTrigger().triggerAttribute(Stage.END, this, "decl", Optional.ofNullable(result));
         	}

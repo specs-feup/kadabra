@@ -301,7 +301,7 @@
 	
 	<artifact class="call" default="name">
 		<attribute name="name"				type="string"/>
-		<attribute name="decl"				type="type"/>
+		<attribute name="decl"				type="method"/>
 		<attribute name="simpleDecl"		type="string"/>			
 		<attribute name="qualifiedDecl"		type="string"/>	
 		<attribute name="declarator"		type="string"/>
