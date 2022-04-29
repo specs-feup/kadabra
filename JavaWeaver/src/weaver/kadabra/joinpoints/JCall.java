@@ -14,7 +14,6 @@
 package weaver.kadabra.joinpoints;
 
 import java.util.List;
-import java.util.Optional;
 
 import pt.up.fe.specs.util.SpecsCheck;
 import spoon.reflect.code.CtCodeSnippetExpression;
@@ -22,7 +21,6 @@ import spoon.reflect.code.CtInvocation;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.reference.CtExecutableReference;
 import spoon.reflect.reference.CtTypeReference;
-import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.AArgument;
 import weaver.kadabra.abstracts.joinpoints.ACall;
 import weaver.kadabra.abstracts.joinpoints.AExpression;
@@ -32,7 +30,6 @@ import weaver.kadabra.abstracts.joinpoints.AStatement;
 import weaver.kadabra.abstracts.joinpoints.AType;
 import weaver.kadabra.abstracts.joinpoints.ATypeReference;
 import weaver.kadabra.exceptions.JavaWeaverException;
-import weaver.utils.JoinPoints;
 import weaver.utils.SpoonUtils;
 import weaver.utils.weaving.ActionUtils;
 import weaver.utils.weaving.SelectUtils;
@@ -234,7 +231,9 @@ public class JCall<T> extends ACall {
     @Override
     public AMethod getDeclImpl() {
         var decl = node.getExecutable().getExecutableDeclaration();
-        AMethod method = CtElement2JoinPoint.convert(decl, AMethod.class);
-        return method;
+        if (decl == null) {
+            return null;
+        }
+        return CtElement2JoinPoint.convert(decl, AMethod.class);
     }
 }
