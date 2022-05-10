@@ -110,6 +110,12 @@ _lara_dummy_ = Object.defineProperty(ClassJp.prototype, 'isCustom', {
 	}
 });
 
+_lara_dummy_ = Object.defineProperty(ClassJp.prototype, 'isAbstract', {
+	get: function () {
+		return this.astNode.isAbstract(); 
+	}
+});
+
 _lara_dummy_ = Object.defineProperty(ClassJp.prototype, 'interfaces', {
 	get: function () {
 	
