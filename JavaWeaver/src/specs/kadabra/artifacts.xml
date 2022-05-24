@@ -240,12 +240,13 @@
 	</artifact>
 
 	<!-- ARGUMENT -->	
+	<!-- 
 	<artifact class="argument" default="index">
    		<attribute name="index"				type="int"/>	
    		<attribute name="name"				type="String"/>
    		<attribute name="expr"				type="expression"/>	
 	</artifact>
-	
+	 -->
 	
 	<!-- IF -->	
 	<artifact class="if">
@@ -321,7 +322,8 @@
 		<attribute name="targetType"		type="type"/>
 		<attribute name="returnType"		type="string"/>
 		<attribute name="returnTypeJp"		type="typeReference"/>		
-		<attribute name="arguments"			type="argument[]"/>
+		<!-- <attribute name="arguments"			type="argument[]"/> -->
+		<attribute name="arguments"			type="expression[]"/>		
 	</artifact>
 	
 	<!-- BINARY EXPRESSION -->

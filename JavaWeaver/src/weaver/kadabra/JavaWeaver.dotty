@@ -8,7 +8,6 @@ edge [fontsize=10]
 "annotation"->"expression"
 "anonymousExec"->"executable"
 "app"->"joinpoint"
-"argument"->"expression"
 "arrayAccess"->"expression"
 "assert"->"statement"
 "assignment"->"statement"

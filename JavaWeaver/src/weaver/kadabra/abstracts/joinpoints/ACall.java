@@ -309,15 +309,15 @@ public abstract class ACall extends AExpression {
      * Get value on attribute arguments
      * @return the attribute's value
      */
-    public abstract AArgument[] getArgumentsArrayImpl();
+    public abstract AExpression[] getArgumentsArrayImpl();
 
     /**
      * Get value on attribute arguments
      * @return the attribute's value
      */
     public Object getArgumentsImpl() {
-        AArgument[] aArgumentArrayImpl0 = getArgumentsArrayImpl();
-        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(aArgumentArrayImpl0);
+        AExpression[] aExpressionArrayImpl0 = getArgumentsArrayImpl();
+        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(aExpressionArrayImpl0);
         return nativeArray0;
     }
 
@@ -344,8 +344,8 @@ public abstract class ACall extends AExpression {
      * Default implementation of the method used by the lara interpreter to select args
      * @return 
      */
-    public List<? extends AArgument> selectArg() {
-        return select(weaver.kadabra.abstracts.joinpoints.AArgument.class, SelectOp.DESCENDANTS);
+    public List<? extends AExpression> selectArg() {
+        return select(weaver.kadabra.abstracts.joinpoints.AExpression.class, SelectOp.DESCENDANTS);
     }
 
     /**
