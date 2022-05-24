@@ -2771,6 +2771,14 @@
 						"type": "attribute",
 						"children": [
 									{
+										"type": "expression",
+										"name": "expr"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
 										"type": "int",
 										"name": "index"
 									}]
@@ -7540,6 +7548,14 @@
 			"children": [
 					{
 						"type": "attribute",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isTopLevel"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "list of names of interfaces that this class implements",
 						"children": [
 									{
@@ -10118,6 +10134,14 @@
 			"name": "enum",
 			"extends": "class"		,
 			"children": [
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isTopLevel"
+									}]
+					},
 					{
 						"type": "attribute",
 						"tooltip": "list of names of interfaces that this class implements",
@@ -16497,6 +16521,18 @@
 									{
 										"type": "String",
 										"name": "declarator"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isOverriding"
+									},
+									{
+										"type": "method",
+										"name": "method"
 									}]
 					},
 					{

@@ -125,6 +125,7 @@
 	
 	<!-- CLASS -->
 	<artifact class="class" default="name">
+	<attribute name="isTopLevel" type="boolean"/>   
 <!--   		<attribute name="interfaces"		type="String[]" tooltip="list of names of interfaces that this class implements" /> -->
 <!--    		<attribute name="modifiers"			type="String[]" /> -->
 <!--    		<attribute name="javadoc"			type="String" /> -->
@@ -158,6 +159,9 @@
    		</attribute>
    		<attribute name="toReference" type="string"/>
    		<attribute name="toQualifiedReference" type="string"/>
+   		<attribute name="isOverriding" type="boolean">
+   			<parameter name="method" type="method"/>
+   		</attribute>
 	</artifact>
 	
 	<artifact class="constructor" default="name">
@@ -238,7 +242,8 @@
 	<!-- ARGUMENT -->	
 	<artifact class="argument" default="index">
    		<attribute name="index"				type="int"/>	
-   		<attribute name="name"				type="String"/>	
+   		<attribute name="name"				type="String"/>
+   		<attribute name="expr"				type="expression"/>	
 	</artifact>
 	
 	

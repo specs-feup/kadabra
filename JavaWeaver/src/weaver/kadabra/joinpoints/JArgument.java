@@ -20,8 +20,10 @@ import spoon.reflect.code.CtInvocation;
 import spoon.reflect.declaration.CtExecutable;
 import spoon.reflect.declaration.CtParameter;
 import weaver.kadabra.abstracts.joinpoints.AArgument;
+import weaver.kadabra.abstracts.joinpoints.AExpression;
 import weaver.kadabra.exceptions.JavaWeaverException;
 import weaver.utils.SpoonUtils;
+import weaver.utils.weaving.converters.CtElement2JoinPoint;
 
 public class JArgument<T> extends AArgument {
 
@@ -86,6 +88,11 @@ public class JArgument<T> extends AArgument {
     @Override
     public String toString() {
         return getSrcCodeImpl();
+    }
+
+    @Override
+    public AExpression getExprImpl() {
+        return CtElement2JoinPoint.convert(node, AExpression.class);
     }
 
 }

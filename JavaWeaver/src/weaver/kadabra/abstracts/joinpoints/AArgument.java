@@ -76,6 +76,31 @@ public abstract class AArgument extends AExpression {
     }
 
     /**
+     * Get value on attribute expr
+     * @return the attribute's value
+     */
+    public abstract AExpression getExprImpl();
+
+    /**
+     * Get value on attribute expr
+     * @return the attribute's value
+     */
+    public final Object getExpr() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "expr", Optional.empty());
+        	}
+        	AExpression result = this.getExprImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "expr", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "expr", e);
+        }
+    }
+
+    /**
      * Get value on attribute kind
      * @return the attribute's value
      */
@@ -375,6 +400,7 @@ public abstract class AArgument extends AExpression {
         this.aExpression.fillWithAttributes(attributes);
         attributes.add("index");
         attributes.add("name");
+        attributes.add("expr");
     }
 
     /**
@@ -420,6 +446,7 @@ public abstract class AArgument extends AExpression {
     protected enum ArgumentAttributes {
         INDEX("index"),
         NAME("name"),
+        EXPR("expr"),
         KIND("kind"),
         TYPE("type"),
         TYPEREFERENCE("typeReference"),
