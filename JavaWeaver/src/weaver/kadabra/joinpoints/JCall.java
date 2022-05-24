@@ -231,7 +231,7 @@ public class JCall<T> extends ACall {
     @Override
     public AMethod getDeclImpl() {
         var decl = node.getExecutable().getExecutableDeclaration();
-        if (decl == null) {
+        if (decl == null || node.getExecutable().isConstructor()) {
             return null;
         }
         return CtElement2JoinPoint.convert(decl, AMethod.class);
