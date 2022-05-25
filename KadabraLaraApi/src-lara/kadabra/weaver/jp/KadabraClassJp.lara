@@ -128,6 +128,7 @@ _lara_dummy_ = Object.defineProperty(ClassJp.prototype, 'interfaces', {
 		var interfaces = [];
 
 		for (superInterface of superInterfaces) {
+			if (superInterface.getTypeDeclaration() == null) continue;
 			var superInterfaceJp = CommonJoinPoints.toJoinPoint(superInterface.getTypeDeclaration()); 
 			interfaces.push(superInterfaceJp);
 		}
