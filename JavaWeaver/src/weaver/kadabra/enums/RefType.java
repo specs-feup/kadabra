@@ -12,6 +12,7 @@ import pt.up.fe.specs.util.enums.EnumHelperWithValue;
 public enum RefType  implements NamedEnum{
     READ("read"),
     WRITE("write"),
+    READWRITE("readwrite"),
     DECL("decl");
     private String name;
     private static final Lazy<EnumHelperWithValue<RefType>> ENUM_HELPER = EnumHelperWithValue.newLazyHelperWithValue(RefType.class);

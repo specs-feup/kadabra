@@ -420,6 +420,7 @@
 	<enum name="RefType">
 		<value name="READ" string="read"/>
 		<value name="WRITE" string="write"/>
+		<value name="READWRITE" string="readwrite"/>
 		<value name="DECL" string="decl"/>
 	</enum>
 		<!-- PACKAGE -->

@@ -22,6 +22,7 @@ import spoon.reflect.code.CtAssignment;
 import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.CtFieldAccess;
 import spoon.reflect.code.CtLoop;
+import spoon.reflect.code.CtOperatorAssignment;
 import spoon.reflect.code.CtUnaryOperator;
 import spoon.reflect.code.CtVariableAccess;
 import spoon.reflect.declaration.CtElement;
@@ -57,6 +58,9 @@ public class JVar<T> extends AVar {
     public RefType getReferenceImpl() {
         // TODO - possibly move this to a visit approach
         final CtElement parent = node.getParent();
+        if (parent instanceof CtOperatorAssignment<?, ?>) {
+            return RefType.READWRITE;
+        }
         if (parent instanceof CtAssignment<?, ?>) {
             CtAssignment<?, ?> par = (CtAssignment<?, ?>) parent;
             if (par.getAssigned().equals(node)) {
@@ -80,7 +84,7 @@ public class JVar<T> extends AVar {
             case POSTDEC:
             case PREINC:
             case PREDEC:
-                return RefType.WRITE;
+                return RefType.READWRITE;
             default:
                 break;
             }
