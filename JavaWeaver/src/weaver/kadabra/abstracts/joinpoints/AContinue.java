@@ -287,6 +287,7 @@ public abstract class AContinue extends AStatement {
         MODIFIERS("modifiers"),
         DESCENDANTS("descendants"),
         ISSTATEMENT("isStatement"),
+        ASTPARENT("astParent"),
         CHILDREN("children"),
         HASMODIFIER("hasModifier"),
         NUMCHILDREN("numChildren"),

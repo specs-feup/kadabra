@@ -336,6 +336,7 @@ public abstract class AAndroidManifest extends AXmlNode {
         MODIFIERS("modifiers"),
         DESCENDANTS("descendants"),
         ISSTATEMENT("isStatement"),
+        ASTPARENT("astParent"),
         CHILDREN("children"),
         HASMODIFIER("hasModifier"),
         NUMCHILDREN("numChildren"),

@@ -1,9 +1,10 @@
 package weaver.kadabra.abstracts.joinpoints;
 
-import java.util.List;
-import org.lara.interpreter.weaver.interf.SelectOp;
 import org.lara.interpreter.weaver.interf.events.Stage;
 import java.util.Optional;
+import org.lara.interpreter.exception.AttributeException;
+import java.util.List;
+import org.lara.interpreter.weaver.interf.SelectOp;
 import org.lara.interpreter.exception.ActionException;
 import weaver.kadabra.entities.Pair;
 import org.lara.interpreter.weaver.interf.JoinPoint;
@@ -27,6 +28,31 @@ public abstract class AClass extends AType {
     public AClass(AType aType){
         this.aType = aType;
     }
+    /**
+     * Get value on attribute isTopLevel
+     * @return the attribute's value
+     */
+    public abstract Boolean getIsTopLevelImpl();
+
+    /**
+     * Get value on attribute isTopLevel
+     * @return the attribute's value
+     */
+    public final Object getIsTopLevel() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isTopLevel", Optional.empty());
+        	}
+        	Boolean result = this.getIsTopLevelImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "isTopLevel", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "isTopLevel", e);
+        }
+    }
+
     /**
      * the class constructors
      * @return 
@@ -604,6 +630,7 @@ public abstract class AClass extends AType {
     @Override
     protected void fillWithAttributes(List<String> attributes) {
         this.aType.fillWithAttributes(attributes);
+        attributes.add("isTopLevel");
     }
 
     /**
@@ -654,6 +681,7 @@ public abstract class AClass extends AType {
      * 
      */
     protected enum ClassAttributes {
+        ISTOPLEVEL("isTopLevel"),
         NAME("name"),
         QUALIFIEDNAME("qualifiedName"),
         SUPERCLASS("superClass"),
@@ -673,6 +701,7 @@ public abstract class AClass extends AType {
         MODIFIERS("modifiers"),
         DESCENDANTS("descendants"),
         ISSTATEMENT("isStatement"),
+        ASTPARENT("astParent"),
         CHILDREN("children"),
         HASMODIFIER("hasModifier"),
         NUMCHILDREN("numChildren"),

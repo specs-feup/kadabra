@@ -208,6 +208,11 @@ public class JMethod<T> extends AMethod {
         return insertImplJMethod("replace", jp);
     }
 
+    @Override
+    public Boolean isOverridingImpl(AMethod method) {
+        return node.isOverriding((CtMethod<?>) method.getNode());
+    }
+
     /*// Old insertImpl
     CtKadabraSnippetElement snippet = SnippetFactory.createSnippetElement(factory, code);
     SourcePosition pos2 = node.getPosition();

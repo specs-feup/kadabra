@@ -193,4 +193,9 @@ public class JClass<T> extends AClass {
     public AJoinPoint getParentImpl() {
         return new JFile(parent);
     }
+
+    @Override
+    public Boolean getIsTopLevelImpl() {
+        return originClass.isTopLevel();
+    }
 }

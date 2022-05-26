@@ -135,6 +135,33 @@ public abstract class AMethod extends AExecutable {
 
     /**
      * 
+     * @param method
+     * @return 
+     */
+    public abstract Boolean isOverridingImpl(AMethod method);
+
+    /**
+     * 
+     * @param method
+     * @return 
+     */
+    public final Object isOverriding(AMethod method) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isOverriding", Optional.empty(), method);
+        	}
+        	Boolean result = this.isOverridingImpl(method);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "isOverriding", Optional.ofNullable(result), method);
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "isOverriding", e);
+        }
+    }
+
+    /**
+     * 
      * @param comment 
      */
     public void addCommentImpl(String comment) {
@@ -512,6 +539,7 @@ public abstract class AMethod extends AExecutable {
         attributes.add("privacy");
         attributes.add("toReference");
         attributes.add("toQualifiedReference");
+        attributes.add("isOverriding");
     }
 
     /**
@@ -563,6 +591,7 @@ public abstract class AMethod extends AExecutable {
         PRIVACY("privacy"),
         TOREFERENCE("toReference"),
         TOQUALIFIEDREFERENCE("toQualifiedReference"),
+        ISOVERRIDING("isOverriding"),
         NAME("name"),
         RETURNTYPE("returnType"),
         BODY("body"),
@@ -579,6 +608,7 @@ public abstract class AMethod extends AExecutable {
         MODIFIERS("modifiers"),
         DESCENDANTS("descendants"),
         ISSTATEMENT("isStatement"),
+        ASTPARENT("astParent"),
         CHILDREN("children"),
         HASMODIFIER("hasModifier"),
         NUMCHILDREN("numChildren"),

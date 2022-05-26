@@ -13,6 +13,7 @@
 			<parameter name="index" 	type="Integer" />
 		</attribute>
 		<attribute name="parent" 		type="joinpoint"/>
+		<attribute name="astParent" 	type="joinpoint" tooltip="Alias of attribute 'parent'"/>		
 		<attribute name="ancestor" 		type="joinpoint">
 			<parameter name="type" 		type="String"/>
 		</attribute>
@@ -124,6 +125,7 @@
 	
 	<!-- CLASS -->
 	<artifact class="class" default="name">
+	<attribute name="isTopLevel" type="boolean"/>   
 <!--   		<attribute name="interfaces"		type="String[]" tooltip="list of names of interfaces that this class implements" /> -->
 <!--    		<attribute name="modifiers"			type="String[]" /> -->
 <!--    		<attribute name="javadoc"			type="String" /> -->
@@ -157,6 +159,9 @@
    		</attribute>
    		<attribute name="toReference" type="string"/>
    		<attribute name="toQualifiedReference" type="string"/>
+   		<attribute name="isOverriding" type="boolean">
+   			<parameter name="method" type="method"/>
+   		</attribute>
 	</artifact>
 	
 	<artifact class="constructor" default="name">
@@ -179,6 +184,7 @@
 		<attribute name="name"				type="String"/>
 		<attribute name="type"				type="String"/>
 		<attribute name="typeReference"		type="typeReference"/>
+		<!-- <attribute name="typeJp"			type="type"/>	 -->	
 		<attribute name="isArray"			type="Boolean"/>
    		<attribute name="isPrimitive"		type="Boolean"/>
    		<attribute name="completeType"		type="String"/>	
@@ -234,11 +240,13 @@
 	</artifact>
 
 	<!-- ARGUMENT -->	
+	<!-- 
 	<artifact class="argument" default="index">
    		<attribute name="index"				type="int"/>	
-   		<attribute name="name"				type="String"/>	
+   		<attribute name="name"				type="String"/>
+   		<attribute name="expr"				type="expression"/>	
 	</artifact>
-	
+	 -->
 	
 	<!-- IF -->	
 	<artifact class="if">
@@ -299,7 +307,7 @@
 	
 	<artifact class="call" default="name">
 		<attribute name="name"				type="string"/>
-		<attribute name="decl"				type="type"/>
+		<attribute name="decl"				type="method"/>
 		<attribute name="simpleDecl"		type="string"/>			
 		<attribute name="qualifiedDecl"		type="string"/>	
 		<attribute name="declarator"		type="string"/>
@@ -314,7 +322,8 @@
 		<attribute name="targetType"		type="type"/>
 		<attribute name="returnType"		type="string"/>
 		<attribute name="returnTypeJp"		type="typeReference"/>		
-		<attribute name="arguments"			type="argument[]"/>
+		<!-- <attribute name="arguments"			type="argument[]"/> -->
+		<attribute name="arguments"			type="expression[]"/>		
 	</artifact>
 	
 	<!-- BINARY EXPRESSION -->
@@ -411,6 +420,7 @@
 	<enum name="RefType">
 		<value name="READ" string="read"/>
 		<value name="WRITE" string="write"/>
+		<value name="READWRITE" string="readwrite"/>
 		<value name="DECL" string="decl"/>
 	</enum>
 		<!-- PACKAGE -->

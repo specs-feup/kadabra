@@ -21,7 +21,6 @@ import spoon.reflect.code.CtInvocation;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.reference.CtExecutableReference;
 import spoon.reflect.reference.CtTypeReference;
-import weaver.kadabra.abstracts.joinpoints.AArgument;
 import weaver.kadabra.abstracts.joinpoints.ACall;
 import weaver.kadabra.abstracts.joinpoints.AExpression;
 import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
@@ -136,9 +135,9 @@ public class JCall<T> extends ACall {
     }
 
     @Override
-    public List<? extends AArgument> selectArg() {
-        final List<AArgument> exprs = SelectUtils.nodeList2JoinPointList(node.getArguments(),
-                arg -> JArgument.newInstance(arg));
+    public List<? extends AExpression> selectArg() {
+        final List<AExpression> exprs = SelectUtils.nodeList2JoinPointList(node.getArguments(),
+                arg -> JExpression.newInstance(arg));
         return exprs;
     }
 
@@ -224,18 +223,16 @@ public class JCall<T> extends ACall {
     }
 
     @Override
-    public AArgument[] getArgumentsArrayImpl() {
-        return selectArg().toArray(size -> new AArgument[size]);
+    public AExpression[] getArgumentsArrayImpl() {
+        return selectArg().toArray(size -> new AExpression[size]);
     }
 
     @Override
-    public AType getDeclImpl() {
-        var decl = node.getExecutable().getDeclaringType().getTypeDeclaration();
-
-        if (decl == null) {
+    public AMethod getDeclImpl() {
+        var decl = node.getExecutable().getExecutableDeclaration();
+        if (decl == null || node.getExecutable().isConstructor()) {
             return null;
         }
-
-        return JType.newInstance(decl);
+        return CtElement2JoinPoint.convert(decl, AMethod.class);
     }
 }

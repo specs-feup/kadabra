@@ -74,8 +74,13 @@ public class CtElement2JoinPoint {
 
     public static AJavaWeaverJoinPoint convert(CtElement element) {
         return CONVERTER.apply(element);
-
     }
+    
+    public static <T extends AJavaWeaverJoinPoint> T convert(CtElement element, Class<T> jpClass) {
+        var jp = CONVERTER.apply(element);
+        return jpClass.cast(jp);
+    }
+    
 
     public static Optional<AJavaWeaverJoinPoint> convertTry(CtElement element) {
         try {

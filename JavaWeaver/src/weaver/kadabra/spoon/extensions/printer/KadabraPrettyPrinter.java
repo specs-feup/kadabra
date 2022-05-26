@@ -163,7 +163,12 @@ public class KadabraPrettyPrinter extends DefaultJavaPrettyPrinter {
     @Override
     public DefaultJavaPrettyPrinter scan(CtElement e) {
         if (!(e instanceof CtTypeMember)) {
-            return super.scan(e);
+            try {
+                return super.scan(e);
+            } catch (Exception ex) {
+                SpecsLogs.info("Could not print " + e + " (" + ex.getMessage() + ")");
+                return this;
+            }
         }
         CtTypeMember element = (CtTypeMember) e;
         // If no annotations just use normal printer

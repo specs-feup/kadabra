@@ -4,7 +4,11 @@ import static weaver.specification.JavaWeaverResource.ACTIONS;
 import static weaver.specification.JavaWeaverResource.ARTIFACTS;
 import static weaver.specification.JavaWeaverResource.JOINPOINTS;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,6 +33,8 @@ import org.suikasoft.jOptions.Interfaces.DataStore;
 
 import kadabra.resources.KadabraAPIResources;
 import kadabra.resources.LaraAPIResources;
+import pt.up.fe.specs.jadx.DecompilationFailedException;
+import pt.up.fe.specs.jadx.SpecsJadx;
 import pt.up.fe.specs.kadabra.weaver.LaraCoreApiResource;
 import pt.up.fe.specs.kadabra.weaver.LaraWeaverApiResource;
 import pt.up.fe.specs.lara.lcl.LaraCommonLanguageApiResource;
@@ -41,7 +47,9 @@ import pt.up.fe.specs.util.utilities.LineStream;
 import spoon.Launcher;
 import spoon.OutputType;
 import spoon.compiler.Environment;
+import spoon.reflect.factory.Factory;
 import spoon.support.JavaOutputProcessor;
+import spoon.support.SerializationModelStreamer;
 import weaver.kadabra.abstracts.weaver.AJavaWeaver;
 import weaver.kadabra.exceptions.JavaWeaverException;
 import weaver.kadabra.gears.KadabraMetrics;
@@ -161,6 +169,16 @@ public class JavaWeaver extends AJavaWeaver {
         List<File> javaSources = new ArrayList<>();
         Map<String, File> seenTypes = new HashMap<>();
         for (var source : sources) {
+
+            if (SpecsIo.getExtension(source).toLowerCase().equals("apk")) {
+                try {
+                    var filterList = args.get(JavaWeaverKeys.APK_PACKAGE_FILTER).getStringList();
+                    source = new SpecsJadx().decompileAPK(source, filterList);
+                } catch (DecompilationFailedException e) {
+                    SpecsLogs.warn(String.format("Jadx: DECOMPILE FAILED | %s", e.getMessage()));
+                }
+            }
+
             var javaFiles = SpecsIo.getFilesRecursive(source, Arrays.asList("java"));
 
             for (var javaFile : javaFiles) {
@@ -531,6 +549,25 @@ public class JavaWeaver extends AJavaWeaver {
     private void buildAndProcess() {
         spoon.buildModel();
         spoon.process();
+    }
+
+    public void saveSpoonLauncher(Launcher spoonLauncher, File outputModelFile) throws IOException {
+        try (ByteArrayOutputStream outstr = new ByteArrayOutputStream()) {
+            new SerializationModelStreamer().save(spoonLauncher.getFactory(), outstr);
+
+            try (FileOutputStream outputStream = new FileOutputStream(outputModelFile)) {
+                outstr.writeTo(outputStream);
+            }
+        }
+    }
+
+    public Launcher loadSpoonLauncher(File inputModelFile) throws IOException {
+        try (FileInputStream instr = new FileInputStream(inputModelFile)) {
+            Factory loadedFactory = new SerializationModelStreamer()
+                    .load(new ByteArrayInputStream(instr.readAllBytes()));
+
+            return new Launcher(loadedFactory);
+        }
     }
 
     private void buildAndProcess(Launcher spoonLauncher) {

@@ -35,6 +35,15 @@ public abstract class AEnum extends AClass {
     }
 
     /**
+     * Get value on attribute isTopLevel
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsTopLevelImpl() {
+        return this.aClass.getIsTopLevelImpl();
+    }
+
+    /**
      * the class constructors
      * @return 
      */
@@ -469,6 +478,7 @@ public abstract class AEnum extends AClass {
      * 
      */
     protected enum EnumAttributes {
+        ISTOPLEVEL("isTopLevel"),
         NAME("name"),
         QUALIFIEDNAME("qualifiedName"),
         SUPERCLASS("superClass"),
@@ -488,6 +498,7 @@ public abstract class AEnum extends AClass {
         MODIFIERS("modifiers"),
         DESCENDANTS("descendants"),
         ISSTATEMENT("isStatement"),
+        ASTPARENT("astParent"),
         CHILDREN("children"),
         HASMODIFIER("hasModifier"),
         NUMCHILDREN("numChildren"),

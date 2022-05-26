@@ -155,6 +155,11 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
         return parentJp;
     }
 
+    @Override
+    public AJoinPoint getAstParentImpl() {
+        return getParentImpl();
+    }
+
     /**
      *
      * @param ancestorType
@@ -225,8 +230,11 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
 
     @Override
     public Integer getLineImpl() {
+        if (getNode() == null) {
+            return null;
+        }
         SourcePosition position = getNode().getPosition();
-        if (position == null) {
+        if (position == null || !position.isValidPosition()) {
             return null;
         }
         return position.getLine();

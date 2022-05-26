@@ -1,80 +1,28 @@
 package weaver.kadabra.abstracts.joinpoints;
 
-import org.lara.interpreter.weaver.interf.events.Stage;
-import java.util.Optional;
-import org.lara.interpreter.exception.AttributeException;
 import java.util.List;
 import org.lara.interpreter.weaver.interf.JoinPoint;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.Arrays;
 
 /**
- * Auto-Generated class for join point AArgument
+ * Auto-Generated class for join point AThis
  * This class is overwritten by the Weaver Generator.
  * 
  * 
  * @author Lara Weaver Generator
  */
-public abstract class AArgument extends AExpression {
+public abstract class AThis extends AExpression {
 
     protected AExpression aExpression;
 
     /**
      * 
      */
-    public AArgument(AExpression aExpression){
+    public AThis(AExpression aExpression){
         this.aExpression = aExpression;
     }
-    /**
-     * Get value on attribute index
-     * @return the attribute's value
-     */
-    public abstract Integer getIndexImpl();
-
-    /**
-     * Get value on attribute index
-     * @return the attribute's value
-     */
-    public final Object getIndex() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "index", Optional.empty());
-        	}
-        	Integer result = this.getIndexImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "index", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "index", e);
-        }
-    }
-
-    /**
-     * Get value on attribute name
-     * @return the attribute's value
-     */
-    public abstract String getNameImpl();
-
-    /**
-     * Get value on attribute name
-     * @return the attribute's value
-     */
-    public final Object getName() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "name", Optional.empty());
-        	}
-        	String result = this.getNameImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "name", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "name", e);
-        }
-    }
-
     /**
      * Get value on attribute kind
      * @return the attribute's value
@@ -373,8 +321,6 @@ public abstract class AArgument extends AExpression {
     @Override
     protected final void fillWithAttributes(List<String> attributes) {
         this.aExpression.fillWithAttributes(attributes);
-        attributes.add("index");
-        attributes.add("name");
     }
 
     /**
@@ -399,7 +345,7 @@ public abstract class AArgument extends AExpression {
      */
     @Override
     public final String get_class() {
-        return "argument";
+        return "this";
     }
 
     /**
@@ -417,9 +363,7 @@ public abstract class AArgument extends AExpression {
     /**
      * 
      */
-    protected enum ArgumentAttributes {
-        INDEX("index"),
-        NAME("name"),
+    protected enum ThisAttributes {
         KIND("kind"),
         TYPE("type"),
         TYPEREFERENCE("typeReference"),
@@ -435,6 +379,7 @@ public abstract class AArgument extends AExpression {
         MODIFIERS("modifiers"),
         DESCENDANTS("descendants"),
         ISSTATEMENT("isStatement"),
+        ASTPARENT("astParent"),
         CHILDREN("children"),
         HASMODIFIER("hasModifier"),
         NUMCHILDREN("numChildren"),
@@ -446,13 +391,13 @@ public abstract class AArgument extends AExpression {
         /**
          * 
          */
-        private ArgumentAttributes(String name){
+        private ThisAttributes(String name){
             this.name = name;
         }
         /**
          * Return an attribute enumeration item from a given attribute name
          */
-        public static Optional<ArgumentAttributes> fromString(String name) {
+        public static Optional<ThisAttributes> fromString(String name) {
             return Arrays.asList(values()).stream().filter(attr -> attr.name.equals(name)).findAny();
         }
 
@@ -460,7 +405,7 @@ public abstract class AArgument extends AExpression {
          * Return a list of attributes in String format
          */
         public static List<String> getNames() {
-            return Arrays.asList(values()).stream().map(ArgumentAttributes::name).collect(Collectors.toList());
+            return Arrays.asList(values()).stream().map(ThisAttributes::name).collect(Collectors.toList());
         }
 
         /**

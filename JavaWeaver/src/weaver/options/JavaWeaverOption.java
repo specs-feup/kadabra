@@ -30,9 +30,14 @@ public enum JavaWeaverOption {
     Clear("C", "Clear output folder", JavaWeaverKeys.CLEAR_OUTPUT_FOLDER),
     Log("L", "Show logging information", JavaWeaverKeys.SHOW_LOG_INFO),
     Report("R", "Report Strategy Metrics", JavaWeaverKeys.REPORT),
-    OutputType("T", "Type of output", JavaWeaverKeys.OUTPUT_TYPE),;
+    OutputType("T", "Type of output", JavaWeaverKeys.OUTPUT_TYPE),
+    ApkPackageFilter("APF", JavaWeaverKeys.APK_PACKAGE_FILTER);
 
     private WeaverOption opt;
+
+    private JavaWeaverOption(String shortOpt, DataKey<?> dataKey) {
+        this(shortOpt, dataKey.getLabel(), dataKey);
+    }
 
     private JavaWeaverOption(String shortOpt, String description, DataKey<?> dataKey) {
         this(shortOpt, OptionArguments.NO_ARGS, "arg", description, dataKey);

@@ -56,7 +56,7 @@ public abstract class ACall extends AExpression {
      * Get value on attribute decl
      * @return the attribute's value
      */
-    public abstract AType getDeclImpl();
+    public abstract AMethod getDeclImpl();
 
     /**
      * Get value on attribute decl
@@ -67,7 +67,7 @@ public abstract class ACall extends AExpression {
         	if(hasListeners()) {
         		eventTrigger().triggerAttribute(Stage.BEGIN, this, "decl", Optional.empty());
         	}
-        	AType result = this.getDeclImpl();
+        	AMethod result = this.getDeclImpl();
         	if(hasListeners()) {
         		eventTrigger().triggerAttribute(Stage.END, this, "decl", Optional.ofNullable(result));
         	}
@@ -309,15 +309,15 @@ public abstract class ACall extends AExpression {
      * Get value on attribute arguments
      * @return the attribute's value
      */
-    public abstract AArgument[] getArgumentsArrayImpl();
+    public abstract AExpression[] getArgumentsArrayImpl();
 
     /**
      * Get value on attribute arguments
      * @return the attribute's value
      */
     public Object getArgumentsImpl() {
-        AArgument[] aArgumentArrayImpl0 = getArgumentsArrayImpl();
-        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(aArgumentArrayImpl0);
+        AExpression[] aExpressionArrayImpl0 = getArgumentsArrayImpl();
+        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(aExpressionArrayImpl0);
         return nativeArray0;
     }
 
@@ -344,8 +344,8 @@ public abstract class ACall extends AExpression {
      * Default implementation of the method used by the lara interpreter to select args
      * @return 
      */
-    public List<? extends AArgument> selectArg() {
-        return select(weaver.kadabra.abstracts.joinpoints.AArgument.class, SelectOp.DESCENDANTS);
+    public List<? extends AExpression> selectArg() {
+        return select(weaver.kadabra.abstracts.joinpoints.AExpression.class, SelectOp.DESCENDANTS);
     }
 
     /**
@@ -782,6 +782,7 @@ public abstract class ACall extends AExpression {
         MODIFIERS("modifiers"),
         DESCENDANTS("descendants"),
         ISSTATEMENT("isStatement"),
+        ASTPARENT("astParent"),
         CHILDREN("children"),
         HASMODIFIER("hasModifier"),
         NUMCHILDREN("numChildren"),

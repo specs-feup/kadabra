@@ -198,11 +198,12 @@
 	
 	<!-- CALL -->
 	<joinpoint class="call" extends="expression">
-		<select alias="arg" 		class="argument"/>
+		<!-- <select alias="arg" 		class="argument"/> -->
+		<select alias="arg" 		class="expression"/>		
 	</joinpoint>
 	
 	<!-- ARGUMENT -->
-	<joinpoint class="argument" extends="expression"/>
+	<!-- <joinpoint class="argument" extends="expression"/> -->
 	
 	
 	<!-- BINARY EXPRESSION -->
@@ -233,6 +234,9 @@
 	
 	<!-- NEW -->
 	<joinpoint class="new" extends="expression"/>
+	
+	<!-- THIS -->
+	<joinpoint class="this" extends="expression"/>
 	
 	<!-- RETURN -->
 	<joinpoint class="return" 		extends="statement"/>

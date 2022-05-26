@@ -13,6 +13,7 @@
 
 package kadabra.resources;
 
+import pt.up.fe.specs.util.SpecsIo;
 import pt.up.fe.specs.util.providers.ResourceProvider;
 
 public enum KadabraAPIResources implements ResourceProvider {
@@ -42,16 +43,24 @@ public enum KadabraAPIResources implements ResourceProvider {
     Factory("Factory"),
     Utils("Utils"),
     Transform("Transform"),
-    Kadabra("Metrics"),
+    Metrics("Metrics"),
     Types("Types"),
-    Concurrent("Concurrent");
+    Concurrent("Concurrent"),
+    Kadabra("Kadabra.js");
 
     private KadabraAPIResources(String subPackage, String fileName) {
-        resource = basePackage + subPackage + fileName + extension;
+        var filenameExtension = SpecsIo.getExtension(fileName);
+        var realExtension = filenameExtension.isEmpty() ? extension : "." + filenameExtension;
+        fileName = SpecsIo.removeExtension(fileName);
+
+        resource = basePackage + subPackage + fileName + realExtension;
     }
 
     private KadabraAPIResources(String fileName) {
-        resource = basePackage + fileName + extension;
+        // var filenameExtension = SpecsIo.getExtension(fileName);
+        // var realExtension = filenameExtension.isEmpty() ? extension : filenameExtension;
+        // resource = basePackage + fileName + realExtension;
+        this("", fileName);
     }
 
     private final String resource;
