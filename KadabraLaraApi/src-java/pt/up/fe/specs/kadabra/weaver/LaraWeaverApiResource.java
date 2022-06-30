@@ -20,27 +20,29 @@ import org.lara.interpreter.weaver.utils.LaraResourceProvider;
  *
  */
 public enum LaraWeaverApiResource implements LaraResourceProvider {
-	KADABRA_ELSE_JP("jp/KadabraElseJp.lara"),
-	KADABRA_FILE_JP("jp/KadabraFileJp.lara"),
-	KADABRA_LOOP_JP("jp/KadabraLoopJp.lara"),
-	KADABRA_IF_JP("jp/KadabraIfJp.lara"),
-	KADABRA_BINARY_JP("jp/KadabraBinaryJp.lara"),
-	KADABRA_CONSTRUCTOR_CALL_JP("jp/KadabraConstructorCallJp.lara"),
-	KADABRA_CONSTRUCTOR_JP("jp/KadabraConstructorJp.lara"),
-	KADABRA_PARAM_JP("jp/KadabraParamJp.lara"),
-	KADABRA_VAR_REF_JP("jp/KadabraVarRefJp.lara"),
-	KADABRA_VAR_DECL_JP("jp/KadabraVarDeclJp.lara"),	
-	KADABRA_TYPE_JP("jp/KadabraTypeJp.lara"),
-	KADABRA_FIELD_JP("jp/KadabraFieldJp.lara"),
-	KADABRA_FIELD_REF_JP("jp/KadabraFieldRefJp.lara"),
-	KADABRA_MEMBER_CALL_JP("jp/KadabraMemberCallJp.lara"),
-	KADABRA_CALL_JP("jp/KadabraCallJp.lara"),
-	KADABRA_FUNCTION_JP("jp/KadabraFunctionJp.lara"),
-	KADABRA_METHOD_JP("jp/KadabraMethodJp.lara"),
-	KADABRA_CLASS_JP("jp/KadabraClassJp.lara"),
+    KADABRA_ELSE_JP("jp/KadabraElseJp.lara"),
+    KADABRA_FILE_JP("jp/KadabraFileJp.lara"),
+    KADABRA_LOOP_JP("jp/KadabraLoopJp.lara"),
+    KADABRA_IF_JP("jp/KadabraIfJp.lara"),
+    KADABRA_BINARY_JP("jp/KadabraBinaryJp.lara"),
+    KADABRA_CONSTRUCTOR_CALL_JP("jp/KadabraConstructorCallJp.lara"),
+    KADABRA_CONSTRUCTOR_JP("jp/KadabraConstructorJp.lara"),
+    KADABRA_PARAM_JP("jp/KadabraParamJp.lara"),
+    KADABRA_VAR_REF_JP("jp/KadabraVarRefJp.lara"),
+    KADABRA_VAR_DECL_JP("jp/KadabraVarDeclJp.lara"),
+    KADABRA_TYPE_JP("jp/KadabraTypeJp.lara"),
+    KADABRA_FIELD_JP("jp/KadabraFieldJp.lara"),
+    KADABRA_FIELD_REF_JP("jp/KadabraFieldRefJp.lara"),
+    KADABRA_MEMBER_CALL_JP("jp/KadabraMemberCallJp.lara"),
+    KADABRA_CALL_JP("jp/KadabraCallJp.lara"),
+    KADABRA_FUNCTION_JP("jp/KadabraFunctionJp.lara"),
+    KADABRA_METHOD_JP("jp/KadabraMethodJp.lara"),
+    KADABRA_CLASS_JP("jp/KadabraClassJp.lara"),
     KADABRA_JOIN_POINT("jp/KadabraJoinPoint.lara"),
     COMMON_JOIN_POINTS("jp/CommonJoinPoints.lara"),
-    JOINPOINTS("JoinPoints.lara");
+
+    JOINPOINTS("JoinPoints.lara"),
+    WEAVER_LAUNCHER("WeaverLauncher.lara");
 
     private final String resource;
 

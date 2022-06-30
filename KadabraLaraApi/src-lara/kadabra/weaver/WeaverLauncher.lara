@@ -1,0 +1,6 @@
+import weaver.WeaverLauncherBase;
+import kadabra.Kadabra;
+
+WeaverLauncher.prototype.execute = function(args) {
+	return Kadabra.runKadabra(args);
+}
