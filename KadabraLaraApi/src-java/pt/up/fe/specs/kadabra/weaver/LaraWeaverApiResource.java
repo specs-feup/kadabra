@@ -43,7 +43,9 @@ public enum LaraWeaverApiResource implements LaraResourceProvider {
     KADABRA_INTERFACE_JP("jp/KadabraInterfaceJp.lara"),
     KADABRA_JOIN_POINT("jp/KadabraJoinPoint.lara"),
     COMMON_JOIN_POINTS("jp/CommonJoinPoints.lara"),
-    JOINPOINTS("JoinPoints.lara");
+
+    JOINPOINTS("JoinPoints.lara"),
+    WEAVER_LAUNCHER("WeaverLauncher.lara");
 
     private final String resource;
 

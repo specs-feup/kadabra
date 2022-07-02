@@ -31,7 +31,8 @@ public enum JavaWeaverOption {
     Log("L", "Show logging information", JavaWeaverKeys.SHOW_LOG_INFO),
     Report("R", "Report Strategy Metrics", JavaWeaverKeys.REPORT),
     OutputType("T", "Type of output", JavaWeaverKeys.OUTPUT_TYPE),
-    ApkPackageFilter("APF", JavaWeaverKeys.APK_PACKAGE_FILTER);
+    ApkPackageFilter("APF", OptionArguments.ONE_ARG, "filters", "List of filters for APK decompilation",
+            JavaWeaverKeys.APK_PACKAGE_FILTER);
 
     private WeaverOption opt;
 
