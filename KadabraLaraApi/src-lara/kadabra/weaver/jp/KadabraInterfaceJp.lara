@@ -8,6 +8,12 @@ _lara_dummy_ = Object.defineProperty(InterfaceJp.prototype, 'name', {
 	}
 });
 
+_lara_dummy_ = Object.defineProperty(InterfaceJp.prototype, '_qualifiedName', {
+	get: function () { 
+		return this.astNode.getQualifiedName(); 
+	}
+});
+
 _lara_dummy_ = Object.defineProperty(InterfaceJp.prototype, 'methods', {
 	get: function () { 
 		return CommonJoinPoints.toJoinPoints(Weaver.toJs(this.astNode.getMethods()));
