@@ -23,7 +23,7 @@ public class IfProcessor extends AbstractProcessor<CtIf> {
     @Override
     public void process(CtIf element) {
         CtStatement thenStatement = element.getThenStatement();
-        if (!(thenStatement instanceof CtBlock)) {
+        if (thenStatement != null && !(thenStatement instanceof CtBlock)) {
             CtBlock<?> newBlock = element.getFactory().Code().createCtBlock(thenStatement);
             element.setThenStatement(newBlock);
             newBlock.setPosition(thenStatement.getPosition());

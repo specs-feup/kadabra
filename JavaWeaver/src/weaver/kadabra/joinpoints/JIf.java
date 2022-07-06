@@ -113,6 +113,10 @@ public class JIf extends AIf {
     @Override
     public ABody getThenImpl() {
         CtStatement thenStatement = node.getThenStatement();
+        if (thenStatement == null) {
+            return null;
+        }
+
         if (!(thenStatement instanceof CtBlock)) {
             throw new JavaWeaverException("The then statement must always be a block");
         }
