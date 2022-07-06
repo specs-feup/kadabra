@@ -71,7 +71,7 @@ public class SpoonUtils {
      */
     public static void sanitizeBody(CtLoop loop) {
         final CtStatement block = loop.getBody();
-        if (block instanceof CtBlock) {
+        if (block == null || block instanceof CtBlock) {
             return;
         }
         final CtBlock<?> newBlock = block.getFactory().Core().createBlock();
