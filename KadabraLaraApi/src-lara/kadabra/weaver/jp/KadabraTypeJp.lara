@@ -52,5 +52,24 @@ _lara_dummy_ = Object.defineProperty(TypeJp.prototype, 'usedTypes', {
 	}
 });
 
+_lara_dummy_ = Object.defineProperty(TypeJp.prototype, 'isInterface', {
+	get: function () {
+		return this.astNode.isInterface(); 
+	}
+});
+
+_lara_dummy_ = Object.defineProperty(TypeJp.prototype, 'isClassType', {
+	get: function () {
+		return this.isInterface || this.isClass; 
+	}
+});
+
+_lara_dummy_ = Object.defineProperty(TypeJp.prototype, 'classType', {
+	get: function () {
+		if (!this.isClassType) return null;
+		return CommonJoinPoints.toJoinPoint(this.astNode.getTypeDeclaration());
+	}
+});
+
 
 
