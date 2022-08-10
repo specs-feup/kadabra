@@ -1,0 +1,12 @@
+
+public class Issue1 {
+
+	private int foo = 0;
+	
+	private Item[] mItems = { new Item<>(foo) };
+
+	private class Item<T> {
+        Item(int elemt) {
+        }
+	}
+}
