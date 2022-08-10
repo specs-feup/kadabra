@@ -28,7 +28,6 @@ import spoon.reflect.code.CtLiteral;
 import spoon.reflect.code.CtSuperAccess;
 import spoon.reflect.code.CtTypeAccess;
 import spoon.reflect.code.CtVariableAccess;
-import spoon.reflect.cu.CompilationUnit;
 import spoon.reflect.declaration.CtClass;
 import spoon.reflect.declaration.CtConstructor;
 import spoon.reflect.declaration.CtField;
@@ -77,7 +76,7 @@ public class AdapterGenerator {
         // Create Compilation Unit with Class extending Adapt
         String newAdapterName = targetClass.getPackage().getQualifiedName() + "." + name;
         String abstractAdapterName = MethodAdapter.class.getName();
-        CompilationUnit cu = ActionUtils.compilationUnitWithClass(newAdapterName, abstractAdapterName, null, targetDir,
+        var cu = ActionUtils.compilationUnitWithClass(newAdapterName, abstractAdapterName, null, targetDir,
                 factory, profiler);
         CtClass<?> mainType = (CtClass<?>) cu.getMainType();
 

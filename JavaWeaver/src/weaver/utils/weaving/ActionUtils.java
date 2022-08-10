@@ -26,8 +26,8 @@ import spoon.reflect.code.CtBlock;
 import spoon.reflect.code.CtCodeSnippetStatement;
 import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.CtStatement;
-import spoon.reflect.cu.CompilationUnit;
 import spoon.reflect.declaration.CtClass;
+import spoon.reflect.declaration.CtCompilationUnit;
 import spoon.reflect.declaration.CtConstructor;
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtField;
@@ -355,7 +355,7 @@ public class ActionUtils {
     public static CtInterface<Object> compilationUnitWithInterface(String name, String[] _extends, File outputDir,
             Factory factory, WeaverProfiler weavingProfiler) {
 
-        CompilationUnit cu = newCompilationUnit(name, outputDir, factory);
+        CtCompilationUnit cu = newCompilationUnit(name, outputDir, factory);
 
         CtInterface<Object> newInterface = newInterface(name, _extends, factory, weavingProfiler);
 
@@ -392,10 +392,10 @@ public class ActionUtils {
         return newInterface;
     }
 
-    public static CompilationUnit compilationUnitWithClass(String name, String extend, String[] _implements,
+    public static CtCompilationUnit compilationUnitWithClass(String name, String extend, String[] _implements,
             File outputDir, Factory factory, WeaverProfiler weavingProfiler) {
         final CtClass<Object> newClass = newClass(name, extend, _implements, factory, weavingProfiler);
-        CompilationUnit cu = newCompilationUnit(name, outputDir, factory);
+        CtCompilationUnit cu = newCompilationUnit(name, outputDir, factory);
         cu.addDeclaredType(newClass);
         return cu;
     }
@@ -419,7 +419,7 @@ public class ActionUtils {
         return newClass;
     }
 
-    private static CompilationUnit newCompilationUnit(String name, File outputDir, Factory factory) {
+    private static CtCompilationUnit newCompilationUnit(String name, File outputDir, Factory factory) {
         CompilationUnitFactory compilationUnitF = factory.CompilationUnit();
 
         String property = System.getProperty("file.separator");

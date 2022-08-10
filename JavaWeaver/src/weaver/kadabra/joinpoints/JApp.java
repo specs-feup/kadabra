@@ -23,7 +23,6 @@ import org.lara.interpreter.weaver.interf.JoinPoint;
 
 import pt.up.fe.specs.util.SpecsCollections;
 import spoon.Launcher;
-import spoon.reflect.cu.CompilationUnit;
 import spoon.reflect.declaration.CtClass;
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtInterface;
@@ -102,7 +101,7 @@ public class JApp extends AApp {
             throw new NullPointerException("the name of the new class cannot be null or empty");
         }
         // KadabraLog.debug("GENERATING NEW CLASS: " + name);
-        CompilationUnit cu = ActionUtils.compilationUnitWithClass(name, extend, implement,
+        var cu = ActionUtils.compilationUnitWithClass(name, extend, implement,
                 spoon.getModelBuilder().getBinaryOutputDirectory(), spoon.getFactory(), getWeaverProfiler());
         CtClass<?> mainClass = (CtClass<?>) cu.getMainType();
         AClass newInstance = JClass.newInstance(mainClass, cu);
@@ -130,7 +129,7 @@ public class JApp extends AApp {
 
         File outDir = spoon.getModelBuilder().getBinaryOutputDirectory();
         Factory factory = spoon.getFactory();
-        CompilationUnit cu = MapGenerator.generate(factory, name, keyType, _interface, methodName, outDir,
+        var cu = MapGenerator.generate(factory, name, keyType, _interface, methodName, outDir,
                 getWeaverProfiler());
         JClass<?> newInstance = JClass.newInstance((CtClass<?>) cu.getMainType(), cu);
         return newInstance;

@@ -22,8 +22,8 @@ import org.lara.interpreter.profile.WeaverProfiler;
 import org.specs.generators.java.types.JavaTypeFactory;
 
 import spoon.reflect.code.CtConstructorCall;
-import spoon.reflect.cu.CompilationUnit;
 import spoon.reflect.declaration.CtClass;
+import spoon.reflect.declaration.CtCompilationUnit;
 import spoon.reflect.declaration.CtField;
 import spoon.reflect.declaration.ModifierKind;
 import spoon.reflect.factory.Factory;
@@ -100,9 +100,9 @@ public class MapGenerator {
      * @param outputDir
      * @return
      */
-    public static CompilationUnit generate(Factory factory, String name, String keyType, AInterface _interface,
+    public static CtCompilationUnit generate(Factory factory, String name, String keyType, AInterface _interface,
             String methodName, File outputDir, WeaverProfiler weaverProfiler) {
-        CompilationUnit cu = ActionUtils.compilationUnitWithClass(name, null, null, outputDir, factory, weaverProfiler);
+        var cu = ActionUtils.compilationUnitWithClass(name, null, null, outputDir, factory, weaverProfiler);
         CtClass<?> funcMapClass = (CtClass<?>) cu.getMainType();
         generate(keyType, _interface, methodName, funcMapClass, weaverProfiler);
         return cu;
