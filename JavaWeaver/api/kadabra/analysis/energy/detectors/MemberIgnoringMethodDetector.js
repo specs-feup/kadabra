@@ -1,8 +1,5 @@
 laraImport("kadabra.analysis.energy.detectors.BaseDetector");
 
-const noOverrideAnnotationFilter = (annos) =>
-  annos.filter((a) => a.type === "Override").length === 0;
-
 class MemberIgnoringMethodDetector extends BaseDetector {
   constructor() {
     super("Member Ignoring Method Detector");
@@ -11,12 +8,16 @@ class MemberIgnoringMethodDetector extends BaseDetector {
     this.computeSameNameMethods();
   }
 
+  static noOverrideAnnotationFilter(annos) {
+    return annos.filter((a) => a.type === "Override").length === 0;
+  }
+
   computeSameNameMethods() {
     let methods = Query.search("method", {
       isStatic: false,
       isFinal: false,
       privacy: (p) => p !== "private",
-      annotations: noOverrideAnnotationFilter,
+      annotations: MemberIgnoringMethodDetector.noOverrideAnnotationFilter,
     }).get();
 
     for (const m of methods) {
@@ -40,12 +41,11 @@ class MemberIgnoringMethodDetector extends BaseDetector {
       isStatic: false,
       isFinal: false,
       privacy: (p) => p !== "private",
-      annotations: noOverrideAnnotationFilter,
+      annotations: MemberIgnoringMethodDetector.noOverrideAnnotationFilter,
     }).get();
 
     for (let m of mightBeStatic) {
-
-      if(m.body === undefined || m.body.children.length === 0) continue;
+      if (m.body === undefined || m.body.children.length === 0) continue;
 
       if (!this.#methodCanBeStatic(m)) continue;
 
