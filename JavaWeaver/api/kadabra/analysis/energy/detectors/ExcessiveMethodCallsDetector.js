@@ -17,7 +17,7 @@ class ExcessiveMethodCallsDetector extends BaseDetector {
   }
 
   static addIfNew(arr, jp) {
-    if (!this.containsJP(arr, jp)) arr.push(jp);
+    if (!ExcessiveMethodCallsDetector.containsJP(arr, jp)) arr.push(jp);
   }
 
   analyseClass(jpClass) {
@@ -105,6 +105,8 @@ class ExcessiveMethodCallsDetector extends BaseDetector {
   ////////// First pass //////////
 
   collectLoopInfo(jp) {
+    const addIfNew = ExcessiveMethodCallsDetector.addIfNew;
+
     jp.children.forEach((child) => this.collectLoopInfo(child));
 
     if (jp.instanceOf("loop") && jp.type.name !== "foreach") {
@@ -124,7 +126,7 @@ class ExcessiveMethodCallsDetector extends BaseDetector {
     }
 
     if (jp.instanceOf("localVariable")) {
-      ExcessiveMethodCallsDetector.addIfNew(this.loopLocalWrites, jp);
+      addIfNew(this.loopLocalWrites, jp);
       return;
     }
 
@@ -141,49 +143,26 @@ class ExcessiveMethodCallsDetector extends BaseDetector {
       }
 
       let { writes, reads } = this.analyseMethodRecursive(jp.decl);
-      writes.forEach((w) =>
-        ExcessiveMethodCallsDetector.addIfNew(
-          this.loopGlobalWrites,
-          w.declaration
-        )
-      );
-      reads.forEach((r) =>
-        ExcessiveMethodCallsDetector.addIfNew(
-          this.loopGlobalReads,
-          r.declaration
-        )
-      );
+      writes.forEach((w) => addIfNew(this.loopGlobalWrites, w.declaration));
+      reads.forEach((r) => addIfNew(this.loopGlobalReads, r.declaration));
     }
   }
 
   analyseVar(jpVar) {
+    const addIfNew = ExcessiveMethodCallsDetector.addIfNew;
+
     if (jpVar.declaration === undefined) return;
     let isField = jpVar.isField;
     let access = jpVar.reference.name;
     if (isField && access === "write")
-      ExcessiveMethodCallsDetector.addIfNew(
-        this.loopGlobalWrites,
-        jpVar.declaration
-      );
+      addIfNew(this.loopGlobalWrites, jpVar.declaration);
     else if (isField && access === "read")
-      ExcessiveMethodCallsDetector.addIfNew(
-        this.loopGlobalReads,
-        jpVar.declaration
-      );
+      addIfNew(this.loopGlobalReads, jpVar.declaration);
     else if (isField && access === "readwrite") {
-      ExcessiveMethodCallsDetector.addIfNew(
-        this.loopGlobalWrites,
-        jpVar.declaration
-      );
-      ExcessiveMethodCallsDetector.addIfNew(
-        this.loopGlobalReads,
-        jpVar.declaration
-      );
+      addIfNew(this.loopGlobalWrites, jpVar.declaration);
+      addIfNew(this.loopGlobalReads, jpVar.declaration);
     } else if (!isField && access === "write")
-      ExcessiveMethodCallsDetector.addIfNew(
-        this.loopLocalWrites,
-        jpVar.declaration
-      );
+      addIfNew(this.loopLocalWrites, jpVar.declaration);
   }
 
   analyseMethodRecursive(jpMethod) {
@@ -213,7 +192,10 @@ class ExcessiveMethodCallsDetector extends BaseDetector {
     res.reads.push(...r);
 
     let calls = Query.searchFrom(jpMethod, "call").get();
-    let callDeclSplit = Collections.partition(calls, (c) => c.decl !== undefined);
+    let callDeclSplit = Collections.partition(
+      calls,
+      (c) => c.decl !== undefined
+    );
 
     let missingInfo = m.length > 0 || callDeclSplit[1].length > 0;
 
@@ -235,7 +217,10 @@ class ExcessiveMethodCallsDetector extends BaseDetector {
 
   getFieldUsageInsideJP(jp) {
     let vars = Query.searchFrom(jp, "var", { isField: true }).get();
-    let declSplit = Collections.partition(vars, (v) => v.declaration !== undefined);
+    let declSplit = Collections.partition(
+      vars,
+      (v) => v.declaration !== undefined
+    );
 
     let read = [];
     let write = [];
