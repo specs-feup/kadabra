@@ -26,7 +26,7 @@ class HashMapUsageDetector extends BaseDetector {
       r.line.toString(),
       r.ancestor("file").path,
     ]);
-    printTable(["Line", "File"], data, [40, 100]);
+    Collections.printTable(["Line", "File"], data, [40, 100]);
     println();
   }
 

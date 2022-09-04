@@ -63,7 +63,7 @@ class ExcessiveMethodCallsDetector extends BaseDetector {
       r.name,
       r.ancestor("file").path,
     ]);
-    printTable(["Line", "Call", "File"], data, [10, 30, 100]);
+    Collections.printTable(["Line", "Call", "File"], data, [10, 30, 100]);
     println();
   }
 
