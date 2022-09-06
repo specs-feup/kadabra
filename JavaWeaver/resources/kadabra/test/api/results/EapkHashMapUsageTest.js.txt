@@ -1,0 +1,5 @@
+Running HashMap Usage Detector...
+[
+"EapkHashMapUsage.java/EapkHashMapUsage/:5",
+"EapkHashMapUsage.java/EapkHashMapUsage/GenerateHashMap:9"
+]

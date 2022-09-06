@@ -87,4 +87,25 @@ public class JavaApiTest {
                 // .set(LaraiKeys.VERBOSE, VerboseLevel.all).set(LaraiKeys.DEBUG_MODE)
                 .test("KadabraAstTest.lara", "KadabraAst.java.test");
     }
+
+    @Test
+    public void testEAPKInternalGetter() {
+        newTester().test("EapkInternalGetterTest.js", "EapkInternalGetter.java.test");
+    }
+
+    @Test
+    public void testEAPKExcessiveMethodCalls() {
+        newTester().test("EapkExcessiveMethodCallsTest.js", "EapkExcessiveMethodCalls.java.test");
+    }
+
+    @Test
+    public void testEAPKHashMapUsage() {
+        newTester().test("EapkHashMapUsageTest.js", "EapkHashMapUsage.java.test");
+    }
+
+    @Test
+    public void testEAPKMemberIgnoringMethod() {
+        newTester()
+                .test("EapkMemberIgnoringMethodTest.js", "EapkMemberIgnoringMethod.java.test");
+    }
 }

@@ -1,0 +1,4 @@
+Running Internal Getter Detector...
+[
+"EapkInternalGetter.java/EapkInternalGetter/addToField/readsField():10"
+]

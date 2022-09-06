@@ -1,0 +1,4 @@
+Running Member Ignoring Method Detector...
+[
+"EapkMemberIgnoringMethod.java/EapkMemberIgnoringMethod/shouldBeStaticSum:2"
+]
