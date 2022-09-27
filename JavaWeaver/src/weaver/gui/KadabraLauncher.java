@@ -13,6 +13,8 @@
 
 package weaver.gui;
 
+import org.suikasoft.jOptions.Interfaces.DataStore;
+
 import larai.LaraI;
 import pt.up.fe.specs.lara.WeaverLauncher;
 import pt.up.fe.specs.util.SpecsLogs;
@@ -30,6 +32,10 @@ public class KadabraLauncher {
     public static boolean execute(String[] args) {
         // return LaraLauncher.launch(args, new JavaWeaver());
         return new WeaverLauncher(new JavaWeaver()).launch(args);
+    }
+
+    public static boolean execute(DataStore data) {
+        return LaraI.exec(data, new JavaWeaver());
     }
 
     /**
