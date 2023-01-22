@@ -81,8 +81,7 @@
 	<action name="newClass" class="app,file" return="class">
 		<parameter name="name" type="String"/>
 	</action>
-	
-	<!-- FILE -->
+
 	<action name="newInterface" class="file,app" return="interface">
 		<parameter name="name" type="String"/>
 		<parameter name="extend" type="String[]" default="[]"/>
@@ -90,6 +89,15 @@
 	<action name="newInterface" class="file,app" return="interface">
 		<parameter name="name" type="String"/>
 	</action>
+
+	
+	<!-- FILE -->
+	<!--
+	<action name="addImport" class="file" return="void">
+		<parameter name="qualifiedName" type="String"/>
+	</action>
+	-->
+	
 	
 	
 	
@@ -199,6 +207,15 @@
 		<parameter name="location" type="statement"/>
 		<parameter name="position" type="String"/>
 	</action>
+	
+	<action name="setArguments" class="call" return="void">
+		<parameter name="newArguments" type="expression[]"/>
+	</action>
+	
+	<!-- NEW -->
+	<action name="setArguments" class="new" return="void">
+		<parameter name="newArguments" type="expression[]"/>
+	</action>	
 	
 	<!-- LOOP -->
 	<action name="tile" class="loop" return="field">

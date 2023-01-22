@@ -1,8 +1,11 @@
 package weaver.kadabra.abstracts.joinpoints;
 
+import org.lara.interpreter.weaver.interf.events.Stage;
+import java.util.Optional;
+import org.lara.interpreter.exception.AttributeException;
+import org.lara.interpreter.exception.ActionException;
 import java.util.List;
 import org.lara.interpreter.weaver.interf.JoinPoint;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.Arrays;
 
@@ -24,6 +27,99 @@ public abstract class ANew extends AExpression {
         this.aExpression = aExpression;
     }
     /**
+     * Get value on attribute name
+     * @return the attribute's value
+     */
+    public abstract String getNameImpl();
+
+    /**
+     * Get value on attribute name
+     * @return the attribute's value
+     */
+    public final Object getName() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "name", Optional.empty());
+        	}
+        	String result = this.getNameImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "name", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "name", e);
+        }
+    }
+
+    /**
+     * Get value on attribute arguments
+     * @return the attribute's value
+     */
+    public abstract AExpression[] getArgumentsArrayImpl();
+
+    /**
+     * Get value on attribute arguments
+     * @return the attribute's value
+     */
+    public Object getArgumentsImpl() {
+        AExpression[] aExpressionArrayImpl0 = getArgumentsArrayImpl();
+        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(aExpressionArrayImpl0);
+        return nativeArray0;
+    }
+
+    /**
+     * Get value on attribute arguments
+     * @return the attribute's value
+     */
+    public final Object getArguments() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "arguments", Optional.empty());
+        	}
+        	Object result = this.getArgumentsImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "arguments", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "arguments", e);
+        }
+    }
+
+    /**
+     * 
+     */
+    public void defArgumentsImpl(AExpression[] value) {
+        throw new UnsupportedOperationException("Join point "+get_class()+": Action def arguments with type AExpression not implemented ");
+    }
+
+    /**
+     * 
+     * @param newArguments 
+     */
+    public void setArgumentsImpl(AExpression[] newArguments) {
+        throw new UnsupportedOperationException(get_class()+": Action setArguments not implemented ");
+    }
+
+    /**
+     * 
+     * @param newArguments 
+     */
+    public final void setArguments(AExpression[] newArguments) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "setArguments", this, Optional.empty(), new Object[] { newArguments});
+        	}
+        	this.setArgumentsImpl(newArguments);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "setArguments", this, Optional.empty(), new Object[] { newArguments});
+        	}
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "setArguments", e);
+        }
+    }
+
+    /**
      * Get value on attribute kind
      * @return the attribute's value
      */
@@ -39,6 +135,15 @@ public abstract class ANew extends AExpression {
     @Override
     public String getTypeImpl() {
         return this.aExpression.getTypeImpl();
+    }
+
+    /**
+     * Get value on attribute qualifiedType
+     * @return the attribute's value
+     */
+    @Override
+    public String getQualifiedTypeImpl() {
+        return this.aExpression.getQualifiedTypeImpl();
     }
 
     /**
@@ -300,6 +405,13 @@ public abstract class ANew extends AExpression {
         	}
         	this.unsupportedTypeForDef(attribute, value);
         }
+        case "arguments": {
+        	if(value instanceof AExpression[]){
+        		this.defArgumentsImpl((AExpression[])value);
+        		return;
+        	}
+        	this.unsupportedTypeForDef(attribute, value);
+        }
         case "test": {
         	if(value instanceof Integer){
         		this.defTestImpl((Integer)value);
@@ -321,6 +433,8 @@ public abstract class ANew extends AExpression {
     @Override
     protected final void fillWithAttributes(List<String> attributes) {
         this.aExpression.fillWithAttributes(attributes);
+        attributes.add("name");
+        attributes.add("arguments");
     }
 
     /**
@@ -337,6 +451,7 @@ public abstract class ANew extends AExpression {
     @Override
     protected final void fillWithActions(List<String> actions) {
         this.aExpression.fillWithActions(actions);
+        actions.add("void setArguments(expression[])");
     }
 
     /**
@@ -364,8 +479,11 @@ public abstract class ANew extends AExpression {
      * 
      */
     protected enum NewAttributes {
+        NAME("name"),
+        ARGUMENTS("arguments"),
         KIND("kind"),
         TYPE("type"),
+        QUALIFIEDTYPE("qualifiedType"),
         TYPEREFERENCE("typeReference"),
         TEST("test"),
         PARENT("parent"),

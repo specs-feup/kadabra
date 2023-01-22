@@ -341,6 +341,13 @@ public abstract class ACall extends AExpression {
     }
 
     /**
+     * 
+     */
+    public void defArgumentsImpl(AExpression[] value) {
+        throw new UnsupportedOperationException("Join point "+get_class()+": Action def arguments with type AExpression not implemented ");
+    }
+
+    /**
      * Default implementation of the method used by the lara interpreter to select args
      * @return 
      */
@@ -378,6 +385,32 @@ public abstract class ACall extends AExpression {
     }
 
     /**
+     * 
+     * @param newArguments 
+     */
+    public void setArgumentsImpl(AExpression[] newArguments) {
+        throw new UnsupportedOperationException(get_class()+": Action setArguments not implemented ");
+    }
+
+    /**
+     * 
+     * @param newArguments 
+     */
+    public final void setArguments(AExpression[] newArguments) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "setArguments", this, Optional.empty(), new Object[] { newArguments});
+        	}
+        	this.setArgumentsImpl(newArguments);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "setArguments", this, Optional.empty(), new Object[] { newArguments});
+        	}
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "setArguments", e);
+        }
+    }
+
+    /**
      * Get value on attribute kind
      * @return the attribute's value
      */
@@ -393,6 +426,15 @@ public abstract class ACall extends AExpression {
     @Override
     public String getTypeImpl() {
         return this.aExpression.getTypeImpl();
+    }
+
+    /**
+     * Get value on attribute qualifiedType
+     * @return the attribute's value
+     */
+    @Override
+    public String getQualifiedTypeImpl() {
+        return this.aExpression.getQualifiedTypeImpl();
     }
 
     /**
@@ -679,6 +721,13 @@ public abstract class ACall extends AExpression {
         	}
         	this.unsupportedTypeForDef(attribute, value);
         }
+        case "arguments": {
+        	if(value instanceof AExpression[]){
+        		this.defArgumentsImpl((AExpression[])value);
+        		return;
+        	}
+        	this.unsupportedTypeForDef(attribute, value);
+        }
         case "test": {
         	if(value instanceof Integer){
         		this.defTestImpl((Integer)value);
@@ -729,6 +778,7 @@ public abstract class ACall extends AExpression {
     protected final void fillWithActions(List<String> actions) {
         this.aExpression.fillWithActions(actions);
         actions.add("call clone(statement, String)");
+        actions.add("void setArguments(expression[])");
     }
 
     /**
@@ -769,6 +819,7 @@ public abstract class ACall extends AExpression {
         ARGUMENTS("arguments"),
         KIND("kind"),
         TYPE("type"),
+        QUALIFIEDTYPE("qualifiedType"),
         TYPEREFERENCE("typeReference"),
         TEST("test"),
         PARENT("parent"),

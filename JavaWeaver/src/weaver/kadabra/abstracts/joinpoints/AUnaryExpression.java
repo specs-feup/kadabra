@@ -137,6 +137,15 @@ public abstract class AUnaryExpression extends AExpression {
     }
 
     /**
+     * Get value on attribute qualifiedType
+     * @return the attribute's value
+     */
+    @Override
+    public String getQualifiedTypeImpl() {
+        return this.aExpression.getQualifiedTypeImpl();
+    }
+
+    /**
      * Get value on attribute typeReference
      * @return the attribute's value
      */
@@ -477,6 +486,7 @@ public abstract class AUnaryExpression extends AExpression {
         OPERATOR("operator"),
         KIND("kind"),
         TYPE("type"),
+        QUALIFIEDTYPE("qualifiedType"),
         TYPEREFERENCE("typeReference"),
         TEST("test"),
         PARENT("parent"),

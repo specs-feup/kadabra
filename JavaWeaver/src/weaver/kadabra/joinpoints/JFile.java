@@ -58,6 +58,34 @@ public class JFile extends AFile {
     // return node.toString();
     // }
 
+    /*
+    @Override
+    public void addImportImpl(String qualifiedName) {
+        var importList = node.getImports();
+        // Add to a set, keeping order
+        var updatedSet = new LinkedHashSet<>(importList);
+    
+        // CtImportImpl
+        var ref = new CtTypeReferenceImpl<>();
+        ref.setSimpleName(qualifiedName);
+        var newImport = new CtImportImpl();
+        newImport.setReference(ref);
+        updatedSet.add(newImport);
+        node.setImports(updatedSet);
+    
+        // // If new import, replace
+        // if (updatedSet.add(newImport)) {
+        // node.setImports(updatedSet);
+        // }
+    
+        // ref.setPackage(new CtPackageReferenceImpl())
+        // System.out.println("REF: " + ref);
+        // ref.setSimpleName(qualifiedName);
+        // TODO Auto-generated method stub
+        // super.addImportImpl(qualifiedName);
+    }
+    */
+
     @Override
     public boolean compareNodes(AJoinPoint aJoinPoint) {
 

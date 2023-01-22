@@ -13,10 +13,12 @@
 
 package weaver.kadabra.joinpoints;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import pt.up.fe.specs.util.SpecsCheck;
 import spoon.reflect.code.CtCodeSnippetExpression;
+import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.CtInvocation;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.reference.CtExecutableReference;
@@ -139,6 +141,21 @@ public class JCall<T> extends ACall {
         final List<AExpression> exprs = SelectUtils.nodeList2JoinPointList(node.getArguments(),
                 arg -> JExpression.newInstance(arg));
         return exprs;
+    }
+
+    @Override
+    public void defArgumentsImpl(AExpression[] value) {
+        var newArgs = new ArrayList<CtExpression<?>>();
+        for (var arg : value) {
+            newArgs.add((CtExpression<?>) arg.getNode());
+        }
+
+        node.setArguments(newArgs);
+    }
+
+    @Override
+    public void setArgumentsImpl(AExpression[] newArguments) {
+        defArgumentsImpl(newArguments);
     }
 
     @Override

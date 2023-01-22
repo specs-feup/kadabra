@@ -305,6 +305,7 @@
 		<attribute name="reference"			type="RefType"/>
 	</artifact>
 	
+	<!-- CALL -->
 	<artifact class="call" default="name">
 		<attribute name="name"				type="string"/>
 		<attribute name="decl"				type="method"/>
@@ -323,9 +324,19 @@
 		<attribute name="returnType"		type="string"/>
 		<attribute name="returnTypeJp"		type="typeReference"/>		
 		<!-- <attribute name="arguments"			type="argument[]"/> -->
-		<attribute name="arguments"			type="expression[]"/>		
+		<attribute name="arguments"			type="expression[]">
+			<def type="expression[]"/>
+		</attribute>		
 	</artifact>
 	
+	<!-- NEW -->
+	<artifact class="new" default="name">
+		<attribute name="name"				type="string"/>
+		<attribute name="arguments"			type="expression[]">
+			<def type="expression[]"/>
+		</attribute>
+	</artifact>
+		
 	<!-- BINARY EXPRESSION -->
 	<artifact class="binaryExpression" 	default="operator">
 		<attribute name="operator"			type="string">
@@ -368,6 +379,7 @@
 	<artifact class="expression" 		default="exprType">
 		<attribute name="kind"			type="string"/> <!-- literal|binaryExpression|var|arrayAccess|call -->
 		<attribute name="type" 				type="String"/> <!-- int, List,...-->
+		<attribute name="qualifiedType" 	type="String"/> <!-- int, java.util.List,...-->		
 		<attribute name="typeReference" 	type="typeReference"/> <!-- int, List,...-->		
 		<attribute name="test" 				type="int"> <!-- int, List,...-->
 			<def/>

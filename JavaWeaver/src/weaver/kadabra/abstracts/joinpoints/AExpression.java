@@ -71,6 +71,31 @@ public abstract class AExpression extends AJavaWeaverJoinPoint {
     }
 
     /**
+     * Get value on attribute qualifiedType
+     * @return the attribute's value
+     */
+    public abstract String getQualifiedTypeImpl();
+
+    /**
+     * Get value on attribute qualifiedType
+     * @return the attribute's value
+     */
+    public final Object getQualifiedType() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "qualifiedType", Optional.empty());
+        	}
+        	String result = this.getQualifiedTypeImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "qualifiedType", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "qualifiedType", e);
+        }
+    }
+
+    /**
      * Get value on attribute typeReference
      * @return the attribute's value
      */
@@ -273,6 +298,7 @@ public abstract class AExpression extends AJavaWeaverJoinPoint {
         super.fillWithAttributes(attributes);
         attributes.add("kind");
         attributes.add("type");
+        attributes.add("qualifiedType");
         attributes.add("typeReference");
         attributes.add("test");
     }
@@ -313,6 +339,7 @@ public abstract class AExpression extends AJavaWeaverJoinPoint {
     protected enum ExpressionAttributes {
         KIND("kind"),
         TYPE("type"),
+        QUALIFIEDTYPE("qualifiedType"),
         TYPEREFERENCE("typeReference"),
         TEST("test"),
         PARENT("parent"),

@@ -13,9 +13,14 @@
 
 package weaver.kadabra.joinpoints;
 
+import java.util.ArrayList;
+
 import spoon.reflect.code.CtConstructorCall;
+import spoon.reflect.code.CtExpression;
 import spoon.reflect.declaration.CtElement;
+import weaver.kadabra.abstracts.joinpoints.AExpression;
 import weaver.kadabra.abstracts.joinpoints.ANew;
+import weaver.utils.weaving.SelectUtils;
 
 public class JNew<T> extends ANew {
 
@@ -36,4 +41,30 @@ public class JNew<T> extends ANew {
         return constructorCall;
     }
 
+    @Override
+    public String getNameImpl() {
+        return constructorCall.getExecutable().getSimpleName();
+    }
+
+    @Override
+    public AExpression[] getArgumentsArrayImpl() {
+        return SelectUtils.nodeList2JoinPointList(constructorCall.getArguments(),
+                arg -> JExpression.newInstance(arg))
+                .toArray(new AExpression[0]);
+    }
+
+    @Override
+    public void defArgumentsImpl(AExpression[] value) {
+        var newArgs = new ArrayList<CtExpression<?>>();
+        for (var arg : value) {
+            newArgs.add((CtExpression<?>) arg.getNode());
+        }
+
+        constructorCall.setArguments(newArgs);
+    }
+
+    @Override
+    public void setArgumentsImpl(AExpression[] newArguments) {
+        defArgumentsImpl(newArguments);
+    }
 }

@@ -138,6 +138,16 @@ public class JExpression<T> extends AExpression {
     }
 
     @Override
+    public String getQualifiedTypeImpl() {
+        var typeRef = getTypeReferenceImpl();
+
+        var packageName = typeRef.getPackageImpl();
+        var sanitizedPackageName = packageName != null ? packageName + "." : "";
+
+        return sanitizedPackageName + getTypeImpl();
+    }
+
+    @Override
     public List<? extends AExpression> selectExpr() {
 
         List<AExpression> select = SelectUtils.select(node, CtExpression.class,
