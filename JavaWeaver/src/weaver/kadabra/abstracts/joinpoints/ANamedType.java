@@ -297,6 +297,7 @@ public abstract class ANamedType extends AJavaWeaverJoinPoint {
         NUMCHILDREN("numChildren"),
         SRCCODE("srcCode"),
         ISFINAL("isFinal"),
+        ID("id"),
         CHILD("child");
         private String name;
 

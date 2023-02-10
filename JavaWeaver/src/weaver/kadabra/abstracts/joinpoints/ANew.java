@@ -503,6 +503,7 @@ public abstract class ANew extends AExpression {
         NUMCHILDREN("numChildren"),
         SRCCODE("srcCode"),
         ISFINAL("isFinal"),
+        ID("id"),
         CHILD("child");
         private String name;
 

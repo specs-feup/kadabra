@@ -344,6 +344,7 @@ public abstract class APragma extends AComment {
         NUMCHILDREN("numChildren"),
         SRCCODE("srcCode"),
         ISFINAL("isFinal"),
+        ID("id"),
         CHILD("child");
         private String name;
 

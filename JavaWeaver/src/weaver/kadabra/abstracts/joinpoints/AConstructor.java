@@ -375,6 +375,7 @@ public abstract class AConstructor extends AExecutable {
         NUMCHILDREN("numChildren"),
         SRCCODE("srcCode"),
         ISFINAL("isFinal"),
+        ID("id"),
         CHILD("child");
         private String name;
 

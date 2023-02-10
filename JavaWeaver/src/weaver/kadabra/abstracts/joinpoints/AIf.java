@@ -440,6 +440,7 @@ public abstract class AIf extends AStatement {
         NUMCHILDREN("numChildren"),
         SRCCODE("srcCode"),
         ISFINAL("isFinal"),
+        ID("id"),
         CHILD("child");
         private String name;
 

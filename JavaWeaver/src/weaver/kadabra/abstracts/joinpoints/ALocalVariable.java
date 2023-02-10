@@ -537,6 +537,7 @@ public abstract class ALocalVariable extends AStatement {
         NUMCHILDREN("numChildren"),
         SRCCODE("srcCode"),
         ISFINAL("isFinal"),
+        ID("id"),
         CHILD("child");
         private String name;
 

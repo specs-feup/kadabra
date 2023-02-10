@@ -31,6 +31,7 @@
 		<attribute name="isFinal"		type="Boolean" tooltip="true if this node has the modifier 'final'"/>
 		<attribute name="isStatic"		type="Boolean" tooltip="true if this node has the modifier 'static'"/>
 		<attribute name="annotations"	type="annotation[]" tooltip="an array of the annotations of this node"/>		
+		<attribute name="id"			type="String" tooltip="unique identifier for node"/>		
 	</global>
 	
 	

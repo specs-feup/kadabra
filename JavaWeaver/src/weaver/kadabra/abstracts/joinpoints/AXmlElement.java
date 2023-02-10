@@ -435,6 +435,7 @@ public abstract class AXmlElement extends AXmlNode {
         NUMCHILDREN("numChildren"),
         SRCCODE("srcCode"),
         ISFINAL("isFinal"),
+        ID("id"),
         CHILD("child");
         private String name;
 

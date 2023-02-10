@@ -332,6 +332,7 @@ public abstract class ALibClass extends ANamedType {
         NUMCHILDREN("numChildren"),
         SRCCODE("srcCode"),
         ISFINAL("isFinal"),
+        ID("id"),
         CHILD("child");
         private String name;
 

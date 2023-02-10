@@ -342,6 +342,7 @@ public abstract class AAndroidManifest extends AXmlNode {
         NUMCHILDREN("numChildren"),
         SRCCODE("srcCode"),
         ISFINAL("isFinal"),
+        ID("id"),
         CHILD("child");
         private String name;
 

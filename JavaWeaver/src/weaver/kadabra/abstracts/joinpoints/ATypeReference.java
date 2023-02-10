@@ -391,6 +391,7 @@ public abstract class ATypeReference extends AReference {
         NUMCHILDREN("numChildren"),
         SRCCODE("srcCode"),
         ISFINAL("isFinal"),
+        ID("id"),
         CHILD("child");
         private String name;
 

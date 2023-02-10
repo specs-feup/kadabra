@@ -399,6 +399,7 @@ public abstract class AJoinPoint extends JoinPoint {
         attributes.add("isFinal");
         attributes.add("isStatic");
         attributes.add("annotations");
+        attributes.add("id");
     }
 
     /**
@@ -884,6 +885,29 @@ public abstract class AJoinPoint extends JoinPoint {
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "annotations", e);
+        }
+    }
+
+    /**
+     * unique identifier for node
+     */
+    public abstract String getIdImpl();
+
+    /**
+     * unique identifier for node
+     */
+    public final Object getId() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "id", Optional.empty());
+        	}
+        	String result = this.getIdImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "id", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "id", e);
         }
     }
 

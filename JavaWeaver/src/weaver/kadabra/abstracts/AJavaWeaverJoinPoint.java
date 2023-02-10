@@ -550,4 +550,9 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
         getNode().removeAnnotation((CtAnnotation<?>) annotation.getNode());
     }
 
+    @Override
+    public String getIdImpl() {
+        var node = getNode();
+        return node.getClass().getSimpleName() + "_" + node.hashCode();
+    }
 }

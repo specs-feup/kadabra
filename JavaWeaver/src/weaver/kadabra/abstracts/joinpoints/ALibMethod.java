@@ -198,6 +198,7 @@ public abstract class ALibMethod extends AJavaWeaverJoinPoint {
         NUMCHILDREN("numChildren"),
         SRCCODE("srcCode"),
         ISFINAL("isFinal"),
+        ID("id"),
         CHILD("child");
         private String name;
 

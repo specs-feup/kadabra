@@ -124,6 +124,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a block of statements",
 						"children": [
 									{
@@ -582,6 +591,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a block of statements",
 						"children": [
 									{
@@ -1005,6 +1023,15 @@
 									{
 										"type": "String",
 										"name": "modifier"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
 									}]
 					},
 					{
@@ -1456,6 +1483,15 @@
 									{
 										"type": "String",
 										"name": "modifier"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
 									}]
 					},
 					{
@@ -1940,6 +1976,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a block of statements",
 						"children": [
 									{
@@ -2389,6 +2434,15 @@
 									{
 										"type": "String",
 										"name": "modifier"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
 									}]
 					},
 					{
@@ -2945,6 +2999,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a block of statements",
 						"children": [
 									{
@@ -3411,6 +3474,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a block of statements",
 						"children": [
 									{
@@ -3859,6 +3931,15 @@
 									{
 										"type": "String",
 										"name": "modifier"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
 									}]
 					},
 					{
@@ -4373,6 +4454,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a block of statements",
 						"children": [
 									{
@@ -4853,6 +4943,15 @@
 									{
 										"type": "String",
 										"name": "modifier"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
 									}]
 					},
 					{
@@ -5352,6 +5451,15 @@
 									{
 										"type": "String",
 										"name": "modifier"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
 									}]
 					},
 					{
@@ -5886,6 +5994,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a block of statements",
 						"children": [
 									{
@@ -6386,6 +6503,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a block of statements",
 						"children": [
 									{
@@ -6800,6 +6926,15 @@
 									{
 										"type": "String",
 										"name": "modifier"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
 									}]
 					},
 					{
@@ -7306,6 +7441,15 @@
 									{
 										"type": "String",
 										"name": "modifier"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
 									}]
 					},
 					{
@@ -8070,6 +8214,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a block of statements",
 						"children": [
 									{
@@ -8520,6 +8673,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a block of statements",
 						"children": [
 									{
@@ -8948,6 +9110,15 @@
 									{
 										"type": "String",
 										"name": "modifier"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
 									}]
 					},
 					{
@@ -9406,6 +9577,15 @@
 									{
 										"type": "String",
 										"name": "modifier"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
 									}]
 					},
 					{
@@ -9899,6 +10079,15 @@
 									{
 										"type": "String",
 										"name": "modifier"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
 									}]
 					},
 					{
@@ -10676,6 +10865,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a block of statements",
 						"children": [
 									{
@@ -11128,6 +11326,15 @@
 									{
 										"type": "String",
 										"name": "modifier"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
 									}]
 					},
 					{
@@ -11644,6 +11851,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a block of statements",
 						"children": [
 									{
@@ -12103,6 +12319,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a block of statements",
 						"children": [
 									{
@@ -12243,19 +12468,6 @@
 									{
 										"type": "class",
 										"name": "newClass",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "addImport"
-									},
-									{
-										"type": "String",
-										"name": "qualifiedName",
 										"defaultValue": ""
 									}]
 					},
@@ -12704,6 +12916,15 @@
 									{
 										"type": "String",
 										"name": "modifier"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
 									}]
 					},
 					{
@@ -13196,6 +13417,15 @@
 									{
 										"type": "String",
 										"name": "modifier"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
 									}]
 					},
 					{
@@ -13873,6 +14103,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a block of statements",
 						"children": [
 									{
@@ -14293,6 +14532,15 @@
 									{
 										"type": "String",
 										"name": "modifier"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
 									}]
 					},
 					{
@@ -14739,6 +14987,15 @@
 									{
 										"type": "String",
 										"name": "modifier"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
 									}]
 					},
 					{
@@ -15269,6 +15526,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a block of statements",
 						"children": [
 									{
@@ -15757,6 +16023,15 @@
 									{
 										"type": "String",
 										"name": "modifier"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
 									}]
 					},
 					{
@@ -16326,6 +16601,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a block of statements",
 						"children": [
 									{
@@ -16860,6 +17144,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a block of statements",
 						"children": [
 									{
@@ -17353,6 +17646,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a block of statements",
 						"children": [
 									{
@@ -17783,6 +18085,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a block of statements",
 						"children": [
 									{
@@ -18187,6 +18498,15 @@
 									{
 										"type": "String",
 										"name": "modifier"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
 									}]
 					},
 					{
@@ -18609,6 +18929,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a block of statements",
 						"children": [
 									{
@@ -19023,6 +19352,15 @@
 									{
 										"type": "String",
 										"name": "modifier"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
 									}]
 					},
 					{
@@ -19504,6 +19842,15 @@
 									{
 										"type": "String",
 										"name": "modifier"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
 									}]
 					},
 					{
@@ -20003,6 +20350,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a block of statements",
 						"children": [
 									{
@@ -20459,6 +20815,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a block of statements",
 						"children": [
 									{
@@ -20883,6 +21248,15 @@
 									{
 										"type": "String",
 										"name": "modifier"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
 									}]
 					},
 					{
@@ -21366,6 +21740,15 @@
 									{
 										"type": "String",
 										"name": "modifier"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
 									}]
 					},
 					{
@@ -22040,6 +22423,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a block of statements",
 						"children": [
 									{
@@ -22484,6 +22876,15 @@
 									{
 										"type": "String",
 										"name": "modifier"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
 									}]
 					},
 					{
@@ -23052,6 +23453,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a block of statements",
 						"children": [
 									{
@@ -23551,6 +23961,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a block of statements",
 						"children": [
 									{
@@ -24003,6 +24422,15 @@
 									{
 										"type": "String",
 										"name": "modifier"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
 									}]
 					},
 					{
