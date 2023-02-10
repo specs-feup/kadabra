@@ -247,7 +247,7 @@ public class KadabraPrettyPrinter extends DefaultJavaPrettyPrinter {
         if (stmt instanceof CtKadabraSnippetStatement) {
             var code = ((CtKadabraSnippetStatement) stmt).getValue().trim();
 
-            return !(code.endsWith(";") || code.endsWith("}"));
+            return !(code.endsWith(";") || code.endsWith("}") || code.endsWith("{"));
         }
 
         return !((stmt instanceof CtBlock) || (stmt instanceof CtIf) || (stmt instanceof CtFor)
