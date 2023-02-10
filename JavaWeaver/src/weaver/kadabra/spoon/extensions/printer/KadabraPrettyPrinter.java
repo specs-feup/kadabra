@@ -245,7 +245,9 @@ public class KadabraPrettyPrinter extends DefaultJavaPrettyPrinter {
     private static boolean requiresSemiColon(CtStatement stmt) {
         // If CtKadabraSnippetStatement, check if it contains ;
         if (stmt instanceof CtKadabraSnippetStatement) {
-            return !((CtKadabraSnippetStatement) stmt).getValue().endsWith(";");
+            var code = ((CtKadabraSnippetStatement) stmt).getValue().trim();
+
+            return !(code.endsWith(";") || code.endsWith("}"));
         }
 
         return !((stmt instanceof CtBlock) || (stmt instanceof CtIf) || (stmt instanceof CtFor)
