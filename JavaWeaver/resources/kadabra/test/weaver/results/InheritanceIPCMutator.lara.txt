@@ -34,7 +34,7 @@ public class InheritanceIPCTest {
 
     public class DerivedClass1 extends MotherClass {
         public DerivedClass1() {
-            // Super constructor call has been removed;
+            // Super constructor call has been removed
             K = 333;
         }
     }
@@ -105,7 +105,7 @@ public class InheritanceIPCTest {
 
     public class DerivedClass2 extends MotherClass {
         public DerivedClass2() {
-            // Super constructor call has been removed;
+            // Super constructor call has been removed
             K = 666;
         }
     }
@@ -176,7 +176,7 @@ public class InheritanceIPCTest {
 
     public class DerivedClass3 extends MotherClass {
         public DerivedClass3() {
-            // Super constructor call has been removed;
+            // Super constructor call has been removed
             K = 999;
         }
     }
@@ -247,7 +247,7 @@ public class InheritanceIPCTest {
 
     public class DerivedClass4 extends MotherClass {
         public DerivedClass4() {
-            // Super constructor call has been removed;
+            // Super constructor call has been removed
             K = 121212;
         }
     }
