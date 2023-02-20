@@ -15,6 +15,7 @@ package weaver.kadabra.joinpoints;
 
 import java.util.List;
 
+import pt.up.fe.specs.util.SpecsLogs;
 import spoon.reflect.code.CtAssignment;
 import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.CtOperatorAssignment;
@@ -34,7 +35,7 @@ public class JAssignment<T, V extends T> extends AAssignment {
 
     public static <T, V extends T> JAssignment<T, V> newInstance(CtAssignment<T, V> node) {
         if (node instanceof CtOperatorAssignment) {
-            return JOpAssignment.newInstance((CtOperatorAssignment<T, V>) node);
+            return JOpAssignmentAux.newInstance((CtOperatorAssignment<T, V>) node);
         }
         return new JAssignment<>(node);
     }
@@ -42,6 +43,11 @@ public class JAssignment<T, V extends T> extends AAssignment {
     @Override
     public String getOperatorImpl() {
         return "=";
+    }
+
+    @Override
+    public void defOperatorImpl(String value) {
+        SpecsLogs.msgInfo("Def of attribute operator not supported for join point 'assignment'");
     }
 
     @Override

@@ -53,6 +53,13 @@ public abstract class AAssignment extends AStatement {
     }
 
     /**
+     * 
+     */
+    public void defOperatorImpl(String value) {
+        throw new UnsupportedOperationException("Join point "+get_class()+": Action def operator with type String not implemented ");
+    }
+
+    /**
      * Get value on attribute lhs
      * @return the attribute's value
      */
@@ -349,7 +356,7 @@ public abstract class AAssignment extends AStatement {
      * 
      */
     @Override
-    public final List<? extends JoinPoint> select(String selectName) {
+    public List<? extends JoinPoint> select(String selectName) {
         List<? extends JoinPoint> joinPointList;
         switch(selectName) {
         	case "lhs": 
@@ -375,7 +382,7 @@ public abstract class AAssignment extends AStatement {
      * 
      */
     @Override
-    public final void defImpl(String attribute, Object value) {
+    public void defImpl(String attribute, Object value) {
         switch(attribute){
         case "line": {
         	if(value instanceof Integer){
@@ -384,6 +391,13 @@ public abstract class AAssignment extends AStatement {
         	}
         	if(value instanceof String){
         		this.defLineImpl((String)value);
+        		return;
+        	}
+        	this.unsupportedTypeForDef(attribute, value);
+        }
+        case "operator": {
+        	if(value instanceof String){
+        		this.defOperatorImpl((String)value);
         		return;
         	}
         	this.unsupportedTypeForDef(attribute, value);
@@ -410,7 +424,7 @@ public abstract class AAssignment extends AStatement {
      * 
      */
     @Override
-    protected final void fillWithAttributes(List<String> attributes) {
+    protected void fillWithAttributes(List<String> attributes) {
         this.aStatement.fillWithAttributes(attributes);
         attributes.add("operator");
         attributes.add("lhs");
@@ -421,7 +435,7 @@ public abstract class AAssignment extends AStatement {
      * 
      */
     @Override
-    protected final void fillWithSelects(List<String> selects) {
+    protected void fillWithSelects(List<String> selects) {
         this.aStatement.fillWithSelects(selects);
         selects.add("lhs");
         selects.add("rhs");
@@ -431,7 +445,7 @@ public abstract class AAssignment extends AStatement {
      * 
      */
     @Override
-    protected final void fillWithActions(List<String> actions) {
+    protected void fillWithActions(List<String> actions) {
         this.aStatement.fillWithActions(actions);
         actions.add("void setLhs(expression)");
         actions.add("void setRhs(expression)");
@@ -442,7 +456,7 @@ public abstract class AAssignment extends AStatement {
      * @return The join point type
      */
     @Override
-    public final String get_class() {
+    public String get_class() {
         return "assignment";
     }
 
@@ -451,7 +465,7 @@ public abstract class AAssignment extends AStatement {
      * @return True if this join point is an instanceof the given class
      */
     @Override
-    public final boolean instanceOf(String joinpointClass) {
+    public boolean instanceOf(String joinpointClass) {
         boolean isInstance = get_class().equals(joinpointClass);
         if(isInstance) {
         	return true;

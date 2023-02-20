@@ -1,5 +1,5 @@
 /**
- * Copyright 2016 SPeCS.
+ * Copyright 2023 SPeCS.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,26 +13,55 @@
 
 package weaver.kadabra.joinpoints;
 
+import pt.up.fe.specs.util.SpecsLogs;
 import spoon.reflect.code.CtOperatorAssignment;
+import spoon.reflect.declaration.CtElement;
+import weaver.kadabra.abstracts.joinpoints.AOpAssignment;
 import weaver.utils.element.OperatorUtils;
 
-public class JOpAssignment<T, V extends T> extends JAssignment<T, V> {
+public class JOpAssignment<T, V extends T> extends AOpAssignment {
 
     private final CtOperatorAssignment<T, V> node;
 
-    private JOpAssignment(CtOperatorAssignment<T, V> node) {
-        super(node);
+    public JOpAssignment(CtOperatorAssignment<T, V> node) {
+        super(new JAssignment<>(node));
         this.node = node;
     }
 
-    public static <T, V extends T> JOpAssignment<T, V> newInstance(CtOperatorAssignment<T, V> node) {
-        return new JOpAssignment<>(node);
+    @Override
+    public CtElement getNode() {
+        return node;
     }
 
     @Override
     public String getOperatorImpl() {
-
         return OperatorUtils.convert(node.getKind()) + "=";
+    }
+
+    @Override
+    public void defOperatorImpl(String value) {
+
+        if (!value.endsWith("=")) {
+            SpecsLogs.msgInfo("Invalid assignment operator '" + value + "', must end with '='");
+            return;
+        }
+
+        var spoonOp = value.substring(0, value.length() - 1);
+
+        // Convert string to kind
+        var kind = OperatorUtils.parseBinaryTry(spoonOp).orElse(null);
+
+        if (kind == null) {
+            SpecsLogs.msgInfo("Could not parse assignment operator '" + value + "'");
+            return;
+        }
+
+        node.setKind(kind);
+    }
+
+    @Override
+    public void setOperatorImpl(String operator) {
+        defOperatorImpl(operator);
     }
 
 }

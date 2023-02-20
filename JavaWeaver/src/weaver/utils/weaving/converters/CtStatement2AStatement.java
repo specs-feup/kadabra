@@ -69,8 +69,9 @@ public class CtStatement2AStatement {
         CONVERTER.put(CtAssignment.class, JExpressionStatement::newInstance);
         CONVERTER.put(CtIf.class, JIf::newInstance);
         CONVERTER.put(CtLoop.class, JLoop::newInstance);
+        // CONVERTER.put(CtOperatorAssignment.class, JOpAssignmentAux::newInstance);
         CONVERTER.put(CtAssignment.class, JAssignment::newInstance);
-        CONVERTER.put(CtOperatorAssignment.class, JOpAssignment::newInstance);
+        CONVERTER.put(CtOperatorAssignment.class, JOpAssignment::new);
         CONVERTER.put(CtReturn.class, JReturn::newInstance);
         CONVERTER.put(CtKadabraSnippetStatement.class, JSnippet::newInstance);
         CONVERTER.put(CtLocalVariable.class, JLocalVariable::newInstance);

@@ -173,6 +173,10 @@
 		<select	alias="lhs"			class="expression"/>
 		<select	alias="rhs"			class="expression"/>
 	</joinpoint>
+
+	
+	<joinpoint class="opAssignment" extends="assignment">
+	</joinpoint>
 	
 	<!-- EXPRESSION -->
 	<joinpoint class="expression">

@@ -367,7 +367,9 @@
 	
 	<!-- ASSIGNMENT -->
 	<artifact class="assignment" 		default="operator">
-		<attribute name="operator"			type="string"/>
+		<attribute name="operator"			type="string">
+			<def/>
+		</attribute>
 		<attribute name="lhs"				type="expression">
 			<def/>
 		</attribute>
@@ -376,6 +378,11 @@
 		</attribute>				
 	</artifact>
 	
+	<!-- OP_ASSIGNMENT -->
+	<artifact class="opAssignment" 		default="operator">
+
+	</artifact>
+		
 	<!-- EXPRESSION -->
 	<artifact class="expression" 		default="exprType">
 		<attribute name="kind"			type="string"/> <!-- literal|binaryExpression|var|arrayAccess|call -->

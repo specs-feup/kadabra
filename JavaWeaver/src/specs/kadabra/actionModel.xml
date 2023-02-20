@@ -245,6 +245,11 @@
 	<action name="setRhs" class="assignment">
 			<parameter name="rhs" type="expression"/>
 	</action>		
+
+	<!-- OP_ASSIGNMENT -->
+	<action name="setOperator" class="opAssignment">
+			<parameter name="operator" type="String"/>
+	</action>	
 	
 	<!-- EXPR -->
 	<action name="extract" class="expression">

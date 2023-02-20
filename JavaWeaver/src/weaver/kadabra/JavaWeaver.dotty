@@ -36,6 +36,7 @@ edge [fontsize=10]
 "loop"->"statement"
 "method"->"executable"
 "new"->"expression"
+"opAssignment"->"assignment"
 "pragma"->"comment"
 "reference"->"joinpoint"
 "return"->"statement"
