@@ -152,6 +152,27 @@ public class KadabraJoinPoints {
         return CtElement2JoinPoint.convert(JavaWeaver.getFactory().binaryOperator(opKind, nodeLhs, nodeRhs));
     }
 
+    public static Object assignment(Object lhs, Object rhs) {
+        SpecsCheck.checkArgument(lhs instanceof JoinPoint,
+                () -> "Lhs must be a join point, it is a " + lhs.getClass().getSimpleName());
+        SpecsCheck.checkArgument(rhs instanceof JoinPoint,
+                () -> "Rhs must be a join point, it is a " + rhs.getClass().getSimpleName());
+
+        AJavaWeaverJoinPoint jpLhs = (AJavaWeaverJoinPoint) lhs;
+        AJavaWeaverJoinPoint jpRhs = (AJavaWeaverJoinPoint) rhs;
+
+        SpecsCheck.checkArgument(jpLhs.instanceOf("expression"),
+                () -> "Lhs must be a join point of type 'expression', is " + jpLhs.getJoinPointType());
+        SpecsCheck.checkArgument(jpRhs.instanceOf("expression"),
+                () -> "Rhs must be a join point of type 'expression', is " + jpRhs.getJoinPointType());
+
+        CtExpression<?> nodeLhs = (CtExpression<?>) jpLhs.getNode();
+        CtExpression<?> nodeRhs = (CtExpression<?>) jpRhs.getNode();
+
+        return CtElement2JoinPoint.convert(JavaWeaver.getFactory().assignment(nodeLhs, nodeRhs));
+
+    }
+
     /**
      * Creates an expression from code snippet.
      *

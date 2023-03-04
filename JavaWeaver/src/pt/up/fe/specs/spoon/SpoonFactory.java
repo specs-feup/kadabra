@@ -14,6 +14,7 @@
 package pt.up.fe.specs.spoon;
 
 import spoon.reflect.code.BinaryOperatorKind;
+import spoon.reflect.code.CtAssignment;
 import spoon.reflect.code.CtBinaryOperator;
 import spoon.reflect.code.CtComment;
 import spoon.reflect.code.CtComment.CommentType;
@@ -61,8 +62,17 @@ public class SpoonFactory {
 
     public CtBinaryOperator<?> binaryOperator(BinaryOperatorKind kind, CtExpression<?> lhs, CtExpression<?> rhs) {
         // @SuppressWarnings("unchecked")
-        var binaryOperator = (CtBinaryOperator<?>) factory.createBinaryOperator(lhs, rhs, kind);
+        var binaryOperator = factory.createBinaryOperator(lhs, rhs, kind);
 
         return binaryOperator;
+    }
+
+    public CtAssignment<?, ?> assignment(CtExpression<?> lhs, CtExpression<?> rhs) {
+        var assign = factory.createAssignment();
+
+        assign.setAssigned((CtExpression<Object>) lhs);
+        assign.setAssignment((CtExpression<Object>) rhs);
+
+        return assign;
     }
 }

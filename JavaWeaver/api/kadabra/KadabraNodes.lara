@@ -84,6 +84,17 @@ KadabraNodes.binaryExpression= function(operator, lhs, rhs) {
 }
 
 
+/**
+ * Creates an assignment.
+ *
+ * @param {expression} lhs - The left-hand side, must be a join point of type expression.
+ * @param {expression} rhs - The right-hand side, must be a join point of type expression. 
+ *
+ * @return {assignment} an assignment statement.
+ */
+KadabraNodes.assignment= function(lhs, rhs) {
+	return _KadabraJavaTypes.getKadabraJoinPoints().assignment(lhs, rhs);
+}
 
 /**
  * Creates an expression from code snippet.
