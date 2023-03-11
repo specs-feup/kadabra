@@ -1,0 +1,20 @@
+VarDecl: boolean isBooleanPrimitive
+type: boolean
+isBoolean: true
+isNumeric: false
+VarDecl: Boolean isBooleanClass
+type: java.lang.Boolean
+isBoolean: true
+isNumeric: false
+VarDecl: int isIntegerPrimitive
+type: int
+isBoolean: false
+isNumeric: true
+VarDecl: Integer isIntegerClass
+type: java.lang.Integer
+isBoolean: false
+isNumeric: true
+VarDecl: BigInteger isBigIntegerClass
+type: java.math.BigInteger
+isBoolean: false
+isNumeric: true

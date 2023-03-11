@@ -134,4 +134,9 @@ public class JavaWeaverTest {
     public void testFor() {
         newTester().test("For.js", "For.java.test");
     }
+
+    @Test
+    public void testTypeReference() {
+        newTester().test("TypeReference.js", "TypeReference.java.test");
+    }
 }
