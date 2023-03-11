@@ -416,8 +416,11 @@
 	<artifact class="typeReference" default="name">
 		<attribute name="isPrimitive"	type="boolean" tooltip="true if this is a reference to a primitive type, false otherwise"/>		
 		<attribute name="isArray"		type="boolean" tooltip="true if this is a reference to an array type, false otherwise"/>				
+		<attribute name="isNumeric"	type="boolean" tooltip="true if this is a reference to a numeric type, primitive or class (i.e., byte, Byte, char, Character, short, Short, int, Integer, long, Long, float, Float, double and Double)"/>		
+		<attribute name="isBoolean"	type="boolean" tooltip="true if this is a reference to a boolean type, primitive or class (i.e., boolean, Boolean)"/>		
    		<attribute name="package"		type="String" tooltip="package name of this type"/>
 		<attribute name="packageNames"	type="String[]" tooltip="the package name of this type as an array, where each element is a part of the package"/>   		
+   		<attribute name="qualifiedName"	type="String" tooltip="fully qualified name of the type"/>
 	</artifact>
 
 	<typedef name="Pair">

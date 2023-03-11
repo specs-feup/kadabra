@@ -13,11 +13,16 @@
 
 package weaver.kadabra.joinpoints;
 
+import java.util.Set;
+
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.reference.CtTypeReference;
 import weaver.kadabra.abstracts.joinpoints.ATypeReference;
 
 public class JTypeReference<T> extends ATypeReference {
+
+    private static final Set<String> NUMERIC_PRIMITIVES = Set.of("byte", "char", "short", "int", "long", "float",
+            "double");
 
     private final CtTypeReference<T> typeReference;
 
@@ -72,7 +77,42 @@ public class JTypeReference<T> extends ATypeReference {
 
     @Override
     public String[] getPackageNamesArrayImpl() {
-        return getPackageImpl().split(".");
+        var packageName = getPackageImpl();
+        return packageName != null ? getPackageImpl().split(".") : new String[0];
+    }
+
+    @Override
+    public Boolean getIsNumericImpl() {
+        var qualifiedName = getQualifiedNameImpl();
+
+        if (getIsPrimitiveImpl()) {
+            return NUMERIC_PRIMITIVES.contains(qualifiedName);
+        }
+
+        try {
+            var numericClass = Class.forName(qualifiedName);
+            return Number.class.isAssignableFrom(numericClass);
+        } catch (ClassNotFoundException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean getIsBooleanImpl() {
+        var qualifiedName = getQualifiedNameImpl();
+
+        if (getIsPrimitiveImpl()) {
+            return qualifiedName.equals("boolean");
+        }
+
+        return qualifiedName.equals(Boolean.class.getName());
+    }
+
+    @Override
+    public String getQualifiedNameImpl() {
+        var packageName = getPackageImpl();
+
+        return packageName != null ? packageName + "." + typeReference.getSimpleName() : typeReference.getSimpleName();
     }
 
     // @Override

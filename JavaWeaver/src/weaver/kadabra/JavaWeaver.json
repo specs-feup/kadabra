@@ -22754,6 +22754,24 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "true if this is a reference to a boolean type, primitive or class (i.e., boolean, Boolean)",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isBoolean"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "true if this is a reference to a numeric type, primitive or class (i.e., byte, Byte, char, Character, short, Short, int, Integer, long, Long, float, Float, double and Double)",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isNumeric"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this is a reference to a primitive type, false otherwise",
 						"children": [
 									{
@@ -22777,6 +22795,15 @@
 									{
 										"type": "String[]",
 										"name": "packageNames"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "fully qualified name of the type",
+						"children": [
+									{
+										"type": "String",
+										"name": "qualifiedName"
 									}]
 					},
 					{

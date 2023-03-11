@@ -72,6 +72,52 @@ public abstract class ATypeReference extends AReference {
     }
 
     /**
+     * true if this is a reference to a numeric type, primitive or class (i.e., byte, Byte, char, Character, short, Short, int, Integer, long, Long, float, Float, double and Double)
+     */
+    public abstract Boolean getIsNumericImpl();
+
+    /**
+     * true if this is a reference to a numeric type, primitive or class (i.e., byte, Byte, char, Character, short, Short, int, Integer, long, Long, float, Float, double and Double)
+     */
+    public final Object getIsNumeric() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isNumeric", Optional.empty());
+        	}
+        	Boolean result = this.getIsNumericImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "isNumeric", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "isNumeric", e);
+        }
+    }
+
+    /**
+     * true if this is a reference to a boolean type, primitive or class (i.e., boolean, Boolean)
+     */
+    public abstract Boolean getIsBooleanImpl();
+
+    /**
+     * true if this is a reference to a boolean type, primitive or class (i.e., boolean, Boolean)
+     */
+    public final Object getIsBoolean() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isBoolean", Optional.empty());
+        	}
+        	Boolean result = this.getIsBooleanImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "isBoolean", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "isBoolean", e);
+        }
+    }
+
+    /**
      * package name of this type
      */
     public abstract String getPackageImpl();
@@ -124,6 +170,29 @@ public abstract class ATypeReference extends AReference {
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "packageNames", e);
+        }
+    }
+
+    /**
+     * fully qualified name of the type
+     */
+    public abstract String getQualifiedNameImpl();
+
+    /**
+     * fully qualified name of the type
+     */
+    public final Object getQualifiedName() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "qualifiedName", Optional.empty());
+        	}
+        	String result = this.getQualifiedNameImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "qualifiedName", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "qualifiedName", e);
         }
     }
 
@@ -322,8 +391,11 @@ public abstract class ATypeReference extends AReference {
         this.aReference.fillWithAttributes(attributes);
         attributes.add("isPrimitive");
         attributes.add("isArray");
+        attributes.add("isNumeric");
+        attributes.add("isBoolean");
         attributes.add("package");
         attributes.add("packageNames");
+        attributes.add("qualifiedName");
     }
 
     /**
@@ -369,8 +441,11 @@ public abstract class ATypeReference extends AReference {
     protected enum TypeReferenceAttributes {
         ISPRIMITIVE("isPrimitive"),
         ISARRAY("isArray"),
+        ISNUMERIC("isNumeric"),
+        ISBOOLEAN("isBoolean"),
         PACKAGE("package"),
         PACKAGENAMES("packageNames"),
+        QUALIFIEDNAME("qualifiedName"),
         NAME("name"),
         DECLARATION("declaration"),
         TYPE("type"),

@@ -32,7 +32,7 @@ public enum JavaWeaverResource implements ResourceProvider {
      * @param resource
      */
     private JavaWeaverResource(String resource) {
-	this.resource = JavaWeaverResource.basePackage + resource;
+        this.resource = JavaWeaverResource.basePackage + resource;
     }
 
     /*
@@ -43,7 +43,7 @@ public enum JavaWeaverResource implements ResourceProvider {
      */
     @Override
     public String getResource() {
-	return resource;
+        return resource;
     }
 
 }
