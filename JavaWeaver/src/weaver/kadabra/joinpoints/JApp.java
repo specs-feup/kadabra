@@ -14,6 +14,7 @@
 package weaver.kadabra.joinpoints;
 
 import java.io.File;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,6 +36,7 @@ import weaver.kadabra.abstracts.joinpoints.AFile;
 import weaver.kadabra.abstracts.joinpoints.AInterface;
 import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.ALibClass;
+import weaver.kadabra.spoon.extensions.nodes.CtApp;
 import weaver.kadabra.util.KadabraLog;
 import weaver.utils.android.AndroidResources;
 import weaver.utils.generators.MapGenerator;
@@ -56,6 +58,10 @@ public class JApp extends AApp {
         var app = new JApp(spoon, AndroidResources.newInstance(sources));
 
         return app;
+    }
+
+    public static JApp newInstance(CtApp app) {
+        return new JApp(app.spoon, AndroidResources.newInstance(Collections.emptyList()));
     }
 
     public AndroidResources getAndroidResources() {
