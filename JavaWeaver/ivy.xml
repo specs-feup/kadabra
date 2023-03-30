@@ -26,7 +26,7 @@
 	</info>
 	<dependencies>
 		<!--dependency org="com.google.guava" name="guava" rev="19.0"/-->
-		<dependency org="com.google.guava" name="guava" rev="24.0-jre"/>
+		<!--<dependency org="com.google.guava" name="guava" rev="24.0-jre"/>-->
 	<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
 		<dependency org="org.apache.commons" name="commons-lang3" rev="3.6"/>
 		<dependency org="org.apache.commons" name="commons-exec" rev="1.3"/>
