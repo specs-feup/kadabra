@@ -28,6 +28,7 @@ import spoon.reflect.declaration.CtCompilationUnit;
 import spoon.reflect.declaration.CtConstructor;
 import spoon.reflect.declaration.CtInterface;
 import spoon.reflect.declaration.CtMethod;
+import spoon.reflect.declaration.CtPackage;
 import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.declaration.ModifierKind;
 import spoon.reflect.factory.Factory;
@@ -44,6 +45,7 @@ import weaver.utils.generators.MapGenerator;
 import weaver.utils.weaving.ActionUtils;
 import weaver.utils.weaving.SelectUtils;
 import weaver.utils.weaving.SnippetFactory;
+import weaver.utils.weaving.converters.CtElement2JoinPoint;
 
 public class JClass<T> extends AClass {
 
@@ -191,6 +193,13 @@ public class JClass<T> extends AClass {
 
     @Override
     public AJoinPoint getParentImpl() {
+        var spoonParent = getNode().getParent();
+        // System.out.println("Spoon parent: " + spoonParent.getClass());
+        // System.out.println("Kadabra parent: " + parent.getClass());
+        if (spoonParent != null && !(spoonParent instanceof CtPackage)) {
+            return CtElement2JoinPoint.convert(spoonParent);
+        }
+
         return new JFile(parent);
     }
 
