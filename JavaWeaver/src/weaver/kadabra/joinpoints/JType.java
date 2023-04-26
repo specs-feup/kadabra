@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 
 import org.lara.interpreter.weaver.interf.JoinPoint;
 
+import pt.up.fe.specs.util.SpecsLogs;
 import spoon.refactoring.Refactoring;
 import spoon.reflect.code.CtComment;
 import spoon.reflect.declaration.CtCompilationUnit;
@@ -113,9 +114,19 @@ public class JType<T> extends AType {
     @Override
     public String[] getInterfacesArrayImpl() {
 
-        final List<String> els = node.getSuperInterfaces().stream().map(el -> el.getQualifiedName())
+        final List<String> els = node.getSuperInterfaces().stream()
+                .map(el -> el.getQualifiedName())
                 .collect(Collectors.toList());
         return els.toArray(new String[0]);
+    }
+
+    @Override
+    public AInterface[] getInterfacesTypesArrayImpl() {
+        var els = node.getSuperInterfaces().stream()
+                .map(el -> CtElement2JoinPoint.convert(el, AInterface.class))
+                .collect(Collectors.toList());
+
+        return els.toArray(new AInterface[0]);
     }
 
     @Override
@@ -202,6 +213,47 @@ public class JType<T> extends AType {
     @Override
     public void addInterfaceImpl(AInterface newInterface) {
         node.addNestedType((CtType<?>) newInterface.getNode());
+    }
+
+    // @Override
+    // public AInterface removeInterfaceImpl(AInterface _interface) {
+    // // TODO Auto-generated method stub
+    // return super.removeInterfaceImpl(_interface);
+    // }
+
+    @Override
+    public AInterface removeInterfaceImpl(String interfaceName) {
+
+        var interfaceNode = node.getSuperInterfaces().stream()
+                .filter(si -> si.getQualifiedName().equals(interfaceName))
+                .findFirst()
+                .orElse(null);
+
+        // System.out.println("NESTED TYPES: " + node.getNestedTypes());
+        // var interfaceNode = node.getNestedType(interfaceName);
+
+        if (interfaceNode == null) {
+            SpecsLogs.info("removeInterface: could not find interface with name '" + interfaceName + "'");
+            return null;
+        }
+
+        var success = node.removeSuperInterface(interfaceNode);
+
+        // var success = node.removeNestedType(interfaceNode);
+        if (!success) {
+            SpecsLogs.info("removeInterface: could not remove interface " + interfaceName);
+            return null;
+        }
+
+        var interfaceType = interfaceNode.getTypeDeclaration();
+        if (interfaceType == null) {
+            SpecsLogs.debug("removeInterface: could not convert CtTypeReference to CtType for class "
+                    + interfaceNode.getQualifiedName()
+                    + " (most likely reason is class not being present in the classpath)");
+            return null;
+        }
+
+        return CtElement2JoinPoint.convert(interfaceNode.getTypeDeclaration(), AInterface.class);
     }
 
     @Override

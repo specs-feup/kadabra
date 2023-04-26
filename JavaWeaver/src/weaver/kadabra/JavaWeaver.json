@@ -7264,6 +7264,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "returns the interface join points that this class implements",
+						"children": [
+									{
+										"type": "interface[]",
+										"name": "interfacesTypes"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "verify if the type is extends OR implements the given type",
 						"children": [
 									{
@@ -7887,6 +7896,19 @@
 										"type": "Pair[]",
 										"name": "param",
 										"defaultValue": "[]"
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "interface",
+										"name": "removeInterface"
+									},
+									{
+										"type": "String",
+										"name": "interfaceName",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -9902,6 +9924,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "returns the interface join points that this class implements",
+						"children": [
+									{
+										"type": "interface[]",
+										"name": "interfacesTypes"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "verify if the type is extends OR implements the given type",
 						"children": [
 									{
@@ -10530,6 +10561,19 @@
 										"type": "Pair[]",
 										"name": "param",
 										"defaultValue": "[]"
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "interface",
+										"name": "removeInterface"
+									},
+									{
+										"type": "String",
+										"name": "interfaceName",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -12583,6 +12627,19 @@
 						"type": "action",
 						"children": [
 									{
+										"type": "interface",
+										"name": "removeInterface"
+									},
+									{
+										"type": "String",
+										"name": "interfaceName",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
 										"type": "void",
 										"name": "insert"
 									},
@@ -13240,6 +13297,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "returns the interface join points that this class implements",
+						"children": [
+									{
+										"type": "interface[]",
+										"name": "interfacesTypes"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "verify if the type is extends OR implements the given type",
 						"children": [
 									{
@@ -13741,6 +13807,19 @@
 										"type": "Pair[]",
 										"name": "param",
 										"defaultValue": "[]"
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "interface",
+										"name": "removeInterface"
+									},
+									{
+										"type": "String",
+										"name": "interfaceName",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -22063,6 +22142,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "returns the interface join points that this class implements",
+						"children": [
+									{
+										"type": "interface[]",
+										"name": "interfacesTypes"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "verify if the type is extends OR implements the given type",
 						"children": [
 									{
@@ -22564,6 +22652,19 @@
 										"type": "Pair[]",
 										"name": "param",
 										"defaultValue": "[]"
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "interface",
+										"name": "removeInterface"
+									},
+									{
+										"type": "String",
+										"name": "interfaceName",
+										"defaultValue": ""
 									}]
 					},
 					{

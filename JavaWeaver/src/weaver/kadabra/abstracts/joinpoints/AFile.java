@@ -378,6 +378,33 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
 
     /**
      * 
+     * @param interfaceName 
+     */
+    public AInterface removeInterfaceImpl(String interfaceName) {
+        throw new UnsupportedOperationException(get_class()+": Action removeInterface not implemented ");
+    }
+
+    /**
+     * 
+     * @param interfaceName 
+     */
+    public final AInterface removeInterface(String interfaceName) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "removeInterface", this, Optional.empty(), interfaceName);
+        	}
+        	AInterface result = this.removeInterfaceImpl(interfaceName);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "removeInterface", this, Optional.ofNullable(result), interfaceName);
+        	}
+        	return result;
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "removeInterface", e);
+        }
+    }
+
+    /**
+     * 
      * @param name 
      * @param keyType 
      * @param _interface 
@@ -498,6 +525,7 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
         actions.add("interface newInterface(String)");
         actions.add("void addClass(class)");
         actions.add("void addInterface(interface)");
+        actions.add("interface removeInterface(String)");
         actions.add("class mapVersions(String, String, interface, String)");
     }
 

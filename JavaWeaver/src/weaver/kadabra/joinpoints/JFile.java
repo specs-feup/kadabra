@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.apache.commons.lang3.NotImplementedException;
 import org.lara.interpreter.weaver.interf.JoinPoint;
 
 import spoon.reflect.code.CtComment;
@@ -278,6 +279,11 @@ public class JFile extends AFile {
     @Override
     public void addInterfaceImpl(AInterface newInterface) {
         add((CtType<?>) newInterface.getNode());
+    }
+
+    @Override
+    public AInterface removeInterfaceImpl(String interfaceName) {
+        throw new NotImplementedException("Not implemented yet");
     }
 
     private void add(CtType<?> type) {

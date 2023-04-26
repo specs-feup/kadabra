@@ -98,6 +98,7 @@
   		<attribute name="superClassJp"		type="typeReference" tooltip="the superclass this class extends, or undefined if the class extends java.lang.Object"/>
    		<attribute name="package"			type="String" tooltip="package name of this class"/>
    		<attribute name="interfaces"		type="String[]" tooltip="list of names of interfaces that this class implements" />
+   		<attribute name="interfacesTypes"	type="interface[]" tooltip="returns the interface join points that this class implements" />   		
    		<attribute name="javadoc"			type="String" />
    		<attribute name="isSubtypeOf"		type="boolean" tooltip="verify if the type is extends OR implements the given type">
    				<parameter name="type"		type="String"/>

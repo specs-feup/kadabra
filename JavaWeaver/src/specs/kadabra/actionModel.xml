@@ -101,14 +101,24 @@
 	
 	
 	
-	<!-- FILE, CLASS -->
+	<!-- FILE -->
+	<!-- CLASS -->
 	<action name="addClass" class="file,type" return="void" tooltip="insert a given class inside the target">
 		<parameter name="newClass" type="class"/>
 	</action>
 	
-	<!-- FILE, CLASS -->
+
 	<action name="addInterface" class="file,type" return="void">
 		<parameter name="newInterface" type="interface"/>
+	</action>
+
+<!--	
+	<action name="removeInterface" class="file,type" return="interface">
+		<parameter name="interface" type="interface"/>
+	</action>
+-->
+	<action name="removeInterface" class="file,type" return="interface">
+		<parameter name="interfaceName" type="String"/>
 	</action>
 
 	<!-- APP, FILE, CLASS -->
@@ -132,7 +142,7 @@
 	</action>
 	
 	
-	<!--  TYPE -->
+	<!-- TYPE -->
 	<action name="newMethod" class="type" return="method" tooltip="add a new method inside the class">
 		<parameter name="modifiers" type="String[]" default="['public']"/>
 		<parameter name="returnType" type="String"/>

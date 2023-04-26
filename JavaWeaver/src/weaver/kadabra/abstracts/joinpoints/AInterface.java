@@ -79,6 +79,15 @@ public abstract class AInterface extends AType {
     }
 
     /**
+     * Get value on attribute interfacesTypesArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AInterface[] getInterfacesTypesArrayImpl() {
+        return this.aType.getInterfacesTypesArrayImpl();
+    }
+
+    /**
      * Get value on attribute javadoc
      * @return the attribute's value
      */
@@ -263,6 +272,15 @@ public abstract class AInterface extends AType {
     @Override
     public void addInterfaceImpl(AInterface newInterface) {
         this.aType.addInterfaceImpl(newInterface);
+    }
+
+    /**
+     * 
+     * @param interfaceName 
+     */
+    @Override
+    public AInterface removeInterfaceImpl(String interfaceName) {
+        return this.aType.removeInterfaceImpl(interfaceName);
     }
 
     /**
@@ -476,6 +494,7 @@ public abstract class AInterface extends AType {
         SUPERCLASSJP("superClassJp"),
         PACKAGE("package"),
         INTERFACES("interfaces"),
+        INTERFACESTYPES("interfacesTypes"),
         JAVADOC("javadoc"),
         ISSUBTYPEOF("isSubtypeOf"),
         PARENT("parent"),

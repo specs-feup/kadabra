@@ -116,6 +116,15 @@ public abstract class AEnum extends AClass {
     }
 
     /**
+     * Get value on attribute interfacesTypesArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AInterface[] getInterfacesTypesArrayImpl() {
+        return this.aClass.getInterfacesTypesArrayImpl();
+    }
+
+    /**
      * Get value on attribute javadoc
      * @return the attribute's value
      */
@@ -485,6 +494,7 @@ public abstract class AEnum extends AClass {
         SUPERCLASSJP("superClassJp"),
         PACKAGE("package"),
         INTERFACES("interfaces"),
+        INTERFACESTYPES("interfacesTypes"),
         JAVADOC("javadoc"),
         ISSUBTYPEOF("isSubtypeOf"),
         PARENT("parent"),

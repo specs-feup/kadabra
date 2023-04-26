@@ -170,6 +170,39 @@ public abstract class AType extends AJavaWeaverJoinPoint {
     }
 
     /**
+     * Get value on attribute interfacesTypes
+     * @return the attribute's value
+     */
+    public abstract AInterface[] getInterfacesTypesArrayImpl();
+
+    /**
+     * returns the interface join points that this class implements
+     */
+    public Object getInterfacesTypesImpl() {
+        AInterface[] aInterfaceArrayImpl0 = getInterfacesTypesArrayImpl();
+        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(aInterfaceArrayImpl0);
+        return nativeArray0;
+    }
+
+    /**
+     * returns the interface join points that this class implements
+     */
+    public final Object getInterfacesTypes() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "interfacesTypes", Optional.empty());
+        	}
+        	Object result = this.getInterfacesTypesImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "interfacesTypes", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "interfacesTypes", e);
+        }
+    }
+
+    /**
      * Get value on attribute javadoc
      * @return the attribute's value
      */
@@ -318,6 +351,33 @@ public abstract class AType extends AJavaWeaverJoinPoint {
         	}
         } catch(Exception e) {
         	throw new ActionException(get_class(), "addInterface", e);
+        }
+    }
+
+    /**
+     * 
+     * @param interfaceName 
+     */
+    public AInterface removeInterfaceImpl(String interfaceName) {
+        throw new UnsupportedOperationException(get_class()+": Action removeInterface not implemented ");
+    }
+
+    /**
+     * 
+     * @param interfaceName 
+     */
+    public final AInterface removeInterface(String interfaceName) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "removeInterface", this, Optional.empty(), interfaceName);
+        	}
+        	AInterface result = this.removeInterfaceImpl(interfaceName);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "removeInterface", this, Optional.ofNullable(result), interfaceName);
+        	}
+        	return result;
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "removeInterface", e);
         }
     }
 
@@ -596,6 +656,7 @@ public abstract class AType extends AJavaWeaverJoinPoint {
         attributes.add("superClassJp");
         attributes.add("package");
         attributes.add("interfaces");
+        attributes.add("interfacesTypes");
         attributes.add("javadoc");
         attributes.add("isSubtypeOf");
     }
@@ -622,6 +683,7 @@ public abstract class AType extends AJavaWeaverJoinPoint {
         super.fillWithActions(actions);
         actions.add("void addClass(class)");
         actions.add("void addInterface(interface)");
+        actions.add("interface removeInterface(String)");
         actions.add("method newMethod(String[], String, String, Pair[], String)");
         actions.add("method newMethod(String[], String, String, Pair[])");
         actions.add("void insertMethod(template)");
@@ -649,6 +711,7 @@ public abstract class AType extends AJavaWeaverJoinPoint {
         SUPERCLASSJP("superClassJp"),
         PACKAGE("package"),
         INTERFACES("interfaces"),
+        INTERFACESTYPES("interfacesTypes"),
         JAVADOC("javadoc"),
         ISSUBTYPEOF("isSubtypeOf"),
         PARENT("parent"),
