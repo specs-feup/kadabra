@@ -78,7 +78,7 @@ public class JavaApiTest {
 
     @Test
     public void testKadabraNodes() {
-        newTester().test("KadabraNodesTest.lara", "KadabraNodes.java.test");
+        newTester().test("KadabraNodesTest.js", "KadabraNodes.java.test");
     }
 
     @Test
