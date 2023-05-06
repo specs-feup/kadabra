@@ -23,6 +23,23 @@ var $commentEnd = $foo4.insertAfter("*/");
 $commentStart.remove();
 $commentEnd.remove();
 
+const $foo5LocalVar = WeaverJps.search("method", { name: "foo5" })
+  .search("localVariable")
+  .getFirst();
+
+// Create write reference to local variable
+const $foo5Var = KadabraNodes.var($foo5LocalVar, true);
+
+// Get initialization, and remove it from declaration
+const $foo5Lhs = $foo5LocalVar.init;
+$foo5LocalVar.init = undefined;
+
+// Create assignment
+const $foo5Assign = KadabraNodes.assignment($foo5Var, $foo5Lhs);
+
+// Add assignment after initialization
+$foo5LocalVar.insertAfter($foo5Assign);
+
 //println(WeaverJps.search("class").getFirst().code);
 
 /*	
