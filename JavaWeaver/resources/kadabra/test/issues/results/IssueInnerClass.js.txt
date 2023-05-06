@@ -1,0 +1,5 @@
+Loop in inner class ancestors:
+Parent x 1: body
+Parent x 2: anonymousExec
+Parent x 3: class
+Parent x 4: new
