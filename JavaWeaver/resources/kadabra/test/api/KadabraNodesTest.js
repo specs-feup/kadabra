@@ -31,8 +31,10 @@ const $foo5LocalVar = WeaverJps.search("method", { name: "foo5" })
 const $foo5Var = KadabraNodes.var($foo5LocalVar, true);
 
 // Get initialization, and remove it from declaration
-const $foo5Lhs = $foo5LocalVar.init;
-$foo5LocalVar.init = undefined;
+//const $foo5Lhs = $foo5LocalVar.init;
+//$foo5LocalVar.init = undefined;
+const $foo5Lhs = $foo5LocalVar.init.copy();
+$foo5LocalVar.init.remove();
 
 // Create assignment
 const $foo5Assign = KadabraNodes.assignment($foo5Var, $foo5Lhs);
