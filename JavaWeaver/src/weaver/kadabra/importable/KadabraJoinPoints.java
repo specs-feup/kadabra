@@ -16,6 +16,7 @@ package weaver.kadabra.importable;
 import java.util.Arrays;
 
 import org.lara.interpreter.weaver.interf.JoinPoint;
+import org.lara.interpreter.weaver.utils.JoinPointsUtils;
 
 import pt.up.fe.specs.util.SpecsCheck;
 import spoon.reflect.code.BinaryOperatorKind;
@@ -25,6 +26,7 @@ import spoon.reflect.code.UnaryOperatorKind;
 import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 import weaver.kadabra.joinpoints.JComment;
+import weaver.kadabra.joinpoints.JLocalVariable;
 import weaver.utils.SpoonLiterals;
 import weaver.utils.element.OperatorUtils;
 import weaver.utils.weaving.SnippetFactory;
@@ -171,6 +173,13 @@ public class KadabraJoinPoints {
 
         return CtElement2JoinPoint.convert(JavaWeaver.getFactory().assignment(nodeLhs, nodeRhs));
 
+    }
+
+    public static Object var(Object localVariable, boolean isWrite) {
+        var localVarJp = JoinPointsUtils.toJavaJoinPoint(localVariable, "localVariable", JLocalVariable.class);
+
+        var localVarSpoon = localVarJp.getNode();
+        return CtElement2JoinPoint.convert(JavaWeaver.getFactory().var(localVarSpoon, isWrite));
     }
 
     /**

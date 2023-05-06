@@ -97,6 +97,28 @@ KadabraNodes.assignment= function(lhs, rhs) {
 }
 
 /**
+ * Creates a reference to a local variable.
+ *
+ * @param {localVariable} localVariable - The local variable declaration to which we will create a variable reference.
+ * @param {boolean} [isWrite = false] - True if the variable will be written, false if it will be read. By default creates variables for reading.
+ *
+ * @return {var} a reference to a variable.
+ *
+ */
+KadabraNodes.var = function(localVariable, isWrite) {
+    // In Spoon to create a CtVariableAccess, you need a CtVariableReference, which you can get from a CtLocalVariable. However, you need to decide if it will be a variable for read or writing
+	checkJoinPoint(localVariable, "KadabraNodes.var(_, localVariable, _)");
+
+	// Default value is false
+	if(isWrite === undefined) {
+		isWrite = false;
+	}
+	
+	return _KadabraJavaTypes.getKadabraJoinPoints().var(localVariable, isWrite);
+}
+
+
+/**
  * Creates an expression from code snippet.
  *
  * @param {string} code - The literal code that represents the expression.

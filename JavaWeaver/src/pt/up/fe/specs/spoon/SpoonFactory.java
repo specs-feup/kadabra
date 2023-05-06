@@ -20,7 +20,9 @@ import spoon.reflect.code.CtComment;
 import spoon.reflect.code.CtComment.CommentType;
 import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.CtLiteral;
+import spoon.reflect.code.CtLocalVariable;
 import spoon.reflect.code.CtUnaryOperator;
+import spoon.reflect.code.CtVariableAccess;
 import spoon.reflect.code.UnaryOperatorKind;
 import spoon.reflect.factory.Factory;
 
@@ -74,5 +76,17 @@ public class SpoonFactory {
         assign.setAssignment((CtExpression<Object>) rhs);
 
         return assign;
+    }
+
+    public CtVariableAccess<?> var(CtLocalVariable<?> localVariable, boolean isWrite) {
+        // Check if variable is static
+        var isStatic = localVariable.isStatic();
+        var localVarRef = localVariable.getReference();
+
+        if (isWrite) {
+            return factory.createVariableWrite(localVarRef, isStatic);
+        }
+
+        return factory.createVariableRead(localVarRef, isStatic);
     }
 }
