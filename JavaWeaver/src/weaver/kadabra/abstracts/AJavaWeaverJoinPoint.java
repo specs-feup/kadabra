@@ -423,6 +423,7 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
 
     @Override
     public AJoinPoint[] getChildrenArrayImpl() {
+        System.out.println("NODE: " + getJoinPointType());
         // return getJpChildrenStream()
         // .toArray(size -> new AJoinPoint[size]);
         return getChildrenNodes().stream()

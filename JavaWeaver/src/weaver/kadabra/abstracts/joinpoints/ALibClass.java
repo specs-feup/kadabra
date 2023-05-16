@@ -96,6 +96,177 @@ public abstract class ALibClass extends ANamedType {
     }
 
     /**
+     * Get value on attribute parent
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint getParentImpl() {
+        return this.aNamedType.getParentImpl();
+    }
+
+    /**
+     * Get value on attribute isStatic
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsStaticImpl() {
+        return this.aNamedType.getIsStaticImpl();
+    }
+
+    /**
+     * Get value on attribute code
+     * @return the attribute's value
+     */
+    @Override
+    public String getCodeImpl() {
+        return this.aNamedType.getCodeImpl();
+    }
+
+    /**
+     * Get value on attribute ast
+     * @return the attribute's value
+     */
+    @Override
+    public String getAstImpl() {
+        return this.aNamedType.getAstImpl();
+    }
+
+    /**
+     * Get value on attribute isBlock
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsBlockImpl() {
+        return this.aNamedType.getIsBlockImpl();
+    }
+
+    /**
+     * Get value on attribute line
+     * @return the attribute's value
+     */
+    @Override
+    public Integer getLineImpl() {
+        return this.aNamedType.getLineImpl();
+    }
+
+    /**
+     * Get value on attribute ancestor
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint ancestorImpl(String type) {
+        return this.aNamedType.ancestorImpl(type);
+    }
+
+    /**
+     * Get value on attribute annotationsArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AAnnotation[] getAnnotationsArrayImpl() {
+        return this.aNamedType.getAnnotationsArrayImpl();
+    }
+
+    /**
+     * Get value on attribute modifiersArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public String[] getModifiersArrayImpl() {
+        return this.aNamedType.getModifiersArrayImpl();
+    }
+
+    /**
+     * Get value on attribute descendantsArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getDescendantsArrayImpl() {
+        return this.aNamedType.getDescendantsArrayImpl();
+    }
+
+    /**
+     * Get value on attribute isStatement
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsStatementImpl() {
+        return this.aNamedType.getIsStatementImpl();
+    }
+
+    /**
+     * Get value on attribute astParent
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint getAstParentImpl() {
+        return this.aNamedType.getAstParentImpl();
+    }
+
+    /**
+     * Get value on attribute childrenArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getChildrenArrayImpl() {
+        return this.aNamedType.getChildrenArrayImpl();
+    }
+
+    /**
+     * Get value on attribute hasModifier
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean hasModifierImpl(String modifier) {
+        return this.aNamedType.hasModifierImpl(modifier);
+    }
+
+    /**
+     * Get value on attribute numChildren
+     * @return the attribute's value
+     */
+    @Override
+    public Integer getNumChildrenImpl() {
+        return this.aNamedType.getNumChildrenImpl();
+    }
+
+    /**
+     * Get value on attribute srcCode
+     * @return the attribute's value
+     */
+    @Override
+    public String getSrcCodeImpl() {
+        return this.aNamedType.getSrcCodeImpl();
+    }
+
+    /**
+     * Get value on attribute isFinal
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsFinalImpl() {
+        return this.aNamedType.getIsFinalImpl();
+    }
+
+    /**
+     * Get value on attribute id
+     * @return the attribute's value
+     */
+    @Override
+    public String getIdImpl() {
+        return this.aNamedType.getIdImpl();
+    }
+
+    /**
+     * Get value on attribute child
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint childImpl(Integer index) {
+        return this.aNamedType.childImpl(index);
+    }
+
+    /**
      * 
      * @param node 
      */
