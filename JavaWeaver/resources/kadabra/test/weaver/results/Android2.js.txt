@@ -1,0 +1,2 @@
+action: android.intent.action.MAIN
+action: android.intent.action.VIEW
