@@ -89,4 +89,9 @@ public class JXmlNode extends AXmlNode {
     public String setTextImpl(String text) {
         return node.setText(text);
     }
+
+    @Override
+    public String getSrcCodeImpl() {
+        return node.getString();
+    }
 }
