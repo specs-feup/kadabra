@@ -130,3 +130,12 @@ KadabraNodes.snippetExpr= function(code) {
 
 	return _KadabraJavaTypes.getKadabraJoinPoints().snippetExpression(code);
 }
+
+
+KadabraNodes.xmlNode = function(xmlCode) {
+	checkString(xmlCode, "KadabraNodes.xmlNode(xmlCode)");
+
+	var androidResources = Java.type("weaver.utils.android.AndroidResources");
+
+	return androidResources.parseXml(xmlCode);
+}
