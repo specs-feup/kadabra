@@ -83,18 +83,18 @@ aspectdef NewCountingMonitorList
 //	println("New Monitoring Class");
 	select app end
 	apply
-		exec newClass(className,null,null);
+		$app.exec newClass(className,null,null);
 	end
 
 //	println("Adding fields");
 	select file.class{name==simpleName} end
 	apply
 		$monitorClass = $class;
-		exec newField(["private"], "int[]","counter",null);
-		exec newConstructor(["public"], [new Pair("int", "size")]);
-		exec newMethod(["public"], "void","increment",[new Pair("int", "id")]);
-		exec newMethod(["public"], "int","get",[new Pair("int", "id")]);
-		exec newMethod(["public"], "void","reset",[new Pair("int", "id")]);
+		$file.exec newField(["private"], "int[]","counter",null);
+		$file.exec newConstructor(["public"], [new Pair("int", "size")]);
+		$file.exec newMethod(["public"], "void","increment",[new Pair("int", "id")]);
+		$file.exec newMethod(["public"], "int","get",[new Pair("int", "id")]);
+		$file.exec newMethod(["public"], "void","reset",[new Pair("int", "id")]);
 	end
 
 //	println("Adding increment");
