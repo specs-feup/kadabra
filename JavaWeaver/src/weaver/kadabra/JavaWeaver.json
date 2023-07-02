@@ -212,15 +212,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "true if the current join point is an instance of the given type",
 						"children": [
 									{
@@ -679,15 +670,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "true if the current join point is an instance of the given type",
 						"children": [
 									{
@@ -1111,15 +1093,6 @@
 									{
 										"type": "String",
 										"name": "srcCode"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
 									}]
 					},
 					{
@@ -1571,15 +1544,6 @@
 									{
 										"type": "String",
 										"name": "srcCode"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
 									}]
 					},
 					{
@@ -2064,15 +2028,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "true if the current join point is an instance of the given type",
 						"children": [
 									{
@@ -2522,15 +2477,6 @@
 									{
 										"type": "String",
 										"name": "srcCode"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
 									}]
 					},
 					{
@@ -3087,15 +3033,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "true if the current join point is an instance of the given type",
 						"children": [
 									{
@@ -3562,15 +3499,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "true if the current join point is an instance of the given type",
 						"children": [
 									{
@@ -4019,15 +3947,6 @@
 									{
 										"type": "String",
 										"name": "srcCode"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
 									}]
 					},
 					{
@@ -4542,15 +4461,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "true if the current join point is an instance of the given type",
 						"children": [
 									{
@@ -5031,15 +4941,6 @@
 									{
 										"type": "String",
 										"name": "srcCode"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
 									}]
 					},
 					{
@@ -5539,15 +5440,6 @@
 									{
 										"type": "String",
 										"name": "srcCode"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
 									}]
 					},
 					{
@@ -6082,15 +5974,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "true if the current join point is an instance of the given type",
 						"children": [
 									{
@@ -6591,15 +6474,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "true if the current join point is an instance of the given type",
 						"children": [
 									{
@@ -7014,15 +6888,6 @@
 									{
 										"type": "String",
 										"name": "srcCode"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
 									}]
 					},
 					{
@@ -7538,15 +7403,6 @@
 									{
 										"type": "String",
 										"name": "srcCode"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
 									}]
 					},
 					{
@@ -8324,15 +8180,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "true if the current join point is an instance of the given type",
 						"children": [
 									{
@@ -8783,15 +8630,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "true if the current join point is an instance of the given type",
 						"children": [
 									{
@@ -9220,15 +9058,6 @@
 									{
 										"type": "String",
 										"name": "srcCode"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
 									}]
 					},
 					{
@@ -9687,15 +9516,6 @@
 									{
 										"type": "String",
 										"name": "srcCode"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
 									}]
 					},
 					{
@@ -10198,15 +10018,6 @@
 									{
 										"type": "String",
 										"name": "srcCode"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
 									}]
 					},
 					{
@@ -10997,15 +10808,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "true if the current join point is an instance of the given type",
 						"children": [
 									{
@@ -11458,15 +11260,6 @@
 									{
 										"type": "String",
 										"name": "srcCode"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
 									}]
 					},
 					{
@@ -11983,15 +11776,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "true if the current join point is an instance of the given type",
 						"children": [
 									{
@@ -12447,15 +12231,6 @@
 									{
 										"type": "String",
 										"name": "srcCode"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
 									}]
 					},
 					{
@@ -13065,15 +12840,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "true if the current join point is an instance of the given type",
 						"children": [
 									{
@@ -13571,15 +13337,6 @@
 									{
 										"type": "String",
 										"name": "srcCode"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
 									}]
 					},
 					{
@@ -14270,15 +14027,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "true if the current join point is an instance of the given type",
 						"children": [
 									{
@@ -14699,15 +14447,6 @@
 									{
 										"type": "String",
 										"name": "srcCode"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
 									}]
 					},
 					{
@@ -15154,15 +14893,6 @@
 									{
 										"type": "String",
 										"name": "srcCode"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
 									}]
 					},
 					{
@@ -15693,15 +15423,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "true if the current join point is an instance of the given type",
 						"children": [
 									{
@@ -16190,15 +15911,6 @@
 									{
 										"type": "String",
 										"name": "srcCode"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
 									}]
 					},
 					{
@@ -16768,15 +16480,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "true if the current join point is an instance of the given type",
 						"children": [
 									{
@@ -17311,15 +17014,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "true if the current join point is an instance of the given type",
 						"children": [
 									{
@@ -17809,15 +17503,6 @@
 									{
 										"type": "String",
 										"name": "srcCode"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
 									}]
 					},
 					{
@@ -18313,15 +17998,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "true if the current join point is an instance of the given type",
 						"children": [
 									{
@@ -18752,15 +18428,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "true if the current join point is an instance of the given type",
 						"children": [
 									{
@@ -19165,15 +18832,6 @@
 									{
 										"type": "String",
 										"name": "srcCode"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
 									}]
 					},
 					{
@@ -19596,15 +19254,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "true if the current join point is an instance of the given type",
 						"children": [
 									{
@@ -20019,15 +19668,6 @@
 									{
 										"type": "String",
 										"name": "srcCode"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
 									}]
 					},
 					{
@@ -20509,15 +20149,6 @@
 									{
 										"type": "String",
 										"name": "srcCode"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
 									}]
 					},
 					{
@@ -21017,15 +20648,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "true if the current join point is an instance of the given type",
 						"children": [
 									{
@@ -21482,15 +21104,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "true if the current join point is an instance of the given type",
 						"children": [
 									{
@@ -21915,15 +21528,6 @@
 									{
 										"type": "String",
 										"name": "srcCode"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
 									}]
 					},
 					{
@@ -22416,15 +22020,6 @@
 									{
 										"type": "String",
 										"name": "srcCode"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
 									}]
 					},
 					{
@@ -23139,15 +22734,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "true if the current join point is an instance of the given type",
 						"children": [
 									{
@@ -23592,15 +23178,6 @@
 									{
 										"type": "String",
 										"name": "srcCode"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
 									}]
 					},
 					{
@@ -24169,15 +23746,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "true if the current join point is an instance of the given type",
 						"children": [
 									{
@@ -24677,15 +24245,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "true if the current join point is an instance of the given type",
 						"children": [
 									{
@@ -25138,15 +24697,6 @@
 									{
 										"type": "String",
 										"name": "srcCode"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "a String with the type of the join point",
-						"children": [
-									{
-										"type": "String",
-										"name": "joinPointType"
 									}]
 					},
 					{

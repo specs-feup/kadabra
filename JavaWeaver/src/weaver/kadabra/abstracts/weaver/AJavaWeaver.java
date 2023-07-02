@@ -1,6 +1,6 @@
 package weaver.kadabra.abstracts.weaver;
 
-import org.lara.interpreter.weaver.interf.WeaverEngine;
+import org.lara.interpreter.weaver.LaraWeaverEngine;
 import java.util.Arrays;
 import java.util.List;
 import weaver.kadabra.entities.Pair;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * The implementation of the abstract methods is mandatory!
  * @author Lara C.
  */
-public abstract class AJavaWeaver extends WeaverEngine {
+public abstract class AJavaWeaver extends LaraWeaverEngine {
 
     /**
      * Get the list of available actions in the weaver
