@@ -145,8 +145,12 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
             return null;
         }
 
-        var parentJp = CtElement2JoinPoint.convert(parent);
+        // System.out.println("JP: " + getClass());
+        // System.out.println("NODE: " + getNode().getClass());
+        // System.out.println("PARENT J: " + parent.getClass());
 
+        var parentJp = CtElement2JoinPoint.convert(parent);
+        // System.out.println("PARENT JP: " + parentJp.getClass());
         // Special case: if parent is a CallStatement, return the Call instead
         if (parentJp instanceof ACallStatement) {
             return ((ACallStatement) parentJp).getCallImpl();
@@ -183,7 +187,7 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
         // System.out.println("ANCESTOR OF " + this + " that is a " + type);
         AJoinPoint currentNode = getParentImpl();
         while (currentNode != null) {
-            // System.out.println("PARENT: " + currentNode);
+
             if (currentNode.instanceOf(type)) {
                 return currentNode;
             }
@@ -423,9 +427,6 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
 
     @Override
     public AJoinPoint[] getChildrenArrayImpl() {
-        System.out.println("NODE: " + getJoinPointType());
-        // return getJpChildrenStream()
-        // .toArray(size -> new AJoinPoint[size]);
         return getChildrenNodes().stream()
                 .map(CtElement2JoinPoint::convert)
                 .toArray(size -> new AJoinPoint[size]);

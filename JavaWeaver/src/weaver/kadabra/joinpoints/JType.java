@@ -60,28 +60,34 @@ import weaver.utils.weaving.converters.CtExecutable2AExecutable;
 public class JType<T> extends AType {
 
     private CtType<T> node;
-    // private CompilationUnit parent;
+    private CtCompilationUnit parent;
 
-    private JType(CtType<T> node) {// , CompilationUnit parent) {
+    private JType(CtType<T> node, CtCompilationUnit parent) {
+        // private JType(CtType<T> node) {// , CompilationUnit parent) {
         this.node = node;
-        // this.parent = parent;
+        this.parent = parent;
     }
 
+    // * @deprecated use version that does not need the parent paramenter
+
     /**
-     * @deprecated use version that does not need the parent paramenter
+     * 
      * @param <T>
      * @param node
      * @param parent
+     * 
+     * 
      * @return
      */
-    @Deprecated
+    // @Deprecated
     public static <T> JType<T> newInstance(CtType<T> node, CtCompilationUnit parent) {
-        return newInstance(node);
+        // return newInstance(node);
+        return new JType<>(node, parent);
     }
 
-    public static <T> JType<T> newInstance(CtType<T> node) {
-        return new JType<>(node);// , parent);
-    }
+    // public static <T> JType<T> newInstance(CtType<T> node) {
+    // return new JType<>(node);// , parent);
+    // }
 
     @Override
     public AJoinPoint copyImpl() {
@@ -401,5 +407,16 @@ public class JType<T> extends AType {
     // public Boolean getIsStaticImpl() {
     // return node.hasModifier(ModifierKind.STATIC);
     // }
+
+    @Override
+    public AJoinPoint getParentImpl() {
+        var spoonParent = getNode().getParent();
+
+        if (spoonParent != null && !(spoonParent instanceof CtPackage)) {
+            return CtElement2JoinPoint.convert(spoonParent);
+        }
+
+        return CtElement2JoinPoint.convert(parent);
+    }
 
 }

@@ -54,6 +54,7 @@ public class JClass<T> extends AClass {
 
     private JClass(CtClass<T> node, CtCompilationUnit parent) {
         super(JType.newInstance(node, parent));
+        // super(JType.newInstance(node));
         this.originClass = node;
         this.parent = parent;
     }
@@ -196,6 +197,7 @@ public class JClass<T> extends AClass {
         var spoonParent = getNode().getParent();
         // System.out.println("Spoon parent: " + spoonParent.getClass());
         // System.out.println("Kadabra parent: " + parent.getClass());
+        // System.out.println("IS package? " + (spoonParent instanceof CtPackage));
         if (spoonParent != null && !(spoonParent instanceof CtPackage)) {
             return CtElement2JoinPoint.convert(spoonParent);
         }
