@@ -14,6 +14,7 @@
 package weaver.utils;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -34,7 +35,9 @@ import spoon.reflect.code.CtVariableAccess;
 import spoon.reflect.declaration.CtAnonymousExecutable;
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtExecutable;
+import spoon.reflect.declaration.CtModifiable;
 import spoon.reflect.declaration.CtPackage;
+import spoon.reflect.declaration.CtVariable;
 import spoon.reflect.declaration.ModifierKind;
 import spoon.reflect.factory.Factory;
 import spoon.reflect.reference.CtLocalVariableReference;
@@ -466,5 +469,26 @@ public class SpoonUtils {
 
         // If node is implicit, remove by default
         return !node.isImplicit();
+    }
+
+    /**
+     * If node implements CtModifiable, returns the modifiers. Otherwise, returns empty set.
+     * 
+     * @return
+     */
+    // @SuppressWarnings("unchecked")
+    public static Set<ModifierKind> getModifiers(CtElement node) {
+    
+        if (node instanceof CtModifiable) {
+            return ((CtModifiable) node).getModifiers();
+        }
+    
+        if (node instanceof CtVariableAccess varAccess) {
+            var decl = varAccess.getVariable().getDeclaration();
+            return getModifiers(decl);
+        }
+    
+        return Collections.emptySet();
+    
     }
 }
