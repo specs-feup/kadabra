@@ -16,7 +16,7 @@ file (Ast.java)
       body
         assignment (this.b = 2)
           typeReference (int)
-          var (this.b)
+          fieldAccess (this.b)
             this (this)
               typeReference (Ast)
                 reference ( - Package)

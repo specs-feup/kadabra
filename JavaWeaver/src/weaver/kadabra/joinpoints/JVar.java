@@ -13,9 +13,7 @@
 
 package weaver.kadabra.joinpoints;
 
-import java.util.Collections;
 import java.util.Optional;
-import java.util.Set;
 
 import spoon.reflect.code.CtArrayAccess;
 import spoon.reflect.code.CtAssignment;
@@ -26,7 +24,6 @@ import spoon.reflect.code.CtOperatorAssignment;
 import spoon.reflect.code.CtUnaryOperator;
 import spoon.reflect.code.CtVariableAccess;
 import spoon.reflect.declaration.CtElement;
-import spoon.reflect.declaration.ModifierKind;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.ATypeReference;
@@ -47,9 +44,9 @@ public class JVar<T> extends AVar {
 
     public static <T> JVar<T> newInstance(CtVariableAccess<T> var) {
 
-        if (var instanceof CtFieldAccess) {
-            return JFieldAccess.newInstance((CtFieldAccess<T>) var);
-        }
+        // if (var instanceof CtFieldAccess) {
+        // return JFieldAccess.newInstance((CtFieldAccess<T>) var);
+        // }
 
         return new JVar<>(var);
     }
@@ -173,15 +170,27 @@ public class JVar<T> extends AVar {
         return CtElement2JoinPoint.convert(decl);
     }
 
-    @Override
-    public Set<ModifierKind> getModifiersInternal() {
-        var decl = getDeclarationImpl();
-        if (decl == null) {
-            return Collections.emptySet();
-        }
+    // @Override
+    // public String[] getModifiersArrayImpl() {
+    // var decl = getDeclarationImpl();
+    // if (decl == null) {
+    // return new String[0];
+    // }
+    //
+    // return JoinPoints.getModifiersInternal(decl).stream()
+    // .map(ModifierKind::name)
+    // .toArray(length -> new String[length]);
+    // }
 
-        return decl.getModifiersInternal();
-    }
+    // @Override
+    // public Set<ModifierKind> getModifiersInternal() {
+    // var decl = getDeclarationImpl();
+    // if (decl == null) {
+    // return Collections.emptySet();
+    // }
+    //
+    // return decl.getModifiersInternal();
+    // }
 
     // @Override
     // public String[] getModifiersArrayImpl() {
@@ -198,6 +207,14 @@ public class JVar<T> extends AVar {
     // @Override
     // public Boolean getIsStaticImpl() {
     // return node.getVariable().getModifiers().contains(ModifierKind.STATIC);
+    // }
+
+    // @Override
+    // public Boolean getIsFinalImpl() {
+    // System.out.println("Get modifiers attribute: " + Arrays.asList(getModifiersArrayImpl()));
+    // System.out.println("Get modifiers internal: " + getModifiersInternal());
+    // return super.getIsFinalImpl();
+    // // return getModifiersInternal().contains(ModifierKind.FINAL);
     // }
 
 }

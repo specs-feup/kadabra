@@ -1,237 +1,100 @@
 package weaver.kadabra.abstracts.joinpoints;
 
-import org.lara.interpreter.weaver.interf.events.Stage;
-import java.util.Optional;
-import org.lara.interpreter.exception.AttributeException;
 import weaver.kadabra.enums.RefType;
 import java.util.List;
 import org.lara.interpreter.weaver.interf.JoinPoint;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.Arrays;
 
 /**
- * Auto-Generated class for join point AVar
+ * Auto-Generated class for join point AFieldAccess
  * This class is overwritten by the Weaver Generator.
  * 
  * 
  * @author Lara Weaver Generator
  */
-public abstract class AVar extends AExpression {
+public abstract class AFieldAccess extends AVar {
 
-    protected AExpression aExpression;
+    protected AVar aVar;
 
     /**
      * 
      */
-    public AVar(AExpression aExpression){
-        this.aExpression = aExpression;
+    public AFieldAccess(AVar aVar){
+        super(aVar);
+        this.aVar = aVar;
     }
     /**
      * Get value on attribute name
      * @return the attribute's value
      */
-    public abstract String getNameImpl();
-
-    /**
-     * Get value on attribute name
-     * @return the attribute's value
-     */
-    public final Object getName() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "name", Optional.empty());
-        	}
-        	String result = this.getNameImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "name", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "name", e);
-        }
+    @Override
+    public String getNameImpl() {
+        return this.aVar.getNameImpl();
     }
 
     /**
      * Get value on attribute reference
      * @return the attribute's value
      */
-    public abstract RefType getReferenceImpl();
-
-    /**
-     * Get value on attribute reference
-     * @return the attribute's value
-     */
-    public final Object getReference() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "reference", Optional.empty());
-        	}
-        	RefType result = this.getReferenceImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "reference", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "reference", e);
-        }
+    @Override
+    public RefType getReferenceImpl() {
+        return this.aVar.getReferenceImpl();
     }
 
     /**
      * Get value on attribute isArray
      * @return the attribute's value
      */
-    public abstract Boolean getIsArrayImpl();
-
-    /**
-     * Get value on attribute isArray
-     * @return the attribute's value
-     */
-    public final Object getIsArray() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isArray", Optional.empty());
-        	}
-        	Boolean result = this.getIsArrayImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "isArray", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "isArray", e);
-        }
+    @Override
+    public Boolean getIsArrayImpl() {
+        return this.aVar.getIsArrayImpl();
     }
 
     /**
      * Get value on attribute isPrimitive
      * @return the attribute's value
      */
-    public abstract Boolean getIsPrimitiveImpl();
-
-    /**
-     * Get value on attribute isPrimitive
-     * @return the attribute's value
-     */
-    public final Object getIsPrimitive() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isPrimitive", Optional.empty());
-        	}
-        	Boolean result = this.getIsPrimitiveImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "isPrimitive", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "isPrimitive", e);
-        }
+    @Override
+    public Boolean getIsPrimitiveImpl() {
+        return this.aVar.getIsPrimitiveImpl();
     }
 
     /**
      * Get value on attribute isField
      * @return the attribute's value
      */
-    public abstract Boolean getIsFieldImpl();
-
-    /**
-     * Get value on attribute isField
-     * @return the attribute's value
-     */
-    public final Object getIsField() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isField", Optional.empty());
-        	}
-        	Boolean result = this.getIsFieldImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "isField", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "isField", e);
-        }
+    @Override
+    public Boolean getIsFieldImpl() {
+        return this.aVar.getIsFieldImpl();
     }
 
     /**
      * Get value on attribute inLoopHeader
      * @return the attribute's value
      */
-    public abstract Boolean getInLoopHeaderImpl();
-
-    /**
-     * Get value on attribute inLoopHeader
-     * @return the attribute's value
-     */
-    public final Object getInLoopHeader() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "inLoopHeader", Optional.empty());
-        	}
-        	Boolean result = this.getInLoopHeaderImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "inLoopHeader", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "inLoopHeader", e);
-        }
+    @Override
+    public Boolean getInLoopHeaderImpl() {
+        return this.aVar.getInLoopHeaderImpl();
     }
 
     /**
-     * Get value on attribute referenceChain
+     * Get value on attribute referenceChainArrayImpl
      * @return the attribute's value
      */
-    public abstract AJoinPoint[] getReferenceChainArrayImpl();
-
-    /**
-     * the chain of references of this variable (e.g., this.field)
-     */
-    public Object getReferenceChainImpl() {
-        AJoinPoint[] aJoinPointArrayImpl0 = getReferenceChainArrayImpl();
-        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(aJoinPointArrayImpl0);
-        return nativeArray0;
-    }
-
-    /**
-     * the chain of references of this variable (e.g., this.field)
-     */
-    public final Object getReferenceChain() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "referenceChain", Optional.empty());
-        	}
-        	Object result = this.getReferenceChainImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "referenceChain", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "referenceChain", e);
-        }
+    @Override
+    public AJoinPoint[] getReferenceChainArrayImpl() {
+        return this.aVar.getReferenceChainArrayImpl();
     }
 
     /**
      * Get value on attribute declaration
      * @return the attribute's value
      */
-    public abstract AJoinPoint getDeclarationImpl();
-
-    /**
-     * Get value on attribute declaration
-     * @return the attribute's value
-     */
-    public final Object getDeclaration() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "declaration", Optional.empty());
-        	}
-        	AJoinPoint result = this.getDeclarationImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "declaration", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "declaration", e);
-        }
+    @Override
+    public AJoinPoint getDeclarationImpl() {
+        return this.aVar.getDeclarationImpl();
     }
 
     /**
@@ -240,7 +103,7 @@ public abstract class AVar extends AExpression {
      */
     @Override
     public String getKindImpl() {
-        return this.aExpression.getKindImpl();
+        return this.aVar.getKindImpl();
     }
 
     /**
@@ -249,7 +112,7 @@ public abstract class AVar extends AExpression {
      */
     @Override
     public String getTypeImpl() {
-        return this.aExpression.getTypeImpl();
+        return this.aVar.getTypeImpl();
     }
 
     /**
@@ -258,7 +121,7 @@ public abstract class AVar extends AExpression {
      */
     @Override
     public String getQualifiedTypeImpl() {
-        return this.aExpression.getQualifiedTypeImpl();
+        return this.aVar.getQualifiedTypeImpl();
     }
 
     /**
@@ -267,7 +130,7 @@ public abstract class AVar extends AExpression {
      */
     @Override
     public ATypeReference getTypeReferenceImpl() {
-        return this.aExpression.getTypeReferenceImpl();
+        return this.aVar.getTypeReferenceImpl();
     }
 
     /**
@@ -276,7 +139,7 @@ public abstract class AVar extends AExpression {
      */
     @Override
     public Integer getTestImpl() {
-        return this.aExpression.getTestImpl();
+        return this.aVar.getTestImpl();
     }
 
     /**
@@ -285,7 +148,7 @@ public abstract class AVar extends AExpression {
      */
     @Override
     public List<? extends AExpression> selectExpr() {
-        return this.aExpression.selectExpr();
+        return this.aVar.selectExpr();
     }
 
     /**
@@ -294,7 +157,7 @@ public abstract class AVar extends AExpression {
      */
     @Override
     public List<? extends AVar> selectVar() {
-        return this.aExpression.selectVar();
+        return this.aVar.selectVar();
     }
 
     /**
@@ -303,7 +166,7 @@ public abstract class AVar extends AExpression {
      */
     @Override
     public List<? extends AArrayAccess> selectArrayAccess() {
-        return this.aExpression.selectArrayAccess();
+        return this.aVar.selectArrayAccess();
     }
 
     /**
@@ -312,7 +175,7 @@ public abstract class AVar extends AExpression {
      */
     @Override
     public List<? extends ABinaryExpression> selectBinaryExpression() {
-        return this.aExpression.selectBinaryExpression();
+        return this.aVar.selectBinaryExpression();
     }
 
     /**
@@ -321,21 +184,21 @@ public abstract class AVar extends AExpression {
      */
     @Override
     public List<? extends ABinaryExpression> selectBinaryExpr() {
-        return this.aExpression.selectBinaryExpr();
+        return this.aVar.selectBinaryExpr();
     }
 
     /**
      * 
      */
     public void defTestImpl(Integer value) {
-        this.aExpression.defTestImpl(value);
+        this.aVar.defTestImpl(value);
     }
 
     /**
      * 
      */
     public void defTestImpl(AExpression value) {
-        this.aExpression.defTestImpl(value);
+        this.aVar.defTestImpl(value);
     }
 
     /**
@@ -344,7 +207,7 @@ public abstract class AVar extends AExpression {
      */
     @Override
     public AJoinPoint getParentImpl() {
-        return this.aExpression.getParentImpl();
+        return this.aVar.getParentImpl();
     }
 
     /**
@@ -353,7 +216,7 @@ public abstract class AVar extends AExpression {
      */
     @Override
     public Boolean getIsStaticImpl() {
-        return this.aExpression.getIsStaticImpl();
+        return this.aVar.getIsStaticImpl();
     }
 
     /**
@@ -362,7 +225,7 @@ public abstract class AVar extends AExpression {
      */
     @Override
     public String getCodeImpl() {
-        return this.aExpression.getCodeImpl();
+        return this.aVar.getCodeImpl();
     }
 
     /**
@@ -371,7 +234,7 @@ public abstract class AVar extends AExpression {
      */
     @Override
     public String getAstImpl() {
-        return this.aExpression.getAstImpl();
+        return this.aVar.getAstImpl();
     }
 
     /**
@@ -380,7 +243,7 @@ public abstract class AVar extends AExpression {
      */
     @Override
     public Boolean getIsBlockImpl() {
-        return this.aExpression.getIsBlockImpl();
+        return this.aVar.getIsBlockImpl();
     }
 
     /**
@@ -389,7 +252,7 @@ public abstract class AVar extends AExpression {
      */
     @Override
     public Integer getLineImpl() {
-        return this.aExpression.getLineImpl();
+        return this.aVar.getLineImpl();
     }
 
     /**
@@ -398,7 +261,7 @@ public abstract class AVar extends AExpression {
      */
     @Override
     public AJoinPoint ancestorImpl(String type) {
-        return this.aExpression.ancestorImpl(type);
+        return this.aVar.ancestorImpl(type);
     }
 
     /**
@@ -407,7 +270,7 @@ public abstract class AVar extends AExpression {
      */
     @Override
     public AAnnotation[] getAnnotationsArrayImpl() {
-        return this.aExpression.getAnnotationsArrayImpl();
+        return this.aVar.getAnnotationsArrayImpl();
     }
 
     /**
@@ -416,7 +279,7 @@ public abstract class AVar extends AExpression {
      */
     @Override
     public String[] getModifiersArrayImpl() {
-        return this.aExpression.getModifiersArrayImpl();
+        return this.aVar.getModifiersArrayImpl();
     }
 
     /**
@@ -425,7 +288,7 @@ public abstract class AVar extends AExpression {
      */
     @Override
     public AJoinPoint[] getDescendantsArrayImpl() {
-        return this.aExpression.getDescendantsArrayImpl();
+        return this.aVar.getDescendantsArrayImpl();
     }
 
     /**
@@ -434,7 +297,7 @@ public abstract class AVar extends AExpression {
      */
     @Override
     public Boolean getIsStatementImpl() {
-        return this.aExpression.getIsStatementImpl();
+        return this.aVar.getIsStatementImpl();
     }
 
     /**
@@ -443,7 +306,7 @@ public abstract class AVar extends AExpression {
      */
     @Override
     public AJoinPoint getAstParentImpl() {
-        return this.aExpression.getAstParentImpl();
+        return this.aVar.getAstParentImpl();
     }
 
     /**
@@ -452,7 +315,7 @@ public abstract class AVar extends AExpression {
      */
     @Override
     public AJoinPoint[] getChildrenArrayImpl() {
-        return this.aExpression.getChildrenArrayImpl();
+        return this.aVar.getChildrenArrayImpl();
     }
 
     /**
@@ -461,7 +324,7 @@ public abstract class AVar extends AExpression {
      */
     @Override
     public Boolean hasModifierImpl(String modifier) {
-        return this.aExpression.hasModifierImpl(modifier);
+        return this.aVar.hasModifierImpl(modifier);
     }
 
     /**
@@ -470,7 +333,7 @@ public abstract class AVar extends AExpression {
      */
     @Override
     public Integer getNumChildrenImpl() {
-        return this.aExpression.getNumChildrenImpl();
+        return this.aVar.getNumChildrenImpl();
     }
 
     /**
@@ -479,7 +342,7 @@ public abstract class AVar extends AExpression {
      */
     @Override
     public String getSrcCodeImpl() {
-        return this.aExpression.getSrcCodeImpl();
+        return this.aVar.getSrcCodeImpl();
     }
 
     /**
@@ -488,7 +351,7 @@ public abstract class AVar extends AExpression {
      */
     @Override
     public Boolean getIsFinalImpl() {
-        return this.aExpression.getIsFinalImpl();
+        return this.aVar.getIsFinalImpl();
     }
 
     /**
@@ -497,7 +360,7 @@ public abstract class AVar extends AExpression {
      */
     @Override
     public String getIdImpl() {
-        return this.aExpression.getIdImpl();
+        return this.aVar.getIdImpl();
     }
 
     /**
@@ -506,7 +369,7 @@ public abstract class AVar extends AExpression {
      */
     @Override
     public AJoinPoint childImpl(Integer index) {
-        return this.aExpression.childImpl(index);
+        return this.aVar.childImpl(index);
     }
 
     /**
@@ -515,7 +378,7 @@ public abstract class AVar extends AExpression {
      */
     @Override
     public AJoinPoint insertBeforeImpl(AJoinPoint node) {
-        return this.aExpression.insertBeforeImpl(node);
+        return this.aVar.insertBeforeImpl(node);
     }
 
     /**
@@ -524,7 +387,7 @@ public abstract class AVar extends AExpression {
      */
     @Override
     public AJoinPoint insertBeforeImpl(String code) {
-        return this.aExpression.insertBeforeImpl(code);
+        return this.aVar.insertBeforeImpl(code);
     }
 
     /**
@@ -533,7 +396,7 @@ public abstract class AVar extends AExpression {
      */
     @Override
     public AJoinPoint insertAfterImpl(AJoinPoint node) {
-        return this.aExpression.insertAfterImpl(node);
+        return this.aVar.insertAfterImpl(node);
     }
 
     /**
@@ -542,7 +405,7 @@ public abstract class AVar extends AExpression {
      */
     @Override
     public AJoinPoint insertAfterImpl(String code) {
-        return this.aExpression.insertAfterImpl(code);
+        return this.aVar.insertAfterImpl(code);
     }
 
     /**
@@ -551,7 +414,7 @@ public abstract class AVar extends AExpression {
      */
     @Override
     public AJoinPoint insertReplaceImpl(AJoinPoint jp) {
-        return this.aExpression.insertReplaceImpl(jp);
+        return this.aVar.insertReplaceImpl(jp);
     }
 
     /**
@@ -560,7 +423,7 @@ public abstract class AVar extends AExpression {
      */
     @Override
     public AJoinPoint insertReplaceImpl(String code) {
-        return this.aExpression.insertReplaceImpl(code);
+        return this.aVar.insertReplaceImpl(code);
     }
 
     /**
@@ -569,7 +432,7 @@ public abstract class AVar extends AExpression {
      */
     @Override
     public AJoinPoint replaceWithImpl(AJoinPoint jp) {
-        return this.aExpression.replaceWithImpl(jp);
+        return this.aVar.replaceWithImpl(jp);
     }
 
     /**
@@ -578,7 +441,7 @@ public abstract class AVar extends AExpression {
      */
     @Override
     public AJoinPoint replaceWithImpl(String code) {
-        return this.aExpression.replaceWithImpl(code);
+        return this.aVar.replaceWithImpl(code);
     }
 
     /**
@@ -586,7 +449,7 @@ public abstract class AVar extends AExpression {
      */
     @Override
     public AJoinPoint copyImpl() {
-        return this.aExpression.copyImpl();
+        return this.aVar.copyImpl();
     }
 
     /**
@@ -594,7 +457,7 @@ public abstract class AVar extends AExpression {
      */
     @Override
     public void removeImpl() {
-        this.aExpression.removeImpl();
+        this.aVar.removeImpl();
     }
 
     /**
@@ -603,18 +466,7 @@ public abstract class AVar extends AExpression {
      */
     @Override
     public void removeAnnotationImpl(AAnnotation annotation) {
-        this.aExpression.removeAnnotationImpl(annotation);
-    }
-
-    /**
-     * 
-     * @param varName 
-     * @param location 
-     * @param position 
-     */
-    @Override
-    public void extractImpl(String varName, AStatement location, String position) {
-        this.aExpression.extractImpl(varName, location, position);
+        this.aVar.removeAnnotationImpl(annotation);
     }
 
     /**
@@ -624,7 +476,7 @@ public abstract class AVar extends AExpression {
      */
     @Override
     public AJoinPoint[] insertImpl(String position, String code) {
-        return this.aExpression.insertImpl(position, code);
+        return this.aVar.insertImpl(position, code);
     }
 
     /**
@@ -634,22 +486,22 @@ public abstract class AVar extends AExpression {
      */
     @Override
     public AJoinPoint[] insertImpl(String position, JoinPoint code) {
-        return this.aExpression.insertImpl(position, code);
+        return this.aVar.insertImpl(position, code);
     }
 
     /**
      * 
      */
     @Override
-    public Optional<? extends AExpression> getSuper() {
-        return Optional.of(this.aExpression);
+    public Optional<? extends AVar> getSuper() {
+        return Optional.of(this.aVar);
     }
 
     /**
      * 
      */
     @Override
-    public List<? extends JoinPoint> select(String selectName) {
+    public final List<? extends JoinPoint> select(String selectName) {
         List<? extends JoinPoint> joinPointList;
         switch(selectName) {
         	case "expr": 
@@ -668,7 +520,7 @@ public abstract class AVar extends AExpression {
         		joinPointList = selectBinaryExpr();
         		break;
         	default:
-        		joinPointList = this.aExpression.select(selectName);
+        		joinPointList = this.aVar.select(selectName);
         		break;
         }
         return joinPointList;
@@ -678,7 +530,7 @@ public abstract class AVar extends AExpression {
      * 
      */
     @Override
-    public void defImpl(String attribute, Object value) {
+    public final void defImpl(String attribute, Object value) {
         switch(attribute){
         case "line": {
         	if(value instanceof Integer){
@@ -710,32 +562,24 @@ public abstract class AVar extends AExpression {
      * 
      */
     @Override
-    protected void fillWithAttributes(List<String> attributes) {
-        this.aExpression.fillWithAttributes(attributes);
-        attributes.add("name");
-        attributes.add("reference");
-        attributes.add("isArray");
-        attributes.add("isPrimitive");
-        attributes.add("isField");
-        attributes.add("inLoopHeader");
-        attributes.add("referenceChain");
-        attributes.add("declaration");
+    protected final void fillWithAttributes(List<String> attributes) {
+        this.aVar.fillWithAttributes(attributes);
     }
 
     /**
      * 
      */
     @Override
-    protected void fillWithSelects(List<String> selects) {
-        this.aExpression.fillWithSelects(selects);
+    protected final void fillWithSelects(List<String> selects) {
+        this.aVar.fillWithSelects(selects);
     }
 
     /**
      * 
      */
     @Override
-    protected void fillWithActions(List<String> actions) {
-        this.aExpression.fillWithActions(actions);
+    protected final void fillWithActions(List<String> actions) {
+        this.aVar.fillWithActions(actions);
     }
 
     /**
@@ -743,8 +587,8 @@ public abstract class AVar extends AExpression {
      * @return The join point type
      */
     @Override
-    public String get_class() {
-        return "var";
+    public final String get_class() {
+        return "fieldAccess";
     }
 
     /**
@@ -752,17 +596,17 @@ public abstract class AVar extends AExpression {
      * @return True if this join point is an instanceof the given class
      */
     @Override
-    public boolean instanceOf(String joinpointClass) {
+    public final boolean instanceOf(String joinpointClass) {
         boolean isInstance = get_class().equals(joinpointClass);
         if(isInstance) {
         	return true;
         }
-        return this.aExpression.instanceOf(joinpointClass);
+        return this.aVar.instanceOf(joinpointClass);
     }
     /**
      * 
      */
-    protected enum VarAttributes {
+    protected enum FieldAccessAttributes {
         NAME("name"),
         REFERENCE("reference"),
         ISARRAY("isArray"),
@@ -800,13 +644,13 @@ public abstract class AVar extends AExpression {
         /**
          * 
          */
-        private VarAttributes(String name){
+        private FieldAccessAttributes(String name){
             this.name = name;
         }
         /**
          * Return an attribute enumeration item from a given attribute name
          */
-        public static Optional<VarAttributes> fromString(String name) {
+        public static Optional<FieldAccessAttributes> fromString(String name) {
             return Arrays.asList(values()).stream().filter(attr -> attr.name.equals(name)).findAny();
         }
 
@@ -814,7 +658,7 @@ public abstract class AVar extends AExpression {
          * Return a list of attributes in String format
          */
         public static List<String> getNames() {
-            return Arrays.asList(values()).stream().map(VarAttributes::name).collect(Collectors.toList());
+            return Arrays.asList(values()).stream().map(FieldAccessAttributes::name).collect(Collectors.toList());
         }
 
         /**

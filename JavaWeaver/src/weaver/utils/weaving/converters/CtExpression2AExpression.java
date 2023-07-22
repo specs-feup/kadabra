@@ -59,8 +59,8 @@ public class CtExpression2AExpression {
         CONVERTER.put(CtUnaryOperator.class, JUnaryExpression::newInstance);
         // CONVERTER.put(CtInvocation.class, JCall::newInstance);
         // CONVERTER.put(CtInvocation.class, CtExpression2AExpression::ctInvokation);
-        CONVERTER.put(CtVariableAccess.class, JVar::newInstance);
         CONVERTER.put(CtFieldAccess.class, JFieldAccess::newInstance);
+        CONVERTER.put(CtVariableAccess.class, JVar::newInstance);
         CONVERTER.put(CtArrayAccess.class, JArrayAccess::newInstance);
         CONVERTER.put(CtLiteral.class, JLiteral::newInstance);
         CONVERTER.put(CtConstructorCall.class, JNew::newInstance);

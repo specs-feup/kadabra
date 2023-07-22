@@ -1,10 +1,9 @@
 package weaver.kadabra.abstracts;
 
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -21,7 +20,6 @@ import spoon.reflect.cu.SourcePosition;
 import spoon.reflect.declaration.CtAnnotation;
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtExecutable;
-import spoon.reflect.declaration.CtModifiable;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.declaration.ModifierKind;
 import weaver.kadabra.JavaWeaver;
@@ -446,7 +444,15 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
 
     @Override
     public String getAstImpl() {
-        return JoinPoints.toAst(this, "");
+        var node = getNode();
+
+        // If no node, start from join point
+        if (node == null) {
+            return JoinPoints.toAst(this, "");
+        }
+
+        // This method is more robust regarding the initial node
+        return SpoonUtils.toAst(getNode(), "");
     }
 
     @Override
@@ -469,41 +475,51 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
 
     }
 
+    // /**
+    // * If node implements CtModifiable, returns the modifiers. Otherwise, returns empty set.
+    // *
+    // * @return
+    // */
+    // // @SuppressWarnings("unchecked")
+    // public Set<ModifierKind> getModifiersInternal() {
+    // var node = getNode();
+    //
+    // if (node instanceof CtModifiable) {
+    // return ((CtModifiable) node).getModifiers();
+    // }
+    //
+    // return Collections.emptySet();
+    // //
+    // // // Choose best method
+    // // Method invokingMethod = SpecsSystem.getMethod(getNode().getClass(), "getModifiers");
+    // //
+    // // // Could not find method, return empty set
+    // // if (invokingMethod == null) {
+    // // return Collections.emptySet();
+    // //
+    // // }
+    // //
+    // // // Invoke method
+    // // try {
+    // // return (Set<ModifierKind>) invokingMethod.invoke(getNode());
+    // // } catch (Exception e) {
+    // // throw new RuntimeException("Exception while calling getModifiers(): ", e);
+    // // }
+    // }
+
     /**
-     * If node implements CtModifiable, returns the modifiers. Otherwise, returns empty set.
      * 
-     * @return
      */
-    // @SuppressWarnings("unchecked")
-    public Set<ModifierKind> getModifiersInternal() {
-        var node = getNode();
-
-        if (node instanceof CtModifiable) {
-            return ((CtModifiable) node).getModifiers();
-        }
-
-        return Collections.emptySet();
-        //
-        // // Choose best method
-        // Method invokingMethod = SpecsSystem.getMethod(getNode().getClass(), "getModifiers");
-        //
-        // // Could not find method, return empty set
-        // if (invokingMethod == null) {
-        // return Collections.emptySet();
-        //
-        // }
-        //
-        // // Invoke method
-        // try {
-        // return (Set<ModifierKind>) invokingMethod.invoke(getNode());
-        // } catch (Exception e) {
-        // throw new RuntimeException("Exception while calling getModifiers(): ", e);
-        // }
-    }
-
     @Override
     public String[] getModifiersArrayImpl() {
-        return getModifiersInternal().stream()
+        return modifiersToString(SpoonUtils.getModifiers(getNode()));
+        // return JoinPoints.getModifiersInternal(this).stream()
+        // .map(ModifierKind::name)
+        // .toArray(length -> new String[length]);
+    }
+
+    public String[] modifiersToString(Collection<ModifierKind> modifiers) {
+        return modifiers.stream()
                 .map(ModifierKind::name)
                 .toArray(length -> new String[length]);
     }
@@ -518,7 +534,7 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
                     + Arrays.toString(ModifierKind.values()));
         }
 
-        return getModifiersInternal().contains(modifierKind);
+        return SpoonUtils.getModifiers(getNode()).contains(modifierKind);
         // var modifierLowerCase = modifier.toLowerCase();
         //
         // return Arrays.stream(getModifiersArrayImpl())
@@ -530,12 +546,16 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
 
     @Override
     public Boolean getIsFinalImpl() {
-        return getModifiersInternal().contains(ModifierKind.FINAL);
+        // System.out.println("JP: " + getNode().getShortRepresentation() + ":" +
+        // JoinPoints.getModifiersInternal(this));
+        // System.out.println("JP: " + getClass() + ":" + JoinPoints.getModifiersInternal(this));
+        // System.out.println("NODE: " + getNode().getClass() + ":" + JoinPoints.getModifiersInternal(this));
+        return SpoonUtils.getModifiers(getNode()).contains(ModifierKind.FINAL);
     }
 
     @Override
     public Boolean getIsStaticImpl() {
-        return getModifiersInternal().contains(ModifierKind.STATIC);
+        return SpoonUtils.getModifiers(getNode()).contains(ModifierKind.STATIC);
     };
 
     @Override

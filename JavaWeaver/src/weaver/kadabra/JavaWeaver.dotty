@@ -26,6 +26,7 @@ edge [fontsize=10]
 "executable"->"joinpoint"
 "expression"->"joinpoint"
 "field"->"declaration"
+"fieldAccess"->"var"
 "file"->"joinpoint"
 "if"->"statement"
 "interface"->"type"

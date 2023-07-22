@@ -38,6 +38,10 @@ public class JReference extends AReference {
 
     @Override
     public String getNameImpl() {
+        if (node == null) {
+            return null;
+        }
+
         return node.getSimpleName();
     }
 
