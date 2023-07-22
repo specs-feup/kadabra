@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
 
 import org.lara.interpreter.profile.WeaverProfiler;
 
+import pt.up.fe.specs.util.utilities.StringLines;
 import spoon.compiler.Environment;
 import spoon.reflect.code.CtBlock;
 import spoon.reflect.code.CtCase;
@@ -42,12 +43,14 @@ import spoon.reflect.factory.Factory;
 import spoon.reflect.reference.CtLocalVariableReference;
 import spoon.reflect.reference.CtTypeReference;
 import spoon.reflect.visitor.DefaultJavaPrettyPrinter;
+import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
 import weaver.kadabra.exceptions.JavaWeaverException;
 import weaver.kadabra.spoon.extensions.nodes.CtCommentWrapper;
 import weaver.kadabra.spoon.extensions.printer.KadabraPrettyPrinter;
 import weaver.kadabra.util.KadabraLog;
 import weaver.utils.visitors.VisitLoopHeaders;
 import weaver.utils.weaving.ActionUtils;
+import weaver.utils.weaving.converters.CtElement2JoinPoint;
 
 public class SpoonUtils {
 
@@ -488,6 +491,52 @@ public class SpoonUtils {
         }
 
         return Collections.emptySet();
+
+    }
+
+    /**
+     * Receives a CtElement as input to guarantee that the correct join point is used.
+     * 
+     * @param astNode
+     * @param prefix
+     * @return
+     */
+    public static String toAst(CtElement astNode, String prefix) {
+        var builder = new StringBuilder();
+        toAst(CtElement2JoinPoint.convert(astNode), prefix, builder);
+        return builder.toString();
+    }
+
+    /**
+     * Input is a AJoinPoint node to preserve the child hierarchy returned by the join points. If we simply used
+     * CtElement and converted to JoinPoint, it would break custom code that uses the same CtElement node for multiple
+     * join points (e.g., JCallStatement).
+     * 
+     * @param node
+     * @param prefix
+     * @param builder
+     */
+    private static void toAst(AJoinPoint node, String prefix,
+            StringBuilder builder) {
+
+        builder.append(prefix);
+
+        builder.append(node.getJoinPointType());
+        var nodeString = node.toString();
+
+        if (!nodeString.isBlank() && StringLines.getLines(nodeString).size() < 2) {
+            builder.append(" (");
+            builder.append(node.toString());
+            builder.append(")");
+        }
+        builder.append("\n");
+
+        // for (var child : node.getChildrenNodes()) {
+        // toAst(child, prefix + " ", builder);
+        // }
+        for (var child : node.getChildrenArrayImpl()) {
+            toAst(child, prefix + "  ", builder);
+        }
 
     }
 }

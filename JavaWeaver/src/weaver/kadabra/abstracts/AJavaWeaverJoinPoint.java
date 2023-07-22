@@ -444,7 +444,15 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
 
     @Override
     public String getAstImpl() {
-        return JoinPoints.toAst(this, "");
+        var node = getNode();
+
+        // If no node, start from join point
+        if (node == null) {
+            return JoinPoints.toAst(this, "");
+        }
+
+        // This method is more robust regarding the initial node
+        return SpoonUtils.toAst(getNode(), "");
     }
 
     @Override
