@@ -196,6 +196,9 @@
 	<!-- VAR -->
 	<joinpoint class="var" extends="expression"/>
 	
+	<!-- FIELD ACCESS -->
+	<joinpoint class="fieldAccess" extends="var"/>
+	
 	
 	<!-- LITERAL -->
 	<joinpoint class="literal" extends="expression"/>
