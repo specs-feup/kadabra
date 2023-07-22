@@ -37,7 +37,6 @@ import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtExecutable;
 import spoon.reflect.declaration.CtModifiable;
 import spoon.reflect.declaration.CtPackage;
-import spoon.reflect.declaration.CtVariable;
 import spoon.reflect.declaration.ModifierKind;
 import spoon.reflect.factory.Factory;
 import spoon.reflect.reference.CtLocalVariableReference;
@@ -476,19 +475,19 @@ public class SpoonUtils {
      * 
      * @return
      */
-    // @SuppressWarnings("unchecked")
     public static Set<ModifierKind> getModifiers(CtElement node) {
-    
+
         if (node instanceof CtModifiable) {
             return ((CtModifiable) node).getModifiers();
         }
-    
-        if (node instanceof CtVariableAccess varAccess) {
+
+        if (node instanceof CtVariableAccess) {
+            var varAccess = (CtVariableAccess<?>) node;
             var decl = varAccess.getVariable().getDeclaration();
             return getModifiers(decl);
         }
-    
+
         return Collections.emptySet();
-    
+
     }
 }
