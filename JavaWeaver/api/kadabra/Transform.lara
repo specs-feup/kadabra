@@ -23,7 +23,7 @@ aspectdef ExtractToField
 	end
 	check $call end
 	if(!$method){
-		$method = $call.ancestor('method');
+		$method = $call.getAncestor('method');
 	}
 	
 	if($funcInterface == null || $funcInterface == undefined ){

@@ -17,7 +17,7 @@ aspectdef Test
 			// Set new operator
 			$op.operator = '>';
 			
-			println($op.ancestor('method').srcCode);
+			println($op.getAncestor('method').srcCode);
 			// Create output folder for this code version
 			//var outputFolder = Io.getPath("output_" + counter);
 			//counter++;
@@ -39,7 +39,7 @@ aspectdef Test
 		// Set new operator
 		$op.operator = '--';
 		
-		println($op.ancestor('method').srcCode);
+		println($op.getAncestor('method').srcCode);
 	
 		// Restore operator
 		$op.operator = previousOp;

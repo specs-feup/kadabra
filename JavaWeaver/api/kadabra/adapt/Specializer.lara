@@ -22,7 +22,7 @@ aspectdef ExtractToField
 	end
 	check !$call end
 	if(!$method){
-		$method = $call.ancestor('method');
+		$method = $call.getAncestor('method');
 	}
 	var prep = call PrepareCall($method, $call,$fieldLocation,newFile,$funcInterface);
 	$field = prep.$field;

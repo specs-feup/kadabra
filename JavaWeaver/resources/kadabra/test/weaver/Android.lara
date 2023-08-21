@@ -3,7 +3,7 @@ aspectdef Android
 	select app.androidManifest.element{"action"} end
 	apply
 		println("Attributes: " + $element.attributeNames);
-		println("Attribute value: " + $element.attribute("android:name"));
+		println("Attribute value: " + $element.getAttribute("android:name"));
 		
 		$element.setAttribute("android:name", "newValue");
 	end

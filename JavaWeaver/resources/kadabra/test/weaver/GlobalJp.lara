@@ -16,7 +16,7 @@ aspectdef GlobalJp
 	select type.method{"foo"}.statement end
 	apply
 		println("stmt children: " + $statement.children);
-		println("stmt child 0: " + $statement.child(0));
+		println("stmt child 0: " + $statement.getChild(0));
 		println("stmt num children: " + $statement.numChildren);
 		
 		break;
