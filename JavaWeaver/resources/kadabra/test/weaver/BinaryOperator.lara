@@ -1,8 +1,8 @@
-import weaver.WeaverJps;
+import weaver.Query;
 
 aspectdef BinaryOperator
 
-	for(var $op of WeaverJps.search('binaryExpression').get()) {
+	for(var $op of Query.search('binaryExpression').get()) {
 		println("operator: " + $op.operator);
 		println("operands: " + $op.operands);
 		println("lhs: " + $op.lhs);
@@ -11,7 +11,7 @@ aspectdef BinaryOperator
 	}
 
 	// Ast of the operator copy
-	println(WeaverJps.search('binaryExpression').getFirst().copy().ast);
+	println(Query.search('binaryExpression').getFirst().copy().ast);
 /*
 	select file.binaryExpr end
 	apply

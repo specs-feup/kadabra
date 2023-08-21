@@ -1,12 +1,13 @@
 import lara.mutation.Mutator;
 import lara.Io;
 
-import weaver.WeaverJps;
+import weaver.Weaver;
+import weaver.Query;
 
 
 aspectdef InheritanceIPCMutatorTest
 
-	var mutator = new InheritanceIPCMutator(WeaverJps.root());
+	var mutator = new InheritanceIPCMutator(Query.root());
 
 	while(mutator.hasMutations()) {
 		// Mutate
@@ -82,7 +83,7 @@ var InheritanceIPCMutator = function($joinpoint) {
    	Mutator.call(this);
 
 	if($joinpoint === undefined) {
-		$joinpoint = WeaverJps.root();
+		$joinpoint = Query.root();
 	}
 
 	// Instance variables
@@ -112,7 +113,7 @@ InheritanceIPCMutator.prototype = Object.create(Mutator.prototype);
 /* Store super constructor calls */
 InheritanceIPCMutator.prototype.extractMutationTargets = function($joinpoint) {
 
-	for($constructor of WeaverJps.searchFrom($joinpoint, 'constructor').get()) {
+	for($constructor of Query.searchFrom($joinpoint, 'constructor').get()) {
 		// Check if constructor contains a super call in its source code
 		if(!$constructor.srcCode.includes('super('))
 			continue;

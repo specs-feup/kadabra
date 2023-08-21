@@ -1,5 +1,5 @@
 import weaver.Weaver;
-import weaver.WeaverJps;
+import weaver.Query;
 import lara.Io;
 
 aspectdef Test
@@ -7,7 +7,7 @@ aspectdef Test
 	//var counter = 0;
 
 	// Select binary operators in each file
-	for($op of WeaverJps.search('binaryExpression').get()) {
+	for($op of Query.search('binaryExpression').get()) {
 
 		// Go over each ancestor to trigger construction of join points not yet implemented
 		$op.ancestor('app');

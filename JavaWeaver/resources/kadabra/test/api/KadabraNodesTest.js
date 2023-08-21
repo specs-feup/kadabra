@@ -1,29 +1,29 @@
 laraImport("kadabra.KadabraNodes");
-laraImport("weaver.WeaverJps");
+laraImport("weaver.Query");
 laraImport("lara.Strings");
 
 // Insert a join point before
-var $expr = WeaverJps.search("method", { name: "foo" })
+var $expr = Query.search("method", { name: "foo" })
   .search("expression")
   .getFirst();
 $expr.insertBefore(KadabraNodes.comment("A comment"));
 
 // Replace a join point
-var $foo2 = WeaverJps.search("method", { name: "foo2" }).getFirst();
+var $foo2 = Query.search("method", { name: "foo2" }).getFirst();
 $foo2.insertReplace(KadabraNodes.comment("A comment replacing foo2"));
 
 // Remove a join point
-var $foo3 = WeaverJps.search("method", { name: "foo3" }).getFirst();
+var $foo3 = Query.search("method", { name: "foo3" }).getFirst();
 $foo3.remove();
 
-var $foo4 = WeaverJps.search("method", { name: "foo4" }).getFirst();
+var $foo4 = Query.search("method", { name: "foo4" }).getFirst();
 var $commentStart = $foo4.insertBefore("/*");
 var $commentEnd = $foo4.insertAfter("*/");
 
 $commentStart.remove();
 $commentEnd.remove();
 
-const $foo5LocalVar = WeaverJps.search("method", { name: "foo5" })
+const $foo5LocalVar = Query.search("method", { name: "foo5" })
   .search("localVariable")
   .getFirst();
 
@@ -42,7 +42,7 @@ const $foo5Assign = KadabraNodes.assignment($foo5Var, $foo5Lhs);
 // Add assignment after initialization
 $foo5LocalVar.insertAfter($foo5Assign);
 
-//println(WeaverJps.search("class").getFirst().code);
+//println(Query.search("class").getFirst().code);
 
 /*	
 	// Change name
@@ -53,10 +53,10 @@ $foo5LocalVar.insertAfter($foo5Assign);
 */
 
 /*
-	println("Original AST: " + WeaverJps.search("file").getFirst().ast);
-	println("Original Code: " + WeaverJps.search("file").getFirst().code);
+	println("Original AST: " + Query.search("file").getFirst().ast);
+	println("Original Code: " + Query.search("file").getFirst().code);
 	
-	var $foo4 = WeaverJps.search("method", {name: "foo4"}).getFirst();
+	var $foo4 = Query.search("method", {name: "foo4"}).getFirst();
 	
 	
 	
@@ -64,8 +64,8 @@ $foo5LocalVar.insertAfter($foo5Assign);
 	var $comment = $foo4.insertReplace("// A comment replacing foo4");
 	//var $comment = $foo4.insertReplace(KadabraNodes.comment("A comment replacing foo4"));	
 
-	println("AST after replacing foo4: " + WeaverJps.search("file").getFirst().ast);
-	println("Code after replacing foo4: " + WeaverJps.search("file").getFirst().code);	
+	println("AST after replacing foo4: " + Query.search("file").getFirst().ast);
+	println("Code after replacing foo4: " + Query.search("file").getFirst().code);	
 	
 	// Replace the comment with the previous method
 	$comment.insertReplace($foo4);
@@ -73,15 +73,15 @@ $foo5LocalVar.insertAfter($foo5Assign);
 
 
 
-	println("Code: " + WeaverJps.search("file").getFirst().code);
+	println("Code: " + Query.search("file").getFirst().code);
 	println("Foo4: " + $foo4.code);
 	println("Comment: " + $comment.code);	
 	*/
 
-for (var $chainJp of search("method", "snippetExpr").search("new").chain()) {
+for (var $chainJp of Query.search("method", "snippetExpr").search("new").chain()) {
   $chainJp["new"].insertReplace(KadabraNodes.snippetExpr("null"));
   //println($chainJp["method"].code);
 }
 
 // Print modified file
-println(WeaverJps.search("file").getFirst().code);
+println(Query.search("file").getFirst().code);

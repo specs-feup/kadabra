@@ -1,5 +1,5 @@
 import kadabra.KadabraAst;
-import weaver.WeaverJps;
+import weaver.Query;
 
 aspectdef KadabraAstTest
 
@@ -8,7 +8,7 @@ aspectdef KadabraAstTest
 	}
 	
 	/*
-	for(var $chain of search("method", "loops").search("loop").search("body").children("loop").chain()) {
+	for(var $chain of Query.search("method", "loops").search("loop").search("body").children("loop").chain()) {
 		println("Loop:\n"+$chain["loop"].code);
 	}
 	*/
