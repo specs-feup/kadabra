@@ -228,33 +228,6 @@ public abstract class AType extends AJavaWeaverJoinPoint {
     }
 
     /**
-     * 
-     * @param type
-     * @return 
-     */
-    public abstract Boolean isSubtypeOfImpl(String type);
-
-    /**
-     * 
-     * @param type
-     * @return 
-     */
-    public final Object isSubtypeOf(String type) {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isSubtypeOf", Optional.empty(), type);
-        	}
-        	Boolean result = this.isSubtypeOfImpl(type);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "isSubtypeOf", Optional.ofNullable(result), type);
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "isSubtypeOf", e);
-        }
-    }
-
-    /**
      * fields inside a class
      * @return 
      */
@@ -592,6 +565,33 @@ public abstract class AType extends AJavaWeaverJoinPoint {
     }
 
     /**
+     * verify if the type is extends OR implements the given type
+     * @param type 
+     */
+    public Boolean isSubtypeOfImpl(String type) {
+        throw new UnsupportedOperationException(get_class()+": Action isSubtypeOf not implemented ");
+    }
+
+    /**
+     * verify if the type is extends OR implements the given type
+     * @param type 
+     */
+    public final Boolean isSubtypeOf(String type) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "isSubtypeOf", this, Optional.empty(), type);
+        	}
+        	Boolean result = this.isSubtypeOfImpl(type);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "isSubtypeOf", this, Optional.ofNullable(result), type);
+        	}
+        	return result;
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "isSubtypeOf", e);
+        }
+    }
+
+    /**
      * 
      */
     @Override
@@ -658,7 +658,6 @@ public abstract class AType extends AJavaWeaverJoinPoint {
         attributes.add("interfaces");
         attributes.add("interfacesTypes");
         attributes.add("javadoc");
-        attributes.add("isSubtypeOf");
     }
 
     /**
@@ -691,6 +690,7 @@ public abstract class AType extends AJavaWeaverJoinPoint {
         actions.add("void addImplement(interface)");
         actions.add("field newField(String[], String, String, String)");
         actions.add("field newField(String[], String, String)");
+        actions.add("Boolean isSubtypeOf(String)");
     }
 
     /**
@@ -713,26 +713,22 @@ public abstract class AType extends AJavaWeaverJoinPoint {
         INTERFACES("interfaces"),
         INTERFACESTYPES("interfacesTypes"),
         JAVADOC("javadoc"),
-        ISSUBTYPEOF("isSubtypeOf"),
         PARENT("parent"),
         ISSTATIC("isStatic"),
         CODE("code"),
         AST("ast"),
         ISBLOCK("isBlock"),
         LINE("line"),
-        ANCESTOR("ancestor"),
         ANNOTATIONS("annotations"),
         MODIFIERS("modifiers"),
         DESCENDANTS("descendants"),
         ISSTATEMENT("isStatement"),
         ASTPARENT("astParent"),
         CHILDREN("children"),
-        HASMODIFIER("hasModifier"),
         NUMCHILDREN("numChildren"),
         SRCCODE("srcCode"),
         ISFINAL("isFinal"),
-        ID("id"),
-        CHILD("child");
+        ID("id");
         private String name;
 
         /**

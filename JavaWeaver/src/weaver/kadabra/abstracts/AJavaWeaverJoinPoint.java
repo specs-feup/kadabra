@@ -176,7 +176,7 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
     }
 
     @Override
-    public AJoinPoint ancestorImpl(String type) {
+    public AJoinPoint getAncestorImpl(String type) {
         Preconditions.checkNotNull(type, "Missing type of ancestor in attribute 'ancestor'");
 
         // if (type.equals("statement")) { // TODO: need to deal with special cases such as statement and expression
@@ -431,7 +431,7 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
     }
 
     @Override
-    public AJoinPoint childImpl(Integer index) {
+    public AJoinPoint getChildImpl(Integer index) {
         return getChildrenArrayImpl()[index];
         // return CtElement2JoinPoint.convert(getChildrenNodes().get(index));
     }

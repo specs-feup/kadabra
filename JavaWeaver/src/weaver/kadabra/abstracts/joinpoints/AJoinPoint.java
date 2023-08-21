@@ -71,6 +71,9 @@ public abstract class AJoinPoint extends JoinPoint {
      */
     @Override
     protected void fillWithActions(List<String> actions) {
+        actions.add("getChild(Integer index)");
+        actions.add("getAncestor(String type)");
+        actions.add("hasModifier(String modifier)");
         actions.add("insertBefore(AJoinPoint node)");
         actions.add("insertBefore(String code)");
         actions.add("insertAfter(AJoinPoint node)");
@@ -82,6 +85,87 @@ public abstract class AJoinPoint extends JoinPoint {
         actions.add("copy()");
         actions.add("remove()");
         actions.add("removeAnnotation(AAnnotation annotation)");
+    }
+
+    /**
+     * Returns the child of the node at the given index
+     * @param index 
+     */
+    public AJoinPoint getChildImpl(Integer index) {
+        throw new UnsupportedOperationException(get_class()+": Action getChild not implemented ");
+    }
+
+    /**
+     * Returns the child of the node at the given index
+     * @param index 
+     */
+    public final AJoinPoint getChild(Integer index) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "getChild", this, Optional.empty(), index);
+        	}
+        	AJoinPoint result = this.getChildImpl(index);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "getChild", this, Optional.ofNullable(result), index);
+        	}
+        	return result;
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "getChild", e);
+        }
+    }
+
+    /**
+     * 
+     * @param type 
+     */
+    public AJoinPoint getAncestorImpl(String type) {
+        throw new UnsupportedOperationException(get_class()+": Action getAncestor not implemented ");
+    }
+
+    /**
+     * 
+     * @param type 
+     */
+    public final AJoinPoint getAncestor(String type) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "getAncestor", this, Optional.empty(), type);
+        	}
+        	AJoinPoint result = this.getAncestorImpl(type);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "getAncestor", this, Optional.ofNullable(result), type);
+        	}
+        	return result;
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "getAncestor", e);
+        }
+    }
+
+    /**
+     * true if this node has the given modifier
+     * @param modifier 
+     */
+    public Boolean hasModifierImpl(String modifier) {
+        throw new UnsupportedOperationException(get_class()+": Action hasModifier not implemented ");
+    }
+
+    /**
+     * true if this node has the given modifier
+     * @param modifier 
+     */
+    public final Boolean hasModifier(String modifier) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "hasModifier", this, Optional.empty(), modifier);
+        	}
+        	Boolean result = this.hasModifierImpl(modifier);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "hasModifier", this, Optional.ofNullable(result), modifier);
+        	}
+        	return result;
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "hasModifier", e);
+        }
     }
 
     /**
@@ -389,20 +473,17 @@ public abstract class AJoinPoint extends JoinPoint {
         attributes.add("ast");
         attributes.add("numChildren");
         attributes.add("children");
-        attributes.add("child(Integer index)");
         attributes.add("parent");
         attributes.add("astParent");
-        attributes.add("ancestor(String type)");
-        attributes.add("line");
         attributes.add("descendants");
         attributes.add("isStatement");
         attributes.add("isBlock");
         attributes.add("modifiers");
-        attributes.add("hasModifier(String modifier)");
         attributes.add("isFinal");
         attributes.add("isStatic");
         attributes.add("annotations");
         attributes.add("id");
+        attributes.add("line");
     }
 
     /**
@@ -531,33 +612,6 @@ public abstract class AJoinPoint extends JoinPoint {
     }
 
     /**
-     * 
-     * @param index
-     * @return 
-     */
-    public abstract AJoinPoint childImpl(Integer index);
-
-    /**
-     * 
-     * @param index
-     * @return 
-     */
-    public final Object child(Integer index) {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "child", Optional.empty(), index);
-        	}
-        	AJoinPoint result = this.childImpl(index);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "child", Optional.ofNullable(result), index);
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "child", e);
-        }
-    }
-
-    /**
      * Get value on attribute parent
      * @return the attribute's value
      */
@@ -602,72 +656,6 @@ public abstract class AJoinPoint extends JoinPoint {
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "astParent", e);
-        }
-    }
-
-    /**
-     * 
-     * @param type
-     * @return 
-     */
-    public abstract AJoinPoint ancestorImpl(String type);
-
-    /**
-     * 
-     * @param type
-     * @return 
-     */
-    public final Object ancestor(String type) {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "ancestor", Optional.empty(), type);
-        	}
-        	AJoinPoint result = this.ancestorImpl(type);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "ancestor", Optional.ofNullable(result), type);
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "ancestor", e);
-        }
-    }
-
-    /**
-     * Get value on attribute line
-     * @return the attribute's value
-     */
-    public abstract Integer getLineImpl();
-
-    /**
-     * 
-     */
-    public void defLineImpl(Integer value) {
-        throw new UnsupportedOperationException("Join point "+get_class()+": Action def line with type Integer not implemented ");
-    }
-
-    /**
-     * 
-     */
-    public void defLineImpl(String value) {
-        throw new UnsupportedOperationException("Join point "+get_class()+": Action def line with type String not implemented ");
-    }
-
-    /**
-     * Get value on attribute line
-     * @return the attribute's value
-     */
-    public final Object getLine() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "line", Optional.empty());
-        	}
-        	Integer result = this.getLineImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "line", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "line", e);
         }
     }
 
@@ -786,33 +774,6 @@ public abstract class AJoinPoint extends JoinPoint {
     }
 
     /**
-     * 
-     * @param modifier
-     * @return 
-     */
-    public abstract Boolean hasModifierImpl(String modifier);
-
-    /**
-     * 
-     * @param modifier
-     * @return 
-     */
-    public final Object hasModifier(String modifier) {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "hasModifier", Optional.empty(), modifier);
-        	}
-        	Boolean result = this.hasModifierImpl(modifier);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "hasModifier", Optional.ofNullable(result), modifier);
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "hasModifier", e);
-        }
-    }
-
-    /**
      * true if this node has the modifier 'final'
      */
     public abstract Boolean getIsFinalImpl();
@@ -911,6 +872,45 @@ public abstract class AJoinPoint extends JoinPoint {
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "id", e);
+        }
+    }
+
+    /**
+     * Get value on attribute line
+     * @return the attribute's value
+     */
+    public abstract Integer getLineImpl();
+
+    /**
+     * 
+     */
+    public void defLineImpl(Integer value) {
+        throw new UnsupportedOperationException("Join point "+get_class()+": Action def line with type Integer not implemented ");
+    }
+
+    /**
+     * 
+     */
+    public void defLineImpl(String value) {
+        throw new UnsupportedOperationException("Join point "+get_class()+": Action def line with type String not implemented ");
+    }
+
+    /**
+     * Get value on attribute line
+     * @return the attribute's value
+     */
+    public final Object getLine() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "line", Optional.empty());
+        	}
+        	Integer result = this.getLineImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "line", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "line", e);
         }
     }
 

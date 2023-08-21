@@ -39,7 +39,7 @@ public class JXmlElement extends AXmlElement {
     }
 
     @Override
-    public String attributeImpl(String name) {
+    public String getAttributeImpl(String name) {
         return element.getAttribute(name);
     }
 

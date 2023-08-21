@@ -308,19 +308,16 @@ public abstract class AExecutable extends AJavaWeaverJoinPoint {
         AST("ast"),
         ISBLOCK("isBlock"),
         LINE("line"),
-        ANCESTOR("ancestor"),
         ANNOTATIONS("annotations"),
         MODIFIERS("modifiers"),
         DESCENDANTS("descendants"),
         ISSTATEMENT("isStatement"),
         ASTPARENT("astParent"),
         CHILDREN("children"),
-        HASMODIFIER("hasModifier"),
         NUMCHILDREN("numChildren"),
         SRCCODE("srcCode"),
         ISFINAL("isFinal"),
-        ID("id"),
-        CHILD("child");
+        ID("id");
         private String name;
 
         /**

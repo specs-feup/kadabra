@@ -33,18 +33,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -72,19 +60,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -107,19 +82,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -265,6 +227,47 @@
 									{
 										"type": "joinpoint",
 										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -410,19 +413,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "verify if the type is extends OR implements the given type",
-						"children": [
-									{
-										"type": "boolean",
-										"name": "isSubtypeOf"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"children": [
 									{
 										"type": "String",
@@ -491,18 +481,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -530,19 +508,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -565,19 +530,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -683,6 +635,20 @@
 					},
 					{
 						"type": "action",
+						"tooltip": "verify if the type is extends OR implements the given type",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "isSubtypeOf"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
 						"children": [
 									{
 										"type": "void",
@@ -723,6 +689,47 @@
 									{
 										"type": "joinpoint",
 										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -876,18 +883,6 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "xmlElement[]",
-										"name": "elements"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "String",
 										"name": "text"
 									}]
@@ -914,18 +909,6 @@
 									{
 										"type": "String[]",
 										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
 									}]
 					},
 					{
@@ -957,19 +940,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -992,19 +962,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -1118,6 +1075,19 @@
 						"type": "action",
 						"children": [
 									{
+										"type": "xmlElement[]",
+										"name": "getElements"
+									},
+									{
+										"type": "String",
+										"name": "name",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
 										"type": "String",
 										"name": "setText"
 									},
@@ -1169,6 +1139,47 @@
 									{
 										"type": "joinpoint",
 										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -1369,18 +1380,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -1408,19 +1407,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -1443,19 +1429,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -1656,6 +1629,47 @@
 						"children": [
 									{
 										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
 										"name": "insertAfter"
 									},
 									{
@@ -1849,18 +1863,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -1888,19 +1890,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -1923,19 +1912,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -2112,6 +2088,47 @@
 						"children": [
 									{
 										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
 										"name": "insertAfter"
 									},
 									{
@@ -2268,18 +2285,6 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String",
-										"name": "showAST"
-									},
-									{
-										"type": "String",
-										"name": "Title"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "String[]",
 										"name": "attributes"
 									}]
@@ -2298,18 +2303,6 @@
 									{
 										"type": "String[]",
 										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
 									}]
 					},
 					{
@@ -2341,19 +2334,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -2376,19 +2356,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -2608,6 +2575,19 @@
 						"type": "action",
 						"children": [
 									{
+										"type": "String",
+										"name": "showAST"
+									},
+									{
+										"type": "String",
+										"name": "Title",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
 										"type": "void",
 										"name": "insert"
 									},
@@ -2646,6 +2626,47 @@
 									{
 										"type": "joinpoint",
 										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -2854,18 +2875,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -2893,19 +2902,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -2928,19 +2924,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -3151,6 +3134,47 @@
 						"children": [
 									{
 										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
 										"name": "insertAfter"
 									},
 									{
@@ -3320,18 +3344,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -3359,19 +3371,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -3394,19 +3393,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -3572,6 +3558,47 @@
 									{
 										"type": "joinpoint",
 										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -3772,18 +3799,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -3811,19 +3826,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -3846,19 +3848,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -4050,6 +4039,47 @@
 									{
 										"type": "joinpoint",
 										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -4282,18 +4312,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -4321,19 +4339,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -4356,19 +4361,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -4597,6 +4589,47 @@
 						"children": [
 									{
 										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
 										"name": "insertAfter"
 									},
 									{
@@ -4766,18 +4799,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -4805,19 +4826,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -4840,19 +4848,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -5096,6 +5091,47 @@
 						"children": [
 									{
 										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
 										"name": "insertAfter"
 									},
 									{
@@ -5265,18 +5301,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -5304,19 +5328,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -5339,19 +5350,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -5507,6 +5505,47 @@
 									{
 										"type": "joinpoint",
 										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -5795,18 +5834,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -5834,19 +5861,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -5869,19 +5883,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -6118,6 +6119,47 @@
 						"children": [
 									{
 										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
 										"name": "insertAfter"
 									},
 									{
@@ -6295,18 +6337,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -6334,19 +6364,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -6369,19 +6386,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -6537,6 +6541,47 @@
 									{
 										"type": "joinpoint",
 										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -6713,18 +6758,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -6752,19 +6785,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -6787,19 +6807,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -6982,6 +6989,47 @@
 						"children": [
 									{
 										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
 										"name": "insertAfter"
 									},
 									{
@@ -7138,19 +7186,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "verify if the type is extends OR implements the given type",
-						"children": [
-									{
-										"type": "boolean",
-										"name": "isSubtypeOf"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"children": [
 									{
 										"type": "String",
@@ -7228,18 +7263,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -7267,19 +7290,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -7302,19 +7312,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -7642,6 +7639,20 @@
 					},
 					{
 						"type": "action",
+						"tooltip": "verify if the type is extends OR implements the given type",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "isSubtypeOf"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
 						"children": [
 									{
 										"type": "field",
@@ -7809,6 +7820,47 @@
 									{
 										"type": "joinpoint",
 										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -8001,18 +8053,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -8040,19 +8080,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -8075,19 +8102,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -8243,6 +8257,47 @@
 									{
 										"type": "joinpoint",
 										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -8451,18 +8506,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -8490,19 +8533,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -8525,19 +8555,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -8714,6 +8731,47 @@
 						"children": [
 									{
 										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
 										"name": "insertAfter"
 									},
 									{
@@ -8883,18 +8941,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -8922,19 +8968,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -8957,19 +8990,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -9125,6 +9145,47 @@
 									{
 										"type": "joinpoint",
 										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -9341,18 +9402,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -9380,19 +9429,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -9415,19 +9451,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -9598,6 +9621,47 @@
 						"children": [
 									{
 										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
 										"name": "insertAfter"
 									},
 									{
@@ -9753,19 +9817,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "verify if the type is extends OR implements the given type",
-						"children": [
-									{
-										"type": "boolean",
-										"name": "isSubtypeOf"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"children": [
 									{
 										"type": "String",
@@ -9843,18 +9894,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -9882,19 +9921,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -9917,19 +9943,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -10262,6 +10275,20 @@
 					},
 					{
 						"type": "action",
+						"tooltip": "verify if the type is extends OR implements the given type",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "isSubtypeOf"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
 						"children": [
 									{
 										"type": "field",
@@ -10429,6 +10456,47 @@
 									{
 										"type": "joinpoint",
 										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -10629,18 +10697,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -10668,19 +10724,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -10703,19 +10746,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -10885,6 +10915,47 @@
 									{
 										"type": "joinpoint",
 										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -11085,18 +11156,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -11124,19 +11183,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -11159,19 +11205,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -11365,6 +11398,47 @@
 									{
 										"type": "joinpoint",
 										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -11597,18 +11671,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -11636,19 +11698,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -11671,19 +11720,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -11847,6 +11883,47 @@
 									{
 										"type": "joinpoint",
 										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -12112,18 +12189,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -12151,19 +12216,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -12186,19 +12238,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -12392,6 +12431,47 @@
 									{
 										"type": "joinpoint",
 										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -12601,18 +12681,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -12640,19 +12708,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -12675,19 +12730,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -13005,6 +13047,47 @@
 						"children": [
 									{
 										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
 										"name": "insertAfter"
 									},
 									{
@@ -13206,18 +13289,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -13245,19 +13316,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -13280,19 +13338,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -13470,6 +13515,47 @@
 						"children": [
 									{
 										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
 										"name": "insertAfter"
 									},
 									{
@@ -13617,19 +13703,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "verify if the type is extends OR implements the given type",
-						"children": [
-									{
-										"type": "boolean",
-										"name": "isSubtypeOf"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"children": [
 									{
 										"type": "String",
@@ -13707,18 +13780,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -13746,19 +13807,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -13781,19 +13829,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -13999,6 +14034,20 @@
 					},
 					{
 						"type": "action",
+						"tooltip": "verify if the type is extends OR implements the given type",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "isSubtypeOf"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
 						"children": [
 									{
 										"type": "field",
@@ -14173,6 +14222,47 @@
 						"children": [
 									{
 										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
 										"name": "insertAfter"
 									},
 									{
@@ -14312,19 +14402,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "verify if the type is extends OR implements the given type",
-						"children": [
-									{
-										"type": "boolean",
-										"name": "isSubtypeOf"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"children": [
 									{
 										"type": "String",
@@ -14393,18 +14470,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -14432,19 +14497,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -14467,19 +14519,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -14591,6 +14630,20 @@
 					},
 					{
 						"type": "action",
+						"tooltip": "verify if the type is extends OR implements the given type",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "isSubtypeOf"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
 						"children": [
 									{
 										"type": "void",
@@ -14631,6 +14684,47 @@
 									{
 										"type": "joinpoint",
 										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -14817,18 +14911,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -14856,19 +14938,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -14891,19 +14960,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -15055,6 +15111,47 @@
 									{
 										"type": "joinpoint",
 										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -15263,18 +15360,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -15302,19 +15387,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -15337,19 +15409,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -15556,6 +15615,47 @@
 									{
 										"type": "joinpoint",
 										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -15789,18 +15889,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -15828,19 +15916,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -15863,19 +15938,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -16049,6 +16111,47 @@
 									{
 										"type": "joinpoint",
 										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -16281,18 +16384,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -16320,19 +16411,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -16355,19 +16433,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -16609,6 +16674,47 @@
 						"children": [
 									{
 										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
 										"name": "insertAfter"
 									},
 									{
@@ -16748,18 +16854,6 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "boolean",
-										"name": "isOverriding"
-									},
-									{
-										"type": "method",
-										"name": "method"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "String",
 										"name": "privacy"
 									}]
@@ -16846,18 +16940,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -16885,19 +16967,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -16920,19 +16989,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -17110,6 +17166,19 @@
 					},
 					{
 						"type": "action",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "isOverriding"
+									},
+									{
+										"type": "method",
+										"name": "method",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
 						"tooltip": "Sets the name of this executable, returns the previous name",
 						"children": [
 									{
@@ -17164,6 +17233,47 @@
 									{
 										"type": "joinpoint",
 										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -17380,18 +17490,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -17419,19 +17517,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -17454,19 +17539,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -17680,6 +17752,47 @@
 						"children": [
 									{
 										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
 										"name": "insertAfter"
 									},
 									{
@@ -17873,18 +17986,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -17912,19 +18013,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -17947,19 +18035,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -18171,6 +18246,47 @@
 						"children": [
 									{
 										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
 										"name": "insertAfter"
 									},
 									{
@@ -18364,18 +18480,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -18403,19 +18507,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -18438,19 +18529,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -18606,6 +18684,47 @@
 									{
 										"type": "joinpoint",
 										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -18794,18 +18913,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -18833,19 +18940,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -18868,19 +18962,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -19026,6 +19107,47 @@
 									{
 										"type": "joinpoint",
 										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -19202,18 +19324,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -19241,19 +19351,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -19276,19 +19373,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -19444,6 +19528,47 @@
 									{
 										"type": "joinpoint",
 										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -19620,18 +19745,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -19659,19 +19772,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -19694,19 +19794,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -19862,6 +19949,47 @@
 									{
 										"type": "joinpoint",
 										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -20038,18 +20166,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -20077,19 +20193,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -20112,19 +20215,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -20285,6 +20375,47 @@
 									{
 										"type": "joinpoint",
 										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -20519,18 +20650,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -20558,19 +20677,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -20593,19 +20699,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -20821,6 +20914,47 @@
 						"children": [
 									{
 										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
 										"name": "insertAfter"
 									},
 									{
@@ -21014,18 +21148,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -21053,19 +21175,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -21088,19 +21197,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -21301,6 +21397,47 @@
 						"children": [
 									{
 										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
 										"name": "insertAfter"
 									},
 									{
@@ -21470,18 +21607,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -21509,19 +21634,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -21544,19 +21656,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -21722,6 +21821,47 @@
 									{
 										"type": "joinpoint",
 										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -21898,18 +22038,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -21937,19 +22065,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -21972,19 +22087,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -22152,6 +22254,47 @@
 						"children": [
 									{
 										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
 										"name": "insertAfter"
 									},
 									{
@@ -22300,19 +22443,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "verify if the type is extends OR implements the given type",
-						"children": [
-									{
-										"type": "boolean",
-										"name": "isSubtypeOf"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"children": [
 									{
 										"type": "String",
@@ -22390,18 +22520,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -22429,19 +22547,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -22464,19 +22569,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -22682,6 +22774,20 @@
 					},
 					{
 						"type": "action",
+						"tooltip": "verify if the type is extends OR implements the given type",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "isSubtypeOf"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
 						"children": [
 									{
 										"type": "field",
@@ -22849,6 +22955,47 @@
 									{
 										"type": "joinpoint",
 										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -23100,18 +23247,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -23139,19 +23274,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -23174,19 +23296,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -23332,6 +23441,47 @@
 									{
 										"type": "joinpoint",
 										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -23548,18 +23698,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -23587,19 +23725,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -23622,19 +23747,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -23847,6 +23959,47 @@
 									{
 										"type": "joinpoint",
 										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -24112,18 +24265,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -24151,19 +24292,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -24186,19 +24314,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -24399,6 +24514,47 @@
 						"children": [
 									{
 										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
 										"name": "insertAfter"
 									},
 									{
@@ -24528,19 +24684,6 @@
 			"children": [
 					{
 						"type": "attribute",
-						"tooltip": "the value associated with the given attribute",
-						"children": [
-									{
-										"type": "String",
-										"name": "attribute"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "a list of available attributes in this element",
 						"children": [
 									{
@@ -24563,18 +24706,6 @@
 									{
 										"type": "xmlElement[]",
 										"name": "elements"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "xmlElement[]",
-										"name": "elements"
-									},
-									{
-										"type": "String",
-										"name": "name"
 									}]
 					},
 					{
@@ -24611,18 +24742,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -24650,19 +24769,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -24685,19 +24791,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -24809,6 +24902,20 @@
 					},
 					{
 						"type": "action",
+						"tooltip": "the value associated with the given attribute",
+						"children": [
+									{
+										"type": "String",
+										"name": "getAttribute"
+									},
+									{
+										"type": "String",
+										"name": "name",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
 						"children": [
 									{
 										"type": "String",
@@ -24822,6 +24929,19 @@
 									{
 										"type": "String",
 										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "xmlElement[]",
+										"name": "getElements"
+									},
+									{
+										"type": "String",
+										"name": "name",
 										"defaultValue": ""
 									}]
 					},
@@ -24880,6 +25000,47 @@
 									{
 										"type": "joinpoint",
 										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -25025,18 +25186,6 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "xmlElement[]",
-										"name": "elements"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "String",
 										"name": "text"
 									}]
@@ -25063,18 +25212,6 @@
 									{
 										"type": "String[]",
 										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
 									}]
 					},
 					{
@@ -25106,19 +25243,6 @@
 					},
 					{
 						"type": "attribute",
-						"tooltip": "Returns the child of the node at the given index",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "child"
-									},
-									{
-										"type": "Integer",
-										"name": "index"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -25141,19 +25265,6 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if this node has the given modifier",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "hasModifier"
-									},
-									{
-										"type": "String",
-										"name": "modifier"
 									}]
 					},
 					{
@@ -25267,6 +25378,19 @@
 						"type": "action",
 						"children": [
 									{
+										"type": "xmlElement[]",
+										"name": "getElements"
+									},
+									{
+										"type": "String",
+										"name": "name",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
 										"type": "String",
 										"name": "setText"
 									},
@@ -25318,6 +25442,47 @@
 									{
 										"type": "joinpoint",
 										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getChild"
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{

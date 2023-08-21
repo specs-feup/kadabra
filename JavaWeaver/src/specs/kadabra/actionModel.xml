@@ -1,308 +1,342 @@
 <?xml version="1.0"?>
 <actions>
 
-	<!-- GLOBAL -->
+    <!-- GLOBAL -->
 
-	<!-- Inserts node before the given node -->
-	<action name="insertBefore" return="joinpoint">
-		<parameter name="node" type="joinpoint" />
-	</action>
+    <action name="getChild" return="joinpoint" tooltip="Returns the child of the node at the given index">
+        <parameter name="index" type="Integer" />
+    </action>
 
-	<!-- Overload which accepts String -->
-	<action name="insertBefore" return="joinpoint">
-		<parameter name="code" type="String" />
-	</action>
+    <action name="getAncestor" return="joinpoint">
+        <parameter name="type" type="String"/>
+    </action>
 
-	<!-- Inserts node after the given node -->
-	<action name="insertAfter" return="joinpoint">
-		<parameter name="node" type="joinpoint" />
-	</action>
+    <action name="hasModifier" return="Boolean" tooltip="true if this node has the given modifier">
+        <parameter name="modifier" type="String"/>		
+    </action>
 
-	<!-- Overload which accepts String -->
-	<action name="insertAfter" return="joinpoint">
-		<parameter name="code" type="String" />
-	</action>
+    <!-- Inserts node before the given node -->
+    <action name="insertBefore" return="joinpoint">
+        <parameter name="node" type="joinpoint" />
+    </action>
 
-	<!-- Replaces join point with the given node -->
-	<action name="insertReplace" return="joinpoint">
-		<parameter name="jp" type="joinpoint" />
-	</action>
-	
-	<!-- Overload which accepts String -->
-	<action name="insertReplace" return="joinpoint">
-		<parameter name="code" type="String" />
-	</action>
-	
-	<!-- Replaces join point with the given node -->
-	<action name="replaceWith" return="joinpoint">
-		<parameter name="jp" type="joinpoint" />
-	</action>
-	
-	<!-- Overload which accepts String -->
-	<action name="replaceWith" return="joinpoint">
-		<parameter name="code" type="String" />
-	</action>
-	
-	<!-- Copies the node and returns the copy -->
-	<action name="copy" return="joinpoint"/>
+    <!-- Overload which accepts String -->
+    <action name="insertBefore" return="joinpoint">
+        <parameter name="code" type="String" />
+    </action>
 
-	<!-- Deletes the node -->
-	<action name="remove"/>
+    <!-- Inserts node after the given node -->
+    <action name="insertAfter" return="joinpoint">
+        <parameter name="node" type="joinpoint" />
+    </action>
 
-	<!-- Removes an annotation -->
-	<action name="removeAnnotation">
-		<parameter name="annotation" type="annotation" />
-	</action>
+    <!-- Overload which accepts String -->
+    <action name="insertAfter" return="joinpoint">
+        <parameter name="code" type="String" />
+    </action>
 
-	<!-- XML NODE-->
-	<action name="setText" class="xmlNode" return="String">
-		<parameter name="text" type="String"/>
-	</action>
+    <!-- Replaces join point with the given node -->
+    <action name="insertReplace" return="joinpoint">
+        <parameter name="jp" type="joinpoint" />
+    </action>
+    
+    <!-- Overload which accepts String -->
+    <action name="insertReplace" return="joinpoint">
+        <parameter name="code" type="String" />
+    </action>
+    
+    <!-- Replaces join point with the given node -->
+    <action name="replaceWith" return="joinpoint">
+        <parameter name="jp" type="joinpoint" />
+    </action>
+    
+    <!-- Overload which accepts String -->
+    <action name="replaceWith" return="joinpoint">
+        <parameter name="code" type="String" />
+    </action>
+    
+    <!-- Copies the node and returns the copy -->
+    <action name="copy" return="joinpoint"/>
 
-	<!-- XML ELEMENT -->
-	<!-- 
-	<action name="setName" class="xmlElement" return="String">
-		<parameter name="name" type="String"/>
-	</action>	
-	 -->
-	 
-	<action name="setAttribute" class="xmlElement" return="String">
-		<parameter name="name" type="String"/>
-		<parameter name="value" type="String"/>		
-	</action>	
+    <!-- Deletes the node -->
+    <action name="remove"/>
 
-	<!-- APP, FILE -->
-	<action name="newClass" class="app,file" return="class">
-		<parameter name="name" type="String"/>
-		<parameter name="extend" type="String" default=""/>
-		<parameter name="implement" type="String[]" default="[]"/>
-	</action>
-	
-	<action name="newClass" class="app,file" return="class">
-		<parameter name="name" type="String"/>
-	</action>
+    <!-- Removes an annotation -->
+    <action name="removeAnnotation">
+        <parameter name="annotation" type="annotation" />
+    </action>
 
-	<action name="newInterface" class="file,app" return="interface">
-		<parameter name="name" type="String"/>
-		<parameter name="extend" type="String[]" default="[]"/>
-	</action>
-	<action name="newInterface" class="file,app" return="interface">
-		<parameter name="name" type="String"/>
-	</action>
+    <!-- XML NODE-->
+    <action name="setText" class="xmlNode" return="String">
+        <parameter name="text" type="String"/>
+    </action>
+    <action name="getElements" class="xmlNode" return="xmlElement[]">
+        <parameter name="name" type="String"/>
+    </action>
 
-	
-	<!-- FILE -->
-	<!--
-	<action name="addImport" class="file" return="void">
-		<parameter name="qualifiedName" type="String"/>
-	</action>
-	-->
-	
-	
-	
-	
-	<!-- FILE -->
-	<!-- CLASS -->
-	<action name="addClass" class="file,type" return="void" tooltip="insert a given class inside the target">
-		<parameter name="newClass" type="class"/>
-	</action>
-	
+    <!-- XML ELEMENT -->
+    <!-- 
+    <action name="setName" class="xmlElement" return="String">
+        <parameter name="name" type="String"/>
+    </action>	
+     -->
+    <action name="getAttribute" class="xmlElement" return="String" tooltip="the value associated with the given attribute">
+        <parameter name="name" type="String"/>
+    </action>
+     
+    <action name="setAttribute" class="xmlElement" return="String">
+        <parameter name="name" type="String"/>
+        <parameter name="value" type="String"/>		
+    </action>	
 
-	<action name="addInterface" class="file,type" return="void">
-		<parameter name="newInterface" type="interface"/>
-	</action>
+    <!-- APP -->
+    <action name="showAST" class="app" return="String">
+        <parameter name="Title" type="String"/>
+    </action>
+
+    <!-- APP, FILE -->
+    <action name="newClass" class="app,file" return="class">
+        <parameter name="name" type="String"/>
+        <parameter name="extend" type="String" default=""/>
+        <parameter name="implement" type="String[]" default="[]"/>
+    </action>
+    
+    <action name="newClass" class="app,file" return="class">
+        <parameter name="name" type="String"/>
+    </action>
+
+    <action name="newInterface" class="file,app" return="interface">
+        <parameter name="name" type="String"/>
+        <parameter name="extend" type="String[]" default="[]"/>
+    </action>
+    <action name="newInterface" class="file,app" return="interface">
+        <parameter name="name" type="String"/>
+    </action>
+
+    
+    <!-- FILE -->
+    <!--
+    <action name="addImport" class="file" return="void">
+        <parameter name="qualifiedName" type="String"/>
+    </action>
+    -->
+    
+    
+    
+    
+    <!-- FILE -->
+    <!-- CLASS -->
+    <action name="addClass" class="file,type" return="void" tooltip="insert a given class inside the target">
+        <parameter name="newClass" type="class"/>
+    </action>
+    
+
+    <action name="addInterface" class="file,type" return="void">
+        <parameter name="newInterface" type="interface"/>
+    </action>
 
 <!--	
-	<action name="removeInterface" class="file,type" return="interface">
-		<parameter name="interface" type="interface"/>
-	</action>
+    <action name="removeInterface" class="file,type" return="interface">
+        <parameter name="interface" type="interface"/>
+    </action>
 -->
-	<action name="removeInterface" class="file,type" return="interface">
-		<parameter name="interfaceName" type="String"/>
-	</action>
+    <action name="removeInterface" class="file,type" return="interface">
+        <parameter name="interfaceName" type="String"/>
+    </action>
 
-	<!-- APP, FILE, CLASS -->
-	<action name="mapVersions" class="app,file,class" return="class">
-		<parameter name="name" type="String"/>
-		<parameter name="keyType" type="String"/>
-		<parameter name="interface" type="interface"/>
-		<parameter name="methodName" type="String"/>
-	</action>
-	
-	<!--  EXECUTABLE -->
-	<action name="setName" class="executable" return="string" tooltip="Sets the name of this executable, returns the previous name">
-		<parameter name="name" type="String"/>	
-	</action>
-	
-	
-	<!--  CLASS -->
-	<action name="newConstructor" class="class" return="constructor">
-		<parameter name="modifiers" type="String[]" default="['public']"/>
-		<parameter name="param" type="Pair[]" default="[]"/>
-	</action>
-	
-	
-	<!-- TYPE -->
-	<action name="newMethod" class="type" return="method" tooltip="add a new method inside the class">
-		<parameter name="modifiers" type="String[]" default="['public']"/>
-		<parameter name="returnType" type="String"/>
-		<parameter name="name" type="String"/>
-		<parameter name="param" type="Pair[]" default="[]"/>
-		<parameter name="code" type="String" default=""/>
-	</action>
-	<action name="newMethod" class="type" return="method" tooltip="overload which accepts 4 parameters (code is empty string)">
-		<parameter name="modifiers" type="String[]" default="['public']"/>
-		<parameter name="returnType" type="String"/>
-		<parameter name="name" type="String"/>
-		<parameter name="param" type="Pair[]" default="[]"/>
-	</action>
-	<action name="insertMethod" class="type">
-		<parameter name="code" type="template"/>
-	</action>
-	<action name="insertCode" class="type">
-		<parameter name="code" type="template"/>
-	</action>
-	
-	<action name="newFunctionalClass" class="class" return="method">
-		<parameter name="interfaceMethod" type="method"/>
-		<parameter name="generatorMethod" type="method"/>
-	</action>
-	<action name="insertStatic" class="class" return="void">
-		<parameter name="code" type="template"/>
-	</action>
-	<action name="extractInterface" class="class" return="interface">
-		<parameter name="name" type="String"/>
-		<parameter name="package" type="String" default=""/>
-		<parameter name="method" type="method" default="null"/>		
-		<parameter name="associate" type="boolean" default="false"/>	
-		<parameter name="newFile" type="boolean"/>	
+    <!-- APP, FILE, CLASS -->
+    <action name="mapVersions" class="app,file,class" return="class">
+        <parameter name="name" type="String"/>
+        <parameter name="keyType" type="String"/>
+        <parameter name="interface" type="interface"/>
+        <parameter name="methodName" type="String"/>
+    </action>
+    
+    <!--  EXECUTABLE -->
+    <action name="setName" class="executable" return="string" tooltip="Sets the name of this executable, returns the previous name">
+        <parameter name="name" type="String"/>	
+    </action>
+    
+    
+    <!--  CLASS -->
+    <action name="newConstructor" class="class" return="constructor">
+        <parameter name="modifiers" type="String[]" default="['public']"/>
+        <parameter name="param" type="Pair[]" default="[]"/>
+    </action>
+    
+    
+    <!-- TYPE -->
+    <action name="newMethod" class="type" return="method" tooltip="add a new method inside the class">
+        <parameter name="modifiers" type="String[]" default="['public']"/>
+        <parameter name="returnType" type="String"/>
+        <parameter name="name" type="String"/>
+        <parameter name="param" type="Pair[]" default="[]"/>
+        <parameter name="code" type="String" default=""/>
+    </action>
+    <action name="newMethod" class="type" return="method" tooltip="overload which accepts 4 parameters (code is empty string)">
+        <parameter name="modifiers" type="String[]" default="['public']"/>
+        <parameter name="returnType" type="String"/>
+        <parameter name="name" type="String"/>
+        <parameter name="param" type="Pair[]" default="[]"/>
+    </action>
+    <action name="insertMethod" class="type">
+        <parameter name="code" type="template"/>
+    </action>
+    <action name="insertCode" class="type">
+        <parameter name="code" type="template"/>
+    </action>
+    
+    <action name="newFunctionalClass" class="class" return="method">
+        <parameter name="interfaceMethod" type="method"/>
+        <parameter name="generatorMethod" type="method"/>
+    </action>
+    <action name="insertStatic" class="class" return="void">
+        <parameter name="code" type="template"/>
+    </action>
+    <action name="extractInterface" class="class" return="interface">
+        <parameter name="name" type="String"/>
+        <parameter name="package" type="String" default=""/>
+        <parameter name="method" type="method" default="null"/>		
+        <parameter name="associate" type="boolean" default="false"/>	
+        <parameter name="newFile" type="boolean"/>	
 <!-- 		<parameter name="targetFile" type="file" default="null"/>		 -->
-	</action>
-	<action name="addImplement" class="type">
-		<parameter name="interface" type="interface"/>		
-	</action>
-	<action name="newField" class="type" return="field">
-		<parameter name="modifiers" type="String[]" default="['private']"/>		
-		<parameter name="type" type="String"/>
-		<parameter name="name" type="String"/>
-		<parameter name="defaultValue" type="String" default="null"/>
-	</action>
-	<action name="newField" class="type" return="field">
-		<parameter name="modifiers" type="String[]" default="['private']"/>		
-		<parameter name="type" type="String"/>
-		<parameter name="name" type="String"/>
-	</action>
-	
-	<!-- METHOD -->
-	<action name="addComment" class="method" return="void">
-		<parameter name="comment" type="string"/>
-	</action>
-	
-	<action name="addParameter" class="method" return="void">
-		<parameter name="type" type="string"/>
-		<parameter name="name" type="string"/>
-	</action>
+    </action>
+    <action name="addImplement" class="type">
+        <parameter name="interface" type="interface"/>		
+    </action>
+    <action name="newField" class="type" return="field">
+        <parameter name="modifiers" type="String[]" default="['private']"/>		
+        <parameter name="type" type="String"/>
+        <parameter name="name" type="String"/>
+        <parameter name="defaultValue" type="String" default="null"/>
+    </action>
+    <action name="newField" class="type" return="field">
+        <parameter name="modifiers" type="String[]" default="['private']"/>		
+        <parameter name="type" type="String"/>
+        <parameter name="name" type="String"/>
+    </action>
 
-	<action name="createAdapter" class="method" return="class">
-		<parameter name="adaptMethod" type="method"/>
-		<parameter name="name" type="String"/>
-	</action>
-	
-	<action name="clone" class="method" return="method">
-		<parameter name="newName" type="string"/>
-	</action>
-	
-	<!-- CALL -->
-	<action name="clone" class="call" return="call">
-		<parameter name="location" type="statement"/>
-		<parameter name="position" type="String"/>
-	</action>
-	
-	<action name="setArguments" class="call" return="void">
-		<parameter name="newArguments" type="expression[]"/>
-	</action>
-	
-	<!-- NEW -->
-	<action name="setArguments" class="new" return="void">
-		<parameter name="newArguments" type="expression[]"/>
-	</action>	
-	
-	<!-- LOOP -->
-	<action name="tile" class="loop" return="field">
-		<parameter name="tileName" type="string" default=""/>
-	 	<parameter name="block" type="template"/>
-	 	<parameter name="unique" type="boolean" default="true"/>
-	 	<parameter name="around" type="joinpoint" default="null"/>
-	</action>
-	<action name="tile" class="loop" return="void">
-	 	<parameter name="block" type="int"/>
-	</action>
-	<action name="interchange" class="loop">
-	 <parameter name="loop2" type="loop"/>
-	</action>
+    <!-- TYPE, NAMED TYPE -->
+    <action name="isSubtypeOf" class="type,NamedType" return="Boolean" tooltip="verify if the type is extends OR implements the given type">
+        <parameter name="type" type="String"/>
+    </action>
 
-	<!-- LOCAL VARIABLE -->
-	<action name="setInit" class="localVariable">
-			<parameter name="init" type="expression"/>
-	</action>
-	
 
-	<!-- ASSIGNMENT -->
-	<action name="setLhs" class="assignment">
-			<parameter name="lhs" type="expression"/>
-	</action>	
+    
+    <!-- METHOD -->
+    <action name="addComment" class="method" return="void">
+        <parameter name="comment" type="string"/>
+    </action>
+    
+    <action name="addParameter" class="method" return="void">
+        <parameter name="type" type="string"/>
+        <parameter name="name" type="string"/>
+    </action>
 
-	<action name="setRhs" class="assignment">
-			<parameter name="rhs" type="expression"/>
-	</action>		
+    <action name="createAdapter" class="method" return="class">
+        <parameter name="adaptMethod" type="method"/>
+        <parameter name="name" type="String"/>
+    </action>
+    
+    <action name="clone" class="method" return="method">
+        <parameter name="newName" type="string"/>
+    </action>
 
-	<!-- OP_ASSIGNMENT -->
-	<action name="setOperator" class="opAssignment">
-			<parameter name="operator" type="String"/>
-	</action>	
-	
-	<!-- EXPR -->
-	<action name="extract" class="expression">
-		<parameter name="varName" type="String"/>
-		<parameter name="location" type="statement" default="null"/>
-		<parameter name="position" type="String" default="before"/>
-	</action>
-	
-	<!-- DECLARATION -->
-	<action name="setInit" class="declaration">
-		<parameter name="value" type="expression"/>
-	</action>
-	
-	<!-- FIELD -->
+    <action name="isOverriding" class="method" return="Boolean">
+        <parameter name="method" type="method"/>
+    </action>
+    
+    <!-- CALL -->
+    <action name="clone" class="call" return="call">
+        <parameter name="location" type="statement"/>
+        <parameter name="position" type="String"/>
+    </action>
+    
+    <action name="setArguments" class="call" return="void">
+        <parameter name="newArguments" type="expression[]"/>
+    </action>
+    
+    <!-- NEW -->
+    <action name="setArguments" class="new" return="void">
+        <parameter name="newArguments" type="expression[]"/>
+    </action>	
+    
+    <!-- LOOP -->
+    <action name="tile" class="loop" return="field">
+        <parameter name="tileName" type="string" default=""/>
+         <parameter name="block" type="template"/>
+         <parameter name="unique" type="boolean" default="true"/>
+         <parameter name="around" type="joinpoint" default="null"/>
+    </action>
+    <action name="tile" class="loop" return="void">
+         <parameter name="block" type="int"/>
+    </action>
+    <action name="interchange" class="loop">
+     <parameter name="loop2" type="loop"/>
+    </action>
+
+    <!-- LOCAL VARIABLE -->
+    <action name="setInit" class="localVariable">
+            <parameter name="init" type="expression"/>
+    </action>
+    
+
+    <!-- ASSIGNMENT -->
+    <action name="setLhs" class="assignment">
+            <parameter name="lhs" type="expression"/>
+    </action>	
+
+    <action name="setRhs" class="assignment">
+            <parameter name="rhs" type="expression"/>
+    </action>		
+
+    <!-- OP_ASSIGNMENT -->
+    <action name="setOperator" class="opAssignment">
+            <parameter name="operator" type="String"/>
+    </action>	
+    
+    <!-- EXPR -->
+    <action name="extract" class="expression">
+        <parameter name="varName" type="String"/>
+        <parameter name="location" type="statement" default="null"/>
+        <parameter name="position" type="String" default="before"/>
+    </action>
+    
+    <!-- DECLARATION -->
+    <action name="setInit" class="declaration">
+        <parameter name="value" type="expression"/>
+    </action>
+    
+    <!-- FIELD -->
 <!-- 
-	<action name="init" class="field">
-		<parameter name="value" type="String"/>
-	</action>
+    <action name="init" class="field">
+        <parameter name="value" type="String"/>
+    </action>
  -->	
-	
-	<!-- BODY -->
-	<action name="insertBegin" class="body">
-		<parameter name="code" type="String"/>
-	</action>
-	
-	<action name="insertBegin" class="body">
-		<parameter name="statement" type="statement"/>
-	</action>	
-	
-	<!-- BINARY EXPRESSION-->
-	<action name="setOperator" class="binaryExpression">
-		<parameter name="operator" type="String"/>
-	</action>
-	
-	<!-- UNARY EXPRESSION-->
-	<action name="setOperator" class="unaryExpression" tooltip="Sets the operator of the unary expression. To distinguish between postfix and prefix operator, add an underscore signalling the place of the variable (e.g., _++ for postfix incremment). If no underscore is specified, postfix is assumed.">
-		<parameter name="operator" type="String"/>
-	</action>
+    
+    <!-- BODY -->
+    <action name="insertBegin" class="body">
+        <parameter name="code" type="String"/>
+    </action>
+    
+    <action name="insertBegin" class="body">
+        <parameter name="statement" type="statement"/>
+    </action>	
+    
+    <!-- BINARY EXPRESSION-->
+    <action name="setOperator" class="binaryExpression">
+        <parameter name="operator" type="String"/>
+    </action>
+    
+    <!-- UNARY EXPRESSION-->
+    <action name="setOperator" class="unaryExpression" tooltip="Sets the operator of the unary expression. To distinguish between postfix and prefix operator, add an underscore signalling the place of the variable (e.g., _++ for postfix incremment). If no underscore is specified, postfix is assumed.">
+        <parameter name="operator" type="String"/>
+    </action>
 
 
-	<!-- LITERAL -->
-	<action name="setValue" class="literal">
-		<parameter name="value" type="String"/>
-	</action>
-	
+    <!-- LITERAL -->
+    <action name="setValue" class="literal">
+        <parameter name="value" type="String"/>
+    </action>
+    
 </actions>

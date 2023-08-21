@@ -3,6 +3,7 @@ package weaver.kadabra.abstracts.joinpoints;
 import org.lara.interpreter.weaver.interf.events.Stage;
 import java.util.Optional;
 import org.lara.interpreter.exception.AttributeException;
+import org.lara.interpreter.exception.ActionException;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 import java.util.List;
 import org.lara.interpreter.weaver.interf.JoinPoint;
@@ -169,29 +170,29 @@ public abstract class ANamedType extends AJavaWeaverJoinPoint {
     }
 
     /**
-     * 
-     * @param type
-     * @return 
+     * verify if the type is extends OR implements the given type
+     * @param type 
      */
-    public abstract Boolean isSubtypeOfImpl(String type);
+    public Boolean isSubtypeOfImpl(String type) {
+        throw new UnsupportedOperationException(get_class()+": Action isSubtypeOf not implemented ");
+    }
 
     /**
-     * 
-     * @param type
-     * @return 
+     * verify if the type is extends OR implements the given type
+     * @param type 
      */
-    public final Object isSubtypeOf(String type) {
+    public final Boolean isSubtypeOf(String type) {
         try {
         	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isSubtypeOf", Optional.empty(), type);
+        		eventTrigger().triggerAction(Stage.BEGIN, "isSubtypeOf", this, Optional.empty(), type);
         	}
         	Boolean result = this.isSubtypeOfImpl(type);
         	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "isSubtypeOf", Optional.ofNullable(result), type);
+        		eventTrigger().triggerAction(Stage.END, "isSubtypeOf", this, Optional.ofNullable(result), type);
         	}
-        	return result!=null?result:getUndefinedValue();
+        	return result;
         } catch(Exception e) {
-        	throw new AttributeException(get_class(), "isSubtypeOf", e);
+        	throw new ActionException(get_class(), "isSubtypeOf", e);
         }
     }
 
@@ -242,7 +243,6 @@ public abstract class ANamedType extends AJavaWeaverJoinPoint {
         attributes.add("package");
         attributes.add("interfaces");
         attributes.add("javadoc");
-        attributes.add("isSubtypeOf");
     }
 
     /**
@@ -259,6 +259,7 @@ public abstract class ANamedType extends AJavaWeaverJoinPoint {
     @Override
     protected void fillWithActions(List<String> actions) {
         super.fillWithActions(actions);
+        actions.add("Boolean isSubtypeOf(String)");
     }
 
     /**
@@ -279,26 +280,22 @@ public abstract class ANamedType extends AJavaWeaverJoinPoint {
         PACKAGE("package"),
         INTERFACES("interfaces"),
         JAVADOC("javadoc"),
-        ISSUBTYPEOF("isSubtypeOf"),
         PARENT("parent"),
         ISSTATIC("isStatic"),
         CODE("code"),
         AST("ast"),
         ISBLOCK("isBlock"),
         LINE("line"),
-        ANCESTOR("ancestor"),
         ANNOTATIONS("annotations"),
         MODIFIERS("modifiers"),
         DESCENDANTS("descendants"),
         ISSTATEMENT("isStatement"),
         ASTPARENT("astParent"),
         CHILDREN("children"),
-        HASMODIFIER("hasModifier"),
         NUMCHILDREN("numChildren"),
         SRCCODE("srcCode"),
         ISFINAL("isFinal"),
-        ID("id"),
-        CHILD("child");
+        ID("id");
         private String name;
 
         /**
