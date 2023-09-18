@@ -1,8 +1,8 @@
-import weaver.WeaverJps;
+import weaver.Query;
 
 aspectdef Type
 
-	for(var $chain of WeaverJps.search("var").chain()) {
+	for(var $chain of Query.search("var").chain()) {
 		println("Var type: " + $chain["var"].type);
 	}
 /*

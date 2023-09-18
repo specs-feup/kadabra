@@ -109,8 +109,8 @@ public abstract class JLoop extends ALoop {
     }
 
     @Override
-    public LoopType getTypeImpl() {
-        return type;
+    public String getTypeImpl() {
+        return type.getName();
     }
 
     @Override

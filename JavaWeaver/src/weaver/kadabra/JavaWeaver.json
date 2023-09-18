@@ -11,36 +11,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -80,7 +57,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -119,7 +97,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -208,55 +187,6 @@
 									{
 										"type": "String",
 										"name": "srcCode"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
-										"defaultValue": ""
 									}]
 					},
 					{
@@ -413,12 +343,13 @@
 						"tooltip": "verify if the type is extends OR implements the given type",
 						"children": [
 									{
-										"type": "boolean",
+										"type": "Boolean",
 										"name": "isSubtypeOf"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -469,36 +400,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -538,7 +446,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -577,7 +486,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -666,55 +576,6 @@
 									{
 										"type": "String",
 										"name": "srcCode"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
-										"defaultValue": ""
 									}]
 					},
 					{
@@ -881,7 +742,8 @@
 									},
 									{
 										"type": "String",
-										"name": "name"
+										"name": "name",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -896,36 +758,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -965,7 +804,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -1004,7 +844,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -1096,19 +937,6 @@
 									}]
 					},
 					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
 						"type": "select",
 						"clazz": "xmlElement",
 						"alias": "element",
@@ -1124,42 +952,6 @@
 									{
 										"type": "String",
 										"name": "text",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
 										"defaultValue": ""
 									}]
 					},
@@ -1347,36 +1139,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -1416,7 +1185,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -1455,7 +1225,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -1547,19 +1318,6 @@
 									}]
 					},
 					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
 						"type": "select",
 						"clazz": "expression",
 						"alias": "expr"
@@ -1605,42 +1363,6 @@
 										"type": "String",
 										"name": "position",
 										"defaultValue": "before"
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
-										"defaultValue": ""
 									}]
 					},
 					{
@@ -1827,36 +1549,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -1896,7 +1595,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -1935,7 +1635,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -2027,19 +1728,6 @@
 									}]
 					},
 					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
 						"type": "select",
 						"clazz": "body",
 						"alias": ""
@@ -2060,42 +1748,6 @@
 									{
 										"type": "String",
 										"name": "name",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
 										"defaultValue": ""
 									}]
 					},
@@ -2273,31 +1925,8 @@
 									},
 									{
 										"type": "String",
-										"name": "Title"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
+										"name": "Title",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -2309,7 +1938,8 @@
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -2349,7 +1979,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -2388,7 +2019,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -2477,19 +2109,6 @@
 									{
 										"type": "String",
 										"name": "srcCode"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
 									}]
 					},
 					{
@@ -2601,42 +2220,6 @@
 									{
 										"type": "String",
 										"name": "name",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
 										"defaultValue": ""
 									}]
 					},
@@ -2832,36 +2415,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -2901,7 +2461,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -2940,7 +2501,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -3032,19 +2594,6 @@
 									}]
 					},
 					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
 						"type": "select",
 						"clazz": "expression",
 						"alias": "target"
@@ -3100,42 +2649,6 @@
 										"type": "String",
 										"name": "position",
 										"defaultValue": "before"
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
-										"defaultValue": ""
 									}]
 					},
 					{
@@ -3298,36 +2811,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -3367,7 +2857,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -3406,7 +2897,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -3498,19 +2990,6 @@
 									}]
 					},
 					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
 						"type": "select",
 						"clazz": "expression",
 						"alias": ""
@@ -3529,42 +3008,6 @@
 						"type": "select",
 						"clazz": "call",
 						"alias": ""
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
-										"defaultValue": ""
-									}]
 					},
 					{
 						"type": "action",
@@ -3750,36 +3193,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -3819,7 +3239,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -3858,7 +3279,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -3950,19 +3372,6 @@
 									}]
 					},
 					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
 						"type": "select",
 						"clazz": "expression",
 						"alias": "lhs"
@@ -4005,42 +3414,6 @@
 									{
 										"type": "expression",
 										"name": "rhs",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
 										"defaultValue": ""
 									}]
 					},
@@ -4260,36 +3633,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -4329,7 +3679,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -4368,7 +3719,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -4460,19 +3812,6 @@
 									}]
 					},
 					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
 						"type": "select",
 						"clazz": "expression",
 						"alias": "lhs"
@@ -4546,42 +3885,6 @@
 										"type": "String",
 										"name": "position",
 										"defaultValue": "before"
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
-										"defaultValue": ""
 									}]
 					},
 					{
@@ -4744,36 +4047,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -4813,7 +4093,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -4852,7 +4133,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -4944,19 +4226,6 @@
 									}]
 					},
 					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
 						"type": "select",
 						"clazz": "statement",
 						"alias": ""
@@ -5044,42 +4313,6 @@
 									{
 										"type": "statement",
 										"name": "statement",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
 										"defaultValue": ""
 									}]
 					},
@@ -5243,36 +4476,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -5312,7 +4522,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -5351,7 +4562,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -5443,19 +4655,6 @@
 									}]
 					},
 					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
 						"type": "select",
 						"clazz": "var",
 						"alias": ""
@@ -5464,42 +4663,6 @@
 						"type": "select",
 						"clazz": "call",
 						"alias": ""
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
-										"defaultValue": ""
-									}]
 					},
 					{
 						"type": "action",
@@ -5773,36 +4936,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -5842,7 +4982,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -5881,7 +5022,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -5973,19 +5115,6 @@
 									}]
 					},
 					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
 						"type": "select",
 						"clazz": "expression",
 						"alias": "arg"
@@ -6067,42 +5196,6 @@
 										"type": "String",
 										"name": "position",
 										"defaultValue": "before"
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
-										"defaultValue": ""
 									}]
 					},
 					{
@@ -6273,36 +5366,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -6342,7 +5412,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -6381,7 +5452,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -6473,19 +5545,6 @@
 									}]
 					},
 					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
 						"type": "select",
 						"clazz": "var",
 						"alias": ""
@@ -6494,42 +5553,6 @@
 						"type": "select",
 						"clazz": "call",
 						"alias": ""
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
-										"defaultValue": ""
-									}]
 					},
 					{
 						"type": "action",
@@ -6691,36 +5714,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -6760,7 +5760,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -6799,7 +5800,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -6891,19 +5893,6 @@
 									}]
 					},
 					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
 						"type": "select",
 						"clazz": "expression",
 						"alias": ""
@@ -6932,42 +5921,6 @@
 						"type": "select",
 						"clazz": "call",
 						"alias": ""
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
-										"defaultValue": ""
-									}]
 					},
 					{
 						"type": "action",
@@ -7141,12 +6094,13 @@
 						"tooltip": "verify if the type is extends OR implements the given type",
 						"children": [
 									{
-										"type": "boolean",
+										"type": "Boolean",
 										"name": "isSubtypeOf"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -7206,36 +6160,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -7275,7 +6206,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -7314,7 +6246,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -7403,19 +6336,6 @@
 									{
 										"type": "String",
 										"name": "srcCode"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
 									}]
 					},
 					{
@@ -7771,42 +6691,6 @@
 						"type": "action",
 						"children": [
 									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "copy"
 									}]
@@ -7979,36 +6863,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -8048,7 +6909,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -8087,7 +6949,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -8179,19 +7042,6 @@
 									}]
 					},
 					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
 						"type": "select",
 						"clazz": "var",
 						"alias": ""
@@ -8200,42 +7050,6 @@
 						"type": "select",
 						"clazz": "call",
 						"alias": ""
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
-										"defaultValue": ""
-									}]
 					},
 					{
 						"type": "action",
@@ -8429,36 +7243,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -8498,7 +7289,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -8537,7 +7329,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -8629,19 +7422,6 @@
 									}]
 					},
 					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
 						"type": "select",
 						"clazz": "body",
 						"alias": ""
@@ -8662,42 +7442,6 @@
 									{
 										"type": "String",
 										"name": "name",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
 										"defaultValue": ""
 									}]
 					},
@@ -8861,36 +7605,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -8930,7 +7651,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -8969,7 +7691,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -9061,19 +7784,6 @@
 									}]
 					},
 					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
 						"type": "select",
 						"clazz": "var",
 						"alias": ""
@@ -9082,42 +7792,6 @@
 						"type": "select",
 						"clazz": "call",
 						"alias": ""
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
-										"defaultValue": ""
-									}]
 					},
 					{
 						"type": "action",
@@ -9319,36 +7993,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -9388,7 +8039,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -9427,7 +8079,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -9519,19 +8172,6 @@
 									}]
 					},
 					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
 						"type": "select",
 						"clazz": "expression",
 						"alias": "init"
@@ -9545,42 +8185,6 @@
 									},
 									{
 										"type": "expression",
-										"name": "value",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
 										"name": "value",
 										"defaultValue": ""
 									}]
@@ -9756,12 +8360,13 @@
 						"tooltip": "verify if the type is extends OR implements the given type",
 						"children": [
 									{
-										"type": "boolean",
+										"type": "Boolean",
 										"name": "isSubtypeOf"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -9821,36 +8426,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -9890,7 +8472,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -9929,7 +8512,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -10018,19 +8602,6 @@
 									{
 										"type": "String",
 										"name": "srcCode"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
 									}]
 					},
 					{
@@ -10391,42 +8962,6 @@
 						"type": "action",
 						"children": [
 									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "copy"
 									}]
@@ -10607,36 +9142,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -10676,7 +9188,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -10715,7 +9228,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -10807,19 +9321,6 @@
 									}]
 					},
 					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
 						"type": "select",
 						"clazz": "body",
 						"alias": ""
@@ -10840,42 +9341,6 @@
 									{
 										"type": "String",
 										"name": "name",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
 										"defaultValue": ""
 									}]
 					},
@@ -11063,36 +9528,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -11132,7 +9574,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -11171,7 +9614,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -11263,19 +9707,6 @@
 									}]
 					},
 					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
 						"type": "select",
 						"clazz": "expression",
 						"alias": "expr"
@@ -11321,42 +9752,6 @@
 										"type": "String",
 										"name": "position",
 										"defaultValue": "before"
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
-										"defaultValue": ""
 									}]
 					},
 					{
@@ -11575,36 +9970,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -11644,7 +10016,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -11683,7 +10056,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -11775,19 +10149,6 @@
 									}]
 					},
 					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
 						"type": "select",
 						"clazz": "expression",
 						"alias": "init"
@@ -11801,42 +10162,6 @@
 									},
 									{
 										"type": "expression",
-										"name": "value",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
 										"name": "value",
 										"defaultValue": ""
 									}]
@@ -12090,36 +10415,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -12159,7 +10461,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -12198,7 +10501,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -12290,19 +10594,6 @@
 									}]
 					},
 					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
 						"type": "select",
 						"clazz": "expression",
 						"alias": "expr"
@@ -12348,42 +10639,6 @@
 										"type": "String",
 										"name": "position",
 										"defaultValue": "before"
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
-										"defaultValue": ""
 									}]
 					},
 					{
@@ -12579,36 +10834,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -12648,7 +10880,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -12687,7 +10920,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -12776,19 +11010,6 @@
 									{
 										"type": "String",
 										"name": "srcCode"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
 									}]
 					},
 					{
@@ -12953,42 +11174,6 @@
 									{
 										"type": "String",
 										"name": "interfaceName",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
 										"defaultValue": ""
 									}]
 					},
@@ -13184,36 +11369,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -13253,7 +11415,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -13292,7 +11455,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -13384,19 +11548,6 @@
 									}]
 					},
 					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
 						"type": "select",
 						"clazz": "expression",
 						"alias": "cond"
@@ -13420,42 +11571,6 @@
 						"type": "select",
 						"clazz": "call",
 						"alias": ""
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
-										"defaultValue": ""
-									}]
 					},
 					{
 						"type": "action",
@@ -13620,12 +11735,13 @@
 						"tooltip": "verify if the type is extends OR implements the given type",
 						"children": [
 									{
-										"type": "boolean",
+										"type": "Boolean",
 										"name": "isSubtypeOf"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -13685,36 +11801,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -13754,7 +11847,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -13793,7 +11887,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -13882,19 +11977,6 @@
 									{
 										"type": "String",
 										"name": "srcCode"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
 									}]
 					},
 					{
@@ -14128,42 +12210,6 @@
 						"type": "action",
 						"children": [
 									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "copy"
 									}]
@@ -14315,12 +12361,13 @@
 						"tooltip": "verify if the type is extends OR implements the given type",
 						"children": [
 									{
-										"type": "boolean",
+										"type": "Boolean",
 										"name": "isSubtypeOf"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -14371,36 +12418,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -14440,7 +12464,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -14479,7 +12504,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -14571,59 +12597,10 @@
 									}]
 					},
 					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
 						"type": "select",
 						"clazz": "libMethod",
 						"alias": "",
 						"tooltip": "methods that belong to this class"
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
-										"defaultValue": ""
-									}]
 					},
 					{
 						"type": "action",
@@ -14795,36 +12772,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -14864,7 +12818,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -14903,7 +12858,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -14995,59 +12951,10 @@
 									}]
 					},
 					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
 						"type": "select",
 						"clazz": "declaration",
 						"alias": "param",
 						"tooltip": "parameter of a library method"
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
-										"defaultValue": ""
-									}]
 					},
 					{
 						"type": "action",
@@ -15241,36 +13148,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -15310,7 +13194,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -15349,7 +13234,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -15441,19 +13327,6 @@
 									}]
 					},
 					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
 						"type": "select",
 						"clazz": "expression",
 						"alias": "expr"
@@ -15512,42 +13385,6 @@
 										"type": "String",
 										"name": "position",
 										"defaultValue": "before"
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
-										"defaultValue": ""
 									}]
 					},
 					{
@@ -15767,36 +13604,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -15836,7 +13650,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -15875,7 +13690,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -15967,19 +13783,6 @@
 									}]
 					},
 					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
 						"type": "select",
 						"clazz": "expression",
 						"alias": "init"
@@ -16004,42 +13807,6 @@
 									{
 										"type": "expression",
 										"name": "init",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
 										"defaultValue": ""
 									}]
 					},
@@ -16259,36 +14026,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -16328,7 +14072,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -16367,7 +14112,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -16459,19 +14205,6 @@
 									}]
 					},
 					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
 						"type": "select",
 						"clazz": "statement",
 						"alias": "init"
@@ -16557,42 +14290,6 @@
 									{
 										"type": "int",
 										"name": "block",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
 										"defaultValue": ""
 									}]
 					},
@@ -16748,12 +14445,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "boolean",
+										"type": "Boolean",
 										"name": "isOverriding"
 									},
 									{
 										"type": "method",
-										"name": "method"
+										"name": "method",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -16824,36 +14522,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -16893,7 +14568,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -16932,7 +14608,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -17024,19 +14701,6 @@
 									}]
 					},
 					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
 						"type": "select",
 						"clazz": "body",
 						"alias": ""
@@ -17119,42 +14783,6 @@
 									{
 										"type": "String",
 										"name": "name",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
 										"defaultValue": ""
 									}]
 					},
@@ -17358,36 +14986,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -17427,7 +15032,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -17466,7 +15072,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -17558,19 +15165,6 @@
 									}]
 					},
 					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
 						"type": "select",
 						"clazz": "expression",
 						"alias": "expr"
@@ -17629,42 +15223,6 @@
 										"type": "String",
 										"name": "position",
 										"defaultValue": "before"
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
-										"defaultValue": ""
 									}]
 					},
 					{
@@ -17851,36 +15409,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -17920,7 +15455,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -17959,7 +15495,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -18051,19 +15588,6 @@
 									}]
 					},
 					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
 						"type": "select",
 						"clazz": "expression",
 						"alias": "lhs"
@@ -18119,42 +15643,6 @@
 									{
 										"type": "expression",
 										"name": "rhs",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
 										"defaultValue": ""
 									}]
 					},
@@ -18342,36 +15830,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -18411,7 +15876,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -18450,7 +15916,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -18542,19 +16009,6 @@
 									}]
 					},
 					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
 						"type": "select",
 						"clazz": "var",
 						"alias": ""
@@ -18563,42 +16017,6 @@
 						"type": "select",
 						"clazz": "call",
 						"alias": ""
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
-										"defaultValue": ""
-									}]
 					},
 					{
 						"type": "action",
@@ -18772,36 +16190,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -18841,7 +16236,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -18880,7 +16276,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -18969,55 +16366,6 @@
 									{
 										"type": "String",
 										"name": "srcCode"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
-										"defaultValue": ""
 									}]
 					},
 					{
@@ -19180,36 +16528,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -19249,7 +16574,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -19288,7 +16614,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -19380,19 +16707,6 @@
 									}]
 					},
 					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
 						"type": "select",
 						"clazz": "var",
 						"alias": ""
@@ -19401,42 +16715,6 @@
 						"type": "select",
 						"clazz": "call",
 						"alias": ""
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
-										"defaultValue": ""
-									}]
 					},
 					{
 						"type": "action",
@@ -19598,36 +16876,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -19667,7 +16922,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -19706,7 +16962,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -19798,19 +17055,6 @@
 									}]
 					},
 					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
 						"type": "select",
 						"clazz": "var",
 						"alias": ""
@@ -19819,42 +17063,6 @@
 						"type": "select",
 						"clazz": "call",
 						"alias": ""
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
-										"defaultValue": ""
-									}]
 					},
 					{
 						"type": "action",
@@ -20016,36 +17224,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -20085,7 +17270,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -20124,7 +17310,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -20216,19 +17403,6 @@
 									}]
 					},
 					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
 						"type": "select",
 						"clazz": "case",
 						"alias": ""
@@ -20242,42 +17416,6 @@
 						"type": "select",
 						"clazz": "call",
 						"alias": ""
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
-										"defaultValue": ""
-									}]
 					},
 					{
 						"type": "action",
@@ -20497,36 +17635,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -20566,7 +17681,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -20605,7 +17721,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -20697,19 +17814,6 @@
 									}]
 					},
 					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
 						"type": "select",
 						"clazz": "expression",
 						"alias": "condition"
@@ -20770,42 +17874,6 @@
 										"type": "String",
 										"name": "position",
 										"defaultValue": "before"
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
-										"defaultValue": ""
 									}]
 					},
 					{
@@ -20992,36 +18060,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -21061,7 +18106,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -21100,7 +18146,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -21192,19 +18239,6 @@
 									}]
 					},
 					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
 						"type": "select",
 						"clazz": "expression",
 						"alias": "expr"
@@ -21250,42 +18284,6 @@
 										"type": "String",
 										"name": "position",
 										"defaultValue": "before"
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
-										"defaultValue": ""
 									}]
 					},
 					{
@@ -21448,36 +18446,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -21517,7 +18492,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -21556,7 +18532,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -21648,19 +18625,6 @@
 									}]
 					},
 					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
 						"type": "select",
 						"clazz": "expression",
 						"alias": ""
@@ -21679,42 +18643,6 @@
 						"type": "select",
 						"clazz": "call",
 						"alias": ""
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
-										"defaultValue": ""
-									}]
 					},
 					{
 						"type": "action",
@@ -21876,36 +18804,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -21945,7 +18850,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -21984,7 +18890,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -22076,19 +18983,6 @@
 									}]
 					},
 					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
 						"type": "select",
 						"clazz": "body",
 						"alias": ""
@@ -22102,42 +18996,6 @@
 						"type": "select",
 						"clazz": "call",
 						"alias": ""
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
-										"defaultValue": ""
-									}]
 					},
 					{
 						"type": "action",
@@ -22303,12 +19161,13 @@
 						"tooltip": "verify if the type is extends OR implements the given type",
 						"children": [
 									{
-										"type": "boolean",
+										"type": "Boolean",
 										"name": "isSubtypeOf"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -22368,36 +19227,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -22437,7 +19273,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -22476,7 +19313,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -22565,19 +19403,6 @@
 									{
 										"type": "String",
 										"name": "srcCode"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
 									}]
 					},
 					{
@@ -22804,42 +19629,6 @@
 									{
 										"type": "String",
 										"name": "interfaceName",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
 										"defaultValue": ""
 									}]
 					},
@@ -23078,36 +19867,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -23147,7 +19913,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -23186,7 +19953,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -23275,55 +20043,6 @@
 									{
 										"type": "String",
 										"name": "srcCode"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
-										"defaultValue": ""
 									}]
 					},
 					{
@@ -23526,36 +20245,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -23595,7 +20291,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -23634,7 +20331,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -23726,19 +20424,6 @@
 									}]
 					},
 					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
 						"type": "select",
 						"clazz": "expression",
 						"alias": "operand"
@@ -23803,42 +20488,6 @@
 										"type": "String",
 										"name": "position",
 										"defaultValue": "before"
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
-										"defaultValue": ""
 									}]
 					},
 					{
@@ -24090,36 +20739,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -24159,7 +20785,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -24198,7 +20825,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -24290,19 +20918,6 @@
 									}]
 					},
 					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
 						"type": "select",
 						"clazz": "expression",
 						"alias": "expr"
@@ -24348,42 +20963,6 @@
 										"type": "String",
 										"name": "position",
 										"defaultValue": "before"
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
-										"defaultValue": ""
 									}]
 					},
 					{
@@ -24536,7 +21115,8 @@
 									},
 									{
 										"type": "String",
-										"name": "name"
+										"name": "name",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -24574,7 +21154,8 @@
 									},
 									{
 										"type": "String",
-										"name": "name"
+										"name": "name",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -24589,36 +21170,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -24658,7 +21216,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -24697,7 +21256,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -24789,19 +21349,6 @@
 									}]
 					},
 					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
 						"type": "select",
 						"clazz": "xmlElement",
 						"alias": "element",
@@ -24835,42 +21382,6 @@
 									{
 										"type": "String",
 										"name": "text",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
 										"defaultValue": ""
 									}]
 					},
@@ -25030,7 +21541,8 @@
 									},
 									{
 										"type": "String",
-										"name": "name"
+										"name": "name",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -25045,36 +21557,13 @@
 						"type": "attribute",
 						"children": [
 									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
 										"type": "joinpoint",
 										"name": "ancestor"
 									},
 									{
 										"type": "String",
-										"name": "type"
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -25114,7 +21603,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -25153,7 +21643,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -25245,19 +21736,6 @@
 									}]
 					},
 					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
 						"type": "select",
 						"clazz": "xmlElement",
 						"alias": "element",
@@ -25273,42 +21751,6 @@
 									{
 										"type": "String",
 										"name": "text",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
 										"defaultValue": ""
 									}]
 					},

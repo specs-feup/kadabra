@@ -39,8 +39,8 @@ public class JArrayAccess<T, E extends CtExpression<?>> extends AArrayAccess {
     }
 
     @Override
-    public RefType getReferenceImpl() {
-        return node instanceof CtArrayWrite ? RefType.WRITE : RefType.READ;
+    public String getReferenceImpl() {
+        return node instanceof CtArrayWrite ? RefType.WRITE.getName() : RefType.READ.getName();
     }
 
     @Override

@@ -1,6 +1,5 @@
 package weaver.kadabra.abstracts.joinpoints;
 
-import weaver.kadabra.enums.RefType;
 import org.lara.interpreter.weaver.interf.events.Stage;
 import java.util.Optional;
 import org.lara.interpreter.exception.AttributeException;
@@ -31,7 +30,7 @@ public abstract class AArrayAccess extends AExpression {
      * Get value on attribute reference
      * @return the attribute's value
      */
-    public abstract RefType getReferenceImpl();
+    public abstract String getReferenceImpl();
 
     /**
      * Get value on attribute reference
@@ -42,7 +41,7 @@ public abstract class AArrayAccess extends AExpression {
         	if(hasListeners()) {
         		eventTrigger().triggerAttribute(Stage.BEGIN, this, "reference", Optional.empty());
         	}
-        	RefType result = this.getReferenceImpl();
+        	String result = this.getReferenceImpl();
         	if(hasListeners()) {
         		eventTrigger().triggerAttribute(Stage.END, this, "reference", Optional.ofNullable(result));
         	}

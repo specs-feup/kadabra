@@ -72,9 +72,9 @@ public class JPragma extends APragma {
     }
 
     @Override
-    public CommentType getTypeImpl() {
+    public String getTypeImpl() {
 
-        return CommentType.PRAGMA;
+        return CommentType.PRAGMA.getName();
     }
 
     // private static String PRAGMA_NAME_REGEX = "\\/\\/\\s+\\@(\\S+)\\s+";
