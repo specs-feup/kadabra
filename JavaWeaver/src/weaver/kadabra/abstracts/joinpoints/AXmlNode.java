@@ -56,6 +56,44 @@ public abstract class AXmlNode extends AJavaWeaverJoinPoint {
     }
 
     /**
+     * 
+     * @param name
+     * @return 
+     */
+    public abstract AXmlElement[] elementsArrayImpl(String name);
+
+    /**
+     * 
+     * @param name
+     * @return 
+     */
+    public Object elementsImpl(String name) {
+        AXmlElement[] aXmlElementArrayImpl0 = elementsArrayImpl(name);
+        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(aXmlElementArrayImpl0);
+        return nativeArray0;
+    }
+
+    /**
+     * 
+     * @param name
+     * @return 
+     */
+    public final Object elements(String name) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "elements", Optional.empty(), name);
+        	}
+        	Object result = this.elementsImpl(name);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "elements", Optional.ofNullable(result), name);
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "elements", e);
+        }
+    }
+
+    /**
      * Get value on attribute text
      * @return the attribute's value
      */
@@ -124,33 +162,6 @@ public abstract class AXmlNode extends AJavaWeaverJoinPoint {
 
     /**
      * 
-     * @param name 
-     */
-    public AXmlElement[] getElementsImpl(String name) {
-        throw new UnsupportedOperationException(get_class()+": Action getElements not implemented ");
-    }
-
-    /**
-     * 
-     * @param name 
-     */
-    public final AXmlElement[] getElements(String name) {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "getElements", this, Optional.empty(), name);
-        	}
-        	AXmlElement[] result = this.getElementsImpl(name);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "getElements", this, Optional.ofNullable(result), name);
-        	}
-        	return result;
-        } catch(Exception e) {
-        	throw new ActionException(get_class(), "getElements", e);
-        }
-    }
-
-    /**
-     * 
      */
     @Override
     public List<? extends JoinPoint> select(String selectName) {
@@ -201,6 +212,7 @@ public abstract class AXmlNode extends AJavaWeaverJoinPoint {
     protected void fillWithAttributes(List<String> attributes) {
         super.fillWithAttributes(attributes);
         attributes.add("elements");
+        attributes.add("elements");
         attributes.add("text");
     }
 
@@ -220,7 +232,6 @@ public abstract class AXmlNode extends AJavaWeaverJoinPoint {
     protected void fillWithActions(List<String> actions) {
         super.fillWithActions(actions);
         actions.add("String setText(String)");
-        actions.add("xmlElement[] getElements(String)");
     }
 
     /**
@@ -243,16 +254,19 @@ public abstract class AXmlNode extends AJavaWeaverJoinPoint {
         AST("ast"),
         ISBLOCK("isBlock"),
         LINE("line"),
+        ANCESTOR("ancestor"),
         ANNOTATIONS("annotations"),
         MODIFIERS("modifiers"),
         DESCENDANTS("descendants"),
         ISSTATEMENT("isStatement"),
         ASTPARENT("astParent"),
         CHILDREN("children"),
+        HASMODIFIER("hasModifier"),
         NUMCHILDREN("numChildren"),
         SRCCODE("srcCode"),
         ISFINAL("isFinal"),
-        ID("id");
+        ID("id"),
+        CHILD("child");
         private String name;
 
         /**

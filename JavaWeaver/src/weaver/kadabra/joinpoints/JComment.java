@@ -34,8 +34,8 @@ public class JComment extends AComment {
     }
 
     @Override
-    public CommentType getTypeImpl() {
-        return CommentType.valueOf(comment.getCommentType().name());
+    public String getTypeImpl() {
+        return CommentType.valueOf(comment.getCommentType().name()).getName();
     }
 
     @Override

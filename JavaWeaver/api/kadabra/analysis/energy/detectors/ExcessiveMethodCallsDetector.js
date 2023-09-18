@@ -24,7 +24,7 @@ class ExcessiveMethodCallsDetector extends BaseDetector {
     super.analyseClass(jpClass);
 
     this.currentPackage = jpClass.package;
-    let fileName = jpClass.getAncestor("file");
+    let fileName = jpClass.ancestor("file");
 
     let loops = Query.searchFrom(jpClass, "loop").get();
     loops.forEach((l) => {
@@ -61,7 +61,7 @@ class ExcessiveMethodCallsDetector extends BaseDetector {
     let data = this.results.map((r) => [
       r.line.toString(),
       r.name,
-      r.getAncestor("file").path,
+      r.ancestor("file").path,
     ]);
     Collections.printTable(["Line", "Call", "File"], data, [10, 30, 100]);
     println();
@@ -87,16 +87,16 @@ class ExcessiveMethodCallsDetector extends BaseDetector {
       let loc = r.name + "(" + r.arguments + "):" + r.line.toString();
 
       // Initialized inside method
-      let node = r.getAncestor("method");
+      let node = r.ancestor("method");
       if (node !== undefined) {
         loc = node.name + "/" + loc;
       } else {
-        node = r.getAncestor("constructor");
+        node = r.ancestor("constructor");
         loc = node.name + "/" + loc;
       }
-      node = r.getAncestor("class");
+      node = r.ancestor("class");
       loc = node.name + "/" + loc;
-      node = node.getAncestor("file");
+      node = node.ancestor("file");
       loc = node.name.toString() + "/" + loc;
       return loc;
     });

@@ -553,16 +553,19 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
         AST("ast"),
         ISBLOCK("isBlock"),
         LINE("line"),
+        ANCESTOR("ancestor"),
         ANNOTATIONS("annotations"),
         MODIFIERS("modifiers"),
         DESCENDANTS("descendants"),
         ISSTATEMENT("isStatement"),
         ASTPARENT("astParent"),
         CHILDREN("children"),
+        HASMODIFIER("hasModifier"),
         NUMCHILDREN("numChildren"),
         SRCCODE("srcCode"),
         ISFINAL("isFinal"),
-        ID("id");
+        ID("id"),
+        CHILD("child");
         private String name;
 
         /**

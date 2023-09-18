@@ -148,6 +148,15 @@ public abstract class AAnonymousExec extends AExecutable {
     }
 
     /**
+     * Get value on attribute ancestor
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint ancestorImpl(String type) {
+        return this.aExecutable.ancestorImpl(type);
+    }
+
+    /**
      * Get value on attribute annotationsArrayImpl
      * @return the attribute's value
      */
@@ -202,6 +211,15 @@ public abstract class AAnonymousExec extends AExecutable {
     }
 
     /**
+     * Get value on attribute hasModifier
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean hasModifierImpl(String modifier) {
+        return this.aExecutable.hasModifierImpl(modifier);
+    }
+
+    /**
      * Get value on attribute numChildren
      * @return the attribute's value
      */
@@ -238,30 +256,12 @@ public abstract class AAnonymousExec extends AExecutable {
     }
 
     /**
-     * Returns the child of the node at the given index
-     * @param index 
+     * Get value on attribute child
+     * @return the attribute's value
      */
     @Override
-    public AJoinPoint getChildImpl(Integer index) {
-        return this.aExecutable.getChildImpl(index);
-    }
-
-    /**
-     * 
-     * @param type 
-     */
-    @Override
-    public AJoinPoint getAncestorImpl(String type) {
-        return this.aExecutable.getAncestorImpl(type);
-    }
-
-    /**
-     * true if this node has the given modifier
-     * @param modifier 
-     */
-    @Override
-    public Boolean hasModifierImpl(String modifier) {
-        return this.aExecutable.hasModifierImpl(modifier);
+    public AJoinPoint childImpl(Integer index) {
+        return this.aExecutable.childImpl(index);
     }
 
     /**
@@ -506,16 +506,19 @@ public abstract class AAnonymousExec extends AExecutable {
         AST("ast"),
         ISBLOCK("isBlock"),
         LINE("line"),
+        ANCESTOR("ancestor"),
         ANNOTATIONS("annotations"),
         MODIFIERS("modifiers"),
         DESCENDANTS("descendants"),
         ISSTATEMENT("isStatement"),
         ASTPARENT("astParent"),
         CHILDREN("children"),
+        HASMODIFIER("hasModifier"),
         NUMCHILDREN("numChildren"),
         SRCCODE("srcCode"),
         ISFINAL("isFinal"),
-        ID("id");
+        ID("id"),
+        CHILD("child");
         private String name;
 
         /**

@@ -46,6 +46,33 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
     }
 
     /**
+     * 
+     * @param Title
+     * @return 
+     */
+    public abstract String showASTImpl(String Title);
+
+    /**
+     * 
+     * @param Title
+     * @return 
+     */
+    public final Object showAST(String Title) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "showAST", Optional.empty(), Title);
+        	}
+        	String result = this.showASTImpl(Title);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "showAST", Optional.ofNullable(result), Title);
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "showAST", e);
+        }
+    }
+
+    /**
      * Get value on attribute manifest
      * @return the attribute's value
      */
@@ -127,33 +154,6 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
      */
     public List<? extends AAndroidManifest> selectAndroidManifest() {
         return select(weaver.kadabra.abstracts.joinpoints.AAndroidManifest.class, SelectOp.DESCENDANTS);
-    }
-
-    /**
-     * 
-     * @param Title 
-     */
-    public String showASTImpl(String Title) {
-        throw new UnsupportedOperationException(get_class()+": Action showAST not implemented ");
-    }
-
-    /**
-     * 
-     * @param Title 
-     */
-    public final String showAST(String Title) {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "showAST", this, Optional.empty(), Title);
-        	}
-        	String result = this.showASTImpl(Title);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "showAST", this, Optional.ofNullable(result), Title);
-        	}
-        	return result;
-        } catch(Exception e) {
-        	throw new ActionException(get_class(), "showAST", e);
-        }
     }
 
     /**
@@ -354,6 +354,7 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
     protected final void fillWithAttributes(List<String> attributes) {
         super.fillWithAttributes(attributes);
         attributes.add("folder");
+        attributes.add("showAST");
         attributes.add("manifest");
         attributes.add("files");
     }
@@ -375,7 +376,6 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
     @Override
     protected final void fillWithActions(List<String> actions) {
         super.fillWithActions(actions);
-        actions.add("String showAST(String)");
         actions.add("class newClass(String, String, String[])");
         actions.add("class newClass(String)");
         actions.add("interface newInterface(String, String[])");
@@ -396,6 +396,7 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
      */
     protected enum AppAttributes {
         FOLDER("folder"),
+        SHOWAST("showAST"),
         MANIFEST("manifest"),
         FILES("files"),
         PARENT("parent"),
@@ -404,16 +405,19 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
         AST("ast"),
         ISBLOCK("isBlock"),
         LINE("line"),
+        ANCESTOR("ancestor"),
         ANNOTATIONS("annotations"),
         MODIFIERS("modifiers"),
         DESCENDANTS("descendants"),
         ISSTATEMENT("isStatement"),
         ASTPARENT("astParent"),
         CHILDREN("children"),
+        HASMODIFIER("hasModifier"),
         NUMCHILDREN("numChildren"),
         SRCCODE("srcCode"),
         ISFINAL("isFinal"),
-        ID("id");
+        ID("id"),
+        CHILD("child");
         private String name;
 
         /**

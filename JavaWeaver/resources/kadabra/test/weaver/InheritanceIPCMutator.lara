@@ -30,12 +30,12 @@ aspectdef InheritanceIPCMutatorTest
 		
 		// Print
 
-		//var workingPoint = mutator.getMutationPoint().isStatement ? mutator.getMutationPoint() : mutator.getMutationPoint().getAncestor("statement");
+		//var workingPoint = mutator.getMutationPoint().isStatement ? mutator.getMutationPoint() : mutator.getMutationPoint().ancestor("statement");
 
 		//	println("MUTATION POINT: " + mutator.getMutationPoint().code);
 		//	println("WORKING POINT: " + workingPoint.code);
 
-		var mutated = mutator.getMutationPoint().isStatement ? mutator.getMutationPoint().srcCode : mutator.getMutationPoint().getAncestor("statement").srcCode;
+		var mutated = mutator.getMutationPoint().isStatement ? mutator.getMutationPoint().srcCode : mutator.getMutationPoint().ancestor("statement").srcCode;
 
 		mutator.getMutationPoint().insertBefore(
 			"if(System.getenv(\"MutKey\") == "+ "\"REPLACE WITH IDENTIFIER\"" +"){\n" +

@@ -24,7 +24,7 @@ class HashMapUsageDetector extends BaseDetector {
     println(`${this.name}:`);
     let data = this.results.map((r) => [
       r.line.toString(),
-      r.getAncestor("file").path,
+      r.ancestor("file").path,
     ]);
     Collections.printTable(["Line", "File"], data, [40, 100]);
     println();
@@ -35,13 +35,13 @@ class HashMapUsageDetector extends BaseDetector {
       let loc = ":" + r.line.toString();
 
       // Initialized inside method
-      let node = r.getAncestor("method");
+      let node = r.ancestor("method");
       if(node != null) {
         loc = node.name + loc;
       }
-      node = r.getAncestor("class");
+      node = r.ancestor("class");
       loc = node.name + "/" + loc;
-      node = node.getAncestor("file");
+      node = node.ancestor("file");
       loc = node.name.toString() + "/" + loc;
       return loc;
     });

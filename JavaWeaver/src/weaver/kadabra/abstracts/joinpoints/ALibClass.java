@@ -87,6 +87,15 @@ public abstract class ALibClass extends ANamedType {
     }
 
     /**
+     * Get value on attribute isSubtypeOf
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean isSubtypeOfImpl(String type) {
+        return this.aNamedType.isSubtypeOfImpl(type);
+    }
+
+    /**
      * Get value on attribute parent
      * @return the attribute's value
      */
@@ -138,6 +147,15 @@ public abstract class ALibClass extends ANamedType {
     @Override
     public Integer getLineImpl() {
         return this.aNamedType.getLineImpl();
+    }
+
+    /**
+     * Get value on attribute ancestor
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint ancestorImpl(String type) {
+        return this.aNamedType.ancestorImpl(type);
     }
 
     /**
@@ -195,6 +213,15 @@ public abstract class ALibClass extends ANamedType {
     }
 
     /**
+     * Get value on attribute hasModifier
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean hasModifierImpl(String modifier) {
+        return this.aNamedType.hasModifierImpl(modifier);
+    }
+
+    /**
      * Get value on attribute numChildren
      * @return the attribute's value
      */
@@ -231,30 +258,12 @@ public abstract class ALibClass extends ANamedType {
     }
 
     /**
-     * Returns the child of the node at the given index
-     * @param index 
+     * Get value on attribute child
+     * @return the attribute's value
      */
     @Override
-    public AJoinPoint getChildImpl(Integer index) {
-        return this.aNamedType.getChildImpl(index);
-    }
-
-    /**
-     * 
-     * @param type 
-     */
-    @Override
-    public AJoinPoint getAncestorImpl(String type) {
-        return this.aNamedType.getAncestorImpl(type);
-    }
-
-    /**
-     * true if this node has the given modifier
-     * @param modifier 
-     */
-    @Override
-    public Boolean hasModifierImpl(String modifier) {
-        return this.aNamedType.hasModifierImpl(modifier);
+    public AJoinPoint childImpl(Integer index) {
+        return this.aNamedType.childImpl(index);
     }
 
     /**
@@ -352,15 +361,6 @@ public abstract class ALibClass extends ANamedType {
     @Override
     public void removeAnnotationImpl(AAnnotation annotation) {
         this.aNamedType.removeAnnotationImpl(annotation);
-    }
-
-    /**
-     * verify if the type is extends OR implements the given type
-     * @param type 
-     */
-    @Override
-    public Boolean isSubtypeOfImpl(String type) {
-        return this.aNamedType.isSubtypeOfImpl(type);
     }
 
     /**
@@ -485,22 +485,26 @@ public abstract class ALibClass extends ANamedType {
         PACKAGE("package"),
         INTERFACES("interfaces"),
         JAVADOC("javadoc"),
+        ISSUBTYPEOF("isSubtypeOf"),
         PARENT("parent"),
         ISSTATIC("isStatic"),
         CODE("code"),
         AST("ast"),
         ISBLOCK("isBlock"),
         LINE("line"),
+        ANCESTOR("ancestor"),
         ANNOTATIONS("annotations"),
         MODIFIERS("modifiers"),
         DESCENDANTS("descendants"),
         ISSTATEMENT("isStatement"),
         ASTPARENT("astParent"),
         CHILDREN("children"),
+        HASMODIFIER("hasModifier"),
         NUMCHILDREN("numChildren"),
         SRCCODE("srcCode"),
         ISFINAL("isFinal"),
-        ID("id");
+        ID("id"),
+        CHILD("child");
         private String name;
 
         /**

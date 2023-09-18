@@ -1,6 +1,5 @@
 package weaver.kadabra.abstracts.joinpoints;
 
-import weaver.kadabra.enums.CommentType;
 import org.lara.interpreter.weaver.interf.events.Stage;
 import java.util.Optional;
 import org.lara.interpreter.exception.AttributeException;
@@ -30,7 +29,7 @@ public abstract class AComment extends AStatement {
      * Get value on attribute type
      * @return the attribute's value
      */
-    public abstract CommentType getTypeImpl();
+    public abstract String getTypeImpl();
 
     /**
      * Get value on attribute type
@@ -41,7 +40,7 @@ public abstract class AComment extends AStatement {
         	if(hasListeners()) {
         		eventTrigger().triggerAttribute(Stage.BEGIN, this, "type", Optional.empty());
         	}
-        	CommentType result = this.getTypeImpl();
+        	String result = this.getTypeImpl();
         	if(hasListeners()) {
         		eventTrigger().triggerAttribute(Stage.END, this, "type", Optional.ofNullable(result));
         	}
@@ -167,6 +166,15 @@ public abstract class AComment extends AStatement {
     }
 
     /**
+     * Get value on attribute ancestor
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint ancestorImpl(String type) {
+        return this.aStatement.ancestorImpl(type);
+    }
+
+    /**
      * Get value on attribute annotationsArrayImpl
      * @return the attribute's value
      */
@@ -221,6 +229,15 @@ public abstract class AComment extends AStatement {
     }
 
     /**
+     * Get value on attribute hasModifier
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean hasModifierImpl(String modifier) {
+        return this.aStatement.hasModifierImpl(modifier);
+    }
+
+    /**
      * Get value on attribute numChildren
      * @return the attribute's value
      */
@@ -257,30 +274,12 @@ public abstract class AComment extends AStatement {
     }
 
     /**
-     * Returns the child of the node at the given index
-     * @param index 
+     * Get value on attribute child
+     * @return the attribute's value
      */
     @Override
-    public AJoinPoint getChildImpl(Integer index) {
-        return this.aStatement.getChildImpl(index);
-    }
-
-    /**
-     * 
-     * @param type 
-     */
-    @Override
-    public AJoinPoint getAncestorImpl(String type) {
-        return this.aStatement.getAncestorImpl(type);
-    }
-
-    /**
-     * true if this node has the given modifier
-     * @param modifier 
-     */
-    @Override
-    public Boolean hasModifierImpl(String modifier) {
-        return this.aStatement.hasModifierImpl(modifier);
+    public AJoinPoint childImpl(Integer index) {
+        return this.aStatement.childImpl(index);
     }
 
     /**
@@ -510,16 +509,19 @@ public abstract class AComment extends AStatement {
         AST("ast"),
         ISBLOCK("isBlock"),
         LINE("line"),
+        ANCESTOR("ancestor"),
         ANNOTATIONS("annotations"),
         MODIFIERS("modifiers"),
         DESCENDANTS("descendants"),
         ISSTATEMENT("isStatement"),
         ASTPARENT("astParent"),
         CHILDREN("children"),
+        HASMODIFIER("hasModifier"),
         NUMCHILDREN("numChildren"),
         SRCCODE("srcCode"),
         ISFINAL("isFinal"),
-        ID("id");
+        ID("id"),
+        CHILD("child");
         private String name;
 
         /**

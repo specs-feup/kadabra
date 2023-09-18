@@ -135,6 +135,33 @@ public abstract class AMethod extends AExecutable {
 
     /**
      * 
+     * @param method
+     * @return 
+     */
+    public abstract Boolean isOverridingImpl(AMethod method);
+
+    /**
+     * 
+     * @param method
+     * @return 
+     */
+    public final Object isOverriding(AMethod method) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isOverriding", Optional.empty(), method);
+        	}
+        	Boolean result = this.isOverridingImpl(method);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "isOverriding", Optional.ofNullable(result), method);
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "isOverriding", e);
+        }
+    }
+
+    /**
+     * 
      * @param comment 
      */
     public void addCommentImpl(String comment) {
@@ -240,33 +267,6 @@ public abstract class AMethod extends AExecutable {
         	return result;
         } catch(Exception e) {
         	throw new ActionException(get_class(), "clone", e);
-        }
-    }
-
-    /**
-     * 
-     * @param method 
-     */
-    public Boolean isOverridingImpl(AMethod method) {
-        throw new UnsupportedOperationException(get_class()+": Action isOverriding not implemented ");
-    }
-
-    /**
-     * 
-     * @param method 
-     */
-    public final Boolean isOverriding(AMethod method) {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "isOverriding", this, Optional.empty(), method);
-        	}
-        	Boolean result = this.isOverridingImpl(method);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "isOverriding", this, Optional.ofNullable(result), method);
-        	}
-        	return result;
-        } catch(Exception e) {
-        	throw new ActionException(get_class(), "isOverriding", e);
         }
     }
 
@@ -395,6 +395,15 @@ public abstract class AMethod extends AExecutable {
     }
 
     /**
+     * Get value on attribute ancestor
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint ancestorImpl(String type) {
+        return this.aExecutable.ancestorImpl(type);
+    }
+
+    /**
      * Get value on attribute annotationsArrayImpl
      * @return the attribute's value
      */
@@ -449,6 +458,15 @@ public abstract class AMethod extends AExecutable {
     }
 
     /**
+     * Get value on attribute hasModifier
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean hasModifierImpl(String modifier) {
+        return this.aExecutable.hasModifierImpl(modifier);
+    }
+
+    /**
      * Get value on attribute numChildren
      * @return the attribute's value
      */
@@ -485,30 +503,12 @@ public abstract class AMethod extends AExecutable {
     }
 
     /**
-     * Returns the child of the node at the given index
-     * @param index 
+     * Get value on attribute child
+     * @return the attribute's value
      */
     @Override
-    public AJoinPoint getChildImpl(Integer index) {
-        return this.aExecutable.getChildImpl(index);
-    }
-
-    /**
-     * 
-     * @param type 
-     */
-    @Override
-    public AJoinPoint getAncestorImpl(String type) {
-        return this.aExecutable.getAncestorImpl(type);
-    }
-
-    /**
-     * true if this node has the given modifier
-     * @param modifier 
-     */
-    @Override
-    public Boolean hasModifierImpl(String modifier) {
-        return this.aExecutable.hasModifierImpl(modifier);
+    public AJoinPoint childImpl(Integer index) {
+        return this.aExecutable.childImpl(index);
     }
 
     /**
@@ -710,6 +710,7 @@ public abstract class AMethod extends AExecutable {
         attributes.add("privacy");
         attributes.add("toReference");
         attributes.add("toQualifiedReference");
+        attributes.add("isOverriding");
     }
 
     /**
@@ -730,7 +731,6 @@ public abstract class AMethod extends AExecutable {
         actions.add("void addParameter(string, string)");
         actions.add("class createAdapter(method, String)");
         actions.add("method clone(string)");
-        actions.add("Boolean isOverriding(method)");
     }
 
     /**
@@ -762,6 +762,7 @@ public abstract class AMethod extends AExecutable {
         PRIVACY("privacy"),
         TOREFERENCE("toReference"),
         TOQUALIFIEDREFERENCE("toQualifiedReference"),
+        ISOVERRIDING("isOverriding"),
         NAME("name"),
         RETURNTYPE("returnType"),
         BODY("body"),
@@ -773,16 +774,19 @@ public abstract class AMethod extends AExecutable {
         AST("ast"),
         ISBLOCK("isBlock"),
         LINE("line"),
+        ANCESTOR("ancestor"),
         ANNOTATIONS("annotations"),
         MODIFIERS("modifiers"),
         DESCENDANTS("descendants"),
         ISSTATEMENT("isStatement"),
         ASTPARENT("astParent"),
         CHILDREN("children"),
+        HASMODIFIER("hasModifier"),
         NUMCHILDREN("numChildren"),
         SRCCODE("srcCode"),
         ISFINAL("isFinal"),
-        ID("id");
+        ID("id"),
+        CHILD("child");
         private String name;
 
         /**

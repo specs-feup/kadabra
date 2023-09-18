@@ -22,7 +22,7 @@ aspectdef BinaryExpressionMutatorTest
 				$op.insertReplace($mutatedOp);
 				
 				// Print
-				println($mutatedOp.getAncestor('method').srcCode);
+				println($mutatedOp.ancestor('method').srcCode);
 				
 				// Restore
 				$mutatedOp.insertReplace(originalOp);

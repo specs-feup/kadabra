@@ -31,7 +31,7 @@ Timer.prototype.time = function($start, prefix, $end) {
         $end = $start;
     }
 
-    //$file = $start.getAncestor("file");
+    //$file = $start.ancestor("file");
 
     var codeBefore, codeAfter;
 

@@ -128,7 +128,7 @@ function AutotunerClass(/*class*/ $class, /*AutotunerBuilder*/ builder){
 }
 
 AutotunerClass.prototype.newInstance = function($targetField, numWarmup, numRuns){
-	var $targetClass = $targetField.getAncestor("class");
+	var $targetClass = $targetField.ancestor("class");
 	var autotuner = new Autotuner(this, $targetField, $targetClass, numWarmup, numRuns);
 	return autotuner;
 }

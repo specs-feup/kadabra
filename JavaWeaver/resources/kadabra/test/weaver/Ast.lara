@@ -31,7 +31,7 @@ aspectdef Ast
 	println("Assignment after set: " + $assignment.code);
 	
 	for(var $call of Query.search('method', 'call').search('call').get()) {
-		println("sub call: " + $call.getAncestor('call'));
+		println("sub call: " + $call.ancestor('call'));
 	}
 	
 	for(var $assign of Query.search('constructor').search('assignment').get()) {
@@ -41,8 +41,8 @@ aspectdef Ast
 		println("Var decl: " + $var.declaration.code);
 		println("Var decl is final: " + $var.declaration.isFinal);		
 		println("Var num: " + $var.numChildren);		
-		println("Var child 1: " + $var.getChild(0).code);
-		println("Var child 2: " + $var.getChild(1).code);		
+		println("Var child 1: " + $var.child(0).code);
+		println("Var child 2: " + $var.child(1).code);		
 		println("Var chain length: " + $assign.lhs.referenceChain.length);
 	}
 	

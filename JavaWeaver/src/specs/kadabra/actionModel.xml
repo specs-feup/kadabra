@@ -3,18 +3,6 @@
 
     <!-- GLOBAL -->
 
-    <action name="getChild" return="joinpoint" tooltip="Returns the child of the node at the given index">
-        <parameter name="index" type="Integer" />
-    </action>
-
-    <action name="getAncestor" return="joinpoint">
-        <parameter name="type" type="String"/>
-    </action>
-
-    <action name="hasModifier" return="Boolean" tooltip="true if this node has the given modifier">
-        <parameter name="modifier" type="String"/>		
-    </action>
-
     <!-- Inserts node before the given node -->
     <action name="insertBefore" return="joinpoint">
         <parameter name="node" type="joinpoint" />
@@ -70,9 +58,6 @@
     <action name="setText" class="xmlNode" return="String">
         <parameter name="text" type="String"/>
     </action>
-    <action name="getElements" class="xmlNode" return="xmlElement[]">
-        <parameter name="name" type="String"/>
-    </action>
 
     <!-- XML ELEMENT -->
     <!-- 
@@ -80,18 +65,10 @@
         <parameter name="name" type="String"/>
     </action>	
      -->
-    <action name="getAttribute" class="xmlElement" return="String" tooltip="the value associated with the given attribute">
-        <parameter name="name" type="String"/>
-    </action>
-     
+
     <action name="setAttribute" class="xmlElement" return="String">
         <parameter name="name" type="String"/>
         <parameter name="value" type="String"/>		
-    </action>	
-
-    <!-- APP -->
-    <action name="showAST" class="app" return="String">
-        <parameter name="Title" type="String"/>
     </action>
 
     <!-- APP, FILE -->
@@ -216,13 +193,7 @@
         <parameter name="name" type="String"/>
     </action>
 
-    <!-- TYPE, NAMED TYPE -->
-    <action name="isSubtypeOf" class="type,NamedType" return="Boolean" tooltip="verify if the type is extends OR implements the given type">
-        <parameter name="type" type="String"/>
-    </action>
 
-
-    
     <!-- METHOD -->
     <action name="addComment" class="method" return="void">
         <parameter name="comment" type="string"/>
@@ -242,9 +213,6 @@
         <parameter name="newName" type="string"/>
     </action>
 
-    <action name="isOverriding" class="method" return="Boolean">
-        <parameter name="method" type="method"/>
-    </action>
     
     <!-- CALL -->
     <action name="clone" class="call" return="call">

@@ -23,7 +23,7 @@ function testArithmeticOperatorDeletionMutation() {
 	// Generate all mutations
 	while(mutator.mutateSource()) {
 		// Print
-		println(mutator.getMutatedPoint().getAncestor('statement').srcCode);
+		println(mutator.getMutatedPoint().ancestor('statement').srcCode);
 	}
 }
 
