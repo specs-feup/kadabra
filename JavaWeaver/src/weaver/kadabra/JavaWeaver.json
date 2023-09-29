@@ -12537,6 +12537,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "Main class of the file. Java files must have a top level class with the same name as the file.",
+						"children": [
+									{
+										"type": "type",
+										"name": "mainClass"
+									}]
+					},
+					{
+						"type": "attribute",
 						"children": [
 									{
 										"type": "String",

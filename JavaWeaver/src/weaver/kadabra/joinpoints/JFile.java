@@ -22,6 +22,7 @@ import java.util.stream.Stream;
 import org.apache.commons.lang3.NotImplementedException;
 import org.lara.interpreter.weaver.interf.JoinPoint;
 
+import pt.up.fe.specs.util.SpecsIo;
 import spoon.reflect.code.CtComment;
 import spoon.reflect.declaration.CtClass;
 import spoon.reflect.declaration.CtCompilationUnit;
@@ -334,5 +335,21 @@ public class JFile extends AFile {
     @Override
     public String toString() {
         return getNameImpl();
+    }
+
+    @Override
+    public AType getMainClassImpl() {
+        var topClassName = SpecsIo.removeExtension(getNameImpl());
+
+        // Name of file can be empty, in that case just return the first type if present, otherwise throw exception
+        if (topClassName.isBlank()) {
+            return streamOfTypes().findFirst().map(type -> CtElement2JoinPoint.convert(type, AType.class))
+                    .orElseThrow(() -> new RuntimeException("Could not find a class inside file " + getNameImpl()));
+        }
+
+        return streamOfTypes().filter(type -> topClassName.equals(type.getSimpleName())).findFirst()
+                .map(type -> CtElement2JoinPoint.convert(type, AType.class))
+                .orElseThrow(() -> new RuntimeException(
+                        "Could not find a class with name '" + topClassName + "' inside file " + getNameImpl()));
     }
 }

@@ -171,6 +171,29 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
     }
 
     /**
+     * Main class of the file. Java files must have a top level class with the same name as the file.
+     */
+    public abstract AType getMainClassImpl();
+
+    /**
+     * Main class of the file. Java files must have a top level class with the same name as the file.
+     */
+    public final Object getMainClass() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "mainClass", Optional.empty());
+        	}
+        	AType result = this.getMainClassImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "mainClass", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "mainClass", e);
+        }
+    }
+
+    /**
      * Represents classes, interfaces and enums
      * @return 
      */
@@ -498,6 +521,7 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
         attributes.add("package");
         attributes.add("numClasses");
         attributes.add("numInterfaces");
+        attributes.add("mainClass");
     }
 
     /**
@@ -547,6 +571,7 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
         PACKAGE("package"),
         NUMCLASSES("numClasses"),
         NUMINTERFACES("numInterfaces"),
+        MAINCLASS("mainClass"),
         PARENT("parent"),
         ISSTATIC("isStatic"),
         CODE("code"),

@@ -81,6 +81,7 @@
 		<attribute name="package"	type="String"/>
 		<attribute name="numClasses"	type="int"/>
 		<attribute name="numInterfaces"	type="int"/>
+		<attribute name="mainClass"	type="type" tooltip="Main class of the file. Java files must have a top level class with the same name as the file."/>		
 <!-- 		<attribute name="numInnerClasses"	type="int"/> -->
 <!-- 		<attribute name="numInnerInterfaces"	type="int"/> -->
 <!-- 		<attribute name="numInnerPackages"	type="int"/> -->
