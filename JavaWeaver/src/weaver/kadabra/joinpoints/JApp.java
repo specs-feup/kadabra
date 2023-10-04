@@ -15,7 +15,9 @@ package weaver.kadabra.joinpoints;
 
 import java.io.File;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.swing.WindowConstants;
@@ -46,22 +48,24 @@ import weaver.utils.weaving.SelectUtils;
 public class JApp extends AApp {
 
     public final Launcher spoon;
+    private final Set<File> sources;
     private final AndroidResources androidResources;
     private List<JLibClass> libClasses;
 
-    private JApp(Launcher spoon, AndroidResources androidResources) {
+    private JApp(Launcher spoon, List<File> sources) {
         this.spoon = spoon;
-        this.androidResources = androidResources;
+        this.sources = new HashSet<>(sources);
+        this.androidResources = AndroidResources.newInstance(sources);
     }
 
     public static JApp newInstance(Launcher spoon, List<File> sources) {
-        var app = new JApp(spoon, AndroidResources.newInstance(sources));
+        var app = new JApp(spoon, sources);
 
         return app;
     }
 
     public static JApp newInstance(CtApp app) {
-        return new JApp(app.spoon, AndroidResources.newInstance(Collections.emptyList()));
+        return new JApp(app.spoon, Collections.emptyList());
     }
 
     public AndroidResources getAndroidResources() {
@@ -70,11 +74,18 @@ public class JApp extends AApp {
 
     @Override
     public List<? extends AFile> selectFile() {
+
+        var cus = spoon.getFactory().CompilationUnit().getMap().values();
+
         // return getJpChildrenStream()
         // .map(jp -> (AFile) jp)
         // .collect(Collectors.toList());
-        final List<JFile> files = spoon.getFactory().CompilationUnit().getMap().values().stream().map(JFile::new)
+        final List<JFile> files = spoon.getFactory().CompilationUnit().getMap().values().stream()
+                .filter(cu -> sources.contains(cu.getFile()))
+                .map(JFile::new)
+                // .filter(jfile -> sources.contains(jfile.getP))
                 .collect(Collectors.toList());
+
         return files;
     }
 
