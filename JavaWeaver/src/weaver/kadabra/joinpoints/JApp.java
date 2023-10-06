@@ -81,7 +81,7 @@ public class JApp extends AApp {
         // .map(jp -> (AFile) jp)
         // .collect(Collectors.toList());
         final List<JFile> files = spoon.getFactory().CompilationUnit().getMap().values().stream()
-                .filter(cu -> sources.contains(cu.getFile()))
+//                .filter(cu -> sources.contains(cu.getFile()))
                 .map(JFile::new)
                 // .filter(jfile -> sources.contains(jfile.getP))
                 .collect(Collectors.toList());
