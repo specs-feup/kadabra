@@ -75,13 +75,14 @@ public class JApp extends AApp {
     @Override
     public List<? extends AFile> selectFile() {
 
-        var cus = spoon.getFactory().CompilationUnit().getMap().values();
+        // var cus = spoon.getFactory().CompilationUnit().getMap().values();
+        // System.out.println("CUS:\n" + cus);
 
         // return getJpChildrenStream()
         // .map(jp -> (AFile) jp)
         // .collect(Collectors.toList());
         final List<JFile> files = spoon.getFactory().CompilationUnit().getMap().values().stream()
-//                .filter(cu -> sources.contains(cu.getFile()))
+                // .filter(cu -> sources.contains(cu.getFile()))
                 .map(JFile::new)
                 // .filter(jfile -> sources.contains(jfile.getP))
                 .collect(Collectors.toList());

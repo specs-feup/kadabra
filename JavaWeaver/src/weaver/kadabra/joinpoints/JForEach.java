@@ -39,7 +39,7 @@ public class JForEach extends JLoop {
     @Override
     public List<? extends AStatement> selectInit() {
 
-        SpecsLogs.warn(
+        SpecsLogs.info(
                 "The foreach loop does not contain an init. The select 'init' should only be used in 'for' loops");
         return Collections.emptyList();
     }
@@ -53,7 +53,7 @@ public class JForEach extends JLoop {
 
     @Override
     public AExpression getCondImpl() {
-        SpecsLogs.warn(
+        SpecsLogs.info(
                 "The foreach loop does not contain a condition. The select 'cond' should only be used in 'for', 'while' and 'do while' loops");
 
         return null;
@@ -61,7 +61,7 @@ public class JForEach extends JLoop {
 
     @Override
     public List<? extends AStatement> selectStep() {
-        SpecsLogs.warn(
+        SpecsLogs.info(
                 "The foreach loop does not contain a step. The select 'step' should only be used in 'for' loops");
         return Collections.emptyList();
     }
