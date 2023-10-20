@@ -437,20 +437,33 @@ public class JavaWeaver extends AJavaWeaver {
                 // Process classpath
                 // If there are JARs present in folders, add them as individual classpaths
                 List<File> processedClasspath = new ArrayList<>();
-                processedClasspath.addAll(classPath);
+
+                // Add existing files
+                for (var classPathFile : classPath) {
+                    if (!classPathFile.exists()) {
+                        SpecsLogs.info("Classpath file '" + classPathFile + "' does not exist, skipping");
+                        continue;
+                    }
+
+                    processedClasspath.add(classPathFile);
+                }
+
                 var additionalJars = classPath.stream()
                         .filter(classPath -> classPath.isDirectory())
                         // .flatMap(folder -> SpecsIo.getFiles(folder, "jar").stream())
                         .flatMap(folder -> SpecsIo.getFilesRecursive(folder, "jar").stream())
                         .collect(Collectors.toList());
-                SpecsLogs.debug("Adding JARs to classpath: " + additionalJars);
+                SpecsLogs.debug(() -> "Adding JARs found in folders to classpath: " + additionalJars);
                 processedClasspath.addAll(additionalJars);
 
                 List<String> filesStr = processedClasspath.stream().map(SpecsIo::getCanonicalPath)
                         .collect(Collectors.toList());
                 String[] classPathArray = filesStr.toArray(new String[0]);
+                SpecsLogs.debug(() -> "Setting classpath as: " + filesStr);
+
                 // KadabraLog.info(filesStr);
                 environment.setSourceClasspath(classPathArray);
+
                 // KadabraLog.info(Arrays.toString(environment.getSourceClasspath());
             } catch (Exception e) {
                 throw new JavaWeaverException("setting the classpath", e);
@@ -484,6 +497,7 @@ public class JavaWeaver extends AJavaWeaver {
 
         environment.setCopyResources(args.get(JavaWeaverKeys.COPY_RESOURCES));
 
+        SpecsLogs.debug(() -> "Setting Java compliance level to " + args.get(JavaWeaverKeys.JAVA_COMPLIANCE_LEVEL));
         environment.setComplianceLevel(args.get(JavaWeaverKeys.JAVA_COMPLIANCE_LEVEL));
 
         // Set pretty printer
