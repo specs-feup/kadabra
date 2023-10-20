@@ -38,7 +38,8 @@
 		<!-- <dependency org="fr.inria.gforge.spoon" name="spoon-core" rev="6.2.0"/> -->
 		<!--<dependency org="fr.inria.gforge.spoon" name="spoon-core" rev="6.2.0"/> -->
 		<!--<dependency org="fr.inria.gforge.spoon" name="spoon-core" rev="8.1.0-beta-18"/>-->
-		<dependency org="fr.inria.gforge.spoon" name="spoon-core" rev="10.4.2"/>		
+		<dependency org="fr.inria.gforge.spoon" name="spoon-core" rev="10.1.1"/>		
+<!--		<dependency org="fr.inria.gforge.spoon" name="spoon-core" rev="10.4.2"/>	-->	
 		
 		<!--dependency org="fr.inria.gforge.spoon" name="spoon-core" rev="5.4.0"/-->
 		
