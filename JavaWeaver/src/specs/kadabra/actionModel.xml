@@ -92,11 +92,9 @@
 
 	
 	<!-- FILE -->
-	<!--
 	<action name="addImport" class="file" return="void">
 		<parameter name="qualifiedName" type="String"/>
 	</action>
-	-->
 	
 	
 	

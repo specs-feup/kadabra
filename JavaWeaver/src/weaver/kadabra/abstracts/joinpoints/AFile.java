@@ -348,6 +348,32 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
     }
 
     /**
+     * 
+     * @param qualifiedName 
+     */
+    public void addImportImpl(String qualifiedName) {
+        throw new UnsupportedOperationException(get_class()+": Action addImport not implemented ");
+    }
+
+    /**
+     * 
+     * @param qualifiedName 
+     */
+    public final void addImport(String qualifiedName) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "addImport", this, Optional.empty(), qualifiedName);
+        	}
+        	this.addImportImpl(qualifiedName);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "addImport", this, Optional.empty(), qualifiedName);
+        	}
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "addImport", e);
+        }
+    }
+
+    /**
      * insert a given class inside the target
      * @param newClass 
      */
@@ -547,6 +573,7 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
         actions.add("class newClass(String)");
         actions.add("interface newInterface(String, String[])");
         actions.add("interface newInterface(String)");
+        actions.add("void addImport(String)");
         actions.add("void addClass(class)");
         actions.add("void addInterface(interface)");
         actions.add("interface removeInterface(String)");
