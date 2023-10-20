@@ -12849,6 +12849,19 @@
 						"children": [
 									{
 										"type": "void",
+										"name": "addImport"
+									},
+									{
+										"type": "String",
+										"name": "qualifiedName",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
 										"name": "addInterface"
 									},
 									{
