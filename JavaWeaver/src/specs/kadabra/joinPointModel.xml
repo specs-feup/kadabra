@@ -76,7 +76,9 @@
 	
 	<!-- FIELD -->
 	<joinpoint class="field" extends="declaration"/>	
-	
+
+	<!-- ENUM_VALUE -->
+	<joinpoint class="enumValue" extends="field"/>		
 	
 	<joinpoint class="executable">
 		<select 					class="body"/>
