@@ -171,6 +171,29 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
     }
 
     /**
+     * Main class of the file. Java files must have a top level class with the same name as the file.
+     */
+    public abstract AType getMainClassImpl();
+
+    /**
+     * Main class of the file. Java files must have a top level class with the same name as the file.
+     */
+    public final Object getMainClass() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "mainClass", Optional.empty());
+        	}
+        	AType result = this.getMainClassImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "mainClass", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "mainClass", e);
+        }
+    }
+
+    /**
      * Represents classes, interfaces and enums
      * @return 
      */
@@ -321,6 +344,32 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
         	return result;
         } catch(Exception e) {
         	throw new ActionException(get_class(), "newInterface", e);
+        }
+    }
+
+    /**
+     * 
+     * @param qualifiedName 
+     */
+    public void addImportImpl(String qualifiedName) {
+        throw new UnsupportedOperationException(get_class()+": Action addImport not implemented ");
+    }
+
+    /**
+     * 
+     * @param qualifiedName 
+     */
+    public final void addImport(String qualifiedName) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "addImport", this, Optional.empty(), qualifiedName);
+        	}
+        	this.addImportImpl(qualifiedName);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "addImport", this, Optional.empty(), qualifiedName);
+        	}
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "addImport", e);
         }
     }
 
@@ -498,6 +547,7 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
         attributes.add("package");
         attributes.add("numClasses");
         attributes.add("numInterfaces");
+        attributes.add("mainClass");
     }
 
     /**
@@ -523,6 +573,7 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
         actions.add("class newClass(String)");
         actions.add("interface newInterface(String, String[])");
         actions.add("interface newInterface(String)");
+        actions.add("void addImport(String)");
         actions.add("void addClass(class)");
         actions.add("void addInterface(interface)");
         actions.add("interface removeInterface(String)");
@@ -547,6 +598,7 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
         PACKAGE("package"),
         NUMCLASSES("numClasses"),
         NUMINTERFACES("numInterfaces"),
+        MAINCLASS("mainClass"),
         PARENT("parent"),
         ISSTATIC("isStatic"),
         CODE("code"),

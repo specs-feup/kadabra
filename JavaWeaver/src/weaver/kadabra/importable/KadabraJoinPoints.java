@@ -155,6 +155,8 @@ public class KadabraJoinPoints {
     }
 
     public static Object assignment(Object lhs, Object rhs) {
+        SpecsCheck.checkNotNull(lhs, () -> "lhs cannot be null");
+        SpecsCheck.checkNotNull(rhs, () -> "rhs cannot be null");
         SpecsCheck.checkArgument(lhs instanceof JoinPoint,
                 () -> "Lhs must be a join point, it is a " + lhs.getClass().getSimpleName());
         SpecsCheck.checkArgument(rhs instanceof JoinPoint,

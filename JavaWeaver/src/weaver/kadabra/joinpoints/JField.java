@@ -26,7 +26,7 @@ public class JField<T> extends AField {
 
     private final CtField<T> node;
 
-    private JField(CtField<T> field) {
+    JField(CtField<T> field) {
         super(JDeclaration.newInstance(field));
         node = field;
 
