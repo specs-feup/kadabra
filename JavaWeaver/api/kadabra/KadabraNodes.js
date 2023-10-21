@@ -1,4 +1,4 @@
-import kadabra._KadabraJavaTypes;
+laraImport("kadabra._KadabraJavaTypes");
 
 /**
  * Utility methods related with the creation of new join points.
