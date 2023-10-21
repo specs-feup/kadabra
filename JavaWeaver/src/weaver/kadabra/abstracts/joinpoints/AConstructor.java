@@ -193,6 +193,15 @@ public abstract class AConstructor extends AExecutable {
     }
 
     /**
+     * Get value on attribute rightArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getRightArrayImpl() {
+        return this.aExecutable.getRightArrayImpl();
+    }
+
+    /**
      * Get value on attribute modifiersArrayImpl
      * @return the attribute's value
      */
@@ -235,6 +244,15 @@ public abstract class AConstructor extends AExecutable {
     @Override
     public AJoinPoint[] getChildrenArrayImpl() {
         return this.aExecutable.getChildrenArrayImpl();
+    }
+
+    /**
+     * Get value on attribute leftArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getLeftArrayImpl() {
+        return this.aExecutable.getLeftArrayImpl();
     }
 
     /**
@@ -537,11 +555,13 @@ public abstract class AConstructor extends AExecutable {
         LINE("line"),
         ANCESTOR("ancestor"),
         ANNOTATIONS("annotations"),
+        RIGHT("right"),
         MODIFIERS("modifiers"),
         DESCENDANTS("descendants"),
         ISSTATEMENT("isStatement"),
         ASTPARENT("astParent"),
         CHILDREN("children"),
+        LEFT("left"),
         HASMODIFIER("hasModifier"),
         NUMCHILDREN("numChildren"),
         SRCCODE("srcCode"),

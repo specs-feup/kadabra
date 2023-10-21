@@ -166,6 +166,15 @@ public abstract class AAndroidManifest extends AXmlNode {
     }
 
     /**
+     * Get value on attribute rightArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getRightArrayImpl() {
+        return this.aXmlNode.getRightArrayImpl();
+    }
+
+    /**
      * Get value on attribute modifiersArrayImpl
      * @return the attribute's value
      */
@@ -208,6 +217,15 @@ public abstract class AAndroidManifest extends AXmlNode {
     @Override
     public AJoinPoint[] getChildrenArrayImpl() {
         return this.aXmlNode.getChildrenArrayImpl();
+    }
+
+    /**
+     * Get value on attribute leftArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getLeftArrayImpl() {
+        return this.aXmlNode.getLeftArrayImpl();
     }
 
     /**
@@ -504,11 +522,13 @@ public abstract class AAndroidManifest extends AXmlNode {
         LINE("line"),
         ANCESTOR("ancestor"),
         ANNOTATIONS("annotations"),
+        RIGHT("right"),
         MODIFIERS("modifiers"),
         DESCENDANTS("descendants"),
         ISSTATEMENT("isStatement"),
         ASTPARENT("astParent"),
         CHILDREN("children"),
+        LEFT("left"),
         HASMODIFIER("hasModifier"),
         NUMCHILDREN("numChildren"),
         SRCCODE("srcCode"),

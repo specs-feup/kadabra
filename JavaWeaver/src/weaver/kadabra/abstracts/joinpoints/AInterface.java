@@ -232,6 +232,15 @@ public abstract class AInterface extends AType {
     }
 
     /**
+     * Get value on attribute rightArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getRightArrayImpl() {
+        return this.aType.getRightArrayImpl();
+    }
+
+    /**
      * Get value on attribute modifiersArrayImpl
      * @return the attribute's value
      */
@@ -274,6 +283,15 @@ public abstract class AInterface extends AType {
     @Override
     public AJoinPoint[] getChildrenArrayImpl() {
         return this.aType.getChildrenArrayImpl();
+    }
+
+    /**
+     * Get value on attribute leftArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getLeftArrayImpl() {
+        return this.aType.getLeftArrayImpl();
     }
 
     /**
@@ -676,11 +694,13 @@ public abstract class AInterface extends AType {
         LINE("line"),
         ANCESTOR("ancestor"),
         ANNOTATIONS("annotations"),
+        RIGHT("right"),
         MODIFIERS("modifiers"),
         DESCENDANTS("descendants"),
         ISSTATEMENT("isStatement"),
         ASTPARENT("astParent"),
         CHILDREN("children"),
+        LEFT("left"),
         HASMODIFIER("hasModifier"),
         NUMCHILDREN("numChildren"),
         SRCCODE("srcCode"),

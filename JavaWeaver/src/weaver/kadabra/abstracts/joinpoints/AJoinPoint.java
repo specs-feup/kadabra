@@ -395,6 +395,8 @@ public abstract class AJoinPoint extends JoinPoint {
         attributes.add("ancestor(String type)");
         attributes.add("line");
         attributes.add("descendants");
+        attributes.add("left");
+        attributes.add("right");
         attributes.add("isStatement");
         attributes.add("isBlock");
         attributes.add("modifiers");
@@ -703,6 +705,72 @@ public abstract class AJoinPoint extends JoinPoint {
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "descendants", e);
+        }
+    }
+
+    /**
+     * Get value on attribute left
+     * @return the attribute's value
+     */
+    public abstract AJoinPoint[] getLeftArrayImpl();
+
+    /**
+     * Sibling nodes to the left of this node
+     */
+    public Object getLeftImpl() {
+        AJoinPoint[] aJoinPointArrayImpl0 = getLeftArrayImpl();
+        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(aJoinPointArrayImpl0);
+        return nativeArray0;
+    }
+
+    /**
+     * Sibling nodes to the left of this node
+     */
+    public final Object getLeft() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "left", Optional.empty());
+        	}
+        	Object result = this.getLeftImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "left", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "left", e);
+        }
+    }
+
+    /**
+     * Get value on attribute right
+     * @return the attribute's value
+     */
+    public abstract AJoinPoint[] getRightArrayImpl();
+
+    /**
+     * Sibling nodes to the right of this node
+     */
+    public Object getRightImpl() {
+        AJoinPoint[] aJoinPointArrayImpl0 = getRightArrayImpl();
+        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(aJoinPointArrayImpl0);
+        return nativeArray0;
+    }
+
+    /**
+     * Sibling nodes to the right of this node
+     */
+    public final Object getRight() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "right", Optional.empty());
+        	}
+        	Object result = this.getRightImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "right", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "right", e);
         }
     }
 

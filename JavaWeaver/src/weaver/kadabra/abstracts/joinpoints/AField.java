@@ -227,6 +227,15 @@ public abstract class AField extends ADeclaration {
     }
 
     /**
+     * Get value on attribute rightArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getRightArrayImpl() {
+        return this.aDeclaration.getRightArrayImpl();
+    }
+
+    /**
      * Get value on attribute modifiersArrayImpl
      * @return the attribute's value
      */
@@ -269,6 +278,15 @@ public abstract class AField extends ADeclaration {
     @Override
     public AJoinPoint[] getChildrenArrayImpl() {
         return this.aDeclaration.getChildrenArrayImpl();
+    }
+
+    /**
+     * Get value on attribute leftArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getLeftArrayImpl() {
+        return this.aDeclaration.getLeftArrayImpl();
     }
 
     /**
@@ -572,11 +590,13 @@ public abstract class AField extends ADeclaration {
         LINE("line"),
         ANCESTOR("ancestor"),
         ANNOTATIONS("annotations"),
+        RIGHT("right"),
         MODIFIERS("modifiers"),
         DESCENDANTS("descendants"),
         ISSTATEMENT("isStatement"),
         ASTPARENT("astParent"),
         CHILDREN("children"),
+        LEFT("left"),
         HASMODIFIER("hasModifier"),
         NUMCHILDREN("numChildren"),
         SRCCODE("srcCode"),

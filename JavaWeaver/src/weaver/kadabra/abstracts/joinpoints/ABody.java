@@ -275,6 +275,15 @@ public abstract class ABody extends AStatement {
     }
 
     /**
+     * Get value on attribute rightArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getRightArrayImpl() {
+        return this.aStatement.getRightArrayImpl();
+    }
+
+    /**
      * Get value on attribute modifiersArrayImpl
      * @return the attribute's value
      */
@@ -317,6 +326,15 @@ public abstract class ABody extends AStatement {
     @Override
     public AJoinPoint[] getChildrenArrayImpl() {
         return this.aStatement.getChildrenArrayImpl();
+    }
+
+    /**
+     * Get value on attribute leftArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getLeftArrayImpl() {
+        return this.aStatement.getLeftArrayImpl();
     }
 
     /**
@@ -644,11 +662,13 @@ public abstract class ABody extends AStatement {
         LINE("line"),
         ANCESTOR("ancestor"),
         ANNOTATIONS("annotations"),
+        RIGHT("right"),
         MODIFIERS("modifiers"),
         DESCENDANTS("descendants"),
         ISSTATEMENT("isStatement"),
         ASTPARENT("astParent"),
         CHILDREN("children"),
+        LEFT("left"),
         HASMODIFIER("hasModifier"),
         NUMCHILDREN("numChildren"),
         SRCCODE("srcCode"),

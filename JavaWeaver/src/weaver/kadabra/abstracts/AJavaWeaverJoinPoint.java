@@ -12,6 +12,7 @@ import org.lara.interpreter.weaver.interf.SelectOp;
 
 import com.google.common.base.Preconditions;
 
+import pt.up.fe.specs.util.SpecsLogs;
 import pt.up.fe.specs.util.exceptions.NotImplementedException;
 import spoon.reflect.code.CtBlock;
 import spoon.reflect.code.CtExpression;
@@ -179,17 +180,16 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
     public AJoinPoint ancestorImpl(String type) {
         Preconditions.checkNotNull(type, "Missing type of ancestor in attribute 'ancestor'");
 
-        // if (type.equals("statement")) { // TODO: need to deal with special cases such as statement and expression
-        // return stmtAncestor(type);
-        // }
-        // System.out.println("ANCESTOR OF " + this + " that is a " + type);
+        // System.out.println("Getting ancestor '" + type + "' of " + getJoinPointType());
+
         AJoinPoint currentNode = getParentImpl();
         while (currentNode != null) {
-
+            // System.out.println("Parent " + currentNode.getJoinPointType() + " is '" + type + "'?");
             if (currentNode.instanceOf(type)) {
+                // System.out.println("Yes!");
                 return currentNode;
             }
-
+            // System.out.println("No..");
             currentNode = currentNode.getParentImpl();
         }
 
@@ -576,5 +576,63 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
     public String getIdImpl() {
         var node = getNode();
         return node.getClass().getSimpleName() + "_" + node.hashCode();
+    }
+
+    @Override
+    public AJoinPoint[] getLeftArrayImpl() {
+        var parent = getParentImpl();
+
+        if (parent == null) {
+            SpecsLogs.info("$jp.left: no parent, could not fetch siblings");
+            return new AJoinPoint[0];
+        }
+
+        var siblings = parent.getChildrenArrayImpl();
+
+        // Find self index
+        int selfIndex = -1;
+        for (int i = 0; i < siblings.length; i++) {
+            // Using equality on purpose
+            if (siblings[i].getNode() == getNode()) {
+                selfIndex = i;
+                break;
+            }
+        }
+
+        if (selfIndex == -1) {
+            SpecsLogs.info("$jp.left: could not find self in siblings");
+            return new AJoinPoint[0];
+        }
+
+        return Arrays.copyOfRange(siblings, 0, selfIndex);
+    }
+
+    @Override
+    public AJoinPoint[] getRightArrayImpl() {
+        var parent = getParentImpl();
+
+        if (parent == null) {
+            SpecsLogs.info("$jp.right: no parent, could not fetch siblings");
+            return new AJoinPoint[0];
+        }
+
+        var siblings = parent.getChildrenArrayImpl();
+
+        // Find self index
+        int selfIndex = -1;
+        for (int i = 0; i < siblings.length; i++) {
+            // Using equality on purpose
+            if (siblings[i].getNode() == getNode()) {
+                selfIndex = i;
+                break;
+            }
+        }
+
+        if (selfIndex == -1) {
+            SpecsLogs.info("$jp.right: could not find self in siblings");
+            return new AJoinPoint[0];
+        }
+
+        return Arrays.copyOfRange(siblings, selfIndex + 1, siblings.length);
     }
 }

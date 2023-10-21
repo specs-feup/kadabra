@@ -22,6 +22,8 @@
 			<def type="String"/>
 		</attribute>
 		<attribute name="descendants" 	type="joinpoint[]"/>
+		<attribute name="left" 			type="joinpoint[]" tooltip="Sibling nodes to the left of this node"/>
+		<attribute name="right" 		type="joinpoint[]" tooltip="Sibling nodes to the right of this node"/>		
 		<attribute name="isStatement"  	type="boolean" tooltip="true if this node is considered a statement"/>
 		<attribute name="isBlock"  		type="boolean" tooltip="true if this node is considered a block of statements"/>
    		<attribute name="modifiers"		type="String[]" tooltip="an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array"/>	   		
