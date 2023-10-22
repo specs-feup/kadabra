@@ -52,4 +52,10 @@ public class JCallStatement<T> extends ACallStatement {
         return children;
     }
 
+    @Override
+    public String getCodeImpl() {
+        // JCallStatement is a wrapper around an invocation, add ;
+        return super.getCodeImpl() + ";";
+    }
+
 }
