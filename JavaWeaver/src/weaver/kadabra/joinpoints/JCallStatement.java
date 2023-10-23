@@ -52,16 +52,11 @@ public class JCallStatement<T> extends ACallStatement {
         return children;
     }
 
-    // @Override
-    // public String getCodeImpl() {
-    // var origCode = super.getCodeImpl();
-    // System.out.println("JCALLSTMT ORIG: " + origCode);
-    // var endsWithSemi = origCode.trim().endsWith(";");
-    // System.out.println("ENDS WITH SEMI? " + endsWithSemi);
-    // // JCallStatement is a wrapper around an invocation, add ;
-    // var mod = origCode.trim().endsWith(";") ? origCode : origCode + ";";
-    // System.out.println("JCALLSTMT MOD: " + mod);
-    // return mod;
-    // }
+    @Override
+    public String getCodeImpl() {
+        var origCode = super.getCodeImpl();
+
+        return origCode.trim().endsWith(";") ? origCode : origCode + ";";
+    }
 
 }
