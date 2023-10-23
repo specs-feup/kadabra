@@ -54,8 +54,10 @@ public class JCallStatement<T> extends ACallStatement {
 
     @Override
     public String getCodeImpl() {
+        var origCode = super.getCodeImpl();
+
         // JCallStatement is a wrapper around an invocation, add ;
-        return super.getCodeImpl() + ";";
+        return origCode.trim().endsWith(";") ? origCode : origCode + ";";
     }
 
 }
