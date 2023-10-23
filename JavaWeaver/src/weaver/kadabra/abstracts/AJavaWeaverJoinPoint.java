@@ -2,6 +2,7 @@ package weaver.kadabra.abstracts;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -12,6 +13,7 @@ import org.lara.interpreter.weaver.interf.SelectOp;
 
 import com.google.common.base.Preconditions;
 
+import pt.up.fe.specs.util.SpecsEnums;
 import pt.up.fe.specs.util.SpecsLogs;
 import pt.up.fe.specs.util.exceptions.NotImplementedException;
 import spoon.reflect.code.CtBlock;
@@ -634,5 +636,34 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
         }
 
         return Arrays.copyOfRange(siblings, selfIndex + 1, siblings.length);
+    }
+
+    @Override
+    public void removeModifierImpl(String modifier) {
+        var modifiersSet = SpoonUtils.getModifiers(getNode());
+
+        if (modifiersSet.isEmpty()) {
+            SpecsLogs.debug(() -> "No modifiers to remove");
+            return;
+        }
+
+        // Convert modifier to enum
+        var modifierEnum = SpecsEnums.valueOfTry(ModifierKind.class, modifier.toUpperCase());
+
+        if (modifierEnum.isEmpty()) {
+            SpecsLogs.info("Could not obtain modifier from string '" + modifier + "'. Available modifiers: "
+                    + Arrays.toString(ModifierKind.values()));
+            return;
+        }
+
+        var newModifiers = new HashSet<>(modifiersSet);
+
+        var hadModifier = newModifiers.remove(modifierEnum.get());
+        if (hadModifier) {
+            SpoonUtils.setModifiers(getNode(), newModifiers);
+        } else {
+            SpecsLogs.debug(() -> "Could not remove modifier '" + modifier + "', not present in node");
+        }
+
     }
 }

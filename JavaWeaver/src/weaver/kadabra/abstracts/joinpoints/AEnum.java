@@ -484,6 +484,15 @@ public abstract class AEnum extends AClass {
 
     /**
      * 
+     * @param modifier 
+     */
+    @Override
+    public void removeModifierImpl(String modifier) {
+        this.aClass.removeModifierImpl(modifier);
+    }
+
+    /**
+     * 
      * @param name 
      * @param keyType 
      * @param _interface 

@@ -474,24 +474,44 @@ public class SpoonUtils {
     }
 
     /**
+     * If node is or can be converted to a CtModifiable, returns it.
+     * 
+     * @param node
+     * @return
+     */
+    public static Optional<CtModifiable> getModifiable(CtElement node) {
+        if (node instanceof CtModifiable) {
+            return Optional.of((CtModifiable) node);
+        }
+
+        if (node instanceof CtVariableAccess) {
+            var varAccess = (CtVariableAccess<?>) node;
+            var decl = varAccess.getVariable().getDeclaration();
+            return getModifiable(decl);
+        }
+
+        return Optional.empty();
+    }
+
+    /**
      * If node implements CtModifiable, returns the modifiers. Otherwise, returns empty set.
      * 
      * @return
      */
     public static Set<ModifierKind> getModifiers(CtElement node) {
 
-        if (node instanceof CtModifiable) {
-            return ((CtModifiable) node).getModifiers();
-        }
+        return getModifiable(node)
+                .map(mod -> mod.getModifiers())
+                .orElse(Collections.emptySet());
+    }
 
-        if (node instanceof CtVariableAccess) {
-            var varAccess = (CtVariableAccess<?>) node;
-            var decl = varAccess.getVariable().getDeclaration();
-            return getModifiers(decl);
-        }
-
-        return Collections.emptySet();
-
+    /**
+     * If node implements CtModifiable, sets the given modifiers.
+     * 
+     * @param node
+     */
+    public static void setModifiers(CtElement node, Set<ModifierKind> modifiers) {
+        getModifiable(node).ifPresent(mod -> mod.setModifiers(modifiers));
     }
 
     /**

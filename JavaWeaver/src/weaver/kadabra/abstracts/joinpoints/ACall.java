@@ -802,6 +802,15 @@ public abstract class ACall extends AExpression {
 
     /**
      * 
+     * @param modifier 
+     */
+    @Override
+    public void removeModifierImpl(String modifier) {
+        this.aExpression.removeModifierImpl(modifier);
+    }
+
+    /**
+     * 
      * @param varName 
      * @param location 
      * @param position 

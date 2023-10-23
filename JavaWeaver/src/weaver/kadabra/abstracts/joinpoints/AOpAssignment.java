@@ -442,6 +442,15 @@ public abstract class AOpAssignment extends AAssignment {
 
     /**
      * 
+     * @param modifier 
+     */
+    @Override
+    public void removeModifierImpl(String modifier) {
+        this.aAssignment.removeModifierImpl(modifier);
+    }
+
+    /**
+     * 
      * @param lhs 
      */
     @Override

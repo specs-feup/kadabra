@@ -407,6 +407,15 @@ public abstract class AConstructor extends AExecutable {
     }
 
     /**
+     * 
+     * @param modifier 
+     */
+    @Override
+    public void removeModifierImpl(String modifier) {
+        this.aExecutable.removeModifierImpl(modifier);
+    }
+
+    /**
      * Sets the name of this executable, returns the previous name
      * @param name 
      */

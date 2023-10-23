@@ -82,6 +82,7 @@ public abstract class AJoinPoint extends JoinPoint {
         actions.add("copy()");
         actions.add("remove()");
         actions.add("removeAnnotation(AAnnotation annotation)");
+        actions.add("removeModifier(String modifier)");
     }
 
     /**
@@ -372,6 +373,32 @@ public abstract class AJoinPoint extends JoinPoint {
         	}
         } catch(Exception e) {
         	throw new ActionException(get_class(), "removeAnnotation", e);
+        }
+    }
+
+    /**
+     * 
+     * @param modifier 
+     */
+    public void removeModifierImpl(String modifier) {
+        throw new UnsupportedOperationException(get_class()+": Action removeModifier not implemented ");
+    }
+
+    /**
+     * 
+     * @param modifier 
+     */
+    public final void removeModifier(String modifier) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "removeModifier", this, Optional.empty(), modifier);
+        	}
+        	this.removeModifierImpl(modifier);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "removeModifier", this, Optional.empty(), modifier);
+        	}
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "removeModifier", e);
         }
     }
 

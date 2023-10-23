@@ -643,6 +643,15 @@ public abstract class AClass extends AType {
     }
 
     /**
+     * 
+     * @param modifier 
+     */
+    @Override
+    public void removeModifierImpl(String modifier) {
+        this.aType.removeModifierImpl(modifier);
+    }
+
+    /**
      * insert a given class inside the target
      * @param newClass 
      */

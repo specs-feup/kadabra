@@ -381,6 +381,15 @@ public abstract class AAndroidManifest extends AXmlNode {
 
     /**
      * 
+     * @param modifier 
+     */
+    @Override
+    public void removeModifierImpl(String modifier) {
+        this.aXmlNode.removeModifierImpl(modifier);
+    }
+
+    /**
+     * 
      * @param text 
      */
     @Override

@@ -442,6 +442,15 @@ public abstract class AField extends ADeclaration {
 
     /**
      * 
+     * @param modifier 
+     */
+    @Override
+    public void removeModifierImpl(String modifier) {
+        this.aDeclaration.removeModifierImpl(modifier);
+    }
+
+    /**
+     * 
      * @param value 
      */
     @Override

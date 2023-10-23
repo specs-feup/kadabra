@@ -469,6 +469,15 @@ public abstract class AXmlElement extends AXmlNode {
 
     /**
      * 
+     * @param modifier 
+     */
+    @Override
+    public void removeModifierImpl(String modifier) {
+        this.aXmlNode.removeModifierImpl(modifier);
+    }
+
+    /**
+     * 
      * @param text 
      */
     @Override
