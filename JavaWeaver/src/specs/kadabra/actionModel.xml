@@ -224,6 +224,11 @@
 		<parameter name="newArguments" type="expression[]"/>
 	</action>
 	
+	<action name="setArgument" class="call" return="void">
+		<parameter name="newArgument" type="expression"/>
+		<parameter name="index" type="Integer"/>
+	</action>
+	
 	<!-- NEW -->
 	<action name="setArguments" class="new" return="void">
 		<parameter name="newArguments" type="expression[]"/>

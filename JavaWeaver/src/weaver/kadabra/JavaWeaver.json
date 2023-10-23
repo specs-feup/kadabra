@@ -6428,6 +6428,24 @@
 						"children": [
 									{
 										"type": "void",
+										"name": "setArgument"
+									},
+									{
+										"type": "expression",
+										"name": "newArgument",
+										"defaultValue": ""
+									},
+									{
+										"type": "Integer",
+										"name": "index",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
 										"name": "setArguments"
 									},
 									{

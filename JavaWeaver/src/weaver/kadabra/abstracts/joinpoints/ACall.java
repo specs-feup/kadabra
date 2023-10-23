@@ -411,6 +411,34 @@ public abstract class ACall extends AExpression {
     }
 
     /**
+     * 
+     * @param newArgument 
+     * @param index 
+     */
+    public void setArgumentImpl(AExpression newArgument, Integer index) {
+        throw new UnsupportedOperationException(get_class()+": Action setArgument not implemented ");
+    }
+
+    /**
+     * 
+     * @param newArgument 
+     * @param index 
+     */
+    public final void setArgument(AExpression newArgument, Integer index) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "setArgument", this, Optional.empty(), newArgument, index);
+        	}
+        	this.setArgumentImpl(newArgument, index);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "setArgument", this, Optional.empty(), newArgument, index);
+        	}
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "setArgument", e);
+        }
+    }
+
+    /**
      * Get value on attribute kind
      * @return the attribute's value
      */
@@ -977,6 +1005,7 @@ public abstract class ACall extends AExpression {
         this.aExpression.fillWithActions(actions);
         actions.add("call clone(statement, String)");
         actions.add("void setArguments(expression[])");
+        actions.add("void setArgument(expression, Integer)");
     }
 
     /**
