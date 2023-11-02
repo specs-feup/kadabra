@@ -150,6 +150,10 @@
 		<!--select 						class="catch"/>	-->
 		<!--select alias="finally"			class="body"/> -->			
 	</joinpoint>
+
+	<!-- CATCH -->
+	<joinpoint class="catch">
+	</joinpoint> 
 	
 	<!-- STATEMENT -->
 	<joinpoint class="statement">

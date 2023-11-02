@@ -203,6 +203,15 @@ public class JBody<T> extends ABody {
     }
 
     @Override
+    public AStatement getLastStmtImpl() {
+        if (!hasStatements()) {
+            return null;
+        }
+
+        return CtElement2JoinPoint.convert(node.getStatement(node.getStatements().size() - 1), AStatement.class);
+    }
+
+    @Override
     public List<? extends AReturn> selectReturn() {
         @SuppressWarnings("unchecked")
         List<? extends AReturn> selected = SelectUtils.select(node, CtReturn.class, JReturn::newInstance);

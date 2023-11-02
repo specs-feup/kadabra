@@ -5036,6 +5036,15 @@
 			"children": [
 					{
 						"type": "attribute",
+						"tooltip": "The last statement of the body, or undefined if it has no statements",
+						"children": [
+									{
+										"type": "statement",
+										"name": "lastStmt"
+									}]
+					},
+					{
+						"type": "attribute",
 						"children": [
 									{
 										"type": "int",
@@ -7402,6 +7411,436 @@
 						"type": "select",
 						"clazz": "call",
 						"alias": ""
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "insert"
+									},
+									{
+										"type": "[before| after| replace]",
+										"name": "position",
+										"defaultValue": ""
+									},
+									{
+										"type": "String",
+										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "def"
+									},
+									{
+										"type": "String",
+										"name": "attribute",
+										"defaultValue": ""
+									},
+									{
+										"type": "Object",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "String",
+										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "String",
+										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertReplace"
+									},
+									{
+										"type": "joinpoint",
+										"name": "jp",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertReplace"
+									},
+									{
+										"type": "String",
+										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "remove"
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "removeAnnotation"
+									},
+									{
+										"type": "annotation",
+										"name": "annotation",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "removeModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "replaceWith"
+									},
+									{
+										"type": "joinpoint",
+										"name": "jp",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "replaceWith"
+									},
+									{
+										"type": "String",
+										"name": "code",
+										"defaultValue": ""
+									}]
+					}]
+		},
+		{
+			"type": "joinpoint",
+			"name": "catch",
+			"extends": "joinpoint"		,
+			"children": [
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "body",
+										"name": "body"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "String[]",
+										"name": "attributes"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "String[]",
+										"name": "selects"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "String[]",
+										"name": "actions"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "ancestor"
+									},
+									{
+										"type": "String",
+										"name": "type"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "an array of the annotations of this node",
+						"children": [
+									{
+										"type": "annotation[]",
+										"name": "annotations"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "A string representation of the AST corresponding to this node",
+						"children": [
+									{
+										"type": "String",
+										"name": "ast"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "Alias of attribute 'parent'",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "astParent"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "Returns the child of the node at the given index",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "child"
+									},
+									{
+										"type": "Integer",
+										"name": "index"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "Returns an array with the children of the node",
+						"children": [
+									{
+										"type": "joinpoint[]",
+										"name": "children"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "The source code corresponding to this join point",
+						"children": [
+									{
+										"type": "String",
+										"name": "code"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint[]",
+										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "true if this node has the given modifier",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "hasModifier"
+									},
+									{
+										"type": "String",
+										"name": "modifier"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "unique identifier for node",
+						"children": [
+									{
+										"type": "String",
+										"name": "id"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "true if this node is considered a block of statements",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isBlock"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "true if this node has the modifier 'final'",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "isFinal"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "true if this node is considered a statement",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isStatement"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "true if this node has the modifier 'static'",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "isStatic"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "Sibling nodes to the left of this node",
+						"children": [
+									{
+										"type": "joinpoint[]",
+										"name": "left"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "int",
+										"name": "line"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array",
+						"children": [
+									{
+										"type": "String[]",
+										"name": "modifiers"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "Returns the number of children of the node",
+						"children": [
+									{
+										"type": "Integer",
+										"name": "numChildren"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "parent"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "Sibling nodes to the right of this node",
+						"children": [
+									{
+										"type": "joinpoint[]",
+										"name": "right"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "Alias for attribute 'code'",
+						"children": [
+									{
+										"type": "String",
+										"name": "srcCode"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "true if the current join point is an instance of the given type",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "instanceOf"
+									},
+									{
+										"type": "String",
+										"name": "name"
+									}]
 					},
 					{
 						"type": "action",
@@ -23773,6 +24212,22 @@
 			"defaultAttr": "kind",
 			"extends": "statement"		,
 			"children": [
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "body",
+										"name": "body"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "catch[]",
+										"name": "catches"
+									}]
+					},
 					{
 						"type": "attribute",
 						"children": [

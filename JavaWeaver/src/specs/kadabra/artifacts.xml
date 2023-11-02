@@ -179,10 +179,11 @@
 		<attribute name="staticAccess" 		type="string"/>
 	</artifact>
 	
-<!-- 	<artifact class="body"> -->
+ 	<artifact class="body">
+		<attribute name="lastStmt" 				type="statement" tooltip="The last statement of the body, or undefined if it has no statements"/>
 <!-- 		<attribute name="line" 				type="int"/> -->
 <!-- 		<attribute name="endLine" 			type="int"/> -->
-<!-- 	</artifact> -->
+ 	</artifact>
 	
 	<!-- localVariable -->
 	<artifact class="localVariable" default="name">
@@ -262,6 +263,16 @@
 		<attribute name="then"				type="body"/>			<!---->
 		<attribute name="else"				type="body"/>			
 	</artifact>
+
+
+	<artifact class="try">
+   		<attribute name="body" 				type="body"/>
+   		<attribute name="catches" 			type="catch[]"/>   		
+	</artifact>
+	
+	<artifact class="catch">
+   		<attribute name="body" 				type="body"/>
+	</artifact>	
 	
 	<!-- VAR -->
 	<artifact class="var" default="name">

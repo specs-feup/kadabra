@@ -1,9 +1,10 @@
 package weaver.kadabra.abstracts.joinpoints;
 
-import java.util.List;
-import org.lara.interpreter.weaver.interf.SelectOp;
 import org.lara.interpreter.weaver.interf.events.Stage;
 import java.util.Optional;
+import org.lara.interpreter.exception.AttributeException;
+import java.util.List;
+import org.lara.interpreter.weaver.interf.SelectOp;
 import org.lara.interpreter.exception.ActionException;
 import org.lara.interpreter.weaver.interf.JoinPoint;
 import java.util.stream.Collectors;
@@ -26,6 +27,29 @@ public abstract class ABody extends AStatement {
     public ABody(AStatement aStatement){
         this.aStatement = aStatement;
     }
+    /**
+     * The last statement of the body, or undefined if it has no statements
+     */
+    public abstract AStatement getLastStmtImpl();
+
+    /**
+     * The last statement of the body, or undefined if it has no statements
+     */
+    public final Object getLastStmt() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "lastStmt", Optional.empty());
+        	}
+        	AStatement result = this.getLastStmtImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "lastStmt", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "lastStmt", e);
+        }
+    }
+
     /**
      * Default implementation of the method used by the lara interpreter to select statements
      * @return 
@@ -605,6 +629,7 @@ public abstract class ABody extends AStatement {
     @Override
     protected final void fillWithAttributes(List<String> attributes) {
         this.aStatement.fillWithAttributes(attributes);
+        attributes.add("lastStmt");
     }
 
     /**
@@ -661,6 +686,7 @@ public abstract class ABody extends AStatement {
      * 
      */
     protected enum BodyAttributes {
+        LASTSTMT("lastStmt"),
         KIND("kind"),
         ENDLINE("endLine"),
         PARENT("parent"),
