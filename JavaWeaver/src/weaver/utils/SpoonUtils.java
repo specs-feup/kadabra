@@ -424,7 +424,15 @@ public class SpoonUtils {
         // return false;
         // }
 
-        return target.getParent() instanceof CtBlock;
+        var parent = target.getParent();
+
+        if (parent instanceof CtBlock || parent instanceof CtCase<?>) {
+            if (parent instanceof CtCase<?>) {
+            }
+            return true;
+        }
+
+        return false;
     }
 
     public static List<? extends CtElement> getChildren(CtElement node) {
