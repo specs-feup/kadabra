@@ -7134,6 +7134,33 @@
 			"children": [
 					{
 						"type": "attribute",
+						"tooltip": "the expression associated with this case, of undefined if it is the default case",
+						"children": [
+									{
+										"type": "expression",
+										"name": "expr"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "true if this is the default case, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isDefault"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "the statements of this case",
+						"children": [
+									{
+										"type": "statement[]",
+										"name": "stmts"
+									}]
+					},
+					{
+						"type": "attribute",
 						"children": [
 									{
 										"type": "int",
@@ -22228,6 +22255,14 @@
 			"defaultAttr": "kind",
 			"extends": "statement"		,
 			"children": [
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "case[]",
+										"name": "cases"
+									}]
+					},
 					{
 						"type": "attribute",
 						"children": [

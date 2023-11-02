@@ -1,9 +1,11 @@
 package weaver.kadabra.abstracts.joinpoints;
 
+import org.lara.interpreter.weaver.interf.events.Stage;
+import java.util.Optional;
+import org.lara.interpreter.exception.AttributeException;
 import java.util.List;
 import org.lara.interpreter.weaver.interf.SelectOp;
 import org.lara.interpreter.weaver.interf.JoinPoint;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.Arrays;
 
@@ -24,6 +26,85 @@ public abstract class ACase extends AStatement {
     public ACase(AStatement aStatement){
         this.aStatement = aStatement;
     }
+    /**
+     * the expression associated with this case, of undefined if it is the default case
+     */
+    public abstract AExpression getExprImpl();
+
+    /**
+     * the expression associated with this case, of undefined if it is the default case
+     */
+    public final Object getExpr() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "expr", Optional.empty());
+        	}
+        	AExpression result = this.getExprImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "expr", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "expr", e);
+        }
+    }
+
+    /**
+     * true if this is the default case, false otherwise
+     */
+    public abstract Boolean getIsDefaultImpl();
+
+    /**
+     * true if this is the default case, false otherwise
+     */
+    public final Object getIsDefault() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isDefault", Optional.empty());
+        	}
+        	Boolean result = this.getIsDefaultImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "isDefault", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "isDefault", e);
+        }
+    }
+
+    /**
+     * Get value on attribute stmts
+     * @return the attribute's value
+     */
+    public abstract AStatement[] getStmtsArrayImpl();
+
+    /**
+     * the statements of this case
+     */
+    public Object getStmtsImpl() {
+        AStatement[] aStatementArrayImpl0 = getStmtsArrayImpl();
+        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(aStatementArrayImpl0);
+        return nativeArray0;
+    }
+
+    /**
+     * the statements of this case
+     */
+    public final Object getStmts() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "stmts", Optional.empty());
+        	}
+        	Object result = this.getStmtsImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "stmts", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "stmts", e);
+        }
+    }
+
     /**
      * Default implementation of the method used by the lara interpreter to select expressions
      * @return 
@@ -474,6 +555,9 @@ public abstract class ACase extends AStatement {
     @Override
     protected final void fillWithAttributes(List<String> attributes) {
         this.aStatement.fillWithAttributes(attributes);
+        attributes.add("expr");
+        attributes.add("isDefault");
+        attributes.add("stmts");
     }
 
     /**
@@ -521,6 +605,9 @@ public abstract class ACase extends AStatement {
      * 
      */
     protected enum CaseAttributes {
+        EXPR("expr"),
+        ISDEFAULT("isDefault"),
+        STMTS("stmts"),
         KIND("kind"),
         ENDLINE("endLine"),
         PARENT("parent"),

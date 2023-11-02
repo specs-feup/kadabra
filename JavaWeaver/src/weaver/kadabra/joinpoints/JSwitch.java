@@ -20,6 +20,7 @@ import spoon.reflect.code.CtSwitch;
 import weaver.kadabra.abstracts.joinpoints.ACase;
 import weaver.kadabra.abstracts.joinpoints.ASwitch;
 import weaver.utils.weaving.SelectUtils;
+import weaver.utils.weaving.converters.CtElement2JoinPoint;
 
 public class JSwitch<S> extends ASwitch {
 
@@ -43,6 +44,11 @@ public class JSwitch<S> extends ASwitch {
     @Override
     public CtSwitch<S> getNode() {
         return node;
+    }
+
+    @Override
+    public ACase[] getCasesArrayImpl() {
+        return CtElement2JoinPoint.convertList(node.getCases(), ACase.class);
     }
 
 }

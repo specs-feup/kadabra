@@ -13,6 +13,8 @@
 
 package weaver.utils.weaving.converters;
 
+import java.lang.reflect.Array;
+import java.util.List;
 import java.util.Optional;
 
 import pt.up.fe.specs.util.classmap.FunctionClassMap;
@@ -105,6 +107,20 @@ public class CtElement2JoinPoint {
             return Optional.empty();
         }
 
+    }
+
+    public static <T extends AJavaWeaverJoinPoint> T[] convertList(List<? extends CtElement> elements,
+            Class<T> jpClass) {
+
+        @SuppressWarnings("unchecked")
+        T[] jps = (T[]) Array.newInstance(jpClass, elements.size());
+        // T[] jps = (T[]) new AJavaWeaverJoinPoint[elements.size()];
+
+        for (int i = 0; i < elements.size(); i++) {
+            jps[i] = convert(elements.get(i), jpClass);
+        }
+
+        return jps;
     }
 
 }

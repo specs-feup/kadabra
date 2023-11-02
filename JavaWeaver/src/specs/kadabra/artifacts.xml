@@ -274,6 +274,17 @@
    		<attribute name="body" 				type="body"/>
 	</artifact>	
 	
+	
+	<artifact class="switch">
+   		<attribute name="cases" 			type="case[]"/>
+	</artifact>		
+
+	<artifact class="case">
+		<attribute name="expr" 				type="expression" tooltip="the expression associated with this case, of undefined if it is the default case"/>
+   		<attribute name="isDefault" 		type="boolean" tooltip="true if this is the default case, false otherwise"/>
+   		<attribute name="stmts" 			type="statement[]" tooltip="the statements of this case"/>   		
+	</artifact>			
+	
 	<!-- VAR -->
 	<artifact class="var" default="name">
 		<attribute name="name"				type="string"/>
