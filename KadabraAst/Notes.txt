@@ -1,0 +1,6 @@
+- Let Spoon do as much work as possible, we collect the data into the AST
+
+- Set of classes for representing types (i.e., a Type hierarchy), it helped in Clang/Clava
+ -> Do away with CtReference, have instead a Type
+ -> DeclType: Optional<Decl> .getDecl(), List<String> .getQualifiedName(), String .getSimpleName()
+ -> Declaration is truth: DeclType receives a Decl, and retrieves information from the Decl. If the Decl changes, so does the type
