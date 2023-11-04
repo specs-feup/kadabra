@@ -21,4 +21,9 @@ public class KadabraTestDisabled extends KadabraTestUnit {
     public void testLiteral() {
         setup("Literal.java.test").onePass().showCode().test();
     }
+
+    @Test
+    public void testHelloWorld() {
+        setup("HelloWorld.java.test").onePass().showCode().test();
+    }
 }
