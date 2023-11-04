@@ -158,13 +158,13 @@ public class DeclDataFiller extends DataFiller {
     }
 
     public void ctTypeMember(Decl node, CtTypeMember element) {
-        node.set(Decl.DECLARING_TYPE, toTypeDecl(parser().parse(element.getDeclaringType())));
+        node.setOptional(Decl.DECLARING_TYPE, toTypeDecl(parser().parse(element.getDeclaringType())));
 
         var topLevelType = element.getTopLevelType();
 
         // Set top level type if present
         if (topLevelType != element) {
-            node.set(Decl.TOP_LEVEL_TYPE, toTypeDecl(parser().parse(topLevelType)));
+            node.setOptional(Decl.TOP_LEVEL_TYPE, toTypeDecl(parser().parse(topLevelType)));
         }
 
     }
@@ -172,7 +172,7 @@ public class DeclDataFiller extends DataFiller {
     public void ctTypedElement(KadabraNode node, CtTypedElement<?> element) {
         var declType = toTypeDecl(parser().parse(element.getType()));
 
-        node.set(KadabraNode.TYPE, declType);
+        node.setOptional(KadabraNode.TYPE, declType);
     }
 
     public void ctVariable(VarDecl node, CtVariable<?> element) {
