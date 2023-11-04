@@ -37,13 +37,15 @@ public class Decl extends KadabraNode {
      */
     public final static DataKey<Boolean> IS_INCOMPLETE = KeyFactory.bool("isIncomplete");
 
+    // ToDo: Replace all fields that return a Decl with either a DeclType or a method that navigates the AST
+
     /**
      * The generic parameters, if this declaration has any.
      */
     public static final DataKey<List<TypeDecl>> GENERIC_PARAMS = KeyFactory.list("genericParams", TypeDecl.class);
 
     /**
-     * Types thrown by this decl, if any.
+     * Type declarations thrown by this decl, if any.
      */
     public static final DataKey<List<TypeDecl>> THROWN_TYPES = KeyFactory.list("thrownTypes", TypeDecl.class);
 
