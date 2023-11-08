@@ -312,4 +312,10 @@
 		<parameter name="value" type="String"/>
 	</action>
 	
+	
+	<!-- SNIPPET_STMT -->
+	<action name="setLine" class="snippetStmt">
+		<parameter name="line" type="Integer"/>
+	</action>	
+
 </actions>

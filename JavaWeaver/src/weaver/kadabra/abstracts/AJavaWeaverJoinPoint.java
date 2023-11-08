@@ -241,6 +241,7 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
         if (position == null || !position.isValidPosition()) {
             return null;
         }
+
         return position.getLine();
         // // Check if this joinpoint is a statement
         // if (this instanceof AStatement) {

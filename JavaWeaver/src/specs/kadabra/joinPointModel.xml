@@ -279,6 +279,8 @@
 	<joinpoint class="continue" extends="statement"/>
 	<joinpoint class="break" extends="statement"/>
 	
+	<joinpoint class="snippetStmt" extends="statement"/>
+	
 	<!-- REFERENCE -->
 	<joinpoint class="reference" tooltip="Points to a named program element reference"/>
 	
