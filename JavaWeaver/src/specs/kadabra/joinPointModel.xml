@@ -251,6 +251,9 @@
 	<!-- THIS -->
 	<joinpoint class="this" extends="expression"/>
 	
+	<!-- SNIPPET EXPRESSION -->
+	<joinpoint class="snippetExpr" extends="expression"/>
+	
 	<!-- RETURN -->
 	<joinpoint class="return" 		extends="statement"/>
 	

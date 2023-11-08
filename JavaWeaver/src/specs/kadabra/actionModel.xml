@@ -313,9 +313,16 @@
 	</action>
 	
 	
-	<!-- SNIPPET_STMT -->
+	<!-- SNIPPET STMT -->
 	<action name="setLine" class="snippetStmt">
 		<parameter name="line" type="Integer"/>
 	</action>	
+
+	<!-- SNIPPET EXPR -->
+	<action name="setLine" class="snippetExpr">
+		<parameter name="line" type="Integer"/>
+	</action>	
+	
+	
 
 </actions>

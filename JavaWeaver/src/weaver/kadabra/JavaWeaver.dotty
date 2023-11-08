@@ -43,6 +43,7 @@ edge [fontsize=10]
 "pragma"->"comment"
 "reference"->"joinpoint"
 "return"->"statement"
+"snippetExpr"->"expression"
 "snippetStmt"->"statement"
 "statement"->"joinpoint"
 "switch"->"statement"

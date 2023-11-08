@@ -26,6 +26,7 @@ import spoon.reflect.code.CtThisAccess;
 import spoon.reflect.code.CtUnaryOperator;
 import spoon.reflect.code.CtVariableAccess;
 import spoon.reflect.declaration.CtAnnotation;
+import spoon.support.reflect.code.CtCodeSnippetExpressionImpl;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.AExpression;
 import weaver.kadabra.joinpoints.JAnnotation;
@@ -37,10 +38,12 @@ import weaver.kadabra.joinpoints.JExpression;
 import weaver.kadabra.joinpoints.JFieldAccess;
 import weaver.kadabra.joinpoints.JLiteral;
 import weaver.kadabra.joinpoints.JNew;
+import weaver.kadabra.joinpoints.JSnippetExpr;
 import weaver.kadabra.joinpoints.JTernary;
 import weaver.kadabra.joinpoints.JThis;
 import weaver.kadabra.joinpoints.JUnaryExpression;
 import weaver.kadabra.joinpoints.JVar;
+import weaver.kadabra.spoon.extensions.nodes.CtKadabraSnippetExpression;
 import weaver.utils.SpoonUtils;
 
 /**
@@ -67,6 +70,8 @@ public class CtExpression2AExpression {
         CONVERTER.put(CtConditional.class, JTernary::newInstance);
         CONVERTER.put(CtAnnotation.class, JAnnotation::new);
         CONVERTER.put(CtThisAccess.class, JThis::new);
+        CONVERTER.put(CtCodeSnippetExpressionImpl.class,
+                ctElement -> JSnippetExpr.newInstance(new CtKadabraSnippetExpression<Object>(ctElement)));
 
         // CONVERTER.put(CtAssignment.class, JAssignment::newInstance);
 
