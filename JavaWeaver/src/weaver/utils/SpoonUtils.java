@@ -388,6 +388,28 @@ public class SpoonUtils {
         return visitor.isInLoopHeader();
     }
 
+    // public static boolean isHeaderNode(CtElement node) {
+    // return node instanceof CtLoop || node instanceof CtIf;
+    // }
+    //
+    // /**
+    // * Generic method which tests if inside loop or if header.
+    // *
+    // * @param node
+    // * @return
+    // */
+    // public static boolean isInsideHeader(CtElement node) {
+    //
+    // // If node is a block, return immediately
+    // if (node instanceof CtBlock<?>) {
+    // return false;
+    // }
+    //
+    // var currentNode = node.getParent();
+    //
+    //
+    // }
+
     public static boolean isAncestor(CtElement target, CtElement ancestor, CtElement cut) {
         CtElement parent = target.getParent();
         CtPackage rootPackage = ancestor.getFactory().Package().getRootPackage();

@@ -169,6 +169,7 @@ public abstract class AReference extends AJavaWeaverJoinPoint {
         CODE("code"),
         AST("ast"),
         ISBLOCK("isBlock"),
+        ISINSIDELOOPHEADER("isInsideLoopHeader"),
         LINE("line"),
         ANCESTOR("ancestor"),
         ANNOTATIONS("annotations"),

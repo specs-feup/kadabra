@@ -588,6 +588,15 @@ public abstract class ACall extends AExpression {
     }
 
     /**
+     * Get value on attribute isInsideLoopHeader
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsInsideLoopHeaderImpl() {
+        return this.aExpression.getIsInsideLoopHeaderImpl();
+    }
+
+    /**
      * Get value on attribute line
      * @return the attribute's value
      */
@@ -1054,6 +1063,7 @@ public abstract class ACall extends AExpression {
         CODE("code"),
         AST("ast"),
         ISBLOCK("isBlock"),
+        ISINSIDELOOPHEADER("isInsideLoopHeader"),
         LINE("line"),
         ANCESTOR("ancestor"),
         ANNOTATIONS("annotations"),

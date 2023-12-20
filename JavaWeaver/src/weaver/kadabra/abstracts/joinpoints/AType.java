@@ -719,6 +719,7 @@ public abstract class AType extends AJavaWeaverJoinPoint {
         CODE("code"),
         AST("ast"),
         ISBLOCK("isBlock"),
+        ISINSIDELOOPHEADER("isInsideLoopHeader"),
         LINE("line"),
         ANCESTOR("ancestor"),
         ANNOTATIONS("annotations"),

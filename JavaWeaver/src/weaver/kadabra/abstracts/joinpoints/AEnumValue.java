@@ -167,6 +167,15 @@ public abstract class AEnumValue extends AField {
     }
 
     /**
+     * Get value on attribute isInsideLoopHeader
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsInsideLoopHeaderImpl() {
+        return this.aField.getIsInsideLoopHeaderImpl();
+    }
+
+    /**
      * Get value on attribute line
      * @return the attribute's value
      */
@@ -552,6 +561,7 @@ public abstract class AEnumValue extends AField {
         CODE("code"),
         AST("ast"),
         ISBLOCK("isBlock"),
+        ISINSIDELOOPHEADER("isInsideLoopHeader"),
         LINE("line"),
         ANCESTOR("ancestor"),
         ANNOTATIONS("annotations"),

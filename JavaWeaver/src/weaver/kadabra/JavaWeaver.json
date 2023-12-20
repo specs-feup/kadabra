@@ -151,6 +151,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a statement",
 						"children": [
 									{
@@ -640,6 +649,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a statement",
 						"children": [
 									{
@@ -1094,6 +1112,15 @@
 									{
 										"type": "Boolean",
 										"name": "isFinal"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
 									}]
 					},
 					{
@@ -1576,6 +1603,15 @@
 									{
 										"type": "Boolean",
 										"name": "isFinal"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
 									}]
 					},
 					{
@@ -2091,6 +2127,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a statement",
 						"children": [
 									{
@@ -2571,6 +2616,15 @@
 									{
 										"type": "Boolean",
 										"name": "isFinal"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
 									}]
 					},
 					{
@@ -3158,6 +3212,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a statement",
 						"children": [
 									{
@@ -3655,6 +3718,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a statement",
 						"children": [
 									{
@@ -4134,6 +4206,15 @@
 									{
 										"type": "Boolean",
 										"name": "isFinal"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
 									}]
 					},
 					{
@@ -4679,6 +4760,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a statement",
 						"children": [
 									{
@@ -5199,6 +5289,15 @@
 									{
 										"type": "Boolean",
 										"name": "isFinal"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
 									}]
 					},
 					{
@@ -5729,6 +5828,15 @@
 									{
 										"type": "Boolean",
 										"name": "isFinal"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
 									}]
 					},
 					{
@@ -6294,6 +6402,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a statement",
 						"children": [
 									{
@@ -6843,6 +6960,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a statement",
 						"children": [
 									{
@@ -7319,6 +7445,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a statement",
 						"children": [
 									{
@@ -7775,6 +7910,15 @@
 									{
 										"type": "Boolean",
 										"name": "isFinal"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
 									}]
 					},
 					{
@@ -8291,6 +8435,15 @@
 									{
 										"type": "Boolean",
 										"name": "isFinal"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
 									}]
 					},
 					{
@@ -9099,6 +9252,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a statement",
 						"children": [
 									{
@@ -9580,6 +9742,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a statement",
 						"children": [
 									{
@@ -10039,6 +10210,15 @@
 									{
 										"type": "Boolean",
 										"name": "isFinal"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
 									}]
 					},
 					{
@@ -10528,6 +10708,15 @@
 									{
 										"type": "Boolean",
 										"name": "isFinal"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
 									}]
 					},
 					{
@@ -11061,6 +11250,15 @@
 									{
 										"type": "Boolean",
 										"name": "isFinal"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
 									}]
 					},
 					{
@@ -11914,6 +12112,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a statement",
 						"children": [
 									{
@@ -12391,6 +12598,15 @@
 									{
 										"type": "Boolean",
 										"name": "isFinal"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
 									}]
 					},
 					{
@@ -12878,6 +13094,15 @@
 									{
 										"type": "Boolean",
 										"name": "isFinal"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
 									}]
 					},
 					{
@@ -13425,6 +13650,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a statement",
 						"children": [
 									{
@@ -13732,6 +13966,7 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "Equivalent to the global attribute 'isInsideLoopHeader'",
 						"children": [
 									{
 										"type": "boolean",
@@ -13967,6 +14202,15 @@
 									{
 										"type": "Boolean",
 										"name": "isFinal"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
 									}]
 					},
 					{
@@ -14496,6 +14740,15 @@
 									{
 										"type": "Boolean",
 										"name": "isFinal"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
 									}]
 					},
 					{
@@ -15149,6 +15402,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a statement",
 						"children": [
 									{
@@ -15677,6 +15939,15 @@
 									{
 										"type": "Boolean",
 										"name": "isFinal"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
 									}]
 					},
 					{
@@ -16398,6 +16669,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a statement",
 						"children": [
 									{
@@ -16849,6 +17129,15 @@
 									{
 										"type": "Boolean",
 										"name": "isFinal"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
 									}]
 					},
 					{
@@ -17326,6 +17615,15 @@
 									{
 										"type": "Boolean",
 										"name": "isFinal"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
 									}]
 					},
 					{
@@ -17887,6 +18185,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a statement",
 						"children": [
 									{
@@ -18406,6 +18713,15 @@
 									{
 										"type": "Boolean",
 										"name": "isFinal"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
 									}]
 					},
 					{
@@ -19006,6 +19322,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a statement",
 						"children": [
 									{
@@ -19571,6 +19896,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a statement",
 						"children": [
 									{
@@ -20091,6 +20425,15 @@
 									{
 										"type": "Boolean",
 										"name": "isFinal"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
 									}]
 					},
 					{
@@ -20617,6 +20960,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a statement",
 						"children": [
 									{
@@ -21078,6 +21430,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a statement",
 						"children": [
 									{
@@ -21513,6 +21874,15 @@
 									{
 										"type": "Boolean",
 										"name": "isFinal"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
 									}]
 					},
 					{
@@ -21986,6 +22356,15 @@
 									{
 										"type": "Boolean",
 										"name": "isFinal"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
 									}]
 					},
 					{
@@ -22490,6 +22869,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a statement",
 						"children": [
 									{
@@ -22952,6 +23340,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a statement",
 						"children": [
 									{
@@ -23405,6 +23802,15 @@
 									{
 										"type": "Boolean",
 										"name": "isFinal"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
 									}]
 					},
 					{
@@ -23917,6 +24323,15 @@
 									{
 										"type": "Boolean",
 										"name": "isFinal"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
 									}]
 					},
 					{
@@ -24447,6 +24862,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a statement",
 						"children": [
 									{
@@ -24934,6 +25358,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a statement",
 						"children": [
 									{
@@ -25405,6 +25838,15 @@
 									{
 										"type": "Boolean",
 										"name": "isFinal"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
 									}]
 					},
 					{
@@ -25928,6 +26370,15 @@
 									{
 										"type": "Boolean",
 										"name": "isFinal"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
 									}]
 					},
 					{
@@ -26673,6 +27124,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a statement",
 						"children": [
 									{
@@ -27152,6 +27612,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a statement",
 						"children": [
 									{
@@ -27508,6 +27977,7 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "Equivalent to the global attribute 'isInsideLoopHeader'",
 						"children": [
 									{
 										"type": "boolean",
@@ -27743,6 +28213,15 @@
 									{
 										"type": "Boolean",
 										"name": "isFinal"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
 									}]
 					},
 					{
@@ -28277,6 +28756,15 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node is considered a statement",
 						"children": [
 									{
@@ -28760,6 +29248,15 @@
 									{
 										"type": "Boolean",
 										"name": "isFinal"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "true if the node is inside a loop header, false otherwise",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "isInsideLoopHeader"
 									}]
 					},
 					{

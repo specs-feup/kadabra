@@ -152,6 +152,15 @@ public abstract class APragma extends AComment {
     }
 
     /**
+     * Get value on attribute isInsideLoopHeader
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsInsideLoopHeaderImpl() {
+        return this.aComment.getIsInsideLoopHeaderImpl();
+    }
+
+    /**
      * Get value on attribute line
      * @return the attribute's value
      */
@@ -530,6 +539,7 @@ public abstract class APragma extends AComment {
         CODE("code"),
         AST("ast"),
         ISBLOCK("isBlock"),
+        ISINSIDELOOPHEADER("isInsideLoopHeader"),
         LINE("line"),
         ANCESTOR("ancestor"),
         ANNOTATIONS("annotations"),

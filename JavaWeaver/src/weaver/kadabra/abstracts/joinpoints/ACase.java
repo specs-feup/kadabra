@@ -219,6 +219,15 @@ public abstract class ACase extends AStatement {
     }
 
     /**
+     * Get value on attribute isInsideLoopHeader
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsInsideLoopHeaderImpl() {
+        return this.aStatement.getIsInsideLoopHeaderImpl();
+    }
+
+    /**
      * Get value on attribute line
      * @return the attribute's value
      */
@@ -615,6 +624,7 @@ public abstract class ACase extends AStatement {
         CODE("code"),
         AST("ast"),
         ISBLOCK("isBlock"),
+        ISINSIDELOOPHEADER("isInsideLoopHeader"),
         LINE("line"),
         ANCESTOR("ancestor"),
         ANNOTATIONS("annotations"),

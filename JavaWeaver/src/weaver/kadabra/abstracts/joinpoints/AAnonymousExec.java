@@ -139,6 +139,15 @@ public abstract class AAnonymousExec extends AExecutable {
     }
 
     /**
+     * Get value on attribute isInsideLoopHeader
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsInsideLoopHeaderImpl() {
+        return this.aExecutable.getIsInsideLoopHeaderImpl();
+    }
+
+    /**
      * Get value on attribute line
      * @return the attribute's value
      */
@@ -532,6 +541,7 @@ public abstract class AAnonymousExec extends AExecutable {
         CODE("code"),
         AST("ast"),
         ISBLOCK("isBlock"),
+        ISINSIDELOOPHEADER("isInsideLoopHeader"),
         LINE("line"),
         ANCESTOR("ancestor"),
         ANNOTATIONS("annotations"),

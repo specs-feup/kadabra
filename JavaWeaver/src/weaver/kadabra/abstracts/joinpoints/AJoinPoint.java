@@ -432,6 +432,7 @@ public abstract class AJoinPoint extends JoinPoint {
         attributes.add("isStatic");
         attributes.add("annotations");
         attributes.add("id");
+        attributes.add("isInsideLoopHeader");
     }
 
     /**
@@ -1006,6 +1007,29 @@ public abstract class AJoinPoint extends JoinPoint {
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "id", e);
+        }
+    }
+
+    /**
+     * true if the node is inside a loop header, false otherwise
+     */
+    public abstract Boolean getIsInsideLoopHeaderImpl();
+
+    /**
+     * true if the node is inside a loop header, false otherwise
+     */
+    public final Object getIsInsideLoopHeader() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isInsideLoopHeader", Optional.empty());
+        	}
+        	Boolean result = this.getIsInsideLoopHeaderImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "isInsideLoopHeader", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "isInsideLoopHeader", e);
         }
     }
 

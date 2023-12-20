@@ -18,6 +18,7 @@ import pt.up.fe.specs.util.SpecsLogs;
 import pt.up.fe.specs.util.exceptions.NotImplementedException;
 import spoon.reflect.code.CtBlock;
 import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtLoop;
 import spoon.reflect.code.CtStatement;
 import spoon.reflect.cu.SourcePosition;
 import spoon.reflect.declaration.CtAnnotation;
@@ -666,5 +667,18 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
             SpecsLogs.debug(() -> "Could not remove modifier '" + modifier + "', not present in node");
         }
 
+    }
+
+    @Override
+    public Boolean getIsInsideLoopHeaderImpl() {
+        var node = getNode();
+
+        Optional<CtLoop> ancestor = SpoonUtils.getAncestorTry(node, CtLoop.class);
+        if (!ancestor.isPresent()) {
+            return false;
+        }
+        CtLoop loop = ancestor.get();
+
+        return SpoonUtils.insideHeader(loop, node);
     }
 }

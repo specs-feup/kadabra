@@ -152,14 +152,12 @@ public abstract class AVar extends AExpression {
     }
 
     /**
-     * Get value on attribute inLoopHeader
-     * @return the attribute's value
+     * Equivalent to the global attribute 'isInsideLoopHeader'
      */
     public abstract Boolean getInLoopHeaderImpl();
 
     /**
-     * Get value on attribute inLoopHeader
-     * @return the attribute's value
+     * Equivalent to the global attribute 'isInsideLoopHeader'
      */
     public final Object getInLoopHeader() {
         try {
@@ -381,6 +379,15 @@ public abstract class AVar extends AExpression {
     @Override
     public Boolean getIsBlockImpl() {
         return this.aExpression.getIsBlockImpl();
+    }
+
+    /**
+     * Get value on attribute isInsideLoopHeader
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsInsideLoopHeaderImpl() {
+        return this.aExpression.getIsInsideLoopHeaderImpl();
     }
 
     /**
@@ -808,6 +815,7 @@ public abstract class AVar extends AExpression {
         CODE("code"),
         AST("ast"),
         ISBLOCK("isBlock"),
+        ISINSIDELOOPHEADER("isInsideLoopHeader"),
         LINE("line"),
         ANCESTOR("ancestor"),
         ANNOTATIONS("annotations"),
