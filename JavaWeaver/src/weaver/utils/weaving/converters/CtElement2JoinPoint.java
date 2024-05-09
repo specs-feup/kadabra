@@ -22,6 +22,7 @@ import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.CtStatement;
 import spoon.reflect.declaration.CtCompilationUnit;
 import spoon.reflect.declaration.CtElement;
+import spoon.reflect.declaration.CtEnumValue;
 import spoon.reflect.declaration.CtExecutable;
 import spoon.reflect.declaration.CtField;
 import spoon.reflect.declaration.CtType;
@@ -33,6 +34,7 @@ import weaver.kadabra.joinpoints.JApp;
 import weaver.kadabra.joinpoints.JBody;
 import weaver.kadabra.joinpoints.JComment;
 import weaver.kadabra.joinpoints.JDeclaration;
+import weaver.kadabra.joinpoints.JEnumValue;
 import weaver.kadabra.joinpoints.JField;
 import weaver.kadabra.joinpoints.JFile;
 import weaver.kadabra.joinpoints.JGenericJoinPoint;
@@ -59,6 +61,7 @@ public class CtElement2JoinPoint {
 
         // Elements without specific converter
         CONVERTER.put(CtBlock.class, JBody::newInstance);
+        CONVERTER.put(CtEnumValue.class, JEnumValue::newInstance);
         CONVERTER.put(CtField.class, JField::newInstance);
         CONVERTER.put(CtVariable.class, JDeclaration::newInstance);
         CONVERTER.put(CtComment.class, JComment::newInstance);

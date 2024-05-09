@@ -1,78 +1,45 @@
 package weaver.kadabra.abstracts.joinpoints;
 
-import org.lara.interpreter.weaver.interf.events.Stage;
-import java.util.Optional;
-import org.lara.interpreter.exception.AttributeException;
 import java.util.List;
 import org.lara.interpreter.weaver.interf.JoinPoint;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.Arrays;
 
 /**
- * Auto-Generated class for join point AField
+ * Auto-Generated class for join point AEnumValue
  * This class is overwritten by the Weaver Generator.
  * 
  * 
  * @author Lara Weaver Generator
  */
-public abstract class AField extends ADeclaration {
+public abstract class AEnumValue extends AField {
 
-    protected ADeclaration aDeclaration;
+    protected AField aField;
 
     /**
      * 
      */
-    public AField(ADeclaration aDeclaration){
-        this.aDeclaration = aDeclaration;
+    public AEnumValue(AField aField){
+        super(aField);
+        this.aField = aField;
     }
     /**
      * Get value on attribute declarator
      * @return the attribute's value
      */
-    public abstract String getDeclaratorImpl();
-
-    /**
-     * Get value on attribute declarator
-     * @return the attribute's value
-     */
-    public final Object getDeclarator() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "declarator", Optional.empty());
-        	}
-        	String result = this.getDeclaratorImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "declarator", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "declarator", e);
-        }
+    @Override
+    public String getDeclaratorImpl() {
+        return this.aField.getDeclaratorImpl();
     }
 
     /**
      * Get value on attribute staticAccess
      * @return the attribute's value
      */
-    public abstract String getStaticAccessImpl();
-
-    /**
-     * Get value on attribute staticAccess
-     * @return the attribute's value
-     */
-    public final Object getStaticAccess() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "staticAccess", Optional.empty());
-        	}
-        	String result = this.getStaticAccessImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "staticAccess", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "staticAccess", e);
-        }
+    @Override
+    public String getStaticAccessImpl() {
+        return this.aField.getStaticAccessImpl();
     }
 
     /**
@@ -81,7 +48,7 @@ public abstract class AField extends ADeclaration {
      */
     @Override
     public String getNameImpl() {
-        return this.aDeclaration.getNameImpl();
+        return this.aField.getNameImpl();
     }
 
     /**
@@ -90,7 +57,7 @@ public abstract class AField extends ADeclaration {
      */
     @Override
     public String getTypeImpl() {
-        return this.aDeclaration.getTypeImpl();
+        return this.aField.getTypeImpl();
     }
 
     /**
@@ -99,7 +66,7 @@ public abstract class AField extends ADeclaration {
      */
     @Override
     public ATypeReference getTypeReferenceImpl() {
-        return this.aDeclaration.getTypeReferenceImpl();
+        return this.aField.getTypeReferenceImpl();
     }
 
     /**
@@ -108,7 +75,7 @@ public abstract class AField extends ADeclaration {
      */
     @Override
     public Boolean getIsArrayImpl() {
-        return this.aDeclaration.getIsArrayImpl();
+        return this.aField.getIsArrayImpl();
     }
 
     /**
@@ -117,7 +84,7 @@ public abstract class AField extends ADeclaration {
      */
     @Override
     public Boolean getIsPrimitiveImpl() {
-        return this.aDeclaration.getIsPrimitiveImpl();
+        return this.aField.getIsPrimitiveImpl();
     }
 
     /**
@@ -126,7 +93,7 @@ public abstract class AField extends ADeclaration {
      */
     @Override
     public String getCompleteTypeImpl() {
-        return this.aDeclaration.getCompleteTypeImpl();
+        return this.aField.getCompleteTypeImpl();
     }
 
     /**
@@ -135,7 +102,7 @@ public abstract class AField extends ADeclaration {
      */
     @Override
     public AExpression getInitImpl() {
-        return this.aDeclaration.getInitImpl();
+        return this.aField.getInitImpl();
     }
 
     /**
@@ -144,14 +111,14 @@ public abstract class AField extends ADeclaration {
      */
     @Override
     public List<? extends AExpression> selectInit() {
-        return this.aDeclaration.selectInit();
+        return this.aField.selectInit();
     }
 
     /**
      * 
      */
     public void defInitImpl(AExpression value) {
-        this.aDeclaration.defInitImpl(value);
+        this.aField.defInitImpl(value);
     }
 
     /**
@@ -160,7 +127,7 @@ public abstract class AField extends ADeclaration {
      */
     @Override
     public AJoinPoint getParentImpl() {
-        return this.aDeclaration.getParentImpl();
+        return this.aField.getParentImpl();
     }
 
     /**
@@ -169,7 +136,7 @@ public abstract class AField extends ADeclaration {
      */
     @Override
     public Boolean getIsStaticImpl() {
-        return this.aDeclaration.getIsStaticImpl();
+        return this.aField.getIsStaticImpl();
     }
 
     /**
@@ -178,7 +145,7 @@ public abstract class AField extends ADeclaration {
      */
     @Override
     public String getCodeImpl() {
-        return this.aDeclaration.getCodeImpl();
+        return this.aField.getCodeImpl();
     }
 
     /**
@@ -187,7 +154,7 @@ public abstract class AField extends ADeclaration {
      */
     @Override
     public String getAstImpl() {
-        return this.aDeclaration.getAstImpl();
+        return this.aField.getAstImpl();
     }
 
     /**
@@ -196,7 +163,7 @@ public abstract class AField extends ADeclaration {
      */
     @Override
     public Boolean getIsBlockImpl() {
-        return this.aDeclaration.getIsBlockImpl();
+        return this.aField.getIsBlockImpl();
     }
 
     /**
@@ -205,7 +172,7 @@ public abstract class AField extends ADeclaration {
      */
     @Override
     public Integer getLineImpl() {
-        return this.aDeclaration.getLineImpl();
+        return this.aField.getLineImpl();
     }
 
     /**
@@ -214,7 +181,7 @@ public abstract class AField extends ADeclaration {
      */
     @Override
     public AJoinPoint ancestorImpl(String type) {
-        return this.aDeclaration.ancestorImpl(type);
+        return this.aField.ancestorImpl(type);
     }
 
     /**
@@ -223,7 +190,7 @@ public abstract class AField extends ADeclaration {
      */
     @Override
     public AAnnotation[] getAnnotationsArrayImpl() {
-        return this.aDeclaration.getAnnotationsArrayImpl();
+        return this.aField.getAnnotationsArrayImpl();
     }
 
     /**
@@ -232,7 +199,7 @@ public abstract class AField extends ADeclaration {
      */
     @Override
     public String[] getModifiersArrayImpl() {
-        return this.aDeclaration.getModifiersArrayImpl();
+        return this.aField.getModifiersArrayImpl();
     }
 
     /**
@@ -241,7 +208,7 @@ public abstract class AField extends ADeclaration {
      */
     @Override
     public AJoinPoint[] getDescendantsArrayImpl() {
-        return this.aDeclaration.getDescendantsArrayImpl();
+        return this.aField.getDescendantsArrayImpl();
     }
 
     /**
@@ -250,7 +217,7 @@ public abstract class AField extends ADeclaration {
      */
     @Override
     public Boolean getIsStatementImpl() {
-        return this.aDeclaration.getIsStatementImpl();
+        return this.aField.getIsStatementImpl();
     }
 
     /**
@@ -259,7 +226,7 @@ public abstract class AField extends ADeclaration {
      */
     @Override
     public AJoinPoint getAstParentImpl() {
-        return this.aDeclaration.getAstParentImpl();
+        return this.aField.getAstParentImpl();
     }
 
     /**
@@ -268,7 +235,7 @@ public abstract class AField extends ADeclaration {
      */
     @Override
     public AJoinPoint[] getChildrenArrayImpl() {
-        return this.aDeclaration.getChildrenArrayImpl();
+        return this.aField.getChildrenArrayImpl();
     }
 
     /**
@@ -277,7 +244,7 @@ public abstract class AField extends ADeclaration {
      */
     @Override
     public Boolean hasModifierImpl(String modifier) {
-        return this.aDeclaration.hasModifierImpl(modifier);
+        return this.aField.hasModifierImpl(modifier);
     }
 
     /**
@@ -286,7 +253,7 @@ public abstract class AField extends ADeclaration {
      */
     @Override
     public Integer getNumChildrenImpl() {
-        return this.aDeclaration.getNumChildrenImpl();
+        return this.aField.getNumChildrenImpl();
     }
 
     /**
@@ -295,7 +262,7 @@ public abstract class AField extends ADeclaration {
      */
     @Override
     public String getSrcCodeImpl() {
-        return this.aDeclaration.getSrcCodeImpl();
+        return this.aField.getSrcCodeImpl();
     }
 
     /**
@@ -304,7 +271,7 @@ public abstract class AField extends ADeclaration {
      */
     @Override
     public Boolean getIsFinalImpl() {
-        return this.aDeclaration.getIsFinalImpl();
+        return this.aField.getIsFinalImpl();
     }
 
     /**
@@ -313,7 +280,7 @@ public abstract class AField extends ADeclaration {
      */
     @Override
     public String getIdImpl() {
-        return this.aDeclaration.getIdImpl();
+        return this.aField.getIdImpl();
     }
 
     /**
@@ -322,7 +289,7 @@ public abstract class AField extends ADeclaration {
      */
     @Override
     public AJoinPoint childImpl(Integer index) {
-        return this.aDeclaration.childImpl(index);
+        return this.aField.childImpl(index);
     }
 
     /**
@@ -331,7 +298,7 @@ public abstract class AField extends ADeclaration {
      */
     @Override
     public AJoinPoint insertBeforeImpl(AJoinPoint node) {
-        return this.aDeclaration.insertBeforeImpl(node);
+        return this.aField.insertBeforeImpl(node);
     }
 
     /**
@@ -340,7 +307,7 @@ public abstract class AField extends ADeclaration {
      */
     @Override
     public AJoinPoint insertBeforeImpl(String code) {
-        return this.aDeclaration.insertBeforeImpl(code);
+        return this.aField.insertBeforeImpl(code);
     }
 
     /**
@@ -349,7 +316,7 @@ public abstract class AField extends ADeclaration {
      */
     @Override
     public AJoinPoint insertAfterImpl(AJoinPoint node) {
-        return this.aDeclaration.insertAfterImpl(node);
+        return this.aField.insertAfterImpl(node);
     }
 
     /**
@@ -358,7 +325,7 @@ public abstract class AField extends ADeclaration {
      */
     @Override
     public AJoinPoint insertAfterImpl(String code) {
-        return this.aDeclaration.insertAfterImpl(code);
+        return this.aField.insertAfterImpl(code);
     }
 
     /**
@@ -367,7 +334,7 @@ public abstract class AField extends ADeclaration {
      */
     @Override
     public AJoinPoint insertReplaceImpl(AJoinPoint jp) {
-        return this.aDeclaration.insertReplaceImpl(jp);
+        return this.aField.insertReplaceImpl(jp);
     }
 
     /**
@@ -376,7 +343,7 @@ public abstract class AField extends ADeclaration {
      */
     @Override
     public AJoinPoint insertReplaceImpl(String code) {
-        return this.aDeclaration.insertReplaceImpl(code);
+        return this.aField.insertReplaceImpl(code);
     }
 
     /**
@@ -385,7 +352,7 @@ public abstract class AField extends ADeclaration {
      */
     @Override
     public AJoinPoint replaceWithImpl(AJoinPoint jp) {
-        return this.aDeclaration.replaceWithImpl(jp);
+        return this.aField.replaceWithImpl(jp);
     }
 
     /**
@@ -394,7 +361,7 @@ public abstract class AField extends ADeclaration {
      */
     @Override
     public AJoinPoint replaceWithImpl(String code) {
-        return this.aDeclaration.replaceWithImpl(code);
+        return this.aField.replaceWithImpl(code);
     }
 
     /**
@@ -402,7 +369,7 @@ public abstract class AField extends ADeclaration {
      */
     @Override
     public AJoinPoint copyImpl() {
-        return this.aDeclaration.copyImpl();
+        return this.aField.copyImpl();
     }
 
     /**
@@ -410,7 +377,7 @@ public abstract class AField extends ADeclaration {
      */
     @Override
     public void removeImpl() {
-        this.aDeclaration.removeImpl();
+        this.aField.removeImpl();
     }
 
     /**
@@ -419,16 +386,7 @@ public abstract class AField extends ADeclaration {
      */
     @Override
     public void removeAnnotationImpl(AAnnotation annotation) {
-        this.aDeclaration.removeAnnotationImpl(annotation);
-    }
-
-    /**
-     * 
-     * @param value 
-     */
-    @Override
-    public void setInitImpl(AExpression value) {
-        this.aDeclaration.setInitImpl(value);
+        this.aField.removeAnnotationImpl(annotation);
     }
 
     /**
@@ -438,7 +396,7 @@ public abstract class AField extends ADeclaration {
      */
     @Override
     public AJoinPoint[] insertImpl(String position, String code) {
-        return this.aDeclaration.insertImpl(position, code);
+        return this.aField.insertImpl(position, code);
     }
 
     /**
@@ -448,29 +406,29 @@ public abstract class AField extends ADeclaration {
      */
     @Override
     public AJoinPoint[] insertImpl(String position, JoinPoint code) {
-        return this.aDeclaration.insertImpl(position, code);
+        return this.aField.insertImpl(position, code);
     }
 
     /**
      * 
      */
     @Override
-    public Optional<? extends ADeclaration> getSuper() {
-        return Optional.of(this.aDeclaration);
+    public Optional<? extends AField> getSuper() {
+        return Optional.of(this.aField);
     }
 
     /**
      * 
      */
     @Override
-    public List<? extends JoinPoint> select(String selectName) {
+    public final List<? extends JoinPoint> select(String selectName) {
         List<? extends JoinPoint> joinPointList;
         switch(selectName) {
         	case "init": 
         		joinPointList = selectInit();
         		break;
         	default:
-        		joinPointList = this.aDeclaration.select(selectName);
+        		joinPointList = this.aField.select(selectName);
         		break;
         }
         return joinPointList;
@@ -480,7 +438,7 @@ public abstract class AField extends ADeclaration {
      * 
      */
     @Override
-    public void defImpl(String attribute, Object value) {
+    public final void defImpl(String attribute, Object value) {
         switch(attribute){
         case "line": {
         	if(value instanceof Integer){
@@ -508,26 +466,24 @@ public abstract class AField extends ADeclaration {
      * 
      */
     @Override
-    protected void fillWithAttributes(List<String> attributes) {
-        this.aDeclaration.fillWithAttributes(attributes);
-        attributes.add("declarator");
-        attributes.add("staticAccess");
+    protected final void fillWithAttributes(List<String> attributes) {
+        this.aField.fillWithAttributes(attributes);
     }
 
     /**
      * 
      */
     @Override
-    protected void fillWithSelects(List<String> selects) {
-        this.aDeclaration.fillWithSelects(selects);
+    protected final void fillWithSelects(List<String> selects) {
+        this.aField.fillWithSelects(selects);
     }
 
     /**
      * 
      */
     @Override
-    protected void fillWithActions(List<String> actions) {
-        this.aDeclaration.fillWithActions(actions);
+    protected final void fillWithActions(List<String> actions) {
+        this.aField.fillWithActions(actions);
     }
 
     /**
@@ -535,8 +491,8 @@ public abstract class AField extends ADeclaration {
      * @return The join point type
      */
     @Override
-    public String get_class() {
-        return "field";
+    public final String get_class() {
+        return "enumValue";
     }
 
     /**
@@ -544,17 +500,17 @@ public abstract class AField extends ADeclaration {
      * @return True if this join point is an instanceof the given class
      */
     @Override
-    public boolean instanceOf(String joinpointClass) {
+    public final boolean instanceOf(String joinpointClass) {
         boolean isInstance = get_class().equals(joinpointClass);
         if(isInstance) {
         	return true;
         }
-        return this.aDeclaration.instanceOf(joinpointClass);
+        return this.aField.instanceOf(joinpointClass);
     }
     /**
      * 
      */
-    protected enum FieldAttributes {
+    protected enum EnumValueAttributes {
         DECLARATOR("declarator"),
         STATICACCESS("staticAccess"),
         NAME("name"),
@@ -588,13 +544,13 @@ public abstract class AField extends ADeclaration {
         /**
          * 
          */
-        private FieldAttributes(String name){
+        private EnumValueAttributes(String name){
             this.name = name;
         }
         /**
          * Return an attribute enumeration item from a given attribute name
          */
-        public static Optional<FieldAttributes> fromString(String name) {
+        public static Optional<EnumValueAttributes> fromString(String name) {
             return Arrays.asList(values()).stream().filter(attr -> attr.name.equals(name)).findAny();
         }
 
@@ -602,7 +558,7 @@ public abstract class AField extends ADeclaration {
          * Return a list of attributes in String format
          */
         public static List<String> getNames() {
-            return Arrays.asList(values()).stream().map(FieldAttributes::name).collect(Collectors.toList());
+            return Arrays.asList(values()).stream().map(EnumValueAttributes::name).collect(Collectors.toList());
         }
 
         /**

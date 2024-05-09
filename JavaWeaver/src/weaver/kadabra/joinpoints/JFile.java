@@ -22,12 +22,16 @@ import java.util.stream.Stream;
 import org.apache.commons.lang3.NotImplementedException;
 import org.lara.interpreter.weaver.interf.JoinPoint;
 
+import pt.up.fe.specs.util.SpecsIo;
+import pt.up.fe.specs.util.SpecsLogs;
 import spoon.reflect.code.CtComment;
 import spoon.reflect.declaration.CtClass;
 import spoon.reflect.declaration.CtCompilationUnit;
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtInterface;
 import spoon.reflect.declaration.CtType;
+import spoon.support.reflect.declaration.CtImportImpl;
+import spoon.support.reflect.reference.CtPackageReferenceImpl;
 import spoon.support.visitor.equals.EqualsVisitor;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.AClass;
@@ -58,6 +62,16 @@ public class JFile extends AFile {
     // public String getCodeImpl() {
     // return node.toString();
     // }
+
+    @Override
+    public void addImportImpl(String qualifiedName) {
+        var imports = node.getImports();
+        var packageReferece = new CtPackageReferenceImpl();
+        packageReferece.setSimpleName(qualifiedName);
+        var newImport = new CtImportImpl().setReference(packageReferece);
+        imports.add(newImport);
+        node.setImports(imports);
+    }
 
     /*
     @Override
@@ -334,5 +348,36 @@ public class JFile extends AFile {
     @Override
     public String toString() {
         return getNameImpl();
+    }
+
+    @Override
+    public AType getMainClassImpl() {
+
+        var fileName = SpecsIo.removeExtension(getNameImpl());
+
+        var declaredTypes = node.getDeclaredTypes();
+
+        if (declaredTypes.isEmpty()) {
+            SpecsLogs
+                    .info("file.mainClass: class '" + fileName + "' does not have declared types, returning undefined");
+            return null;
+        }
+
+        // Name of file can be empty, in that case just return the first type if present, otherwise throw exception
+        if (fileName.isBlank()) {
+            SpecsLogs.info("file.mainClass: file name is empty, returning first class that is found in file");
+            return CtElement2JoinPoint.convert(declaredTypes.get(0), AType.class);
+        }
+
+        var declaredTypesNames = new ArrayList<String>();
+        for (var declaredType : declaredTypes) {
+            if (fileName.equals(declaredType.getSimpleName())) {
+                return CtElement2JoinPoint.convert(declaredType, AType.class);
+            }
+        }
+
+        throw new RuntimeException("Could not find a class with name '" + fileName + "' inside file " + getNameImpl()
+                + ". Available types: " + declaredTypesNames);
+
     }
 }

@@ -23,6 +23,7 @@ edge [fontsize=10]
 "continue"->"statement"
 "declaration"->"joinpoint"
 "enum"->"class"
+"enumValue"->"field"
 "executable"->"joinpoint"
 "expression"->"joinpoint"
 "field"->"declaration"
