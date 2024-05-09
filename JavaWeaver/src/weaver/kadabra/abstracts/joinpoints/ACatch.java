@@ -10,80 +10,36 @@ import java.util.stream.Collectors;
 import java.util.Arrays;
 
 /**
- * Auto-Generated class for join point AReference
+ * Auto-Generated class for join point ACatch
  * This class is overwritten by the Weaver Generator.
  * 
- * Points to a named program element reference
+ * 
  * @author Lara Weaver Generator
  */
-public abstract class AReference extends AJavaWeaverJoinPoint {
+public abstract class ACatch extends AJavaWeaverJoinPoint {
 
     /**
-     * Name of the element of the reference
+     * Get value on attribute body
+     * @return the attribute's value
      */
-    public abstract String getNameImpl();
+    public abstract ABody getBodyImpl();
 
     /**
-     * Name of the element of the reference
+     * Get value on attribute body
+     * @return the attribute's value
      */
-    public final Object getName() {
+    public final Object getBody() {
         try {
         	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "name", Optional.empty());
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "body", Optional.empty());
         	}
-        	String result = this.getNameImpl();
+        	ABody result = this.getBodyImpl();
         	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "name", Optional.ofNullable(result));
+        		eventTrigger().triggerAttribute(Stage.END, this, "body", Optional.ofNullable(result));
         	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
-        	throw new AttributeException(get_class(), "name", e);
-        }
-    }
-
-    /**
-     * The element that is being referenced
-     */
-    public abstract AJoinPoint getDeclarationImpl();
-
-    /**
-     * The element that is being referenced
-     */
-    public final Object getDeclaration() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "declaration", Optional.empty());
-        	}
-        	AJoinPoint result = this.getDeclarationImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "declaration", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "declaration", e);
-        }
-    }
-
-    /**
-     * Type of the element of the reference
-     */
-    public abstract String getTypeImpl();
-
-    /**
-     * Type of the element of the reference
-     */
-    public final Object getType() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "type", Optional.empty());
-        	}
-        	String result = this.getTypeImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "type", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "type", e);
+        	throw new AttributeException(get_class(), "body", e);
         }
     }
 
@@ -91,7 +47,7 @@ public abstract class AReference extends AJavaWeaverJoinPoint {
      * 
      */
     @Override
-    public List<? extends JoinPoint> select(String selectName) {
+    public final List<? extends JoinPoint> select(String selectName) {
         List<? extends JoinPoint> joinPointList;
         switch(selectName) {
         	default:
@@ -105,7 +61,7 @@ public abstract class AReference extends AJavaWeaverJoinPoint {
      * 
      */
     @Override
-    public void defImpl(String attribute, Object value) {
+    public final void defImpl(String attribute, Object value) {
         switch(attribute){
         case "line": {
         	if(value instanceof Integer){
@@ -126,18 +82,16 @@ public abstract class AReference extends AJavaWeaverJoinPoint {
      * 
      */
     @Override
-    protected void fillWithAttributes(List<String> attributes) {
+    protected final void fillWithAttributes(List<String> attributes) {
         super.fillWithAttributes(attributes);
-        attributes.add("name");
-        attributes.add("declaration");
-        attributes.add("type");
+        attributes.add("body");
     }
 
     /**
      * 
      */
     @Override
-    protected void fillWithSelects(List<String> selects) {
+    protected final void fillWithSelects(List<String> selects) {
         super.fillWithSelects(selects);
     }
 
@@ -145,7 +99,7 @@ public abstract class AReference extends AJavaWeaverJoinPoint {
      * 
      */
     @Override
-    protected void fillWithActions(List<String> actions) {
+    protected final void fillWithActions(List<String> actions) {
         super.fillWithActions(actions);
     }
 
@@ -154,16 +108,14 @@ public abstract class AReference extends AJavaWeaverJoinPoint {
      * @return The join point type
      */
     @Override
-    public String get_class() {
-        return "reference";
+    public final String get_class() {
+        return "catch";
     }
     /**
      * 
      */
-    protected enum ReferenceAttributes {
-        NAME("name"),
-        DECLARATION("declaration"),
-        TYPE("type"),
+    protected enum CatchAttributes {
+        BODY("body"),
         PARENT("parent"),
         ISSTATIC("isStatic"),
         CODE("code"),
@@ -191,13 +143,13 @@ public abstract class AReference extends AJavaWeaverJoinPoint {
         /**
          * 
          */
-        private ReferenceAttributes(String name){
+        private CatchAttributes(String name){
             this.name = name;
         }
         /**
          * Return an attribute enumeration item from a given attribute name
          */
-        public static Optional<ReferenceAttributes> fromString(String name) {
+        public static Optional<CatchAttributes> fromString(String name) {
             return Arrays.asList(values()).stream().filter(attr -> attr.name.equals(name)).findAny();
         }
 
@@ -205,7 +157,7 @@ public abstract class AReference extends AJavaWeaverJoinPoint {
          * Return a list of attributes in String format
          */
         public static List<String> getNames() {
-            return Arrays.asList(values()).stream().map(ReferenceAttributes::name).collect(Collectors.toList());
+            return Arrays.asList(values()).stream().map(CatchAttributes::name).collect(Collectors.toList());
         }
 
         /**

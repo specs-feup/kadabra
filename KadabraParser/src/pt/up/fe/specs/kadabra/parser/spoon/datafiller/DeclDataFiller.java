@@ -56,7 +56,15 @@ public class DeclDataFiller extends DataFiller {
     // }
 
     public void ctTypeInformation(KadabraNode node, CtTypeInformation element) {
-        var qualifiedPrefix = DataFillers.extractQualifiedPrefix(element.getQualifiedName(), node.get(Decl.NAME));
+        var qualifiedName = DataFillers.parseQualifiedName(element.getQualifiedName());
+
+        // Check: last element is the name of the declaration
+        SpecsCheck.checkArgument(node.get(Decl.NAME).equals(qualifiedName.get(qualifiedName.size() - 1)),
+                () -> "Expected declaration name '" + node.get(Decl.NAME)
+                        + "' to be the same as the last element of the qualified name '" + qualifiedName + "'");
+
+        var qualifiedPrefix = qualifiedName.subList(0, qualifiedName.size() - 1);
+
         node.set(TypeDecl.QUALIFIED_PREFIX, qualifiedPrefix);
 
         var superClass = element.getSuperclass();
@@ -158,13 +166,13 @@ public class DeclDataFiller extends DataFiller {
     }
 
     public void ctTypeMember(Decl node, CtTypeMember element) {
-        node.set(Decl.DECLARING_TYPE, toTypeDecl(parser().parse(element.getDeclaringType())));
+        node.setOptional(Decl.DECLARING_TYPE, toTypeDecl(parser().parse(element.getDeclaringType())));
 
         var topLevelType = element.getTopLevelType();
 
         // Set top level type if present
         if (topLevelType != element) {
-            node.set(Decl.TOP_LEVEL_TYPE, toTypeDecl(parser().parse(topLevelType)));
+            node.setOptional(Decl.TOP_LEVEL_TYPE, toTypeDecl(parser().parse(topLevelType)));
         }
 
     }
@@ -172,7 +180,7 @@ public class DeclDataFiller extends DataFiller {
     public void ctTypedElement(KadabraNode node, CtTypedElement<?> element) {
         var declType = toTypeDecl(parser().parse(element.getType()));
 
-        node.set(KadabraNode.TYPE, declType);
+        node.setOptional(KadabraNode.TYPE, declType);
     }
 
     public void ctVariable(VarDecl node, CtVariable<?> element) {

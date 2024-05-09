@@ -122,6 +122,15 @@ public abstract class AAssert extends AStatement {
     }
 
     /**
+     * Get value on attribute isInsideLoopHeader
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsInsideLoopHeaderImpl() {
+        return this.aStatement.getIsInsideLoopHeaderImpl();
+    }
+
+    /**
      * Get value on attribute line
      * @return the attribute's value
      */
@@ -146,6 +155,15 @@ public abstract class AAssert extends AStatement {
     @Override
     public AAnnotation[] getAnnotationsArrayImpl() {
         return this.aStatement.getAnnotationsArrayImpl();
+    }
+
+    /**
+     * Get value on attribute rightArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getRightArrayImpl() {
+        return this.aStatement.getRightArrayImpl();
     }
 
     /**
@@ -191,6 +209,15 @@ public abstract class AAssert extends AStatement {
     @Override
     public AJoinPoint[] getChildrenArrayImpl() {
         return this.aStatement.getChildrenArrayImpl();
+    }
+
+    /**
+     * Get value on attribute leftArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getLeftArrayImpl() {
+        return this.aStatement.getLeftArrayImpl();
     }
 
     /**
@@ -346,6 +373,15 @@ public abstract class AAssert extends AStatement {
 
     /**
      * 
+     * @param modifier 
+     */
+    @Override
+    public void removeModifierImpl(String modifier) {
+        this.aStatement.removeModifierImpl(modifier);
+    }
+
+    /**
+     * 
      * @param position 
      * @param code 
      */
@@ -477,14 +513,17 @@ public abstract class AAssert extends AStatement {
         CODE("code"),
         AST("ast"),
         ISBLOCK("isBlock"),
+        ISINSIDELOOPHEADER("isInsideLoopHeader"),
         LINE("line"),
         ANCESTOR("ancestor"),
         ANNOTATIONS("annotations"),
+        RIGHT("right"),
         MODIFIERS("modifiers"),
         DESCENDANTS("descendants"),
         ISSTATEMENT("isStatement"),
         ASTPARENT("astParent"),
         CHILDREN("children"),
+        LEFT("left"),
         HASMODIFIER("hasModifier"),
         NUMCHILDREN("numChildren"),
         SRCCODE("srcCode"),

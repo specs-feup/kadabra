@@ -45,7 +45,7 @@ import weaver.kadabra.joinpoints.JLocalVariable;
 import weaver.kadabra.joinpoints.JLoop;
 import weaver.kadabra.joinpoints.JOpAssignment;
 import weaver.kadabra.joinpoints.JReturn;
-import weaver.kadabra.joinpoints.JSnippet;
+import weaver.kadabra.joinpoints.JSnippetStmt;
 import weaver.kadabra.joinpoints.JStatement;
 import weaver.kadabra.joinpoints.JSwitch;
 import weaver.kadabra.joinpoints.JThrow;
@@ -73,7 +73,7 @@ public class CtStatement2AStatement {
         CONVERTER.put(CtAssignment.class, JAssignment::newInstance);
         CONVERTER.put(CtOperatorAssignment.class, JOpAssignment::new);
         CONVERTER.put(CtReturn.class, JReturn::newInstance);
-        CONVERTER.put(CtKadabraSnippetStatement.class, JSnippet::newInstance);
+        CONVERTER.put(CtKadabraSnippetStatement.class, JSnippetStmt::newInstance);
         CONVERTER.put(CtLocalVariable.class, JLocalVariable::newInstance);
         CONVERTER.put(CtTry.class, JTry::newInstance);
         CONVERTER.put(CtAssert.class, JAssert::newInstance);

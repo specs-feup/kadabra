@@ -2,6 +2,7 @@ package weaver.kadabra.abstracts;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -12,9 +13,12 @@ import org.lara.interpreter.weaver.interf.SelectOp;
 
 import com.google.common.base.Preconditions;
 
+import pt.up.fe.specs.util.SpecsEnums;
+import pt.up.fe.specs.util.SpecsLogs;
 import pt.up.fe.specs.util.exceptions.NotImplementedException;
 import spoon.reflect.code.CtBlock;
 import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtLoop;
 import spoon.reflect.code.CtStatement;
 import spoon.reflect.cu.SourcePosition;
 import spoon.reflect.declaration.CtAnnotation;
@@ -179,17 +183,16 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
     public AJoinPoint ancestorImpl(String type) {
         Preconditions.checkNotNull(type, "Missing type of ancestor in attribute 'ancestor'");
 
-        // if (type.equals("statement")) { // TODO: need to deal with special cases such as statement and expression
-        // return stmtAncestor(type);
-        // }
-        // System.out.println("ANCESTOR OF " + this + " that is a " + type);
+        // System.out.println("Getting ancestor '" + type + "' of " + getJoinPointType());
+
         AJoinPoint currentNode = getParentImpl();
         while (currentNode != null) {
-
+            // System.out.println("Parent " + currentNode.getJoinPointType() + " is '" + type + "'?");
             if (currentNode.instanceOf(type)) {
+                // System.out.println("Yes!");
                 return currentNode;
             }
-
+            // System.out.println("No..");
             currentNode = currentNode.getParentImpl();
         }
 
@@ -239,6 +242,7 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
         if (position == null || !position.isValidPosition()) {
             return null;
         }
+
         return position.getLine();
         // // Check if this joinpoint is a statement
         // if (this instanceof AStatement) {
@@ -576,5 +580,105 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
     public String getIdImpl() {
         var node = getNode();
         return node.getClass().getSimpleName() + "_" + node.hashCode();
+    }
+
+    @Override
+    public AJoinPoint[] getLeftArrayImpl() {
+        var parent = getParentImpl();
+
+        if (parent == null) {
+            SpecsLogs.info("$jp.left: no parent, could not fetch siblings");
+            return new AJoinPoint[0];
+        }
+
+        var siblings = parent.getChildrenArrayImpl();
+
+        // Find self index
+        int selfIndex = -1;
+        for (int i = 0; i < siblings.length; i++) {
+            // Using equality on purpose
+            if (siblings[i].getNode() == getNode()) {
+                selfIndex = i;
+                break;
+            }
+        }
+
+        if (selfIndex == -1) {
+            SpecsLogs.info("$jp.left: could not find self in siblings");
+            return new AJoinPoint[0];
+        }
+
+        return Arrays.copyOfRange(siblings, 0, selfIndex);
+    }
+
+    @Override
+    public AJoinPoint[] getRightArrayImpl() {
+        var parent = getParentImpl();
+
+        if (parent == null) {
+            SpecsLogs.info("$jp.right: no parent, could not fetch siblings");
+            return new AJoinPoint[0];
+        }
+
+        var siblings = parent.getChildrenArrayImpl();
+
+        // Find self index
+        int selfIndex = -1;
+        for (int i = 0; i < siblings.length; i++) {
+            // Using equality on purpose
+            if (siblings[i].getNode() == getNode()) {
+                selfIndex = i;
+                break;
+            }
+        }
+
+        if (selfIndex == -1) {
+            SpecsLogs.info("$jp.right: could not find self in siblings");
+            return new AJoinPoint[0];
+        }
+
+        return Arrays.copyOfRange(siblings, selfIndex + 1, siblings.length);
+    }
+
+    @Override
+    public void removeModifierImpl(String modifier) {
+        var modifiersSet = SpoonUtils.getModifiers(getNode());
+
+        if (modifiersSet.isEmpty()) {
+            SpecsLogs.debug(() -> "No modifiers to remove");
+            return;
+        }
+
+        // Convert modifier to enum
+        var modifierEnum = SpecsEnums.valueOfTry(ModifierKind.class, modifier.toUpperCase());
+
+        if (modifierEnum.isEmpty()) {
+            SpecsLogs.info("Could not obtain modifier from string '" + modifier + "'. Available modifiers: "
+                    + Arrays.toString(ModifierKind.values()));
+            return;
+        }
+
+        var newModifiers = new HashSet<>(modifiersSet);
+
+        var hadModifier = newModifiers.remove(modifierEnum.get());
+        if (hadModifier) {
+            SpoonUtils.setModifiers(getNode(), newModifiers);
+        } else {
+            SpecsLogs.debug(() -> "Could not remove modifier '" + modifier + "', not present in node");
+        }
+
+    }
+
+    @Override
+    public Boolean getIsInsideLoopHeaderImpl() {
+        var node = getNode();
+
+        Optional<CtLoop> ancestor = SpoonUtils.getAncestorTry(node, CtLoop.class);
+        if (!ancestor.isPresent()) {
+            return false;
+        }
+        CtLoop loop = ancestor.get();
+
+        return SpoonUtils.insideHeader(loop, node);
     }
 }

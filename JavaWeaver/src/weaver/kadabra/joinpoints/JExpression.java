@@ -52,10 +52,10 @@ public class JExpression<T> extends AExpression {
         return test;
     }
 
-    // @Override
-    // public String toString() {
-    // return super.toString() + " - " + node.getClass().getSimpleName();
-    // }
+    @Override
+    public String toString() {
+        return super.toString() + " - " + node.getClass().getSimpleName();
+    }
 
     public static <K> AExpression newInstanceDefault(CtExpression<K> expr) {
         return new JExpression<>(expr);

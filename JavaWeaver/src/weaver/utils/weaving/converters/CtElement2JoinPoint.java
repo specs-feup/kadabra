@@ -13,10 +13,13 @@
 
 package weaver.utils.weaving.converters;
 
+import java.lang.reflect.Array;
+import java.util.List;
 import java.util.Optional;
 
 import pt.up.fe.specs.util.classmap.FunctionClassMap;
 import spoon.reflect.code.CtBlock;
+import spoon.reflect.code.CtCatch;
 import spoon.reflect.code.CtComment;
 import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.CtStatement;
@@ -32,6 +35,7 @@ import spoon.reflect.reference.CtTypeReference;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 import weaver.kadabra.joinpoints.JApp;
 import weaver.kadabra.joinpoints.JBody;
+import weaver.kadabra.joinpoints.JCatch;
 import weaver.kadabra.joinpoints.JComment;
 import weaver.kadabra.joinpoints.JDeclaration;
 import weaver.kadabra.joinpoints.JEnumValue;
@@ -60,6 +64,7 @@ public class CtElement2JoinPoint {
         // CONVERTER.put(CtConstructor.class, JConstructor::newInstance);
 
         // Elements without specific converter
+        CONVERTER.put(CtCatch.class, JCatch::new);
         CONVERTER.put(CtBlock.class, JBody::newInstance);
         CONVERTER.put(CtEnumValue.class, JEnumValue::newInstance);
         CONVERTER.put(CtField.class, JField::newInstance);
@@ -90,7 +95,8 @@ public class CtElement2JoinPoint {
     }
 
     public static <T extends AJavaWeaverJoinPoint> T convert(CtElement element, Class<T> jpClass) {
-        var jp = CONVERTER.apply(element);
+        var jp = convert(element);
+        // var jp = CONVERTER.apply(element);
         return jpClass.cast(jp);
     }
 
@@ -101,6 +107,20 @@ public class CtElement2JoinPoint {
             return Optional.empty();
         }
 
+    }
+
+    public static <T extends AJavaWeaverJoinPoint> T[] convertList(List<? extends CtElement> elements,
+            Class<T> jpClass) {
+
+        @SuppressWarnings("unchecked")
+        T[] jps = (T[]) Array.newInstance(jpClass, elements.size());
+        // T[] jps = (T[]) new AJavaWeaverJoinPoint[elements.size()];
+
+        for (int i = 0; i < elements.size(); i++) {
+            jps[i] = convert(elements.get(i), jpClass);
+        }
+
+        return jps;
     }
 
 }

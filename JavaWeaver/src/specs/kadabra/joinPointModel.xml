@@ -150,6 +150,10 @@
 		<!--select 						class="catch"/>	-->
 		<!--select alias="finally"			class="body"/> -->			
 	</joinpoint>
+
+	<!-- CATCH -->
+	<joinpoint class="catch">
+	</joinpoint> 
 	
 	<!-- STATEMENT -->
 	<joinpoint class="statement">
@@ -247,6 +251,9 @@
 	<!-- THIS -->
 	<joinpoint class="this" extends="expression"/>
 	
+	<!-- SNIPPET EXPRESSION -->
+	<joinpoint class="snippetExpr" extends="expression"/>
+	
 	<!-- RETURN -->
 	<joinpoint class="return" 		extends="statement"/>
 	
@@ -274,6 +281,8 @@
 	
 	<joinpoint class="continue" extends="statement"/>
 	<joinpoint class="break" extends="statement"/>
+	
+	<joinpoint class="snippetStmt" extends="statement"/>
 	
 	<!-- REFERENCE -->
 	<joinpoint class="reference" tooltip="Points to a named program element reference"/>

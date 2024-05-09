@@ -14,7 +14,6 @@
 package pt.up.fe.specs.kadabra.ast.decl;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,12 +22,16 @@ import org.suikasoft.jOptions.Datakey.KeyFactory;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 
 import pt.up.fe.specs.kadabra.ast.KadabraNode;
+import pt.up.fe.specs.util.SpecsCollections;
 
 public class TypeDecl extends Decl {
 
     /// DATAKEYS BEGIN
 
-    public final static DataKey<String> QUALIFIED_PREFIX = KeyFactory.string("qualifiedPrefix");
+    /**
+     * The prefix of the qualified name. The fully qualified name is build using Decl.NAME
+     */
+    public final static DataKey<List<String>> QUALIFIED_PREFIX = KeyFactory.list("qualifiedPrefix", String.class);
 
     public static final DataKey<Optional<TypeDecl>> SUPER = KeyFactory.optional("super");
 
@@ -36,26 +39,12 @@ public class TypeDecl extends Decl {
 
     /// DATAKEYS END
 
-    private static final TypeDecl NO_TYPE;
-    static {
-        var data = DataStore.newInstance(TypeDecl.class);
-        NO_TYPE = new TypeDecl(data, Collections.emptyList());
-    }
-
-    /**
-     * 
-     * @return a singleton TypeDecl representing "No type"
-     */
-    public static TypeDecl getNoType() {
-        return NO_TYPE;
-    }
-
-    public static boolean isNoType(TypeDecl type) {
-        return type == NO_TYPE;
-    }
-
     public TypeDecl(DataStore data, Collection<? extends KadabraNode> children) {
         super(data, children);
+    }
+
+    public List<String> getQualifiedName() {
+        return SpecsCollections.concat(get(QUALIFIED_PREFIX), get(NAME));
     }
 
 }

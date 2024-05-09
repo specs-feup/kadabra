@@ -2,71 +2,53 @@ package weaver.kadabra.abstracts.joinpoints;
 
 import org.lara.interpreter.weaver.interf.events.Stage;
 import java.util.Optional;
-import org.lara.interpreter.exception.AttributeException;
+import org.lara.interpreter.exception.ActionException;
 import java.util.List;
 import org.lara.interpreter.weaver.interf.JoinPoint;
 import java.util.stream.Collectors;
 import java.util.Arrays;
 
 /**
- * Auto-Generated class for join point APragma
+ * Auto-Generated class for join point ASnippetStmt
  * This class is overwritten by the Weaver Generator.
  * 
  * 
  * @author Lara Weaver Generator
  */
-public abstract class APragma extends AComment {
+public abstract class ASnippetStmt extends AStatement {
 
-    protected AComment aComment;
+    protected AStatement aStatement;
 
     /**
      * 
      */
-    public APragma(AComment aComment){
-        super(aComment);
-        this.aComment = aComment;
+    public ASnippetStmt(AStatement aStatement){
+        this.aStatement = aStatement;
     }
     /**
-     * Get value on attribute name
-     * @return the attribute's value
+     * 
+     * @param line 
      */
-    public abstract String getNameImpl();
+    public void setLineImpl(Integer line) {
+        throw new UnsupportedOperationException(get_class()+": Action setLine not implemented ");
+    }
 
     /**
-     * Get value on attribute name
-     * @return the attribute's value
+     * 
+     * @param line 
      */
-    public final Object getName() {
+    public final void setLine(Integer line) {
         try {
         	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "name", Optional.empty());
+        		eventTrigger().triggerAction(Stage.BEGIN, "setLine", this, Optional.empty(), line);
         	}
-        	String result = this.getNameImpl();
+        	this.setLineImpl(line);
         	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "name", Optional.ofNullable(result));
+        		eventTrigger().triggerAction(Stage.END, "setLine", this, Optional.empty(), line);
         	}
-        	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
-        	throw new AttributeException(get_class(), "name", e);
+        	throw new ActionException(get_class(), "setLine", e);
         }
-    }
-
-    /**
-     * Get value on attribute type
-     * @return the attribute's value
-     */
-    @Override
-    public String getTypeImpl() {
-        return this.aComment.getTypeImpl();
-    }
-
-    /**
-     * Get value on attribute content
-     * @return the attribute's value
-     */
-    @Override
-    public String getContentImpl() {
-        return this.aComment.getContentImpl();
     }
 
     /**
@@ -75,7 +57,7 @@ public abstract class APragma extends AComment {
      */
     @Override
     public String getKindImpl() {
-        return this.aComment.getKindImpl();
+        return this.aStatement.getKindImpl();
     }
 
     /**
@@ -84,7 +66,7 @@ public abstract class APragma extends AComment {
      */
     @Override
     public Integer getEndLineImpl() {
-        return this.aComment.getEndLineImpl();
+        return this.aStatement.getEndLineImpl();
     }
 
     /**
@@ -93,7 +75,7 @@ public abstract class APragma extends AComment {
      */
     @Override
     public List<? extends AVar> selectVar() {
-        return this.aComment.selectVar();
+        return this.aStatement.selectVar();
     }
 
     /**
@@ -102,7 +84,7 @@ public abstract class APragma extends AComment {
      */
     @Override
     public List<? extends ACall> selectCall() {
-        return this.aComment.selectCall();
+        return this.aStatement.selectCall();
     }
 
     /**
@@ -111,7 +93,7 @@ public abstract class APragma extends AComment {
      */
     @Override
     public AJoinPoint getParentImpl() {
-        return this.aComment.getParentImpl();
+        return this.aStatement.getParentImpl();
     }
 
     /**
@@ -120,7 +102,7 @@ public abstract class APragma extends AComment {
      */
     @Override
     public Boolean getIsStaticImpl() {
-        return this.aComment.getIsStaticImpl();
+        return this.aStatement.getIsStaticImpl();
     }
 
     /**
@@ -129,7 +111,7 @@ public abstract class APragma extends AComment {
      */
     @Override
     public String getCodeImpl() {
-        return this.aComment.getCodeImpl();
+        return this.aStatement.getCodeImpl();
     }
 
     /**
@@ -138,7 +120,7 @@ public abstract class APragma extends AComment {
      */
     @Override
     public String getAstImpl() {
-        return this.aComment.getAstImpl();
+        return this.aStatement.getAstImpl();
     }
 
     /**
@@ -147,7 +129,7 @@ public abstract class APragma extends AComment {
      */
     @Override
     public Boolean getIsBlockImpl() {
-        return this.aComment.getIsBlockImpl();
+        return this.aStatement.getIsBlockImpl();
     }
 
     /**
@@ -156,7 +138,7 @@ public abstract class APragma extends AComment {
      */
     @Override
     public Boolean getIsInsideLoopHeaderImpl() {
-        return this.aComment.getIsInsideLoopHeaderImpl();
+        return this.aStatement.getIsInsideLoopHeaderImpl();
     }
 
     /**
@@ -165,7 +147,7 @@ public abstract class APragma extends AComment {
      */
     @Override
     public Integer getLineImpl() {
-        return this.aComment.getLineImpl();
+        return this.aStatement.getLineImpl();
     }
 
     /**
@@ -174,7 +156,7 @@ public abstract class APragma extends AComment {
      */
     @Override
     public AJoinPoint ancestorImpl(String type) {
-        return this.aComment.ancestorImpl(type);
+        return this.aStatement.ancestorImpl(type);
     }
 
     /**
@@ -183,7 +165,7 @@ public abstract class APragma extends AComment {
      */
     @Override
     public AAnnotation[] getAnnotationsArrayImpl() {
-        return this.aComment.getAnnotationsArrayImpl();
+        return this.aStatement.getAnnotationsArrayImpl();
     }
 
     /**
@@ -192,7 +174,7 @@ public abstract class APragma extends AComment {
      */
     @Override
     public AJoinPoint[] getRightArrayImpl() {
-        return this.aComment.getRightArrayImpl();
+        return this.aStatement.getRightArrayImpl();
     }
 
     /**
@@ -201,7 +183,7 @@ public abstract class APragma extends AComment {
      */
     @Override
     public String[] getModifiersArrayImpl() {
-        return this.aComment.getModifiersArrayImpl();
+        return this.aStatement.getModifiersArrayImpl();
     }
 
     /**
@@ -210,7 +192,7 @@ public abstract class APragma extends AComment {
      */
     @Override
     public AJoinPoint[] getDescendantsArrayImpl() {
-        return this.aComment.getDescendantsArrayImpl();
+        return this.aStatement.getDescendantsArrayImpl();
     }
 
     /**
@@ -219,7 +201,7 @@ public abstract class APragma extends AComment {
      */
     @Override
     public Boolean getIsStatementImpl() {
-        return this.aComment.getIsStatementImpl();
+        return this.aStatement.getIsStatementImpl();
     }
 
     /**
@@ -228,7 +210,7 @@ public abstract class APragma extends AComment {
      */
     @Override
     public AJoinPoint getAstParentImpl() {
-        return this.aComment.getAstParentImpl();
+        return this.aStatement.getAstParentImpl();
     }
 
     /**
@@ -237,7 +219,7 @@ public abstract class APragma extends AComment {
      */
     @Override
     public AJoinPoint[] getChildrenArrayImpl() {
-        return this.aComment.getChildrenArrayImpl();
+        return this.aStatement.getChildrenArrayImpl();
     }
 
     /**
@@ -246,7 +228,7 @@ public abstract class APragma extends AComment {
      */
     @Override
     public AJoinPoint[] getLeftArrayImpl() {
-        return this.aComment.getLeftArrayImpl();
+        return this.aStatement.getLeftArrayImpl();
     }
 
     /**
@@ -255,7 +237,7 @@ public abstract class APragma extends AComment {
      */
     @Override
     public Boolean hasModifierImpl(String modifier) {
-        return this.aComment.hasModifierImpl(modifier);
+        return this.aStatement.hasModifierImpl(modifier);
     }
 
     /**
@@ -264,7 +246,7 @@ public abstract class APragma extends AComment {
      */
     @Override
     public Integer getNumChildrenImpl() {
-        return this.aComment.getNumChildrenImpl();
+        return this.aStatement.getNumChildrenImpl();
     }
 
     /**
@@ -273,7 +255,7 @@ public abstract class APragma extends AComment {
      */
     @Override
     public String getSrcCodeImpl() {
-        return this.aComment.getSrcCodeImpl();
+        return this.aStatement.getSrcCodeImpl();
     }
 
     /**
@@ -282,7 +264,7 @@ public abstract class APragma extends AComment {
      */
     @Override
     public Boolean getIsFinalImpl() {
-        return this.aComment.getIsFinalImpl();
+        return this.aStatement.getIsFinalImpl();
     }
 
     /**
@@ -291,7 +273,7 @@ public abstract class APragma extends AComment {
      */
     @Override
     public String getIdImpl() {
-        return this.aComment.getIdImpl();
+        return this.aStatement.getIdImpl();
     }
 
     /**
@@ -300,7 +282,7 @@ public abstract class APragma extends AComment {
      */
     @Override
     public AJoinPoint childImpl(Integer index) {
-        return this.aComment.childImpl(index);
+        return this.aStatement.childImpl(index);
     }
 
     /**
@@ -309,7 +291,7 @@ public abstract class APragma extends AComment {
      */
     @Override
     public AJoinPoint insertBeforeImpl(AJoinPoint node) {
-        return this.aComment.insertBeforeImpl(node);
+        return this.aStatement.insertBeforeImpl(node);
     }
 
     /**
@@ -318,7 +300,7 @@ public abstract class APragma extends AComment {
      */
     @Override
     public AJoinPoint insertBeforeImpl(String code) {
-        return this.aComment.insertBeforeImpl(code);
+        return this.aStatement.insertBeforeImpl(code);
     }
 
     /**
@@ -327,7 +309,7 @@ public abstract class APragma extends AComment {
      */
     @Override
     public AJoinPoint insertAfterImpl(AJoinPoint node) {
-        return this.aComment.insertAfterImpl(node);
+        return this.aStatement.insertAfterImpl(node);
     }
 
     /**
@@ -336,7 +318,7 @@ public abstract class APragma extends AComment {
      */
     @Override
     public AJoinPoint insertAfterImpl(String code) {
-        return this.aComment.insertAfterImpl(code);
+        return this.aStatement.insertAfterImpl(code);
     }
 
     /**
@@ -345,7 +327,7 @@ public abstract class APragma extends AComment {
      */
     @Override
     public AJoinPoint insertReplaceImpl(AJoinPoint jp) {
-        return this.aComment.insertReplaceImpl(jp);
+        return this.aStatement.insertReplaceImpl(jp);
     }
 
     /**
@@ -354,7 +336,7 @@ public abstract class APragma extends AComment {
      */
     @Override
     public AJoinPoint insertReplaceImpl(String code) {
-        return this.aComment.insertReplaceImpl(code);
+        return this.aStatement.insertReplaceImpl(code);
     }
 
     /**
@@ -363,7 +345,7 @@ public abstract class APragma extends AComment {
      */
     @Override
     public AJoinPoint replaceWithImpl(AJoinPoint jp) {
-        return this.aComment.replaceWithImpl(jp);
+        return this.aStatement.replaceWithImpl(jp);
     }
 
     /**
@@ -372,7 +354,7 @@ public abstract class APragma extends AComment {
      */
     @Override
     public AJoinPoint replaceWithImpl(String code) {
-        return this.aComment.replaceWithImpl(code);
+        return this.aStatement.replaceWithImpl(code);
     }
 
     /**
@@ -380,7 +362,7 @@ public abstract class APragma extends AComment {
      */
     @Override
     public AJoinPoint copyImpl() {
-        return this.aComment.copyImpl();
+        return this.aStatement.copyImpl();
     }
 
     /**
@@ -388,7 +370,7 @@ public abstract class APragma extends AComment {
      */
     @Override
     public void removeImpl() {
-        this.aComment.removeImpl();
+        this.aStatement.removeImpl();
     }
 
     /**
@@ -397,7 +379,7 @@ public abstract class APragma extends AComment {
      */
     @Override
     public void removeAnnotationImpl(AAnnotation annotation) {
-        this.aComment.removeAnnotationImpl(annotation);
+        this.aStatement.removeAnnotationImpl(annotation);
     }
 
     /**
@@ -406,7 +388,7 @@ public abstract class APragma extends AComment {
      */
     @Override
     public void removeModifierImpl(String modifier) {
-        this.aComment.removeModifierImpl(modifier);
+        this.aStatement.removeModifierImpl(modifier);
     }
 
     /**
@@ -416,7 +398,7 @@ public abstract class APragma extends AComment {
      */
     @Override
     public AJoinPoint[] insertImpl(String position, String code) {
-        return this.aComment.insertImpl(position, code);
+        return this.aStatement.insertImpl(position, code);
     }
 
     /**
@@ -426,15 +408,15 @@ public abstract class APragma extends AComment {
      */
     @Override
     public AJoinPoint[] insertImpl(String position, JoinPoint code) {
-        return this.aComment.insertImpl(position, code);
+        return this.aStatement.insertImpl(position, code);
     }
 
     /**
      * 
      */
     @Override
-    public Optional<? extends AComment> getSuper() {
-        return Optional.of(this.aComment);
+    public Optional<? extends AStatement> getSuper() {
+        return Optional.of(this.aStatement);
     }
 
     /**
@@ -451,7 +433,7 @@ public abstract class APragma extends AComment {
         		joinPointList = selectCall();
         		break;
         	default:
-        		joinPointList = this.aComment.select(selectName);
+        		joinPointList = this.aStatement.select(selectName);
         		break;
         }
         return joinPointList;
@@ -483,8 +465,7 @@ public abstract class APragma extends AComment {
      */
     @Override
     protected final void fillWithAttributes(List<String> attributes) {
-        this.aComment.fillWithAttributes(attributes);
-        attributes.add("name");
+        this.aStatement.fillWithAttributes(attributes);
     }
 
     /**
@@ -492,7 +473,7 @@ public abstract class APragma extends AComment {
      */
     @Override
     protected final void fillWithSelects(List<String> selects) {
-        this.aComment.fillWithSelects(selects);
+        this.aStatement.fillWithSelects(selects);
     }
 
     /**
@@ -500,7 +481,8 @@ public abstract class APragma extends AComment {
      */
     @Override
     protected final void fillWithActions(List<String> actions) {
-        this.aComment.fillWithActions(actions);
+        this.aStatement.fillWithActions(actions);
+        actions.add("void setLine(Integer)");
     }
 
     /**
@@ -509,7 +491,7 @@ public abstract class APragma extends AComment {
      */
     @Override
     public final String get_class() {
-        return "pragma";
+        return "snippetStmt";
     }
 
     /**
@@ -522,15 +504,12 @@ public abstract class APragma extends AComment {
         if(isInstance) {
         	return true;
         }
-        return this.aComment.instanceOf(joinpointClass);
+        return this.aStatement.instanceOf(joinpointClass);
     }
     /**
      * 
      */
-    protected enum PragmaAttributes {
-        NAME("name"),
-        TYPE("type"),
-        CONTENT("content"),
+    protected enum SnippetStmtAttributes {
         KIND("kind"),
         ENDLINE("endLine"),
         PARENT("parent"),
@@ -560,13 +539,13 @@ public abstract class APragma extends AComment {
         /**
          * 
          */
-        private PragmaAttributes(String name){
+        private SnippetStmtAttributes(String name){
             this.name = name;
         }
         /**
          * Return an attribute enumeration item from a given attribute name
          */
-        public static Optional<PragmaAttributes> fromString(String name) {
+        public static Optional<SnippetStmtAttributes> fromString(String name) {
             return Arrays.asList(values()).stream().filter(attr -> attr.name.equals(name)).findAny();
         }
 
@@ -574,7 +553,7 @@ public abstract class APragma extends AComment {
          * Return a list of attributes in String format
          */
         public static List<String> getNames() {
-            return Arrays.asList(values()).stream().map(PragmaAttributes::name).collect(Collectors.toList());
+            return Arrays.asList(values()).stream().map(SnippetStmtAttributes::name).collect(Collectors.toList());
         }
 
         /**

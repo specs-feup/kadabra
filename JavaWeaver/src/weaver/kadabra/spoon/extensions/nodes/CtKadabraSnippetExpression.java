@@ -13,19 +13,69 @@
 
 package weaver.kadabra.spoon.extensions.nodes;
 
-import spoon.reflect.visitor.CtVisitor;
-import spoon.support.reflect.code.CtExpressionImpl;
+import java.util.Optional;
 
-public class CtKadabraSnippetExpression<T> extends CtExpressionImpl<T> {
+import spoon.reflect.code.CtCodeSnippetExpression;
+import spoon.reflect.visitor.CtVisitor;
+import spoon.support.reflect.code.CtCodeSnippetExpressionImpl;
+import spoon.support.reflect.declaration.CtElementImpl;
+
+public class CtKadabraSnippetExpression<T> extends CtElementImpl {
+
+    private final CtCodeSnippetExpressionImpl<T> original;
+    private Integer customLine;
 
     /**
      * 
      */
     private static final long serialVersionUID = 1L;
 
+    public CtKadabraSnippetExpression(CtCodeSnippetExpressionImpl<T> original) {
+        this.original = original;
+        this.customLine = null;
+    }
+
+    public CtCodeSnippetExpressionImpl<T> getOriginal() {
+        return original;
+    }
+    //
+    // @Override
+    // public CtElement getParent() throws ParentNotInitializedException {
+    // return original.getParent();
+    // }
+
     @Override
     public void accept(CtVisitor visitor) {
+        original.accept(visitor);
+    }
 
+    // @Override
+    // public String getValue() {
+    // return original.getValue();
+    // }
+    //
+    // @Override
+    // public <C extends CtCodeSnippet> C setValue(String value) {
+    // return original.setValue(value);
+    // }
+    //
+    // @Override
+    // @SuppressWarnings("unchecked")
+    // public <E extends CtExpression<T>> E compile() throws SnippetCompilationError {
+    // return original.compile();
+    // }
+
+    @Override
+    public CtCodeSnippetExpression<T> clone() {
+        return original.clone();
+    }
+
+    public Optional<Integer> getLine() {
+        return Optional.ofNullable(customLine);
+    }
+
+    public void setLine(int line) {
+        this.customLine = line;
     }
 
 }

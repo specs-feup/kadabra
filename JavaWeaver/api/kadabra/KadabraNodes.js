@@ -1,4 +1,4 @@
-import kadabra._KadabraJavaTypes;
+laraImport("kadabra._KadabraJavaTypes");
 
 /**
  * Utility methods related with the creation of new join points.
@@ -47,6 +47,15 @@ KadabraNodes.literal = function(literal, type) {
 	checkString(type, "KadabraNodes.literal(_, type)");
 
 	return _KadabraJavaTypes.getKadabraJoinPoints().literal(literal, type);
+}
+
+/**
+ * Creates a null literal node
+ * @param {jp} referenceJp Optionally indicate a node as a reference (can be useful for casting the null to a specific type)
+ * @returns 
+ */
+KadabraNodes.nullLiteral = function(referenceJp) {
+	return _KadabraJavaTypes.getKadabraJoinPoints().nullLiteral(referenceJp);
 }
 
 

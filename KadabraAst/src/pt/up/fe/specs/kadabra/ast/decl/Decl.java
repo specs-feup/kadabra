@@ -15,6 +15,7 @@ package pt.up.fe.specs.kadabra.ast.decl;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 import org.suikasoft.jOptions.Datakey.DataKey;
 import org.suikasoft.jOptions.Datakey.KeyFactory;
@@ -36,29 +37,28 @@ public class Decl extends KadabraNode {
      */
     public final static DataKey<Boolean> IS_INCOMPLETE = KeyFactory.bool("isIncomplete");
 
+    // ToDo: Replace all fields that return a Decl with either a DeclType or a method that navigates the AST
+
     /**
      * The generic parameters, if this declaration has any.
      */
     public static final DataKey<List<TypeDecl>> GENERIC_PARAMS = KeyFactory.list("genericParams", TypeDecl.class);
 
     /**
-     * Types thrown by this decl, if any.
+     * Type declarations thrown by this decl, if any.
      */
     public static final DataKey<List<TypeDecl>> THROWN_TYPES = KeyFactory.list("thrownTypes", TypeDecl.class);
 
     /**
-     * If this decl a class member, returns the type that declares this member. If it is not a class member, returns
-     * TypeDecl.getNoType().
+     * The type declaration that declares this member, if this declaration a class member.
      */
-    public static final DataKey<TypeDecl> DECLARING_TYPE = KeyFactory.object("declaringType", TypeDecl.class)
-            .setDefault(() -> TypeDecl.getNoType());
+    public static final DataKey<Optional<TypeDecl>> DECLARING_TYPE = KeyFactory.optional("declaringType");
 
     /**
-     * If this decl is an inner type of type member, returns the top level type that declares this member. If not,
-     * returns TypeDecl.getNoType().
+     * The top level type declaration that declares this member, if this type declaration is an inner type.
+     * 
      */
-    public static final DataKey<TypeDecl> TOP_LEVEL_TYPE = KeyFactory.object("topLevelType", TypeDecl.class)
-            .setDefault(() -> TypeDecl.getNoType());
+    public static final DataKey<Optional<TypeDecl>> TOP_LEVEL_TYPE = KeyFactory.optional("topLevelType");
 
     /// DATAKEYS END
 
@@ -67,10 +67,10 @@ public class Decl extends KadabraNode {
     }
 
     public boolean isClassMember() {
-        return !TypeDecl.isNoType(get(DECLARING_TYPE));
+        return get(DECLARING_TYPE).isPresent();
     }
 
     public boolean isTopLevelType() {
-        return TypeDecl.isNoType(get(TOP_LEVEL_TYPE));
+        return get(TOP_LEVEL_TYPE).isEmpty();
     }
 }

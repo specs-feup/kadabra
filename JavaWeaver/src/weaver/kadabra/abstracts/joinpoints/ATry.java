@@ -1,9 +1,11 @@
 package weaver.kadabra.abstracts.joinpoints;
 
+import org.lara.interpreter.weaver.interf.events.Stage;
+import java.util.Optional;
+import org.lara.interpreter.exception.AttributeException;
 import java.util.List;
 import org.lara.interpreter.weaver.interf.SelectOp;
 import org.lara.interpreter.weaver.interf.JoinPoint;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.Arrays;
 
@@ -24,6 +26,66 @@ public abstract class ATry extends AStatement {
     public ATry(AStatement aStatement){
         this.aStatement = aStatement;
     }
+    /**
+     * Get value on attribute body
+     * @return the attribute's value
+     */
+    public abstract ABody getBodyImpl();
+
+    /**
+     * Get value on attribute body
+     * @return the attribute's value
+     */
+    public final Object getBody() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "body", Optional.empty());
+        	}
+        	ABody result = this.getBodyImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "body", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "body", e);
+        }
+    }
+
+    /**
+     * Get value on attribute catches
+     * @return the attribute's value
+     */
+    public abstract ACatch[] getCatchesArrayImpl();
+
+    /**
+     * Get value on attribute catches
+     * @return the attribute's value
+     */
+    public Object getCatchesImpl() {
+        ACatch[] aCatchArrayImpl0 = getCatchesArrayImpl();
+        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(aCatchArrayImpl0);
+        return nativeArray0;
+    }
+
+    /**
+     * Get value on attribute catches
+     * @return the attribute's value
+     */
+    public final Object getCatches() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "catches", Optional.empty());
+        	}
+        	Object result = this.getCatchesImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "catches", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "catches", e);
+        }
+    }
+
     /**
      * Default implementation of the method used by the lara interpreter to select bodys
      * @return 
@@ -114,6 +176,15 @@ public abstract class ATry extends AStatement {
     }
 
     /**
+     * Get value on attribute isInsideLoopHeader
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsInsideLoopHeaderImpl() {
+        return this.aStatement.getIsInsideLoopHeaderImpl();
+    }
+
+    /**
      * Get value on attribute line
      * @return the attribute's value
      */
@@ -138,6 +209,15 @@ public abstract class ATry extends AStatement {
     @Override
     public AAnnotation[] getAnnotationsArrayImpl() {
         return this.aStatement.getAnnotationsArrayImpl();
+    }
+
+    /**
+     * Get value on attribute rightArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getRightArrayImpl() {
+        return this.aStatement.getRightArrayImpl();
     }
 
     /**
@@ -183,6 +263,15 @@ public abstract class ATry extends AStatement {
     @Override
     public AJoinPoint[] getChildrenArrayImpl() {
         return this.aStatement.getChildrenArrayImpl();
+    }
+
+    /**
+     * Get value on attribute leftArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getLeftArrayImpl() {
+        return this.aStatement.getLeftArrayImpl();
     }
 
     /**
@@ -338,6 +427,15 @@ public abstract class ATry extends AStatement {
 
     /**
      * 
+     * @param modifier 
+     */
+    @Override
+    public void removeModifierImpl(String modifier) {
+        this.aStatement.removeModifierImpl(modifier);
+    }
+
+    /**
+     * 
      * @param position 
      * @param code 
      */
@@ -414,6 +512,8 @@ public abstract class ATry extends AStatement {
     @Override
     protected final void fillWithAttributes(List<String> attributes) {
         this.aStatement.fillWithAttributes(attributes);
+        attributes.add("body");
+        attributes.add("catches");
     }
 
     /**
@@ -458,6 +558,8 @@ public abstract class ATry extends AStatement {
      * 
      */
     protected enum TryAttributes {
+        BODY("body"),
+        CATCHES("catches"),
         KIND("kind"),
         ENDLINE("endLine"),
         PARENT("parent"),
@@ -465,14 +567,17 @@ public abstract class ATry extends AStatement {
         CODE("code"),
         AST("ast"),
         ISBLOCK("isBlock"),
+        ISINSIDELOOPHEADER("isInsideLoopHeader"),
         LINE("line"),
         ANCESTOR("ancestor"),
         ANNOTATIONS("annotations"),
+        RIGHT("right"),
         MODIFIERS("modifiers"),
         DESCENDANTS("descendants"),
         ISSTATEMENT("isStatement"),
         ASTPARENT("astParent"),
         CHILDREN("children"),
+        LEFT("left"),
         HASMODIFIER("hasModifier"),
         NUMCHILDREN("numChildren"),
         SRCCODE("srcCode"),

@@ -54,6 +54,10 @@
         <parameter name="annotation" type="annotation" />
     </action>
 
+	<action name="removeModifier">
+		<parameter name="modifier" type="String" />
+	</action>
+
     <!-- XML NODE-->
     <action name="setText" class="xmlNode" return="String">
         <parameter name="text" type="String"/>
@@ -222,6 +226,11 @@
         <parameter name="newArguments" type="expression[]"/>
     </action>
     
+	<action name="setArgument" class="call" return="void">
+		<parameter name="newArgument" type="expression"/>
+		<parameter name="index" type="Integer"/>
+	</action>
+	
     <!-- NEW -->
     <action name="setArguments" class="new" return="void">
         <parameter name="newArguments" type="expression[]"/>
@@ -305,4 +314,17 @@
         <parameter name="value" type="String"/>
     </action>
     
+	
+	<!-- SNIPPET STMT -->
+	<action name="setLine" class="snippetStmt">
+		<parameter name="line" type="Integer"/>
+	</action>	
+
+	<!-- SNIPPET EXPR -->
+	<action name="setLine" class="snippetExpr">
+		<parameter name="line" type="Integer"/>
+	</action>	
+	
+	
+
 </actions>

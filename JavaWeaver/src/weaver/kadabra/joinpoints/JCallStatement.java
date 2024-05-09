@@ -52,4 +52,20 @@ public class JCallStatement<T> extends ACallStatement {
         return children;
     }
 
+    @Override
+    public String getCodeImpl() {
+        var origCode = super.getCodeImpl();
+
+        return origCode.trim().endsWith(";") ? origCode : origCode + ";";
+    }
+
+    /**
+     * TODO: This is an example where the getSrcCodeImpl() in AJavaWeaverJoinPoint does not call the overridden
+     * getCodeImpl()
+     */
+    @Override
+    public String getSrcCodeImpl() {
+        return getCodeImpl();
+    }
+
 }
