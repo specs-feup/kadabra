@@ -13,6 +13,8 @@
 
 package weaver.kadabra.spoon.extensions.nodes;
 
+import java.util.Optional;
+
 import spoon.reflect.code.CtCodeSnippetStatement;
 import spoon.reflect.declaration.CtCodeSnippet;
 import spoon.reflect.factory.Factory;
@@ -27,8 +29,12 @@ import spoon.support.reflect.code.CtCodeSnippetStatementImpl;
  */
 public class CtKadabraSnippetStatement extends CtCodeSnippetStatementImpl {
 
+    private Integer customLine;
+
     public CtKadabraSnippetStatement(Factory factory) {
         setFactory(factory);
+
+        customLine = null;
     }
 
     @Override
@@ -46,6 +52,14 @@ public class CtKadabraSnippetStatement extends CtCodeSnippetStatementImpl {
     @Override
     public void accept(CtVisitor v) {
         v.visitCtCodeSnippetStatement(this);
+    }
+
+    public Optional<Integer> getLine() {
+        return Optional.ofNullable(customLine);
+    }
+
+    public void setLine(int line) {
+        this.customLine = line;
     }
 
 }

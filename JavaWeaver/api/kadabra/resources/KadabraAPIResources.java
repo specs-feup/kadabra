@@ -37,7 +37,7 @@ public enum KadabraAPIResources implements ResourceProvider {
     ConditionalOperatorDeletionMutation("mutation/", "ConditionalOperatorDeletionMutation"),
 
     KADABRA_JAVA_TYPES("_KadabraJavaTypes"),
-    KADABRA_NODES("KadabraNodes"),
+    KADABRA_NODES("KadabraNodes.js"),
     KADABRA_AST("KadabraAst"),
 
     Factory("Factory"),

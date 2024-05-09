@@ -82,6 +82,7 @@ public abstract class AJoinPoint extends JoinPoint {
         actions.add("copy()");
         actions.add("remove()");
         actions.add("removeAnnotation(AAnnotation annotation)");
+        actions.add("removeModifier(String modifier)");
     }
 
     /**
@@ -377,6 +378,32 @@ public abstract class AJoinPoint extends JoinPoint {
 
     /**
      * 
+     * @param modifier 
+     */
+    public void removeModifierImpl(String modifier) {
+        throw new UnsupportedOperationException(get_class()+": Action removeModifier not implemented ");
+    }
+
+    /**
+     * 
+     * @param modifier 
+     */
+    public final void removeModifier(String modifier) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "removeModifier", this, Optional.empty(), modifier);
+        	}
+        	this.removeModifierImpl(modifier);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "removeModifier", this, Optional.empty(), modifier);
+        	}
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "removeModifier", e);
+        }
+    }
+
+    /**
+     * 
      */
     @Override
     protected void fillWithAttributes(List<String> attributes) {
@@ -395,6 +422,8 @@ public abstract class AJoinPoint extends JoinPoint {
         attributes.add("ancestor(String type)");
         attributes.add("line");
         attributes.add("descendants");
+        attributes.add("left");
+        attributes.add("right");
         attributes.add("isStatement");
         attributes.add("isBlock");
         attributes.add("modifiers");
@@ -403,6 +432,7 @@ public abstract class AJoinPoint extends JoinPoint {
         attributes.add("isStatic");
         attributes.add("annotations");
         attributes.add("id");
+        attributes.add("isInsideLoopHeader");
     }
 
     /**
@@ -707,6 +737,72 @@ public abstract class AJoinPoint extends JoinPoint {
     }
 
     /**
+     * Get value on attribute left
+     * @return the attribute's value
+     */
+    public abstract AJoinPoint[] getLeftArrayImpl();
+
+    /**
+     * Sibling nodes to the left of this node
+     */
+    public Object getLeftImpl() {
+        AJoinPoint[] aJoinPointArrayImpl0 = getLeftArrayImpl();
+        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(aJoinPointArrayImpl0);
+        return nativeArray0;
+    }
+
+    /**
+     * Sibling nodes to the left of this node
+     */
+    public final Object getLeft() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "left", Optional.empty());
+        	}
+        	Object result = this.getLeftImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "left", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "left", e);
+        }
+    }
+
+    /**
+     * Get value on attribute right
+     * @return the attribute's value
+     */
+    public abstract AJoinPoint[] getRightArrayImpl();
+
+    /**
+     * Sibling nodes to the right of this node
+     */
+    public Object getRightImpl() {
+        AJoinPoint[] aJoinPointArrayImpl0 = getRightArrayImpl();
+        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(aJoinPointArrayImpl0);
+        return nativeArray0;
+    }
+
+    /**
+     * Sibling nodes to the right of this node
+     */
+    public final Object getRight() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "right", Optional.empty());
+        	}
+        	Object result = this.getRightImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "right", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "right", e);
+        }
+    }
+
+    /**
      * true if this node is considered a statement
      */
     public abstract Boolean getIsStatementImpl();
@@ -911,6 +1007,29 @@ public abstract class AJoinPoint extends JoinPoint {
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "id", e);
+        }
+    }
+
+    /**
+     * true if the node is inside a loop header, false otherwise
+     */
+    public abstract Boolean getIsInsideLoopHeaderImpl();
+
+    /**
+     * true if the node is inside a loop header, false otherwise
+     */
+    public final Object getIsInsideLoopHeader() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isInsideLoopHeader", Optional.empty());
+        	}
+        	Boolean result = this.getIsInsideLoopHeaderImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "isInsideLoopHeader", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "isInsideLoopHeader", e);
         }
     }
 

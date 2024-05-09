@@ -411,6 +411,34 @@ public abstract class ACall extends AExpression {
     }
 
     /**
+     * 
+     * @param newArgument 
+     * @param index 
+     */
+    public void setArgumentImpl(AExpression newArgument, Integer index) {
+        throw new UnsupportedOperationException(get_class()+": Action setArgument not implemented ");
+    }
+
+    /**
+     * 
+     * @param newArgument 
+     * @param index 
+     */
+    public final void setArgument(AExpression newArgument, Integer index) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "setArgument", this, Optional.empty(), newArgument, index);
+        	}
+        	this.setArgumentImpl(newArgument, index);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "setArgument", this, Optional.empty(), newArgument, index);
+        	}
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "setArgument", e);
+        }
+    }
+
+    /**
      * Get value on attribute kind
      * @return the attribute's value
      */
@@ -560,6 +588,15 @@ public abstract class ACall extends AExpression {
     }
 
     /**
+     * Get value on attribute isInsideLoopHeader
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsInsideLoopHeaderImpl() {
+        return this.aExpression.getIsInsideLoopHeaderImpl();
+    }
+
+    /**
      * Get value on attribute line
      * @return the attribute's value
      */
@@ -584,6 +621,15 @@ public abstract class ACall extends AExpression {
     @Override
     public AAnnotation[] getAnnotationsArrayImpl() {
         return this.aExpression.getAnnotationsArrayImpl();
+    }
+
+    /**
+     * Get value on attribute rightArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getRightArrayImpl() {
+        return this.aExpression.getRightArrayImpl();
     }
 
     /**
@@ -629,6 +675,15 @@ public abstract class ACall extends AExpression {
     @Override
     public AJoinPoint[] getChildrenArrayImpl() {
         return this.aExpression.getChildrenArrayImpl();
+    }
+
+    /**
+     * Get value on attribute leftArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getLeftArrayImpl() {
+        return this.aExpression.getLeftArrayImpl();
     }
 
     /**
@@ -780,6 +835,15 @@ public abstract class ACall extends AExpression {
     @Override
     public void removeAnnotationImpl(AAnnotation annotation) {
         this.aExpression.removeAnnotationImpl(annotation);
+    }
+
+    /**
+     * 
+     * @param modifier 
+     */
+    @Override
+    public void removeModifierImpl(String modifier) {
+        this.aExpression.removeModifierImpl(modifier);
     }
 
     /**
@@ -950,6 +1014,7 @@ public abstract class ACall extends AExpression {
         this.aExpression.fillWithActions(actions);
         actions.add("call clone(statement, String)");
         actions.add("void setArguments(expression[])");
+        actions.add("void setArgument(expression, Integer)");
     }
 
     /**
@@ -998,14 +1063,17 @@ public abstract class ACall extends AExpression {
         CODE("code"),
         AST("ast"),
         ISBLOCK("isBlock"),
+        ISINSIDELOOPHEADER("isInsideLoopHeader"),
         LINE("line"),
         ANCESTOR("ancestor"),
         ANNOTATIONS("annotations"),
+        RIGHT("right"),
         MODIFIERS("modifiers"),
         DESCENDANTS("descendants"),
         ISSTATEMENT("isStatement"),
         ASTPARENT("astParent"),
         CHILDREN("children"),
+        LEFT("left"),
         HASMODIFIER("hasModifier"),
         NUMCHILDREN("numChildren"),
         SRCCODE("srcCode"),

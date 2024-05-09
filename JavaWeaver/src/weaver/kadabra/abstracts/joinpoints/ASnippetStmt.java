@@ -1,162 +1,90 @@
 package weaver.kadabra.abstracts.joinpoints;
 
-import java.util.List;
-import weaver.kadabra.entities.Pair;
-import org.lara.interpreter.weaver.interf.JoinPoint;
+import org.lara.interpreter.weaver.interf.events.Stage;
 import java.util.Optional;
+import org.lara.interpreter.exception.ActionException;
+import java.util.List;
+import org.lara.interpreter.weaver.interf.JoinPoint;
 import java.util.stream.Collectors;
 import java.util.Arrays;
 
 /**
- * Auto-Generated class for join point AInterface
+ * Auto-Generated class for join point ASnippetStmt
  * This class is overwritten by the Weaver Generator.
  * 
  * 
  * @author Lara Weaver Generator
  */
-public abstract class AInterface extends AType {
+public abstract class ASnippetStmt extends AStatement {
 
-    protected AType aType;
+    protected AStatement aStatement;
 
     /**
      * 
      */
-    public AInterface(AType aType){
-        this.aType = aType;
+    public ASnippetStmt(AStatement aStatement){
+        this.aStatement = aStatement;
     }
     /**
-     * Get value on attribute name
-     * @return the attribute's value
+     * 
+     * @param line 
      */
-    @Override
-    public String getNameImpl() {
-        return this.aType.getNameImpl();
+    public void setLineImpl(Integer line) {
+        throw new UnsupportedOperationException(get_class()+": Action setLine not implemented ");
     }
 
     /**
-     * Get value on attribute qualifiedName
-     * @return the attribute's value
+     * 
+     * @param line 
      */
-    @Override
-    public String getQualifiedNameImpl() {
-        return this.aType.getQualifiedNameImpl();
+    public final void setLine(Integer line) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "setLine", this, Optional.empty(), line);
+        	}
+        	this.setLineImpl(line);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "setLine", this, Optional.empty(), line);
+        	}
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "setLine", e);
+        }
     }
 
     /**
-     * Get value on attribute superClass
+     * Get value on attribute kind
      * @return the attribute's value
      */
     @Override
-    public String getSuperClassImpl() {
-        return this.aType.getSuperClassImpl();
+    public String getKindImpl() {
+        return this.aStatement.getKindImpl();
     }
 
     /**
-     * Get value on attribute superClassJp
+     * Get value on attribute endLine
      * @return the attribute's value
      */
     @Override
-    public ATypeReference getSuperClassJpImpl() {
-        return this.aType.getSuperClassJpImpl();
+    public Integer getEndLineImpl() {
+        return this.aStatement.getEndLineImpl();
     }
 
     /**
-     * Get value on attribute _package
-     * @return the attribute's value
-     */
-    @Override
-    public String getPackageImpl() {
-        return this.aType.getPackageImpl();
-    }
-
-    /**
-     * Get value on attribute interfacesArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public String[] getInterfacesArrayImpl() {
-        return this.aType.getInterfacesArrayImpl();
-    }
-
-    /**
-     * Get value on attribute interfacesTypesArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public AInterface[] getInterfacesTypesArrayImpl() {
-        return this.aType.getInterfacesTypesArrayImpl();
-    }
-
-    /**
-     * Get value on attribute javadoc
-     * @return the attribute's value
-     */
-    @Override
-    public String getJavadocImpl() {
-        return this.aType.getJavadocImpl();
-    }
-
-    /**
-     * Get value on attribute isSubtypeOf
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean isSubtypeOfImpl(String type) {
-        return this.aType.isSubtypeOfImpl(type);
-    }
-
-    /**
-     * fields inside a class
+     * Method used by the lara interpreter to select vars
      * @return 
      */
     @Override
-    public List<? extends AField> selectField() {
-        return this.aType.selectField();
+    public List<? extends AVar> selectVar() {
+        return this.aStatement.selectVar();
     }
 
     /**
-     * methods, constructors or static/instance blocks
+     * Method used by the lara interpreter to select calls
      * @return 
      */
     @Override
-    public List<? extends AExecutable> selectExecutable() {
-        return this.aType.selectExecutable();
-    }
-
-    /**
-     * methods inside a class
-     * @return 
-     */
-    @Override
-    public List<? extends AMethod> selectMethod() {
-        return this.aType.selectMethod();
-    }
-
-    /**
-     * comments that start with @ followed by the pragma name
-     * @return 
-     */
-    @Override
-    public List<? extends APragma> selectPragma() {
-        return this.aType.selectPragma();
-    }
-
-    /**
-     * Method used by the lara interpreter to select functions
-     * @return 
-     */
-    @Override
-    public List<? extends AMethod> selectFunction() {
-        return this.aType.selectFunction();
-    }
-
-    /**
-     * Method used by the lara interpreter to select comments
-     * @return 
-     */
-    @Override
-    public List<? extends AComment> selectComment() {
-        return this.aType.selectComment();
+    public List<? extends ACall> selectCall() {
+        return this.aStatement.selectCall();
     }
 
     /**
@@ -165,7 +93,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public AJoinPoint getParentImpl() {
-        return this.aType.getParentImpl();
+        return this.aStatement.getParentImpl();
     }
 
     /**
@@ -174,7 +102,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public Boolean getIsStaticImpl() {
-        return this.aType.getIsStaticImpl();
+        return this.aStatement.getIsStaticImpl();
     }
 
     /**
@@ -183,7 +111,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public String getCodeImpl() {
-        return this.aType.getCodeImpl();
+        return this.aStatement.getCodeImpl();
     }
 
     /**
@@ -192,7 +120,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public String getAstImpl() {
-        return this.aType.getAstImpl();
+        return this.aStatement.getAstImpl();
     }
 
     /**
@@ -201,7 +129,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public Boolean getIsBlockImpl() {
-        return this.aType.getIsBlockImpl();
+        return this.aStatement.getIsBlockImpl();
     }
 
     /**
@@ -210,7 +138,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public Boolean getIsInsideLoopHeaderImpl() {
-        return this.aType.getIsInsideLoopHeaderImpl();
+        return this.aStatement.getIsInsideLoopHeaderImpl();
     }
 
     /**
@@ -219,7 +147,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public Integer getLineImpl() {
-        return this.aType.getLineImpl();
+        return this.aStatement.getLineImpl();
     }
 
     /**
@@ -228,7 +156,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public AJoinPoint ancestorImpl(String type) {
-        return this.aType.ancestorImpl(type);
+        return this.aStatement.ancestorImpl(type);
     }
 
     /**
@@ -237,7 +165,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public AAnnotation[] getAnnotationsArrayImpl() {
-        return this.aType.getAnnotationsArrayImpl();
+        return this.aStatement.getAnnotationsArrayImpl();
     }
 
     /**
@@ -246,7 +174,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public AJoinPoint[] getRightArrayImpl() {
-        return this.aType.getRightArrayImpl();
+        return this.aStatement.getRightArrayImpl();
     }
 
     /**
@@ -255,7 +183,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public String[] getModifiersArrayImpl() {
-        return this.aType.getModifiersArrayImpl();
+        return this.aStatement.getModifiersArrayImpl();
     }
 
     /**
@@ -264,7 +192,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public AJoinPoint[] getDescendantsArrayImpl() {
-        return this.aType.getDescendantsArrayImpl();
+        return this.aStatement.getDescendantsArrayImpl();
     }
 
     /**
@@ -273,7 +201,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public Boolean getIsStatementImpl() {
-        return this.aType.getIsStatementImpl();
+        return this.aStatement.getIsStatementImpl();
     }
 
     /**
@@ -282,7 +210,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public AJoinPoint getAstParentImpl() {
-        return this.aType.getAstParentImpl();
+        return this.aStatement.getAstParentImpl();
     }
 
     /**
@@ -291,7 +219,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public AJoinPoint[] getChildrenArrayImpl() {
-        return this.aType.getChildrenArrayImpl();
+        return this.aStatement.getChildrenArrayImpl();
     }
 
     /**
@@ -300,7 +228,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public AJoinPoint[] getLeftArrayImpl() {
-        return this.aType.getLeftArrayImpl();
+        return this.aStatement.getLeftArrayImpl();
     }
 
     /**
@@ -309,7 +237,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public Boolean hasModifierImpl(String modifier) {
-        return this.aType.hasModifierImpl(modifier);
+        return this.aStatement.hasModifierImpl(modifier);
     }
 
     /**
@@ -318,7 +246,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public Integer getNumChildrenImpl() {
-        return this.aType.getNumChildrenImpl();
+        return this.aStatement.getNumChildrenImpl();
     }
 
     /**
@@ -327,7 +255,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public String getSrcCodeImpl() {
-        return this.aType.getSrcCodeImpl();
+        return this.aStatement.getSrcCodeImpl();
     }
 
     /**
@@ -336,7 +264,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public Boolean getIsFinalImpl() {
-        return this.aType.getIsFinalImpl();
+        return this.aStatement.getIsFinalImpl();
     }
 
     /**
@@ -345,7 +273,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public String getIdImpl() {
-        return this.aType.getIdImpl();
+        return this.aStatement.getIdImpl();
     }
 
     /**
@@ -354,7 +282,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public AJoinPoint childImpl(Integer index) {
-        return this.aType.childImpl(index);
+        return this.aStatement.childImpl(index);
     }
 
     /**
@@ -363,7 +291,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public AJoinPoint insertBeforeImpl(AJoinPoint node) {
-        return this.aType.insertBeforeImpl(node);
+        return this.aStatement.insertBeforeImpl(node);
     }
 
     /**
@@ -372,7 +300,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public AJoinPoint insertBeforeImpl(String code) {
-        return this.aType.insertBeforeImpl(code);
+        return this.aStatement.insertBeforeImpl(code);
     }
 
     /**
@@ -381,7 +309,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public AJoinPoint insertAfterImpl(AJoinPoint node) {
-        return this.aType.insertAfterImpl(node);
+        return this.aStatement.insertAfterImpl(node);
     }
 
     /**
@@ -390,7 +318,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public AJoinPoint insertAfterImpl(String code) {
-        return this.aType.insertAfterImpl(code);
+        return this.aStatement.insertAfterImpl(code);
     }
 
     /**
@@ -399,7 +327,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public AJoinPoint insertReplaceImpl(AJoinPoint jp) {
-        return this.aType.insertReplaceImpl(jp);
+        return this.aStatement.insertReplaceImpl(jp);
     }
 
     /**
@@ -408,7 +336,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public AJoinPoint insertReplaceImpl(String code) {
-        return this.aType.insertReplaceImpl(code);
+        return this.aStatement.insertReplaceImpl(code);
     }
 
     /**
@@ -417,7 +345,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public AJoinPoint replaceWithImpl(AJoinPoint jp) {
-        return this.aType.replaceWithImpl(jp);
+        return this.aStatement.replaceWithImpl(jp);
     }
 
     /**
@@ -426,7 +354,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public AJoinPoint replaceWithImpl(String code) {
-        return this.aType.replaceWithImpl(code);
+        return this.aStatement.replaceWithImpl(code);
     }
 
     /**
@@ -434,7 +362,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public AJoinPoint copyImpl() {
-        return this.aType.copyImpl();
+        return this.aStatement.copyImpl();
     }
 
     /**
@@ -442,7 +370,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public void removeImpl() {
-        this.aType.removeImpl();
+        this.aStatement.removeImpl();
     }
 
     /**
@@ -451,7 +379,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public void removeAnnotationImpl(AAnnotation annotation) {
-        this.aType.removeAnnotationImpl(annotation);
+        this.aStatement.removeAnnotationImpl(annotation);
     }
 
     /**
@@ -460,109 +388,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public void removeModifierImpl(String modifier) {
-        this.aType.removeModifierImpl(modifier);
-    }
-
-    /**
-     * insert a given class inside the target
-     * @param newClass 
-     */
-    @Override
-    public void addClassImpl(AClass newClass) {
-        this.aType.addClassImpl(newClass);
-    }
-
-    /**
-     * 
-     * @param newInterface 
-     */
-    @Override
-    public void addInterfaceImpl(AInterface newInterface) {
-        this.aType.addInterfaceImpl(newInterface);
-    }
-
-    /**
-     * 
-     * @param interfaceName 
-     */
-    @Override
-    public AInterface removeInterfaceImpl(String interfaceName) {
-        return this.aType.removeInterfaceImpl(interfaceName);
-    }
-
-    /**
-     * add a new method inside the class
-     * @param modifiers 
-     * @param returnType 
-     * @param name 
-     * @param param 
-     * @param code 
-     */
-    @Override
-    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, Pair[] param, String code) {
-        return this.aType.newMethodImpl(modifiers, returnType, name, param, code);
-    }
-
-    /**
-     * overload which accepts 4 parameters (code is empty string)
-     * @param modifiers 
-     * @param returnType 
-     * @param name 
-     * @param param 
-     */
-    @Override
-    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, Pair[] param) {
-        return this.aType.newMethodImpl(modifiers, returnType, name, param);
-    }
-
-    /**
-     * 
-     * @param code 
-     */
-    @Override
-    public void insertMethodImpl(String code) {
-        this.aType.insertMethodImpl(code);
-    }
-
-    /**
-     * 
-     * @param code 
-     */
-    @Override
-    public void insertCodeImpl(String code) {
-        this.aType.insertCodeImpl(code);
-    }
-
-    /**
-     * 
-     * @param _interface 
-     */
-    @Override
-    public void addImplementImpl(AInterface _interface) {
-        this.aType.addImplementImpl(_interface);
-    }
-
-    /**
-     * 
-     * @param modifiers 
-     * @param type 
-     * @param name 
-     * @param defaultValue 
-     */
-    @Override
-    public AField newFieldImpl(String[] modifiers, String type, String name, String defaultValue) {
-        return this.aType.newFieldImpl(modifiers, type, name, defaultValue);
-    }
-
-    /**
-     * 
-     * @param modifiers 
-     * @param type 
-     * @param name 
-     */
-    @Override
-    public AField newFieldImpl(String[] modifiers, String type, String name) {
-        return this.aType.newFieldImpl(modifiers, type, name);
+        this.aStatement.removeModifierImpl(modifier);
     }
 
     /**
@@ -572,7 +398,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public AJoinPoint[] insertImpl(String position, String code) {
-        return this.aType.insertImpl(position, code);
+        return this.aStatement.insertImpl(position, code);
     }
 
     /**
@@ -582,15 +408,15 @@ public abstract class AInterface extends AType {
      */
     @Override
     public AJoinPoint[] insertImpl(String position, JoinPoint code) {
-        return this.aType.insertImpl(position, code);
+        return this.aStatement.insertImpl(position, code);
     }
 
     /**
      * 
      */
     @Override
-    public Optional<? extends AType> getSuper() {
-        return Optional.of(this.aType);
+    public Optional<? extends AStatement> getSuper() {
+        return Optional.of(this.aStatement);
     }
 
     /**
@@ -600,26 +426,14 @@ public abstract class AInterface extends AType {
     public final List<? extends JoinPoint> select(String selectName) {
         List<? extends JoinPoint> joinPointList;
         switch(selectName) {
-        	case "field": 
-        		joinPointList = selectField();
+        	case "var": 
+        		joinPointList = selectVar();
         		break;
-        	case "executable": 
-        		joinPointList = selectExecutable();
-        		break;
-        	case "method": 
-        		joinPointList = selectMethod();
-        		break;
-        	case "pragma": 
-        		joinPointList = selectPragma();
-        		break;
-        	case "function": 
-        		joinPointList = selectFunction();
-        		break;
-        	case "comment": 
-        		joinPointList = selectComment();
+        	case "call": 
+        		joinPointList = selectCall();
         		break;
         	default:
-        		joinPointList = this.aType.select(selectName);
+        		joinPointList = this.aStatement.select(selectName);
         		break;
         }
         return joinPointList;
@@ -651,7 +465,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     protected final void fillWithAttributes(List<String> attributes) {
-        this.aType.fillWithAttributes(attributes);
+        this.aStatement.fillWithAttributes(attributes);
     }
 
     /**
@@ -659,7 +473,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     protected final void fillWithSelects(List<String> selects) {
-        this.aType.fillWithSelects(selects);
+        this.aStatement.fillWithSelects(selects);
     }
 
     /**
@@ -667,7 +481,8 @@ public abstract class AInterface extends AType {
      */
     @Override
     protected final void fillWithActions(List<String> actions) {
-        this.aType.fillWithActions(actions);
+        this.aStatement.fillWithActions(actions);
+        actions.add("void setLine(Integer)");
     }
 
     /**
@@ -676,7 +491,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public final String get_class() {
-        return "interface";
+        return "snippetStmt";
     }
 
     /**
@@ -689,21 +504,14 @@ public abstract class AInterface extends AType {
         if(isInstance) {
         	return true;
         }
-        return this.aType.instanceOf(joinpointClass);
+        return this.aStatement.instanceOf(joinpointClass);
     }
     /**
      * 
      */
-    protected enum InterfaceAttributes {
-        NAME("name"),
-        QUALIFIEDNAME("qualifiedName"),
-        SUPERCLASS("superClass"),
-        SUPERCLASSJP("superClassJp"),
-        PACKAGE("package"),
-        INTERFACES("interfaces"),
-        INTERFACESTYPES("interfacesTypes"),
-        JAVADOC("javadoc"),
-        ISSUBTYPEOF("isSubtypeOf"),
+    protected enum SnippetStmtAttributes {
+        KIND("kind"),
+        ENDLINE("endLine"),
         PARENT("parent"),
         ISSTATIC("isStatic"),
         CODE("code"),
@@ -731,13 +539,13 @@ public abstract class AInterface extends AType {
         /**
          * 
          */
-        private InterfaceAttributes(String name){
+        private SnippetStmtAttributes(String name){
             this.name = name;
         }
         /**
          * Return an attribute enumeration item from a given attribute name
          */
-        public static Optional<InterfaceAttributes> fromString(String name) {
+        public static Optional<SnippetStmtAttributes> fromString(String name) {
             return Arrays.asList(values()).stream().filter(attr -> attr.name.equals(name)).findAny();
         }
 
@@ -745,7 +553,7 @@ public abstract class AInterface extends AType {
          * Return a list of attributes in String format
          */
         public static List<String> getNames() {
-            return Arrays.asList(values()).stream().map(InterfaceAttributes::name).collect(Collectors.toList());
+            return Arrays.asList(values()).stream().map(SnippetStmtAttributes::name).collect(Collectors.toList());
         }
 
         /**

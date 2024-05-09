@@ -1,162 +1,158 @@
 package weaver.kadabra.abstracts.joinpoints;
 
-import java.util.List;
-import weaver.kadabra.entities.Pair;
-import org.lara.interpreter.weaver.interf.JoinPoint;
+import org.lara.interpreter.weaver.interf.events.Stage;
 import java.util.Optional;
+import org.lara.interpreter.exception.ActionException;
+import java.util.List;
+import org.lara.interpreter.weaver.interf.JoinPoint;
 import java.util.stream.Collectors;
 import java.util.Arrays;
 
 /**
- * Auto-Generated class for join point AInterface
+ * Auto-Generated class for join point ASnippetExpr
  * This class is overwritten by the Weaver Generator.
  * 
  * 
  * @author Lara Weaver Generator
  */
-public abstract class AInterface extends AType {
+public abstract class ASnippetExpr extends AExpression {
 
-    protected AType aType;
+    protected AExpression aExpression;
 
     /**
      * 
      */
-    public AInterface(AType aType){
-        this.aType = aType;
+    public ASnippetExpr(AExpression aExpression){
+        this.aExpression = aExpression;
     }
     /**
-     * Get value on attribute name
-     * @return the attribute's value
+     * 
+     * @param line 
      */
-    @Override
-    public String getNameImpl() {
-        return this.aType.getNameImpl();
+    public void setLineImpl(Integer line) {
+        throw new UnsupportedOperationException(get_class()+": Action setLine not implemented ");
     }
 
     /**
-     * Get value on attribute qualifiedName
-     * @return the attribute's value
+     * 
+     * @param line 
      */
-    @Override
-    public String getQualifiedNameImpl() {
-        return this.aType.getQualifiedNameImpl();
+    public final void setLine(Integer line) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "setLine", this, Optional.empty(), line);
+        	}
+        	this.setLineImpl(line);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "setLine", this, Optional.empty(), line);
+        	}
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "setLine", e);
+        }
     }
 
     /**
-     * Get value on attribute superClass
+     * Get value on attribute kind
      * @return the attribute's value
      */
     @Override
-    public String getSuperClassImpl() {
-        return this.aType.getSuperClassImpl();
+    public String getKindImpl() {
+        return this.aExpression.getKindImpl();
     }
 
     /**
-     * Get value on attribute superClassJp
+     * Get value on attribute type
      * @return the attribute's value
      */
     @Override
-    public ATypeReference getSuperClassJpImpl() {
-        return this.aType.getSuperClassJpImpl();
+    public String getTypeImpl() {
+        return this.aExpression.getTypeImpl();
     }
 
     /**
-     * Get value on attribute _package
+     * Get value on attribute qualifiedType
      * @return the attribute's value
      */
     @Override
-    public String getPackageImpl() {
-        return this.aType.getPackageImpl();
+    public String getQualifiedTypeImpl() {
+        return this.aExpression.getQualifiedTypeImpl();
     }
 
     /**
-     * Get value on attribute interfacesArrayImpl
+     * Get value on attribute typeReference
      * @return the attribute's value
      */
     @Override
-    public String[] getInterfacesArrayImpl() {
-        return this.aType.getInterfacesArrayImpl();
+    public ATypeReference getTypeReferenceImpl() {
+        return this.aExpression.getTypeReferenceImpl();
     }
 
     /**
-     * Get value on attribute interfacesTypesArrayImpl
+     * Get value on attribute test
      * @return the attribute's value
      */
     @Override
-    public AInterface[] getInterfacesTypesArrayImpl() {
-        return this.aType.getInterfacesTypesArrayImpl();
+    public Integer getTestImpl() {
+        return this.aExpression.getTestImpl();
     }
 
     /**
-     * Get value on attribute javadoc
-     * @return the attribute's value
-     */
-    @Override
-    public String getJavadocImpl() {
-        return this.aType.getJavadocImpl();
-    }
-
-    /**
-     * Get value on attribute isSubtypeOf
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean isSubtypeOfImpl(String type) {
-        return this.aType.isSubtypeOfImpl(type);
-    }
-
-    /**
-     * fields inside a class
+     * Method used by the lara interpreter to select exprs
      * @return 
      */
     @Override
-    public List<? extends AField> selectField() {
-        return this.aType.selectField();
+    public List<? extends AExpression> selectExpr() {
+        return this.aExpression.selectExpr();
     }
 
     /**
-     * methods, constructors or static/instance blocks
+     * Method used by the lara interpreter to select vars
      * @return 
      */
     @Override
-    public List<? extends AExecutable> selectExecutable() {
-        return this.aType.selectExecutable();
+    public List<? extends AVar> selectVar() {
+        return this.aExpression.selectVar();
     }
 
     /**
-     * methods inside a class
+     * Method used by the lara interpreter to select arrayAccesss
      * @return 
      */
     @Override
-    public List<? extends AMethod> selectMethod() {
-        return this.aType.selectMethod();
+    public List<? extends AArrayAccess> selectArrayAccess() {
+        return this.aExpression.selectArrayAccess();
     }
 
     /**
-     * comments that start with @ followed by the pragma name
+     * Method used by the lara interpreter to select binaryExpressions
      * @return 
      */
     @Override
-    public List<? extends APragma> selectPragma() {
-        return this.aType.selectPragma();
+    public List<? extends ABinaryExpression> selectBinaryExpression() {
+        return this.aExpression.selectBinaryExpression();
     }
 
     /**
-     * Method used by the lara interpreter to select functions
+     * Method used by the lara interpreter to select binaryExprs
      * @return 
      */
     @Override
-    public List<? extends AMethod> selectFunction() {
-        return this.aType.selectFunction();
+    public List<? extends ABinaryExpression> selectBinaryExpr() {
+        return this.aExpression.selectBinaryExpr();
     }
 
     /**
-     * Method used by the lara interpreter to select comments
-     * @return 
+     * 
      */
-    @Override
-    public List<? extends AComment> selectComment() {
-        return this.aType.selectComment();
+    public void defTestImpl(Integer value) {
+        this.aExpression.defTestImpl(value);
+    }
+
+    /**
+     * 
+     */
+    public void defTestImpl(AExpression value) {
+        this.aExpression.defTestImpl(value);
     }
 
     /**
@@ -165,7 +161,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public AJoinPoint getParentImpl() {
-        return this.aType.getParentImpl();
+        return this.aExpression.getParentImpl();
     }
 
     /**
@@ -174,7 +170,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public Boolean getIsStaticImpl() {
-        return this.aType.getIsStaticImpl();
+        return this.aExpression.getIsStaticImpl();
     }
 
     /**
@@ -183,7 +179,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public String getCodeImpl() {
-        return this.aType.getCodeImpl();
+        return this.aExpression.getCodeImpl();
     }
 
     /**
@@ -192,7 +188,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public String getAstImpl() {
-        return this.aType.getAstImpl();
+        return this.aExpression.getAstImpl();
     }
 
     /**
@@ -201,7 +197,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public Boolean getIsBlockImpl() {
-        return this.aType.getIsBlockImpl();
+        return this.aExpression.getIsBlockImpl();
     }
 
     /**
@@ -210,7 +206,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public Boolean getIsInsideLoopHeaderImpl() {
-        return this.aType.getIsInsideLoopHeaderImpl();
+        return this.aExpression.getIsInsideLoopHeaderImpl();
     }
 
     /**
@@ -219,7 +215,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public Integer getLineImpl() {
-        return this.aType.getLineImpl();
+        return this.aExpression.getLineImpl();
     }
 
     /**
@@ -228,7 +224,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public AJoinPoint ancestorImpl(String type) {
-        return this.aType.ancestorImpl(type);
+        return this.aExpression.ancestorImpl(type);
     }
 
     /**
@@ -237,7 +233,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public AAnnotation[] getAnnotationsArrayImpl() {
-        return this.aType.getAnnotationsArrayImpl();
+        return this.aExpression.getAnnotationsArrayImpl();
     }
 
     /**
@@ -246,7 +242,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public AJoinPoint[] getRightArrayImpl() {
-        return this.aType.getRightArrayImpl();
+        return this.aExpression.getRightArrayImpl();
     }
 
     /**
@@ -255,7 +251,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public String[] getModifiersArrayImpl() {
-        return this.aType.getModifiersArrayImpl();
+        return this.aExpression.getModifiersArrayImpl();
     }
 
     /**
@@ -264,7 +260,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public AJoinPoint[] getDescendantsArrayImpl() {
-        return this.aType.getDescendantsArrayImpl();
+        return this.aExpression.getDescendantsArrayImpl();
     }
 
     /**
@@ -273,7 +269,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public Boolean getIsStatementImpl() {
-        return this.aType.getIsStatementImpl();
+        return this.aExpression.getIsStatementImpl();
     }
 
     /**
@@ -282,7 +278,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public AJoinPoint getAstParentImpl() {
-        return this.aType.getAstParentImpl();
+        return this.aExpression.getAstParentImpl();
     }
 
     /**
@@ -291,7 +287,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public AJoinPoint[] getChildrenArrayImpl() {
-        return this.aType.getChildrenArrayImpl();
+        return this.aExpression.getChildrenArrayImpl();
     }
 
     /**
@@ -300,7 +296,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public AJoinPoint[] getLeftArrayImpl() {
-        return this.aType.getLeftArrayImpl();
+        return this.aExpression.getLeftArrayImpl();
     }
 
     /**
@@ -309,7 +305,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public Boolean hasModifierImpl(String modifier) {
-        return this.aType.hasModifierImpl(modifier);
+        return this.aExpression.hasModifierImpl(modifier);
     }
 
     /**
@@ -318,7 +314,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public Integer getNumChildrenImpl() {
-        return this.aType.getNumChildrenImpl();
+        return this.aExpression.getNumChildrenImpl();
     }
 
     /**
@@ -327,7 +323,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public String getSrcCodeImpl() {
-        return this.aType.getSrcCodeImpl();
+        return this.aExpression.getSrcCodeImpl();
     }
 
     /**
@@ -336,7 +332,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public Boolean getIsFinalImpl() {
-        return this.aType.getIsFinalImpl();
+        return this.aExpression.getIsFinalImpl();
     }
 
     /**
@@ -345,7 +341,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public String getIdImpl() {
-        return this.aType.getIdImpl();
+        return this.aExpression.getIdImpl();
     }
 
     /**
@@ -354,7 +350,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public AJoinPoint childImpl(Integer index) {
-        return this.aType.childImpl(index);
+        return this.aExpression.childImpl(index);
     }
 
     /**
@@ -363,7 +359,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public AJoinPoint insertBeforeImpl(AJoinPoint node) {
-        return this.aType.insertBeforeImpl(node);
+        return this.aExpression.insertBeforeImpl(node);
     }
 
     /**
@@ -372,7 +368,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public AJoinPoint insertBeforeImpl(String code) {
-        return this.aType.insertBeforeImpl(code);
+        return this.aExpression.insertBeforeImpl(code);
     }
 
     /**
@@ -381,7 +377,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public AJoinPoint insertAfterImpl(AJoinPoint node) {
-        return this.aType.insertAfterImpl(node);
+        return this.aExpression.insertAfterImpl(node);
     }
 
     /**
@@ -390,7 +386,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public AJoinPoint insertAfterImpl(String code) {
-        return this.aType.insertAfterImpl(code);
+        return this.aExpression.insertAfterImpl(code);
     }
 
     /**
@@ -399,7 +395,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public AJoinPoint insertReplaceImpl(AJoinPoint jp) {
-        return this.aType.insertReplaceImpl(jp);
+        return this.aExpression.insertReplaceImpl(jp);
     }
 
     /**
@@ -408,7 +404,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public AJoinPoint insertReplaceImpl(String code) {
-        return this.aType.insertReplaceImpl(code);
+        return this.aExpression.insertReplaceImpl(code);
     }
 
     /**
@@ -417,7 +413,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public AJoinPoint replaceWithImpl(AJoinPoint jp) {
-        return this.aType.replaceWithImpl(jp);
+        return this.aExpression.replaceWithImpl(jp);
     }
 
     /**
@@ -426,7 +422,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public AJoinPoint replaceWithImpl(String code) {
-        return this.aType.replaceWithImpl(code);
+        return this.aExpression.replaceWithImpl(code);
     }
 
     /**
@@ -434,7 +430,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public AJoinPoint copyImpl() {
-        return this.aType.copyImpl();
+        return this.aExpression.copyImpl();
     }
 
     /**
@@ -442,7 +438,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public void removeImpl() {
-        this.aType.removeImpl();
+        this.aExpression.removeImpl();
     }
 
     /**
@@ -451,7 +447,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public void removeAnnotationImpl(AAnnotation annotation) {
-        this.aType.removeAnnotationImpl(annotation);
+        this.aExpression.removeAnnotationImpl(annotation);
     }
 
     /**
@@ -460,109 +456,18 @@ public abstract class AInterface extends AType {
      */
     @Override
     public void removeModifierImpl(String modifier) {
-        this.aType.removeModifierImpl(modifier);
-    }
-
-    /**
-     * insert a given class inside the target
-     * @param newClass 
-     */
-    @Override
-    public void addClassImpl(AClass newClass) {
-        this.aType.addClassImpl(newClass);
+        this.aExpression.removeModifierImpl(modifier);
     }
 
     /**
      * 
-     * @param newInterface 
+     * @param varName 
+     * @param location 
+     * @param position 
      */
     @Override
-    public void addInterfaceImpl(AInterface newInterface) {
-        this.aType.addInterfaceImpl(newInterface);
-    }
-
-    /**
-     * 
-     * @param interfaceName 
-     */
-    @Override
-    public AInterface removeInterfaceImpl(String interfaceName) {
-        return this.aType.removeInterfaceImpl(interfaceName);
-    }
-
-    /**
-     * add a new method inside the class
-     * @param modifiers 
-     * @param returnType 
-     * @param name 
-     * @param param 
-     * @param code 
-     */
-    @Override
-    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, Pair[] param, String code) {
-        return this.aType.newMethodImpl(modifiers, returnType, name, param, code);
-    }
-
-    /**
-     * overload which accepts 4 parameters (code is empty string)
-     * @param modifiers 
-     * @param returnType 
-     * @param name 
-     * @param param 
-     */
-    @Override
-    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, Pair[] param) {
-        return this.aType.newMethodImpl(modifiers, returnType, name, param);
-    }
-
-    /**
-     * 
-     * @param code 
-     */
-    @Override
-    public void insertMethodImpl(String code) {
-        this.aType.insertMethodImpl(code);
-    }
-
-    /**
-     * 
-     * @param code 
-     */
-    @Override
-    public void insertCodeImpl(String code) {
-        this.aType.insertCodeImpl(code);
-    }
-
-    /**
-     * 
-     * @param _interface 
-     */
-    @Override
-    public void addImplementImpl(AInterface _interface) {
-        this.aType.addImplementImpl(_interface);
-    }
-
-    /**
-     * 
-     * @param modifiers 
-     * @param type 
-     * @param name 
-     * @param defaultValue 
-     */
-    @Override
-    public AField newFieldImpl(String[] modifiers, String type, String name, String defaultValue) {
-        return this.aType.newFieldImpl(modifiers, type, name, defaultValue);
-    }
-
-    /**
-     * 
-     * @param modifiers 
-     * @param type 
-     * @param name 
-     */
-    @Override
-    public AField newFieldImpl(String[] modifiers, String type, String name) {
-        return this.aType.newFieldImpl(modifiers, type, name);
+    public void extractImpl(String varName, AStatement location, String position) {
+        this.aExpression.extractImpl(varName, location, position);
     }
 
     /**
@@ -572,7 +477,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public AJoinPoint[] insertImpl(String position, String code) {
-        return this.aType.insertImpl(position, code);
+        return this.aExpression.insertImpl(position, code);
     }
 
     /**
@@ -582,15 +487,15 @@ public abstract class AInterface extends AType {
      */
     @Override
     public AJoinPoint[] insertImpl(String position, JoinPoint code) {
-        return this.aType.insertImpl(position, code);
+        return this.aExpression.insertImpl(position, code);
     }
 
     /**
      * 
      */
     @Override
-    public Optional<? extends AType> getSuper() {
-        return Optional.of(this.aType);
+    public Optional<? extends AExpression> getSuper() {
+        return Optional.of(this.aExpression);
     }
 
     /**
@@ -600,26 +505,23 @@ public abstract class AInterface extends AType {
     public final List<? extends JoinPoint> select(String selectName) {
         List<? extends JoinPoint> joinPointList;
         switch(selectName) {
-        	case "field": 
-        		joinPointList = selectField();
+        	case "expr": 
+        		joinPointList = selectExpr();
         		break;
-        	case "executable": 
-        		joinPointList = selectExecutable();
+        	case "var": 
+        		joinPointList = selectVar();
         		break;
-        	case "method": 
-        		joinPointList = selectMethod();
+        	case "arrayAccess": 
+        		joinPointList = selectArrayAccess();
         		break;
-        	case "pragma": 
-        		joinPointList = selectPragma();
+        	case "binaryExpression": 
+        		joinPointList = selectBinaryExpression();
         		break;
-        	case "function": 
-        		joinPointList = selectFunction();
-        		break;
-        	case "comment": 
-        		joinPointList = selectComment();
+        	case "binaryExpr": 
+        		joinPointList = selectBinaryExpr();
         		break;
         	default:
-        		joinPointList = this.aType.select(selectName);
+        		joinPointList = this.aExpression.select(selectName);
         		break;
         }
         return joinPointList;
@@ -642,6 +544,17 @@ public abstract class AInterface extends AType {
         	}
         	this.unsupportedTypeForDef(attribute, value);
         }
+        case "test": {
+        	if(value instanceof Integer){
+        		this.defTestImpl((Integer)value);
+        		return;
+        	}
+        	if(value instanceof AExpression){
+        		this.defTestImpl((AExpression)value);
+        		return;
+        	}
+        	this.unsupportedTypeForDef(attribute, value);
+        }
         default: throw new UnsupportedOperationException("Join point "+get_class()+": attribute '"+attribute+"' cannot be defined");
         }
     }
@@ -651,7 +564,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     protected final void fillWithAttributes(List<String> attributes) {
-        this.aType.fillWithAttributes(attributes);
+        this.aExpression.fillWithAttributes(attributes);
     }
 
     /**
@@ -659,7 +572,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     protected final void fillWithSelects(List<String> selects) {
-        this.aType.fillWithSelects(selects);
+        this.aExpression.fillWithSelects(selects);
     }
 
     /**
@@ -667,7 +580,8 @@ public abstract class AInterface extends AType {
      */
     @Override
     protected final void fillWithActions(List<String> actions) {
-        this.aType.fillWithActions(actions);
+        this.aExpression.fillWithActions(actions);
+        actions.add("void setLine(Integer)");
     }
 
     /**
@@ -676,7 +590,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public final String get_class() {
-        return "interface";
+        return "snippetExpr";
     }
 
     /**
@@ -689,21 +603,17 @@ public abstract class AInterface extends AType {
         if(isInstance) {
         	return true;
         }
-        return this.aType.instanceOf(joinpointClass);
+        return this.aExpression.instanceOf(joinpointClass);
     }
     /**
      * 
      */
-    protected enum InterfaceAttributes {
-        NAME("name"),
-        QUALIFIEDNAME("qualifiedName"),
-        SUPERCLASS("superClass"),
-        SUPERCLASSJP("superClassJp"),
-        PACKAGE("package"),
-        INTERFACES("interfaces"),
-        INTERFACESTYPES("interfacesTypes"),
-        JAVADOC("javadoc"),
-        ISSUBTYPEOF("isSubtypeOf"),
+    protected enum SnippetExprAttributes {
+        KIND("kind"),
+        TYPE("type"),
+        QUALIFIEDTYPE("qualifiedType"),
+        TYPEREFERENCE("typeReference"),
+        TEST("test"),
         PARENT("parent"),
         ISSTATIC("isStatic"),
         CODE("code"),
@@ -731,13 +641,13 @@ public abstract class AInterface extends AType {
         /**
          * 
          */
-        private InterfaceAttributes(String name){
+        private SnippetExprAttributes(String name){
             this.name = name;
         }
         /**
          * Return an attribute enumeration item from a given attribute name
          */
-        public static Optional<InterfaceAttributes> fromString(String name) {
+        public static Optional<SnippetExprAttributes> fromString(String name) {
             return Arrays.asList(values()).stream().filter(attr -> attr.name.equals(name)).findAny();
         }
 
@@ -745,7 +655,7 @@ public abstract class AInterface extends AType {
          * Return a list of attributes in String format
          */
         public static List<String> getNames() {
-            return Arrays.asList(values()).stream().map(InterfaceAttributes::name).collect(Collectors.toList());
+            return Arrays.asList(values()).stream().map(SnippetExprAttributes::name).collect(Collectors.toList());
         }
 
         /**

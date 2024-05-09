@@ -152,6 +152,15 @@ public abstract class APragma extends AComment {
     }
 
     /**
+     * Get value on attribute isInsideLoopHeader
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsInsideLoopHeaderImpl() {
+        return this.aComment.getIsInsideLoopHeaderImpl();
+    }
+
+    /**
      * Get value on attribute line
      * @return the attribute's value
      */
@@ -176,6 +185,15 @@ public abstract class APragma extends AComment {
     @Override
     public AAnnotation[] getAnnotationsArrayImpl() {
         return this.aComment.getAnnotationsArrayImpl();
+    }
+
+    /**
+     * Get value on attribute rightArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getRightArrayImpl() {
+        return this.aComment.getRightArrayImpl();
     }
 
     /**
@@ -221,6 +239,15 @@ public abstract class APragma extends AComment {
     @Override
     public AJoinPoint[] getChildrenArrayImpl() {
         return this.aComment.getChildrenArrayImpl();
+    }
+
+    /**
+     * Get value on attribute leftArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getLeftArrayImpl() {
+        return this.aComment.getLeftArrayImpl();
     }
 
     /**
@@ -376,6 +403,15 @@ public abstract class APragma extends AComment {
 
     /**
      * 
+     * @param modifier 
+     */
+    @Override
+    public void removeModifierImpl(String modifier) {
+        this.aComment.removeModifierImpl(modifier);
+    }
+
+    /**
+     * 
      * @param position 
      * @param code 
      */
@@ -503,14 +539,17 @@ public abstract class APragma extends AComment {
         CODE("code"),
         AST("ast"),
         ISBLOCK("isBlock"),
+        ISINSIDELOOPHEADER("isInsideLoopHeader"),
         LINE("line"),
         ANCESTOR("ancestor"),
         ANNOTATIONS("annotations"),
+        RIGHT("right"),
         MODIFIERS("modifiers"),
         DESCENDANTS("descendants"),
         ISSTATEMENT("isStatement"),
         ASTPARENT("astParent"),
         CHILDREN("children"),
+        LEFT("left"),
         HASMODIFIER("hasModifier"),
         NUMCHILDREN("numChildren"),
         SRCCODE("srcCode"),

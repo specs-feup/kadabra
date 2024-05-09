@@ -388,6 +388,28 @@ public class SpoonUtils {
         return visitor.isInLoopHeader();
     }
 
+    // public static boolean isHeaderNode(CtElement node) {
+    // return node instanceof CtLoop || node instanceof CtIf;
+    // }
+    //
+    // /**
+    // * Generic method which tests if inside loop or if header.
+    // *
+    // * @param node
+    // * @return
+    // */
+    // public static boolean isInsideHeader(CtElement node) {
+    //
+    // // If node is a block, return immediately
+    // if (node instanceof CtBlock<?>) {
+    // return false;
+    // }
+    //
+    // var currentNode = node.getParent();
+    //
+    //
+    // }
+
     public static boolean isAncestor(CtElement target, CtElement ancestor, CtElement cut) {
         CtElement parent = target.getParent();
         CtPackage rootPackage = ancestor.getFactory().Package().getRootPackage();
@@ -424,7 +446,15 @@ public class SpoonUtils {
         // return false;
         // }
 
-        return target.getParent() instanceof CtBlock;
+        var parent = target.getParent();
+
+        if (parent instanceof CtBlock || parent instanceof CtCase<?>) {
+            if (parent instanceof CtCase<?>) {
+            }
+            return true;
+        }
+
+        return false;
     }
 
     public static List<? extends CtElement> getChildren(CtElement node) {
@@ -474,24 +504,44 @@ public class SpoonUtils {
     }
 
     /**
+     * If node is or can be converted to a CtModifiable, returns it.
+     * 
+     * @param node
+     * @return
+     */
+    public static Optional<CtModifiable> getModifiable(CtElement node) {
+        if (node instanceof CtModifiable) {
+            return Optional.of((CtModifiable) node);
+        }
+
+        if (node instanceof CtVariableAccess) {
+            var varAccess = (CtVariableAccess<?>) node;
+            var decl = varAccess.getVariable().getDeclaration();
+            return getModifiable(decl);
+        }
+
+        return Optional.empty();
+    }
+
+    /**
      * If node implements CtModifiable, returns the modifiers. Otherwise, returns empty set.
      * 
      * @return
      */
     public static Set<ModifierKind> getModifiers(CtElement node) {
 
-        if (node instanceof CtModifiable) {
-            return ((CtModifiable) node).getModifiers();
-        }
+        return getModifiable(node)
+                .map(mod -> mod.getModifiers())
+                .orElse(Collections.emptySet());
+    }
 
-        if (node instanceof CtVariableAccess) {
-            var varAccess = (CtVariableAccess<?>) node;
-            var decl = varAccess.getVariable().getDeclaration();
-            return getModifiers(decl);
-        }
-
-        return Collections.emptySet();
-
+    /**
+     * If node implements CtModifiable, sets the given modifiers.
+     * 
+     * @param node
+     */
+    public static void setModifiers(CtElement node, Set<ModifierKind> modifiers) {
+        getModifiable(node).ifPresent(mod -> mod.setModifiers(modifiers));
     }
 
     /**

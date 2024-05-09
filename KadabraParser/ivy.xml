@@ -26,7 +26,8 @@
 	</info>
 	
 	<dependencies>
-		<dependency org="fr.inria.gforge.spoon" name="spoon-core" rev="10.0.1-beta-1">
+		<!--<dependency org="fr.inria.gforge.spoon" name="spoon-core" rev="10.0.1-beta-1">-->
+		<dependency org="fr.inria.gforge.spoon" name="spoon-core" rev="10.4.2">
 	    	<!-- To avoid "SLF4J: Class path contains multiple SLF4J bindings." -->
 	    	<exclude org="uk.org.lidalia" name="slf4j-test"/>	
 		</dependency>

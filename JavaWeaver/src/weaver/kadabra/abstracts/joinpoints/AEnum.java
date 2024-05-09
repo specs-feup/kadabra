@@ -242,6 +242,15 @@ public abstract class AEnum extends AClass {
     }
 
     /**
+     * Get value on attribute isInsideLoopHeader
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsInsideLoopHeaderImpl() {
+        return this.aClass.getIsInsideLoopHeaderImpl();
+    }
+
+    /**
      * Get value on attribute line
      * @return the attribute's value
      */
@@ -266,6 +275,15 @@ public abstract class AEnum extends AClass {
     @Override
     public AAnnotation[] getAnnotationsArrayImpl() {
         return this.aClass.getAnnotationsArrayImpl();
+    }
+
+    /**
+     * Get value on attribute rightArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getRightArrayImpl() {
+        return this.aClass.getRightArrayImpl();
     }
 
     /**
@@ -311,6 +329,15 @@ public abstract class AEnum extends AClass {
     @Override
     public AJoinPoint[] getChildrenArrayImpl() {
         return this.aClass.getChildrenArrayImpl();
+    }
+
+    /**
+     * Get value on attribute leftArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getLeftArrayImpl() {
+        return this.aClass.getLeftArrayImpl();
     }
 
     /**
@@ -462,6 +489,15 @@ public abstract class AEnum extends AClass {
     @Override
     public void removeAnnotationImpl(AAnnotation annotation) {
         this.aClass.removeAnnotationImpl(annotation);
+    }
+
+    /**
+     * 
+     * @param modifier 
+     */
+    @Override
+    public void removeModifierImpl(String modifier) {
+        this.aClass.removeModifierImpl(modifier);
     }
 
     /**
@@ -673,14 +709,17 @@ public abstract class AEnum extends AClass {
         CODE("code"),
         AST("ast"),
         ISBLOCK("isBlock"),
+        ISINSIDELOOPHEADER("isInsideLoopHeader"),
         LINE("line"),
         ANCESTOR("ancestor"),
         ANNOTATIONS("annotations"),
+        RIGHT("right"),
         MODIFIERS("modifiers"),
         DESCENDANTS("descendants"),
         ISSTATEMENT("isStatement"),
         ASTPARENT("astParent"),
         CHILDREN("children"),
+        LEFT("left"),
         HASMODIFIER("hasModifier"),
         NUMCHILDREN("numChildren"),
         SRCCODE("srcCode"),

@@ -269,6 +269,15 @@ public abstract class ANew extends AExpression {
     }
 
     /**
+     * Get value on attribute isInsideLoopHeader
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsInsideLoopHeaderImpl() {
+        return this.aExpression.getIsInsideLoopHeaderImpl();
+    }
+
+    /**
      * Get value on attribute line
      * @return the attribute's value
      */
@@ -293,6 +302,15 @@ public abstract class ANew extends AExpression {
     @Override
     public AAnnotation[] getAnnotationsArrayImpl() {
         return this.aExpression.getAnnotationsArrayImpl();
+    }
+
+    /**
+     * Get value on attribute rightArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getRightArrayImpl() {
+        return this.aExpression.getRightArrayImpl();
     }
 
     /**
@@ -338,6 +356,15 @@ public abstract class ANew extends AExpression {
     @Override
     public AJoinPoint[] getChildrenArrayImpl() {
         return this.aExpression.getChildrenArrayImpl();
+    }
+
+    /**
+     * Get value on attribute leftArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getLeftArrayImpl() {
+        return this.aExpression.getLeftArrayImpl();
     }
 
     /**
@@ -489,6 +516,15 @@ public abstract class ANew extends AExpression {
     @Override
     public void removeAnnotationImpl(AAnnotation annotation) {
         this.aExpression.removeAnnotationImpl(annotation);
+    }
+
+    /**
+     * 
+     * @param modifier 
+     */
+    @Override
+    public void removeModifierImpl(String modifier) {
+        this.aExpression.removeModifierImpl(modifier);
     }
 
     /**
@@ -662,14 +698,17 @@ public abstract class ANew extends AExpression {
         CODE("code"),
         AST("ast"),
         ISBLOCK("isBlock"),
+        ISINSIDELOOPHEADER("isInsideLoopHeader"),
         LINE("line"),
         ANCESTOR("ancestor"),
         ANNOTATIONS("annotations"),
+        RIGHT("right"),
         MODIFIERS("modifiers"),
         DESCENDANTS("descendants"),
         ISSTATEMENT("isStatement"),
         ASTPARENT("astParent"),
         CHILDREN("children"),
+        LEFT("left"),
         HASMODIFIER("hasModifier"),
         NUMCHILDREN("numChildren"),
         SRCCODE("srcCode"),

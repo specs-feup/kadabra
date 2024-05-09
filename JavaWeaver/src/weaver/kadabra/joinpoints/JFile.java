@@ -31,7 +31,7 @@ import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtInterface;
 import spoon.reflect.declaration.CtType;
 import spoon.support.reflect.declaration.CtImportImpl;
-import spoon.support.reflect.reference.CtPackageReferenceImpl;
+import spoon.support.reflect.reference.CtTypeReferenceImpl;
 import spoon.support.visitor.equals.EqualsVisitor;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.AClass;
@@ -66,11 +66,17 @@ public class JFile extends AFile {
     @Override
     public void addImportImpl(String qualifiedName) {
         var imports = node.getImports();
-        var packageReferece = new CtPackageReferenceImpl();
+        // System.out.println("IMPORTS BEFORE:\n" + imports);
+        var packageReferece = new CtTypeReferenceImpl();
         packageReferece.setSimpleName(qualifiedName);
+        // System.out.println("Reference:" + packageReferece);
         var newImport = new CtImportImpl().setReference(packageReferece);
+
+        // System.out.println("NEW IMPORT: " + newImport);
         imports.add(newImport);
-        node.setImports(imports);
+
+        node.setImports(new ArrayList<>(imports));
+        // System.out.println("IMPORTS AFTER:\n" + node.getImports());
     }
 
     /*

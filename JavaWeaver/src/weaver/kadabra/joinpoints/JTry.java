@@ -15,11 +15,14 @@ package weaver.kadabra.joinpoints;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import spoon.reflect.code.CtBlock;
 import spoon.reflect.code.CtTry;
 import weaver.kadabra.abstracts.joinpoints.ABody;
+import weaver.kadabra.abstracts.joinpoints.ACatch;
 import weaver.kadabra.abstracts.joinpoints.ATry;
+import weaver.utils.weaving.converters.CtElement2JoinPoint;
 
 public class JTry extends ATry {
 
@@ -47,6 +50,21 @@ public class JTry extends ATry {
     @Override
     public CtTry getNode() {
         return node;
+    }
+
+    @Override
+    public ABody getBodyImpl() {
+        return CtElement2JoinPoint.convert(node.getBody(), ABody.class);
+    }
+
+    @Override
+    public ACatch[] getCatchesArrayImpl() {
+
+        return node.getCatchers().stream()
+                .map(catchNode -> CtElement2JoinPoint.convert(catchNode, ACatch.class))
+                .collect(Collectors.toList())
+                .toArray(new ACatch[0]);
+
     }
 
 }

@@ -23,6 +23,7 @@ import spoon.reflect.code.BinaryOperatorKind;
 import spoon.reflect.code.CtComment.CommentType;
 import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.UnaryOperatorKind;
+import spoon.reflect.declaration.CtElement;
 import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 import weaver.kadabra.joinpoints.JComment;
@@ -90,6 +91,37 @@ public class KadabraJoinPoints {
         }
 
         return CtElement2JoinPoint.convert(expressionNode);
+    }
+
+    public static Object nullLiteral(Object referenceJp) {
+        if (referenceJp != null) {
+            SpecsCheck.checkArgument(referenceJp instanceof JoinPoint,
+                    () -> "Reference join point must be a join point, it is a "
+                            + referenceJp.getClass().getSimpleName());
+        }
+
+        var factory = JavaWeaver.getFactory().getSpoonFactory();
+
+        CtElement nullLiteral = factory.createLiteral(null);
+
+        //
+        // if (referenceJp != null) {
+        // var node = ((AJavaWeaverJoinPoint) referenceJp).getNode();
+        // var children = node.getDirectChildren();
+        // if (!children.isEmpty()) {
+        // var firstChild = children.get(0);
+        //
+        // if (firstChild instanceof CtTypeReference) {
+        // var copy = (CtTypeReference) firstChild.clone();
+        //
+        // var castNode = factory.Code().createTypeCast(copy, nullLiteral);
+        // }
+        // // System.out.println("FIRST CHILD: " + firstChild);
+        // // System.out.println("FIRST CHILD CLASS: " + firstChild.getClass());
+        // }
+        // }
+
+        return CtElement2JoinPoint.convert(nullLiteral);
     }
 
     /**

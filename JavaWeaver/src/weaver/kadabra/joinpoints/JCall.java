@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pt.up.fe.specs.util.SpecsCheck;
+import pt.up.fe.specs.util.SpecsLogs;
 import spoon.reflect.code.CtCodeSnippetExpression;
 import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.CtInvocation;
@@ -156,6 +157,21 @@ public class JCall<T> extends ACall {
     @Override
     public void setArgumentsImpl(AExpression[] newArguments) {
         defArgumentsImpl(newArguments);
+    }
+
+    @Override
+    public void setArgumentImpl(AExpression newArgument, Integer index) {
+        var previousArgs = new ArrayList<>(getNode().getArguments());
+
+        if (index < 0 || index >= previousArgs.size()) {
+            SpecsLogs.info("Trying to set argument with index '" + index + "', but call only has " + previousArgs.size()
+                    + " arguments");
+            return;
+        }
+
+        var newArgs = new ArrayList<CtExpression<?>>(previousArgs);
+        newArgs.set(index, (CtExpression) newArgument.getNode());
+        node.setArguments(newArgs);
     }
 
     @Override

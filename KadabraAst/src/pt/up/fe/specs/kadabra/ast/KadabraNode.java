@@ -14,6 +14,7 @@
 package pt.up.fe.specs.kadabra.ast;
 
 import java.util.Collection;
+import java.util.Optional;
 
 import org.suikasoft.jOptions.Datakey.DataKey;
 import org.suikasoft.jOptions.Datakey.KeyFactory;
@@ -60,10 +61,9 @@ public abstract class KadabraNode extends DataNode<KadabraNode> {
     public final static DataKey<Boolean> HAS_SOURCE = KeyFactory.bool("hasSource");
 
     /**
-     * The type returned by this node, or TypeDecl.getNoType() if node does not have a return type.
+     * The type returned by this node, if node has a return type.
      */
-    public final static DataKey<TypeDecl> TYPE = KeyFactory.object("type", TypeDecl.class)
-            .setDefault(() -> TypeDecl.getNoType());
+    public final static DataKey<Optional<TypeDecl>> TYPE = KeyFactory.optional("type");
 
     // DATAKEYS END
 
@@ -123,7 +123,7 @@ public abstract class KadabraNode extends DataNode<KadabraNode> {
     }
 
     public boolean hasType() {
-        return !TypeDecl.isNoType(get(TYPE));
+        return get(TYPE).isPresent();
     }
 
     public String getCode() {

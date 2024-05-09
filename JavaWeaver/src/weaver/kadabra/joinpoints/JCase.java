@@ -20,6 +20,7 @@ import weaver.kadabra.abstracts.joinpoints.ACase;
 import weaver.kadabra.abstracts.joinpoints.AExpression;
 import weaver.kadabra.abstracts.joinpoints.AStatement;
 import weaver.utils.weaving.SelectUtils;
+import weaver.utils.weaving.converters.CtElement2JoinPoint;
 
 public class JCase<S> extends ACase {
 
@@ -57,6 +58,21 @@ public class JCase<S> extends ACase {
     @Override
     public List<? extends AStatement> selectStmt() {
         return selectStatement();
+    }
+
+    @Override
+    public Boolean getIsDefaultImpl() {
+        return node.getCaseExpression() == null;
+    }
+
+    @Override
+    public AStatement[] getStmtsArrayImpl() {
+        return CtElement2JoinPoint.convertList(node.getStatements(), AStatement.class);
+    }
+
+    @Override
+    public AExpression getExprImpl() {
+        return CtElement2JoinPoint.convert(node.getCaseExpression(), AExpression.class);
     }
 
 }
