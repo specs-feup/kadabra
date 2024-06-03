@@ -92,7 +92,6 @@ public class TestConfigs {
         RangedKnob<Float> aFloat = new FloatStep(-10f, 10f, 0f, 0.5f);
 
         Configuration<Pair<Integer, Float>> around = ConfigFactory.around(anInt, aFloat);
-
         Pair<Integer, Float> value = around.getFirst();
         int correctI = 0;
         float correctF = 0;
@@ -103,6 +102,10 @@ public class TestConfigs {
             value = around.next();
             Pair<Integer, Float> expected = EXPECTED_ARRAY.get(pos++);
             assertEquals(expected, value);
+            // System.out.println("Expected vs Actual: " + expected + " <-> " + value);
+            // System.out.println("EXPECTED_ARRAY.add(Pair.with(" + value.getValue0() + ", " + value.getValue1() +
+            // "f));");
+
         }
     }
 
@@ -138,43 +141,102 @@ public class TestConfigs {
     public static List<Pair<Integer, Float>> EXPECTED_ARRAY;
     {
         EXPECTED_ARRAY = SpecsCollections.newArrayList();
+        EXPECTED_ARRAY.add(Pair.with(0, 0.5f));
+        EXPECTED_ARRAY.add(Pair.with(0, -0.5f));
+        EXPECTED_ARRAY.add(Pair.with(2, 0.0f));
         EXPECTED_ARRAY.add(Pair.with(2, 0.5f));
         EXPECTED_ARRAY.add(Pair.with(2, -0.5f));
+        EXPECTED_ARRAY.add(Pair.with(-2, 0.0f));
         EXPECTED_ARRAY.add(Pair.with(-2, 0.5f));
         EXPECTED_ARRAY.add(Pair.with(-2, -0.5f));
+        EXPECTED_ARRAY.add(Pair.with(-2, -1.0f));
         EXPECTED_ARRAY.add(Pair.with(0, -1.0f));
+        EXPECTED_ARRAY.add(Pair.with(-4, -0.5f));
         EXPECTED_ARRAY.add(Pair.with(-4, 0.0f));
         EXPECTED_ARRAY.add(Pair.with(-4, -1.0f));
+        EXPECTED_ARRAY.add(Pair.with(-4, -1.5f));
         EXPECTED_ARRAY.add(Pair.with(-2, -1.5f));
+        EXPECTED_ARRAY.add(Pair.with(-6, -1.0f));
         EXPECTED_ARRAY.add(Pair.with(-6, -0.5f));
         EXPECTED_ARRAY.add(Pair.with(-6, -1.5f));
+        EXPECTED_ARRAY.add(Pair.with(-6, -2.0f));
         EXPECTED_ARRAY.add(Pair.with(-4, -2.0f));
+        EXPECTED_ARRAY.add(Pair.with(-8, -1.5f));
         EXPECTED_ARRAY.add(Pair.with(-8, -1.0f));
         EXPECTED_ARRAY.add(Pair.with(-8, -2.0f));
+        EXPECTED_ARRAY.add(Pair.with(-8, -2.5f));
         EXPECTED_ARRAY.add(Pair.with(-6, -2.5f));
+        EXPECTED_ARRAY.add(Pair.with(-10, -2.0f));
         EXPECTED_ARRAY.add(Pair.with(-10, -1.5f));
         EXPECTED_ARRAY.add(Pair.with(-10, -2.5f));
+        EXPECTED_ARRAY.add(Pair.with(-10, -3.0f));
         EXPECTED_ARRAY.add(Pair.with(-8, -3.0f));
+        EXPECTED_ARRAY.add(Pair.with(-8, -3.5f));
+        EXPECTED_ARRAY.add(Pair.with(-6, -3.0f));
         EXPECTED_ARRAY.add(Pair.with(-6, -3.5f));
         EXPECTED_ARRAY.add(Pair.with(-10, -3.5f));
+        EXPECTED_ARRAY.add(Pair.with(-10, -4.0f));
         EXPECTED_ARRAY.add(Pair.with(-8, -4.0f));
+        EXPECTED_ARRAY.add(Pair.with(-8, -4.5f));
+        EXPECTED_ARRAY.add(Pair.with(-6, -4.0f));
         EXPECTED_ARRAY.add(Pair.with(-6, -4.5f));
         EXPECTED_ARRAY.add(Pair.with(-10, -4.5f));
+        EXPECTED_ARRAY.add(Pair.with(-10, -5.0f));
         EXPECTED_ARRAY.add(Pair.with(-8, -5.0f));
+        EXPECTED_ARRAY.add(Pair.with(-8, -5.5f));
+        EXPECTED_ARRAY.add(Pair.with(-6, -5.0f));
         EXPECTED_ARRAY.add(Pair.with(-6, -5.5f));
         EXPECTED_ARRAY.add(Pair.with(-10, -5.5f));
+        EXPECTED_ARRAY.add(Pair.with(-10, -6.0f));
         EXPECTED_ARRAY.add(Pair.with(-8, -6.0f));
+        EXPECTED_ARRAY.add(Pair.with(-8, -6.5f));
+        EXPECTED_ARRAY.add(Pair.with(-6, -6.0f));
         EXPECTED_ARRAY.add(Pair.with(-6, -6.5f));
         EXPECTED_ARRAY.add(Pair.with(-10, -6.5f));
+        EXPECTED_ARRAY.add(Pair.with(-10, -7.0f));
         EXPECTED_ARRAY.add(Pair.with(-8, -7.0f));
+        EXPECTED_ARRAY.add(Pair.with(-8, -7.5f));
+        EXPECTED_ARRAY.add(Pair.with(-6, -7.0f));
         EXPECTED_ARRAY.add(Pair.with(-6, -7.5f));
         EXPECTED_ARRAY.add(Pair.with(-10, -7.5f));
+        EXPECTED_ARRAY.add(Pair.with(-10, -8.0f));
         EXPECTED_ARRAY.add(Pair.with(-8, -8.0f));
+        EXPECTED_ARRAY.add(Pair.with(-8, -8.5f));
+        EXPECTED_ARRAY.add(Pair.with(-6, -8.0f));
         EXPECTED_ARRAY.add(Pair.with(-6, -8.5f));
         EXPECTED_ARRAY.add(Pair.with(-10, -8.5f));
+        EXPECTED_ARRAY.add(Pair.with(-10, -9.0f));
         EXPECTED_ARRAY.add(Pair.with(-8, -9.0f));
+        EXPECTED_ARRAY.add(Pair.with(-8, -9.5f));
+        EXPECTED_ARRAY.add(Pair.with(-6, -9.0f));
         EXPECTED_ARRAY.add(Pair.with(-6, -9.5f));
         EXPECTED_ARRAY.add(Pair.with(-10, -9.5f));
+        EXPECTED_ARRAY.add(Pair.with(-10, -10.0f));
         EXPECTED_ARRAY.add(Pair.with(-8, -10.0f));
+        EXPECTED_ARRAY.add(Pair.with(-6, -10.0f));
+        EXPECTED_ARRAY.add(Pair.with(-4, -10.0f));
+        EXPECTED_ARRAY.add(Pair.with(-4, -9.5f));
+        EXPECTED_ARRAY.add(Pair.with(-4, -9.0f));
+        EXPECTED_ARRAY.add(Pair.with(-2, -9.5f));
+        EXPECTED_ARRAY.add(Pair.with(-2, -9.0f));
+        EXPECTED_ARRAY.add(Pair.with(-2, -10.0f));
+        EXPECTED_ARRAY.add(Pair.with(0, -10.0f));
+        EXPECTED_ARRAY.add(Pair.with(0, -9.5f));
+        EXPECTED_ARRAY.add(Pair.with(0, -9.0f));
+        EXPECTED_ARRAY.add(Pair.with(2, -9.5f));
+        EXPECTED_ARRAY.add(Pair.with(2, -9.0f));
+        EXPECTED_ARRAY.add(Pair.with(2, -10.0f));
+        EXPECTED_ARRAY.add(Pair.with(4, -10.0f));
+        EXPECTED_ARRAY.add(Pair.with(4, -9.5f));
+        EXPECTED_ARRAY.add(Pair.with(4, -9.0f));
+        EXPECTED_ARRAY.add(Pair.with(6, -9.5f));
+        EXPECTED_ARRAY.add(Pair.with(6, -9.0f));
+        EXPECTED_ARRAY.add(Pair.with(6, -10.0f));
+        EXPECTED_ARRAY.add(Pair.with(8, -10.0f));
+        EXPECTED_ARRAY.add(Pair.with(8, -9.5f));
+        EXPECTED_ARRAY.add(Pair.with(8, -9.0f));
+        EXPECTED_ARRAY.add(Pair.with(10, -9.5f));
+        EXPECTED_ARRAY.add(Pair.with(10, -9.0f));
+        EXPECTED_ARRAY.add(Pair.with(10, -10.0f));
     }
 }
