@@ -1,0 +1,20 @@
+rootProject.name = 'JavaWeaver'
+
+includeBuild("../../specs-java-libs/JadxPlus")
+includeBuild("../../specs-java-libs/JavaGenerator")
+includeBuild("../../specs-java-libs/jOptions")
+includeBuild("../../specs-java-libs/LogbackPlus")
+includeBuild("../../specs-java-libs/SpecsUtils")
+includeBuild("../../specs-java-libs/tdrcLibrary")
+includeBuild("../../specs-java-libs/JsEngine")
+
+includeBuild("../../kadabra/KadabraAPI")
+includeBuild("../../kadabra/KadabraLaraApi")
+
+includeBuild("../../lara-framework/LanguageSpecification")
+includeBuild("../../lara-framework/LaraCommonLanguageApi")
+includeBuild("../../lara-framework/LaraDoc")
+includeBuild("../../lara-framework/LaraFramework")
+includeBuild("../../lara-framework/LaraUtils")
+includeBuild("../../lara-framework/LARAI")
+includeBuild("../../lara-framework/WeaverInterface")

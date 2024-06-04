@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="test-experimental"/>
 	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="src" path="api"/>
 	<classpathentry kind="src" path="resources"/>
@@ -12,19 +13,20 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.apache.ivyde.eclipse.cpcontainer.IVYDE_CONTAINER/?project=JavaWeaver&amp;ivyXmlPath=ivy.xml&amp;confs=*"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/JadxPlus"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/LaraFramework"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/LanguageSpecification"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/LARAI"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/SpecsUtils"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/tdrcLibrary"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/WeaverInterface"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/jOptions"/>
-	<classpathentry kind="src" path="/JavaGenerator"/>
-	<classpathentry kind="src" path="/KadabraAPI"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/KadabraLaraApi"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/LaraDoc"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/LaraCommonLanguageApi"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/LogbackPlus"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/LaraCommonLanguageApi"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/LaraDoc"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/KadabraLaraApi"/>
+	<classpathentry kind="src" path="/KadabraAPI"/>
+	<classpathentry kind="src" path="/JavaGenerator"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jOptions"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/WeaverInterface"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/tdrcLibrary"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/SpecsUtils"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/LARAI"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/LanguageSpecification"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/LaraFramework"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/JadxPlus"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/JsEngine"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

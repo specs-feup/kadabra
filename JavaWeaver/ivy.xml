@@ -59,5 +59,7 @@
 		<!-- Unit tests are asking -->
 		<!--<dependency org="org.junit.platform" name="junit-platform-commons" rev="1.8.1"/>-->
 
+		<dependency org="org.ow2.asm" name="asm" rev="7.1"/>
+
 	</dependencies>
 </ivy-module>
