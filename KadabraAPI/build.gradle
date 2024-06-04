@@ -1,0 +1,47 @@
+plugins {
+ 	id 'distribution'
+}
+
+// Java project
+apply plugin: 'java'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+
+// Repositories providers
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+	testImplementation "junit:junit:4.11"     
+	implementation ':SpecsUtils'
+	implementation ':tdrcLibrary'
+
+	implementation group: 'org.ow2.asm', name: 'asm', version: '5.1'			
+	implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'			
+	implementation group: 'org.javatuples', name: 'javatuples', version: '1.2'			
+}
+
+java {
+	withSourcesJar()
+}
+
+
+// Project sources
+sourceSets {
+   main {
+      java {
+         srcDir 'src'
+      }
+   }   
+   
+   test {
+      java {
+         srcDir 'test'
+      }
+   }   
+}
