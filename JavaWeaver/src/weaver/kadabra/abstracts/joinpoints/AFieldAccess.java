@@ -1,6 +1,5 @@
 package weaver.kadabra.abstracts.joinpoints;
 
-import weaver.kadabra.enums.RefType;
 import java.util.List;
 import org.lara.interpreter.weaver.interf.JoinPoint;
 import java.util.Optional;
@@ -39,7 +38,7 @@ public abstract class AFieldAccess extends AVar {
      * @return the attribute's value
      */
     @Override
-    public RefType getReferenceImpl() {
+    public String getReferenceImpl() {
         return this.aVar.getReferenceImpl();
     }
 

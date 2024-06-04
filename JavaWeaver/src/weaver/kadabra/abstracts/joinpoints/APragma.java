@@ -3,7 +3,6 @@ package weaver.kadabra.abstracts.joinpoints;
 import org.lara.interpreter.weaver.interf.events.Stage;
 import java.util.Optional;
 import org.lara.interpreter.exception.AttributeException;
-import weaver.kadabra.enums.CommentType;
 import java.util.List;
 import org.lara.interpreter.weaver.interf.JoinPoint;
 import java.util.stream.Collectors;
@@ -57,7 +56,7 @@ public abstract class APragma extends AComment {
      * @return the attribute's value
      */
     @Override
-    public CommentType getTypeImpl() {
+    public String getTypeImpl() {
         return this.aComment.getTypeImpl();
     }
 

@@ -150,8 +150,8 @@ Assignment: b = a + b
 Assignment lhs: b
 Assignment rhs: a + b
 Assignment after set: b = 30
-sub call: undefined
-sub call: undefined
+sub call: null
+sub call: null
 sub call: ast.fluent().foo()
 Var: this.b
 Var is final: true

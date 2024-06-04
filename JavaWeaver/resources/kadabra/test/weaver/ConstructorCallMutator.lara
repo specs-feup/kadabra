@@ -1,6 +1,7 @@
 import lara.mutation.Mutator;
 import lara.Io;
 
+import weaver.Weaver;
 import weaver.Query;
 
 aspectdef ConstructorCallMutatorTest

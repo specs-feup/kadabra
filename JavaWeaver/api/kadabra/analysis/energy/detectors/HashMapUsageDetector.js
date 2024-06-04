@@ -36,7 +36,7 @@ class HashMapUsageDetector extends BaseDetector {
 
       // Initialized inside method
       let node = r.ancestor("method");
-      if(node !== undefined) {
+      if(node != null) {
         loc = node.name + loc;
       }
       node = r.ancestor("class");

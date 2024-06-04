@@ -1,5 +1,5 @@
 import weaver.Weaver;
-import weaver.WeaverJps;
+import weaver.Query;
 import lara.Io;
 
 aspectdef Test
@@ -7,7 +7,7 @@ aspectdef Test
 	//var counter = 0;
 
 	// Select binary operators in each file
-	for($op of WeaverJps.search('binaryExpression').get()) {
+	for($op of Query.search('binaryExpression').get()) {
 	
 		if($op.operator === '<') {
 		
@@ -32,7 +32,7 @@ aspectdef Test
 	
 
 	// Select unary operators and change them for --
-	for($op of WeaverJps.search('method', {name: 'unaryTest'}).search('unaryExpression').get()) {
+	for($op of Query.search('method', {name: 'unaryTest'}).search('unaryExpression').get()) {
 		// Store current operator
 		var previousOp = $op.operator;
 	
@@ -46,7 +46,7 @@ aspectdef Test
 	}
 	
 	// Select unary operators and remove them
-	for($op of WeaverJps.search('method', {name: 'unaryTest2'}).search('unaryExpression').get()) {
+	for($op of Query.search('method', {name: 'unaryTest2'}).search('unaryExpression').get()) {
 		
 		// If operator is a single statement in a block, cannot replace it with operand
 		// E.g., a++; cannot be replaced with a;, it does not compile in Java
@@ -55,31 +55,31 @@ aspectdef Test
 		}
 	}
 	
-	println(WeaverJps.search('method', {name: 'unaryTest2'}).getFirst().srcCode);
+	println(Query.search('method', {name: 'unaryTest2'}).getFirst().srcCode);
 
 
 	// Select unary operators and remove them
-	for($op of WeaverJps.search('method', {name: 'unaryTest3'}).search('unaryExpression').get()) {
+	for($op of Query.search('method', {name: 'unaryTest3'}).search('unaryExpression').get()) {
 		$op.insert replace "--a";
 	}
 	
-	println(WeaverJps.search('method', {name: 'unaryTest3'}).getFirst().srcCode);
+	println(Query.search('method', {name: 'unaryTest3'}).getFirst().srcCode);
 	
 	
 	
 	// Select unary operator !, remove it and restore it
-	for($op of WeaverJps.search('method', {name: 'unaryTest4'}).search('unaryExpression').get()) {
+	for($op of Query.search('method', {name: 'unaryTest4'}).search('unaryExpression').get()) {
 		
 		// Copies the unary expression (e.g.,  !a)
 		var $originalOp = $op.copy;
 
 		// Replaces the unary expression with the operand (e.g., !a becomes a) and returns the new expression
 		var $newOp = $op.insertReplace($op.operand);
-		println(WeaverJps.search('method', {name: 'unaryTest4'}).getFirst().srcCode);
+		println(Query.search('method', {name: 'unaryTest4'}).getFirst().srcCode);
 
 		// Replaces the new expression with a copy of the original expression (e.g., a becomes !a again)
 		$newOp.insert replace($originalOp);
-		println(WeaverJps.search('method', {name: 'unaryTest4'}).getFirst().srcCode);
+		println(Query.search('method', {name: 'unaryTest4'}).getFirst().srcCode);
 	}
 	
 

@@ -1,6 +1,5 @@
 package weaver.kadabra.abstracts.joinpoints;
 
-import weaver.kadabra.enums.LoopType;
 import org.lara.interpreter.weaver.interf.events.Stage;
 import java.util.Optional;
 import org.lara.interpreter.exception.AttributeException;
@@ -32,7 +31,7 @@ public abstract class ALoop extends AStatement {
      * Get value on attribute type
      * @return the attribute's value
      */
-    public abstract LoopType getTypeImpl();
+    public abstract String getTypeImpl();
 
     /**
      * Get value on attribute type
@@ -43,7 +42,7 @@ public abstract class ALoop extends AStatement {
         	if(hasListeners()) {
         		eventTrigger().triggerAttribute(Stage.BEGIN, this, "type", Optional.empty());
         	}
-        	LoopType result = this.getTypeImpl();
+        	String result = this.getTypeImpl();
         	if(hasListeners()) {
         		eventTrigger().triggerAttribute(Stage.END, this, "type", Optional.ofNullable(result));
         	}

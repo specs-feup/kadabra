@@ -1,10 +1,10 @@
 import kadabra.mutation.BinaryExpressionMutator;
-import weaver.WeaverJps;
+import weaver.Query;
 
 aspectdef BinaryExpressionMutatorTest
 
 	// Select binary operators in each file
-	for($op of WeaverJps.search('binaryExpression').get()) {
+	for($op of Query.search('binaryExpression').get()) {
 	
 		if($op.operator === '<') {
 			var mutator = new BinaryExpressionMutator($op, ">", "=="); // [">", "=="] is also supported
