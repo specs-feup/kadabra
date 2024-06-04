@@ -110,3 +110,12 @@ task weaverGenerator(type: JavaExec) {
 			'-d'
 	]
 }
+
+// Kadabra
+task kadabra(type: JavaExec) {
+	group = "Execution"
+	description = "Launches Kadabra"
+	classpath = sourceSets.main.runtimeClasspath
+	mainClass = application.mainClass
+	args = []
+}
