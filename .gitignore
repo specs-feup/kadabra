@@ -46,3 +46,9 @@ output/
 
 ### Cache for ivy 
 ivy/
+
+
+# Gradle
+
+.gradle/
+build/
