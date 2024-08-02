@@ -19,13 +19,13 @@ println("Parent x 4: " + loop.parent.parent.parent.parent.joinPointType);
 
 //const $loop = Query.search("method", "getNewId").search("loop").first();
 //println("LOOP: " + $loop.code);
-//getNewId.ancestor("")
+//getNewId.getAncestor("")
 
 /*
 laraImport("kadabra.analysis.energy.EnergyAwareAndroidPatterns");
 
 let result = new InternalGetterDetector().analyse();
-println(result.results[0].ancestor("method")); //undefined
-println(result.results[0].ancestor("class").parent); //inner class
-println(result.results[0].ancestor("class").ast); //file node
+println(result.results[0].getAncestor("method")); //undefined
+println(result.results[0].getAncestor("class").parent); //inner class
+println(result.results[0].getAncestor("class").ast); //file node
 */

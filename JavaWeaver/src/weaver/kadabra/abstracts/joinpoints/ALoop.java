@@ -260,7 +260,7 @@ public abstract class ALoop extends AStatement {
      * @param unique 
      * @param around 
      */
-    public final AField tile(String tileName, String block, boolean unique, AJoinPoint around) {
+    public final Object tile(String tileName, String block, boolean unique, AJoinPoint around) {
         try {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "tile", this, Optional.empty(), tileName, block, unique, around);
@@ -269,7 +269,7 @@ public abstract class ALoop extends AStatement {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.END, "tile", this, Optional.ofNullable(result), tileName, block, unique, around);
         	}
-        	return result;
+        	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "tile", e);
         }
@@ -427,12 +427,12 @@ public abstract class ALoop extends AStatement {
     }
 
     /**
-     * Get value on attribute ancestor
+     * Get value on attribute getAncestor
      * @return the attribute's value
      */
     @Override
-    public AJoinPoint ancestorImpl(String type) {
-        return this.aStatement.ancestorImpl(type);
+    public AJoinPoint getAncestorImpl(String type) {
+        return this.aStatement.getAncestorImpl(type);
     }
 
     /**
@@ -831,7 +831,7 @@ public abstract class ALoop extends AStatement {
         ISBLOCK("isBlock"),
         ISINSIDELOOPHEADER("isInsideLoopHeader"),
         LINE("line"),
-        ANCESTOR("ancestor"),
+        GETANCESTOR("getAncestor"),
         ANNOTATIONS("annotations"),
         RIGHT("right"),
         MODIFIERS("modifiers"),

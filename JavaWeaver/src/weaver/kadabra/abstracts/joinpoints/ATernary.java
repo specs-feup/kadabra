@@ -314,12 +314,12 @@ public abstract class ATernary extends AExpression {
     }
 
     /**
-     * Get value on attribute ancestor
+     * Get value on attribute getAncestor
      * @return the attribute's value
      */
     @Override
-    public AJoinPoint ancestorImpl(String type) {
-        return this.aExpression.ancestorImpl(type);
+    public AJoinPoint getAncestorImpl(String type) {
+        return this.aExpression.getAncestorImpl(type);
     }
 
     /**
@@ -735,7 +735,7 @@ public abstract class ATernary extends AExpression {
         ISBLOCK("isBlock"),
         ISINSIDELOOPHEADER("isInsideLoopHeader"),
         LINE("line"),
-        ANCESTOR("ancestor"),
+        GETANCESTOR("getAncestor"),
         ANNOTATIONS("annotations"),
         RIGHT("right"),
         MODIFIERS("modifiers"),

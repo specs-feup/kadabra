@@ -32,7 +32,7 @@ class InternalGetterDetector extends BaseDetector {
     let data = this.results.map((r) => [
       r.line.toString(),
       r.name,
-      r.ancestor("file").path,
+      r.getAncestor("file").path,
     ]);
     Collections.printTable(["Line", "Call", "File"], data, [10, 30, 100]);
     println();
@@ -43,17 +43,17 @@ class InternalGetterDetector extends BaseDetector {
       let loc = r.name + "(" + r.arguments + "):" + r.line.toString();
 
       // Initialized inside method
-      let node = r.ancestor("method");
+      let node = r.getAncestor("method");
       if(node !== undefined) {
         loc = node.name + "/" + loc;
       }
       else {
-        node = r.ancestor("constructor");
+        node = r.getAncestor("constructor");
         loc = node.name + "/" + loc;
       }
-      node = r.ancestor("class");
+      node = r.getAncestor("class");
       loc = node.name + "/" + loc;
-      node = node.ancestor("file");
+      node = node.getAncestor("file");
       loc = node.name.toString() + "/" + loc;
       return loc;
     });

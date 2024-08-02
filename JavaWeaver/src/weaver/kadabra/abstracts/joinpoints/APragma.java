@@ -169,12 +169,12 @@ public abstract class APragma extends AComment {
     }
 
     /**
-     * Get value on attribute ancestor
+     * Get value on attribute getAncestor
      * @return the attribute's value
      */
     @Override
-    public AJoinPoint ancestorImpl(String type) {
-        return this.aComment.ancestorImpl(type);
+    public AJoinPoint getAncestorImpl(String type) {
+        return this.aComment.getAncestorImpl(type);
     }
 
     /**
@@ -540,7 +540,7 @@ public abstract class APragma extends AComment {
         ISBLOCK("isBlock"),
         ISINSIDELOOPHEADER("isInsideLoopHeader"),
         LINE("line"),
-        ANCESTOR("ancestor"),
+        GETANCESTOR("getAncestor"),
         ANNOTATIONS("annotations"),
         RIGHT("right"),
         MODIFIERS("modifiers"),

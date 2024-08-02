@@ -264,12 +264,12 @@ public abstract class AFieldAccess extends AVar {
     }
 
     /**
-     * Get value on attribute ancestor
+     * Get value on attribute getAncestor
      * @return the attribute's value
      */
     @Override
-    public AJoinPoint ancestorImpl(String type) {
-        return this.aVar.ancestorImpl(type);
+    public AJoinPoint getAncestorImpl(String type) {
+        return this.aVar.getAncestorImpl(type);
     }
 
     /**
@@ -662,7 +662,7 @@ public abstract class AFieldAccess extends AVar {
         ISBLOCK("isBlock"),
         ISINSIDELOOPHEADER("isInsideLoopHeader"),
         LINE("line"),
-        ANCESTOR("ancestor"),
+        GETANCESTOR("getAncestor"),
         ANNOTATIONS("annotations"),
         RIGHT("right"),
         MODIFIERS("modifiers"),

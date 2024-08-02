@@ -369,7 +369,7 @@ public abstract class ACall extends AExpression {
      * @param location 
      * @param position 
      */
-    public final ACall clone(AStatement location, String position) {
+    public final Object clone(AStatement location, String position) {
         try {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "clone", this, Optional.empty(), location, position);
@@ -378,7 +378,7 @@ public abstract class ACall extends AExpression {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.END, "clone", this, Optional.ofNullable(result), location, position);
         	}
-        	return result;
+        	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "clone", e);
         }
@@ -606,12 +606,12 @@ public abstract class ACall extends AExpression {
     }
 
     /**
-     * Get value on attribute ancestor
+     * Get value on attribute getAncestor
      * @return the attribute's value
      */
     @Override
-    public AJoinPoint ancestorImpl(String type) {
-        return this.aExpression.ancestorImpl(type);
+    public AJoinPoint getAncestorImpl(String type) {
+        return this.aExpression.getAncestorImpl(type);
     }
 
     /**
@@ -1065,7 +1065,7 @@ public abstract class ACall extends AExpression {
         ISBLOCK("isBlock"),
         ISINSIDELOOPHEADER("isInsideLoopHeader"),
         LINE("line"),
-        ANCESTOR("ancestor"),
+        GETANCESTOR("getAncestor"),
         ANNOTATIONS("annotations"),
         RIGHT("right"),
         MODIFIERS("modifiers"),

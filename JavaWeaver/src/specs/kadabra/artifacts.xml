@@ -14,7 +14,7 @@
         </attribute>
 		<attribute name="parent" 				type="joinpoint"/>
 		<attribute name="astParent" 			type="joinpoint" tooltip="Alias of attribute 'parent'"/>		
-		<attribute name="ancestor" 				type="joinpoint">
+		<attribute name="getAncestor" 				type="joinpoint">
 			<parameter name="type" 				type="String"/>
         </attribute>
 		<attribute name="line"  				type="int">

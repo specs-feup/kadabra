@@ -9,19 +9,6 @@
 			"children": [
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -85,6 +72,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -438,19 +438,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -514,6 +501,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -836,19 +836,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -912,6 +899,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -1257,19 +1257,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -1333,6 +1320,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -1707,19 +1707,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -1783,6 +1770,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -2131,19 +2131,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -2207,6 +2194,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -2653,19 +2653,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -2729,6 +2716,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -3089,19 +3089,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -3165,6 +3152,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -3511,19 +3511,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -3587,6 +3574,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -3991,19 +3991,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -4067,6 +4054,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -4454,19 +4454,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -4530,6 +4517,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -4923,19 +4923,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -4999,6 +4986,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -5423,19 +5423,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -5499,6 +5486,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -5911,19 +5911,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -5987,6 +5974,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -6326,19 +6326,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -6402,6 +6389,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -6725,42 +6725,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -6796,7 +6760,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -6827,6 +6792,19 @@
 					},
 					{
 						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node has the given modifier",
 						"children": [
 									{
@@ -6835,7 +6813,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -6951,55 +6930,6 @@
 									{
 										"type": "String",
 										"name": "srcCode"
-									}]
-					},
-					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
-										"defaultValue": ""
 									}]
 					},
 					{
@@ -7251,19 +7181,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -7327,6 +7244,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -7994,19 +7924,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -8070,6 +7987,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -8414,19 +8344,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -8490,6 +8407,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -8816,19 +8746,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -8892,6 +8809,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -9244,19 +9174,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -9320,6 +9237,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -9717,19 +9647,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -9793,6 +9710,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -10505,42 +10435,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -10576,7 +10470,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -10607,6 +10502,19 @@
 					},
 					{
 						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node has the given modifier",
 						"children": [
 									{
@@ -10615,7 +10523,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -10734,19 +10643,6 @@
 									}]
 					},
 					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
 						"type": "select",
 						"clazz": "expression",
 						"alias": "init"
@@ -10760,42 +10656,6 @@
 									},
 									{
 										"type": "expression",
-										"name": "value",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
 										"name": "value",
 										"defaultValue": ""
 									}]
@@ -10995,19 +10855,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -11071,6 +10918,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -11421,19 +11281,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -11497,6 +11344,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -11903,19 +11763,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -11979,6 +11826,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -12389,19 +12249,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -12465,6 +12312,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -12857,19 +12717,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -12933,6 +12780,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -13445,19 +13305,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -13521,6 +13368,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -13917,19 +13777,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -13993,6 +13840,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -14574,19 +14434,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -14650,6 +14497,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -14968,19 +14828,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -15044,6 +14891,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -15384,19 +15244,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -15460,6 +15307,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -15880,19 +15740,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -15956,6 +15803,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -16342,19 +16202,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -16418,6 +16265,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -16878,19 +16738,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -16954,6 +16801,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -17382,19 +17242,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -17458,6 +17305,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -17845,19 +17705,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -17921,6 +17768,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -18306,19 +18166,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -18382,6 +18229,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -18706,19 +18566,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -18782,6 +18629,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -19084,19 +18944,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -19160,6 +19007,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -19496,42 +19356,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -19567,7 +19391,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -19598,6 +19423,19 @@
 					},
 					{
 						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node has the given modifier",
 						"children": [
 									{
@@ -19606,7 +19444,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -19725,19 +19564,6 @@
 									}]
 					},
 					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
 						"type": "select",
 						"clazz": "expression",
 						"alias": "expr"
@@ -19796,42 +19622,6 @@
 										"type": "String",
 										"name": "position",
 										"defaultValue": "before"
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
-										"defaultValue": ""
 									}]
 					},
 					{
@@ -20005,42 +19795,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "attributes"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "selects"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String[]",
-										"name": "actions"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type"
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -20076,7 +19830,8 @@
 									},
 									{
 										"type": "Integer",
-										"name": "index"
+										"name": "index",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -20107,6 +19862,19 @@
 					},
 					{
 						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "true if this node has the given modifier",
 						"children": [
 									{
@@ -20115,7 +19883,8 @@
 									},
 									{
 										"type": "String",
-										"name": "modifier"
+										"name": "modifier",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -20234,19 +20003,6 @@
 									}]
 					},
 					{
-						"type": "attribute",
-						"tooltip": "true if the current join point is an instance of the given type",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "instanceOf"
-									},
-									{
-										"type": "String",
-										"name": "name"
-									}]
-					},
-					{
 						"type": "select",
 						"clazz": "var",
 						"alias": ""
@@ -20266,42 +20022,6 @@
 									{
 										"type": "Integer",
 										"name": "line",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "insert"
-									},
-									{
-										"type": "[before| after| replace]",
-										"name": "position",
-										"defaultValue": ""
-									},
-									{
-										"type": "String",
-										"name": "code",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "action",
-						"children": [
-									{
-										"type": "void",
-										"name": "def"
-									},
-									{
-										"type": "String",
-										"name": "attribute",
-										"defaultValue": ""
-									},
-									{
-										"type": "Object",
-										"name": "value",
 										"defaultValue": ""
 									}]
 					},
@@ -20476,19 +20196,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -20552,6 +20259,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -20872,19 +20592,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -20948,6 +20655,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -21323,19 +21043,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -21399,6 +21106,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -21788,19 +21508,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -21864,6 +21571,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -22214,19 +21934,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -22290,6 +21997,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -22628,19 +22348,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -22704,6 +22411,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -23091,19 +22811,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -23167,6 +22874,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -23771,19 +23491,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -23847,6 +23554,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -24189,19 +23909,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -24265,6 +23972,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -24724,19 +24444,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -24800,6 +24507,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -25195,19 +24915,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -25271,6 +24978,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -25622,19 +25342,6 @@
 					},
 					{
 						"type": "attribute",
-						"children": [
-									{
-										"type": "joinpoint",
-										"name": "ancestor"
-									},
-									{
-										"type": "String",
-										"name": "type",
-										"defaultValue": ""
-									}]
-					},
-					{
-						"type": "attribute",
 						"tooltip": "an array of the annotations of this node",
 						"children": [
 									{
@@ -25698,6 +25405,19 @@
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{

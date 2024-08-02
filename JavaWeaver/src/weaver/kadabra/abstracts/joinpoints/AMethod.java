@@ -228,7 +228,7 @@ public abstract class AMethod extends AExecutable {
      * @param adaptMethod 
      * @param name 
      */
-    public final AClass createAdapter(AMethod adaptMethod, String name) {
+    public final Object createAdapter(AMethod adaptMethod, String name) {
         try {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "createAdapter", this, Optional.empty(), adaptMethod, name);
@@ -237,7 +237,7 @@ public abstract class AMethod extends AExecutable {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.END, "createAdapter", this, Optional.ofNullable(result), adaptMethod, name);
         	}
-        	return result;
+        	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "createAdapter", e);
         }
@@ -255,7 +255,7 @@ public abstract class AMethod extends AExecutable {
      * 
      * @param newName 
      */
-    public final AMethod clone(String newName) {
+    public final Object clone(String newName) {
         try {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "clone", this, Optional.empty(), newName);
@@ -264,7 +264,7 @@ public abstract class AMethod extends AExecutable {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.END, "clone", this, Optional.ofNullable(result), newName);
         	}
-        	return result;
+        	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "clone", e);
         }
@@ -404,12 +404,12 @@ public abstract class AMethod extends AExecutable {
     }
 
     /**
-     * Get value on attribute ancestor
+     * Get value on attribute getAncestor
      * @return the attribute's value
      */
     @Override
-    public AJoinPoint ancestorImpl(String type) {
-        return this.aExecutable.ancestorImpl(type);
+    public AJoinPoint getAncestorImpl(String type) {
+        return this.aExecutable.getAncestorImpl(type);
     }
 
     /**
@@ -811,7 +811,7 @@ public abstract class AMethod extends AExecutable {
         ISBLOCK("isBlock"),
         ISINSIDELOOPHEADER("isInsideLoopHeader"),
         LINE("line"),
-        ANCESTOR("ancestor"),
+        GETANCESTOR("getAncestor"),
         ANNOTATIONS("annotations"),
         RIGHT("right"),
         MODIFIERS("modifiers"),
