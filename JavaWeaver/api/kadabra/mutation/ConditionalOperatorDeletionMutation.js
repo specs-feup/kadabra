@@ -1,42 +1,37 @@
-import lara.mutation.IterativeMutation;
-import lara.mutation.MutationResult;
+laraImport("lara.mutation.IterativeMutation");
+laraImport("lara.mutation.MutationResult");
 
+class ConditionalOperatorDeletionMutation extends IterativeMutation {
+    constructor() {
+        super("ConditionalOperatorDeletionMutation");
+    }
 
-/**
- */
-var ConditionalOperatorDeletionMutation = function() {
-	//Parent constructor
-    IterativeMutation.call(this, "ConditionalOperatorDeletionMutation");
-};
-// Inheritance
-ConditionalOperatorDeletionMutation.prototype = Object.create(IterativeMutation.prototype);
+    isMutationPoint($jp) {
+        if (
+            $jp.instanceOf("if") ||
+            $jp.instanceOf("ternary") ||
+            $jp.instanceOf("loop")
+        ) {
+            if (
+                $jp.cond.instanceOf("unaryExpression") &&
+                $jp.cond.operator === "!"
+            ) {
+                return true;
+            }
+        }
 
+        return false;
+    }
 
-/*** IMPLEMENTATION OF INSTANCE METHODS ***/
+    *mutate($jp) {
+        const mutation = $jp.copy();
 
-ConditionalOperatorDeletionMutation.prototype.isMutationPoint = function($jp) {
+        mutation.cond.insertReplace(mutation.cond.operand.copy());
 
-	if($jp.instanceOf('if') || $jp.instanceOf('ternary') || $jp.instanceOf('loop')) {
+        debug("/*--------------------------------------*/");
+        debug("Mutating operator: " + $jp + " to " + mutation);
+        debug("/*--------------------------------------*/");
 
-		if($jp.cond.instanceOf('unaryExpression') && $jp.cond.operator === '!') {
-			return true;
-		}
-	}
-
-	return false;
-}
-
-
-ConditionalOperatorDeletionMutation.prototype.mutate = function* ($jp) {
-
-	var mutation = $jp.copy;
-	
-	mutation.cond.insertReplace(mutation.cond.operand.copy());
-	
-	debug("/*--------------------------------------*/");
-	debug("Mutating operator: "+ $jp +" to "+ mutation);
-	debug("/*--------------------------------------*/");		
-	
-	yield new MutationResult(mutation);
-
+        yield new MutationResult(mutation);
+    }
 }

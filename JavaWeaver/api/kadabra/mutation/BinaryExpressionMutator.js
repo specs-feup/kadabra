@@ -1,60 +1,54 @@
-import lara.mutation.Mutator;
+laraImport("lara.mutation.Mutator");
 
 /**
  *  @param {$binaryExpression} $binaryExpression - A join point of type binaryExpression.
  *  @param {String[] | String...} newOperators - Operators that will be used to mutate the given binaryExpression.
  */
-var BinaryExpressionMutator = function($binaryExpression) {
-	// Parent constructor
-    Mutator.call(this);
+class BinaryExpressionMutator extends Mutator {
+    constructor($binaryExpression, ...newOperators) {
+        super();
+        // Instance variables
+        this.$binaryExpression = $binaryExpression;
+        this.newOperators = arrayFromArgs(newOperators);
+        this.currentIndex = 0;
+        this.previousOp = undefined;
 
-	// Instance variables
-	this.$binaryExpression = $binaryExpression;
-	this.newOperators = arrayFromArgs(arguments, 1);
-	this.currentIndex = 0;
-	this.previousOp = undefined;
+        // Checks
 
-	
-	// Checks
+        // Check it is a binaryExpression
+        if (!$binaryExpression.instanceOf("binaryExpression")) {
+            throw new Error(
+                "Expected a binaryExpression, received a " +
+                    $binaryExpression.joinPointType
+            );
+        }
 
-	// Check it is a binaryExpression
-	if(!$binaryExpression.instanceOf('binaryExpression')) {
-		throw "Expected a binaryExpression, received a " + $binaryExpression.joinPointType;
-	}
-	
-	// TODO: Check if operators are valid
+        // TODO: Check if operators are valid
+    }
 
-};
+    hasMutations() {
+        return this.currentIndex < this.newOperators.length;
+    }
 
-// Inheritance
-BinaryExpressionMutator.prototype = Object.create(Mutator.prototype);
+    getMutationPoint() {
+        return this.$binaryExpression;
+    }
 
+    mutatePrivate() {
+        // Obtain new operator, increment index
+        const newOp = this.newOperators[this.currentIndex];
+        this.currentIndex++;
 
-/// IMPLEMENTATION OF INSTANCE METHODS 
+        // Store current operator
+        this.previousOp = this.$binaryExpression.operator;
 
-BinaryExpressionMutator.prototype.hasMutations = function() {
-	return this.currentIndex < this.newOperators.length;
-}
+        // Set new operator
+        this.$binaryExpression.operator = newOp;
+    }
 
-BinaryExpressionMutator.prototype.getMutationPoint = function() {
-	return this.$binaryExpression;
-}
-
-
-BinaryExpressionMutator.prototype._mutatePrivate = function() {
-	// Obtain new operator, increment index
-	var newOp = this.newOperators[this.currentIndex];
-	this.currentIndex++;
-	
-	// Store current operator
-	this.previousOp = this.$binaryExpression.operator;
-
-	// Set new operator
-	this.$binaryExpression.operator = newOp;
-}
-
-BinaryExpressionMutator.prototype._restorePrivate = function() {
-	// Restore operator
-	this.$binaryExpression.operator = this.previousOp;
-	this.previousOp = undefined;
+    restorePrivate() {
+        // Restore operator
+        this.$binaryExpression.operator = this.previousOp;
+        this.previousOp = undefined;
+    }
 }

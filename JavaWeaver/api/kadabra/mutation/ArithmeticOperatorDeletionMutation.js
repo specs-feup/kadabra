@@ -1,40 +1,30 @@
-import lara.mutation.IterativeMutation;
-import lara.mutation.MutationResult;
+laraImport("lara.mutation.IterativeMutation");
+laraImport("lara.mutation.MutationResult");
 
-var ArithmeticOperatorDeletionMutation = function() {
-	//Parent constructor
-     IterativeMutation.call(this, "ArithmeticOperatorDeletionMutation");
-};
+class ArithmeticOperatorDeletionMutation extends IterativeMutation {
+    constructor() {
+        super("ArithmeticOperatorDeletionMutation");
+    }
 
-// Inheritance
-ArithmeticOperatorDeletionMutation.prototype = Object.create(IterativeMutation.prototype);
+    isMutationPoint($jp) {
+        return $jp.instanceOf("binaryExpression");
+    }
 
+    *mutate($jp) {
+        const leftOperand = $jp.lhs.copy();
 
+        debug("/*--------------------------------------*/");
+        debug("Mutating operator: " + $jp + " to " + leftOperand);
+        debug("/*--------------------------------------*/");
 
-/*** IMPLEMENTATION OF INSTANCE METHODS ***/
+        yield new MutationResult(leftOperand);
 
-ArithmeticOperatorDeletionMutation.prototype.isMutationPoint = function($jp) {
-	return $jp.instanceOf("binaryExpression");
-}
+        const rightOperand = $jp.rhs.copy();
 
+        debug("/*--------------------------------------*/");
+        debug("Mutating operator: " + $jp + " to " + rightOperand);
+        debug("/*--------------------------------------*/");
 
-ArithmeticOperatorDeletionMutation.prototype.mutate = function* ($jp) {
-	
-	
-	var leftOperand = $jp.lhs.copy();
-
-	debug("/*--------------------------------------*/");
-	debug("Mutating operator: "+ $jp +" to "+ leftOperand); 
-	debug("/*--------------------------------------*/");
-
-	yield new MutationResult(leftOperand);
-	
-	
-	var rightOperand = $jp.rhs.copy();
-	
-	debug("/*--------------------------------------*/");
-	debug("Mutating operator: "+ $jp +" to "+ rightOperand); 
-	debug("/*--------------------------------------*/");	
-	
-	yield new MutationResult(rightOperand);
+        yield new MutationResult(rightOperand);
+    }
 }

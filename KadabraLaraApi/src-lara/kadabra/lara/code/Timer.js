@@ -60,7 +60,7 @@ class Timer extends TimerBase {
             afterJp = logger.getAfterJp();
         }
 
-        this._setAfterJp(afterJp);
+        this.setAfterJp(afterJp);
 
         return intervalVar;
     }

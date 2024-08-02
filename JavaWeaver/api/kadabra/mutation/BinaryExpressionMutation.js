@@ -1,40 +1,31 @@
-import lara.mutation.IterativeMutation;
-import lara.mutation.MutationResult;
+laraImport("lara.mutation.IterativeMutation");
+laraImport("lara.mutation.MutationResult");
 
 /**
  *  @param {String[] | String...} newOperators - Operators that will be used to mutate the binaryExpression.
  */
-var BinaryExpressionMutation = function() {
-	// Parent constructor
-    IterativeMutation.call(this, "BinaryExpressionMutation");
+class BinaryExpressionMutation extends IterativeMutation {
+    // Parent constructor
+    constructor(...newOperators) {
+        super("BinaryExpressionMutation");
+        // TODO: Check if operators are valid
+        this.newOperators = arrayFromArgs(newOperators);
+    }
 
-	// Instance variables
-	this.newOperators = arrayFromArgs(arguments);
+    isMutationPoint($jp) {
+        return $jp.instanceOf("binaryExpression");
+    }
 
-	// TODO: Check if operators are valid
-};
+    *mutate($jp) {
+        for (const newOp of this.newOperators) {
+            // Skip when operators are the same
+            if ($jp.operator === newOp) {
+                continue;
+            }
 
-// Inheritance
-BinaryExpressionMutation.prototype = Object.create(IterativeMutation.prototype);
-
-
-/// IMPLEMENTATION OF INSTANCE METHODS 
-
-BinaryExpressionMutation.prototype.isMutationPoint = function($jp) {
-	return $jp.instanceOf("binaryExpression");
-}
-
-
-BinaryExpressionMutation.prototype.mutate = function* ($jp) {
-	for(var newOp of this.newOperators) {
-	
-		// Skip when operators are the same
-		if($jp.operator === newOp) {
-			continue;
-		}
-		
-		var mutation = $jp.copy();
-		mutation.operator = newOp;
-		yield new MutationResult(mutation);
-	}	
+            const mutation = $jp.copy();
+            mutation.operator = newOp;
+            yield new MutationResult(mutation);
+        }
+    }
 }

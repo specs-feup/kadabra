@@ -10,7 +10,7 @@ class Energy extends EnergyBase {
     measure($start, prefix, $end) {
         //Check for valid joinpoints and additional conditions
 
-        if (!this._measureValidate($start, $end, "body")) {
+        if (!this.measureValidate($start, $end, "body")) {
             return;
         }
 

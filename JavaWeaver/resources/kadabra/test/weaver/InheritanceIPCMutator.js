@@ -1,172 +1,141 @@
-import lara.mutation.Mutator;
-import lara.Io;
+laraImport("lara.mutation.Mutator");
+laraImport("lara.Io");
+laraImport("weaver.Weaver");
+laraImport("weaver.Query");
 
-import weaver.Weaver;
-import weaver.Query;
+function InheritanceIPCMutatorTest() {
+    const mutator = new InheritanceIPCMutator(Query.root());
 
+    while (mutator.hasMutations()) {
+        // Mutate
+        mutator.mutate();
+        // Print
+        //println(mutator.getMutationPoint().parent.code);
+        saveFile();
+        // Restore operator
+        mutator.restore();
+    }
 
-aspectdef InheritanceIPCMutatorTest
-
-	var mutator = new InheritanceIPCMutator(Query.root());
-
-	while(mutator.hasMutations()) {
-		// Mutate
-		mutator.mutate();
-		// Print
-		//println(mutator.getMutationPoint().parent.code);
-		saveFile();
-		// Restore operator
-		mutator.restore();
-		
-
-	}
-
-/*
-	while(mutator.hasMutations()) {
-
-
-		// Mutate
-		mutator.mutate();
-		
-		// Print
-
-		//var workingPoint = mutator.getMutationPoint().isStatement ? mutator.getMutationPoint() : mutator.getMutationPoint().ancestor("statement");
-
-		//	println("MUTATION POINT: " + mutator.getMutationPoint().code);
-		//	println("WORKING POINT: " + workingPoint.code);
-
-		var mutated = mutator.getMutationPoint().isStatement ? mutator.getMutationPoint().srcCode : mutator.getMutationPoint().ancestor("statement").srcCode;
-
-		mutator.getMutationPoint().insertBefore(
-			"if(System.getenv(\"MutKey\") == "+ "\"REPLACE WITH IDENTIFIER\"" +"){\n" +
-			mutated +
-			"\n}else{"
-		);
-
-		//mutator.getMutationPoint().insertBefore("super();");
-		mutator.getMutationPoint().insertBefore("// COMMENT");
-
-		mutator.getMutationPoint().insertAfter("}");
-		//println(mutator.getMutationPoint().parent.code);
-
-		// Restore operator
-		mutator.restore();		
-
-	}
-*/	
-	//saveFile();	
-end
-
-function saveFile(){
-	var outputFolder = Io.mkdir("./mutatedFilesTest/");
-	Io.deleteFolderContents(outputFolder);
-
-	// Write modified code
-	Weaver.writeCode(outputFolder);
-		
-	// Print contents
-	for(var mutatedFile of Io.getFiles(outputFolder, "*.java") ) {
-		println("<File '" + mutatedFile.getName() + "'>");
-		println(Io.readFile(mutatedFile));
-	}
-		
-	Io.deleteFolder(outputFolder);		
+    //saveFile();
 }
 
+function saveFile() {
+    const outputFolder = Io.mkdir("./mutatedFilesTest/");
+    Io.deleteFolderContents(outputFolder);
 
+    // Write modified code
+    Weaver.writeCode(outputFolder);
+
+    // Print contents
+    for (const mutatedFile of Io.getFiles(outputFolder, "*.java")) {
+        println("<File '" + mutatedFile.getName() + "'>");
+        println(Io.readFile(mutatedFile));
+    }
+
+    Io.deleteFolder(outputFolder);
+}
 
 /**
  *  @param {$joinpoint} $joinpoint - Joinpoint used as starting point to search for super constructor calls to be removed.
  */
-var InheritanceIPCMutator = function($joinpoint) {
-	// Parent constructor
-   	Mutator.call(this);
+class InheritanceIPCMutator extends Mutator {
+    constructor($joinpoint) {
+        super();
 
-	if($joinpoint === undefined) {
-		$joinpoint = Query.root();
-	}
+        if ($joinpoint === undefined) {
+            $joinpoint = Query.root();
+        }
 
-	// Instance variables
-	this.toMutate = [];
-	this.currentIndex = 0;
-	
-	this.originalSuperCall = undefined;
-	this.$superCall = undefined;
-	
-	// Checks
-	var extraArgs = arrayFromArgs(arguments, 1);
-	if(extraArgs.length != 0)
-		throw "Expected only 1 argument but received " + (this.extraArgs.length + 1);
+        // Instance variables
+        this.toMutate = [];
+        this.currentIndex = 0;
 
-	this.extractMutationTargets($joinpoint);
+        this.originalSuperCall = undefined;
+        this.$superCall = undefined;
 
-	if(this.toMutate.length == 0)
-		println("Found no suitable code to mutate");
-};
+        // Checks
+        const extraArgs = arrayFromArgs(arguments, 1);
+        if (extraArgs.length != 0)
+            throw new Error(
+                "Expected only 1 argument but received " +
+                    (this.extraArgs.length + 1)
+            );
 
-// Inheritance
-InheritanceIPCMutator.prototype = Object.create(Mutator.prototype);
+        this.extractMutationTargets($joinpoint);
 
+        if (this.toMutate.length == 0)
+            println("Found no suitable code to mutate");
+    }
 
-/*** IMPLEMENTATION OF INSTANCE METHODS ***/
+    /* Store super constructor calls */
+    extractMutationTargets($joinpoint) {
+        for (const $constructor of Query.searchFrom(
+            $joinpoint,
+            "constructor"
+        ).get()) {
+            // Check if constructor contains a super call in its source code
+            if (!$constructor.srcCode.includes("super(")) continue;
 
-/* Store super constructor calls */
-InheritanceIPCMutator.prototype.extractMutationTargets = function($joinpoint) {
+            // Search for super calls inside constructors (since they can only appear inside constructors, we avoid searching the whole program)
+            for (const $descendant of $constructor.descendants) {
+                if (
+                    $descendant.instanceOf("call") &&
+                    $descendant.srcCode.startsWith("super(") &&
+                    $descendant.srcCode.endsWith(")")
+                ) {
+                    this.toMutate.push($descendant);
+                    break;
+                }
+            }
+        }
+    }
 
-	for($constructor of Query.searchFrom($joinpoint, 'constructor').get()) {
-		// Check if constructor contains a super call in its source code
-		if(!$constructor.srcCode.includes('super('))
-			continue;
-			
-		// Search for super calls inside constructors (since they can only appear inside constructors, we avoid searching the whole program)
-		for($descendant of $constructor.descendants) {
-			if(	$descendant.instanceOf('call') && 
-				$descendant.srcCode.startsWith('super(') && 
-				$descendant.srcCode.endsWith(')')
-			) {
-				this.toMutate.push($descendant);
-				break;
-			}
-		}
-	}
-}
+    hasMutations() {
+        return this.currentIndex < this.toMutate.length;
+    }
 
-InheritanceIPCMutator.prototype.hasMutations = function() {
-	return this.currentIndex < this.toMutate.length;
-}
+    mutatePrivate() {
+        this.$superCall = this.toMutate[this.currentIndex++];
+        this.originalSuperCall = this.$superCall.copy();
 
+        // Replace super constructor call by a comment
+        this.$superCall = this.$superCall.insertReplace(
+            "// Super constructor call has been removed"
+        );
 
-InheritanceIPCMutator.prototype._mutatePrivate = function() {
-	this.$superCall = this.toMutate[this.currentIndex++];
-	this.originalSuperCall = this.$superCall.copy();
+        println("/*--------------------------------------*/");
+        println(
+            "Mutating operator n." +
+                this.currentIndex +
+                ": " +
+                this.originalSuperCall +
+                " to " +
+                this.$superCall
+        );
+        println("/*--------------------------------------*/");
+    }
 
-	// Replace super constructor call by a comment
-	this.$superCall = this.$superCall.insertReplace("// Super constructor call has been removed");
+    restorePrivate() {
+        this.$superCall = this.$superCall.insertReplace(this.originalSuperCall);
 
-	println("/*--------------------------------------*/");
-	println("Mutating operator n."+ this.currentIndex + ": "+ this.originalSuperCall
-		+" to "+ this.$superCall);
-	println("/*--------------------------------------*/");
+        this.originalSuperCall = undefined;
+        this.$superCall = undefined;
+    }
 
-}
-
-InheritanceIPCMutator.prototype._restorePrivate = function() {
-	this.$superCall = this.$superCall.insertReplace(this.originalSuperCall);
-
-	this.originalSuperCall = undefined;
-	this.$superCall = undefined;
-}
-
-InheritanceIPCMutator.prototype.getMutationPoint = function() {
-	if (this.isMutated) {
-		println("MUTATION POINT AFTER: "  + this.$superCall.code);
-		return this.$superCall;
-	} else {
-		if (this.currentIndex < this.toMutate.length) {
-			println("MUTATION POINT BEFORE: "  + this.toMutate[this.currentIndex].code);
-			return this.toMutate[this.currentIndex];
-		} else {
-			return undefined;
-		}
-	}
+    getMutationPoint() {
+        if (this.isMutated) {
+            println("MUTATION POINT AFTER: " + this.$superCall.code);
+            return this.$superCall;
+        } else {
+            if (this.currentIndex < this.toMutate.length) {
+                println(
+                    "MUTATION POINT BEFORE: " +
+                        this.toMutate[this.currentIndex].code
+                );
+                return this.toMutate[this.currentIndex];
+            } else {
+                return undefined;
+            }
+        }
+    }
 }

@@ -3,12 +3,12 @@ laraImport("lara.util.PrintOnce");
 
 class Logger extends LoggerBase {
     constructor(isGlobal = false, filename = undefined) {
+		super(isGlobal, filename);
+
         /**
          * Redefines print format flags according to Java standard
          */
-        printfFormat[Logger.prototype.Type.LONG] = "%d";
-
-        super(isGlobal, filename);
+        this.printfFormat[this.Type.LONG] = "%d";
     }
 
     /**
@@ -47,7 +47,7 @@ class Logger extends LoggerBase {
 
         // Could not understand how Kadabra decides to put a semi-colon in inserted code
         const suffix = undefined;
-        return this._printfFormat("System.out.printf", undefined, suffix);
+        return this.printfFormat("System.out.printf", undefined, suffix);
     }
 
     _log_code_file($jp) {
@@ -60,7 +60,7 @@ class Logger extends LoggerBase {
         //var suffix = undefined;
 
         // This code will be called from inside a function call
-        let code = this._printfFormat("String.format", undefined, ")");
+        let code = this.printfFormat("String.format", undefined, ")");
 
         code =
             'pt.up.fe.specs.util.SpecsIo.append(new java.io.File("' +
