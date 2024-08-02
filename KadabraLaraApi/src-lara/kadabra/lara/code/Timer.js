@@ -1,91 +1,76 @@
-import lara.code.TimerBase;
-import lara.code.Logger;
+laraImport("lara.code.TimerBase");
+laraImport("lara.code.Logger");
 
-import lara.util.IdGenerator;
-import lara.Platforms;
-import lara.util.TimeUnits;
+laraImport("lara.util.IdGenerator");
+laraImport("lara.Platforms");
+laraImport("lara.util.TimeUnits");
 
+class Timer extends TimerBase {
+    time($start, prefix, $end) {
+        if (!this._timeValidate($start, $end, "executable")) {
+            return;
+        }
 
+        // Build prefix
+        if (prefix === undefined) {
+            prefix = "";
+        }
 
+        if ($end === undefined) {
+            $end = $start;
+        }
 
-/**
- *
- */
-Timer.prototype.time = function($start, prefix, $end) {
+        // Declare variable for time interval, which uses calculation as initialization
+        //var timeIntervalVar = IdGenerator.next("kadabra_timing_duration_");
+        //var $timingResultDecl;
+        // Add includes
 
-    if (!this._timeValidate($start, $end, 'executable')) {
-        return;
+        // get variable names
+        const startVar = IdGenerator.next("kadabra_timing_start_");
+        const intervalVar = IdGenerator.next("kadabra_timing_interval_");
+
+        const codeBefore = _timer_java_now(startVar);
+        const codeAfter = _timer_java_calc_interval(
+            startVar,
+            intervalVar,
+            this.timeUnits.getMagnitudeFactorFromNanoseconds()
+        );
+
+        // Build message
+        if (this.print) {
+            const logger = new Logger(false, this.filename);
+
+            logger.append(prefix).appendDouble(intervalVar);
+            if (this.printUnit) {
+                logger.append(this.timeUnits.getUnitsString());
+            }
+            logger.ln();
+        }
+
+        // Insert code
+        $start.insertBefore(codeBefore);
+
+        // insert measuring code after $end point
+        const $timeMeasure = $end.insertAfter(codeAfter);
+        let afterJp = $timeMeasure;
+
+        // Print after measure code
+        if (this.print) {
+            logger.log($timeMeasure);
+            afterJp = logger.getAfterJp();
+        }
+
+        this._setAfterJp(afterJp);
+
+        return intervalVar;
     }
-		
-	//if($start.instanceOf("call") && $start.name==="<init>"){
-	//	return;
-	//}
-
-
-    // Build prefix
-    if (prefix === undefined) {
-        prefix = "";
-    }
-
-    if ($end === undefined) {
-        $end = $start;
-    }
-
-    //$file = $start.ancestor("file");
-
-    var codeBefore, codeAfter;
-
-    // Declare variable for time interval, which uses calculation as initialization
-    //var timeIntervalVar = IdGenerator.next("kadabra_timing_duration_");
-    //var $timingResultDecl;
-    // Add includes
-   
-
-    // get variable names
-    var startVar = IdGenerator.next("kadabra_timing_start_");
-    var intervalVar = IdGenerator.next("kadabra_timing_interval_");
-
-    codeBefore = _timer_java_now(startVar);
-    codeAfter = _timer_java_calc_interval(startVar, intervalVar, this.timeUnits.getMagnitudeFactorFromNanoseconds());
-
-    // Build message
-	if(this.print) {
-		var logger = new Logger(false, this.filename);
-
-		logger.append(prefix).appendDouble(intervalVar);
-		if (this.printUnit) {
-			logger.append(this.timeUnits.getUnitsString());
-		}
-		logger.ln();
-	}
-	
-
-
-    // Insert code
-    $start.insert before codeBefore;
-
-
-
-	// insert measuring code after $end point
-	$end.exec $timeMeasure : insertAfter(codeAfter);
-	var afterJp = $timeMeasure;
-	
-	// Print after measure code
-	if(this.print) {
-	    logger.log($timeMeasure);
-		afterJp = logger.getAfterJp();
-	}
-
-	this._setAfterJp(afterJp);
-	
-    return intervalVar;
 }
 
-//Java codedefs 
-codedef _timer_java_now(timeVar)%{
-long [[timeVar]] = System.nanoTime();
-}%end
+//Java codedefs
+function _timer_java_now(timeVar) {
+    return `long ${timeVar} = System.nanoTime();`;
+}
 
-codedef _timer_java_calc_interval(timeVar, durationVar, factorConversion)%{
-double [[durationVar]] = (double)(System.nanoTime() - [[timeVar]]) /  (double)[[factorConversion]];
-}%end
+function _timer_java_calc_interval(timeVar, durationVar, factorConversion) {
+    return `double ${durationVar} = (double)(System.nanoTime() - ${timeVar}) /  (double)${factorConversion};`;
+}

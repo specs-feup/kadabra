@@ -1,63 +1,59 @@
-import lara.code.EnergyBase;
-import lara.code.Logger;
-import lara.util.IdGenerator;
-import lara.util.PrintOnce;
+laraImport("lara.code.EnergyBase");
+laraImport("lara.code.Logger");
+laraImport("lara.util.IdGenerator");
+laraImport("lara.util.PrintOnce");
 
 // TODO: Detect if Odroid or Ubuntu?
-var EnergyCheckClass = "weaver.kadabra.monitor.pc.ubuntu.UbuntuEnergyCheck";
+const EnergyCheckClass = "weaver.kadabra.monitor.pc.ubuntu.UbuntuEnergyCheck";
 
-Energy.prototype.measure = function($start, prefix, $end){
-	//Check for valid joinpoints and additional conditions
+class Energy extends EnergyBase {
+    measure($start, prefix, $end) {
+        //Check for valid joinpoints and additional conditions
 
-	if(!this._measureValidate($start, $end, 'body')){
-		return;
-	}
-	
-	//if($start.instanceOf("call") && $start.name==="<init>"){
-	//	return;
-	//}	
-	
-	$end = $end === undefined ? $start : $end;
+        if (!this._measureValidate($start, $end, "body")) {
+            return;
+        }
 
-	// Message about dependency
-	PrintOnce.message("Weaved code has dependency to project jRAPL, which can be found at https://github.com/kliu20/jRAPL");
+        $end = $end === undefined ? $start : $end;
 
-	var logger = new Logger(false, this.filename);
+        // Message about dependency
+        PrintOnce.message(
+            "Weaved code has dependency to project jRAPL, which can be found at https://github.com/kliu20/jRAPL"
+        );
 
-	// Build prefix
-	if(prefix === undefined) {
-		prefix = "";
-	}
+        const logger = new Logger(false, this.filename);
 
-	
-	var energyVar = IdGenerator.next("kadabra_energy_output_");
+        // Build prefix
+        if (prefix === undefined) {
+            prefix = "";
+        }
 
+        const energyVar = IdGenerator.next("kadabra_energy_output_");
 
+        const codeBefore = _energy_rapl_start(energyVar, EnergyCheckClass);
+        const codeAfter = _energy_rapl_end(energyVar, EnergyCheckClass);
+        $start.insertBefore(codeBefore);
 
-	var codeBefore = _energy_rapl_start(energyVar,EnergyCheckClass);
-	var codeAfter = _energy_rapl_end(energyVar,EnergyCheckClass);
-	$start.insert before codeBefore;
-		
-	logger.append(prefix).appendDouble(energyVar);
-	if (this.printUnit) {
-        logger.append(this.getPrintUnit());
+        logger.append(prefix).appendDouble(energyVar);
+        if (this.printUnit) {
+            logger.append(this.getPrintUnit());
+        }
+        logger.log($end);
+        $end.insertAfter(codeAfter);
     }
-	logger.log($end);
-	$end.insert after codeAfter;
-
 }
 
 //System.out.println("Power consumption of dram: " + (after[0] - before[0]) / 10.0 + " power consumption of cpu: " + (after[1] - before[1]) / 10.0 + " power consumption of package: " + (after[2] - before[2]) / 10.0);
 //Will only consider the CPU consumption
-codedef _energy_rapl_start(energyVar, energyClass)%{
-double[] [[energyVar]]Before = [[energyClass]].getEnergyStats();
-}%end
-
-codedef _energy_rapl_end(energyVar, energyClass)%{
-double[] [[energyVar]]After = [[energyClass]].getEnergyStats();
-double [[energyVar]] = 0;
-for(int [[energyVar]]Counter = 0; [[energyVar]]Counter < [[energyVar]]Before.length; [[energyVar]]Counter++){
-	[[energyVar]] += [[energyVar]]After[ [[energyVar]]Counter ] - [[energyVar]]Before[ [[energyVar]]Counter ]; // /10?
+function _energy_rapl_start(energyVar, energyClass) {
+    return `double[] ${energyVar}Before = ${energyClass}.getEnergyStats();`;
 }
-//[[energyClass]].ProfileDealloc();
-}%end
+
+function _energy_rapl_end(energyVar, energyClass) {
+    return `double[] ${energyVar}After = ${energyClass}.getEnergyStats();
+double ${energyVar} = 0;
+for(int ${energyVar}Counter = 0; ${energyVar}Counter < ${energyVar}Before.length; ${energyVar}Counter++){
+    ${energyVar} += ${energyVar}After[ ${energyVar}Counter ] - ${energyVar}Before[ ${energyVar}Counter ]; // /10?
+}
+//${energyClass}.ProfileDealloc();`;
+}
