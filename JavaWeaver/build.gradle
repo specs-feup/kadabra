@@ -1,5 +1,5 @@
 plugins {
- 	id 'distribution'
+     id 'distribution'
 }
 
 // Java project
@@ -17,74 +17,74 @@ java {
 // Repositories providers
 repositories {
     mavenCentral()
-	
-	// Gearman
-	maven { url "https://oss.sonatype.org/content/repositories/snapshots"}	
-	
-	// Jadx
-	google()
+    
+    // Gearman
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots"}	
+    
+    // Jadx
+    google()
 }
 
 dependencies {
-	testImplementation "junit:junit:4.11"     
+    testImplementation "junit:junit:4.11"     
 
-	implementation ':JadxPlus'
-	implementation ':JavaGenerator'
-	implementation ':jOptions'
-	implementation ':LogbackPlus'
-	implementation ':SpecsUtils'
-	implementation ':tdrcLibrary'
-	implementation ':JsEngine'
-	
-	implementation ':KadabraAPI'
-	implementation ':KadabraLaraApi'
-	
-	implementation ':LanguageSpecification'
-	implementation ':LaraCommonLanguageApi'
-	implementation ':LaraDoc'
-	implementation ':LaraFramework'
-	implementation ':LaraUtils'
-	implementation ':LARAI'
-	implementation ':WeaverInterface'
+    implementation ':JadxPlus'
+    implementation ':JavaGenerator'
+    implementation ':jOptions'
+    implementation ':LogbackPlus'
+    implementation ':SpecsUtils'
+    implementation ':tdrcLibrary'
+    implementation ':JsEngine'
+    
+    implementation ':KadabraAPI'
+    implementation ':KadabraLaraApi'
+    
+    implementation ':LanguageSpecification'
+    implementation ':LaraCommonLanguageApi'
+    implementation ':LaraDoc'
+    implementation ':LaraFramework'
+    implementation ':LaraUtils'
+    implementation ':LARAI'
+    implementation ':WeaverInterface'
 
-	implementation "org.apache.commons:commons-lang3:3.6"     
-	implementation "org.apache.commons:commons-exec:1.3"     
-	implementation "fr.inria.gforge.spoon:spoon-core:10.1.1"     
-	implementation "org.json:json:20190722"     
-	implementation group: 'com.google.guava', name: 'guava', version: '19.0'	
-	implementation group: 'org.ow2.asm', name: 'asm', version: '7.1'
+    implementation "org.apache.commons:commons-lang3:3.6"     
+    implementation "org.apache.commons:commons-exec:1.3"     
+    implementation "fr.inria.gforge.spoon:spoon-core:10.1.1"     
+    implementation "org.json:json:20190722"     
+    implementation group: 'com.google.guava', name: 'guava', version: '19.0'	
+    implementation group: 'org.ow2.asm', name: 'asm', version: '7.1'
 }
 
 java {
-	withSourcesJar()
+    withSourcesJar()
 }
 
 
 // Project sources
 sourceSets {
-   main {
-      java {
-         srcDir 'src'
-		 srcDir 'api'
-      }
-	  
-	  resources {
-		srcDir 'api'
-		srcDir 'resources'
-        srcDir 'src'
-	  }
-   }   
+    main {
+        java {
+            srcDir 'src'
+            srcDir 'api'
+        }
+      
+        resources {
+            srcDir 'api'
+            srcDir 'resources'
+            srcDir 'src'
+        }
+    }   
    
-   test {
-      java {
-         srcDir 'test'
-      }
-	  
-	  resources {
-		srcDir 'src-lara'
-		srcDir 'resources'
-	  }   
-   }
+    test {
+        java {
+            srcDir 'test'
+        }
+        
+        resources {
+            srcDir 'src-lara'
+            srcDir 'resources'
+        }   
+    }
    
 
 }
@@ -95,27 +95,27 @@ application {
 
 // Weaver Generator
 task weaverGenerator(type: JavaExec) {
-	group = "Execution"
-	description = "Generates the join point classes from the Language Specification"
-	classpath = sourceSets.main.runtimeClasspath
-	mainClass = 'org.lara.interpreter.weaver.generator.commandline.WeaverGenerator'
-	args = [
-			'-w', 'JavaWeaver',
-			'-x', 'src/specs/kadabra',
-			'-o', 'src',
-			'-p', 'weaver.kadabra',
-			'-n', 'spoon.reflect.declaration.CtElement',
-			'-j',
-			'-e',
-			'-d'
-	]
+    group = "Execution"
+    description = "Generates the join point classes from the Language Specification"
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'org.lara.interpreter.weaver.generator.commandline.WeaverGenerator'
+    args = [
+            '-w', 'JavaWeaver',
+            '-x', 'src/specs/kadabra',
+            '-o', 'src',
+            '-p', 'weaver.kadabra',
+            '-n', 'spoon.reflect.declaration.CtElement',
+            '-j',
+            '-e',
+            '-d'
+    ]
 }
 
 // Kadabra
 task kadabra(type: JavaExec) {
-	group = "Execution"
-	description = "Launches Kadabra"
-	classpath = sourceSets.main.runtimeClasspath
-	mainClass = application.mainClass
-	args = []
+    group = "Execution"
+    description = "Launches Kadabra"
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = application.mainClass
+    args = []
 }
