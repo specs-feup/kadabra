@@ -15,7 +15,7 @@ aspectdef BinaryExpressionMutatorTest
 				
 				// Print
 				if(mutator.getMutationPoint() !== undefined) {
-					println(mutator.getMutationPoint().getAncestor('method').srcCode);
+					console.log(mutator.getMutationPoint().getAncestor('method').srcCode);
 				}
 
 	

@@ -57,14 +57,14 @@ class ExcessiveMethodCallsDetector extends BaseDetector {
   }
 
   print() {
-    println(`${this.name}:`);
+    console.log(`${this.name}:`);
     let data = this.results.map((r) => [
       r.line.toString(),
       r.name,
       r.getAncestor("file").path,
     ]);
     Collections.printTable(["Line", "Call", "File"], data, [10, 30, 100]);
-    println();
+    console.log();
   }
 
   resetDetector() {
@@ -79,7 +79,7 @@ class ExcessiveMethodCallsDetector extends BaseDetector {
   printDebugInfo(msg) {
     if (!this.debugEnabled) return;
 
-    println(msg);
+    console.log(msg);
   }
 
   save() {
@@ -376,7 +376,7 @@ class ExcessiveMethodCallsDetector extends BaseDetector {
     }
 
     if (jpCall.name === "next") {
-      println(jpCall.decl.body);
+      console.log(jpCall.decl.body);
     }
 
     this.printDebugInfo(`Call: ${jpCall} @ L${jpCall.line} -> INVARIANT`);

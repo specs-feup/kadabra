@@ -1,5 +1,5 @@
 aspectdef Operators
 
-	println("This should not execute!");
+	console.log("This should not execute!");
 
 end

@@ -25,8 +25,8 @@ function saveFile() {
 
     // Print contents
     for (const mutatedFile of Io.getFiles(outputFolder, "*.java")) {
-        println("<File '" + mutatedFile.getName() + "'>");
-        println(Io.readFile(mutatedFile));
+        console.log("<File '" + mutatedFile.getName() + "'>");
+        console.log(Io.readFile(mutatedFile));
     }
 
     Io.deleteFolder(outputFolder);
@@ -75,7 +75,7 @@ class ConstructorCallMutator extends Mutator {
 
         this.totalMutations = this.toMutate.length;
         if (this.totalMutations == 0)
-            println("Found no suitable code to mutate");
+            console.log("Found no suitable code to mutate");
     }
 
     hasMutations() {
@@ -88,8 +88,8 @@ class ConstructorCallMutator extends Mutator {
         this.$originalParent = this.$referenceParent.copy();
         this.$referenceParent = this.$referenceParent.insertReplace("null");
 
-        println("/*--------------------------------------*/");
-        println(
+        console.log("/*--------------------------------------*/");
+        console.log(
             "Mutating operator n." +
                 this.currentIndex +
                 ": " +
@@ -97,7 +97,7 @@ class ConstructorCallMutator extends Mutator {
                 " to " +
                 this.$referenceParent
         );
-        println("/*--------------------------------------*/");
+        console.log("/*--------------------------------------*/");
     }
 
     restorePrivate() {

@@ -28,14 +28,14 @@ class InternalGetterDetector extends BaseDetector {
   }
 
   print() {
-    println(`${this.name}:`);
+    console.log(`${this.name}:`);
     let data = this.results.map((r) => [
       r.line.toString(),
       r.name,
       r.getAncestor("file").path,
     ]);
     Collections.printTable(["Line", "Call", "File"], data, [10, 30, 100]);
-    println();
+    console.log();
   }
 
   save() {

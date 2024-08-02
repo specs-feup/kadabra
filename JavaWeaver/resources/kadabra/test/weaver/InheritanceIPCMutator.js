@@ -10,7 +10,7 @@ function InheritanceIPCMutatorTest() {
         // Mutate
         mutator.mutate();
         // Print
-        //println(mutator.getMutationPoint().parent.code);
+        //console.log(mutator.getMutationPoint().parent.code);
         saveFile();
         // Restore operator
         mutator.restore();
@@ -28,8 +28,8 @@ function saveFile() {
 
     // Print contents
     for (const mutatedFile of Io.getFiles(outputFolder, "*.java")) {
-        println("<File '" + mutatedFile.getName() + "'>");
-        println(Io.readFile(mutatedFile));
+        console.log("<File '" + mutatedFile.getName() + "'>");
+        console.log(Io.readFile(mutatedFile));
     }
 
     Io.deleteFolder(outputFolder);
@@ -64,7 +64,7 @@ class InheritanceIPCMutator extends Mutator {
         this.extractMutationTargets($joinpoint);
 
         if (this.toMutate.length == 0)
-            println("Found no suitable code to mutate");
+            console.log("Found no suitable code to mutate");
     }
 
     /* Store super constructor calls */
@@ -103,8 +103,8 @@ class InheritanceIPCMutator extends Mutator {
             "// Super constructor call has been removed"
         );
 
-        println("/*--------------------------------------*/");
-        println(
+        console.log("/*--------------------------------------*/");
+        console.log(
             "Mutating operator n." +
                 this.currentIndex +
                 ": " +
@@ -112,7 +112,7 @@ class InheritanceIPCMutator extends Mutator {
                 " to " +
                 this.$superCall
         );
-        println("/*--------------------------------------*/");
+        console.log("/*--------------------------------------*/");
     }
 
     restorePrivate() {
@@ -124,11 +124,11 @@ class InheritanceIPCMutator extends Mutator {
 
     getMutationPoint() {
         if (this.isMutated) {
-            println("MUTATION POINT AFTER: " + this.$superCall.code);
+            console.log("MUTATION POINT AFTER: " + this.$superCall.code);
             return this.$superCall;
         } else {
             if (this.currentIndex < this.toMutate.length) {
-                println(
+                console.log(
                     "MUTATION POINT BEFORE: " +
                         this.toMutate[this.currentIndex].code
                 );

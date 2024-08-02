@@ -21,13 +21,13 @@ class HashMapUsageDetector extends BaseDetector {
   }
 
   print() {
-    println(`${this.name}:`);
+    console.log(`${this.name}:`);
     let data = this.results.map((r) => [
       r.line.toString(),
       r.getAncestor("file").path,
     ]);
     Collections.printTable(["Line", "File"], data, [40, 100]);
-    println();
+    console.log();
   }
 
   save() {

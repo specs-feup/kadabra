@@ -13,7 +13,7 @@ aspectdef Test
 		$op.getAncestor('app');
 	}
 	
-	println("Success");
+	console.log("Success");
 	
 
 end

@@ -5,9 +5,9 @@ import kadabra.KadabraNodes;
 aspectdef Literal
 
 	for(var $literal of Query.search('method', {name: 'foo1'}).search('literal').get()) {
-		println("old value: " + $literal.value);	
+		console.log("old value: " + $literal.value);	
 		changeType($literal);
-		println("new value: " + $literal.value);	
+		console.log("new value: " + $literal.value);	
 	}
 	
 		
@@ -21,7 +21,7 @@ aspectdef Literal
 	$negativeLiteral.insertReplace($newLiteral);	
 
 	// Print
-	println(Query.search('method', {name: 'foo2'}).first().code);	
+	console.log(Query.search('method', {name: 'foo2'}).first().code);	
 
 
 end

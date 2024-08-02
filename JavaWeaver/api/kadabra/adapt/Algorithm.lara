@@ -54,7 +54,7 @@ AlgorithmWithKnob.prototype.getAlgorithm = function(){
 function AdaptiveAlgorithm(id, $targetMethod, templateName, provider){
 	getter = call GetMethod(templateName);
 	$templateMethod = getter.methods;
-//	println($templateMethod);
+//	console.log($templateMethod);
 	adapter = call TransformMethod($targetMethod, $templateMethod);
 	field = adapter.addField(undefined,id,true);
 	

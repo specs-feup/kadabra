@@ -80,13 +80,13 @@ aspectdef NewCountingMonitorList
 	end
 
 	className = package + "." + simpleName;
-//	println("New Monitoring Class");
+//	console.log("New Monitoring Class");
 	select app end
 	apply
 		$app.exec newClass(className,null,null);
 	end
 
-//	println("Adding fields");
+//	console.log("Adding fields");
 	select file.class{name==simpleName} end
 	apply
 		$monitorClass = $class;
@@ -97,17 +97,17 @@ aspectdef NewCountingMonitorList
 		$file.exec newMethod(["public"], "void","reset",[new Pair("int", "id")]);
 	end
 
-//	println("Adding increment");
+//	console.log("Adding increment");
 	select file.class{name==simpleName}.method{"increment"}.body end
 	apply
 		insert replace 'counter[id]++;';
 	end
-//	println("Adding getValue");
+//	console.log("Adding getValue");
 	select file.class{name==simpleName}.method{"get"}.body end
 	apply
 		insert replace 'return counter[id];';
 	end
-//	println("Adding reset");
+//	console.log("Adding reset");
 	select file.class{name==simpleName}.method{"reset"}.body end
 	apply
 		insert replace 'counter[id] = 0;';

@@ -11,7 +11,7 @@ for (const activity of Query.searchFrom(manifest, "xmlElement", {name: "activity
 
 	// Print actions inside activity
 	for(const action of Query.searchFrom(activity, "xmlElement", "action")) {
-  		println("action: " + action.attribute("android:name"));		
+  		console.log("action: " + action.attribute("android:name"));		
 	}
 
 }

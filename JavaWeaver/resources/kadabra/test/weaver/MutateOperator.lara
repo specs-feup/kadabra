@@ -17,7 +17,7 @@ aspectdef Test
 			// Set new operator
 			$op.operator = '>';
 			
-			println($op.getAncestor('method').srcCode);
+			console.log($op.getAncestor('method').srcCode);
 			// Create output folder for this code version
 			//var outputFolder = Io.getPath("output_" + counter);
 			//counter++;
@@ -39,7 +39,7 @@ aspectdef Test
 		// Set new operator
 		$op.operator = '--';
 		
-		println($op.getAncestor('method').srcCode);
+		console.log($op.getAncestor('method').srcCode);
 	
 		// Restore operator
 		$op.operator = previousOp;
@@ -55,7 +55,7 @@ aspectdef Test
 		}
 	}
 	
-	println(Query.search('method', {name: 'unaryTest2'}).getFirst().srcCode);
+	console.log(Query.search('method', {name: 'unaryTest2'}).getFirst().srcCode);
 
 
 	// Select unary operators and remove them
@@ -63,7 +63,7 @@ aspectdef Test
 		$op.insert replace "--a";
 	}
 	
-	println(Query.search('method', {name: 'unaryTest3'}).getFirst().srcCode);
+	console.log(Query.search('method', {name: 'unaryTest3'}).getFirst().srcCode);
 	
 	
 	
@@ -75,11 +75,11 @@ aspectdef Test
 
 		// Replaces the unary expression with the operand (e.g., !a becomes a) and returns the new expression
 		var $newOp = $op.insertReplace($op.operand);
-		println(Query.search('method', {name: 'unaryTest4'}).getFirst().srcCode);
+		console.log(Query.search('method', {name: 'unaryTest4'}).getFirst().srcCode);
 
 		// Replaces the new expression with a copy of the original expression (e.g., a becomes !a again)
 		$newOp.insert replace($originalOp);
-		println(Query.search('method', {name: 'unaryTest4'}).getFirst().srcCode);
+		console.log(Query.search('method', {name: 'unaryTest4'}).getFirst().srcCode);
 	}
 	
 

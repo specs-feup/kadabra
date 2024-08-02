@@ -15,7 +15,7 @@ end
 
 function testArithmeticOperatorDeletionMutation() {
 
-	println("ArithmeticOperatorDeletion");
+	console.log("ArithmeticOperatorDeletion");
 	
 	var mutator = new IterativeMutator(new ArithmeticOperatorDeletionMutation());
 	mutator.addJps(Query.search("method", "arithmeticOperatorDeletion").first().descendants);
@@ -23,14 +23,14 @@ function testArithmeticOperatorDeletionMutation() {
 	// Generate all mutations
 	while(mutator.mutateSource()) {
 		// Print
-		println(mutator.getMutatedPoint().getAncestor('statement').srcCode);
+		console.log(mutator.getMutatedPoint().getAncestor('statement').srcCode);
 	}
 }
 
 
 function testConditionalOperatorDeletionMutation() {
 
-	println("ConditionalOperatorDeletionMutation");
+	console.log("ConditionalOperatorDeletionMutation");
 	
 	var mutator = new IterativeMutator(new ConditionalOperatorDeletionMutation());
 	mutator.addJps(Query.search("method", "conditionalOperatorDeletion").first().descendants);
@@ -38,6 +38,6 @@ function testConditionalOperatorDeletionMutation() {
 	// Generate all mutations
 	while(mutator.mutateSource()) {
 		// Print
-		println(mutator.getMutatedPoint().srcCode);
+		console.log(mutator.getMutatedPoint().srcCode);
 	}
 }

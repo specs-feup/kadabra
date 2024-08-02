@@ -131,7 +131,7 @@ KadabraAst.getHierarchy = function() {
 
         subClasses.push($jp);
         
-        //println("Name: " + $jp.qualifiedName);
+        //console.log("Name: " + $jp.qualifiedName);
     }
     
 	return hierarchy;

@@ -4,57 +4,57 @@ import kadabra.KadabraNodes;
 aspectdef Ast
 
 	// Print AST
-	println(Query.search('file').first().ast);
+	console.log(Query.search('file').first().ast);
 
 	// Print modifiers
 	var $field = Query.search('field').first();
-	println("Modifiers: " + $field.modifiers.sort());
-	println("Is final: " + $field.isFinal);
-	println("Is static: " + $field.isStatic);
-	println("Has public: " + $field.hasModifier("public"));	
-	println("Has private: " + $field.hasModifier("PrIvAtE"));		
+	console.log("Modifiers: " + $field.modifiers.sort());
+	console.log("Is final: " + $field.isFinal);
+	console.log("Is static: " + $field.isStatic);
+	console.log("Has public: " + $field.hasModifier("public"));	
+	console.log("Has private: " + $field.hasModifier("PrIvAtE"));		
 	
 	// Test localVariable.init
 	var $localVariable = Query.search('method', {name: 'setLocalVariable'}).search('localVariable').first();
-	println("Local var init: " + $localVariable.init.code);
+	console.log("Local var init: " + $localVariable.init.code);
 	$localVariable.init = KadabraNodes.literal("20", $localVariable.type);
-	println("New local var init: " + $localVariable.init.code);
+	console.log("New local var init: " + $localVariable.init.code);
 	$localVariable.init = undefined;
-	println("Local var init after removing: " + $localVariable.code);
+	console.log("Local var init after removing: " + $localVariable.code);
 	
 	// Test assignment.lhs and rhs
 	var $assignment = Query.search('method', {name: 'setAssignment'}).search('assignment').first();
-	println("Assignment: " + $assignment.code);
-	println("Assignment lhs: " + $assignment.lhs.code);
-	println("Assignment rhs: " + $assignment.rhs.code);
+	console.log("Assignment: " + $assignment.code);
+	console.log("Assignment lhs: " + $assignment.lhs.code);
+	console.log("Assignment rhs: " + $assignment.rhs.code);
 	$assignment.rhs = KadabraNodes.literal("30", $assignment.rhs.type);	
-	println("Assignment after set: " + $assignment.code);
+	console.log("Assignment after set: " + $assignment.code);
 	
 	for(var $call of Query.search('method', 'call').search('call').get()) {
-		println("sub call: " + $call.getAncestor('call'));
+		console.log("sub call: " + $call.getAncestor('call'));
 	}
 	
 	for(var $assign of Query.search('constructor').search('assignment').get()) {
 		var $var = $assign.lhs;
-		println("Var: " + $var.code);
-		println("Var is final: " + $var.isFinal);		
-		println("Var decl: " + $var.declaration.code);
-		println("Var decl is final: " + $var.declaration.isFinal);		
-		println("Var num: " + $var.numChildren);		
-		println("Var child 1: " + $var.child(0).code);
-		println("Var child 2: " + $var.child(1).code);		
-		println("Var chain length: " + $assign.lhs.referenceChain.length);
+		console.log("Var: " + $var.code);
+		console.log("Var is final: " + $var.isFinal);		
+		console.log("Var decl: " + $var.declaration.code);
+		console.log("Var decl is final: " + $var.declaration.isFinal);		
+		console.log("Var num: " + $var.numChildren);		
+		console.log("Var child 1: " + $var.child(0).code);
+		console.log("Var child 2: " + $var.child(1).code);		
+		console.log("Var chain length: " + $assign.lhs.referenceChain.length);
 	}
 	
 	
-	println("Search inclusive: " + Query.searchFromInclusive(Query.search('method', "call").first(), 'localVariable').first().code);
+	console.log("Search inclusive: " + Query.searchFromInclusive(Query.search('method', "call").first(), 'localVariable').first().code);
 	
 	//for(var $unaryOp of Query.search('method', 'unaryExpr').search('unaryExpression').get()) {
-	//	println("UnaryExpr Type: " + $unaryOp.copy().code);
+	//	console.log("UnaryExpr Type: " + $unaryOp.copy().code);
 	//}
 	
 	
-	println("UnaryExpr node: " + KadabraNodes.unaryExpression("-", KadabraNodes.literal("1", "int")).code);
-	println("BinaryExpr node: " + KadabraNodes.binaryExpression("+", KadabraNodes.literal("1", "int"), KadabraNodes.literal("2", "int")).code);
+	console.log("UnaryExpr node: " + KadabraNodes.unaryExpression("-", KadabraNodes.literal("1", "int")).code);
+	console.log("BinaryExpr node: " + KadabraNodes.binaryExpression("+", KadabraNodes.literal("1", "int"), KadabraNodes.literal("2", "int")).code);
 
 end

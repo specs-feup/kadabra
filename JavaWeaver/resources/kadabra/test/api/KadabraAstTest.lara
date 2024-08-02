@@ -4,12 +4,12 @@ import weaver.Query;
 aspectdef KadabraAstTest
 
 	for(var $constant of KadabraAst.getConstantInitializations()) {
-		println("Constant: " + $constant.code);
+		console.log("Constant: " + $constant.code);
 	}
 	
 	/*
 	for(var $chain of Query.search("method", "loops").search("loop").search("body").children("loop").chain()) {
-		println("Loop:\n"+$chain["loop"].code);
+		console.log("Loop:\n"+$chain["loop"].code);
 	}
 	*/
 

@@ -31,7 +31,7 @@ _lara_dummy_ = Object.defineProperty(ClassJp.prototype, 'name', {
 _lara_dummy_ = Object.defineProperty(ClassJp.prototype, 'superClasses', {
 	get: function () { 
 		var superClass = this.astNode.getSuperclass();
-		//println(superClass);
+		//console.log(superClass);
 		
 		if(superClass !== null && superClass.getTypeDeclaration() !== null)
 			return [CommonJoinPoints.toJoinPoint(superClass.getTypeDeclaration())];
@@ -121,7 +121,7 @@ _lara_dummy_ = Object.defineProperty(ClassJp.prototype, 'interfaces', {
 	
 		var superInterfaces = this.astNode.getSuperInterfaces();
 		
-		// println(superInterfaces);
+		// console.log(superInterfaces);
 		
 		if (superInterfaces == null) return [];
 		

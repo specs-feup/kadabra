@@ -42,7 +42,7 @@ const $foo5Assign = KadabraNodes.assignment($foo5Var, $foo5Lhs);
 // Add assignment after initialization
 $foo5LocalVar.insertAfter($foo5Assign);
 
-//println(Query.search("class").getFirst().code);
+//console.log(Query.search("class").getFirst().code);
 
 /*	
 	// Change name
@@ -53,8 +53,8 @@ $foo5LocalVar.insertAfter($foo5Assign);
 */
 
 /*
-	println("Original AST: " + Query.search("file").getFirst().ast);
-	println("Original Code: " + Query.search("file").getFirst().code);
+	console.log("Original AST: " + Query.search("file").getFirst().ast);
+	console.log("Original Code: " + Query.search("file").getFirst().code);
 	
 	var $foo4 = Query.search("method", {name: "foo4"}).getFirst();
 	
@@ -64,8 +64,8 @@ $foo5LocalVar.insertAfter($foo5Assign);
 	var $comment = $foo4.insertReplace("// A comment replacing foo4");
 	//var $comment = $foo4.insertReplace(KadabraNodes.comment("A comment replacing foo4"));	
 
-	println("AST after replacing foo4: " + Query.search("file").getFirst().ast);
-	println("Code after replacing foo4: " + Query.search("file").getFirst().code);	
+	console.log("AST after replacing foo4: " + Query.search("file").getFirst().ast);
+	console.log("Code after replacing foo4: " + Query.search("file").getFirst().code);	
 	
 	// Replace the comment with the previous method
 	$comment.insertReplace($foo4);
@@ -73,15 +73,15 @@ $foo5LocalVar.insertAfter($foo5Assign);
 
 
 
-	println("Code: " + Query.search("file").getFirst().code);
-	println("Foo4: " + $foo4.code);
-	println("Comment: " + $comment.code);	
+	console.log("Code: " + Query.search("file").getFirst().code);
+	console.log("Foo4: " + $foo4.code);
+	console.log("Comment: " + $comment.code);	
 	*/
 
 for (var $chainJp of Query.search("method", "snippetExpr").search("new").chain()) {
   $chainJp["new"].insertReplace(KadabraNodes.snippetExpr("null"));
-  //println($chainJp["method"].code);
+  //console.log($chainJp["method"].code);
 }
 
 // Print modified file
-println(Query.search("file").getFirst().code);
+console.log(Query.search("file").getFirst().code);
