@@ -37,8 +37,9 @@ class Timer extends TimerBase {
         );
 
         // Build message
+        let logger;
         if (this.print) {
-            const logger = new Logger(false, this.filename);
+            logger = new Logger(false, this.filename);
 
             logger.append(prefix).appendDouble(intervalVar);
             if (this.printUnit) {
