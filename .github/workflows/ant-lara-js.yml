@@ -1,13 +1,13 @@
 # This workflow will build a Java project with Ant
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-ant
 
-name: Java CI - Staging
+name: Java CI - Lara-JS
 
 on:
   push:
-    branches: [ staging ]
+    branches: [ ts-conversion ]
   pull_request:
-    branches: [ staging ]
+    branches: [ ts-conversion ]
 
   # Daily at midnight
   schedule:
@@ -29,7 +29,7 @@ jobs:
     - uses: actions/checkout@v4
       # Because of scheduled runs, by default run on default branch
       with:
-        ref: staging
+        ref: ts-conversion
 
     - name: Cache ivy dependencies
       id: cache-nivy
@@ -50,7 +50,7 @@ jobs:
     - name: Generate build.xml
       run: | 
         wget -N http://specs.fe.up.pt/tools/eclipse-build.jar
-        java -jar eclipse-build.jar https://github.com/specs-feup/specs-java-libs https://github.com/specs-feup/lara-framework?commit=staging ./
+        java -jar eclipse-build.jar https://github.com/specs-feup/specs-java-libs https://github.com/specs-feup/lara-framework?commit=feature/lara-js ./
         wget -N -O /usr/share/ant/lib/ivy-2.5.0.jar specs.fe.up.pt/libs/ivy-2.5.0.jar
     - name: Build with Ant
       run: |
