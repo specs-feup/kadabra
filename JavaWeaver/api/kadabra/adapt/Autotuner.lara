@@ -128,7 +128,7 @@ function AutotunerClass(/*class*/ $class, /*AutotunerBuilder*/ builder){
 }
 
 AutotunerClass.prototype.newInstance = function($targetField, numWarmup, numRuns){
-	var $targetClass = $targetField.ancestor("class");
+	var $targetClass = $targetField.getAncestor("class");
 	var autotuner = new Autotuner(this, $targetField, $targetClass, numWarmup, numRuns);
 	return autotuner;
 }
@@ -179,7 +179,7 @@ aspectdef GenerateTuner
 		if(tuner.package != undefined){
 			className = tuner.package+'.'+className;
 		}
-		println("[LOG] Generating Autotuner with the qualified name: "+className);
+		console.log("[LOG] Generating Autotuner with the qualified name: "+className);
 		var expType = Autotuner.MANAGER_PACKAGE+'ExplorationSupervisor<'
 					+ tuner.datasetType + ','
 					+ tuner.algorithmType + ','
@@ -375,7 +375,7 @@ aspectdef GenerateKnobTuner
 		if(tuner.package != undefined){
 			className = tuner.package+'.'+className;
 		}
-		println("[LOG] Generating Autotuner with the qualified name: "+className);
+		console.log("[LOG] Generating Autotuner with the qualified name: "+className);
 		var conc = tuner.concurrent?'Concurrent':'';
 		var expType = Autotuner.KNOB_MANAGER_PACKAGE+'KnobExploration'+conc+'Supervisor<'
 					+ tuner.datasetType + ','

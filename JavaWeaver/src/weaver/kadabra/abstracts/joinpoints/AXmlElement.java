@@ -123,7 +123,7 @@ public abstract class AXmlElement extends AXmlNode {
      * @param name 
      * @param value 
      */
-    public final String setAttribute(String name, String value) {
+    public final Object setAttribute(String name, String value) {
         try {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "setAttribute", this, Optional.empty(), name, value);
@@ -132,7 +132,7 @@ public abstract class AXmlElement extends AXmlNode {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.END, "setAttribute", this, Optional.ofNullable(result), name, value);
         	}
-        	return result;
+        	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "setAttribute", e);
         }
@@ -245,12 +245,12 @@ public abstract class AXmlElement extends AXmlNode {
     }
 
     /**
-     * Get value on attribute ancestor
+     * Get value on attribute getAncestor
      * @return the attribute's value
      */
     @Override
-    public AJoinPoint ancestorImpl(String type) {
-        return this.aXmlNode.ancestorImpl(type);
+    public AJoinPoint getAncestorImpl(String type) {
+        return this.aXmlNode.getAncestorImpl(type);
     }
 
     /**
@@ -632,7 +632,7 @@ public abstract class AXmlElement extends AXmlNode {
         ISBLOCK("isBlock"),
         ISINSIDELOOPHEADER("isInsideLoopHeader"),
         LINE("line"),
-        ANCESTOR("ancestor"),
+        GETANCESTOR("getAncestor"),
         ANNOTATIONS("annotations"),
         RIGHT("right"),
         MODIFIERS("modifiers"),

@@ -20,9 +20,9 @@ import org.lara.interpreter.weaver.utils.LaraResourceProvider;
  *
  */
 public enum LaraCoreApiResource implements LaraResourceProvider {
-    ENERGY("code/Energy.lara"),
-    LOGGER("code/Logger.lara"),
-    TIMER("code/Timer.lara");
+    ENERGY("code/Energy.js"),
+    LOGGER("code/Logger.js"),
+    TIMER("code/Timer.js");
 
     private final String resource;
 

@@ -56,23 +56,23 @@ class MemberIgnoringMethodDetector extends BaseDetector {
   }
 
   print() {
-    println(`${this.name}:`);
+    console.log(`${this.name}:`);
     let data = this.results.map((r) => [
       r.line.toString(),
       r.name,
-      r.ancestor("file").path,
+      r.getAncestor("file").path,
     ]);
     Collections.printTable(["Line", "Method", "File"], data, [10, 30, 100]);
-    println();
+    console.log();
   }
 
   save() {
     return this.results.map((r) => {
       let node = r;
       let loc = node.name;
-      node = node.ancestor("class");
+      node = node.getAncestor("class");
       loc = node.name + "/" + loc;
-      node = node.ancestor("file");
+      node = node.getAncestor("file");
       loc = node.name.toString() + "/" + loc;
       return loc + ":" + r.line.toString();
     });

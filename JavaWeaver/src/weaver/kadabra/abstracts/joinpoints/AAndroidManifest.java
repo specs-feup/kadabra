@@ -157,12 +157,12 @@ public abstract class AAndroidManifest extends AXmlNode {
     }
 
     /**
-     * Get value on attribute ancestor
+     * Get value on attribute getAncestor
      * @return the attribute's value
      */
     @Override
-    public AJoinPoint ancestorImpl(String type) {
-        return this.aXmlNode.ancestorImpl(type);
+    public AJoinPoint getAncestorImpl(String type) {
+        return this.aXmlNode.getAncestorImpl(type);
     }
 
     /**
@@ -539,7 +539,7 @@ public abstract class AAndroidManifest extends AXmlNode {
         ISBLOCK("isBlock"),
         ISINSIDELOOPHEADER("isInsideLoopHeader"),
         LINE("line"),
-        ANCESTOR("ancestor"),
+        GETANCESTOR("getAncestor"),
         ANNOTATIONS("annotations"),
         RIGHT("right"),
         MODIFIERS("modifiers"),

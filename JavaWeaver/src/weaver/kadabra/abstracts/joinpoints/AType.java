@@ -366,7 +366,7 @@ public abstract class AType extends AJavaWeaverJoinPoint {
      * 
      * @param interfaceName 
      */
-    public final AInterface removeInterface(String interfaceName) {
+    public final Object removeInterface(String interfaceName) {
         try {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "removeInterface", this, Optional.empty(), interfaceName);
@@ -375,7 +375,7 @@ public abstract class AType extends AJavaWeaverJoinPoint {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.END, "removeInterface", this, Optional.ofNullable(result), interfaceName);
         	}
-        	return result;
+        	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "removeInterface", e);
         }
@@ -401,7 +401,7 @@ public abstract class AType extends AJavaWeaverJoinPoint {
      * @param param 
      * @param code 
      */
-    public final AMethod newMethod(String[] modifiers, String returnType, String name, Pair[] param, String code) {
+    public final Object newMethod(String[] modifiers, String returnType, String name, Pair[] param, String code) {
         try {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "newMethod", this, Optional.empty(), modifiers, returnType, name, param, code);
@@ -410,7 +410,7 @@ public abstract class AType extends AJavaWeaverJoinPoint {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.END, "newMethod", this, Optional.ofNullable(result), modifiers, returnType, name, param, code);
         	}
-        	return result;
+        	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "newMethod", e);
         }
@@ -434,7 +434,7 @@ public abstract class AType extends AJavaWeaverJoinPoint {
      * @param name 
      * @param param 
      */
-    public final AMethod newMethod(String[] modifiers, String returnType, String name, Pair[] param) {
+    public final Object newMethod(String[] modifiers, String returnType, String name, Pair[] param) {
         try {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "newMethod", this, Optional.empty(), modifiers, returnType, name, param);
@@ -443,7 +443,7 @@ public abstract class AType extends AJavaWeaverJoinPoint {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.END, "newMethod", this, Optional.ofNullable(result), modifiers, returnType, name, param);
         	}
-        	return result;
+        	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "newMethod", e);
         }
@@ -545,7 +545,7 @@ public abstract class AType extends AJavaWeaverJoinPoint {
      * @param name 
      * @param defaultValue 
      */
-    public final AField newField(String[] modifiers, String type, String name, String defaultValue) {
+    public final Object newField(String[] modifiers, String type, String name, String defaultValue) {
         try {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "newField", this, Optional.empty(), modifiers, type, name, defaultValue);
@@ -554,7 +554,7 @@ public abstract class AType extends AJavaWeaverJoinPoint {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.END, "newField", this, Optional.ofNullable(result), modifiers, type, name, defaultValue);
         	}
-        	return result;
+        	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "newField", e);
         }
@@ -576,7 +576,7 @@ public abstract class AType extends AJavaWeaverJoinPoint {
      * @param type 
      * @param name 
      */
-    public final AField newField(String[] modifiers, String type, String name) {
+    public final Object newField(String[] modifiers, String type, String name) {
         try {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "newField", this, Optional.empty(), modifiers, type, name);
@@ -585,7 +585,7 @@ public abstract class AType extends AJavaWeaverJoinPoint {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.END, "newField", this, Optional.ofNullable(result), modifiers, type, name);
         	}
-        	return result;
+        	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "newField", e);
         }
@@ -721,7 +721,7 @@ public abstract class AType extends AJavaWeaverJoinPoint {
         ISBLOCK("isBlock"),
         ISINSIDELOOPHEADER("isInsideLoopHeader"),
         LINE("line"),
-        ANCESTOR("ancestor"),
+        GETANCESTOR("getAncestor"),
         ANNOTATIONS("annotations"),
         RIGHT("right"),
         MODIFIERS("modifiers"),

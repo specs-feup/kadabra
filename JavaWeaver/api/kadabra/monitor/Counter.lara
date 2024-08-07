@@ -73,7 +73,7 @@ aspectdef CountingMonitor
 	
 	$targetClass.exec newField(modifiers, $monitor.qualifiedName, name, "new "+$monitor.name+"()");
 		
-//	println("Adding code to monitor the statement");
+//	console.log("Adding code to monitor the statement");
 	if($targetStmt != undefined){
 		$targetStmt.insert(location, '[[increment]];');
 	}
@@ -109,13 +109,13 @@ aspectdef NewCountingMonitor
 	end
 
 	className = package + "." + simpleName;
-//	println("New Monitoring Class");
+//	console.log("New Monitoring Class");
 	select app end
 	apply
 		$app.exec newClass(className,null,null);
 	end
 
-//	println("Adding fields");
+//	console.log("Adding fields");
 	select file.class{name==simpleName} end
 	apply
 		$monitorClass = $class;

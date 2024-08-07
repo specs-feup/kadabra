@@ -72,7 +72,7 @@ aspectdef GenerateFunctionalInterface //Will assume method without overloading (
 			message+=". 1st Location"+tempClass.qualifiedName +". 2nd Location "+$class.qualifiedName;
 			throw message;
 		}
-		println("[LOG] Extracting functional interface from "+$class.name+"#"+$method.name);
+		console.log("[LOG] Extracting functional interface from "+$class.name+"#"+$method.name);
 		var interfacePackage = $class.package;
 		var interfaceName = 'I' + $method.name.firstCharToUpper();
 		newInterface = $class.exec extractInterface(interfaceName, interfacePackage, $method, associate, newFile);

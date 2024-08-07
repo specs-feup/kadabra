@@ -1,18 +1,18 @@
-import weaver.WeaverJps;
+import weaver.Query;
 import kadabra.KadabraNodes;
 
 
 aspectdef Literal
 
-	for(var $literal of WeaverJps.search('method', {name: 'foo1'}).search('literal').get()) {
-		println("old value: " + $literal.value);	
+	for(var $literal of Query.search('method', {name: 'foo1'}).search('literal').get()) {
+		console.log("old value: " + $literal.value);	
 		changeType($literal);
-		println("new value: " + $literal.value);	
+		console.log("new value: " + $literal.value);	
 	}
 	
 		
 	// Get the literal
-	var $negativeLiteral = WeaverJps.search('method', {name: 'foo2'}).search('literal').first();
+	var $negativeLiteral = Query.search('method', {name: 'foo2'}).search('literal').first();
 
 	// Create a new negative literal	
 	var $newLiteral = KadabraNodes.literal("-1", $negativeLiteral.type);
@@ -21,7 +21,7 @@ aspectdef Literal
 	$negativeLiteral.insertReplace($newLiteral);	
 
 	// Print
-	println(WeaverJps.search('method', {name: 'foo2'}).first().code);	
+	console.log(Query.search('method', {name: 'foo2'}).first().code);	
 
 
 end

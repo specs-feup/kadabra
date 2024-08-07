@@ -33,7 +33,7 @@ aspectdef LoggerTest
 	
 	select class end
 	apply
-		println($class.srcCode);
+		console.log($class.srcCode);
 	end
 
 	

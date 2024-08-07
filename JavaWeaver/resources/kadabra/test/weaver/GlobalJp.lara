@@ -3,21 +3,21 @@ aspectdef GlobalJp
 	// App children
 	select app end
 	apply
-		println("app num children: " + $app.numChildren);	
+		console.log("app num children: " + $app.numChildren);	
 	end
 	
 	// File children
 	select file end
 	apply
-		println("file num children: " + $file.numChildren);	
+		console.log("file num children: " + $file.numChildren);	
 	end	
 
 	// Statement children
 	select type.method{"foo"}.statement end
 	apply
-		println("stmt children: " + $statement.children);
-		println("stmt child 0: " + $statement.child(0));
-		println("stmt num children: " + $statement.numChildren);
+		console.log("stmt children: " + $statement.children);
+		console.log("stmt child 0: " + $statement.child(0));
+		console.log("stmt num children: " + $statement.numChildren);
 		
 		break;
 	end
@@ -26,6 +26,6 @@ aspectdef GlobalJp
 	// App ast
 	select app end
 	apply
-		println("app ast:\n" + $app.ast);	
+		console.log("app ast:\n" + $app.ast);	
 	end
 end

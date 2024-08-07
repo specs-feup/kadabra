@@ -10,7 +10,7 @@ class BaseDetector {
   }
 
   analyse(packageFilter = (_) => true) {
-    println(`Running ${this.name}...`);
+    console.log(`Running ${this.name}...`);
 
     let classes = Query.search("class", {
       isTopLevel: true,
@@ -28,7 +28,7 @@ class BaseDetector {
       !("instanceOf" in jpClass) ||
       !jpClass.instanceOf("class")
     ) {
-      println("Argument is not a joinpoint of type 'class'");
+      console.log("Argument is not a joinpoint of type 'class'");
     }
   }
 

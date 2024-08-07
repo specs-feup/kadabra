@@ -1,9 +1,9 @@
 laraImport("weaver.Query");
 
 for (const varDecl of Query.search("method", "types").search("localVariable")) {
-  println("VarDecl: " + varDecl.code);
+  console.log("VarDecl: " + varDecl.code);
   const typeRef = varDecl.typeReference;
-  println("type: " + typeRef.qualifiedName);
-  println("isBoolean: " + typeRef.isBoolean);
-  println("isNumeric: " + typeRef.isNumeric);
+  console.log("type: " + typeRef.qualifiedName);
+  console.log("isBoolean: " + typeRef.isBoolean);
+  console.log("isNumeric: " + typeRef.isNumeric);
 }

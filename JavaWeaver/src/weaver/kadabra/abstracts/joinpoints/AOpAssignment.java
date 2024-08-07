@@ -218,12 +218,12 @@ public abstract class AOpAssignment extends AAssignment {
     }
 
     /**
-     * Get value on attribute ancestor
+     * Get value on attribute getAncestor
      * @return the attribute's value
      */
     @Override
-    public AJoinPoint ancestorImpl(String type) {
-        return this.aAssignment.ancestorImpl(type);
+    public AJoinPoint getAncestorImpl(String type) {
+        return this.aAssignment.getAncestorImpl(type);
     }
 
     /**
@@ -634,7 +634,7 @@ public abstract class AOpAssignment extends AAssignment {
         ISBLOCK("isBlock"),
         ISINSIDELOOPHEADER("isInsideLoopHeader"),
         LINE("line"),
-        ANCESTOR("ancestor"),
+        GETANCESTOR("getAncestor"),
         ANNOTATIONS("annotations"),
         RIGHT("right"),
         MODIFIERS("modifiers"),

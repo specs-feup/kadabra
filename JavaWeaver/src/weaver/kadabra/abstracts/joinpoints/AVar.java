@@ -3,7 +3,6 @@ package weaver.kadabra.abstracts.joinpoints;
 import org.lara.interpreter.weaver.interf.events.Stage;
 import java.util.Optional;
 import org.lara.interpreter.exception.AttributeException;
-import weaver.kadabra.enums.RefType;
 import java.util.List;
 import org.lara.interpreter.weaver.interf.JoinPoint;
 import java.util.stream.Collectors;
@@ -55,7 +54,7 @@ public abstract class AVar extends AExpression {
      * Get value on attribute reference
      * @return the attribute's value
      */
-    public abstract RefType getReferenceImpl();
+    public abstract String getReferenceImpl();
 
     /**
      * Get value on attribute reference
@@ -66,7 +65,7 @@ public abstract class AVar extends AExpression {
         	if(hasListeners()) {
         		eventTrigger().triggerAttribute(Stage.BEGIN, this, "reference", Optional.empty());
         	}
-        	RefType result = this.getReferenceImpl();
+        	String result = this.getReferenceImpl();
         	if(hasListeners()) {
         		eventTrigger().triggerAttribute(Stage.END, this, "reference", Optional.ofNullable(result));
         	}
@@ -400,12 +399,12 @@ public abstract class AVar extends AExpression {
     }
 
     /**
-     * Get value on attribute ancestor
+     * Get value on attribute getAncestor
      * @return the attribute's value
      */
     @Override
-    public AJoinPoint ancestorImpl(String type) {
-        return this.aExpression.ancestorImpl(type);
+    public AJoinPoint getAncestorImpl(String type) {
+        return this.aExpression.getAncestorImpl(type);
     }
 
     /**
@@ -817,7 +816,7 @@ public abstract class AVar extends AExpression {
         ISBLOCK("isBlock"),
         ISINSIDELOOPHEADER("isInsideLoopHeader"),
         LINE("line"),
-        ANCESTOR("ancestor"),
+        GETANCESTOR("getAncestor"),
         ANNOTATIONS("annotations"),
         RIGHT("right"),
         MODIFIERS("modifiers"),

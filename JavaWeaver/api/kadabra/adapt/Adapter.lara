@@ -29,7 +29,7 @@ aspectdef FunctionGenerator
 		creator = call GetOrNewClass("kadabra.utils.Adapters");
 		$storingClass = creator.$class;
 	}
-	println("[FunctionGenerator] Creating new functional class with "+$interfaceMethod +" and "+$adapterMethod);
+	console.log("[FunctionGenerator] Creating new functional class with "+$interfaceMethod +" and "+$adapterMethod);
 	$adaptMethod = $storingClass.exec newFunctionalClass($interfaceMethod, $adapterMethod);
 	generate = function(){
 		var invoke = $adaptMethod +"(";

@@ -25,7 +25,7 @@ aspectdef Extract
 		merge(report, typeReport.report);
 	end
 //	var line = toCSVLine(report);
-//	println(line);
+//	console.log(line);
 end
 
 function toCSVLine(report){
@@ -46,7 +46,7 @@ function merge(mainReport, typeReport){
 		case 'class': mainReport.numOf.classes++; break;
 		case 'interface': mainReport.numOf.interfaces++; break;
 		case 'enum': mainReport.numOf.enums++; break;
-		default: println("Unknown type: "+typeReport.type); break;
+		default: console.log("Unknown type: "+typeReport.type); break;
 	}
 }
 
@@ -108,7 +108,7 @@ end
 aspectdef ProcessStatement
 	input $stmt, func end
 	func($stmt);
-	//println($stmt.srcCode);
+	//console.log($stmt.srcCode);
 	switch($stmt.kind){
 		case "for":
 		case "forEach":

@@ -97,7 +97,7 @@ public abstract class AJoinPoint extends JoinPoint {
      * 
      * @param node 
      */
-    public final AJoinPoint insertBefore(AJoinPoint node) {
+    public final Object insertBefore(AJoinPoint node) {
         try {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "insertBefore", this, Optional.empty(), node);
@@ -106,7 +106,7 @@ public abstract class AJoinPoint extends JoinPoint {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.END, "insertBefore", this, Optional.ofNullable(result), node);
         	}
-        	return result;
+        	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "insertBefore", e);
         }
@@ -124,7 +124,7 @@ public abstract class AJoinPoint extends JoinPoint {
      * 
      * @param code 
      */
-    public final AJoinPoint insertBefore(String code) {
+    public final Object insertBefore(String code) {
         try {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "insertBefore", this, Optional.empty(), code);
@@ -133,7 +133,7 @@ public abstract class AJoinPoint extends JoinPoint {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.END, "insertBefore", this, Optional.ofNullable(result), code);
         	}
-        	return result;
+        	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "insertBefore", e);
         }
@@ -151,7 +151,7 @@ public abstract class AJoinPoint extends JoinPoint {
      * 
      * @param node 
      */
-    public final AJoinPoint insertAfter(AJoinPoint node) {
+    public final Object insertAfter(AJoinPoint node) {
         try {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "insertAfter", this, Optional.empty(), node);
@@ -160,7 +160,7 @@ public abstract class AJoinPoint extends JoinPoint {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.END, "insertAfter", this, Optional.ofNullable(result), node);
         	}
-        	return result;
+        	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "insertAfter", e);
         }
@@ -178,7 +178,7 @@ public abstract class AJoinPoint extends JoinPoint {
      * 
      * @param code 
      */
-    public final AJoinPoint insertAfter(String code) {
+    public final Object insertAfter(String code) {
         try {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "insertAfter", this, Optional.empty(), code);
@@ -187,7 +187,7 @@ public abstract class AJoinPoint extends JoinPoint {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.END, "insertAfter", this, Optional.ofNullable(result), code);
         	}
-        	return result;
+        	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "insertAfter", e);
         }
@@ -205,7 +205,7 @@ public abstract class AJoinPoint extends JoinPoint {
      * 
      * @param jp 
      */
-    public final AJoinPoint insertReplace(AJoinPoint jp) {
+    public final Object insertReplace(AJoinPoint jp) {
         try {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "insertReplace", this, Optional.empty(), jp);
@@ -214,7 +214,7 @@ public abstract class AJoinPoint extends JoinPoint {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.END, "insertReplace", this, Optional.ofNullable(result), jp);
         	}
-        	return result;
+        	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "insertReplace", e);
         }
@@ -232,7 +232,7 @@ public abstract class AJoinPoint extends JoinPoint {
      * 
      * @param code 
      */
-    public final AJoinPoint insertReplace(String code) {
+    public final Object insertReplace(String code) {
         try {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "insertReplace", this, Optional.empty(), code);
@@ -241,7 +241,7 @@ public abstract class AJoinPoint extends JoinPoint {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.END, "insertReplace", this, Optional.ofNullable(result), code);
         	}
-        	return result;
+        	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "insertReplace", e);
         }
@@ -259,7 +259,7 @@ public abstract class AJoinPoint extends JoinPoint {
      * 
      * @param jp 
      */
-    public final AJoinPoint replaceWith(AJoinPoint jp) {
+    public final Object replaceWith(AJoinPoint jp) {
         try {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "replaceWith", this, Optional.empty(), jp);
@@ -268,7 +268,7 @@ public abstract class AJoinPoint extends JoinPoint {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.END, "replaceWith", this, Optional.ofNullable(result), jp);
         	}
-        	return result;
+        	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "replaceWith", e);
         }
@@ -286,7 +286,7 @@ public abstract class AJoinPoint extends JoinPoint {
      * 
      * @param code 
      */
-    public final AJoinPoint replaceWith(String code) {
+    public final Object replaceWith(String code) {
         try {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "replaceWith", this, Optional.empty(), code);
@@ -295,7 +295,7 @@ public abstract class AJoinPoint extends JoinPoint {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.END, "replaceWith", this, Optional.ofNullable(result), code);
         	}
-        	return result;
+        	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "replaceWith", e);
         }
@@ -311,7 +311,7 @@ public abstract class AJoinPoint extends JoinPoint {
     /**
      * 
      */
-    public final AJoinPoint copy() {
+    public final Object copy() {
         try {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "copy", this, Optional.empty());
@@ -320,7 +320,7 @@ public abstract class AJoinPoint extends JoinPoint {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.END, "copy", this, Optional.ofNullable(result));
         	}
-        	return result;
+        	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "copy", e);
         }
@@ -419,7 +419,7 @@ public abstract class AJoinPoint extends JoinPoint {
         attributes.add("child(Integer index)");
         attributes.add("parent");
         attributes.add("astParent");
-        attributes.add("ancestor(String type)");
+        attributes.add("getAncestor(String type)");
         attributes.add("line");
         attributes.add("descendants");
         attributes.add("left");
@@ -640,25 +640,25 @@ public abstract class AJoinPoint extends JoinPoint {
      * @param type
      * @return 
      */
-    public abstract AJoinPoint ancestorImpl(String type);
+    public abstract AJoinPoint getAncestorImpl(String type);
 
     /**
      * 
      * @param type
      * @return 
      */
-    public final Object ancestor(String type) {
+    public final Object getAncestor(String type) {
         try {
         	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "ancestor", Optional.empty(), type);
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "getAncestor", Optional.empty(), type);
         	}
-        	AJoinPoint result = this.ancestorImpl(type);
+        	AJoinPoint result = this.getAncestorImpl(type);
         	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "ancestor", Optional.ofNullable(result), type);
+        		eventTrigger().triggerAttribute(Stage.END, this, "getAncestor", Optional.ofNullable(result), type);
         	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
-        	throw new AttributeException(get_class(), "ancestor", e);
+        	throw new AttributeException(get_class(), "getAncestor", e);
         }
     }
 

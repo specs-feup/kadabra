@@ -185,12 +185,12 @@ public abstract class AEnumValue extends AField {
     }
 
     /**
-     * Get value on attribute ancestor
+     * Get value on attribute getAncestor
      * @return the attribute's value
      */
     @Override
-    public AJoinPoint ancestorImpl(String type) {
-        return this.aField.ancestorImpl(type);
+    public AJoinPoint getAncestorImpl(String type) {
+        return this.aField.getAncestorImpl(type);
     }
 
     /**
@@ -563,7 +563,7 @@ public abstract class AEnumValue extends AField {
         ISBLOCK("isBlock"),
         ISINSIDELOOPHEADER("isInsideLoopHeader"),
         LINE("line"),
-        ANCESTOR("ancestor"),
+        GETANCESTOR("getAncestor"),
         ANNOTATIONS("annotations"),
         RIGHT("right"),
         MODIFIERS("modifiers"),

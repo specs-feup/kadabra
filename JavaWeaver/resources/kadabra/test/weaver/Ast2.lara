@@ -4,7 +4,7 @@ import kadabra.KadabraNodes;
 aspectdef Ast2
 
 	for(var $if of Query.search("method", "ifChildren").search("if")) {
-		println("Children: " + $if.children.length);
+		console.log("Children: " + $if.children.length);
 	}
 	
 

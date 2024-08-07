@@ -87,7 +87,7 @@ public abstract class AClass extends AType {
      * @param _interface 
      * @param methodName 
      */
-    public final AClass mapVersions(String name, String keyType, AInterface _interface, String methodName) {
+    public final Object mapVersions(String name, String keyType, AInterface _interface, String methodName) {
         try {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "mapVersions", this, Optional.empty(), name, keyType, _interface, methodName);
@@ -96,7 +96,7 @@ public abstract class AClass extends AType {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.END, "mapVersions", this, Optional.ofNullable(result), name, keyType, _interface, methodName);
         	}
-        	return result;
+        	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "mapVersions", e);
         }
@@ -116,7 +116,7 @@ public abstract class AClass extends AType {
      * @param modifiers 
      * @param param 
      */
-    public final AConstructor newConstructor(String[] modifiers, Pair[] param) {
+    public final Object newConstructor(String[] modifiers, Pair[] param) {
         try {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "newConstructor", this, Optional.empty(), modifiers, param);
@@ -125,7 +125,7 @@ public abstract class AClass extends AType {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.END, "newConstructor", this, Optional.ofNullable(result), modifiers, param);
         	}
-        	return result;
+        	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "newConstructor", e);
         }
@@ -145,7 +145,7 @@ public abstract class AClass extends AType {
      * @param interfaceMethod 
      * @param generatorMethod 
      */
-    public final AMethod newFunctionalClass(AMethod interfaceMethod, AMethod generatorMethod) {
+    public final Object newFunctionalClass(AMethod interfaceMethod, AMethod generatorMethod) {
         try {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "newFunctionalClass", this, Optional.empty(), interfaceMethod, generatorMethod);
@@ -154,7 +154,7 @@ public abstract class AClass extends AType {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.END, "newFunctionalClass", this, Optional.ofNullable(result), interfaceMethod, generatorMethod);
         	}
-        	return result;
+        	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "newFunctionalClass", e);
         }
@@ -206,7 +206,7 @@ public abstract class AClass extends AType {
      * @param associate 
      * @param newFile 
      */
-    public final AInterface extractInterface(String name, String _package, AMethod method, boolean associate, boolean newFile) {
+    public final Object extractInterface(String name, String _package, AMethod method, boolean associate, boolean newFile) {
         try {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "extractInterface", this, Optional.empty(), name, _package, method, associate, newFile);
@@ -215,7 +215,7 @@ public abstract class AClass extends AType {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.END, "extractInterface", this, Optional.ofNullable(result), name, _package, method, associate, newFile);
         	}
-        	return result;
+        	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "extractInterface", e);
         }
@@ -420,12 +420,12 @@ public abstract class AClass extends AType {
     }
 
     /**
-     * Get value on attribute ancestor
+     * Get value on attribute getAncestor
      * @return the attribute's value
      */
     @Override
-    public AJoinPoint ancestorImpl(String type) {
-        return this.aType.ancestorImpl(type);
+    public AJoinPoint getAncestorImpl(String type) {
+        return this.aType.getAncestorImpl(type);
     }
 
     /**
@@ -923,7 +923,7 @@ public abstract class AClass extends AType {
         ISBLOCK("isBlock"),
         ISINSIDELOOPHEADER("isInsideLoopHeader"),
         LINE("line"),
-        ANCESTOR("ancestor"),
+        GETANCESTOR("getAncestor"),
         ANNOTATIONS("annotations"),
         RIGHT("right"),
         MODIFIERS("modifiers"),

@@ -44,7 +44,7 @@ aspectdef TimerTest
 	// Print code
 	select file end
 	apply
-		println($file.srcCode);
+		console.log($file.srcCode);
 	end
 
 end

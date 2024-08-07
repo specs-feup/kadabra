@@ -1,6 +1,5 @@
 package weaver.kadabra.abstracts.joinpoints;
 
-import weaver.kadabra.enums.CommentType;
 import org.lara.interpreter.weaver.interf.events.Stage;
 import java.util.Optional;
 import org.lara.interpreter.exception.AttributeException;
@@ -30,7 +29,7 @@ public abstract class AComment extends AStatement {
      * Get value on attribute type
      * @return the attribute's value
      */
-    public abstract CommentType getTypeImpl();
+    public abstract String getTypeImpl();
 
     /**
      * Get value on attribute type
@@ -41,7 +40,7 @@ public abstract class AComment extends AStatement {
         	if(hasListeners()) {
         		eventTrigger().triggerAttribute(Stage.BEGIN, this, "type", Optional.empty());
         	}
-        	CommentType result = this.getTypeImpl();
+        	String result = this.getTypeImpl();
         	if(hasListeners()) {
         		eventTrigger().triggerAttribute(Stage.END, this, "type", Optional.ofNullable(result));
         	}
@@ -176,12 +175,12 @@ public abstract class AComment extends AStatement {
     }
 
     /**
-     * Get value on attribute ancestor
+     * Get value on attribute getAncestor
      * @return the attribute's value
      */
     @Override
-    public AJoinPoint ancestorImpl(String type) {
-        return this.aStatement.ancestorImpl(type);
+    public AJoinPoint getAncestorImpl(String type) {
+        return this.aStatement.getAncestorImpl(type);
     }
 
     /**
@@ -547,7 +546,7 @@ public abstract class AComment extends AStatement {
         ISBLOCK("isBlock"),
         ISINSIDELOOPHEADER("isInsideLoopHeader"),
         LINE("line"),
-        ANCESTOR("ancestor"),
+        GETANCESTOR("getAncestor"),
         ANNOTATIONS("annotations"),
         RIGHT("right"),
         MODIFIERS("modifiers"),

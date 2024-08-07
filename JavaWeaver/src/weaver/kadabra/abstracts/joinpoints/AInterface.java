@@ -223,12 +223,12 @@ public abstract class AInterface extends AType {
     }
 
     /**
-     * Get value on attribute ancestor
+     * Get value on attribute getAncestor
      * @return the attribute's value
      */
     @Override
-    public AJoinPoint ancestorImpl(String type) {
-        return this.aType.ancestorImpl(type);
+    public AJoinPoint getAncestorImpl(String type) {
+        return this.aType.getAncestorImpl(type);
     }
 
     /**
@@ -711,7 +711,7 @@ public abstract class AInterface extends AType {
         ISBLOCK("isBlock"),
         ISINSIDELOOPHEADER("isInsideLoopHeader"),
         LINE("line"),
-        ANCESTOR("ancestor"),
+        GETANCESTOR("getAncestor"),
         ANNOTATIONS("annotations"),
         RIGHT("right"),
         MODIFIERS("modifiers"),

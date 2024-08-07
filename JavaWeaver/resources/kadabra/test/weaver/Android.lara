@@ -2,8 +2,8 @@ aspectdef Android
 
 	select app.androidManifest.element{"action"} end
 	apply
-		println("Attributes: " + $element.attributeNames);
-		println("Attribute value: " + $element.attribute("android:name"));
+		console.log("Attributes: " + $element.attributeNames);
+		console.log("Attribute value: " + $element.attribute("android:name"));
 		
 		$element.setAttribute("android:name", "newValue");
 	end
@@ -11,7 +11,7 @@ aspectdef Android
 
 	select app.androidManifest end
 	apply
-		println("Manifest:");
+		console.log("Manifest:");
 		printlnObject($androidManifest.asJson);
 	end
 

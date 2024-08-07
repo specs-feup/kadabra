@@ -1,7 +1,7 @@
 class Kadabra {
   /*
 	static save() {
-		println("Saving");
+		console.log("Saving");
 	}
 */
 

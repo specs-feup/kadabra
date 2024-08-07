@@ -116,12 +116,12 @@ public class JavaWeaverTest {
         newTester()
                 // .set(JavaWeaverKeys.NO_CLASSPATH)
                 // .set(JavaWeaverKeys.FULLY_QUALIFIED_NAMES)
-                .test("InheritanceIPCMutator.lara", "InheritanceIPCTest.java.test");
+                .test("InheritanceIPCMutator.js", "InheritanceIPCTest.java.test");
     }
 
     @Test
     public void testConstructorCallMutator() {
-        newTester().set(JavaWeaverKeys.FULLY_QUALIFIED_NAMES).test("ConstructorCallMutator.lara",
+        newTester().set(JavaWeaverKeys.FULLY_QUALIFIED_NAMES).test("ConstructorCallMutator.js",
                 "ConstructorCallTest.java.test");
     }
 

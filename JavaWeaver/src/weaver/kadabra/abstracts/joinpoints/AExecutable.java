@@ -190,7 +190,7 @@ public abstract class AExecutable extends AJavaWeaverJoinPoint {
      * Sets the name of this executable, returns the previous name
      * @param name 
      */
-    public final String setName(String name) {
+    public final Object setName(String name) {
         try {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "setName", this, Optional.empty(), name);
@@ -199,7 +199,7 @@ public abstract class AExecutable extends AJavaWeaverJoinPoint {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.END, "setName", this, Optional.ofNullable(result), name);
         	}
-        	return result;
+        	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "setName", e);
         }
@@ -309,7 +309,7 @@ public abstract class AExecutable extends AJavaWeaverJoinPoint {
         ISBLOCK("isBlock"),
         ISINSIDELOOPHEADER("isInsideLoopHeader"),
         LINE("line"),
-        ANCESTOR("ancestor"),
+        GETANCESTOR("getAncestor"),
         ANNOTATIONS("annotations"),
         RIGHT("right"),
         MODIFIERS("modifiers"),

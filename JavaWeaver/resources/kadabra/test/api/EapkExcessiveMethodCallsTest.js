@@ -4,4 +4,4 @@ let r = new ExcessiveMethodCallsDetector()
 	.analyse()
 	.save();
 
-println(JSON.stringify(r, null, ' '));
+console.log(JSON.stringify(r, null, ' '));

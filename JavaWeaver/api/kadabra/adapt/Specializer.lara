@@ -22,7 +22,7 @@ aspectdef ExtractToField
 	end
 	check !$call end
 	if(!$method){
-		$method = $call.ancestor('method');
+		$method = $call.getAncestor('method');
 	}
 	var prep = call PrepareCall($method, $call,$fieldLocation,newFile,$funcInterface);
 	$field = prep.$field;
@@ -63,7 +63,7 @@ aspectdef PrepareCall
 		
 		if($interface != null){
 	
-			println('[LOG] Extracted a functional interface "'+$interface.name+'" based on method "'+$call.name+'"');
+			console.log('[LOG] Extracted a functional interface "'+$interface.name+'" based on method "'+$call.name+'"');
 		}
 	}
 	
@@ -90,7 +90,7 @@ aspectdef PrepareCall
 		$field = $fieldLocation.exec newField(modifiers, $interface.qualifiedName, baseName, defaultMethod);
 
 		if($field != null){
-			println('[LOG] Extracted a field "'+$field.name+'", from call "'+$call.name+'", to '+$field.declarator);
+			console.log('[LOG] Extracted a field "'+$field.name+'", from call "'+$call.name+'", to '+$field.declarator);
 			//Changing call of medianNeighbor to call the local variable
 			$call.def target = $field.name;
 			$call.def executable = $imethod;
@@ -100,7 +100,7 @@ aspectdef PrepareCall
 
 	
 	if($interface != null && $field != null){
-		println('[LOG] Call to "'+$call.name+'" (in method "'+$method.name+'") is ready!');
+		console.log('[LOG] Call to "'+$call.name+'" (in method "'+$method.name+'") is ready!');
 	}
 end
 
@@ -139,11 +139,11 @@ aspectdef ExtractFunctionalInterface //Will assume method without overloading (n
 			throw message;
 		}
 //		if($method.isStatic){ //Need to verify stuff like static, private, protected methods
-//			println("Current version of the aspect does not allow interface extraction from a static method: "+$class.name+"#"+$method.name);
+//			console.log("Current version of the aspect does not allow interface extraction from a static method: "+$class.name+"#"+$method.name);
 //			continue;
 //		}
 
-		println("[LOG] Extracting functional interface from "+$class.name+"#"+$method.name);
+		console.log("[LOG] Extracting functional interface from "+$class.name+"#"+$method.name);
 		var interfacePackage = $class.package;
 		var interfaceName = 'I' + $method.name.firstCharToUpper();
 		newInterface = $class.exec extractInterface(interfaceName, interfacePackage, $method, associate, newFile);
@@ -153,7 +153,7 @@ aspectdef ExtractFunctionalInterface //Will assume method without overloading (n
 		}
 //		$extractedInterfaces.push($interface);
 //		$defaultMethods.push($method);
-		//println("[LOG] Setting interface with "+newInterface.name);
+		//console.log("[LOG] Setting interface with "+newInterface.name);
 		$interface = newInterface;
 		$defaultMethod = $method;
 		tempClass = $class;
@@ -201,7 +201,7 @@ aspectdef NewMappingClass
 	var targetMethodFirstCap = methodName.firstCharToUpper();
 	var mapClass = DEFAULT_PACKAGE +"."+targetMethodFirstCap+"Caller";
 	
-	println("[LOG] Creating new functional mapping class: "+mapClass);
+	console.log("[LOG] Creating new functional mapping class: "+mapClass);
 
 	var newClass;
 	if($target._class.equals('file') || $target._class.equals("app") || 
@@ -259,7 +259,7 @@ aspectdef NewFunctionalMethodCaller2
 	var targetMethodFirstCap = methodName.firstCharToUpper();
 	var mapClass = DEFAULT_PACKAGE +"."+targetMethodFirstCap+"Caller";
 	
-	println("[LOG] Creating new functional mapping class: "+mapClass);
+	console.log("[LOG] Creating new functional mapping class: "+mapClass);
 	select app end
 	apply
 		$mapClass = $app.exec mapVersions(mapClass, getterType,$interface, methodName);

@@ -172,7 +172,7 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
      * @param extend 
      * @param implement 
      */
-    public final AClass newClass(String name, String extend, String[] implement) {
+    public final Object newClass(String name, String extend, String[] implement) {
         try {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "newClass", this, Optional.empty(), name, extend, implement);
@@ -181,7 +181,7 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.END, "newClass", this, Optional.ofNullable(result), name, extend, implement);
         	}
-        	return result;
+        	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "newClass", e);
         }
@@ -199,7 +199,7 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
      * 
      * @param name 
      */
-    public final AClass newClass(String name) {
+    public final Object newClass(String name) {
         try {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "newClass", this, Optional.empty(), name);
@@ -208,7 +208,7 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.END, "newClass", this, Optional.ofNullable(result), name);
         	}
-        	return result;
+        	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "newClass", e);
         }
@@ -228,7 +228,7 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
      * @param name 
      * @param extend 
      */
-    public final AInterface newInterface(String name, String[] extend) {
+    public final Object newInterface(String name, String[] extend) {
         try {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "newInterface", this, Optional.empty(), name, extend);
@@ -237,7 +237,7 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.END, "newInterface", this, Optional.ofNullable(result), name, extend);
         	}
-        	return result;
+        	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "newInterface", e);
         }
@@ -255,7 +255,7 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
      * 
      * @param name 
      */
-    public final AInterface newInterface(String name) {
+    public final Object newInterface(String name) {
         try {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "newInterface", this, Optional.empty(), name);
@@ -264,7 +264,7 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.END, "newInterface", this, Optional.ofNullable(result), name);
         	}
-        	return result;
+        	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "newInterface", e);
         }
@@ -288,7 +288,7 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
      * @param _interface 
      * @param methodName 
      */
-    public final AClass mapVersions(String name, String keyType, AInterface _interface, String methodName) {
+    public final Object mapVersions(String name, String keyType, AInterface _interface, String methodName) {
         try {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "mapVersions", this, Optional.empty(), name, keyType, _interface, methodName);
@@ -297,7 +297,7 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.END, "mapVersions", this, Optional.ofNullable(result), name, keyType, _interface, methodName);
         	}
-        	return result;
+        	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "mapVersions", e);
         }
@@ -406,7 +406,7 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
         ISBLOCK("isBlock"),
         ISINSIDELOOPHEADER("isInsideLoopHeader"),
         LINE("line"),
-        ANCESTOR("ancestor"),
+        GETANCESTOR("getAncestor"),
         ANNOTATIONS("annotations"),
         RIGHT("right"),
         MODIFIERS("modifiers"),

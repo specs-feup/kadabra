@@ -14,13 +14,13 @@ aspectdef IterativeMutatorTest
 	while(mutator.mutateSource()) {
 		
 		// Print
-		println(mutator.getMutatedPoint().ancestor('statement').srcCode);
+		console.log(mutator.getMutatedPoint().getAncestor('statement').srcCode);
 
 		var mutatedPoint = mutator.getMutatedPoint();
-		//println("Original parent: " + mutator.getMutationPoint().parent);		
-		//println("Mutated parent: " + mutator.getMutatedPoint().parent);		
+		//console.log("Original parent: " + mutator.getMutationPoint().parent);		
+		//console.log("Mutated parent: " + mutator.getMutatedPoint().parent);		
 		
-		//println("Mutation: " + mutator.getMutatedPoint() + "\n" + Query.root().srcCode);
+		//console.log("Mutation: " + mutator.getMutatedPoint() + "\n" + Query.root().srcCode);
 		
 		// Restore operator
 		mutator.restoreSource();

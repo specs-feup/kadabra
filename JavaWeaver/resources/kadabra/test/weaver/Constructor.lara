@@ -17,7 +17,7 @@ aspectdef ConstructorTest
 
 	select app end
 	apply
-		println($app.srcCode);
+		console.log($app.srcCode);
 	end
 end
 
