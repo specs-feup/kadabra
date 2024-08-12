@@ -54,7 +54,7 @@ AlgorithmWithKnob.prototype.getAlgorithm = function(){
 function AdaptiveAlgorithm(id, $targetMethod, templateName, provider){
 	getter = call GetMethod(templateName);
 	$templateMethod = getter.methods;
-//	println($templateMethod);
+//	console.log($templateMethod);
 	adapter = call TransformMethod($targetMethod, $templateMethod);
 	field = adapter.addField(undefined,id,true);
 	
@@ -99,7 +99,7 @@ function GenerativeAlgorithm(id, $interface, templateName, provider, providerTyp
 GenerativeAlgorithm.prototype.getAlgorithm = function(){
 	var genericType = '';
 	if(this.providerType!=undefined){
-		var interfType = this.$interface.ancestor("interface").qualifiedName;
+		var interfType = this.$interface.getAncestor("interface").qualifiedName;
 		genericType =	interfType+","+this.providerType;
 	}
 	return 'new '+Algorithm.PROVIDER_PACKAGE+'GenerativeAlgorithmProvider<'+genericType+'>('+this.lambda+',"'+this.id+'",'+this.provider+')';

@@ -36,7 +36,7 @@ _lara_dummy_ = Object.defineProperty(InterfaceJp.prototype, 'interfaces', {
 	get: function () {
 		var superInterfaces = this.astNode.getSuperInterfaces();
 		
-		// println(superInterfaces);
+		// console.log(superInterfaces);
 		
 		if (superInterfaces == null) return [];
 		

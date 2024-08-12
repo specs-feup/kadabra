@@ -23,7 +23,7 @@ aspectdef ExtractToField
 	end
 	check $call end
 	if(!$method){
-		$method = $call.ancestor('method');
+		$method = $call.getAncestor('method');
 	}
 	
 	if($funcInterface == null || $funcInterface == undefined ){
@@ -34,7 +34,7 @@ aspectdef ExtractToField
 		
 		if($interface != null){
 	
-			println('[LOG] Extracted a functional interface "'+$interface.name+'" based on method "'+$call.name+'"');
+			console.log('[LOG] Extracted a functional interface "'+$interface.name+'" based on method "'+$call.name+'"');
 		}
 	}
 	
@@ -61,7 +61,7 @@ aspectdef ExtractToField
 		$field = $fieldLocation.exec newField(modifiers, $interface.qualifiedName, baseName, defaultMethod);
 
 		if($field != null){
-			println('[LOG] Extracted a field "'+$field.name+'", from call "'+$call.name+'", to '+$field.declarator);
+			console.log('[LOG] Extracted a field "'+$field.name+'", from call "'+$call.name+'", to '+$field.declarator);
 			//Changing call of medianNeighbor to call the local variable
 			$call.def target = $field.name;
 			$call.def executable = $imethod;
@@ -71,7 +71,7 @@ aspectdef ExtractToField
 
 	
 	if($interface != null && $field != null){
-		println('[LOG] Call to "'+$call.name+'" (in method "'+$method.name+'") is ready!');
+		console.log('[LOG] Call to "'+$call.name+'" (in method "'+$method.name+'") is ready!');
 	}
 end
 
@@ -104,7 +104,7 @@ aspectdef NewMappingClass
 	var targetMethodFirstCap = methodName.firstCharToUpper();
 	var mapClass = DEFAULT_PACKAGE +"."+targetMethodFirstCap+"Caller";
 	
-	println("[LOG] Creating new functional mapping class: "+mapClass);
+	console.log("[LOG] Creating new functional mapping class: "+mapClass);
 
 	var newClass;
 	if($target._class.equals('file') || $target._class.equals("app") || 
@@ -162,7 +162,7 @@ aspectdef NewFunctionalMethodCaller2
 	var targetMethodFirstCap = methodName.firstCharToUpper();
 	var mapClass = DEFAULT_PACKAGE +"."+targetMethodFirstCap+"Caller";
 	
-	println("[LOG] Creating new functional mapping class: "+mapClass);
+	console.log("[LOG] Creating new functional mapping class: "+mapClass);
 	select app end
 	apply
 		$mapClass = $app.exec mapVersions(mapClass, getterType,$interface, methodName);

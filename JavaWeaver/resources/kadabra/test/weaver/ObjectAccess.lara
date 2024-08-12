@@ -1,29 +1,29 @@
-import weaver.WeaverJps;
+import weaver.Query;
 
 aspectdef ObjectAccessTest
 
-	//println("AST:\n" + WeaverJps.root().ast);
+	//console.log("AST:\n" + Query.root().ast);
 
-	//println("Code:\n" + WeaverJps.root().code);
+	//console.log("Code:\n" + Query.root().code);
 
-	println("Call: " + WeaverJps.search("method").search("call").first().code);
-
-
-
-	//println("Arg arg ast: " + WeaverJps.search("method").search("call").first().arguments[0].ast);
-	println("Arg type type: " + WeaverJps.search("method", {name: "test"}).search("call").first().arguments[0].typeReference);
-	println("Arg type package: " + WeaverJps.search("method", {name: "test"}).search("call").first().arguments[0].typeReference.package);	
+	console.log("Call: " + Query.search("method").search("call").first().code);
 
 
-//	for(var $expr of WeaverJps.search("expression", {code: /^R\.*/})) {
-//		println("Code -> " + $expr.code + ": " + $expr.type);
-//		println("Qualified name -> " + $expr.qualifiedName);
+
+	//console.log("Arg arg ast: " + Query.search("method").search("call").first().arguments[0].ast);
+	console.log("Arg type type: " + Query.search("method", {name: "test"}).search("call").first().arguments[0].typeReference);
+	console.log("Arg type package: " + Query.search("method", {name: "test"}).search("call").first().arguments[0].typeReference.package);	
+
+
+//	for(var $expr of Query.search("expression", {code: /^R\.*/})) {
+//		console.log("Code -> " + $expr.code + ": " + $expr.type);
+//		console.log("Qualified name -> " + $expr.qualifiedName);
 //	}
 
 /*
 	select class.call end
 	apply
-		println("Call: " + $call.code);
+		console.log("Call: " + $call.code);
 	end
 */
 end

@@ -260,12 +260,12 @@ public abstract class AEnum extends AClass {
     }
 
     /**
-     * Get value on attribute ancestor
+     * Get value on attribute getAncestor
      * @return the attribute's value
      */
     @Override
-    public AJoinPoint ancestorImpl(String type) {
-        return this.aClass.ancestorImpl(type);
+    public AJoinPoint getAncestorImpl(String type) {
+        return this.aClass.getAncestorImpl(type);
     }
 
     /**
@@ -711,7 +711,7 @@ public abstract class AEnum extends AClass {
         ISBLOCK("isBlock"),
         ISINSIDELOOPHEADER("isInsideLoopHeader"),
         LINE("line"),
-        ANCESTOR("ancestor"),
+        GETANCESTOR("getAncestor"),
         ANNOTATIONS("annotations"),
         RIGHT("right"),
         MODIFIERS("modifiers"),

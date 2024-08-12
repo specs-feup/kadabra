@@ -1,5 +1,4 @@
 import lara.util.StringSet;
-import weaver.WeaverJps;
 import weaver.Query;
 
 import kadabra._KadabraJavaTypes;
@@ -26,12 +25,12 @@ var KadabraAst = {};
 KadabraAst.getConstantInitializations = function($startingPoint) {
 
 	if($startingPoint === undefined) {
-		$startingPoint = WeaverJps.root();
+		$startingPoint = Query.root();
 	}
 
 	var constants = [];
 
-	for(var $field of searchFromInclusive($startingPoint, 'field').get()) {
+	for(var $field of Query.searchFromInclusive($startingPoint, 'field').get()) {
 
 		if($field.init === undefined) {
 			continue;
@@ -44,7 +43,7 @@ KadabraAst.getConstantInitializations = function($startingPoint) {
 		constants.push($field);
 	}
 
-	for(var $assign of searchFromInclusive($startingPoint, 'assignment').get()) {
+	for(var $assign of Query.searchFromInclusive($startingPoint, 'assignment').get()) {
 		
 		if(!$assign.lhs.isFinal) {
 			continue;
@@ -54,7 +53,7 @@ KadabraAst.getConstantInitializations = function($startingPoint) {
 	}	
 
 
-	for(var $localVar of WeaverJps.searchFromInclusive($startingPoint, 'localVariable').get()) {
+	for(var $localVar of Query.searchFromInclusive($startingPoint, 'localVariable').get()) {
 		if($localVar.init === undefined) {
 			continue;
 		}
@@ -132,7 +131,7 @@ KadabraAst.getHierarchy = function() {
 
         subClasses.push($jp);
         
-        //println("Name: " + $jp.qualifiedName);
+        //console.log("Name: " + $jp.qualifiedName);
     }
     
 	return hierarchy;

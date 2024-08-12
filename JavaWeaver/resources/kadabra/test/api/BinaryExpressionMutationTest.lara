@@ -1,12 +1,12 @@
 import kadabra.mutation.BinaryExpressionMutation;
-import weaver.WeaverJps;
+import weaver.Query;
 
 aspectdef BinaryExpressionMutatorTest
 
 	var mutation = new BinaryExpressionMutation(">", "==");
 
 	// Select binary operators in each file
-	for($op of WeaverJps.search('binaryExpression').get()) {
+	for($op of Query.search('binaryExpression').get()) {
 	
 		if($op.operator === '<') {
 			var originalOp = $op;
@@ -22,7 +22,7 @@ aspectdef BinaryExpressionMutatorTest
 				$op.insertReplace($mutatedOp);
 				
 				// Print
-				println($mutatedOp.ancestor('method').srcCode);
+				console.log($mutatedOp.getAncestor('method').srcCode);
 				
 				// Restore
 				$mutatedOp.insertReplace(originalOp);

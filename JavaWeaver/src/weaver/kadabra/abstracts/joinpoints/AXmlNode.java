@@ -145,7 +145,7 @@ public abstract class AXmlNode extends AJavaWeaverJoinPoint {
      * 
      * @param text 
      */
-    public final String setText(String text) {
+    public final Object setText(String text) {
         try {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "setText", this, Optional.empty(), text);
@@ -154,7 +154,7 @@ public abstract class AXmlNode extends AJavaWeaverJoinPoint {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.END, "setText", this, Optional.ofNullable(result), text);
         	}
-        	return result;
+        	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "setText", e);
         }
@@ -255,7 +255,7 @@ public abstract class AXmlNode extends AJavaWeaverJoinPoint {
         ISBLOCK("isBlock"),
         ISINSIDELOOPHEADER("isInsideLoopHeader"),
         LINE("line"),
-        ANCESTOR("ancestor"),
+        GETANCESTOR("getAncestor"),
         ANNOTATIONS("annotations"),
         RIGHT("right"),
         MODIFIERS("modifiers"),

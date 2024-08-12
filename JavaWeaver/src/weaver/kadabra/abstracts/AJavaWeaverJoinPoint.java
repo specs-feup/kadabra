@@ -180,7 +180,7 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
     }
 
     @Override
-    public AJoinPoint ancestorImpl(String type) {
+    public AJoinPoint getAncestorImpl(String type) {
         Preconditions.checkNotNull(type, "Missing type of ancestor in attribute 'ancestor'");
 
         // System.out.println("Getting ancestor '" + type + "' of " + getJoinPointType());

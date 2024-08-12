@@ -52,25 +52,25 @@ public class JVar<T> extends AVar {
     }
 
     @Override
-    public RefType getReferenceImpl() {
+    public String getReferenceImpl() {
         // TODO - possibly move this to a visit approach
         final CtElement parent = node.getParent();
         if (parent instanceof CtOperatorAssignment<?, ?>) {
-            return RefType.READWRITE;
+            return RefType.READWRITE.getName();
         }
         if (parent instanceof CtAssignment<?, ?>) {
             CtAssignment<?, ?> par = (CtAssignment<?, ?>) parent;
             if (par.getAssigned().equals(node)) {
-                return RefType.WRITE;
+                return RefType.WRITE.getName();
             }
-            return RefType.READ;
+            return RefType.READ.getName();
         }
         if (parent instanceof CtArrayAccess<?, ?>) {
             if (parent.getParent() instanceof CtAssignment<?, ?>) {
                 final CtArrayAccess<?, ?> arrAccParent = (CtArrayAccess<?, ?>) parent;
                 final CtExpression<?> target = arrAccParent.getTarget();
                 if (target == node) {
-                    return RefType.WRITE;
+                    return RefType.WRITE.getName();
                 }
             }
         }
@@ -81,13 +81,13 @@ public class JVar<T> extends AVar {
             case POSTDEC:
             case PREINC:
             case PREDEC:
-                return RefType.READWRITE;
+                return RefType.READWRITE.getName();
             default:
                 break;
             }
 
         }
-        return RefType.READ;
+        return RefType.READ.getName();
     }
 
     @Override

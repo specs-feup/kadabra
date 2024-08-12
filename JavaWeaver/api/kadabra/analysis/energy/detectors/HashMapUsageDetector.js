@@ -21,13 +21,13 @@ class HashMapUsageDetector extends BaseDetector {
   }
 
   print() {
-    println(`${this.name}:`);
+    console.log(`${this.name}:`);
     let data = this.results.map((r) => [
       r.line.toString(),
-      r.ancestor("file").path,
+      r.getAncestor("file").path,
     ]);
     Collections.printTable(["Line", "File"], data, [40, 100]);
-    println();
+    console.log();
   }
 
   save() {
@@ -35,13 +35,13 @@ class HashMapUsageDetector extends BaseDetector {
       let loc = ":" + r.line.toString();
 
       // Initialized inside method
-      let node = r.ancestor("method");
-      if(node !== undefined) {
+      let node = r.getAncestor("method");
+      if(node != null) {
         loc = node.name + loc;
       }
-      node = r.ancestor("class");
+      node = r.getAncestor("class");
       loc = node.name + "/" + loc;
-      node = node.ancestor("file");
+      node = node.getAncestor("file");
       loc = node.name.toString() + "/" + loc;
       return loc;
     });

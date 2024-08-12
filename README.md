@@ -1,5 +1,5 @@
 # Kadabra
-Java Source-to-Source compiler based on LARA and Spoon
+Java Source-to-Source compiler based on LARA and Spoon.
 
 # Resources
 
