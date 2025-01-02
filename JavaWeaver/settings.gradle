@@ -10,6 +10,7 @@ includeBuild("../../specs-java-libs/JsEngine")
 
 includeBuild("../../kadabra/KadabraAPI")
 includeBuild("../../kadabra/KadabraLaraApi")
+includeBuild("../../kadabra/JavaWeaverSpecs")
 
 includeBuild("../../lara-framework/LanguageSpecification")
 includeBuild("../../lara-framework/LaraCommonLanguageApi")
