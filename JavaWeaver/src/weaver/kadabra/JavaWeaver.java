@@ -11,7 +11,7 @@ import org.lara.interpreter.weaver.interf.AGear;
 import org.lara.interpreter.weaver.interf.JoinPoint;
 import org.lara.interpreter.weaver.options.WeaverOption;
 import org.lara.interpreter.weaver.options.WeaverOptionBuilder;
-import org.lara.language.specification.dsl.LanguageSpecificationV2;
+import org.lara.language.specification.dsl.LanguageSpecification;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.jadx.DecompilationFailedException;
 import pt.up.fe.specs.jadx.SpecsJadx;
@@ -585,8 +585,8 @@ public class JavaWeaver extends AJavaWeaver {
     }
 
     @Override
-    protected LanguageSpecificationV2 buildLangSpecs() {
-        return LanguageSpecificationV2.newInstance(JOINPOINTS, ARTIFACTS, ACTIONS);
+    protected LanguageSpecification buildLangSpecs() {
+        return LanguageSpecification.newInstance(JOINPOINTS, ARTIFACTS, ACTIONS);
     }
 
     @Override

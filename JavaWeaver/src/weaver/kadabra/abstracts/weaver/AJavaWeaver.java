@@ -11,8 +11,8 @@ import java.util.ArrayList;
 
 /**
  * Abstract Weaver Implementation for JavaWeaver<br>
-Since the generated abstract classes are always overwritten, their implementation should be done by extending those abstract classes with user-defined classes.<br>
-The abstract class {@link weaver.kadabra.abstracts.AJavaWeaverJoinPoint} contains attributes and actions common to all join points.
+ * Since the generated abstract classes are always overwritten, their implementation should be done by extending those abstract classes with user-defined classes.<br>
+ * The abstract class {@link weaver.kadabra.abstracts.AJavaWeaverJoinPoint} contains attributes and actions common to all join points.
  * The implementation of the abstract methods is mandatory!
  * @author Lara C.
  */
@@ -25,7 +25,7 @@ public abstract class AJavaWeaver extends LaraWeaverEngine {
      */
     @Override
     public final List<String> getActions() {
-        String[] weaverActions= {"insertBefore", "insertBefore", "insertAfter", "insertAfter", "insertReplace", "insertReplace", "replaceWith", "replaceWith", "copy", "remove", "removeAnnotation", "removeModifier", "setText", "setAttribute", "newClass", "newClass", "newInterface", "newInterface", "addImport", "addClass", "addInterface", "removeInterface", "mapVersions", "setName", "newConstructor", "newMethod", "newMethod", "insertMethod", "insertCode", "newFunctionalClass", "insertStatic", "extractInterface", "addImplement", "newField", "newField", "addComment", "addParameter", "createAdapter", "clone", "clone", "setArguments", "setArgument", "setArguments", "tile", "tile", "interchange", "setInit", "setLhs", "setRhs", "setOperator", "extract", "setInit", "insertBegin", "insertBegin", "setOperator", "setOperator", "setValue", "setLine", "setLine"};
+        String[] weaverActions= {"copy", "insertAfter", "insertAfter", "insertBefore", "insertBefore", "insertReplace", "insertReplace", "remove", "removeAnnotation", "removeModifier", "replaceWith", "replaceWith", "setText", "extract", "setName", "mapVersions", "newClass", "newClass", "newInterface", "newInterface", "setLhs", "setRhs", "setOperator", "insertBegin", "insertBegin", "clone", "setArgument", "setArguments", "extractInterface", "insertStatic", "mapVersions", "newConstructor", "newFunctionalClass", "addClass", "addImplement", "addInterface", "insertCode", "insertMethod", "newField", "newField", "newMethod", "newMethod", "removeInterface", "setInit", "addClass", "addImport", "addInterface", "mapVersions", "newClass", "newClass", "newInterface", "newInterface", "removeInterface", "setValue", "setInit", "interchange", "tile", "tile", "addComment", "addParameter", "clone", "createAdapter", "setArguments", "setOperator", "setLine", "setLine", "setOperator", "setAttribute"};
         return Arrays.asList(weaverActions);
     }
 
