@@ -52,3 +52,6 @@ ivy/
 
 .gradle/
 build/
+
+
+**/node_modules/*
