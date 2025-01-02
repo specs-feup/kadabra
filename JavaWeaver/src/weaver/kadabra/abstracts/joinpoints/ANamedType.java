@@ -19,6 +19,91 @@ import java.util.Arrays;
 public abstract class ANamedType extends AJavaWeaverJoinPoint {
 
     /**
+     * Get value on attribute interfaces
+     * @return the attribute's value
+     */
+    public abstract String[] getInterfacesArrayImpl();
+
+    /**
+     * list of names of interfaces that this type implements
+     */
+    public Object getInterfacesImpl() {
+        String[] stringArrayImpl0 = getInterfacesArrayImpl();
+        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(stringArrayImpl0);
+        return nativeArray0;
+    }
+
+    /**
+     * list of names of interfaces that this type implements
+     */
+    public final Object getInterfaces() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "interfaces", Optional.empty());
+        	}
+        	Object result = this.getInterfacesImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "interfaces", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "interfaces", e);
+        }
+    }
+
+    /**
+     * 
+     * @param type
+     * @return 
+     */
+    public abstract Boolean isSubtypeOfImpl(String type);
+
+    /**
+     * 
+     * @param type
+     * @return 
+     */
+    public final Object isSubtypeOf(String type) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isSubtypeOf", Optional.empty(), type);
+        	}
+        	Boolean result = this.isSubtypeOfImpl(type);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "isSubtypeOf", Optional.ofNullable(result), type);
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "isSubtypeOf", e);
+        }
+    }
+
+    /**
+     * Get value on attribute javadoc
+     * @return the attribute's value
+     */
+    public abstract String getJavadocImpl();
+
+    /**
+     * Get value on attribute javadoc
+     * @return the attribute's value
+     */
+    public final Object getJavadoc() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "javadoc", Optional.empty());
+        	}
+        	String result = this.getJavadocImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "javadoc", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "javadoc", e);
+        }
+    }
+
+    /**
      * the simple name of the type
      */
     public abstract String getNameImpl();
@@ -38,6 +123,29 @@ public abstract class ANamedType extends AJavaWeaverJoinPoint {
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "name", e);
+        }
+    }
+
+    /**
+     * package name of this type
+     */
+    public abstract String getPackageImpl();
+
+    /**
+     * package name of this type
+     */
+    public final Object getPackage() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "package", Optional.empty());
+        	}
+        	String result = this.getPackageImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "package", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "package", e);
         }
     }
 
@@ -88,114 +196,6 @@ public abstract class ANamedType extends AJavaWeaverJoinPoint {
     }
 
     /**
-     * package name of this type
-     */
-    public abstract String getPackageImpl();
-
-    /**
-     * package name of this type
-     */
-    public final Object getPackage() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "package", Optional.empty());
-        	}
-        	String result = this.getPackageImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "package", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "package", e);
-        }
-    }
-
-    /**
-     * Get value on attribute interfaces
-     * @return the attribute's value
-     */
-    public abstract String[] getInterfacesArrayImpl();
-
-    /**
-     * list of names of interfaces that this type implements
-     */
-    public Object getInterfacesImpl() {
-        String[] stringArrayImpl0 = getInterfacesArrayImpl();
-        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(stringArrayImpl0);
-        return nativeArray0;
-    }
-
-    /**
-     * list of names of interfaces that this type implements
-     */
-    public final Object getInterfaces() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "interfaces", Optional.empty());
-        	}
-        	Object result = this.getInterfacesImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "interfaces", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "interfaces", e);
-        }
-    }
-
-    /**
-     * Get value on attribute javadoc
-     * @return the attribute's value
-     */
-    public abstract String getJavadocImpl();
-
-    /**
-     * Get value on attribute javadoc
-     * @return the attribute's value
-     */
-    public final Object getJavadoc() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "javadoc", Optional.empty());
-        	}
-        	String result = this.getJavadocImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "javadoc", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "javadoc", e);
-        }
-    }
-
-    /**
-     * 
-     * @param type
-     * @return 
-     */
-    public abstract Boolean isSubtypeOfImpl(String type);
-
-    /**
-     * 
-     * @param type
-     * @return 
-     */
-    public final Object isSubtypeOf(String type) {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isSubtypeOf", Optional.empty(), type);
-        	}
-        	Boolean result = this.isSubtypeOfImpl(type);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "isSubtypeOf", Optional.ofNullable(result), type);
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "isSubtypeOf", e);
-        }
-    }
-
-    /**
      * 
      */
     @Override
@@ -236,13 +236,13 @@ public abstract class ANamedType extends AJavaWeaverJoinPoint {
     @Override
     protected void fillWithAttributes(List<String> attributes) {
         super.fillWithAttributes(attributes);
+        attributes.add("interfaces");
+        attributes.add("isSubtypeOf");
+        attributes.add("javadoc");
         attributes.add("name");
+        attributes.add("package");
         attributes.add("qualifiedName");
         attributes.add("superClass");
-        attributes.add("package");
-        attributes.add("interfaces");
-        attributes.add("javadoc");
-        attributes.add("isSubtypeOf");
     }
 
     /**
@@ -273,35 +273,35 @@ public abstract class ANamedType extends AJavaWeaverJoinPoint {
      * 
      */
     protected enum NamedTypeAttributes {
+        INTERFACES("interfaces"),
+        ISSUBTYPEOF("isSubtypeOf"),
+        JAVADOC("javadoc"),
         NAME("name"),
+        PACKAGE("package"),
         QUALIFIEDNAME("qualifiedName"),
         SUPERCLASS("superClass"),
-        PACKAGE("package"),
-        INTERFACES("interfaces"),
-        JAVADOC("javadoc"),
-        ISSUBTYPEOF("isSubtypeOf"),
-        PARENT("parent"),
-        ISSTATIC("isStatic"),
-        CODE("code"),
-        AST("ast"),
-        ISBLOCK("isBlock"),
-        ISINSIDELOOPHEADER("isInsideLoopHeader"),
-        LINE("line"),
-        GETANCESTOR("getAncestor"),
         ANNOTATIONS("annotations"),
-        RIGHT("right"),
-        MODIFIERS("modifiers"),
-        DESCENDANTS("descendants"),
-        ISSTATEMENT("isStatement"),
+        AST("ast"),
         ASTPARENT("astParent"),
+        CHILD("child"),
         CHILDREN("children"),
-        LEFT("left"),
+        CODE("code"),
+        DESCENDANTS("descendants"),
+        GETANCESTOR("getAncestor"),
         HASMODIFIER("hasModifier"),
-        NUMCHILDREN("numChildren"),
-        SRCCODE("srcCode"),
-        ISFINAL("isFinal"),
         ID("id"),
-        CHILD("child");
+        ISBLOCK("isBlock"),
+        ISFINAL("isFinal"),
+        ISINSIDELOOPHEADER("isInsideLoopHeader"),
+        ISSTATEMENT("isStatement"),
+        ISSTATIC("isStatic"),
+        LEFT("left"),
+        LINE("line"),
+        MODIFIERS("modifiers"),
+        NUMCHILDREN("numChildren"),
+        PARENT("parent"),
+        RIGHT("right"),
+        SRCCODE("srcCode");
         private String name;
 
         /**

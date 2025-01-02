@@ -46,31 +46,6 @@ public abstract class AExpression extends AJavaWeaverJoinPoint {
     }
 
     /**
-     * Get value on attribute type
-     * @return the attribute's value
-     */
-    public abstract String getTypeImpl();
-
-    /**
-     * Get value on attribute type
-     * @return the attribute's value
-     */
-    public final Object getType() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "type", Optional.empty());
-        	}
-        	String result = this.getTypeImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "type", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "type", e);
-        }
-    }
-
-    /**
      * Get value on attribute qualifiedType
      * @return the attribute's value
      */
@@ -92,31 +67,6 @@ public abstract class AExpression extends AJavaWeaverJoinPoint {
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "qualifiedType", e);
-        }
-    }
-
-    /**
-     * Get value on attribute typeReference
-     * @return the attribute's value
-     */
-    public abstract ATypeReference getTypeReferenceImpl();
-
-    /**
-     * Get value on attribute typeReference
-     * @return the attribute's value
-     */
-    public final Object getTypeReference() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "typeReference", Optional.empty());
-        	}
-        	ATypeReference result = this.getTypeReferenceImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "typeReference", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "typeReference", e);
         }
     }
 
@@ -157,6 +107,56 @@ public abstract class AExpression extends AJavaWeaverJoinPoint {
      */
     public void defTestImpl(AExpression value) {
         throw new UnsupportedOperationException("Join point "+get_class()+": Action def test with type AExpression not implemented ");
+    }
+
+    /**
+     * Get value on attribute type
+     * @return the attribute's value
+     */
+    public abstract String getTypeImpl();
+
+    /**
+     * Get value on attribute type
+     * @return the attribute's value
+     */
+    public final Object getType() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "type", Optional.empty());
+        	}
+        	String result = this.getTypeImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "type", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "type", e);
+        }
+    }
+
+    /**
+     * Get value on attribute typeReference
+     * @return the attribute's value
+     */
+    public abstract ATypeReference getTypeReferenceImpl();
+
+    /**
+     * Get value on attribute typeReference
+     * @return the attribute's value
+     */
+    public final Object getTypeReference() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "typeReference", Optional.empty());
+        	}
+        	ATypeReference result = this.getTypeReferenceImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "typeReference", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "typeReference", e);
+        }
     }
 
     /**
@@ -264,17 +264,6 @@ public abstract class AExpression extends AJavaWeaverJoinPoint {
     @Override
     public void defImpl(String attribute, Object value) {
         switch(attribute){
-        case "line": {
-        	if(value instanceof Integer){
-        		this.defLineImpl((Integer)value);
-        		return;
-        	}
-        	if(value instanceof String){
-        		this.defLineImpl((String)value);
-        		return;
-        	}
-        	this.unsupportedTypeForDef(attribute, value);
-        }
         case "test": {
         	if(value instanceof Integer){
         		this.defTestImpl((Integer)value);
@@ -282,6 +271,17 @@ public abstract class AExpression extends AJavaWeaverJoinPoint {
         	}
         	if(value instanceof AExpression){
         		this.defTestImpl((AExpression)value);
+        		return;
+        	}
+        	this.unsupportedTypeForDef(attribute, value);
+        }
+        case "line": {
+        	if(value instanceof Integer){
+        		this.defLineImpl((Integer)value);
+        		return;
+        	}
+        	if(value instanceof String){
+        		this.defLineImpl((String)value);
         		return;
         	}
         	this.unsupportedTypeForDef(attribute, value);
@@ -297,10 +297,10 @@ public abstract class AExpression extends AJavaWeaverJoinPoint {
     protected void fillWithAttributes(List<String> attributes) {
         super.fillWithAttributes(attributes);
         attributes.add("kind");
-        attributes.add("type");
         attributes.add("qualifiedType");
-        attributes.add("typeReference");
         attributes.add("test");
+        attributes.add("type");
+        attributes.add("typeReference");
     }
 
     /**
@@ -338,32 +338,32 @@ public abstract class AExpression extends AJavaWeaverJoinPoint {
      */
     protected enum ExpressionAttributes {
         KIND("kind"),
-        TYPE("type"),
         QUALIFIEDTYPE("qualifiedType"),
-        TYPEREFERENCE("typeReference"),
         TEST("test"),
-        PARENT("parent"),
-        ISSTATIC("isStatic"),
-        CODE("code"),
-        AST("ast"),
-        ISBLOCK("isBlock"),
-        ISINSIDELOOPHEADER("isInsideLoopHeader"),
-        LINE("line"),
-        GETANCESTOR("getAncestor"),
+        TYPE("type"),
+        TYPEREFERENCE("typeReference"),
         ANNOTATIONS("annotations"),
-        RIGHT("right"),
-        MODIFIERS("modifiers"),
-        DESCENDANTS("descendants"),
-        ISSTATEMENT("isStatement"),
+        AST("ast"),
         ASTPARENT("astParent"),
+        CHILD("child"),
         CHILDREN("children"),
-        LEFT("left"),
+        CODE("code"),
+        DESCENDANTS("descendants"),
+        GETANCESTOR("getAncestor"),
         HASMODIFIER("hasModifier"),
-        NUMCHILDREN("numChildren"),
-        SRCCODE("srcCode"),
-        ISFINAL("isFinal"),
         ID("id"),
-        CHILD("child");
+        ISBLOCK("isBlock"),
+        ISFINAL("isFinal"),
+        ISINSIDELOOPHEADER("isInsideLoopHeader"),
+        ISSTATEMENT("isStatement"),
+        ISSTATIC("isStatic"),
+        LEFT("left"),
+        LINE("line"),
+        MODIFIERS("modifiers"),
+        NUMCHILDREN("numChildren"),
+        PARENT("parent"),
+        RIGHT("right"),
+        SRCCODE("srcCode");
         private String name;
 
         /**

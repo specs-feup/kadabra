@@ -27,29 +27,6 @@ public abstract class AXmlElement extends AXmlNode {
         this.aXmlNode = aXmlNode;
     }
     /**
-     * the name (i.e., tag) of this element
-     */
-    public abstract String getNameImpl();
-
-    /**
-     * the name (i.e., tag) of this element
-     */
-    public final Object getName() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "name", Optional.empty());
-        	}
-        	String result = this.getNameImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "name", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "name", e);
-        }
-    }
-
-    /**
      * 
      * @param name
      * @return 
@@ -106,6 +83,29 @@ public abstract class AXmlElement extends AXmlNode {
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "attributeNames", e);
+        }
+    }
+
+    /**
+     * the name (i.e., tag) of this element
+     */
+    public abstract String getNameImpl();
+
+    /**
+     * the name (i.e., tag) of this element
+     */
+    public final Object getName() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "name", Optional.empty());
+        	}
+        	String result = this.getNameImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "name", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "name", e);
         }
     }
 
@@ -182,30 +182,12 @@ public abstract class AXmlElement extends AXmlNode {
     }
 
     /**
-     * Get value on attribute parent
+     * Get value on attribute annotationsArrayImpl
      * @return the attribute's value
      */
     @Override
-    public AJoinPoint getParentImpl() {
-        return this.aXmlNode.getParentImpl();
-    }
-
-    /**
-     * Get value on attribute isStatic
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsStaticImpl() {
-        return this.aXmlNode.getIsStaticImpl();
-    }
-
-    /**
-     * Get value on attribute code
-     * @return the attribute's value
-     */
-    @Override
-    public String getCodeImpl() {
-        return this.aXmlNode.getCodeImpl();
+    public AAnnotation[] getAnnotationsArrayImpl() {
+        return this.aXmlNode.getAnnotationsArrayImpl();
     }
 
     /**
@@ -218,156 +200,12 @@ public abstract class AXmlElement extends AXmlNode {
     }
 
     /**
-     * Get value on attribute isBlock
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsBlockImpl() {
-        return this.aXmlNode.getIsBlockImpl();
-    }
-
-    /**
-     * Get value on attribute isInsideLoopHeader
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsInsideLoopHeaderImpl() {
-        return this.aXmlNode.getIsInsideLoopHeaderImpl();
-    }
-
-    /**
-     * Get value on attribute line
-     * @return the attribute's value
-     */
-    @Override
-    public Integer getLineImpl() {
-        return this.aXmlNode.getLineImpl();
-    }
-
-    /**
-     * Get value on attribute getAncestor
-     * @return the attribute's value
-     */
-    @Override
-    public AJoinPoint getAncestorImpl(String type) {
-        return this.aXmlNode.getAncestorImpl(type);
-    }
-
-    /**
-     * Get value on attribute annotationsArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public AAnnotation[] getAnnotationsArrayImpl() {
-        return this.aXmlNode.getAnnotationsArrayImpl();
-    }
-
-    /**
-     * Get value on attribute rightArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public AJoinPoint[] getRightArrayImpl() {
-        return this.aXmlNode.getRightArrayImpl();
-    }
-
-    /**
-     * Get value on attribute modifiersArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public String[] getModifiersArrayImpl() {
-        return this.aXmlNode.getModifiersArrayImpl();
-    }
-
-    /**
-     * Get value on attribute descendantsArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public AJoinPoint[] getDescendantsArrayImpl() {
-        return this.aXmlNode.getDescendantsArrayImpl();
-    }
-
-    /**
-     * Get value on attribute isStatement
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsStatementImpl() {
-        return this.aXmlNode.getIsStatementImpl();
-    }
-
-    /**
      * Get value on attribute astParent
      * @return the attribute's value
      */
     @Override
     public AJoinPoint getAstParentImpl() {
         return this.aXmlNode.getAstParentImpl();
-    }
-
-    /**
-     * Get value on attribute childrenArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public AJoinPoint[] getChildrenArrayImpl() {
-        return this.aXmlNode.getChildrenArrayImpl();
-    }
-
-    /**
-     * Get value on attribute leftArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public AJoinPoint[] getLeftArrayImpl() {
-        return this.aXmlNode.getLeftArrayImpl();
-    }
-
-    /**
-     * Get value on attribute hasModifier
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean hasModifierImpl(String modifier) {
-        return this.aXmlNode.hasModifierImpl(modifier);
-    }
-
-    /**
-     * Get value on attribute numChildren
-     * @return the attribute's value
-     */
-    @Override
-    public Integer getNumChildrenImpl() {
-        return this.aXmlNode.getNumChildrenImpl();
-    }
-
-    /**
-     * Get value on attribute srcCode
-     * @return the attribute's value
-     */
-    @Override
-    public String getSrcCodeImpl() {
-        return this.aXmlNode.getSrcCodeImpl();
-    }
-
-    /**
-     * Get value on attribute isFinal
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsFinalImpl() {
-        return this.aXmlNode.getIsFinalImpl();
-    }
-
-    /**
-     * Get value on attribute id
-     * @return the attribute's value
-     */
-    @Override
-    public String getIdImpl() {
-        return this.aXmlNode.getIdImpl();
     }
 
     /**
@@ -380,21 +218,193 @@ public abstract class AXmlElement extends AXmlNode {
     }
 
     /**
-     * 
-     * @param node 
+     * Get value on attribute childrenArrayImpl
+     * @return the attribute's value
      */
     @Override
-    public AJoinPoint insertBeforeImpl(AJoinPoint node) {
-        return this.aXmlNode.insertBeforeImpl(node);
+    public AJoinPoint[] getChildrenArrayImpl() {
+        return this.aXmlNode.getChildrenArrayImpl();
+    }
+
+    /**
+     * Get value on attribute code
+     * @return the attribute's value
+     */
+    @Override
+    public String getCodeImpl() {
+        return this.aXmlNode.getCodeImpl();
+    }
+
+    /**
+     * Get value on attribute descendantsArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getDescendantsArrayImpl() {
+        return this.aXmlNode.getDescendantsArrayImpl();
+    }
+
+    /**
+     * Get value on attribute getAncestor
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint getAncestorImpl(String type) {
+        return this.aXmlNode.getAncestorImpl(type);
+    }
+
+    /**
+     * Get value on attribute hasModifier
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean hasModifierImpl(String modifier) {
+        return this.aXmlNode.hasModifierImpl(modifier);
+    }
+
+    /**
+     * Get value on attribute id
+     * @return the attribute's value
+     */
+    @Override
+    public String getIdImpl() {
+        return this.aXmlNode.getIdImpl();
+    }
+
+    /**
+     * Get value on attribute isBlock
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsBlockImpl() {
+        return this.aXmlNode.getIsBlockImpl();
+    }
+
+    /**
+     * Get value on attribute isFinal
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsFinalImpl() {
+        return this.aXmlNode.getIsFinalImpl();
+    }
+
+    /**
+     * Get value on attribute isInsideLoopHeader
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsInsideLoopHeaderImpl() {
+        return this.aXmlNode.getIsInsideLoopHeaderImpl();
+    }
+
+    /**
+     * Get value on attribute isStatement
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsStatementImpl() {
+        return this.aXmlNode.getIsStatementImpl();
+    }
+
+    /**
+     * Get value on attribute isStatic
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsStaticImpl() {
+        return this.aXmlNode.getIsStaticImpl();
+    }
+
+    /**
+     * Get value on attribute leftArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getLeftArrayImpl() {
+        return this.aXmlNode.getLeftArrayImpl();
+    }
+
+    /**
+     * Get value on attribute line
+     * @return the attribute's value
+     */
+    @Override
+    public Integer getLineImpl() {
+        return this.aXmlNode.getLineImpl();
+    }
+
+    /**
+     * Get value on attribute modifiersArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public String[] getModifiersArrayImpl() {
+        return this.aXmlNode.getModifiersArrayImpl();
+    }
+
+    /**
+     * Get value on attribute numChildren
+     * @return the attribute's value
+     */
+    @Override
+    public Integer getNumChildrenImpl() {
+        return this.aXmlNode.getNumChildrenImpl();
+    }
+
+    /**
+     * Get value on attribute parent
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint getParentImpl() {
+        return this.aXmlNode.getParentImpl();
+    }
+
+    /**
+     * Get value on attribute rightArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getRightArrayImpl() {
+        return this.aXmlNode.getRightArrayImpl();
+    }
+
+    /**
+     * Get value on attribute srcCode
+     * @return the attribute's value
+     */
+    @Override
+    public String getSrcCodeImpl() {
+        return this.aXmlNode.getSrcCodeImpl();
     }
 
     /**
      * 
+     */
+    @Override
+    public AJoinPoint copyImpl() {
+        return this.aXmlNode.copyImpl();
+    }
+
+    /**
+     * 
+     * @param position 
      * @param code 
      */
     @Override
-    public AJoinPoint insertBeforeImpl(String code) {
-        return this.aXmlNode.insertBeforeImpl(code);
+    public AJoinPoint[] insertImpl(String position, String code) {
+        return this.aXmlNode.insertImpl(position, code);
+    }
+
+    /**
+     * 
+     * @param position 
+     * @param code 
+     */
+    @Override
+    public AJoinPoint[] insertImpl(String position, JoinPoint code) {
+        return this.aXmlNode.insertImpl(position, code);
     }
 
     /**
@@ -417,6 +427,24 @@ public abstract class AXmlElement extends AXmlNode {
 
     /**
      * 
+     * @param node 
+     */
+    @Override
+    public AJoinPoint insertBeforeImpl(AJoinPoint node) {
+        return this.aXmlNode.insertBeforeImpl(node);
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    @Override
+    public AJoinPoint insertBeforeImpl(String code) {
+        return this.aXmlNode.insertBeforeImpl(code);
+    }
+
+    /**
+     * 
      * @param jp 
      */
     @Override
@@ -431,32 +459,6 @@ public abstract class AXmlElement extends AXmlNode {
     @Override
     public AJoinPoint insertReplaceImpl(String code) {
         return this.aXmlNode.insertReplaceImpl(code);
-    }
-
-    /**
-     * 
-     * @param jp 
-     */
-    @Override
-    public AJoinPoint replaceWithImpl(AJoinPoint jp) {
-        return this.aXmlNode.replaceWithImpl(jp);
-    }
-
-    /**
-     * 
-     * @param code 
-     */
-    @Override
-    public AJoinPoint replaceWithImpl(String code) {
-        return this.aXmlNode.replaceWithImpl(code);
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public AJoinPoint copyImpl() {
-        return this.aXmlNode.copyImpl();
     }
 
     /**
@@ -487,31 +489,29 @@ public abstract class AXmlElement extends AXmlNode {
 
     /**
      * 
+     * @param jp 
+     */
+    @Override
+    public AJoinPoint replaceWithImpl(AJoinPoint jp) {
+        return this.aXmlNode.replaceWithImpl(jp);
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    @Override
+    public AJoinPoint replaceWithImpl(String code) {
+        return this.aXmlNode.replaceWithImpl(code);
+    }
+
+    /**
+     * 
      * @param text 
      */
     @Override
     public String setTextImpl(String text) {
         return this.aXmlNode.setTextImpl(text);
-    }
-
-    /**
-     * 
-     * @param position 
-     * @param code 
-     */
-    @Override
-    public AJoinPoint[] insertImpl(String position, String code) {
-        return this.aXmlNode.insertImpl(position, code);
-    }
-
-    /**
-     * 
-     * @param position 
-     * @param code 
-     */
-    @Override
-    public AJoinPoint[] insertImpl(String position, JoinPoint code) {
-        return this.aXmlNode.insertImpl(position, code);
     }
 
     /**
@@ -545,6 +545,13 @@ public abstract class AXmlElement extends AXmlNode {
     @Override
     public final void defImpl(String attribute, Object value) {
         switch(attribute){
+        case "text": {
+        	if(value instanceof String){
+        		this.defTextImpl((String)value);
+        		return;
+        	}
+        	this.unsupportedTypeForDef(attribute, value);
+        }
         case "line": {
         	if(value instanceof Integer){
         		this.defLineImpl((Integer)value);
@@ -552,13 +559,6 @@ public abstract class AXmlElement extends AXmlNode {
         	}
         	if(value instanceof String){
         		this.defLineImpl((String)value);
-        		return;
-        	}
-        	this.unsupportedTypeForDef(attribute, value);
-        }
-        case "text": {
-        	if(value instanceof String){
-        		this.defTextImpl((String)value);
         		return;
         	}
         	this.unsupportedTypeForDef(attribute, value);
@@ -573,9 +573,9 @@ public abstract class AXmlElement extends AXmlNode {
     @Override
     protected final void fillWithAttributes(List<String> attributes) {
         this.aXmlNode.fillWithAttributes(attributes);
-        attributes.add("name");
         attributes.add("attribute");
         attributes.add("attributeNames");
+        attributes.add("name");
     }
 
     /**
@@ -620,33 +620,33 @@ public abstract class AXmlElement extends AXmlNode {
      * 
      */
     protected enum XmlElementAttributes {
-        NAME("name"),
         ATTRIBUTE("attribute"),
         ATTRIBUTENAMES("attributeNames"),
+        NAME("name"),
         ELEMENTS("elements"),
         TEXT("text"),
-        PARENT("parent"),
-        ISSTATIC("isStatic"),
-        CODE("code"),
-        AST("ast"),
-        ISBLOCK("isBlock"),
-        ISINSIDELOOPHEADER("isInsideLoopHeader"),
-        LINE("line"),
-        GETANCESTOR("getAncestor"),
         ANNOTATIONS("annotations"),
-        RIGHT("right"),
-        MODIFIERS("modifiers"),
-        DESCENDANTS("descendants"),
-        ISSTATEMENT("isStatement"),
+        AST("ast"),
         ASTPARENT("astParent"),
+        CHILD("child"),
         CHILDREN("children"),
-        LEFT("left"),
+        CODE("code"),
+        DESCENDANTS("descendants"),
+        GETANCESTOR("getAncestor"),
         HASMODIFIER("hasModifier"),
-        NUMCHILDREN("numChildren"),
-        SRCCODE("srcCode"),
-        ISFINAL("isFinal"),
         ID("id"),
-        CHILD("child");
+        ISBLOCK("isBlock"),
+        ISFINAL("isFinal"),
+        ISINSIDELOOPHEADER("isInsideLoopHeader"),
+        ISSTATEMENT("isStatement"),
+        ISSTATIC("isStatic"),
+        LEFT("left"),
+        LINE("line"),
+        MODIFIERS("modifiers"),
+        NUMCHILDREN("numChildren"),
+        PARENT("parent"),
+        RIGHT("right"),
+        SRCCODE("srcCode");
         private String name;
 
         /**

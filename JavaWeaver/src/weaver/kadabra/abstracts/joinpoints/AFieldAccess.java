@@ -25,6 +25,51 @@ public abstract class AFieldAccess extends AVar {
         this.aVar = aVar;
     }
     /**
+     * Get value on attribute declaration
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint getDeclarationImpl() {
+        return this.aVar.getDeclarationImpl();
+    }
+
+    /**
+     * Get value on attribute inLoopHeader
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getInLoopHeaderImpl() {
+        return this.aVar.getInLoopHeaderImpl();
+    }
+
+    /**
+     * Get value on attribute isArray
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsArrayImpl() {
+        return this.aVar.getIsArrayImpl();
+    }
+
+    /**
+     * Get value on attribute isField
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsFieldImpl() {
+        return this.aVar.getIsFieldImpl();
+    }
+
+    /**
+     * Get value on attribute isPrimitive
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsPrimitiveImpl() {
+        return this.aVar.getIsPrimitiveImpl();
+    }
+
+    /**
      * Get value on attribute name
      * @return the attribute's value
      */
@@ -43,57 +88,12 @@ public abstract class AFieldAccess extends AVar {
     }
 
     /**
-     * Get value on attribute isArray
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsArrayImpl() {
-        return this.aVar.getIsArrayImpl();
-    }
-
-    /**
-     * Get value on attribute isPrimitive
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsPrimitiveImpl() {
-        return this.aVar.getIsPrimitiveImpl();
-    }
-
-    /**
-     * Get value on attribute isField
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsFieldImpl() {
-        return this.aVar.getIsFieldImpl();
-    }
-
-    /**
-     * Get value on attribute inLoopHeader
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getInLoopHeaderImpl() {
-        return this.aVar.getInLoopHeaderImpl();
-    }
-
-    /**
      * Get value on attribute referenceChainArrayImpl
      * @return the attribute's value
      */
     @Override
     public AJoinPoint[] getReferenceChainArrayImpl() {
         return this.aVar.getReferenceChainArrayImpl();
-    }
-
-    /**
-     * Get value on attribute declaration
-     * @return the attribute's value
-     */
-    @Override
-    public AJoinPoint getDeclarationImpl() {
-        return this.aVar.getDeclarationImpl();
     }
 
     /**
@@ -106,15 +106,6 @@ public abstract class AFieldAccess extends AVar {
     }
 
     /**
-     * Get value on attribute type
-     * @return the attribute's value
-     */
-    @Override
-    public String getTypeImpl() {
-        return this.aVar.getTypeImpl();
-    }
-
-    /**
      * Get value on attribute qualifiedType
      * @return the attribute's value
      */
@@ -124,21 +115,30 @@ public abstract class AFieldAccess extends AVar {
     }
 
     /**
-     * Get value on attribute typeReference
-     * @return the attribute's value
-     */
-    @Override
-    public ATypeReference getTypeReferenceImpl() {
-        return this.aVar.getTypeReferenceImpl();
-    }
-
-    /**
      * Get value on attribute test
      * @return the attribute's value
      */
     @Override
     public Integer getTestImpl() {
         return this.aVar.getTestImpl();
+    }
+
+    /**
+     * Get value on attribute type
+     * @return the attribute's value
+     */
+    @Override
+    public String getTypeImpl() {
+        return this.aVar.getTypeImpl();
+    }
+
+    /**
+     * Get value on attribute typeReference
+     * @return the attribute's value
+     */
+    @Override
+    public ATypeReference getTypeReferenceImpl() {
+        return this.aVar.getTypeReferenceImpl();
     }
 
     /**
@@ -201,30 +201,12 @@ public abstract class AFieldAccess extends AVar {
     }
 
     /**
-     * Get value on attribute parent
+     * Get value on attribute annotationsArrayImpl
      * @return the attribute's value
      */
     @Override
-    public AJoinPoint getParentImpl() {
-        return this.aVar.getParentImpl();
-    }
-
-    /**
-     * Get value on attribute isStatic
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsStaticImpl() {
-        return this.aVar.getIsStaticImpl();
-    }
-
-    /**
-     * Get value on attribute code
-     * @return the attribute's value
-     */
-    @Override
-    public String getCodeImpl() {
-        return this.aVar.getCodeImpl();
+    public AAnnotation[] getAnnotationsArrayImpl() {
+        return this.aVar.getAnnotationsArrayImpl();
     }
 
     /**
@@ -237,156 +219,12 @@ public abstract class AFieldAccess extends AVar {
     }
 
     /**
-     * Get value on attribute isBlock
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsBlockImpl() {
-        return this.aVar.getIsBlockImpl();
-    }
-
-    /**
-     * Get value on attribute isInsideLoopHeader
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsInsideLoopHeaderImpl() {
-        return this.aVar.getIsInsideLoopHeaderImpl();
-    }
-
-    /**
-     * Get value on attribute line
-     * @return the attribute's value
-     */
-    @Override
-    public Integer getLineImpl() {
-        return this.aVar.getLineImpl();
-    }
-
-    /**
-     * Get value on attribute getAncestor
-     * @return the attribute's value
-     */
-    @Override
-    public AJoinPoint getAncestorImpl(String type) {
-        return this.aVar.getAncestorImpl(type);
-    }
-
-    /**
-     * Get value on attribute annotationsArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public AAnnotation[] getAnnotationsArrayImpl() {
-        return this.aVar.getAnnotationsArrayImpl();
-    }
-
-    /**
-     * Get value on attribute rightArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public AJoinPoint[] getRightArrayImpl() {
-        return this.aVar.getRightArrayImpl();
-    }
-
-    /**
-     * Get value on attribute modifiersArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public String[] getModifiersArrayImpl() {
-        return this.aVar.getModifiersArrayImpl();
-    }
-
-    /**
-     * Get value on attribute descendantsArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public AJoinPoint[] getDescendantsArrayImpl() {
-        return this.aVar.getDescendantsArrayImpl();
-    }
-
-    /**
-     * Get value on attribute isStatement
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsStatementImpl() {
-        return this.aVar.getIsStatementImpl();
-    }
-
-    /**
      * Get value on attribute astParent
      * @return the attribute's value
      */
     @Override
     public AJoinPoint getAstParentImpl() {
         return this.aVar.getAstParentImpl();
-    }
-
-    /**
-     * Get value on attribute childrenArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public AJoinPoint[] getChildrenArrayImpl() {
-        return this.aVar.getChildrenArrayImpl();
-    }
-
-    /**
-     * Get value on attribute leftArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public AJoinPoint[] getLeftArrayImpl() {
-        return this.aVar.getLeftArrayImpl();
-    }
-
-    /**
-     * Get value on attribute hasModifier
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean hasModifierImpl(String modifier) {
-        return this.aVar.hasModifierImpl(modifier);
-    }
-
-    /**
-     * Get value on attribute numChildren
-     * @return the attribute's value
-     */
-    @Override
-    public Integer getNumChildrenImpl() {
-        return this.aVar.getNumChildrenImpl();
-    }
-
-    /**
-     * Get value on attribute srcCode
-     * @return the attribute's value
-     */
-    @Override
-    public String getSrcCodeImpl() {
-        return this.aVar.getSrcCodeImpl();
-    }
-
-    /**
-     * Get value on attribute isFinal
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsFinalImpl() {
-        return this.aVar.getIsFinalImpl();
-    }
-
-    /**
-     * Get value on attribute id
-     * @return the attribute's value
-     */
-    @Override
-    public String getIdImpl() {
-        return this.aVar.getIdImpl();
     }
 
     /**
@@ -399,21 +237,204 @@ public abstract class AFieldAccess extends AVar {
     }
 
     /**
-     * 
-     * @param node 
+     * Get value on attribute childrenArrayImpl
+     * @return the attribute's value
      */
     @Override
-    public AJoinPoint insertBeforeImpl(AJoinPoint node) {
-        return this.aVar.insertBeforeImpl(node);
+    public AJoinPoint[] getChildrenArrayImpl() {
+        return this.aVar.getChildrenArrayImpl();
+    }
+
+    /**
+     * Get value on attribute code
+     * @return the attribute's value
+     */
+    @Override
+    public String getCodeImpl() {
+        return this.aVar.getCodeImpl();
+    }
+
+    /**
+     * Get value on attribute descendantsArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getDescendantsArrayImpl() {
+        return this.aVar.getDescendantsArrayImpl();
+    }
+
+    /**
+     * Get value on attribute getAncestor
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint getAncestorImpl(String type) {
+        return this.aVar.getAncestorImpl(type);
+    }
+
+    /**
+     * Get value on attribute hasModifier
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean hasModifierImpl(String modifier) {
+        return this.aVar.hasModifierImpl(modifier);
+    }
+
+    /**
+     * Get value on attribute id
+     * @return the attribute's value
+     */
+    @Override
+    public String getIdImpl() {
+        return this.aVar.getIdImpl();
+    }
+
+    /**
+     * Get value on attribute isBlock
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsBlockImpl() {
+        return this.aVar.getIsBlockImpl();
+    }
+
+    /**
+     * Get value on attribute isFinal
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsFinalImpl() {
+        return this.aVar.getIsFinalImpl();
+    }
+
+    /**
+     * Get value on attribute isInsideLoopHeader
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsInsideLoopHeaderImpl() {
+        return this.aVar.getIsInsideLoopHeaderImpl();
+    }
+
+    /**
+     * Get value on attribute isStatement
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsStatementImpl() {
+        return this.aVar.getIsStatementImpl();
+    }
+
+    /**
+     * Get value on attribute isStatic
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsStaticImpl() {
+        return this.aVar.getIsStaticImpl();
+    }
+
+    /**
+     * Get value on attribute leftArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getLeftArrayImpl() {
+        return this.aVar.getLeftArrayImpl();
+    }
+
+    /**
+     * Get value on attribute line
+     * @return the attribute's value
+     */
+    @Override
+    public Integer getLineImpl() {
+        return this.aVar.getLineImpl();
+    }
+
+    /**
+     * Get value on attribute modifiersArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public String[] getModifiersArrayImpl() {
+        return this.aVar.getModifiersArrayImpl();
+    }
+
+    /**
+     * Get value on attribute numChildren
+     * @return the attribute's value
+     */
+    @Override
+    public Integer getNumChildrenImpl() {
+        return this.aVar.getNumChildrenImpl();
+    }
+
+    /**
+     * Get value on attribute parent
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint getParentImpl() {
+        return this.aVar.getParentImpl();
+    }
+
+    /**
+     * Get value on attribute rightArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getRightArrayImpl() {
+        return this.aVar.getRightArrayImpl();
+    }
+
+    /**
+     * Get value on attribute srcCode
+     * @return the attribute's value
+     */
+    @Override
+    public String getSrcCodeImpl() {
+        return this.aVar.getSrcCodeImpl();
     }
 
     /**
      * 
+     */
+    @Override
+    public AJoinPoint copyImpl() {
+        return this.aVar.copyImpl();
+    }
+
+    /**
+     * 
+     * @param varName 
+     * @param location 
+     * @param position 
+     */
+    @Override
+    public void extractImpl(String varName, AStatement location, String position) {
+        this.aVar.extractImpl(varName, location, position);
+    }
+
+    /**
+     * 
+     * @param position 
      * @param code 
      */
     @Override
-    public AJoinPoint insertBeforeImpl(String code) {
-        return this.aVar.insertBeforeImpl(code);
+    public AJoinPoint[] insertImpl(String position, String code) {
+        return this.aVar.insertImpl(position, code);
+    }
+
+    /**
+     * 
+     * @param position 
+     * @param code 
+     */
+    @Override
+    public AJoinPoint[] insertImpl(String position, JoinPoint code) {
+        return this.aVar.insertImpl(position, code);
     }
 
     /**
@@ -436,6 +457,24 @@ public abstract class AFieldAccess extends AVar {
 
     /**
      * 
+     * @param node 
+     */
+    @Override
+    public AJoinPoint insertBeforeImpl(AJoinPoint node) {
+        return this.aVar.insertBeforeImpl(node);
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    @Override
+    public AJoinPoint insertBeforeImpl(String code) {
+        return this.aVar.insertBeforeImpl(code);
+    }
+
+    /**
+     * 
      * @param jp 
      */
     @Override
@@ -450,32 +489,6 @@ public abstract class AFieldAccess extends AVar {
     @Override
     public AJoinPoint insertReplaceImpl(String code) {
         return this.aVar.insertReplaceImpl(code);
-    }
-
-    /**
-     * 
-     * @param jp 
-     */
-    @Override
-    public AJoinPoint replaceWithImpl(AJoinPoint jp) {
-        return this.aVar.replaceWithImpl(jp);
-    }
-
-    /**
-     * 
-     * @param code 
-     */
-    @Override
-    public AJoinPoint replaceWithImpl(String code) {
-        return this.aVar.replaceWithImpl(code);
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public AJoinPoint copyImpl() {
-        return this.aVar.copyImpl();
     }
 
     /**
@@ -506,22 +519,20 @@ public abstract class AFieldAccess extends AVar {
 
     /**
      * 
-     * @param position 
-     * @param code 
+     * @param jp 
      */
     @Override
-    public AJoinPoint[] insertImpl(String position, String code) {
-        return this.aVar.insertImpl(position, code);
+    public AJoinPoint replaceWithImpl(AJoinPoint jp) {
+        return this.aVar.replaceWithImpl(jp);
     }
 
     /**
      * 
-     * @param position 
      * @param code 
      */
     @Override
-    public AJoinPoint[] insertImpl(String position, JoinPoint code) {
-        return this.aVar.insertImpl(position, code);
+    public AJoinPoint replaceWithImpl(String code) {
+        return this.aVar.replaceWithImpl(code);
     }
 
     /**
@@ -567,17 +578,6 @@ public abstract class AFieldAccess extends AVar {
     @Override
     public final void defImpl(String attribute, Object value) {
         switch(attribute){
-        case "line": {
-        	if(value instanceof Integer){
-        		this.defLineImpl((Integer)value);
-        		return;
-        	}
-        	if(value instanceof String){
-        		this.defLineImpl((String)value);
-        		return;
-        	}
-        	this.unsupportedTypeForDef(attribute, value);
-        }
         case "test": {
         	if(value instanceof Integer){
         		this.defTestImpl((Integer)value);
@@ -585,6 +585,17 @@ public abstract class AFieldAccess extends AVar {
         	}
         	if(value instanceof AExpression){
         		this.defTestImpl((AExpression)value);
+        		return;
+        	}
+        	this.unsupportedTypeForDef(attribute, value);
+        }
+        case "line": {
+        	if(value instanceof Integer){
+        		this.defLineImpl((Integer)value);
+        		return;
+        	}
+        	if(value instanceof String){
+        		this.defLineImpl((String)value);
         		return;
         	}
         	this.unsupportedTypeForDef(attribute, value);
@@ -642,41 +653,41 @@ public abstract class AFieldAccess extends AVar {
      * 
      */
     protected enum FieldAccessAttributes {
+        DECLARATION("declaration"),
+        INLOOPHEADER("inLoopHeader"),
+        ISARRAY("isArray"),
+        ISFIELD("isField"),
+        ISPRIMITIVE("isPrimitive"),
         NAME("name"),
         REFERENCE("reference"),
-        ISARRAY("isArray"),
-        ISPRIMITIVE("isPrimitive"),
-        ISFIELD("isField"),
-        INLOOPHEADER("inLoopHeader"),
         REFERENCECHAIN("referenceChain"),
-        DECLARATION("declaration"),
         KIND("kind"),
-        TYPE("type"),
         QUALIFIEDTYPE("qualifiedType"),
-        TYPEREFERENCE("typeReference"),
         TEST("test"),
-        PARENT("parent"),
-        ISSTATIC("isStatic"),
-        CODE("code"),
-        AST("ast"),
-        ISBLOCK("isBlock"),
-        ISINSIDELOOPHEADER("isInsideLoopHeader"),
-        LINE("line"),
-        GETANCESTOR("getAncestor"),
+        TYPE("type"),
+        TYPEREFERENCE("typeReference"),
         ANNOTATIONS("annotations"),
-        RIGHT("right"),
-        MODIFIERS("modifiers"),
-        DESCENDANTS("descendants"),
-        ISSTATEMENT("isStatement"),
+        AST("ast"),
         ASTPARENT("astParent"),
+        CHILD("child"),
         CHILDREN("children"),
-        LEFT("left"),
+        CODE("code"),
+        DESCENDANTS("descendants"),
+        GETANCESTOR("getAncestor"),
         HASMODIFIER("hasModifier"),
-        NUMCHILDREN("numChildren"),
-        SRCCODE("srcCode"),
-        ISFINAL("isFinal"),
         ID("id"),
-        CHILD("child");
+        ISBLOCK("isBlock"),
+        ISFINAL("isFinal"),
+        ISINSIDELOOPHEADER("isInsideLoopHeader"),
+        ISSTATEMENT("isStatement"),
+        ISSTATIC("isStatic"),
+        LEFT("left"),
+        LINE("line"),
+        MODIFIERS("modifiers"),
+        NUMCHILDREN("numChildren"),
+        PARENT("parent"),
+        RIGHT("right"),
+        SRCCODE("srcCode");
         private String name;
 
         /**

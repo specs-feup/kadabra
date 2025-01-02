@@ -22,6 +22,124 @@ import java.util.Arrays;
 public abstract class AType extends AJavaWeaverJoinPoint {
 
     /**
+     * Get value on attribute interfaces
+     * @return the attribute's value
+     */
+    public abstract String[] getInterfacesArrayImpl();
+
+    /**
+     * list of names of interfaces that this class implements
+     */
+    public Object getInterfacesImpl() {
+        String[] stringArrayImpl0 = getInterfacesArrayImpl();
+        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(stringArrayImpl0);
+        return nativeArray0;
+    }
+
+    /**
+     * list of names of interfaces that this class implements
+     */
+    public final Object getInterfaces() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "interfaces", Optional.empty());
+        	}
+        	Object result = this.getInterfacesImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "interfaces", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "interfaces", e);
+        }
+    }
+
+    /**
+     * Get value on attribute interfacesTypes
+     * @return the attribute's value
+     */
+    public abstract AInterface[] getInterfacesTypesArrayImpl();
+
+    /**
+     * returns the interface join points that this class implements
+     */
+    public Object getInterfacesTypesImpl() {
+        AInterface[] aInterfaceArrayImpl0 = getInterfacesTypesArrayImpl();
+        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(aInterfaceArrayImpl0);
+        return nativeArray0;
+    }
+
+    /**
+     * returns the interface join points that this class implements
+     */
+    public final Object getInterfacesTypes() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "interfacesTypes", Optional.empty());
+        	}
+        	Object result = this.getInterfacesTypesImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "interfacesTypes", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "interfacesTypes", e);
+        }
+    }
+
+    /**
+     * 
+     * @param type
+     * @return 
+     */
+    public abstract Boolean isSubtypeOfImpl(String type);
+
+    /**
+     * 
+     * @param type
+     * @return 
+     */
+    public final Object isSubtypeOf(String type) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isSubtypeOf", Optional.empty(), type);
+        	}
+        	Boolean result = this.isSubtypeOfImpl(type);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "isSubtypeOf", Optional.ofNullable(result), type);
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "isSubtypeOf", e);
+        }
+    }
+
+    /**
+     * Get value on attribute javadoc
+     * @return the attribute's value
+     */
+    public abstract String getJavadocImpl();
+
+    /**
+     * Get value on attribute javadoc
+     * @return the attribute's value
+     */
+    public final Object getJavadoc() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "javadoc", Optional.empty());
+        	}
+        	String result = this.getJavadocImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "javadoc", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "javadoc", e);
+        }
+    }
+
+    /**
      * the simple name of the class
      */
     public abstract String getNameImpl();
@@ -41,6 +159,29 @@ public abstract class AType extends AJavaWeaverJoinPoint {
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "name", e);
+        }
+    }
+
+    /**
+     * package name of this class
+     */
+    public abstract String getPackageImpl();
+
+    /**
+     * package name of this class
+     */
+    public final Object getPackage() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "package", Optional.empty());
+        	}
+        	String result = this.getPackageImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "package", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "package", e);
         }
     }
 
@@ -110,147 +251,6 @@ public abstract class AType extends AJavaWeaverJoinPoint {
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "superClassJp", e);
-        }
-    }
-
-    /**
-     * package name of this class
-     */
-    public abstract String getPackageImpl();
-
-    /**
-     * package name of this class
-     */
-    public final Object getPackage() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "package", Optional.empty());
-        	}
-        	String result = this.getPackageImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "package", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "package", e);
-        }
-    }
-
-    /**
-     * Get value on attribute interfaces
-     * @return the attribute's value
-     */
-    public abstract String[] getInterfacesArrayImpl();
-
-    /**
-     * list of names of interfaces that this class implements
-     */
-    public Object getInterfacesImpl() {
-        String[] stringArrayImpl0 = getInterfacesArrayImpl();
-        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(stringArrayImpl0);
-        return nativeArray0;
-    }
-
-    /**
-     * list of names of interfaces that this class implements
-     */
-    public final Object getInterfaces() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "interfaces", Optional.empty());
-        	}
-        	Object result = this.getInterfacesImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "interfaces", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "interfaces", e);
-        }
-    }
-
-    /**
-     * Get value on attribute interfacesTypes
-     * @return the attribute's value
-     */
-    public abstract AInterface[] getInterfacesTypesArrayImpl();
-
-    /**
-     * returns the interface join points that this class implements
-     */
-    public Object getInterfacesTypesImpl() {
-        AInterface[] aInterfaceArrayImpl0 = getInterfacesTypesArrayImpl();
-        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(aInterfaceArrayImpl0);
-        return nativeArray0;
-    }
-
-    /**
-     * returns the interface join points that this class implements
-     */
-    public final Object getInterfacesTypes() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "interfacesTypes", Optional.empty());
-        	}
-        	Object result = this.getInterfacesTypesImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "interfacesTypes", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "interfacesTypes", e);
-        }
-    }
-
-    /**
-     * Get value on attribute javadoc
-     * @return the attribute's value
-     */
-    public abstract String getJavadocImpl();
-
-    /**
-     * Get value on attribute javadoc
-     * @return the attribute's value
-     */
-    public final Object getJavadoc() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "javadoc", Optional.empty());
-        	}
-        	String result = this.getJavadocImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "javadoc", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "javadoc", e);
-        }
-    }
-
-    /**
-     * 
-     * @param type
-     * @return 
-     */
-    public abstract Boolean isSubtypeOfImpl(String type);
-
-    /**
-     * 
-     * @param type
-     * @return 
-     */
-    public final Object isSubtypeOf(String type) {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isSubtypeOf", Optional.empty(), type);
-        	}
-        	Boolean result = this.isSubtypeOfImpl(type);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "isSubtypeOf", Optional.ofNullable(result), type);
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "isSubtypeOf", e);
         }
     }
 
@@ -330,6 +330,32 @@ public abstract class AType extends AJavaWeaverJoinPoint {
 
     /**
      * 
+     * @param _interface 
+     */
+    public void addImplementImpl(AInterface _interface) {
+        throw new UnsupportedOperationException(get_class()+": Action addImplement not implemented ");
+    }
+
+    /**
+     * 
+     * @param _interface 
+     */
+    public final void addImplement(AInterface _interface) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "addImplement", this, Optional.empty(), _interface);
+        	}
+        	this.addImplementImpl(_interface);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "addImplement", this, Optional.empty(), _interface);
+        	}
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "addImplement", e);
+        }
+    }
+
+    /**
+     * 
      * @param newInterface 
      */
     public void addInterfaceImpl(AInterface newInterface) {
@@ -351,127 +377,6 @@ public abstract class AType extends AJavaWeaverJoinPoint {
         	}
         } catch(Exception e) {
         	throw new ActionException(get_class(), "addInterface", e);
-        }
-    }
-
-    /**
-     * 
-     * @param interfaceName 
-     */
-    public AInterface removeInterfaceImpl(String interfaceName) {
-        throw new UnsupportedOperationException(get_class()+": Action removeInterface not implemented ");
-    }
-
-    /**
-     * 
-     * @param interfaceName 
-     */
-    public final Object removeInterface(String interfaceName) {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "removeInterface", this, Optional.empty(), interfaceName);
-        	}
-        	AInterface result = this.removeInterfaceImpl(interfaceName);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "removeInterface", this, Optional.ofNullable(result), interfaceName);
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new ActionException(get_class(), "removeInterface", e);
-        }
-    }
-
-    /**
-     * add a new method inside the class
-     * @param modifiers 
-     * @param returnType 
-     * @param name 
-     * @param param 
-     * @param code 
-     */
-    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, Pair[] param, String code) {
-        throw new UnsupportedOperationException(get_class()+": Action newMethod not implemented ");
-    }
-
-    /**
-     * add a new method inside the class
-     * @param modifiers 
-     * @param returnType 
-     * @param name 
-     * @param param 
-     * @param code 
-     */
-    public final Object newMethod(String[] modifiers, String returnType, String name, Pair[] param, String code) {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "newMethod", this, Optional.empty(), modifiers, returnType, name, param, code);
-        	}
-        	AMethod result = this.newMethodImpl(modifiers, returnType, name, param, code);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "newMethod", this, Optional.ofNullable(result), modifiers, returnType, name, param, code);
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new ActionException(get_class(), "newMethod", e);
-        }
-    }
-
-    /**
-     * overload which accepts 4 parameters (code is empty string)
-     * @param modifiers 
-     * @param returnType 
-     * @param name 
-     * @param param 
-     */
-    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, Pair[] param) {
-        throw new UnsupportedOperationException(get_class()+": Action newMethod not implemented ");
-    }
-
-    /**
-     * overload which accepts 4 parameters (code is empty string)
-     * @param modifiers 
-     * @param returnType 
-     * @param name 
-     * @param param 
-     */
-    public final Object newMethod(String[] modifiers, String returnType, String name, Pair[] param) {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "newMethod", this, Optional.empty(), modifiers, returnType, name, param);
-        	}
-        	AMethod result = this.newMethodImpl(modifiers, returnType, name, param);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "newMethod", this, Optional.ofNullable(result), modifiers, returnType, name, param);
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new ActionException(get_class(), "newMethod", e);
-        }
-    }
-
-    /**
-     * 
-     * @param code 
-     */
-    public void insertMethodImpl(String code) {
-        throw new UnsupportedOperationException(get_class()+": Action insertMethod not implemented ");
-    }
-
-    /**
-     * 
-     * @param code 
-     */
-    public final void insertMethod(String code) {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "insertMethod", this, Optional.empty(), code);
-        	}
-        	this.insertMethodImpl(code);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "insertMethod", this, Optional.empty(), code);
-        	}
-        } catch(Exception e) {
-        	throw new ActionException(get_class(), "insertMethod", e);
         }
     }
 
@@ -503,27 +408,27 @@ public abstract class AType extends AJavaWeaverJoinPoint {
 
     /**
      * 
-     * @param _interface 
+     * @param code 
      */
-    public void addImplementImpl(AInterface _interface) {
-        throw new UnsupportedOperationException(get_class()+": Action addImplement not implemented ");
+    public void insertMethodImpl(String code) {
+        throw new UnsupportedOperationException(get_class()+": Action insertMethod not implemented ");
     }
 
     /**
      * 
-     * @param _interface 
+     * @param code 
      */
-    public final void addImplement(AInterface _interface) {
+    public final void insertMethod(String code) {
         try {
         	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "addImplement", this, Optional.empty(), _interface);
+        		eventTrigger().triggerAction(Stage.BEGIN, "insertMethod", this, Optional.empty(), code);
         	}
-        	this.addImplementImpl(_interface);
+        	this.insertMethodImpl(code);
         	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "addImplement", this, Optional.empty(), _interface);
+        		eventTrigger().triggerAction(Stage.END, "insertMethod", this, Optional.empty(), code);
         	}
         } catch(Exception e) {
-        	throw new ActionException(get_class(), "addImplement", e);
+        	throw new ActionException(get_class(), "insertMethod", e);
         }
     }
 
@@ -545,12 +450,12 @@ public abstract class AType extends AJavaWeaverJoinPoint {
      * @param name 
      * @param defaultValue 
      */
-    public final Object newField(String[] modifiers, String type, String name, String defaultValue) {
+    public final Object newField(Object[] modifiers, String type, String name, String defaultValue) {
         try {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "newField", this, Optional.empty(), modifiers, type, name, defaultValue);
         	}
-        	AField result = this.newFieldImpl(modifiers, type, name, defaultValue);
+        	AField result = this.newFieldImpl(pt.up.fe.specs.util.SpecsCollections.cast(modifiers, String.class), type, name, defaultValue);
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.END, "newField", this, Optional.ofNullable(result), modifiers, type, name, defaultValue);
         	}
@@ -576,18 +481,113 @@ public abstract class AType extends AJavaWeaverJoinPoint {
      * @param type 
      * @param name 
      */
-    public final Object newField(String[] modifiers, String type, String name) {
+    public final Object newField(Object[] modifiers, String type, String name) {
         try {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "newField", this, Optional.empty(), modifiers, type, name);
         	}
-        	AField result = this.newFieldImpl(modifiers, type, name);
+        	AField result = this.newFieldImpl(pt.up.fe.specs.util.SpecsCollections.cast(modifiers, String.class), type, name);
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.END, "newField", this, Optional.ofNullable(result), modifiers, type, name);
         	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "newField", e);
+        }
+    }
+
+    /**
+     * add a new method inside the class
+     * @param modifiers 
+     * @param returnType 
+     * @param name 
+     * @param param 
+     * @param code 
+     */
+    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, Pair[] param, String code) {
+        throw new UnsupportedOperationException(get_class()+": Action newMethod not implemented ");
+    }
+
+    /**
+     * add a new method inside the class
+     * @param modifiers 
+     * @param returnType 
+     * @param name 
+     * @param param 
+     * @param code 
+     */
+    public final Object newMethod(Object[] modifiers, String returnType, String name, Object[] param, String code) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "newMethod", this, Optional.empty(), modifiers, returnType, name, param, code);
+        	}
+        	AMethod result = this.newMethodImpl(pt.up.fe.specs.util.SpecsCollections.cast(modifiers, String.class), returnType, name, pt.up.fe.specs.util.SpecsCollections.cast(param, Pair.class), code);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "newMethod", this, Optional.ofNullable(result), modifiers, returnType, name, param, code);
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "newMethod", e);
+        }
+    }
+
+    /**
+     * overload which accepts 4 parameters (code is empty string)
+     * @param modifiers 
+     * @param returnType 
+     * @param name 
+     * @param param 
+     */
+    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, Pair[] param) {
+        throw new UnsupportedOperationException(get_class()+": Action newMethod not implemented ");
+    }
+
+    /**
+     * overload which accepts 4 parameters (code is empty string)
+     * @param modifiers 
+     * @param returnType 
+     * @param name 
+     * @param param 
+     */
+    public final Object newMethod(Object[] modifiers, String returnType, String name, Object[] param) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "newMethod", this, Optional.empty(), modifiers, returnType, name, param);
+        	}
+        	AMethod result = this.newMethodImpl(pt.up.fe.specs.util.SpecsCollections.cast(modifiers, String.class), returnType, name, pt.up.fe.specs.util.SpecsCollections.cast(param, Pair.class));
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "newMethod", this, Optional.ofNullable(result), modifiers, returnType, name, param);
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "newMethod", e);
+        }
+    }
+
+    /**
+     * 
+     * @param interfaceName 
+     */
+    public AInterface removeInterfaceImpl(String interfaceName) {
+        throw new UnsupportedOperationException(get_class()+": Action removeInterface not implemented ");
+    }
+
+    /**
+     * 
+     * @param interfaceName 
+     */
+    public final Object removeInterface(String interfaceName) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "removeInterface", this, Optional.empty(), interfaceName);
+        	}
+        	AInterface result = this.removeInterfaceImpl(interfaceName);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "removeInterface", this, Optional.ofNullable(result), interfaceName);
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "removeInterface", e);
         }
     }
 
@@ -650,15 +650,15 @@ public abstract class AType extends AJavaWeaverJoinPoint {
     @Override
     protected void fillWithAttributes(List<String> attributes) {
         super.fillWithAttributes(attributes);
+        attributes.add("interfaces");
+        attributes.add("interfacesTypes");
+        attributes.add("isSubtypeOf");
+        attributes.add("javadoc");
         attributes.add("name");
+        attributes.add("package");
         attributes.add("qualifiedName");
         attributes.add("superClass");
         attributes.add("superClassJp");
-        attributes.add("package");
-        attributes.add("interfaces");
-        attributes.add("interfacesTypes");
-        attributes.add("javadoc");
-        attributes.add("isSubtypeOf");
     }
 
     /**
@@ -682,15 +682,15 @@ public abstract class AType extends AJavaWeaverJoinPoint {
     protected void fillWithActions(List<String> actions) {
         super.fillWithActions(actions);
         actions.add("void addClass(class)");
-        actions.add("void addInterface(interface)");
-        actions.add("interface removeInterface(String)");
-        actions.add("method newMethod(String[], String, String, Pair[], String)");
-        actions.add("method newMethod(String[], String, String, Pair[])");
-        actions.add("void insertMethod(template)");
-        actions.add("void insertCode(template)");
         actions.add("void addImplement(interface)");
+        actions.add("void addInterface(interface)");
+        actions.add("void insertCode(String)");
+        actions.add("void insertMethod(String)");
         actions.add("field newField(String[], String, String, String)");
         actions.add("field newField(String[], String, String)");
+        actions.add("method newMethod(String[], String, String, Pair[], String)");
+        actions.add("method newMethod(String[], String, String, Pair[])");
+        actions.add("interface removeInterface(String)");
     }
 
     /**
@@ -705,37 +705,37 @@ public abstract class AType extends AJavaWeaverJoinPoint {
      * 
      */
     protected enum TypeAttributes {
+        INTERFACES("interfaces"),
+        INTERFACESTYPES("interfacesTypes"),
+        ISSUBTYPEOF("isSubtypeOf"),
+        JAVADOC("javadoc"),
         NAME("name"),
+        PACKAGE("package"),
         QUALIFIEDNAME("qualifiedName"),
         SUPERCLASS("superClass"),
         SUPERCLASSJP("superClassJp"),
-        PACKAGE("package"),
-        INTERFACES("interfaces"),
-        INTERFACESTYPES("interfacesTypes"),
-        JAVADOC("javadoc"),
-        ISSUBTYPEOF("isSubtypeOf"),
-        PARENT("parent"),
-        ISSTATIC("isStatic"),
-        CODE("code"),
-        AST("ast"),
-        ISBLOCK("isBlock"),
-        ISINSIDELOOPHEADER("isInsideLoopHeader"),
-        LINE("line"),
-        GETANCESTOR("getAncestor"),
         ANNOTATIONS("annotations"),
-        RIGHT("right"),
-        MODIFIERS("modifiers"),
-        DESCENDANTS("descendants"),
-        ISSTATEMENT("isStatement"),
+        AST("ast"),
         ASTPARENT("astParent"),
+        CHILD("child"),
         CHILDREN("children"),
-        LEFT("left"),
+        CODE("code"),
+        DESCENDANTS("descendants"),
+        GETANCESTOR("getAncestor"),
         HASMODIFIER("hasModifier"),
-        NUMCHILDREN("numChildren"),
-        SRCCODE("srcCode"),
-        ISFINAL("isFinal"),
         ID("id"),
-        CHILD("child");
+        ISBLOCK("isBlock"),
+        ISFINAL("isFinal"),
+        ISINSIDELOOPHEADER("isInsideLoopHeader"),
+        ISSTATEMENT("isStatement"),
+        ISSTATIC("isStatic"),
+        LEFT("left"),
+        LINE("line"),
+        MODIFIERS("modifiers"),
+        NUMCHILDREN("numChildren"),
+        PARENT("parent"),
+        RIGHT("right"),
+        SRCCODE("srcCode");
         private String name;
 
         /**

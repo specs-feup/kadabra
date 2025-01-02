@@ -21,6 +21,113 @@ import java.util.Arrays;
 public abstract class ADeclaration extends AJavaWeaverJoinPoint {
 
     /**
+     * Get value on attribute completeType
+     * @return the attribute's value
+     */
+    public abstract String getCompleteTypeImpl();
+
+    /**
+     * Get value on attribute completeType
+     * @return the attribute's value
+     */
+    public final Object getCompleteType() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "completeType", Optional.empty());
+        	}
+        	String result = this.getCompleteTypeImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "completeType", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "completeType", e);
+        }
+    }
+
+    /**
+     * Get value on attribute init
+     * @return the attribute's value
+     */
+    public abstract AExpression getInitImpl();
+
+    /**
+     * Get value on attribute init
+     * @return the attribute's value
+     */
+    public final Object getInit() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "init", Optional.empty());
+        	}
+        	AExpression result = this.getInitImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "init", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "init", e);
+        }
+    }
+
+    /**
+     * 
+     */
+    public void defInitImpl(AExpression value) {
+        throw new UnsupportedOperationException("Join point "+get_class()+": Action def init with type AExpression not implemented ");
+    }
+
+    /**
+     * Get value on attribute isArray
+     * @return the attribute's value
+     */
+    public abstract Boolean getIsArrayImpl();
+
+    /**
+     * Get value on attribute isArray
+     * @return the attribute's value
+     */
+    public final Object getIsArray() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isArray", Optional.empty());
+        	}
+        	Boolean result = this.getIsArrayImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "isArray", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "isArray", e);
+        }
+    }
+
+    /**
+     * Get value on attribute isPrimitive
+     * @return the attribute's value
+     */
+    public abstract Boolean getIsPrimitiveImpl();
+
+    /**
+     * Get value on attribute isPrimitive
+     * @return the attribute's value
+     */
+    public final Object getIsPrimitive() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isPrimitive", Optional.empty());
+        	}
+        	Boolean result = this.getIsPrimitiveImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "isPrimitive", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "isPrimitive", e);
+        }
+    }
+
+    /**
      * Get value on attribute name
      * @return the attribute's value
      */
@@ -96,113 +203,6 @@ public abstract class ADeclaration extends AJavaWeaverJoinPoint {
     }
 
     /**
-     * Get value on attribute isArray
-     * @return the attribute's value
-     */
-    public abstract Boolean getIsArrayImpl();
-
-    /**
-     * Get value on attribute isArray
-     * @return the attribute's value
-     */
-    public final Object getIsArray() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isArray", Optional.empty());
-        	}
-        	Boolean result = this.getIsArrayImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "isArray", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "isArray", e);
-        }
-    }
-
-    /**
-     * Get value on attribute isPrimitive
-     * @return the attribute's value
-     */
-    public abstract Boolean getIsPrimitiveImpl();
-
-    /**
-     * Get value on attribute isPrimitive
-     * @return the attribute's value
-     */
-    public final Object getIsPrimitive() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isPrimitive", Optional.empty());
-        	}
-        	Boolean result = this.getIsPrimitiveImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "isPrimitive", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "isPrimitive", e);
-        }
-    }
-
-    /**
-     * Get value on attribute completeType
-     * @return the attribute's value
-     */
-    public abstract String getCompleteTypeImpl();
-
-    /**
-     * Get value on attribute completeType
-     * @return the attribute's value
-     */
-    public final Object getCompleteType() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "completeType", Optional.empty());
-        	}
-        	String result = this.getCompleteTypeImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "completeType", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "completeType", e);
-        }
-    }
-
-    /**
-     * Get value on attribute init
-     * @return the attribute's value
-     */
-    public abstract AExpression getInitImpl();
-
-    /**
-     * Get value on attribute init
-     * @return the attribute's value
-     */
-    public final Object getInit() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "init", Optional.empty());
-        	}
-        	AExpression result = this.getInitImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "init", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "init", e);
-        }
-    }
-
-    /**
-     * 
-     */
-    public void defInitImpl(AExpression value) {
-        throw new UnsupportedOperationException("Join point "+get_class()+": Action def init with type AExpression not implemented ");
-    }
-
-    /**
      * Default implementation of the method used by the lara interpreter to select inits
      * @return 
      */
@@ -259,6 +259,13 @@ public abstract class ADeclaration extends AJavaWeaverJoinPoint {
     @Override
     public void defImpl(String attribute, Object value) {
         switch(attribute){
+        case "init": {
+        	if(value instanceof AExpression){
+        		this.defInitImpl((AExpression)value);
+        		return;
+        	}
+        	this.unsupportedTypeForDef(attribute, value);
+        }
         case "line": {
         	if(value instanceof Integer){
         		this.defLineImpl((Integer)value);
@@ -266,13 +273,6 @@ public abstract class ADeclaration extends AJavaWeaverJoinPoint {
         	}
         	if(value instanceof String){
         		this.defLineImpl((String)value);
-        		return;
-        	}
-        	this.unsupportedTypeForDef(attribute, value);
-        }
-        case "init": {
-        	if(value instanceof AExpression){
-        		this.defInitImpl((AExpression)value);
         		return;
         	}
         	this.unsupportedTypeForDef(attribute, value);
@@ -287,13 +287,13 @@ public abstract class ADeclaration extends AJavaWeaverJoinPoint {
     @Override
     protected void fillWithAttributes(List<String> attributes) {
         super.fillWithAttributes(attributes);
+        attributes.add("completeType");
+        attributes.add("init");
+        attributes.add("isArray");
+        attributes.add("isPrimitive");
         attributes.add("name");
         attributes.add("type");
         attributes.add("typeReference");
-        attributes.add("isArray");
-        attributes.add("isPrimitive");
-        attributes.add("completeType");
-        attributes.add("init");
     }
 
     /**
@@ -326,35 +326,35 @@ public abstract class ADeclaration extends AJavaWeaverJoinPoint {
      * 
      */
     protected enum DeclarationAttributes {
+        COMPLETETYPE("completeType"),
+        INIT("init"),
+        ISARRAY("isArray"),
+        ISPRIMITIVE("isPrimitive"),
         NAME("name"),
         TYPE("type"),
         TYPEREFERENCE("typeReference"),
-        ISARRAY("isArray"),
-        ISPRIMITIVE("isPrimitive"),
-        COMPLETETYPE("completeType"),
-        INIT("init"),
-        PARENT("parent"),
-        ISSTATIC("isStatic"),
-        CODE("code"),
-        AST("ast"),
-        ISBLOCK("isBlock"),
-        ISINSIDELOOPHEADER("isInsideLoopHeader"),
-        LINE("line"),
-        GETANCESTOR("getAncestor"),
         ANNOTATIONS("annotations"),
-        RIGHT("right"),
-        MODIFIERS("modifiers"),
-        DESCENDANTS("descendants"),
-        ISSTATEMENT("isStatement"),
+        AST("ast"),
         ASTPARENT("astParent"),
+        CHILD("child"),
         CHILDREN("children"),
-        LEFT("left"),
+        CODE("code"),
+        DESCENDANTS("descendants"),
+        GETANCESTOR("getAncestor"),
         HASMODIFIER("hasModifier"),
-        NUMCHILDREN("numChildren"),
-        SRCCODE("srcCode"),
-        ISFINAL("isFinal"),
         ID("id"),
-        CHILD("child");
+        ISBLOCK("isBlock"),
+        ISFINAL("isFinal"),
+        ISINSIDELOOPHEADER("isInsideLoopHeader"),
+        ISSTATEMENT("isStatement"),
+        ISSTATIC("isStatic"),
+        LEFT("left"),
+        LINE("line"),
+        MODIFIERS("modifiers"),
+        NUMCHILDREN("numChildren"),
+        PARENT("parent"),
+        RIGHT("right"),
+        SRCCODE("srcCode");
         private String name;
 
         /**

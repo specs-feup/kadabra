@@ -27,29 +27,6 @@ public abstract class ATernary extends AExpression {
         this.aExpression = aExpression;
     }
     /**
-     * the condition of the ternary expression
-     */
-    public abstract AExpression getConditionImpl();
-
-    /**
-     * the condition of the ternary expression
-     */
-    public final Object getCondition() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "condition", Optional.empty());
-        	}
-        	AExpression result = this.getConditionImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "condition", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "condition", e);
-        }
-    }
-
-    /**
      * alias for attribute 'condition'
      */
     public abstract AExpression getCondImpl();
@@ -73,27 +50,25 @@ public abstract class ATernary extends AExpression {
     }
 
     /**
-     * Get value on attribute then
-     * @return the attribute's value
+     * the condition of the ternary expression
      */
-    public abstract AExpression getThenImpl();
+    public abstract AExpression getConditionImpl();
 
     /**
-     * Get value on attribute then
-     * @return the attribute's value
+     * the condition of the ternary expression
      */
-    public final Object getThen() {
+    public final Object getCondition() {
         try {
         	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "then", Optional.empty());
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "condition", Optional.empty());
         	}
-        	AExpression result = this.getThenImpl();
+        	AExpression result = this.getConditionImpl();
         	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "then", Optional.ofNullable(result));
+        		eventTrigger().triggerAttribute(Stage.END, this, "condition", Optional.ofNullable(result));
         	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
-        	throw new AttributeException(get_class(), "then", e);
+        	throw new AttributeException(get_class(), "condition", e);
         }
     }
 
@@ -119,6 +94,31 @@ public abstract class ATernary extends AExpression {
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "else", e);
+        }
+    }
+
+    /**
+     * Get value on attribute then
+     * @return the attribute's value
+     */
+    public abstract AExpression getThenImpl();
+
+    /**
+     * Get value on attribute then
+     * @return the attribute's value
+     */
+    public final Object getThen() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "then", Optional.empty());
+        	}
+        	AExpression result = this.getThenImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "then", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "then", e);
         }
     }
 
@@ -156,15 +156,6 @@ public abstract class ATernary extends AExpression {
     }
 
     /**
-     * Get value on attribute type
-     * @return the attribute's value
-     */
-    @Override
-    public String getTypeImpl() {
-        return this.aExpression.getTypeImpl();
-    }
-
-    /**
      * Get value on attribute qualifiedType
      * @return the attribute's value
      */
@@ -174,21 +165,30 @@ public abstract class ATernary extends AExpression {
     }
 
     /**
-     * Get value on attribute typeReference
-     * @return the attribute's value
-     */
-    @Override
-    public ATypeReference getTypeReferenceImpl() {
-        return this.aExpression.getTypeReferenceImpl();
-    }
-
-    /**
      * Get value on attribute test
      * @return the attribute's value
      */
     @Override
     public Integer getTestImpl() {
         return this.aExpression.getTestImpl();
+    }
+
+    /**
+     * Get value on attribute type
+     * @return the attribute's value
+     */
+    @Override
+    public String getTypeImpl() {
+        return this.aExpression.getTypeImpl();
+    }
+
+    /**
+     * Get value on attribute typeReference
+     * @return the attribute's value
+     */
+    @Override
+    public ATypeReference getTypeReferenceImpl() {
+        return this.aExpression.getTypeReferenceImpl();
     }
 
     /**
@@ -251,30 +251,12 @@ public abstract class ATernary extends AExpression {
     }
 
     /**
-     * Get value on attribute parent
+     * Get value on attribute annotationsArrayImpl
      * @return the attribute's value
      */
     @Override
-    public AJoinPoint getParentImpl() {
-        return this.aExpression.getParentImpl();
-    }
-
-    /**
-     * Get value on attribute isStatic
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsStaticImpl() {
-        return this.aExpression.getIsStaticImpl();
-    }
-
-    /**
-     * Get value on attribute code
-     * @return the attribute's value
-     */
-    @Override
-    public String getCodeImpl() {
-        return this.aExpression.getCodeImpl();
+    public AAnnotation[] getAnnotationsArrayImpl() {
+        return this.aExpression.getAnnotationsArrayImpl();
     }
 
     /**
@@ -287,156 +269,12 @@ public abstract class ATernary extends AExpression {
     }
 
     /**
-     * Get value on attribute isBlock
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsBlockImpl() {
-        return this.aExpression.getIsBlockImpl();
-    }
-
-    /**
-     * Get value on attribute isInsideLoopHeader
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsInsideLoopHeaderImpl() {
-        return this.aExpression.getIsInsideLoopHeaderImpl();
-    }
-
-    /**
-     * Get value on attribute line
-     * @return the attribute's value
-     */
-    @Override
-    public Integer getLineImpl() {
-        return this.aExpression.getLineImpl();
-    }
-
-    /**
-     * Get value on attribute getAncestor
-     * @return the attribute's value
-     */
-    @Override
-    public AJoinPoint getAncestorImpl(String type) {
-        return this.aExpression.getAncestorImpl(type);
-    }
-
-    /**
-     * Get value on attribute annotationsArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public AAnnotation[] getAnnotationsArrayImpl() {
-        return this.aExpression.getAnnotationsArrayImpl();
-    }
-
-    /**
-     * Get value on attribute rightArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public AJoinPoint[] getRightArrayImpl() {
-        return this.aExpression.getRightArrayImpl();
-    }
-
-    /**
-     * Get value on attribute modifiersArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public String[] getModifiersArrayImpl() {
-        return this.aExpression.getModifiersArrayImpl();
-    }
-
-    /**
-     * Get value on attribute descendantsArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public AJoinPoint[] getDescendantsArrayImpl() {
-        return this.aExpression.getDescendantsArrayImpl();
-    }
-
-    /**
-     * Get value on attribute isStatement
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsStatementImpl() {
-        return this.aExpression.getIsStatementImpl();
-    }
-
-    /**
      * Get value on attribute astParent
      * @return the attribute's value
      */
     @Override
     public AJoinPoint getAstParentImpl() {
         return this.aExpression.getAstParentImpl();
-    }
-
-    /**
-     * Get value on attribute childrenArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public AJoinPoint[] getChildrenArrayImpl() {
-        return this.aExpression.getChildrenArrayImpl();
-    }
-
-    /**
-     * Get value on attribute leftArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public AJoinPoint[] getLeftArrayImpl() {
-        return this.aExpression.getLeftArrayImpl();
-    }
-
-    /**
-     * Get value on attribute hasModifier
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean hasModifierImpl(String modifier) {
-        return this.aExpression.hasModifierImpl(modifier);
-    }
-
-    /**
-     * Get value on attribute numChildren
-     * @return the attribute's value
-     */
-    @Override
-    public Integer getNumChildrenImpl() {
-        return this.aExpression.getNumChildrenImpl();
-    }
-
-    /**
-     * Get value on attribute srcCode
-     * @return the attribute's value
-     */
-    @Override
-    public String getSrcCodeImpl() {
-        return this.aExpression.getSrcCodeImpl();
-    }
-
-    /**
-     * Get value on attribute isFinal
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsFinalImpl() {
-        return this.aExpression.getIsFinalImpl();
-    }
-
-    /**
-     * Get value on attribute id
-     * @return the attribute's value
-     */
-    @Override
-    public String getIdImpl() {
-        return this.aExpression.getIdImpl();
     }
 
     /**
@@ -449,75 +287,165 @@ public abstract class ATernary extends AExpression {
     }
 
     /**
-     * 
-     * @param node 
+     * Get value on attribute childrenArrayImpl
+     * @return the attribute's value
      */
     @Override
-    public AJoinPoint insertBeforeImpl(AJoinPoint node) {
-        return this.aExpression.insertBeforeImpl(node);
+    public AJoinPoint[] getChildrenArrayImpl() {
+        return this.aExpression.getChildrenArrayImpl();
     }
 
     /**
-     * 
-     * @param code 
+     * Get value on attribute code
+     * @return the attribute's value
      */
     @Override
-    public AJoinPoint insertBeforeImpl(String code) {
-        return this.aExpression.insertBeforeImpl(code);
+    public String getCodeImpl() {
+        return this.aExpression.getCodeImpl();
     }
 
     /**
-     * 
-     * @param node 
+     * Get value on attribute descendantsArrayImpl
+     * @return the attribute's value
      */
     @Override
-    public AJoinPoint insertAfterImpl(AJoinPoint node) {
-        return this.aExpression.insertAfterImpl(node);
+    public AJoinPoint[] getDescendantsArrayImpl() {
+        return this.aExpression.getDescendantsArrayImpl();
     }
 
     /**
-     * 
-     * @param code 
+     * Get value on attribute getAncestor
+     * @return the attribute's value
      */
     @Override
-    public AJoinPoint insertAfterImpl(String code) {
-        return this.aExpression.insertAfterImpl(code);
+    public AJoinPoint getAncestorImpl(String type) {
+        return this.aExpression.getAncestorImpl(type);
     }
 
     /**
-     * 
-     * @param jp 
+     * Get value on attribute hasModifier
+     * @return the attribute's value
      */
     @Override
-    public AJoinPoint insertReplaceImpl(AJoinPoint jp) {
-        return this.aExpression.insertReplaceImpl(jp);
+    public Boolean hasModifierImpl(String modifier) {
+        return this.aExpression.hasModifierImpl(modifier);
     }
 
     /**
-     * 
-     * @param code 
+     * Get value on attribute id
+     * @return the attribute's value
      */
     @Override
-    public AJoinPoint insertReplaceImpl(String code) {
-        return this.aExpression.insertReplaceImpl(code);
+    public String getIdImpl() {
+        return this.aExpression.getIdImpl();
     }
 
     /**
-     * 
-     * @param jp 
+     * Get value on attribute isBlock
+     * @return the attribute's value
      */
     @Override
-    public AJoinPoint replaceWithImpl(AJoinPoint jp) {
-        return this.aExpression.replaceWithImpl(jp);
+    public Boolean getIsBlockImpl() {
+        return this.aExpression.getIsBlockImpl();
     }
 
     /**
-     * 
-     * @param code 
+     * Get value on attribute isFinal
+     * @return the attribute's value
      */
     @Override
-    public AJoinPoint replaceWithImpl(String code) {
-        return this.aExpression.replaceWithImpl(code);
+    public Boolean getIsFinalImpl() {
+        return this.aExpression.getIsFinalImpl();
+    }
+
+    /**
+     * Get value on attribute isInsideLoopHeader
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsInsideLoopHeaderImpl() {
+        return this.aExpression.getIsInsideLoopHeaderImpl();
+    }
+
+    /**
+     * Get value on attribute isStatement
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsStatementImpl() {
+        return this.aExpression.getIsStatementImpl();
+    }
+
+    /**
+     * Get value on attribute isStatic
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsStaticImpl() {
+        return this.aExpression.getIsStaticImpl();
+    }
+
+    /**
+     * Get value on attribute leftArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getLeftArrayImpl() {
+        return this.aExpression.getLeftArrayImpl();
+    }
+
+    /**
+     * Get value on attribute line
+     * @return the attribute's value
+     */
+    @Override
+    public Integer getLineImpl() {
+        return this.aExpression.getLineImpl();
+    }
+
+    /**
+     * Get value on attribute modifiersArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public String[] getModifiersArrayImpl() {
+        return this.aExpression.getModifiersArrayImpl();
+    }
+
+    /**
+     * Get value on attribute numChildren
+     * @return the attribute's value
+     */
+    @Override
+    public Integer getNumChildrenImpl() {
+        return this.aExpression.getNumChildrenImpl();
+    }
+
+    /**
+     * Get value on attribute parent
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint getParentImpl() {
+        return this.aExpression.getParentImpl();
+    }
+
+    /**
+     * Get value on attribute rightArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getRightArrayImpl() {
+        return this.aExpression.getRightArrayImpl();
+    }
+
+    /**
+     * Get value on attribute srcCode
+     * @return the attribute's value
+     */
+    @Override
+    public String getSrcCodeImpl() {
+        return this.aExpression.getSrcCodeImpl();
     }
 
     /**
@@ -526,32 +454,6 @@ public abstract class ATernary extends AExpression {
     @Override
     public AJoinPoint copyImpl() {
         return this.aExpression.copyImpl();
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public void removeImpl() {
-        this.aExpression.removeImpl();
-    }
-
-    /**
-     * 
-     * @param annotation 
-     */
-    @Override
-    public void removeAnnotationImpl(AAnnotation annotation) {
-        this.aExpression.removeAnnotationImpl(annotation);
-    }
-
-    /**
-     * 
-     * @param modifier 
-     */
-    @Override
-    public void removeModifierImpl(String modifier) {
-        this.aExpression.removeModifierImpl(modifier);
     }
 
     /**
@@ -583,6 +485,104 @@ public abstract class ATernary extends AExpression {
     @Override
     public AJoinPoint[] insertImpl(String position, JoinPoint code) {
         return this.aExpression.insertImpl(position, code);
+    }
+
+    /**
+     * 
+     * @param node 
+     */
+    @Override
+    public AJoinPoint insertAfterImpl(AJoinPoint node) {
+        return this.aExpression.insertAfterImpl(node);
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    @Override
+    public AJoinPoint insertAfterImpl(String code) {
+        return this.aExpression.insertAfterImpl(code);
+    }
+
+    /**
+     * 
+     * @param node 
+     */
+    @Override
+    public AJoinPoint insertBeforeImpl(AJoinPoint node) {
+        return this.aExpression.insertBeforeImpl(node);
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    @Override
+    public AJoinPoint insertBeforeImpl(String code) {
+        return this.aExpression.insertBeforeImpl(code);
+    }
+
+    /**
+     * 
+     * @param jp 
+     */
+    @Override
+    public AJoinPoint insertReplaceImpl(AJoinPoint jp) {
+        return this.aExpression.insertReplaceImpl(jp);
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    @Override
+    public AJoinPoint insertReplaceImpl(String code) {
+        return this.aExpression.insertReplaceImpl(code);
+    }
+
+    /**
+     * 
+     */
+    @Override
+    public void removeImpl() {
+        this.aExpression.removeImpl();
+    }
+
+    /**
+     * 
+     * @param annotation 
+     */
+    @Override
+    public void removeAnnotationImpl(AAnnotation annotation) {
+        this.aExpression.removeAnnotationImpl(annotation);
+    }
+
+    /**
+     * 
+     * @param modifier 
+     */
+    @Override
+    public void removeModifierImpl(String modifier) {
+        this.aExpression.removeModifierImpl(modifier);
+    }
+
+    /**
+     * 
+     * @param jp 
+     */
+    @Override
+    public AJoinPoint replaceWithImpl(AJoinPoint jp) {
+        return this.aExpression.replaceWithImpl(jp);
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    @Override
+    public AJoinPoint replaceWithImpl(String code) {
+        return this.aExpression.replaceWithImpl(code);
     }
 
     /**
@@ -637,17 +637,6 @@ public abstract class ATernary extends AExpression {
     @Override
     public final void defImpl(String attribute, Object value) {
         switch(attribute){
-        case "line": {
-        	if(value instanceof Integer){
-        		this.defLineImpl((Integer)value);
-        		return;
-        	}
-        	if(value instanceof String){
-        		this.defLineImpl((String)value);
-        		return;
-        	}
-        	this.unsupportedTypeForDef(attribute, value);
-        }
         case "test": {
         	if(value instanceof Integer){
         		this.defTestImpl((Integer)value);
@@ -655,6 +644,17 @@ public abstract class ATernary extends AExpression {
         	}
         	if(value instanceof AExpression){
         		this.defTestImpl((AExpression)value);
+        		return;
+        	}
+        	this.unsupportedTypeForDef(attribute, value);
+        }
+        case "line": {
+        	if(value instanceof Integer){
+        		this.defLineImpl((Integer)value);
+        		return;
+        	}
+        	if(value instanceof String){
+        		this.defLineImpl((String)value);
         		return;
         	}
         	this.unsupportedTypeForDef(attribute, value);
@@ -669,10 +669,10 @@ public abstract class ATernary extends AExpression {
     @Override
     protected final void fillWithAttributes(List<String> attributes) {
         this.aExpression.fillWithAttributes(attributes);
-        attributes.add("condition");
         attributes.add("cond");
-        attributes.add("then");
+        attributes.add("condition");
         attributes.add("else");
+        attributes.add("then");
     }
 
     /**
@@ -719,37 +719,37 @@ public abstract class ATernary extends AExpression {
      * 
      */
     protected enum TernaryAttributes {
-        CONDITION("condition"),
         COND("cond"),
-        THEN("then"),
+        CONDITION("condition"),
         ELSE("else"),
+        THEN("then"),
         KIND("kind"),
-        TYPE("type"),
         QUALIFIEDTYPE("qualifiedType"),
-        TYPEREFERENCE("typeReference"),
         TEST("test"),
-        PARENT("parent"),
-        ISSTATIC("isStatic"),
-        CODE("code"),
-        AST("ast"),
-        ISBLOCK("isBlock"),
-        ISINSIDELOOPHEADER("isInsideLoopHeader"),
-        LINE("line"),
-        GETANCESTOR("getAncestor"),
+        TYPE("type"),
+        TYPEREFERENCE("typeReference"),
         ANNOTATIONS("annotations"),
-        RIGHT("right"),
-        MODIFIERS("modifiers"),
-        DESCENDANTS("descendants"),
-        ISSTATEMENT("isStatement"),
+        AST("ast"),
         ASTPARENT("astParent"),
+        CHILD("child"),
         CHILDREN("children"),
-        LEFT("left"),
+        CODE("code"),
+        DESCENDANTS("descendants"),
+        GETANCESTOR("getAncestor"),
         HASMODIFIER("hasModifier"),
-        NUMCHILDREN("numChildren"),
-        SRCCODE("srcCode"),
-        ISFINAL("isFinal"),
         ID("id"),
-        CHILD("child");
+        ISBLOCK("isBlock"),
+        ISFINAL("isFinal"),
+        ISINSIDELOOPHEADER("isInsideLoopHeader"),
+        ISSTATEMENT("isStatement"),
+        ISSTATIC("isStatic"),
+        LEFT("left"),
+        LINE("line"),
+        MODIFIERS("modifiers"),
+        NUMCHILDREN("numChildren"),
+        PARENT("parent"),
+        RIGHT("right"),
+        SRCCODE("srcCode");
         private String name;
 
         /**

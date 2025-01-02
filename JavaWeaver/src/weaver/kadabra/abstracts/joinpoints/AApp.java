@@ -21,83 +21,6 @@ import java.util.Arrays;
 public abstract class AApp extends AJavaWeaverJoinPoint {
 
     /**
-     * Get value on attribute folder
-     * @return the attribute's value
-     */
-    public abstract String getFolderImpl();
-
-    /**
-     * Get value on attribute folder
-     * @return the attribute's value
-     */
-    public final Object getFolder() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "folder", Optional.empty());
-        	}
-        	String result = this.getFolderImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "folder", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "folder", e);
-        }
-    }
-
-    /**
-     * 
-     * @param Title
-     * @return 
-     */
-    public abstract String showASTImpl(String Title);
-
-    /**
-     * 
-     * @param Title
-     * @return 
-     */
-    public final Object showAST(String Title) {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "showAST", Optional.empty(), Title);
-        	}
-        	String result = this.showASTImpl(Title);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "showAST", Optional.ofNullable(result), Title);
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "showAST", e);
-        }
-    }
-
-    /**
-     * Get value on attribute manifest
-     * @return the attribute's value
-     */
-    public abstract AAndroidManifest getManifestImpl();
-
-    /**
-     * Get value on attribute manifest
-     * @return the attribute's value
-     */
-    public final Object getManifest() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "manifest", Optional.empty());
-        	}
-        	AAndroidManifest result = this.getManifestImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "manifest", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "manifest", e);
-        }
-    }
-
-    /**
      * Get value on attribute files
      * @return the attribute's value
      */
@@ -133,6 +56,83 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
     }
 
     /**
+     * Get value on attribute folder
+     * @return the attribute's value
+     */
+    public abstract String getFolderImpl();
+
+    /**
+     * Get value on attribute folder
+     * @return the attribute's value
+     */
+    public final Object getFolder() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "folder", Optional.empty());
+        	}
+        	String result = this.getFolderImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "folder", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "folder", e);
+        }
+    }
+
+    /**
+     * Get value on attribute manifest
+     * @return the attribute's value
+     */
+    public abstract AAndroidManifest getManifestImpl();
+
+    /**
+     * Get value on attribute manifest
+     * @return the attribute's value
+     */
+    public final Object getManifest() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "manifest", Optional.empty());
+        	}
+        	AAndroidManifest result = this.getManifestImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "manifest", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "manifest", e);
+        }
+    }
+
+    /**
+     * 
+     * @param Title
+     * @return 
+     */
+    public abstract String showASTImpl(String Title);
+
+    /**
+     * 
+     * @param Title
+     * @return 
+     */
+    public final Object showAST(String Title) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "showAST", Optional.empty(), Title);
+        	}
+        	String result = this.showASTImpl(Title);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "showAST", Optional.ofNullable(result), Title);
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "showAST", e);
+        }
+    }
+
+    /**
      * files of the application
      * @return 
      */
@@ -159,6 +159,39 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
     /**
      * 
      * @param name 
+     * @param keyType 
+     * @param _interface 
+     * @param methodName 
+     */
+    public AClass mapVersionsImpl(String name, String keyType, AInterface _interface, String methodName) {
+        throw new UnsupportedOperationException(get_class()+": Action mapVersions not implemented ");
+    }
+
+    /**
+     * 
+     * @param name 
+     * @param keyType 
+     * @param _interface 
+     * @param methodName 
+     */
+    public final Object mapVersions(String name, String keyType, AInterface _interface, String methodName) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "mapVersions", this, Optional.empty(), name, keyType, _interface, methodName);
+        	}
+        	AClass result = this.mapVersionsImpl(name, keyType, _interface, methodName);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "mapVersions", this, Optional.ofNullable(result), name, keyType, _interface, methodName);
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "mapVersions", e);
+        }
+    }
+
+    /**
+     * 
+     * @param name 
      * @param extend 
      * @param implement 
      */
@@ -172,12 +205,12 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
      * @param extend 
      * @param implement 
      */
-    public final Object newClass(String name, String extend, String[] implement) {
+    public final Object newClass(String name, String extend, Object[] implement) {
         try {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "newClass", this, Optional.empty(), name, extend, implement);
         	}
-        	AClass result = this.newClassImpl(name, extend, implement);
+        	AClass result = this.newClassImpl(name, extend, pt.up.fe.specs.util.SpecsCollections.cast(implement, String.class));
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.END, "newClass", this, Optional.ofNullable(result), name, extend, implement);
         	}
@@ -228,12 +261,12 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
      * @param name 
      * @param extend 
      */
-    public final Object newInterface(String name, String[] extend) {
+    public final Object newInterface(String name, Object[] extend) {
         try {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "newInterface", this, Optional.empty(), name, extend);
         	}
-        	AInterface result = this.newInterfaceImpl(name, extend);
+        	AInterface result = this.newInterfaceImpl(name, pt.up.fe.specs.util.SpecsCollections.cast(extend, String.class));
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.END, "newInterface", this, Optional.ofNullable(result), name, extend);
         	}
@@ -267,39 +300,6 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "newInterface", e);
-        }
-    }
-
-    /**
-     * 
-     * @param name 
-     * @param keyType 
-     * @param _interface 
-     * @param methodName 
-     */
-    public AClass mapVersionsImpl(String name, String keyType, AInterface _interface, String methodName) {
-        throw new UnsupportedOperationException(get_class()+": Action mapVersions not implemented ");
-    }
-
-    /**
-     * 
-     * @param name 
-     * @param keyType 
-     * @param _interface 
-     * @param methodName 
-     */
-    public final Object mapVersions(String name, String keyType, AInterface _interface, String methodName) {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "mapVersions", this, Optional.empty(), name, keyType, _interface, methodName);
-        	}
-        	AClass result = this.mapVersionsImpl(name, keyType, _interface, methodName);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "mapVersions", this, Optional.ofNullable(result), name, keyType, _interface, methodName);
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new ActionException(get_class(), "mapVersions", e);
         }
     }
 
@@ -353,10 +353,10 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
     @Override
     protected final void fillWithAttributes(List<String> attributes) {
         super.fillWithAttributes(attributes);
-        attributes.add("folder");
-        attributes.add("showAST");
-        attributes.add("manifest");
         attributes.add("files");
+        attributes.add("folder");
+        attributes.add("manifest");
+        attributes.add("showAST");
     }
 
     /**
@@ -376,11 +376,11 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
     @Override
     protected final void fillWithActions(List<String> actions) {
         super.fillWithActions(actions);
+        actions.add("class mapVersions(String, String, interface, String)");
         actions.add("class newClass(String, String, String[])");
         actions.add("class newClass(String)");
         actions.add("interface newInterface(String, String[])");
         actions.add("interface newInterface(String)");
-        actions.add("class mapVersions(String, String, interface, String)");
     }
 
     /**
@@ -395,32 +395,32 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
      * 
      */
     protected enum AppAttributes {
-        FOLDER("folder"),
-        SHOWAST("showAST"),
-        MANIFEST("manifest"),
         FILES("files"),
-        PARENT("parent"),
-        ISSTATIC("isStatic"),
-        CODE("code"),
-        AST("ast"),
-        ISBLOCK("isBlock"),
-        ISINSIDELOOPHEADER("isInsideLoopHeader"),
-        LINE("line"),
-        GETANCESTOR("getAncestor"),
+        FOLDER("folder"),
+        MANIFEST("manifest"),
+        SHOWAST("showAST"),
         ANNOTATIONS("annotations"),
-        RIGHT("right"),
-        MODIFIERS("modifiers"),
-        DESCENDANTS("descendants"),
-        ISSTATEMENT("isStatement"),
+        AST("ast"),
         ASTPARENT("astParent"),
+        CHILD("child"),
         CHILDREN("children"),
-        LEFT("left"),
+        CODE("code"),
+        DESCENDANTS("descendants"),
+        GETANCESTOR("getAncestor"),
         HASMODIFIER("hasModifier"),
-        NUMCHILDREN("numChildren"),
-        SRCCODE("srcCode"),
-        ISFINAL("isFinal"),
         ID("id"),
-        CHILD("child");
+        ISBLOCK("isBlock"),
+        ISFINAL("isFinal"),
+        ISINSIDELOOPHEADER("isInsideLoopHeader"),
+        ISSTATEMENT("isStatement"),
+        ISSTATIC("isStatic"),
+        LEFT("left"),
+        LINE("line"),
+        MODIFIERS("modifiers"),
+        NUMCHILDREN("numChildren"),
+        PARENT("parent"),
+        RIGHT("right"),
+        SRCCODE("srcCode");
         private String name;
 
         /**

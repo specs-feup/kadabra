@@ -2,8 +2,8 @@ package weaver.kadabra.abstracts.joinpoints;
 
 import java.util.List;
 import org.lara.interpreter.weaver.interf.SelectOp;
-import weaver.kadabra.entities.Pair;
 import org.lara.interpreter.weaver.interf.JoinPoint;
+import weaver.kadabra.entities.Pair;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.Arrays;
@@ -62,12 +62,57 @@ public abstract class AEnum extends AClass {
     }
 
     /**
+     * Get value on attribute interfacesArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public String[] getInterfacesArrayImpl() {
+        return this.aClass.getInterfacesArrayImpl();
+    }
+
+    /**
+     * Get value on attribute interfacesTypesArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AInterface[] getInterfacesTypesArrayImpl() {
+        return this.aClass.getInterfacesTypesArrayImpl();
+    }
+
+    /**
+     * Get value on attribute isSubtypeOf
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean isSubtypeOfImpl(String type) {
+        return this.aClass.isSubtypeOfImpl(type);
+    }
+
+    /**
+     * Get value on attribute javadoc
+     * @return the attribute's value
+     */
+    @Override
+    public String getJavadocImpl() {
+        return this.aClass.getJavadocImpl();
+    }
+
+    /**
      * Get value on attribute name
      * @return the attribute's value
      */
     @Override
     public String getNameImpl() {
         return this.aClass.getNameImpl();
+    }
+
+    /**
+     * Get value on attribute _package
+     * @return the attribute's value
+     */
+    @Override
+    public String getPackageImpl() {
+        return this.aClass.getPackageImpl();
     }
 
     /**
@@ -95,51 +140,6 @@ public abstract class AEnum extends AClass {
     @Override
     public ATypeReference getSuperClassJpImpl() {
         return this.aClass.getSuperClassJpImpl();
-    }
-
-    /**
-     * Get value on attribute _package
-     * @return the attribute's value
-     */
-    @Override
-    public String getPackageImpl() {
-        return this.aClass.getPackageImpl();
-    }
-
-    /**
-     * Get value on attribute interfacesArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public String[] getInterfacesArrayImpl() {
-        return this.aClass.getInterfacesArrayImpl();
-    }
-
-    /**
-     * Get value on attribute interfacesTypesArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public AInterface[] getInterfacesTypesArrayImpl() {
-        return this.aClass.getInterfacesTypesArrayImpl();
-    }
-
-    /**
-     * Get value on attribute javadoc
-     * @return the attribute's value
-     */
-    @Override
-    public String getJavadocImpl() {
-        return this.aClass.getJavadocImpl();
-    }
-
-    /**
-     * Get value on attribute isSubtypeOf
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean isSubtypeOfImpl(String type) {
-        return this.aClass.isSubtypeOfImpl(type);
     }
 
     /**
@@ -197,30 +197,12 @@ public abstract class AEnum extends AClass {
     }
 
     /**
-     * Get value on attribute parent
+     * Get value on attribute annotationsArrayImpl
      * @return the attribute's value
      */
     @Override
-    public AJoinPoint getParentImpl() {
-        return this.aClass.getParentImpl();
-    }
-
-    /**
-     * Get value on attribute isStatic
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsStaticImpl() {
-        return this.aClass.getIsStaticImpl();
-    }
-
-    /**
-     * Get value on attribute code
-     * @return the attribute's value
-     */
-    @Override
-    public String getCodeImpl() {
-        return this.aClass.getCodeImpl();
+    public AAnnotation[] getAnnotationsArrayImpl() {
+        return this.aClass.getAnnotationsArrayImpl();
     }
 
     /**
@@ -233,156 +215,12 @@ public abstract class AEnum extends AClass {
     }
 
     /**
-     * Get value on attribute isBlock
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsBlockImpl() {
-        return this.aClass.getIsBlockImpl();
-    }
-
-    /**
-     * Get value on attribute isInsideLoopHeader
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsInsideLoopHeaderImpl() {
-        return this.aClass.getIsInsideLoopHeaderImpl();
-    }
-
-    /**
-     * Get value on attribute line
-     * @return the attribute's value
-     */
-    @Override
-    public Integer getLineImpl() {
-        return this.aClass.getLineImpl();
-    }
-
-    /**
-     * Get value on attribute getAncestor
-     * @return the attribute's value
-     */
-    @Override
-    public AJoinPoint getAncestorImpl(String type) {
-        return this.aClass.getAncestorImpl(type);
-    }
-
-    /**
-     * Get value on attribute annotationsArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public AAnnotation[] getAnnotationsArrayImpl() {
-        return this.aClass.getAnnotationsArrayImpl();
-    }
-
-    /**
-     * Get value on attribute rightArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public AJoinPoint[] getRightArrayImpl() {
-        return this.aClass.getRightArrayImpl();
-    }
-
-    /**
-     * Get value on attribute modifiersArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public String[] getModifiersArrayImpl() {
-        return this.aClass.getModifiersArrayImpl();
-    }
-
-    /**
-     * Get value on attribute descendantsArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public AJoinPoint[] getDescendantsArrayImpl() {
-        return this.aClass.getDescendantsArrayImpl();
-    }
-
-    /**
-     * Get value on attribute isStatement
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsStatementImpl() {
-        return this.aClass.getIsStatementImpl();
-    }
-
-    /**
      * Get value on attribute astParent
      * @return the attribute's value
      */
     @Override
     public AJoinPoint getAstParentImpl() {
         return this.aClass.getAstParentImpl();
-    }
-
-    /**
-     * Get value on attribute childrenArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public AJoinPoint[] getChildrenArrayImpl() {
-        return this.aClass.getChildrenArrayImpl();
-    }
-
-    /**
-     * Get value on attribute leftArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public AJoinPoint[] getLeftArrayImpl() {
-        return this.aClass.getLeftArrayImpl();
-    }
-
-    /**
-     * Get value on attribute hasModifier
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean hasModifierImpl(String modifier) {
-        return this.aClass.hasModifierImpl(modifier);
-    }
-
-    /**
-     * Get value on attribute numChildren
-     * @return the attribute's value
-     */
-    @Override
-    public Integer getNumChildrenImpl() {
-        return this.aClass.getNumChildrenImpl();
-    }
-
-    /**
-     * Get value on attribute srcCode
-     * @return the attribute's value
-     */
-    @Override
-    public String getSrcCodeImpl() {
-        return this.aClass.getSrcCodeImpl();
-    }
-
-    /**
-     * Get value on attribute isFinal
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsFinalImpl() {
-        return this.aClass.getIsFinalImpl();
-    }
-
-    /**
-     * Get value on attribute id
-     * @return the attribute's value
-     */
-    @Override
-    public String getIdImpl() {
-        return this.aClass.getIdImpl();
     }
 
     /**
@@ -395,75 +233,192 @@ public abstract class AEnum extends AClass {
     }
 
     /**
-     * 
-     * @param node 
+     * Get value on attribute childrenArrayImpl
+     * @return the attribute's value
      */
     @Override
-    public AJoinPoint insertBeforeImpl(AJoinPoint node) {
-        return this.aClass.insertBeforeImpl(node);
+    public AJoinPoint[] getChildrenArrayImpl() {
+        return this.aClass.getChildrenArrayImpl();
+    }
+
+    /**
+     * Get value on attribute code
+     * @return the attribute's value
+     */
+    @Override
+    public String getCodeImpl() {
+        return this.aClass.getCodeImpl();
+    }
+
+    /**
+     * Get value on attribute descendantsArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getDescendantsArrayImpl() {
+        return this.aClass.getDescendantsArrayImpl();
+    }
+
+    /**
+     * Get value on attribute getAncestor
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint getAncestorImpl(String type) {
+        return this.aClass.getAncestorImpl(type);
+    }
+
+    /**
+     * Get value on attribute hasModifier
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean hasModifierImpl(String modifier) {
+        return this.aClass.hasModifierImpl(modifier);
+    }
+
+    /**
+     * Get value on attribute id
+     * @return the attribute's value
+     */
+    @Override
+    public String getIdImpl() {
+        return this.aClass.getIdImpl();
+    }
+
+    /**
+     * Get value on attribute isBlock
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsBlockImpl() {
+        return this.aClass.getIsBlockImpl();
+    }
+
+    /**
+     * Get value on attribute isFinal
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsFinalImpl() {
+        return this.aClass.getIsFinalImpl();
+    }
+
+    /**
+     * Get value on attribute isInsideLoopHeader
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsInsideLoopHeaderImpl() {
+        return this.aClass.getIsInsideLoopHeaderImpl();
+    }
+
+    /**
+     * Get value on attribute isStatement
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsStatementImpl() {
+        return this.aClass.getIsStatementImpl();
+    }
+
+    /**
+     * Get value on attribute isStatic
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsStaticImpl() {
+        return this.aClass.getIsStaticImpl();
+    }
+
+    /**
+     * Get value on attribute leftArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getLeftArrayImpl() {
+        return this.aClass.getLeftArrayImpl();
+    }
+
+    /**
+     * Get value on attribute line
+     * @return the attribute's value
+     */
+    @Override
+    public Integer getLineImpl() {
+        return this.aClass.getLineImpl();
+    }
+
+    /**
+     * Get value on attribute modifiersArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public String[] getModifiersArrayImpl() {
+        return this.aClass.getModifiersArrayImpl();
+    }
+
+    /**
+     * Get value on attribute numChildren
+     * @return the attribute's value
+     */
+    @Override
+    public Integer getNumChildrenImpl() {
+        return this.aClass.getNumChildrenImpl();
+    }
+
+    /**
+     * Get value on attribute parent
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint getParentImpl() {
+        return this.aClass.getParentImpl();
+    }
+
+    /**
+     * Get value on attribute rightArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getRightArrayImpl() {
+        return this.aClass.getRightArrayImpl();
+    }
+
+    /**
+     * Get value on attribute srcCode
+     * @return the attribute's value
+     */
+    @Override
+    public String getSrcCodeImpl() {
+        return this.aClass.getSrcCodeImpl();
+    }
+
+    /**
+     * insert a given class inside the target
+     * @param newClass 
+     */
+    @Override
+    public void addClassImpl(AClass newClass) {
+        this.aClass.addClassImpl(newClass);
     }
 
     /**
      * 
-     * @param code 
+     * @param _interface 
      */
     @Override
-    public AJoinPoint insertBeforeImpl(String code) {
-        return this.aClass.insertBeforeImpl(code);
+    public void addImplementImpl(AInterface _interface) {
+        this.aClass.addImplementImpl(_interface);
     }
 
     /**
      * 
-     * @param node 
+     * @param newInterface 
      */
     @Override
-    public AJoinPoint insertAfterImpl(AJoinPoint node) {
-        return this.aClass.insertAfterImpl(node);
-    }
-
-    /**
-     * 
-     * @param code 
-     */
-    @Override
-    public AJoinPoint insertAfterImpl(String code) {
-        return this.aClass.insertAfterImpl(code);
-    }
-
-    /**
-     * 
-     * @param jp 
-     */
-    @Override
-    public AJoinPoint insertReplaceImpl(AJoinPoint jp) {
-        return this.aClass.insertReplaceImpl(jp);
-    }
-
-    /**
-     * 
-     * @param code 
-     */
-    @Override
-    public AJoinPoint insertReplaceImpl(String code) {
-        return this.aClass.insertReplaceImpl(code);
-    }
-
-    /**
-     * 
-     * @param jp 
-     */
-    @Override
-    public AJoinPoint replaceWithImpl(AJoinPoint jp) {
-        return this.aClass.replaceWithImpl(jp);
-    }
-
-    /**
-     * 
-     * @param code 
-     */
-    @Override
-    public AJoinPoint replaceWithImpl(String code) {
-        return this.aClass.replaceWithImpl(code);
+    public void addInterfaceImpl(AInterface newInterface) {
+        this.aClass.addInterfaceImpl(newInterface);
     }
 
     /**
@@ -472,73 +427,6 @@ public abstract class AEnum extends AClass {
     @Override
     public AJoinPoint copyImpl() {
         return this.aClass.copyImpl();
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public void removeImpl() {
-        this.aClass.removeImpl();
-    }
-
-    /**
-     * 
-     * @param annotation 
-     */
-    @Override
-    public void removeAnnotationImpl(AAnnotation annotation) {
-        this.aClass.removeAnnotationImpl(annotation);
-    }
-
-    /**
-     * 
-     * @param modifier 
-     */
-    @Override
-    public void removeModifierImpl(String modifier) {
-        this.aClass.removeModifierImpl(modifier);
-    }
-
-    /**
-     * 
-     * @param name 
-     * @param keyType 
-     * @param _interface 
-     * @param methodName 
-     */
-    @Override
-    public AClass mapVersionsImpl(String name, String keyType, AInterface _interface, String methodName) {
-        return this.aClass.mapVersionsImpl(name, keyType, _interface, methodName);
-    }
-
-    /**
-     * 
-     * @param modifiers 
-     * @param param 
-     */
-    @Override
-    public AConstructor newConstructorImpl(String[] modifiers, Pair[] param) {
-        return this.aClass.newConstructorImpl(modifiers, param);
-    }
-
-    /**
-     * 
-     * @param interfaceMethod 
-     * @param generatorMethod 
-     */
-    @Override
-    public AMethod newFunctionalClassImpl(AMethod interfaceMethod, AMethod generatorMethod) {
-        return this.aClass.newFunctionalClassImpl(interfaceMethod, generatorMethod);
-    }
-
-    /**
-     * 
-     * @param code 
-     */
-    @Override
-    public void insertStaticImpl(String code) {
-        this.aClass.insertStaticImpl(code);
     }
 
     /**
@@ -572,6 +460,220 @@ public abstract class AEnum extends AClass {
     @Override
     public AJoinPoint[] insertImpl(String position, JoinPoint code) {
         return this.aClass.insertImpl(position, code);
+    }
+
+    /**
+     * 
+     * @param node 
+     */
+    @Override
+    public AJoinPoint insertAfterImpl(AJoinPoint node) {
+        return this.aClass.insertAfterImpl(node);
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    @Override
+    public AJoinPoint insertAfterImpl(String code) {
+        return this.aClass.insertAfterImpl(code);
+    }
+
+    /**
+     * 
+     * @param node 
+     */
+    @Override
+    public AJoinPoint insertBeforeImpl(AJoinPoint node) {
+        return this.aClass.insertBeforeImpl(node);
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    @Override
+    public AJoinPoint insertBeforeImpl(String code) {
+        return this.aClass.insertBeforeImpl(code);
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    @Override
+    public void insertCodeImpl(String code) {
+        this.aClass.insertCodeImpl(code);
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    @Override
+    public void insertMethodImpl(String code) {
+        this.aClass.insertMethodImpl(code);
+    }
+
+    /**
+     * 
+     * @param jp 
+     */
+    @Override
+    public AJoinPoint insertReplaceImpl(AJoinPoint jp) {
+        return this.aClass.insertReplaceImpl(jp);
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    @Override
+    public AJoinPoint insertReplaceImpl(String code) {
+        return this.aClass.insertReplaceImpl(code);
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    @Override
+    public void insertStaticImpl(String code) {
+        this.aClass.insertStaticImpl(code);
+    }
+
+    /**
+     * 
+     * @param name 
+     * @param keyType 
+     * @param _interface 
+     * @param methodName 
+     */
+    @Override
+    public AClass mapVersionsImpl(String name, String keyType, AInterface _interface, String methodName) {
+        return this.aClass.mapVersionsImpl(name, keyType, _interface, methodName);
+    }
+
+    /**
+     * 
+     * @param modifiers 
+     * @param param 
+     */
+    @Override
+    public AConstructor newConstructorImpl(String[] modifiers, Pair[] param) {
+        return this.aClass.newConstructorImpl(modifiers, param);
+    }
+
+    /**
+     * 
+     * @param modifiers 
+     * @param type 
+     * @param name 
+     * @param defaultValue 
+     */
+    @Override
+    public AField newFieldImpl(String[] modifiers, String type, String name, String defaultValue) {
+        return this.aClass.newFieldImpl(modifiers, type, name, defaultValue);
+    }
+
+    /**
+     * 
+     * @param modifiers 
+     * @param type 
+     * @param name 
+     */
+    @Override
+    public AField newFieldImpl(String[] modifiers, String type, String name) {
+        return this.aClass.newFieldImpl(modifiers, type, name);
+    }
+
+    /**
+     * 
+     * @param interfaceMethod 
+     * @param generatorMethod 
+     */
+    @Override
+    public AMethod newFunctionalClassImpl(AMethod interfaceMethod, AMethod generatorMethod) {
+        return this.aClass.newFunctionalClassImpl(interfaceMethod, generatorMethod);
+    }
+
+    /**
+     * add a new method inside the class
+     * @param modifiers 
+     * @param returnType 
+     * @param name 
+     * @param param 
+     * @param code 
+     */
+    @Override
+    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, Pair[] param, String code) {
+        return this.aClass.newMethodImpl(modifiers, returnType, name, param, code);
+    }
+
+    /**
+     * overload which accepts 4 parameters (code is empty string)
+     * @param modifiers 
+     * @param returnType 
+     * @param name 
+     * @param param 
+     */
+    @Override
+    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, Pair[] param) {
+        return this.aClass.newMethodImpl(modifiers, returnType, name, param);
+    }
+
+    /**
+     * 
+     */
+    @Override
+    public void removeImpl() {
+        this.aClass.removeImpl();
+    }
+
+    /**
+     * 
+     * @param annotation 
+     */
+    @Override
+    public void removeAnnotationImpl(AAnnotation annotation) {
+        this.aClass.removeAnnotationImpl(annotation);
+    }
+
+    /**
+     * 
+     * @param interfaceName 
+     */
+    @Override
+    public AInterface removeInterfaceImpl(String interfaceName) {
+        return this.aClass.removeInterfaceImpl(interfaceName);
+    }
+
+    /**
+     * 
+     * @param modifier 
+     */
+    @Override
+    public void removeModifierImpl(String modifier) {
+        this.aClass.removeModifierImpl(modifier);
+    }
+
+    /**
+     * 
+     * @param jp 
+     */
+    @Override
+    public AJoinPoint replaceWithImpl(AJoinPoint jp) {
+        return this.aClass.replaceWithImpl(jp);
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    @Override
+    public AJoinPoint replaceWithImpl(String code) {
+        return this.aClass.replaceWithImpl(code);
     }
 
     /**
@@ -695,37 +797,37 @@ public abstract class AEnum extends AClass {
      */
     protected enum EnumAttributes {
         ISTOPLEVEL("isTopLevel"),
+        INTERFACES("interfaces"),
+        INTERFACESTYPES("interfacesTypes"),
+        ISSUBTYPEOF("isSubtypeOf"),
+        JAVADOC("javadoc"),
         NAME("name"),
+        PACKAGE("package"),
         QUALIFIEDNAME("qualifiedName"),
         SUPERCLASS("superClass"),
         SUPERCLASSJP("superClassJp"),
-        PACKAGE("package"),
-        INTERFACES("interfaces"),
-        INTERFACESTYPES("interfacesTypes"),
-        JAVADOC("javadoc"),
-        ISSUBTYPEOF("isSubtypeOf"),
-        PARENT("parent"),
-        ISSTATIC("isStatic"),
-        CODE("code"),
-        AST("ast"),
-        ISBLOCK("isBlock"),
-        ISINSIDELOOPHEADER("isInsideLoopHeader"),
-        LINE("line"),
-        GETANCESTOR("getAncestor"),
         ANNOTATIONS("annotations"),
-        RIGHT("right"),
-        MODIFIERS("modifiers"),
-        DESCENDANTS("descendants"),
-        ISSTATEMENT("isStatement"),
+        AST("ast"),
         ASTPARENT("astParent"),
+        CHILD("child"),
         CHILDREN("children"),
-        LEFT("left"),
+        CODE("code"),
+        DESCENDANTS("descendants"),
+        GETANCESTOR("getAncestor"),
         HASMODIFIER("hasModifier"),
-        NUMCHILDREN("numChildren"),
-        SRCCODE("srcCode"),
-        ISFINAL("isFinal"),
         ID("id"),
-        CHILD("child");
+        ISBLOCK("isBlock"),
+        ISFINAL("isFinal"),
+        ISINSIDELOOPHEADER("isInsideLoopHeader"),
+        ISSTATEMENT("isStatement"),
+        ISSTATIC("isStatic"),
+        LEFT("left"),
+        LINE("line"),
+        MODIFIERS("modifiers"),
+        NUMCHILDREN("numChildren"),
+        PARENT("parent"),
+        RIGHT("right"),
+        SRCCODE("srcCode");
         private String name;
 
         /**

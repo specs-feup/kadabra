@@ -72,6 +72,67 @@ public abstract class AClass extends AType {
     /**
      * 
      * @param name 
+     * @param _package 
+     * @param method 
+     * @param associate 
+     * @param newFile 
+     */
+    public AInterface extractInterfaceImpl(String name, String _package, AMethod method, boolean associate, boolean newFile) {
+        throw new UnsupportedOperationException(get_class()+": Action extractInterface not implemented ");
+    }
+
+    /**
+     * 
+     * @param name 
+     * @param _package 
+     * @param method 
+     * @param associate 
+     * @param newFile 
+     */
+    public final Object extractInterface(String name, String _package, AMethod method, boolean associate, boolean newFile) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "extractInterface", this, Optional.empty(), name, _package, method, associate, newFile);
+        	}
+        	AInterface result = this.extractInterfaceImpl(name, _package, method, associate, newFile);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "extractInterface", this, Optional.ofNullable(result), name, _package, method, associate, newFile);
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "extractInterface", e);
+        }
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    public void insertStaticImpl(String code) {
+        throw new UnsupportedOperationException(get_class()+": Action insertStatic not implemented ");
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    public final void insertStatic(String code) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "insertStatic", this, Optional.empty(), code);
+        	}
+        	this.insertStaticImpl(code);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "insertStatic", this, Optional.empty(), code);
+        	}
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "insertStatic", e);
+        }
+    }
+
+    /**
+     * 
+     * @param name 
      * @param keyType 
      * @param _interface 
      * @param methodName 
@@ -116,12 +177,12 @@ public abstract class AClass extends AType {
      * @param modifiers 
      * @param param 
      */
-    public final Object newConstructor(String[] modifiers, Pair[] param) {
+    public final Object newConstructor(Object[] modifiers, Object[] param) {
         try {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "newConstructor", this, Optional.empty(), modifiers, param);
         	}
-        	AConstructor result = this.newConstructorImpl(modifiers, param);
+        	AConstructor result = this.newConstructorImpl(pt.up.fe.specs.util.SpecsCollections.cast(modifiers, String.class), pt.up.fe.specs.util.SpecsCollections.cast(param, Pair.class));
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.END, "newConstructor", this, Optional.ofNullable(result), modifiers, param);
         	}
@@ -161,64 +222,39 @@ public abstract class AClass extends AType {
     }
 
     /**
-     * 
-     * @param code 
+     * Get value on attribute interfacesArrayImpl
+     * @return the attribute's value
      */
-    public void insertStaticImpl(String code) {
-        throw new UnsupportedOperationException(get_class()+": Action insertStatic not implemented ");
+    @Override
+    public String[] getInterfacesArrayImpl() {
+        return this.aType.getInterfacesArrayImpl();
     }
 
     /**
-     * 
-     * @param code 
+     * Get value on attribute interfacesTypesArrayImpl
+     * @return the attribute's value
      */
-    public final void insertStatic(String code) {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "insertStatic", this, Optional.empty(), code);
-        	}
-        	this.insertStaticImpl(code);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "insertStatic", this, Optional.empty(), code);
-        	}
-        } catch(Exception e) {
-        	throw new ActionException(get_class(), "insertStatic", e);
-        }
+    @Override
+    public AInterface[] getInterfacesTypesArrayImpl() {
+        return this.aType.getInterfacesTypesArrayImpl();
     }
 
     /**
-     * 
-     * @param name 
-     * @param _package 
-     * @param method 
-     * @param associate 
-     * @param newFile 
+     * Get value on attribute isSubtypeOf
+     * @return the attribute's value
      */
-    public AInterface extractInterfaceImpl(String name, String _package, AMethod method, boolean associate, boolean newFile) {
-        throw new UnsupportedOperationException(get_class()+": Action extractInterface not implemented ");
+    @Override
+    public Boolean isSubtypeOfImpl(String type) {
+        return this.aType.isSubtypeOfImpl(type);
     }
 
     /**
-     * 
-     * @param name 
-     * @param _package 
-     * @param method 
-     * @param associate 
-     * @param newFile 
+     * Get value on attribute javadoc
+     * @return the attribute's value
      */
-    public final Object extractInterface(String name, String _package, AMethod method, boolean associate, boolean newFile) {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "extractInterface", this, Optional.empty(), name, _package, method, associate, newFile);
-        	}
-        	AInterface result = this.extractInterfaceImpl(name, _package, method, associate, newFile);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "extractInterface", this, Optional.ofNullable(result), name, _package, method, associate, newFile);
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new ActionException(get_class(), "extractInterface", e);
-        }
+    @Override
+    public String getJavadocImpl() {
+        return this.aType.getJavadocImpl();
     }
 
     /**
@@ -228,6 +264,15 @@ public abstract class AClass extends AType {
     @Override
     public String getNameImpl() {
         return this.aType.getNameImpl();
+    }
+
+    /**
+     * Get value on attribute _package
+     * @return the attribute's value
+     */
+    @Override
+    public String getPackageImpl() {
+        return this.aType.getPackageImpl();
     }
 
     /**
@@ -255,51 +300,6 @@ public abstract class AClass extends AType {
     @Override
     public ATypeReference getSuperClassJpImpl() {
         return this.aType.getSuperClassJpImpl();
-    }
-
-    /**
-     * Get value on attribute _package
-     * @return the attribute's value
-     */
-    @Override
-    public String getPackageImpl() {
-        return this.aType.getPackageImpl();
-    }
-
-    /**
-     * Get value on attribute interfacesArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public String[] getInterfacesArrayImpl() {
-        return this.aType.getInterfacesArrayImpl();
-    }
-
-    /**
-     * Get value on attribute interfacesTypesArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public AInterface[] getInterfacesTypesArrayImpl() {
-        return this.aType.getInterfacesTypesArrayImpl();
-    }
-
-    /**
-     * Get value on attribute javadoc
-     * @return the attribute's value
-     */
-    @Override
-    public String getJavadocImpl() {
-        return this.aType.getJavadocImpl();
-    }
-
-    /**
-     * Get value on attribute isSubtypeOf
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean isSubtypeOfImpl(String type) {
-        return this.aType.isSubtypeOfImpl(type);
     }
 
     /**
@@ -357,30 +357,12 @@ public abstract class AClass extends AType {
     }
 
     /**
-     * Get value on attribute parent
+     * Get value on attribute annotationsArrayImpl
      * @return the attribute's value
      */
     @Override
-    public AJoinPoint getParentImpl() {
-        return this.aType.getParentImpl();
-    }
-
-    /**
-     * Get value on attribute isStatic
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsStaticImpl() {
-        return this.aType.getIsStaticImpl();
-    }
-
-    /**
-     * Get value on attribute code
-     * @return the attribute's value
-     */
-    @Override
-    public String getCodeImpl() {
-        return this.aType.getCodeImpl();
+    public AAnnotation[] getAnnotationsArrayImpl() {
+        return this.aType.getAnnotationsArrayImpl();
     }
 
     /**
@@ -393,156 +375,12 @@ public abstract class AClass extends AType {
     }
 
     /**
-     * Get value on attribute isBlock
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsBlockImpl() {
-        return this.aType.getIsBlockImpl();
-    }
-
-    /**
-     * Get value on attribute isInsideLoopHeader
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsInsideLoopHeaderImpl() {
-        return this.aType.getIsInsideLoopHeaderImpl();
-    }
-
-    /**
-     * Get value on attribute line
-     * @return the attribute's value
-     */
-    @Override
-    public Integer getLineImpl() {
-        return this.aType.getLineImpl();
-    }
-
-    /**
-     * Get value on attribute getAncestor
-     * @return the attribute's value
-     */
-    @Override
-    public AJoinPoint getAncestorImpl(String type) {
-        return this.aType.getAncestorImpl(type);
-    }
-
-    /**
-     * Get value on attribute annotationsArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public AAnnotation[] getAnnotationsArrayImpl() {
-        return this.aType.getAnnotationsArrayImpl();
-    }
-
-    /**
-     * Get value on attribute rightArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public AJoinPoint[] getRightArrayImpl() {
-        return this.aType.getRightArrayImpl();
-    }
-
-    /**
-     * Get value on attribute modifiersArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public String[] getModifiersArrayImpl() {
-        return this.aType.getModifiersArrayImpl();
-    }
-
-    /**
-     * Get value on attribute descendantsArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public AJoinPoint[] getDescendantsArrayImpl() {
-        return this.aType.getDescendantsArrayImpl();
-    }
-
-    /**
-     * Get value on attribute isStatement
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsStatementImpl() {
-        return this.aType.getIsStatementImpl();
-    }
-
-    /**
      * Get value on attribute astParent
      * @return the attribute's value
      */
     @Override
     public AJoinPoint getAstParentImpl() {
         return this.aType.getAstParentImpl();
-    }
-
-    /**
-     * Get value on attribute childrenArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public AJoinPoint[] getChildrenArrayImpl() {
-        return this.aType.getChildrenArrayImpl();
-    }
-
-    /**
-     * Get value on attribute leftArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public AJoinPoint[] getLeftArrayImpl() {
-        return this.aType.getLeftArrayImpl();
-    }
-
-    /**
-     * Get value on attribute hasModifier
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean hasModifierImpl(String modifier) {
-        return this.aType.hasModifierImpl(modifier);
-    }
-
-    /**
-     * Get value on attribute numChildren
-     * @return the attribute's value
-     */
-    @Override
-    public Integer getNumChildrenImpl() {
-        return this.aType.getNumChildrenImpl();
-    }
-
-    /**
-     * Get value on attribute srcCode
-     * @return the attribute's value
-     */
-    @Override
-    public String getSrcCodeImpl() {
-        return this.aType.getSrcCodeImpl();
-    }
-
-    /**
-     * Get value on attribute isFinal
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsFinalImpl() {
-        return this.aType.getIsFinalImpl();
-    }
-
-    /**
-     * Get value on attribute id
-     * @return the attribute's value
-     */
-    @Override
-    public String getIdImpl() {
-        return this.aType.getIdImpl();
     }
 
     /**
@@ -555,21 +393,220 @@ public abstract class AClass extends AType {
     }
 
     /**
-     * 
-     * @param node 
+     * Get value on attribute childrenArrayImpl
+     * @return the attribute's value
      */
     @Override
-    public AJoinPoint insertBeforeImpl(AJoinPoint node) {
-        return this.aType.insertBeforeImpl(node);
+    public AJoinPoint[] getChildrenArrayImpl() {
+        return this.aType.getChildrenArrayImpl();
+    }
+
+    /**
+     * Get value on attribute code
+     * @return the attribute's value
+     */
+    @Override
+    public String getCodeImpl() {
+        return this.aType.getCodeImpl();
+    }
+
+    /**
+     * Get value on attribute descendantsArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getDescendantsArrayImpl() {
+        return this.aType.getDescendantsArrayImpl();
+    }
+
+    /**
+     * Get value on attribute getAncestor
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint getAncestorImpl(String type) {
+        return this.aType.getAncestorImpl(type);
+    }
+
+    /**
+     * Get value on attribute hasModifier
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean hasModifierImpl(String modifier) {
+        return this.aType.hasModifierImpl(modifier);
+    }
+
+    /**
+     * Get value on attribute id
+     * @return the attribute's value
+     */
+    @Override
+    public String getIdImpl() {
+        return this.aType.getIdImpl();
+    }
+
+    /**
+     * Get value on attribute isBlock
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsBlockImpl() {
+        return this.aType.getIsBlockImpl();
+    }
+
+    /**
+     * Get value on attribute isFinal
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsFinalImpl() {
+        return this.aType.getIsFinalImpl();
+    }
+
+    /**
+     * Get value on attribute isInsideLoopHeader
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsInsideLoopHeaderImpl() {
+        return this.aType.getIsInsideLoopHeaderImpl();
+    }
+
+    /**
+     * Get value on attribute isStatement
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsStatementImpl() {
+        return this.aType.getIsStatementImpl();
+    }
+
+    /**
+     * Get value on attribute isStatic
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsStaticImpl() {
+        return this.aType.getIsStaticImpl();
+    }
+
+    /**
+     * Get value on attribute leftArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getLeftArrayImpl() {
+        return this.aType.getLeftArrayImpl();
+    }
+
+    /**
+     * Get value on attribute line
+     * @return the attribute's value
+     */
+    @Override
+    public Integer getLineImpl() {
+        return this.aType.getLineImpl();
+    }
+
+    /**
+     * Get value on attribute modifiersArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public String[] getModifiersArrayImpl() {
+        return this.aType.getModifiersArrayImpl();
+    }
+
+    /**
+     * Get value on attribute numChildren
+     * @return the attribute's value
+     */
+    @Override
+    public Integer getNumChildrenImpl() {
+        return this.aType.getNumChildrenImpl();
+    }
+
+    /**
+     * Get value on attribute parent
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint getParentImpl() {
+        return this.aType.getParentImpl();
+    }
+
+    /**
+     * Get value on attribute rightArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getRightArrayImpl() {
+        return this.aType.getRightArrayImpl();
+    }
+
+    /**
+     * Get value on attribute srcCode
+     * @return the attribute's value
+     */
+    @Override
+    public String getSrcCodeImpl() {
+        return this.aType.getSrcCodeImpl();
+    }
+
+    /**
+     * insert a given class inside the target
+     * @param newClass 
+     */
+    @Override
+    public void addClassImpl(AClass newClass) {
+        this.aType.addClassImpl(newClass);
     }
 
     /**
      * 
+     * @param _interface 
+     */
+    @Override
+    public void addImplementImpl(AInterface _interface) {
+        this.aType.addImplementImpl(_interface);
+    }
+
+    /**
+     * 
+     * @param newInterface 
+     */
+    @Override
+    public void addInterfaceImpl(AInterface newInterface) {
+        this.aType.addInterfaceImpl(newInterface);
+    }
+
+    /**
+     * 
+     */
+    @Override
+    public AJoinPoint copyImpl() {
+        return this.aType.copyImpl();
+    }
+
+    /**
+     * 
+     * @param position 
      * @param code 
      */
     @Override
-    public AJoinPoint insertBeforeImpl(String code) {
-        return this.aType.insertBeforeImpl(code);
+    public AJoinPoint[] insertImpl(String position, String code) {
+        return this.aType.insertImpl(position, code);
+    }
+
+    /**
+     * 
+     * @param position 
+     * @param code 
+     */
+    @Override
+    public AJoinPoint[] insertImpl(String position, JoinPoint code) {
+        return this.aType.insertImpl(position, code);
     }
 
     /**
@@ -592,6 +629,42 @@ public abstract class AClass extends AType {
 
     /**
      * 
+     * @param node 
+     */
+    @Override
+    public AJoinPoint insertBeforeImpl(AJoinPoint node) {
+        return this.aType.insertBeforeImpl(node);
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    @Override
+    public AJoinPoint insertBeforeImpl(String code) {
+        return this.aType.insertBeforeImpl(code);
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    @Override
+    public void insertCodeImpl(String code) {
+        this.aType.insertCodeImpl(code);
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    @Override
+    public void insertMethodImpl(String code) {
+        this.aType.insertMethodImpl(code);
+    }
+
+    /**
+     * 
      * @param jp 
      */
     @Override
@@ -610,81 +683,25 @@ public abstract class AClass extends AType {
 
     /**
      * 
-     * @param jp 
+     * @param modifiers 
+     * @param type 
+     * @param name 
+     * @param defaultValue 
      */
     @Override
-    public AJoinPoint replaceWithImpl(AJoinPoint jp) {
-        return this.aType.replaceWithImpl(jp);
+    public AField newFieldImpl(String[] modifiers, String type, String name, String defaultValue) {
+        return this.aType.newFieldImpl(modifiers, type, name, defaultValue);
     }
 
     /**
      * 
-     * @param code 
+     * @param modifiers 
+     * @param type 
+     * @param name 
      */
     @Override
-    public AJoinPoint replaceWithImpl(String code) {
-        return this.aType.replaceWithImpl(code);
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public AJoinPoint copyImpl() {
-        return this.aType.copyImpl();
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public void removeImpl() {
-        this.aType.removeImpl();
-    }
-
-    /**
-     * 
-     * @param annotation 
-     */
-    @Override
-    public void removeAnnotationImpl(AAnnotation annotation) {
-        this.aType.removeAnnotationImpl(annotation);
-    }
-
-    /**
-     * 
-     * @param modifier 
-     */
-    @Override
-    public void removeModifierImpl(String modifier) {
-        this.aType.removeModifierImpl(modifier);
-    }
-
-    /**
-     * insert a given class inside the target
-     * @param newClass 
-     */
-    @Override
-    public void addClassImpl(AClass newClass) {
-        this.aType.addClassImpl(newClass);
-    }
-
-    /**
-     * 
-     * @param newInterface 
-     */
-    @Override
-    public void addInterfaceImpl(AInterface newInterface) {
-        this.aType.addInterfaceImpl(newInterface);
-    }
-
-    /**
-     * 
-     * @param interfaceName 
-     */
-    @Override
-    public AInterface removeInterfaceImpl(String interfaceName) {
-        return this.aType.removeInterfaceImpl(interfaceName);
+    public AField newFieldImpl(String[] modifiers, String type, String name) {
+        return this.aType.newFieldImpl(modifiers, type, name);
     }
 
     /**
@@ -714,11 +731,46 @@ public abstract class AClass extends AType {
 
     /**
      * 
-     * @param code 
      */
     @Override
-    public void insertMethodImpl(String code) {
-        this.aType.insertMethodImpl(code);
+    public void removeImpl() {
+        this.aType.removeImpl();
+    }
+
+    /**
+     * 
+     * @param annotation 
+     */
+    @Override
+    public void removeAnnotationImpl(AAnnotation annotation) {
+        this.aType.removeAnnotationImpl(annotation);
+    }
+
+    /**
+     * 
+     * @param interfaceName 
+     */
+    @Override
+    public AInterface removeInterfaceImpl(String interfaceName) {
+        return this.aType.removeInterfaceImpl(interfaceName);
+    }
+
+    /**
+     * 
+     * @param modifier 
+     */
+    @Override
+    public void removeModifierImpl(String modifier) {
+        this.aType.removeModifierImpl(modifier);
+    }
+
+    /**
+     * 
+     * @param jp 
+     */
+    @Override
+    public AJoinPoint replaceWithImpl(AJoinPoint jp) {
+        return this.aType.replaceWithImpl(jp);
     }
 
     /**
@@ -726,60 +778,8 @@ public abstract class AClass extends AType {
      * @param code 
      */
     @Override
-    public void insertCodeImpl(String code) {
-        this.aType.insertCodeImpl(code);
-    }
-
-    /**
-     * 
-     * @param _interface 
-     */
-    @Override
-    public void addImplementImpl(AInterface _interface) {
-        this.aType.addImplementImpl(_interface);
-    }
-
-    /**
-     * 
-     * @param modifiers 
-     * @param type 
-     * @param name 
-     * @param defaultValue 
-     */
-    @Override
-    public AField newFieldImpl(String[] modifiers, String type, String name, String defaultValue) {
-        return this.aType.newFieldImpl(modifiers, type, name, defaultValue);
-    }
-
-    /**
-     * 
-     * @param modifiers 
-     * @param type 
-     * @param name 
-     */
-    @Override
-    public AField newFieldImpl(String[] modifiers, String type, String name) {
-        return this.aType.newFieldImpl(modifiers, type, name);
-    }
-
-    /**
-     * 
-     * @param position 
-     * @param code 
-     */
-    @Override
-    public AJoinPoint[] insertImpl(String position, String code) {
-        return this.aType.insertImpl(position, code);
-    }
-
-    /**
-     * 
-     * @param position 
-     * @param code 
-     */
-    @Override
-    public AJoinPoint[] insertImpl(String position, JoinPoint code) {
-        return this.aType.insertImpl(position, code);
+    public AJoinPoint replaceWithImpl(String code) {
+        return this.aType.replaceWithImpl(code);
     }
 
     /**
@@ -874,11 +874,11 @@ public abstract class AClass extends AType {
     @Override
     protected void fillWithActions(List<String> actions) {
         this.aType.fillWithActions(actions);
+        actions.add("interface extractInterface(String, String, method, boolean, boolean)");
+        actions.add("void insertStatic(String)");
         actions.add("class mapVersions(String, String, interface, String)");
         actions.add("constructor newConstructor(String[], Pair[])");
         actions.add("method newFunctionalClass(method, method)");
-        actions.add("void insertStatic(template)");
-        actions.add("interface extractInterface(String, String, method, boolean, boolean)");
     }
 
     /**
@@ -907,37 +907,37 @@ public abstract class AClass extends AType {
      */
     protected enum ClassAttributes {
         ISTOPLEVEL("isTopLevel"),
+        INTERFACES("interfaces"),
+        INTERFACESTYPES("interfacesTypes"),
+        ISSUBTYPEOF("isSubtypeOf"),
+        JAVADOC("javadoc"),
         NAME("name"),
+        PACKAGE("package"),
         QUALIFIEDNAME("qualifiedName"),
         SUPERCLASS("superClass"),
         SUPERCLASSJP("superClassJp"),
-        PACKAGE("package"),
-        INTERFACES("interfaces"),
-        INTERFACESTYPES("interfacesTypes"),
-        JAVADOC("javadoc"),
-        ISSUBTYPEOF("isSubtypeOf"),
-        PARENT("parent"),
-        ISSTATIC("isStatic"),
-        CODE("code"),
-        AST("ast"),
-        ISBLOCK("isBlock"),
-        ISINSIDELOOPHEADER("isInsideLoopHeader"),
-        LINE("line"),
-        GETANCESTOR("getAncestor"),
         ANNOTATIONS("annotations"),
-        RIGHT("right"),
-        MODIFIERS("modifiers"),
-        DESCENDANTS("descendants"),
-        ISSTATEMENT("isStatement"),
+        AST("ast"),
         ASTPARENT("astParent"),
+        CHILD("child"),
         CHILDREN("children"),
-        LEFT("left"),
+        CODE("code"),
+        DESCENDANTS("descendants"),
+        GETANCESTOR("getAncestor"),
         HASMODIFIER("hasModifier"),
-        NUMCHILDREN("numChildren"),
-        SRCCODE("srcCode"),
-        ISFINAL("isFinal"),
         ID("id"),
-        CHILD("child");
+        ISBLOCK("isBlock"),
+        ISFINAL("isFinal"),
+        ISINSIDELOOPHEADER("isInsideLoopHeader"),
+        ISSTATEMENT("isStatement"),
+        ISSTATIC("isStatic"),
+        LEFT("left"),
+        LINE("line"),
+        MODIFIERS("modifiers"),
+        NUMCHILDREN("numChildren"),
+        PARENT("parent"),
+        RIGHT("right"),
+        SRCCODE("srcCode");
         private String name;
 
         /**

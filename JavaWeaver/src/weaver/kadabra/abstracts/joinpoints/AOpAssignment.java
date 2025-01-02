@@ -53,21 +53,21 @@ public abstract class AOpAssignment extends AAssignment {
     }
 
     /**
-     * Get value on attribute operator
-     * @return the attribute's value
-     */
-    @Override
-    public String getOperatorImpl() {
-        return this.aAssignment.getOperatorImpl();
-    }
-
-    /**
      * Get value on attribute lhs
      * @return the attribute's value
      */
     @Override
     public AExpression getLhsImpl() {
         return this.aAssignment.getLhsImpl();
+    }
+
+    /**
+     * Get value on attribute operator
+     * @return the attribute's value
+     */
+    @Override
+    public String getOperatorImpl() {
+        return this.aAssignment.getOperatorImpl();
     }
 
     /**
@@ -98,21 +98,21 @@ public abstract class AOpAssignment extends AAssignment {
     }
 
     /**
-     * Get value on attribute kind
-     * @return the attribute's value
-     */
-    @Override
-    public String getKindImpl() {
-        return this.aAssignment.getKindImpl();
-    }
-
-    /**
      * Get value on attribute endLine
      * @return the attribute's value
      */
     @Override
     public Integer getEndLineImpl() {
         return this.aAssignment.getEndLineImpl();
+    }
+
+    /**
+     * Get value on attribute kind
+     * @return the attribute's value
+     */
+    @Override
+    public String getKindImpl() {
+        return this.aAssignment.getKindImpl();
     }
 
     /**
@@ -136,13 +136,6 @@ public abstract class AOpAssignment extends AAssignment {
     /**
      * 
      */
-    public void defOperatorImpl(String value) {
-        this.aAssignment.defOperatorImpl(value);
-    }
-
-    /**
-     * 
-     */
     public void defLhsImpl(AExpression value) {
         this.aAssignment.defLhsImpl(value);
     }
@@ -150,80 +143,15 @@ public abstract class AOpAssignment extends AAssignment {
     /**
      * 
      */
+    public void defOperatorImpl(String value) {
+        this.aAssignment.defOperatorImpl(value);
+    }
+
+    /**
+     * 
+     */
     public void defRhsImpl(AExpression value) {
         this.aAssignment.defRhsImpl(value);
-    }
-
-    /**
-     * Get value on attribute parent
-     * @return the attribute's value
-     */
-    @Override
-    public AJoinPoint getParentImpl() {
-        return this.aAssignment.getParentImpl();
-    }
-
-    /**
-     * Get value on attribute isStatic
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsStaticImpl() {
-        return this.aAssignment.getIsStaticImpl();
-    }
-
-    /**
-     * Get value on attribute code
-     * @return the attribute's value
-     */
-    @Override
-    public String getCodeImpl() {
-        return this.aAssignment.getCodeImpl();
-    }
-
-    /**
-     * Get value on attribute ast
-     * @return the attribute's value
-     */
-    @Override
-    public String getAstImpl() {
-        return this.aAssignment.getAstImpl();
-    }
-
-    /**
-     * Get value on attribute isBlock
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsBlockImpl() {
-        return this.aAssignment.getIsBlockImpl();
-    }
-
-    /**
-     * Get value on attribute isInsideLoopHeader
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsInsideLoopHeaderImpl() {
-        return this.aAssignment.getIsInsideLoopHeaderImpl();
-    }
-
-    /**
-     * Get value on attribute line
-     * @return the attribute's value
-     */
-    @Override
-    public Integer getLineImpl() {
-        return this.aAssignment.getLineImpl();
-    }
-
-    /**
-     * Get value on attribute getAncestor
-     * @return the attribute's value
-     */
-    @Override
-    public AJoinPoint getAncestorImpl(String type) {
-        return this.aAssignment.getAncestorImpl(type);
     }
 
     /**
@@ -236,39 +164,12 @@ public abstract class AOpAssignment extends AAssignment {
     }
 
     /**
-     * Get value on attribute rightArrayImpl
+     * Get value on attribute ast
      * @return the attribute's value
      */
     @Override
-    public AJoinPoint[] getRightArrayImpl() {
-        return this.aAssignment.getRightArrayImpl();
-    }
-
-    /**
-     * Get value on attribute modifiersArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public String[] getModifiersArrayImpl() {
-        return this.aAssignment.getModifiersArrayImpl();
-    }
-
-    /**
-     * Get value on attribute descendantsArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public AJoinPoint[] getDescendantsArrayImpl() {
-        return this.aAssignment.getDescendantsArrayImpl();
-    }
-
-    /**
-     * Get value on attribute isStatement
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsStatementImpl() {
-        return this.aAssignment.getIsStatementImpl();
+    public String getAstImpl() {
+        return this.aAssignment.getAstImpl();
     }
 
     /**
@@ -281,6 +182,15 @@ public abstract class AOpAssignment extends AAssignment {
     }
 
     /**
+     * Get value on attribute child
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint childImpl(Integer index) {
+        return this.aAssignment.childImpl(index);
+    }
+
+    /**
      * Get value on attribute childrenArrayImpl
      * @return the attribute's value
      */
@@ -290,12 +200,30 @@ public abstract class AOpAssignment extends AAssignment {
     }
 
     /**
-     * Get value on attribute leftArrayImpl
+     * Get value on attribute code
      * @return the attribute's value
      */
     @Override
-    public AJoinPoint[] getLeftArrayImpl() {
-        return this.aAssignment.getLeftArrayImpl();
+    public String getCodeImpl() {
+        return this.aAssignment.getCodeImpl();
+    }
+
+    /**
+     * Get value on attribute descendantsArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getDescendantsArrayImpl() {
+        return this.aAssignment.getDescendantsArrayImpl();
+    }
+
+    /**
+     * Get value on attribute getAncestor
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint getAncestorImpl(String type) {
+        return this.aAssignment.getAncestorImpl(type);
     }
 
     /**
@@ -308,21 +236,21 @@ public abstract class AOpAssignment extends AAssignment {
     }
 
     /**
-     * Get value on attribute numChildren
+     * Get value on attribute id
      * @return the attribute's value
      */
     @Override
-    public Integer getNumChildrenImpl() {
-        return this.aAssignment.getNumChildrenImpl();
+    public String getIdImpl() {
+        return this.aAssignment.getIdImpl();
     }
 
     /**
-     * Get value on attribute srcCode
+     * Get value on attribute isBlock
      * @return the attribute's value
      */
     @Override
-    public String getSrcCodeImpl() {
-        return this.aAssignment.getSrcCodeImpl();
+    public Boolean getIsBlockImpl() {
+        return this.aAssignment.getIsBlockImpl();
     }
 
     /**
@@ -335,39 +263,121 @@ public abstract class AOpAssignment extends AAssignment {
     }
 
     /**
-     * Get value on attribute id
+     * Get value on attribute isInsideLoopHeader
      * @return the attribute's value
      */
     @Override
-    public String getIdImpl() {
-        return this.aAssignment.getIdImpl();
+    public Boolean getIsInsideLoopHeaderImpl() {
+        return this.aAssignment.getIsInsideLoopHeaderImpl();
     }
 
     /**
-     * Get value on attribute child
+     * Get value on attribute isStatement
      * @return the attribute's value
      */
     @Override
-    public AJoinPoint childImpl(Integer index) {
-        return this.aAssignment.childImpl(index);
+    public Boolean getIsStatementImpl() {
+        return this.aAssignment.getIsStatementImpl();
+    }
+
+    /**
+     * Get value on attribute isStatic
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsStaticImpl() {
+        return this.aAssignment.getIsStaticImpl();
+    }
+
+    /**
+     * Get value on attribute leftArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getLeftArrayImpl() {
+        return this.aAssignment.getLeftArrayImpl();
+    }
+
+    /**
+     * Get value on attribute line
+     * @return the attribute's value
+     */
+    @Override
+    public Integer getLineImpl() {
+        return this.aAssignment.getLineImpl();
+    }
+
+    /**
+     * Get value on attribute modifiersArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public String[] getModifiersArrayImpl() {
+        return this.aAssignment.getModifiersArrayImpl();
+    }
+
+    /**
+     * Get value on attribute numChildren
+     * @return the attribute's value
+     */
+    @Override
+    public Integer getNumChildrenImpl() {
+        return this.aAssignment.getNumChildrenImpl();
+    }
+
+    /**
+     * Get value on attribute parent
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint getParentImpl() {
+        return this.aAssignment.getParentImpl();
+    }
+
+    /**
+     * Get value on attribute rightArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getRightArrayImpl() {
+        return this.aAssignment.getRightArrayImpl();
+    }
+
+    /**
+     * Get value on attribute srcCode
+     * @return the attribute's value
+     */
+    @Override
+    public String getSrcCodeImpl() {
+        return this.aAssignment.getSrcCodeImpl();
     }
 
     /**
      * 
-     * @param node 
      */
     @Override
-    public AJoinPoint insertBeforeImpl(AJoinPoint node) {
-        return this.aAssignment.insertBeforeImpl(node);
+    public AJoinPoint copyImpl() {
+        return this.aAssignment.copyImpl();
     }
 
     /**
      * 
+     * @param position 
      * @param code 
      */
     @Override
-    public AJoinPoint insertBeforeImpl(String code) {
-        return this.aAssignment.insertBeforeImpl(code);
+    public AJoinPoint[] insertImpl(String position, String code) {
+        return this.aAssignment.insertImpl(position, code);
+    }
+
+    /**
+     * 
+     * @param position 
+     * @param code 
+     */
+    @Override
+    public AJoinPoint[] insertImpl(String position, JoinPoint code) {
+        return this.aAssignment.insertImpl(position, code);
     }
 
     /**
@@ -390,6 +400,24 @@ public abstract class AOpAssignment extends AAssignment {
 
     /**
      * 
+     * @param node 
+     */
+    @Override
+    public AJoinPoint insertBeforeImpl(AJoinPoint node) {
+        return this.aAssignment.insertBeforeImpl(node);
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    @Override
+    public AJoinPoint insertBeforeImpl(String code) {
+        return this.aAssignment.insertBeforeImpl(code);
+    }
+
+    /**
+     * 
      * @param jp 
      */
     @Override
@@ -404,32 +432,6 @@ public abstract class AOpAssignment extends AAssignment {
     @Override
     public AJoinPoint insertReplaceImpl(String code) {
         return this.aAssignment.insertReplaceImpl(code);
-    }
-
-    /**
-     * 
-     * @param jp 
-     */
-    @Override
-    public AJoinPoint replaceWithImpl(AJoinPoint jp) {
-        return this.aAssignment.replaceWithImpl(jp);
-    }
-
-    /**
-     * 
-     * @param code 
-     */
-    @Override
-    public AJoinPoint replaceWithImpl(String code) {
-        return this.aAssignment.replaceWithImpl(code);
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public AJoinPoint copyImpl() {
-        return this.aAssignment.copyImpl();
     }
 
     /**
@@ -460,6 +462,24 @@ public abstract class AOpAssignment extends AAssignment {
 
     /**
      * 
+     * @param jp 
+     */
+    @Override
+    public AJoinPoint replaceWithImpl(AJoinPoint jp) {
+        return this.aAssignment.replaceWithImpl(jp);
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    @Override
+    public AJoinPoint replaceWithImpl(String code) {
+        return this.aAssignment.replaceWithImpl(code);
+    }
+
+    /**
+     * 
      * @param lhs 
      */
     @Override
@@ -474,26 +494,6 @@ public abstract class AOpAssignment extends AAssignment {
     @Override
     public void setRhsImpl(AExpression rhs) {
         this.aAssignment.setRhsImpl(rhs);
-    }
-
-    /**
-     * 
-     * @param position 
-     * @param code 
-     */
-    @Override
-    public AJoinPoint[] insertImpl(String position, String code) {
-        return this.aAssignment.insertImpl(position, code);
-    }
-
-    /**
-     * 
-     * @param position 
-     * @param code 
-     */
-    @Override
-    public AJoinPoint[] insertImpl(String position, JoinPoint code) {
-        return this.aAssignment.insertImpl(position, code);
     }
 
     /**
@@ -536,13 +536,9 @@ public abstract class AOpAssignment extends AAssignment {
     @Override
     public final void defImpl(String attribute, Object value) {
         switch(attribute){
-        case "line": {
-        	if(value instanceof Integer){
-        		this.defLineImpl((Integer)value);
-        		return;
-        	}
-        	if(value instanceof String){
-        		this.defLineImpl((String)value);
+        case "lhs": {
+        	if(value instanceof AExpression){
+        		this.defLhsImpl((AExpression)value);
         		return;
         	}
         	this.unsupportedTypeForDef(attribute, value);
@@ -554,16 +550,20 @@ public abstract class AOpAssignment extends AAssignment {
         	}
         	this.unsupportedTypeForDef(attribute, value);
         }
-        case "lhs": {
+        case "rhs": {
         	if(value instanceof AExpression){
-        		this.defLhsImpl((AExpression)value);
+        		this.defRhsImpl((AExpression)value);
         		return;
         	}
         	this.unsupportedTypeForDef(attribute, value);
         }
-        case "rhs": {
-        	if(value instanceof AExpression){
-        		this.defRhsImpl((AExpression)value);
+        case "line": {
+        	if(value instanceof Integer){
+        		this.defLineImpl((Integer)value);
+        		return;
+        	}
+        	if(value instanceof String){
+        		this.defLineImpl((String)value);
         		return;
         	}
         	this.unsupportedTypeForDef(attribute, value);
@@ -622,33 +622,33 @@ public abstract class AOpAssignment extends AAssignment {
      * 
      */
     protected enum OpAssignmentAttributes {
-        OPERATOR("operator"),
         LHS("lhs"),
+        OPERATOR("operator"),
         RHS("rhs"),
-        KIND("kind"),
         ENDLINE("endLine"),
-        PARENT("parent"),
-        ISSTATIC("isStatic"),
-        CODE("code"),
-        AST("ast"),
-        ISBLOCK("isBlock"),
-        ISINSIDELOOPHEADER("isInsideLoopHeader"),
-        LINE("line"),
-        GETANCESTOR("getAncestor"),
+        KIND("kind"),
         ANNOTATIONS("annotations"),
-        RIGHT("right"),
-        MODIFIERS("modifiers"),
-        DESCENDANTS("descendants"),
-        ISSTATEMENT("isStatement"),
+        AST("ast"),
         ASTPARENT("astParent"),
+        CHILD("child"),
         CHILDREN("children"),
-        LEFT("left"),
+        CODE("code"),
+        DESCENDANTS("descendants"),
+        GETANCESTOR("getAncestor"),
         HASMODIFIER("hasModifier"),
-        NUMCHILDREN("numChildren"),
-        SRCCODE("srcCode"),
-        ISFINAL("isFinal"),
         ID("id"),
-        CHILD("child");
+        ISBLOCK("isBlock"),
+        ISFINAL("isFinal"),
+        ISINSIDELOOPHEADER("isInsideLoopHeader"),
+        ISSTATEMENT("isStatement"),
+        ISSTATIC("isStatic"),
+        LEFT("left"),
+        LINE("line"),
+        MODIFIERS("modifiers"),
+        NUMCHILDREN("numChildren"),
+        PARENT("parent"),
+        RIGHT("right"),
+        SRCCODE("srcCode");
         private String name;
 
         /**

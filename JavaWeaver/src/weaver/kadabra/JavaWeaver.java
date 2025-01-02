@@ -1,24 +1,7 @@
 package weaver.kadabra;
 
-import static weaver.specification.JavaWeaverResource.ACTIONS;
-import static weaver.specification.JavaWeaverResource.ARTIFACTS;
-import static weaver.specification.JavaWeaverResource.JOINPOINTS;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
-
+import kadabra.resources.KadabraAPIResources;
+import kadabra.resources.LaraAPIResources;
 import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecutor;
 import org.apache.commons.io.FileUtils;
@@ -28,11 +11,8 @@ import org.lara.interpreter.weaver.interf.AGear;
 import org.lara.interpreter.weaver.interf.JoinPoint;
 import org.lara.interpreter.weaver.options.WeaverOption;
 import org.lara.interpreter.weaver.options.WeaverOptionBuilder;
-import org.lara.language.specification.LanguageSpecification;
+import org.lara.language.specification.dsl.LanguageSpecification;
 import org.suikasoft.jOptions.Interfaces.DataStore;
-
-import kadabra.resources.KadabraAPIResources;
-import kadabra.resources.LaraAPIResources;
 import pt.up.fe.specs.jadx.DecompilationFailedException;
 import pt.up.fe.specs.jadx.SpecsJadx;
 import pt.up.fe.specs.kadabra.weaver.LaraCoreApiResource;
@@ -66,6 +46,12 @@ import weaver.utils.KadabraAstMethods;
 import weaver.utils.SpoonUtils;
 import weaver.utils.processors.IfProcessor;
 import weaver.utils.weaving.AnnotationsTable;
+
+import java.io.*;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static weaver.specification.JavaWeaverResource.*;
 
 /**
  * LARA Weaving Engine that uses Spoon as the Java compiler/processor <br>
@@ -116,12 +102,9 @@ public class JavaWeaver extends AJavaWeaver {
     /**
      * Set a file/folder in the weaver if it is valid file/folder type for the weaver.
      *
-     * @param sources
-     *            the file with the source code
-     * @param outputDir
-     *            output directory for the generated file(s)
-     * @param args
-     *            arguments to start the weaver
+     * @param sources   the file with the source code
+     * @param outputDir output directory for the generated file(s)
+     * @param args      arguments to start the weaver
      * @return true if the file type is valid
      */
     @Override
@@ -395,8 +378,7 @@ public class JavaWeaver extends AJavaWeaver {
      * Instantiates a new {@link JWSpoonLauncher} based on the given input sources and the properties of this
      * {@link JavaWeaver} instance.
      *
-     * @param sources
-     *            the input sources to parse
+     * @param sources the input sources to parse
      * @return
      */
     private JWSpoonLauncher newSpoon(List<File> sources, File outputDir) {
@@ -429,7 +411,7 @@ public class JavaWeaver extends AJavaWeaver {
         // Launcher.LOGGER.setLevel(Level.TRACE);
         // System.out.println("LEVEL NEW: " + Launcher.LOGGER.getLevel());
 
-        spoon.setArgs(new String[] { "--output-type", outType.toString() }); // required to define the type of output...
+        spoon.setArgs(new String[]{"--output-type", outType.toString()}); // required to define the type of output...
 
         if (!classPath.isEmpty()) {
 
@@ -583,8 +565,7 @@ public class JavaWeaver extends AJavaWeaver {
     }
 
     /**
-     * @param clearOutputFolder
-     *            the clearOutputFolder to set
+     * @param clearOutputFolder the clearOutputFolder to set
      */
     public void setClearOutputFolder(boolean clearOutputFolder) {
         this.clearOutputFolder = clearOutputFolder;
@@ -604,8 +585,8 @@ public class JavaWeaver extends AJavaWeaver {
     }
 
     @Override
-    public LanguageSpecification getLanguageSpecification() {
-        return LanguageSpecification.newInstance(JOINPOINTS, ARTIFACTS, ACTIONS, true);
+    protected LanguageSpecification buildLangSpecs() {
+        return LanguageSpecification.newInstance(JOINPOINTS, ARTIFACTS, ACTIONS);
     }
 
     @Override

@@ -10,9 +10,9 @@ import pt.up.fe.specs.util.enums.EnumHelperWithValue;
  * @author Lara C.
  */
 public enum CommentType  implements NamedEnum{
+    BLOCK("block"),
     FILE("file"),
     INLINE("inline"),
-    BLOCK("block"),
     JAVADOC("javadoc"),
     PRAGMA("pragma");
     private String name;
