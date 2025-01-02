@@ -52,15 +52,6 @@ public abstract class APragma extends AComment {
     }
 
     /**
-     * Get value on attribute type
-     * @return the attribute's value
-     */
-    @Override
-    public String getTypeImpl() {
-        return this.aComment.getTypeImpl();
-    }
-
-    /**
      * Get value on attribute content
      * @return the attribute's value
      */
@@ -70,12 +61,12 @@ public abstract class APragma extends AComment {
     }
 
     /**
-     * Get value on attribute kind
+     * Get value on attribute type
      * @return the attribute's value
      */
     @Override
-    public String getKindImpl() {
-        return this.aComment.getKindImpl();
+    public String getTypeImpl() {
+        return this.aComment.getTypeImpl();
     }
 
     /**
@@ -85,6 +76,15 @@ public abstract class APragma extends AComment {
     @Override
     public Integer getEndLineImpl() {
         return this.aComment.getEndLineImpl();
+    }
+
+    /**
+     * Get value on attribute kind
+     * @return the attribute's value
+     */
+    @Override
+    public String getKindImpl() {
+        return this.aComment.getKindImpl();
     }
 
     /**
@@ -106,30 +106,12 @@ public abstract class APragma extends AComment {
     }
 
     /**
-     * Get value on attribute parent
+     * Get value on attribute annotationsArrayImpl
      * @return the attribute's value
      */
     @Override
-    public AJoinPoint getParentImpl() {
-        return this.aComment.getParentImpl();
-    }
-
-    /**
-     * Get value on attribute isStatic
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsStaticImpl() {
-        return this.aComment.getIsStaticImpl();
-    }
-
-    /**
-     * Get value on attribute code
-     * @return the attribute's value
-     */
-    @Override
-    public String getCodeImpl() {
-        return this.aComment.getCodeImpl();
+    public AAnnotation[] getAnnotationsArrayImpl() {
+        return this.aComment.getAnnotationsArrayImpl();
     }
 
     /**
@@ -142,156 +124,12 @@ public abstract class APragma extends AComment {
     }
 
     /**
-     * Get value on attribute isBlock
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsBlockImpl() {
-        return this.aComment.getIsBlockImpl();
-    }
-
-    /**
-     * Get value on attribute isInsideLoopHeader
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsInsideLoopHeaderImpl() {
-        return this.aComment.getIsInsideLoopHeaderImpl();
-    }
-
-    /**
-     * Get value on attribute line
-     * @return the attribute's value
-     */
-    @Override
-    public Integer getLineImpl() {
-        return this.aComment.getLineImpl();
-    }
-
-    /**
-     * Get value on attribute getAncestor
-     * @return the attribute's value
-     */
-    @Override
-    public AJoinPoint getAncestorImpl(String type) {
-        return this.aComment.getAncestorImpl(type);
-    }
-
-    /**
-     * Get value on attribute annotationsArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public AAnnotation[] getAnnotationsArrayImpl() {
-        return this.aComment.getAnnotationsArrayImpl();
-    }
-
-    /**
-     * Get value on attribute rightArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public AJoinPoint[] getRightArrayImpl() {
-        return this.aComment.getRightArrayImpl();
-    }
-
-    /**
-     * Get value on attribute modifiersArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public String[] getModifiersArrayImpl() {
-        return this.aComment.getModifiersArrayImpl();
-    }
-
-    /**
-     * Get value on attribute descendantsArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public AJoinPoint[] getDescendantsArrayImpl() {
-        return this.aComment.getDescendantsArrayImpl();
-    }
-
-    /**
-     * Get value on attribute isStatement
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsStatementImpl() {
-        return this.aComment.getIsStatementImpl();
-    }
-
-    /**
      * Get value on attribute astParent
      * @return the attribute's value
      */
     @Override
     public AJoinPoint getAstParentImpl() {
         return this.aComment.getAstParentImpl();
-    }
-
-    /**
-     * Get value on attribute childrenArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public AJoinPoint[] getChildrenArrayImpl() {
-        return this.aComment.getChildrenArrayImpl();
-    }
-
-    /**
-     * Get value on attribute leftArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public AJoinPoint[] getLeftArrayImpl() {
-        return this.aComment.getLeftArrayImpl();
-    }
-
-    /**
-     * Get value on attribute hasModifier
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean hasModifierImpl(String modifier) {
-        return this.aComment.hasModifierImpl(modifier);
-    }
-
-    /**
-     * Get value on attribute numChildren
-     * @return the attribute's value
-     */
-    @Override
-    public Integer getNumChildrenImpl() {
-        return this.aComment.getNumChildrenImpl();
-    }
-
-    /**
-     * Get value on attribute srcCode
-     * @return the attribute's value
-     */
-    @Override
-    public String getSrcCodeImpl() {
-        return this.aComment.getSrcCodeImpl();
-    }
-
-    /**
-     * Get value on attribute isFinal
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsFinalImpl() {
-        return this.aComment.getIsFinalImpl();
-    }
-
-    /**
-     * Get value on attribute id
-     * @return the attribute's value
-     */
-    @Override
-    public String getIdImpl() {
-        return this.aComment.getIdImpl();
     }
 
     /**
@@ -304,21 +142,193 @@ public abstract class APragma extends AComment {
     }
 
     /**
-     * 
-     * @param node 
+     * Get value on attribute childrenArrayImpl
+     * @return the attribute's value
      */
     @Override
-    public AJoinPoint insertBeforeImpl(AJoinPoint node) {
-        return this.aComment.insertBeforeImpl(node);
+    public AJoinPoint[] getChildrenArrayImpl() {
+        return this.aComment.getChildrenArrayImpl();
+    }
+
+    /**
+     * Get value on attribute code
+     * @return the attribute's value
+     */
+    @Override
+    public String getCodeImpl() {
+        return this.aComment.getCodeImpl();
+    }
+
+    /**
+     * Get value on attribute descendantsArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getDescendantsArrayImpl() {
+        return this.aComment.getDescendantsArrayImpl();
+    }
+
+    /**
+     * Get value on attribute getAncestor
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint getAncestorImpl(String type) {
+        return this.aComment.getAncestorImpl(type);
+    }
+
+    /**
+     * Get value on attribute hasModifier
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean hasModifierImpl(String modifier) {
+        return this.aComment.hasModifierImpl(modifier);
+    }
+
+    /**
+     * Get value on attribute id
+     * @return the attribute's value
+     */
+    @Override
+    public String getIdImpl() {
+        return this.aComment.getIdImpl();
+    }
+
+    /**
+     * Get value on attribute isBlock
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsBlockImpl() {
+        return this.aComment.getIsBlockImpl();
+    }
+
+    /**
+     * Get value on attribute isFinal
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsFinalImpl() {
+        return this.aComment.getIsFinalImpl();
+    }
+
+    /**
+     * Get value on attribute isInsideLoopHeader
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsInsideLoopHeaderImpl() {
+        return this.aComment.getIsInsideLoopHeaderImpl();
+    }
+
+    /**
+     * Get value on attribute isStatement
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsStatementImpl() {
+        return this.aComment.getIsStatementImpl();
+    }
+
+    /**
+     * Get value on attribute isStatic
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsStaticImpl() {
+        return this.aComment.getIsStaticImpl();
+    }
+
+    /**
+     * Get value on attribute leftArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getLeftArrayImpl() {
+        return this.aComment.getLeftArrayImpl();
+    }
+
+    /**
+     * Get value on attribute line
+     * @return the attribute's value
+     */
+    @Override
+    public Integer getLineImpl() {
+        return this.aComment.getLineImpl();
+    }
+
+    /**
+     * Get value on attribute modifiersArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public String[] getModifiersArrayImpl() {
+        return this.aComment.getModifiersArrayImpl();
+    }
+
+    /**
+     * Get value on attribute numChildren
+     * @return the attribute's value
+     */
+    @Override
+    public Integer getNumChildrenImpl() {
+        return this.aComment.getNumChildrenImpl();
+    }
+
+    /**
+     * Get value on attribute parent
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint getParentImpl() {
+        return this.aComment.getParentImpl();
+    }
+
+    /**
+     * Get value on attribute rightArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getRightArrayImpl() {
+        return this.aComment.getRightArrayImpl();
+    }
+
+    /**
+     * Get value on attribute srcCode
+     * @return the attribute's value
+     */
+    @Override
+    public String getSrcCodeImpl() {
+        return this.aComment.getSrcCodeImpl();
     }
 
     /**
      * 
+     */
+    @Override
+    public AJoinPoint copyImpl() {
+        return this.aComment.copyImpl();
+    }
+
+    /**
+     * 
+     * @param position 
      * @param code 
      */
     @Override
-    public AJoinPoint insertBeforeImpl(String code) {
-        return this.aComment.insertBeforeImpl(code);
+    public AJoinPoint[] insertImpl(String position, String code) {
+        return this.aComment.insertImpl(position, code);
+    }
+
+    /**
+     * 
+     * @param position 
+     * @param code 
+     */
+    @Override
+    public AJoinPoint[] insertImpl(String position, JoinPoint code) {
+        return this.aComment.insertImpl(position, code);
     }
 
     /**
@@ -341,6 +351,24 @@ public abstract class APragma extends AComment {
 
     /**
      * 
+     * @param node 
+     */
+    @Override
+    public AJoinPoint insertBeforeImpl(AJoinPoint node) {
+        return this.aComment.insertBeforeImpl(node);
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    @Override
+    public AJoinPoint insertBeforeImpl(String code) {
+        return this.aComment.insertBeforeImpl(code);
+    }
+
+    /**
+     * 
      * @param jp 
      */
     @Override
@@ -355,32 +383,6 @@ public abstract class APragma extends AComment {
     @Override
     public AJoinPoint insertReplaceImpl(String code) {
         return this.aComment.insertReplaceImpl(code);
-    }
-
-    /**
-     * 
-     * @param jp 
-     */
-    @Override
-    public AJoinPoint replaceWithImpl(AJoinPoint jp) {
-        return this.aComment.replaceWithImpl(jp);
-    }
-
-    /**
-     * 
-     * @param code 
-     */
-    @Override
-    public AJoinPoint replaceWithImpl(String code) {
-        return this.aComment.replaceWithImpl(code);
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public AJoinPoint copyImpl() {
-        return this.aComment.copyImpl();
     }
 
     /**
@@ -411,22 +413,20 @@ public abstract class APragma extends AComment {
 
     /**
      * 
-     * @param position 
-     * @param code 
+     * @param jp 
      */
     @Override
-    public AJoinPoint[] insertImpl(String position, String code) {
-        return this.aComment.insertImpl(position, code);
+    public AJoinPoint replaceWithImpl(AJoinPoint jp) {
+        return this.aComment.replaceWithImpl(jp);
     }
 
     /**
      * 
-     * @param position 
      * @param code 
      */
     @Override
-    public AJoinPoint[] insertImpl(String position, JoinPoint code) {
-        return this.aComment.insertImpl(position, code);
+    public AJoinPoint replaceWithImpl(String code) {
+        return this.aComment.replaceWithImpl(code);
     }
 
     /**
@@ -529,32 +529,32 @@ public abstract class APragma extends AComment {
      */
     protected enum PragmaAttributes {
         NAME("name"),
-        TYPE("type"),
         CONTENT("content"),
-        KIND("kind"),
+        TYPE("type"),
         ENDLINE("endLine"),
-        PARENT("parent"),
-        ISSTATIC("isStatic"),
-        CODE("code"),
-        AST("ast"),
-        ISBLOCK("isBlock"),
-        ISINSIDELOOPHEADER("isInsideLoopHeader"),
-        LINE("line"),
-        GETANCESTOR("getAncestor"),
+        KIND("kind"),
         ANNOTATIONS("annotations"),
-        RIGHT("right"),
-        MODIFIERS("modifiers"),
-        DESCENDANTS("descendants"),
-        ISSTATEMENT("isStatement"),
+        AST("ast"),
         ASTPARENT("astParent"),
+        CHILD("child"),
         CHILDREN("children"),
-        LEFT("left"),
+        CODE("code"),
+        DESCENDANTS("descendants"),
+        GETANCESTOR("getAncestor"),
         HASMODIFIER("hasModifier"),
-        NUMCHILDREN("numChildren"),
-        SRCCODE("srcCode"),
-        ISFINAL("isFinal"),
         ID("id"),
-        CHILD("child");
+        ISBLOCK("isBlock"),
+        ISFINAL("isFinal"),
+        ISINSIDELOOPHEADER("isInsideLoopHeader"),
+        ISSTATEMENT("isStatement"),
+        ISSTATIC("isStatic"),
+        LEFT("left"),
+        LINE("line"),
+        MODIFIERS("modifiers"),
+        NUMCHILDREN("numChildren"),
+        PARENT("parent"),
+        RIGHT("right"),
+        SRCCODE("srcCode");
         private String name;
 
         /**

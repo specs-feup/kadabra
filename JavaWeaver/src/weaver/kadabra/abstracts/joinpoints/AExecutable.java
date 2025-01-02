@@ -21,6 +21,31 @@ import java.util.Arrays;
 public abstract class AExecutable extends AJavaWeaverJoinPoint {
 
     /**
+     * Get value on attribute body
+     * @return the attribute's value
+     */
+    public abstract ABody getBodyImpl();
+
+    /**
+     * Get value on attribute body
+     * @return the attribute's value
+     */
+    public final Object getBody() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "body", Optional.empty());
+        	}
+        	ABody result = this.getBodyImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "body", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "body", e);
+        }
+    }
+
+    /**
      * Get value on attribute name
      * @return the attribute's value
      */
@@ -50,56 +75,6 @@ public abstract class AExecutable extends AJavaWeaverJoinPoint {
      */
     public void defNameImpl(String value) {
         throw new UnsupportedOperationException("Join point "+get_class()+": Action def name with type String not implemented ");
-    }
-
-    /**
-     * Get value on attribute returnType
-     * @return the attribute's value
-     */
-    public abstract String getReturnTypeImpl();
-
-    /**
-     * Get value on attribute returnType
-     * @return the attribute's value
-     */
-    public final Object getReturnType() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "returnType", Optional.empty());
-        	}
-        	String result = this.getReturnTypeImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "returnType", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "returnType", e);
-        }
-    }
-
-    /**
-     * Get value on attribute body
-     * @return the attribute's value
-     */
-    public abstract ABody getBodyImpl();
-
-    /**
-     * Get value on attribute body
-     * @return the attribute's value
-     */
-    public final Object getBody() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "body", Optional.empty());
-        	}
-        	ABody result = this.getBodyImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "body", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "body", e);
-        }
     }
 
     /**
@@ -159,6 +134,31 @@ public abstract class AExecutable extends AJavaWeaverJoinPoint {
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "returnRef", e);
+        }
+    }
+
+    /**
+     * Get value on attribute returnType
+     * @return the attribute's value
+     */
+    public abstract String getReturnTypeImpl();
+
+    /**
+     * Get value on attribute returnType
+     * @return the attribute's value
+     */
+    public final Object getReturnType() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "returnType", Optional.empty());
+        	}
+        	String result = this.getReturnTypeImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "returnType", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "returnType", e);
         }
     }
 
@@ -231,6 +231,13 @@ public abstract class AExecutable extends AJavaWeaverJoinPoint {
     @Override
     public void defImpl(String attribute, Object value) {
         switch(attribute){
+        case "name": {
+        	if(value instanceof String){
+        		this.defNameImpl((String)value);
+        		return;
+        	}
+        	this.unsupportedTypeForDef(attribute, value);
+        }
         case "line": {
         	if(value instanceof Integer){
         		this.defLineImpl((Integer)value);
@@ -238,13 +245,6 @@ public abstract class AExecutable extends AJavaWeaverJoinPoint {
         	}
         	if(value instanceof String){
         		this.defLineImpl((String)value);
-        		return;
-        	}
-        	this.unsupportedTypeForDef(attribute, value);
-        }
-        case "name": {
-        	if(value instanceof String){
-        		this.defNameImpl((String)value);
         		return;
         	}
         	this.unsupportedTypeForDef(attribute, value);
@@ -259,11 +259,11 @@ public abstract class AExecutable extends AJavaWeaverJoinPoint {
     @Override
     protected void fillWithAttributes(List<String> attributes) {
         super.fillWithAttributes(attributes);
-        attributes.add("name");
-        attributes.add("returnType");
         attributes.add("body");
+        attributes.add("name");
         attributes.add("params");
         attributes.add("returnRef");
+        attributes.add("returnType");
     }
 
     /**
@@ -282,7 +282,7 @@ public abstract class AExecutable extends AJavaWeaverJoinPoint {
     @Override
     protected void fillWithActions(List<String> actions) {
         super.fillWithActions(actions);
-        actions.add("string setName(String)");
+        actions.add("String setName(String)");
     }
 
     /**
@@ -297,33 +297,33 @@ public abstract class AExecutable extends AJavaWeaverJoinPoint {
      * 
      */
     protected enum ExecutableAttributes {
-        NAME("name"),
-        RETURNTYPE("returnType"),
         BODY("body"),
+        NAME("name"),
         PARAMS("params"),
         RETURNREF("returnRef"),
-        PARENT("parent"),
-        ISSTATIC("isStatic"),
-        CODE("code"),
-        AST("ast"),
-        ISBLOCK("isBlock"),
-        ISINSIDELOOPHEADER("isInsideLoopHeader"),
-        LINE("line"),
-        GETANCESTOR("getAncestor"),
+        RETURNTYPE("returnType"),
         ANNOTATIONS("annotations"),
-        RIGHT("right"),
-        MODIFIERS("modifiers"),
-        DESCENDANTS("descendants"),
-        ISSTATEMENT("isStatement"),
+        AST("ast"),
         ASTPARENT("astParent"),
+        CHILD("child"),
         CHILDREN("children"),
-        LEFT("left"),
+        CODE("code"),
+        DESCENDANTS("descendants"),
+        GETANCESTOR("getAncestor"),
         HASMODIFIER("hasModifier"),
-        NUMCHILDREN("numChildren"),
-        SRCCODE("srcCode"),
-        ISFINAL("isFinal"),
         ID("id"),
-        CHILD("child");
+        ISBLOCK("isBlock"),
+        ISFINAL("isFinal"),
+        ISINSIDELOOPHEADER("isInsideLoopHeader"),
+        ISSTATEMENT("isStatement"),
+        ISSTATIC("isStatic"),
+        LEFT("left"),
+        LINE("line"),
+        MODIFIERS("modifiers"),
+        NUMCHILDREN("numChildren"),
+        PARENT("parent"),
+        RIGHT("right"),
+        SRCCODE("srcCode");
         private String name;
 
         /**

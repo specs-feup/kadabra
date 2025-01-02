@@ -21,56 +21,6 @@ import java.util.Arrays;
 public abstract class AFile extends AJavaWeaverJoinPoint {
 
     /**
-     * Get value on attribute name
-     * @return the attribute's value
-     */
-    public abstract String getNameImpl();
-
-    /**
-     * Get value on attribute name
-     * @return the attribute's value
-     */
-    public final Object getName() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "name", Optional.empty());
-        	}
-        	String result = this.getNameImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "name", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "name", e);
-        }
-    }
-
-    /**
-     * Get value on attribute path
-     * @return the attribute's value
-     */
-    public abstract String getPathImpl();
-
-    /**
-     * Get value on attribute path
-     * @return the attribute's value
-     */
-    public final Object getPath() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "path", Optional.empty());
-        	}
-        	String result = this.getPathImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "path", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "path", e);
-        }
-    }
-
-    /**
      * Get value on attribute dir
      * @return the attribute's value
      */
@@ -96,27 +46,50 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
     }
 
     /**
-     * Get value on attribute _package
-     * @return the attribute's value
+     * Main class of the file. Java files must have a top level class with the same name as the file.
      */
-    public abstract String getPackageImpl();
+    public abstract AType getMainClassImpl();
 
     /**
-     * Get value on attribute _package
-     * @return the attribute's value
+     * Main class of the file. Java files must have a top level class with the same name as the file.
      */
-    public final Object getPackage() {
+    public final Object getMainClass() {
         try {
         	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "package", Optional.empty());
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "mainClass", Optional.empty());
         	}
-        	String result = this.getPackageImpl();
+        	AType result = this.getMainClassImpl();
         	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "package", Optional.ofNullable(result));
+        		eventTrigger().triggerAttribute(Stage.END, this, "mainClass", Optional.ofNullable(result));
         	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
-        	throw new AttributeException(get_class(), "package", e);
+        	throw new AttributeException(get_class(), "mainClass", e);
+        }
+    }
+
+    /**
+     * Get value on attribute name
+     * @return the attribute's value
+     */
+    public abstract String getNameImpl();
+
+    /**
+     * Get value on attribute name
+     * @return the attribute's value
+     */
+    public final Object getName() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "name", Optional.empty());
+        	}
+        	String result = this.getNameImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "name", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "name", e);
         }
     }
 
@@ -171,25 +144,52 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
     }
 
     /**
-     * Main class of the file. Java files must have a top level class with the same name as the file.
+     * Get value on attribute _package
+     * @return the attribute's value
      */
-    public abstract AType getMainClassImpl();
+    public abstract String getPackageImpl();
 
     /**
-     * Main class of the file. Java files must have a top level class with the same name as the file.
+     * Get value on attribute _package
+     * @return the attribute's value
      */
-    public final Object getMainClass() {
+    public final Object getPackage() {
         try {
         	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "mainClass", Optional.empty());
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "package", Optional.empty());
         	}
-        	AType result = this.getMainClassImpl();
+        	String result = this.getPackageImpl();
         	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "mainClass", Optional.ofNullable(result));
+        		eventTrigger().triggerAttribute(Stage.END, this, "package", Optional.ofNullable(result));
         	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
-        	throw new AttributeException(get_class(), "mainClass", e);
+        	throw new AttributeException(get_class(), "package", e);
+        }
+    }
+
+    /**
+     * Get value on attribute path
+     * @return the attribute's value
+     */
+    public abstract String getPathImpl();
+
+    /**
+     * Get value on attribute path
+     * @return the attribute's value
+     */
+    public final Object getPath() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "path", Optional.empty());
+        	}
+        	String result = this.getPathImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "path", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "path", e);
         }
     }
 
@@ -234,6 +234,117 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
     }
 
     /**
+     * insert a given class inside the target
+     * @param newClass 
+     */
+    public void addClassImpl(AClass newClass) {
+        throw new UnsupportedOperationException(get_class()+": Action addClass not implemented ");
+    }
+
+    /**
+     * insert a given class inside the target
+     * @param newClass 
+     */
+    public final void addClass(AClass newClass) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "addClass", this, Optional.empty(), newClass);
+        	}
+        	this.addClassImpl(newClass);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "addClass", this, Optional.empty(), newClass);
+        	}
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "addClass", e);
+        }
+    }
+
+    /**
+     * 
+     * @param qualifiedName 
+     */
+    public void addImportImpl(String qualifiedName) {
+        throw new UnsupportedOperationException(get_class()+": Action addImport not implemented ");
+    }
+
+    /**
+     * 
+     * @param qualifiedName 
+     */
+    public final void addImport(String qualifiedName) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "addImport", this, Optional.empty(), qualifiedName);
+        	}
+        	this.addImportImpl(qualifiedName);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "addImport", this, Optional.empty(), qualifiedName);
+        	}
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "addImport", e);
+        }
+    }
+
+    /**
+     * 
+     * @param newInterface 
+     */
+    public void addInterfaceImpl(AInterface newInterface) {
+        throw new UnsupportedOperationException(get_class()+": Action addInterface not implemented ");
+    }
+
+    /**
+     * 
+     * @param newInterface 
+     */
+    public final void addInterface(AInterface newInterface) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "addInterface", this, Optional.empty(), newInterface);
+        	}
+        	this.addInterfaceImpl(newInterface);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "addInterface", this, Optional.empty(), newInterface);
+        	}
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "addInterface", e);
+        }
+    }
+
+    /**
+     * 
+     * @param name 
+     * @param keyType 
+     * @param _interface 
+     * @param methodName 
+     */
+    public AClass mapVersionsImpl(String name, String keyType, AInterface _interface, String methodName) {
+        throw new UnsupportedOperationException(get_class()+": Action mapVersions not implemented ");
+    }
+
+    /**
+     * 
+     * @param name 
+     * @param keyType 
+     * @param _interface 
+     * @param methodName 
+     */
+    public final Object mapVersions(String name, String keyType, AInterface _interface, String methodName) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "mapVersions", this, Optional.empty(), name, keyType, _interface, methodName);
+        	}
+        	AClass result = this.mapVersionsImpl(name, keyType, _interface, methodName);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "mapVersions", this, Optional.ofNullable(result), name, keyType, _interface, methodName);
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "mapVersions", e);
+        }
+    }
+
+    /**
      * 
      * @param name 
      * @param extend 
@@ -249,12 +360,12 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
      * @param extend 
      * @param implement 
      */
-    public final Object newClass(String name, String extend, String[] implement) {
+    public final Object newClass(String name, String extend, Object[] implement) {
         try {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "newClass", this, Optional.empty(), name, extend, implement);
         	}
-        	AClass result = this.newClassImpl(name, extend, implement);
+        	AClass result = this.newClassImpl(name, extend, pt.up.fe.specs.util.SpecsCollections.cast(implement, String.class));
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.END, "newClass", this, Optional.ofNullable(result), name, extend, implement);
         	}
@@ -305,12 +416,12 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
      * @param name 
      * @param extend 
      */
-    public final Object newInterface(String name, String[] extend) {
+    public final Object newInterface(String name, Object[] extend) {
         try {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "newInterface", this, Optional.empty(), name, extend);
         	}
-        	AInterface result = this.newInterfaceImpl(name, extend);
+        	AInterface result = this.newInterfaceImpl(name, pt.up.fe.specs.util.SpecsCollections.cast(extend, String.class));
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.END, "newInterface", this, Optional.ofNullable(result), name, extend);
         	}
@@ -349,84 +460,6 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
 
     /**
      * 
-     * @param qualifiedName 
-     */
-    public void addImportImpl(String qualifiedName) {
-        throw new UnsupportedOperationException(get_class()+": Action addImport not implemented ");
-    }
-
-    /**
-     * 
-     * @param qualifiedName 
-     */
-    public final void addImport(String qualifiedName) {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "addImport", this, Optional.empty(), qualifiedName);
-        	}
-        	this.addImportImpl(qualifiedName);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "addImport", this, Optional.empty(), qualifiedName);
-        	}
-        } catch(Exception e) {
-        	throw new ActionException(get_class(), "addImport", e);
-        }
-    }
-
-    /**
-     * insert a given class inside the target
-     * @param newClass 
-     */
-    public void addClassImpl(AClass newClass) {
-        throw new UnsupportedOperationException(get_class()+": Action addClass not implemented ");
-    }
-
-    /**
-     * insert a given class inside the target
-     * @param newClass 
-     */
-    public final void addClass(AClass newClass) {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "addClass", this, Optional.empty(), newClass);
-        	}
-        	this.addClassImpl(newClass);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "addClass", this, Optional.empty(), newClass);
-        	}
-        } catch(Exception e) {
-        	throw new ActionException(get_class(), "addClass", e);
-        }
-    }
-
-    /**
-     * 
-     * @param newInterface 
-     */
-    public void addInterfaceImpl(AInterface newInterface) {
-        throw new UnsupportedOperationException(get_class()+": Action addInterface not implemented ");
-    }
-
-    /**
-     * 
-     * @param newInterface 
-     */
-    public final void addInterface(AInterface newInterface) {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "addInterface", this, Optional.empty(), newInterface);
-        	}
-        	this.addInterfaceImpl(newInterface);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "addInterface", this, Optional.empty(), newInterface);
-        	}
-        } catch(Exception e) {
-        	throw new ActionException(get_class(), "addInterface", e);
-        }
-    }
-
-    /**
-     * 
      * @param interfaceName 
      */
     public AInterface removeInterfaceImpl(String interfaceName) {
@@ -449,39 +482,6 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "removeInterface", e);
-        }
-    }
-
-    /**
-     * 
-     * @param name 
-     * @param keyType 
-     * @param _interface 
-     * @param methodName 
-     */
-    public AClass mapVersionsImpl(String name, String keyType, AInterface _interface, String methodName) {
-        throw new UnsupportedOperationException(get_class()+": Action mapVersions not implemented ");
-    }
-
-    /**
-     * 
-     * @param name 
-     * @param keyType 
-     * @param _interface 
-     * @param methodName 
-     */
-    public final Object mapVersions(String name, String keyType, AInterface _interface, String methodName) {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "mapVersions", this, Optional.empty(), name, keyType, _interface, methodName);
-        	}
-        	AClass result = this.mapVersionsImpl(name, keyType, _interface, methodName);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "mapVersions", this, Optional.ofNullable(result), name, keyType, _interface, methodName);
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new ActionException(get_class(), "mapVersions", e);
         }
     }
 
@@ -541,13 +541,13 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
     @Override
     protected final void fillWithAttributes(List<String> attributes) {
         super.fillWithAttributes(attributes);
-        attributes.add("name");
-        attributes.add("path");
         attributes.add("dir");
-        attributes.add("package");
+        attributes.add("mainClass");
+        attributes.add("name");
         attributes.add("numClasses");
         attributes.add("numInterfaces");
-        attributes.add("mainClass");
+        attributes.add("package");
+        attributes.add("path");
     }
 
     /**
@@ -569,15 +569,15 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
     @Override
     protected final void fillWithActions(List<String> actions) {
         super.fillWithActions(actions);
+        actions.add("void addClass(class)");
+        actions.add("void addImport(String)");
+        actions.add("void addInterface(interface)");
+        actions.add("class mapVersions(String, String, interface, String)");
         actions.add("class newClass(String, String, String[])");
         actions.add("class newClass(String)");
         actions.add("interface newInterface(String, String[])");
         actions.add("interface newInterface(String)");
-        actions.add("void addImport(String)");
-        actions.add("void addClass(class)");
-        actions.add("void addInterface(interface)");
         actions.add("interface removeInterface(String)");
-        actions.add("class mapVersions(String, String, interface, String)");
     }
 
     /**
@@ -592,35 +592,35 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
      * 
      */
     protected enum FileAttributes {
-        NAME("name"),
-        PATH("path"),
         DIR("dir"),
-        PACKAGE("package"),
+        MAINCLASS("mainClass"),
+        NAME("name"),
         NUMCLASSES("numClasses"),
         NUMINTERFACES("numInterfaces"),
-        MAINCLASS("mainClass"),
-        PARENT("parent"),
-        ISSTATIC("isStatic"),
-        CODE("code"),
-        AST("ast"),
-        ISBLOCK("isBlock"),
-        ISINSIDELOOPHEADER("isInsideLoopHeader"),
-        LINE("line"),
-        GETANCESTOR("getAncestor"),
+        PACKAGE("package"),
+        PATH("path"),
         ANNOTATIONS("annotations"),
-        RIGHT("right"),
-        MODIFIERS("modifiers"),
-        DESCENDANTS("descendants"),
-        ISSTATEMENT("isStatement"),
+        AST("ast"),
         ASTPARENT("astParent"),
+        CHILD("child"),
         CHILDREN("children"),
-        LEFT("left"),
+        CODE("code"),
+        DESCENDANTS("descendants"),
+        GETANCESTOR("getAncestor"),
         HASMODIFIER("hasModifier"),
-        NUMCHILDREN("numChildren"),
-        SRCCODE("srcCode"),
-        ISFINAL("isFinal"),
         ID("id"),
-        CHILD("child");
+        ISBLOCK("isBlock"),
+        ISFINAL("isFinal"),
+        ISINSIDELOOPHEADER("isInsideLoopHeader"),
+        ISSTATEMENT("isStatement"),
+        ISSTATIC("isStatic"),
+        LEFT("left"),
+        LINE("line"),
+        MODIFIERS("modifiers"),
+        NUMCHILDREN("numChildren"),
+        PARENT("parent"),
+        RIGHT("right"),
+        SRCCODE("srcCode");
         private String name;
 
         /**

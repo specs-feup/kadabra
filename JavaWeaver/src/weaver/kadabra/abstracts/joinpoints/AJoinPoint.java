@@ -71,71 +71,42 @@ public abstract class AJoinPoint extends JoinPoint {
      */
     @Override
     protected void fillWithActions(List<String> actions) {
-        actions.add("insertBefore(AJoinPoint node)");
-        actions.add("insertBefore(String code)");
+        actions.add("copy()");
         actions.add("insertAfter(AJoinPoint node)");
         actions.add("insertAfter(String code)");
+        actions.add("insertBefore(AJoinPoint node)");
+        actions.add("insertBefore(String code)");
         actions.add("insertReplace(AJoinPoint jp)");
         actions.add("insertReplace(String code)");
-        actions.add("replaceWith(AJoinPoint jp)");
-        actions.add("replaceWith(String code)");
-        actions.add("copy()");
         actions.add("remove()");
         actions.add("removeAnnotation(AAnnotation annotation)");
         actions.add("removeModifier(String modifier)");
+        actions.add("replaceWith(AJoinPoint jp)");
+        actions.add("replaceWith(String code)");
     }
 
     /**
      * 
-     * @param node 
      */
-    public AJoinPoint insertBeforeImpl(AJoinPoint node) {
-        throw new UnsupportedOperationException(get_class()+": Action insertBefore not implemented ");
+    public AJoinPoint copyImpl() {
+        throw new UnsupportedOperationException(get_class()+": Action copy not implemented ");
     }
 
     /**
      * 
-     * @param node 
      */
-    public final Object insertBefore(AJoinPoint node) {
+    public final Object copy() {
         try {
         	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "insertBefore", this, Optional.empty(), node);
+        		eventTrigger().triggerAction(Stage.BEGIN, "copy", this, Optional.empty());
         	}
-        	AJoinPoint result = this.insertBeforeImpl(node);
+        	AJoinPoint result = this.copyImpl();
         	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "insertBefore", this, Optional.ofNullable(result), node);
+        		eventTrigger().triggerAction(Stage.END, "copy", this, Optional.ofNullable(result));
         	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
-        	throw new ActionException(get_class(), "insertBefore", e);
-        }
-    }
-
-    /**
-     * 
-     * @param code 
-     */
-    public AJoinPoint insertBeforeImpl(String code) {
-        throw new UnsupportedOperationException(get_class()+": Action insertBefore not implemented ");
-    }
-
-    /**
-     * 
-     * @param code 
-     */
-    public final Object insertBefore(String code) {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "insertBefore", this, Optional.empty(), code);
-        	}
-        	AJoinPoint result = this.insertBeforeImpl(code);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "insertBefore", this, Optional.ofNullable(result), code);
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new ActionException(get_class(), "insertBefore", e);
+        	throw new ActionException(get_class(), "copy", e);
         }
     }
 
@@ -195,6 +166,60 @@ public abstract class AJoinPoint extends JoinPoint {
 
     /**
      * 
+     * @param node 
+     */
+    public AJoinPoint insertBeforeImpl(AJoinPoint node) {
+        throw new UnsupportedOperationException(get_class()+": Action insertBefore not implemented ");
+    }
+
+    /**
+     * 
+     * @param node 
+     */
+    public final Object insertBefore(AJoinPoint node) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "insertBefore", this, Optional.empty(), node);
+        	}
+        	AJoinPoint result = this.insertBeforeImpl(node);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "insertBefore", this, Optional.ofNullable(result), node);
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "insertBefore", e);
+        }
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    public AJoinPoint insertBeforeImpl(String code) {
+        throw new UnsupportedOperationException(get_class()+": Action insertBefore not implemented ");
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    public final Object insertBefore(String code) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "insertBefore", this, Optional.empty(), code);
+        	}
+        	AJoinPoint result = this.insertBeforeImpl(code);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "insertBefore", this, Optional.ofNullable(result), code);
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "insertBefore", e);
+        }
+    }
+
+    /**
+     * 
      * @param jp 
      */
     public AJoinPoint insertReplaceImpl(AJoinPoint jp) {
@@ -244,85 +269,6 @@ public abstract class AJoinPoint extends JoinPoint {
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "insertReplace", e);
-        }
-    }
-
-    /**
-     * 
-     * @param jp 
-     */
-    public AJoinPoint replaceWithImpl(AJoinPoint jp) {
-        throw new UnsupportedOperationException(get_class()+": Action replaceWith not implemented ");
-    }
-
-    /**
-     * 
-     * @param jp 
-     */
-    public final Object replaceWith(AJoinPoint jp) {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "replaceWith", this, Optional.empty(), jp);
-        	}
-        	AJoinPoint result = this.replaceWithImpl(jp);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "replaceWith", this, Optional.ofNullable(result), jp);
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new ActionException(get_class(), "replaceWith", e);
-        }
-    }
-
-    /**
-     * 
-     * @param code 
-     */
-    public AJoinPoint replaceWithImpl(String code) {
-        throw new UnsupportedOperationException(get_class()+": Action replaceWith not implemented ");
-    }
-
-    /**
-     * 
-     * @param code 
-     */
-    public final Object replaceWith(String code) {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "replaceWith", this, Optional.empty(), code);
-        	}
-        	AJoinPoint result = this.replaceWithImpl(code);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "replaceWith", this, Optional.ofNullable(result), code);
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new ActionException(get_class(), "replaceWith", e);
-        }
-    }
-
-    /**
-     * 
-     */
-    public AJoinPoint copyImpl() {
-        throw new UnsupportedOperationException(get_class()+": Action copy not implemented ");
-    }
-
-    /**
-     * 
-     */
-    public final Object copy() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "copy", this, Optional.empty());
-        	}
-        	AJoinPoint result = this.copyImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "copy", this, Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new ActionException(get_class(), "copy", e);
         }
     }
 
@@ -404,6 +350,60 @@ public abstract class AJoinPoint extends JoinPoint {
 
     /**
      * 
+     * @param jp 
+     */
+    public AJoinPoint replaceWithImpl(AJoinPoint jp) {
+        throw new UnsupportedOperationException(get_class()+": Action replaceWith not implemented ");
+    }
+
+    /**
+     * 
+     * @param jp 
+     */
+    public final Object replaceWith(AJoinPoint jp) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "replaceWith", this, Optional.empty(), jp);
+        	}
+        	AJoinPoint result = this.replaceWithImpl(jp);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "replaceWith", this, Optional.ofNullable(result), jp);
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "replaceWith", e);
+        }
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    public AJoinPoint replaceWithImpl(String code) {
+        throw new UnsupportedOperationException(get_class()+": Action replaceWith not implemented ");
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    public final Object replaceWith(String code) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "replaceWith", this, Optional.empty(), code);
+        	}
+        	AJoinPoint result = this.replaceWithImpl(code);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "replaceWith", this, Optional.ofNullable(result), code);
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "replaceWith", e);
+        }
+    }
+
+    /**
+     * 
      */
     @Override
     protected void fillWithAttributes(List<String> attributes) {
@@ -411,73 +411,60 @@ public abstract class AJoinPoint extends JoinPoint {
         super.fillWithAttributes(attributes);
         
         //Attributes available for all join points
-        attributes.add("code");
-        attributes.add("srcCode");
-        attributes.add("ast");
-        attributes.add("numChildren");
-        attributes.add("children");
-        attributes.add("child(Integer index)");
-        attributes.add("parent");
-        attributes.add("astParent");
-        attributes.add("getAncestor(String type)");
-        attributes.add("line");
-        attributes.add("descendants");
-        attributes.add("left");
-        attributes.add("right");
-        attributes.add("isStatement");
-        attributes.add("isBlock");
-        attributes.add("modifiers");
-        attributes.add("hasModifier(String modifier)");
-        attributes.add("isFinal");
-        attributes.add("isStatic");
         attributes.add("annotations");
+        attributes.add("ast");
+        attributes.add("astParent");
+        attributes.add("child(Integer index)");
+        attributes.add("children");
+        attributes.add("code");
+        attributes.add("descendants");
+        attributes.add("getAncestor(String type)");
+        attributes.add("hasModifier(String modifier)");
         attributes.add("id");
+        attributes.add("isBlock");
+        attributes.add("isFinal");
         attributes.add("isInsideLoopHeader");
+        attributes.add("isStatement");
+        attributes.add("isStatic");
+        attributes.add("left");
+        attributes.add("line");
+        attributes.add("modifiers");
+        attributes.add("numChildren");
+        attributes.add("parent");
+        attributes.add("right");
+        attributes.add("srcCode");
     }
 
     /**
-     * The source code corresponding to this join point
+     * Get value on attribute annotations
+     * @return the attribute's value
      */
-    public abstract String getCodeImpl();
+    public abstract AAnnotation[] getAnnotationsArrayImpl();
 
     /**
-     * The source code corresponding to this join point
+     * an array of the annotations of this node
      */
-    public final Object getCode() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "code", Optional.empty());
-        	}
-        	String result = this.getCodeImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "code", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "code", e);
-        }
+    public Object getAnnotationsImpl() {
+        AAnnotation[] aAnnotationArrayImpl0 = getAnnotationsArrayImpl();
+        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(aAnnotationArrayImpl0);
+        return nativeArray0;
     }
 
     /**
-     * Alias for attribute 'code'
+     * an array of the annotations of this node
      */
-    public abstract String getSrcCodeImpl();
-
-    /**
-     * Alias for attribute 'code'
-     */
-    public final Object getSrcCode() {
+    public final Object getAnnotations() {
         try {
         	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "srcCode", Optional.empty());
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "annotations", Optional.empty());
         	}
-        	String result = this.getSrcCodeImpl();
+        	Object result = this.getAnnotationsImpl();
         	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "srcCode", Optional.ofNullable(result));
+        		eventTrigger().triggerAttribute(Stage.END, this, "annotations", Optional.ofNullable(result));
         	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
-        	throw new AttributeException(get_class(), "srcCode", e);
+        	throw new AttributeException(get_class(), "annotations", e);
         }
     }
 
@@ -505,25 +492,52 @@ public abstract class AJoinPoint extends JoinPoint {
     }
 
     /**
-     * Returns the number of children of the node
+     * Alias of attribute 'parent'
      */
-    public abstract Integer getNumChildrenImpl();
+    public abstract AJoinPoint getAstParentImpl();
 
     /**
-     * Returns the number of children of the node
+     * Alias of attribute 'parent'
      */
-    public final Object getNumChildren() {
+    public final Object getAstParent() {
         try {
         	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "numChildren", Optional.empty());
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "astParent", Optional.empty());
         	}
-        	Integer result = this.getNumChildrenImpl();
+        	AJoinPoint result = this.getAstParentImpl();
         	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "numChildren", Optional.ofNullable(result));
+        		eventTrigger().triggerAttribute(Stage.END, this, "astParent", Optional.ofNullable(result));
         	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
-        	throw new AttributeException(get_class(), "numChildren", e);
+        	throw new AttributeException(get_class(), "astParent", e);
+        }
+    }
+
+    /**
+     * 
+     * @param index
+     * @return 
+     */
+    public abstract AJoinPoint childImpl(Integer index);
+
+    /**
+     * 
+     * @param index
+     * @return 
+     */
+    public final Object child(Integer index) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "child", Optional.empty(), index);
+        	}
+        	AJoinPoint result = this.childImpl(index);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "child", Optional.ofNullable(result), index);
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "child", e);
         }
     }
 
@@ -561,77 +575,60 @@ public abstract class AJoinPoint extends JoinPoint {
     }
 
     /**
-     * 
-     * @param index
-     * @return 
+     * The source code corresponding to this join point
      */
-    public abstract AJoinPoint childImpl(Integer index);
+    public abstract String getCodeImpl();
 
     /**
-     * 
-     * @param index
-     * @return 
+     * The source code corresponding to this join point
      */
-    public final Object child(Integer index) {
+    public final Object getCode() {
         try {
         	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "child", Optional.empty(), index);
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "code", Optional.empty());
         	}
-        	AJoinPoint result = this.childImpl(index);
+        	String result = this.getCodeImpl();
         	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "child", Optional.ofNullable(result), index);
+        		eventTrigger().triggerAttribute(Stage.END, this, "code", Optional.ofNullable(result));
         	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
-        	throw new AttributeException(get_class(), "child", e);
+        	throw new AttributeException(get_class(), "code", e);
         }
     }
 
     /**
-     * Get value on attribute parent
+     * Get value on attribute descendants
      * @return the attribute's value
      */
-    public abstract AJoinPoint getParentImpl();
+    public abstract AJoinPoint[] getDescendantsArrayImpl();
 
     /**
-     * Get value on attribute parent
+     * Get value on attribute descendants
      * @return the attribute's value
      */
-    public final Object getParent() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "parent", Optional.empty());
-        	}
-        	AJoinPoint result = this.getParentImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "parent", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "parent", e);
-        }
+    public Object getDescendantsImpl() {
+        AJoinPoint[] aJoinPointArrayImpl0 = getDescendantsArrayImpl();
+        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(aJoinPointArrayImpl0);
+        return nativeArray0;
     }
 
     /**
-     * Alias of attribute 'parent'
+     * Get value on attribute descendants
+     * @return the attribute's value
      */
-    public abstract AJoinPoint getAstParentImpl();
-
-    /**
-     * Alias of attribute 'parent'
-     */
-    public final Object getAstParent() {
+    public final Object getDescendants() {
         try {
         	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "astParent", Optional.empty());
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "descendants", Optional.empty());
         	}
-        	AJoinPoint result = this.getAstParentImpl();
+        	Object result = this.getDescendantsImpl();
         	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "astParent", Optional.ofNullable(result));
+        		eventTrigger().triggerAttribute(Stage.END, this, "descendants", Optional.ofNullable(result));
         	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
-        	throw new AttributeException(get_class(), "astParent", e);
+        	throw new AttributeException(get_class(), "descendants", e);
         }
     }
 
@@ -659,6 +656,204 @@ public abstract class AJoinPoint extends JoinPoint {
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "getAncestor", e);
+        }
+    }
+
+    /**
+     * 
+     * @param modifier
+     * @return 
+     */
+    public abstract Boolean hasModifierImpl(String modifier);
+
+    /**
+     * 
+     * @param modifier
+     * @return 
+     */
+    public final Object hasModifier(String modifier) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "hasModifier", Optional.empty(), modifier);
+        	}
+        	Boolean result = this.hasModifierImpl(modifier);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "hasModifier", Optional.ofNullable(result), modifier);
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "hasModifier", e);
+        }
+    }
+
+    /**
+     * unique identifier for node
+     */
+    public abstract String getIdImpl();
+
+    /**
+     * unique identifier for node
+     */
+    public final Object getId() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "id", Optional.empty());
+        	}
+        	String result = this.getIdImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "id", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "id", e);
+        }
+    }
+
+    /**
+     * true if this node is considered a block of statements
+     */
+    public abstract Boolean getIsBlockImpl();
+
+    /**
+     * true if this node is considered a block of statements
+     */
+    public final Object getIsBlock() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isBlock", Optional.empty());
+        	}
+        	Boolean result = this.getIsBlockImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "isBlock", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "isBlock", e);
+        }
+    }
+
+    /**
+     * true if this node has the modifier 'final'
+     */
+    public abstract Boolean getIsFinalImpl();
+
+    /**
+     * true if this node has the modifier 'final'
+     */
+    public final Object getIsFinal() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isFinal", Optional.empty());
+        	}
+        	Boolean result = this.getIsFinalImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "isFinal", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "isFinal", e);
+        }
+    }
+
+    /**
+     * true if the node is inside a loop header, false otherwise
+     */
+    public abstract Boolean getIsInsideLoopHeaderImpl();
+
+    /**
+     * true if the node is inside a loop header, false otherwise
+     */
+    public final Object getIsInsideLoopHeader() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isInsideLoopHeader", Optional.empty());
+        	}
+        	Boolean result = this.getIsInsideLoopHeaderImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "isInsideLoopHeader", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "isInsideLoopHeader", e);
+        }
+    }
+
+    /**
+     * true if this node is considered a statement
+     */
+    public abstract Boolean getIsStatementImpl();
+
+    /**
+     * true if this node is considered a statement
+     */
+    public final Object getIsStatement() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isStatement", Optional.empty());
+        	}
+        	Boolean result = this.getIsStatementImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "isStatement", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "isStatement", e);
+        }
+    }
+
+    /**
+     * true if this node has the modifier 'static'
+     */
+    public abstract Boolean getIsStaticImpl();
+
+    /**
+     * true if this node has the modifier 'static'
+     */
+    public final Object getIsStatic() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isStatic", Optional.empty());
+        	}
+        	Boolean result = this.getIsStaticImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "isStatic", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "isStatic", e);
+        }
+    }
+
+    /**
+     * Get value on attribute left
+     * @return the attribute's value
+     */
+    public abstract AJoinPoint[] getLeftArrayImpl();
+
+    /**
+     * Sibling nodes to the left of this node
+     */
+    public Object getLeftImpl() {
+        AJoinPoint[] aJoinPointArrayImpl0 = getLeftArrayImpl();
+        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(aJoinPointArrayImpl0);
+        return nativeArray0;
+    }
+
+    /**
+     * Sibling nodes to the left of this node
+     */
+    public final Object getLeft() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "left", Optional.empty());
+        	}
+        	Object result = this.getLeftImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "left", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "left", e);
         }
     }
 
@@ -702,70 +897,83 @@ public abstract class AJoinPoint extends JoinPoint {
     }
 
     /**
-     * Get value on attribute descendants
+     * Get value on attribute modifiers
      * @return the attribute's value
      */
-    public abstract AJoinPoint[] getDescendantsArrayImpl();
+    public abstract String[] getModifiersArrayImpl();
 
     /**
-     * Get value on attribute descendants
-     * @return the attribute's value
+     * an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array
      */
-    public Object getDescendantsImpl() {
-        AJoinPoint[] aJoinPointArrayImpl0 = getDescendantsArrayImpl();
-        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(aJoinPointArrayImpl0);
+    public Object getModifiersImpl() {
+        String[] stringArrayImpl0 = getModifiersArrayImpl();
+        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(stringArrayImpl0);
         return nativeArray0;
     }
 
     /**
-     * Get value on attribute descendants
-     * @return the attribute's value
+     * an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array
      */
-    public final Object getDescendants() {
+    public final Object getModifiers() {
         try {
         	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "descendants", Optional.empty());
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "modifiers", Optional.empty());
         	}
-        	Object result = this.getDescendantsImpl();
+        	Object result = this.getModifiersImpl();
         	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "descendants", Optional.ofNullable(result));
+        		eventTrigger().triggerAttribute(Stage.END, this, "modifiers", Optional.ofNullable(result));
         	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
-        	throw new AttributeException(get_class(), "descendants", e);
+        	throw new AttributeException(get_class(), "modifiers", e);
         }
     }
 
     /**
-     * Get value on attribute left
-     * @return the attribute's value
+     * Returns the number of children of the node
      */
-    public abstract AJoinPoint[] getLeftArrayImpl();
+    public abstract Integer getNumChildrenImpl();
 
     /**
-     * Sibling nodes to the left of this node
+     * Returns the number of children of the node
      */
-    public Object getLeftImpl() {
-        AJoinPoint[] aJoinPointArrayImpl0 = getLeftArrayImpl();
-        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(aJoinPointArrayImpl0);
-        return nativeArray0;
-    }
-
-    /**
-     * Sibling nodes to the left of this node
-     */
-    public final Object getLeft() {
+    public final Object getNumChildren() {
         try {
         	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "left", Optional.empty());
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "numChildren", Optional.empty());
         	}
-        	Object result = this.getLeftImpl();
+        	Integer result = this.getNumChildrenImpl();
         	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "left", Optional.ofNullable(result));
+        		eventTrigger().triggerAttribute(Stage.END, this, "numChildren", Optional.ofNullable(result));
         	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
-        	throw new AttributeException(get_class(), "left", e);
+        	throw new AttributeException(get_class(), "numChildren", e);
+        }
+    }
+
+    /**
+     * Get value on attribute parent
+     * @return the attribute's value
+     */
+    public abstract AJoinPoint getParentImpl();
+
+    /**
+     * Get value on attribute parent
+     * @return the attribute's value
+     */
+    public final Object getParent() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "parent", Optional.empty());
+        	}
+        	AJoinPoint result = this.getParentImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "parent", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "parent", e);
         }
     }
 
@@ -803,233 +1011,25 @@ public abstract class AJoinPoint extends JoinPoint {
     }
 
     /**
-     * true if this node is considered a statement
+     * Alias for attribute 'code'
      */
-    public abstract Boolean getIsStatementImpl();
+    public abstract String getSrcCodeImpl();
 
     /**
-     * true if this node is considered a statement
+     * Alias for attribute 'code'
      */
-    public final Object getIsStatement() {
+    public final Object getSrcCode() {
         try {
         	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isStatement", Optional.empty());
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "srcCode", Optional.empty());
         	}
-        	Boolean result = this.getIsStatementImpl();
+        	String result = this.getSrcCodeImpl();
         	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "isStatement", Optional.ofNullable(result));
+        		eventTrigger().triggerAttribute(Stage.END, this, "srcCode", Optional.ofNullable(result));
         	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
-        	throw new AttributeException(get_class(), "isStatement", e);
-        }
-    }
-
-    /**
-     * true if this node is considered a block of statements
-     */
-    public abstract Boolean getIsBlockImpl();
-
-    /**
-     * true if this node is considered a block of statements
-     */
-    public final Object getIsBlock() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isBlock", Optional.empty());
-        	}
-        	Boolean result = this.getIsBlockImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "isBlock", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "isBlock", e);
-        }
-    }
-
-    /**
-     * Get value on attribute modifiers
-     * @return the attribute's value
-     */
-    public abstract String[] getModifiersArrayImpl();
-
-    /**
-     * an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array
-     */
-    public Object getModifiersImpl() {
-        String[] stringArrayImpl0 = getModifiersArrayImpl();
-        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(stringArrayImpl0);
-        return nativeArray0;
-    }
-
-    /**
-     * an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array
-     */
-    public final Object getModifiers() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "modifiers", Optional.empty());
-        	}
-        	Object result = this.getModifiersImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "modifiers", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "modifiers", e);
-        }
-    }
-
-    /**
-     * 
-     * @param modifier
-     * @return 
-     */
-    public abstract Boolean hasModifierImpl(String modifier);
-
-    /**
-     * 
-     * @param modifier
-     * @return 
-     */
-    public final Object hasModifier(String modifier) {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "hasModifier", Optional.empty(), modifier);
-        	}
-        	Boolean result = this.hasModifierImpl(modifier);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "hasModifier", Optional.ofNullable(result), modifier);
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "hasModifier", e);
-        }
-    }
-
-    /**
-     * true if this node has the modifier 'final'
-     */
-    public abstract Boolean getIsFinalImpl();
-
-    /**
-     * true if this node has the modifier 'final'
-     */
-    public final Object getIsFinal() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isFinal", Optional.empty());
-        	}
-        	Boolean result = this.getIsFinalImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "isFinal", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "isFinal", e);
-        }
-    }
-
-    /**
-     * true if this node has the modifier 'static'
-     */
-    public abstract Boolean getIsStaticImpl();
-
-    /**
-     * true if this node has the modifier 'static'
-     */
-    public final Object getIsStatic() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isStatic", Optional.empty());
-        	}
-        	Boolean result = this.getIsStaticImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "isStatic", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "isStatic", e);
-        }
-    }
-
-    /**
-     * Get value on attribute annotations
-     * @return the attribute's value
-     */
-    public abstract AAnnotation[] getAnnotationsArrayImpl();
-
-    /**
-     * an array of the annotations of this node
-     */
-    public Object getAnnotationsImpl() {
-        AAnnotation[] aAnnotationArrayImpl0 = getAnnotationsArrayImpl();
-        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(aAnnotationArrayImpl0);
-        return nativeArray0;
-    }
-
-    /**
-     * an array of the annotations of this node
-     */
-    public final Object getAnnotations() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "annotations", Optional.empty());
-        	}
-        	Object result = this.getAnnotationsImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "annotations", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "annotations", e);
-        }
-    }
-
-    /**
-     * unique identifier for node
-     */
-    public abstract String getIdImpl();
-
-    /**
-     * unique identifier for node
-     */
-    public final Object getId() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "id", Optional.empty());
-        	}
-        	String result = this.getIdImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "id", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "id", e);
-        }
-    }
-
-    /**
-     * true if the node is inside a loop header, false otherwise
-     */
-    public abstract Boolean getIsInsideLoopHeaderImpl();
-
-    /**
-     * true if the node is inside a loop header, false otherwise
-     */
-    public final Object getIsInsideLoopHeader() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isInsideLoopHeader", Optional.empty());
-        	}
-        	Boolean result = this.getIsInsideLoopHeaderImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "isInsideLoopHeader", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "isInsideLoopHeader", e);
+        	throw new AttributeException(get_class(), "srcCode", e);
         }
     }
 

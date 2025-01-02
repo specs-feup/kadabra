@@ -33,12 +33,48 @@ public abstract class ALibClass extends ANamedType {
     }
 
     /**
+     * Get value on attribute interfacesArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public String[] getInterfacesArrayImpl() {
+        return this.aNamedType.getInterfacesArrayImpl();
+    }
+
+    /**
+     * Get value on attribute isSubtypeOf
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean isSubtypeOfImpl(String type) {
+        return this.aNamedType.isSubtypeOfImpl(type);
+    }
+
+    /**
+     * Get value on attribute javadoc
+     * @return the attribute's value
+     */
+    @Override
+    public String getJavadocImpl() {
+        return this.aNamedType.getJavadocImpl();
+    }
+
+    /**
      * Get value on attribute name
      * @return the attribute's value
      */
     @Override
     public String getNameImpl() {
         return this.aNamedType.getNameImpl();
+    }
+
+    /**
+     * Get value on attribute _package
+     * @return the attribute's value
+     */
+    @Override
+    public String getPackageImpl() {
+        return this.aNamedType.getPackageImpl();
     }
 
     /**
@@ -60,66 +96,12 @@ public abstract class ALibClass extends ANamedType {
     }
 
     /**
-     * Get value on attribute _package
+     * Get value on attribute annotationsArrayImpl
      * @return the attribute's value
      */
     @Override
-    public String getPackageImpl() {
-        return this.aNamedType.getPackageImpl();
-    }
-
-    /**
-     * Get value on attribute interfacesArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public String[] getInterfacesArrayImpl() {
-        return this.aNamedType.getInterfacesArrayImpl();
-    }
-
-    /**
-     * Get value on attribute javadoc
-     * @return the attribute's value
-     */
-    @Override
-    public String getJavadocImpl() {
-        return this.aNamedType.getJavadocImpl();
-    }
-
-    /**
-     * Get value on attribute isSubtypeOf
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean isSubtypeOfImpl(String type) {
-        return this.aNamedType.isSubtypeOfImpl(type);
-    }
-
-    /**
-     * Get value on attribute parent
-     * @return the attribute's value
-     */
-    @Override
-    public AJoinPoint getParentImpl() {
-        return this.aNamedType.getParentImpl();
-    }
-
-    /**
-     * Get value on attribute isStatic
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsStaticImpl() {
-        return this.aNamedType.getIsStaticImpl();
-    }
-
-    /**
-     * Get value on attribute code
-     * @return the attribute's value
-     */
-    @Override
-    public String getCodeImpl() {
-        return this.aNamedType.getCodeImpl();
+    public AAnnotation[] getAnnotationsArrayImpl() {
+        return this.aNamedType.getAnnotationsArrayImpl();
     }
 
     /**
@@ -132,156 +114,12 @@ public abstract class ALibClass extends ANamedType {
     }
 
     /**
-     * Get value on attribute isBlock
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsBlockImpl() {
-        return this.aNamedType.getIsBlockImpl();
-    }
-
-    /**
-     * Get value on attribute isInsideLoopHeader
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsInsideLoopHeaderImpl() {
-        return this.aNamedType.getIsInsideLoopHeaderImpl();
-    }
-
-    /**
-     * Get value on attribute line
-     * @return the attribute's value
-     */
-    @Override
-    public Integer getLineImpl() {
-        return this.aNamedType.getLineImpl();
-    }
-
-    /**
-     * Get value on attribute getAncestor
-     * @return the attribute's value
-     */
-    @Override
-    public AJoinPoint getAncestorImpl(String type) {
-        return this.aNamedType.getAncestorImpl(type);
-    }
-
-    /**
-     * Get value on attribute annotationsArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public AAnnotation[] getAnnotationsArrayImpl() {
-        return this.aNamedType.getAnnotationsArrayImpl();
-    }
-
-    /**
-     * Get value on attribute rightArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public AJoinPoint[] getRightArrayImpl() {
-        return this.aNamedType.getRightArrayImpl();
-    }
-
-    /**
-     * Get value on attribute modifiersArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public String[] getModifiersArrayImpl() {
-        return this.aNamedType.getModifiersArrayImpl();
-    }
-
-    /**
-     * Get value on attribute descendantsArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public AJoinPoint[] getDescendantsArrayImpl() {
-        return this.aNamedType.getDescendantsArrayImpl();
-    }
-
-    /**
-     * Get value on attribute isStatement
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsStatementImpl() {
-        return this.aNamedType.getIsStatementImpl();
-    }
-
-    /**
      * Get value on attribute astParent
      * @return the attribute's value
      */
     @Override
     public AJoinPoint getAstParentImpl() {
         return this.aNamedType.getAstParentImpl();
-    }
-
-    /**
-     * Get value on attribute childrenArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public AJoinPoint[] getChildrenArrayImpl() {
-        return this.aNamedType.getChildrenArrayImpl();
-    }
-
-    /**
-     * Get value on attribute leftArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public AJoinPoint[] getLeftArrayImpl() {
-        return this.aNamedType.getLeftArrayImpl();
-    }
-
-    /**
-     * Get value on attribute hasModifier
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean hasModifierImpl(String modifier) {
-        return this.aNamedType.hasModifierImpl(modifier);
-    }
-
-    /**
-     * Get value on attribute numChildren
-     * @return the attribute's value
-     */
-    @Override
-    public Integer getNumChildrenImpl() {
-        return this.aNamedType.getNumChildrenImpl();
-    }
-
-    /**
-     * Get value on attribute srcCode
-     * @return the attribute's value
-     */
-    @Override
-    public String getSrcCodeImpl() {
-        return this.aNamedType.getSrcCodeImpl();
-    }
-
-    /**
-     * Get value on attribute isFinal
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsFinalImpl() {
-        return this.aNamedType.getIsFinalImpl();
-    }
-
-    /**
-     * Get value on attribute id
-     * @return the attribute's value
-     */
-    @Override
-    public String getIdImpl() {
-        return this.aNamedType.getIdImpl();
     }
 
     /**
@@ -294,21 +132,193 @@ public abstract class ALibClass extends ANamedType {
     }
 
     /**
-     * 
-     * @param node 
+     * Get value on attribute childrenArrayImpl
+     * @return the attribute's value
      */
     @Override
-    public AJoinPoint insertBeforeImpl(AJoinPoint node) {
-        return this.aNamedType.insertBeforeImpl(node);
+    public AJoinPoint[] getChildrenArrayImpl() {
+        return this.aNamedType.getChildrenArrayImpl();
+    }
+
+    /**
+     * Get value on attribute code
+     * @return the attribute's value
+     */
+    @Override
+    public String getCodeImpl() {
+        return this.aNamedType.getCodeImpl();
+    }
+
+    /**
+     * Get value on attribute descendantsArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getDescendantsArrayImpl() {
+        return this.aNamedType.getDescendantsArrayImpl();
+    }
+
+    /**
+     * Get value on attribute getAncestor
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint getAncestorImpl(String type) {
+        return this.aNamedType.getAncestorImpl(type);
+    }
+
+    /**
+     * Get value on attribute hasModifier
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean hasModifierImpl(String modifier) {
+        return this.aNamedType.hasModifierImpl(modifier);
+    }
+
+    /**
+     * Get value on attribute id
+     * @return the attribute's value
+     */
+    @Override
+    public String getIdImpl() {
+        return this.aNamedType.getIdImpl();
+    }
+
+    /**
+     * Get value on attribute isBlock
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsBlockImpl() {
+        return this.aNamedType.getIsBlockImpl();
+    }
+
+    /**
+     * Get value on attribute isFinal
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsFinalImpl() {
+        return this.aNamedType.getIsFinalImpl();
+    }
+
+    /**
+     * Get value on attribute isInsideLoopHeader
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsInsideLoopHeaderImpl() {
+        return this.aNamedType.getIsInsideLoopHeaderImpl();
+    }
+
+    /**
+     * Get value on attribute isStatement
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsStatementImpl() {
+        return this.aNamedType.getIsStatementImpl();
+    }
+
+    /**
+     * Get value on attribute isStatic
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsStaticImpl() {
+        return this.aNamedType.getIsStaticImpl();
+    }
+
+    /**
+     * Get value on attribute leftArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getLeftArrayImpl() {
+        return this.aNamedType.getLeftArrayImpl();
+    }
+
+    /**
+     * Get value on attribute line
+     * @return the attribute's value
+     */
+    @Override
+    public Integer getLineImpl() {
+        return this.aNamedType.getLineImpl();
+    }
+
+    /**
+     * Get value on attribute modifiersArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public String[] getModifiersArrayImpl() {
+        return this.aNamedType.getModifiersArrayImpl();
+    }
+
+    /**
+     * Get value on attribute numChildren
+     * @return the attribute's value
+     */
+    @Override
+    public Integer getNumChildrenImpl() {
+        return this.aNamedType.getNumChildrenImpl();
+    }
+
+    /**
+     * Get value on attribute parent
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint getParentImpl() {
+        return this.aNamedType.getParentImpl();
+    }
+
+    /**
+     * Get value on attribute rightArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getRightArrayImpl() {
+        return this.aNamedType.getRightArrayImpl();
+    }
+
+    /**
+     * Get value on attribute srcCode
+     * @return the attribute's value
+     */
+    @Override
+    public String getSrcCodeImpl() {
+        return this.aNamedType.getSrcCodeImpl();
     }
 
     /**
      * 
+     */
+    @Override
+    public AJoinPoint copyImpl() {
+        return this.aNamedType.copyImpl();
+    }
+
+    /**
+     * 
+     * @param position 
      * @param code 
      */
     @Override
-    public AJoinPoint insertBeforeImpl(String code) {
-        return this.aNamedType.insertBeforeImpl(code);
+    public AJoinPoint[] insertImpl(String position, String code) {
+        return this.aNamedType.insertImpl(position, code);
+    }
+
+    /**
+     * 
+     * @param position 
+     * @param code 
+     */
+    @Override
+    public AJoinPoint[] insertImpl(String position, JoinPoint code) {
+        return this.aNamedType.insertImpl(position, code);
     }
 
     /**
@@ -331,6 +341,24 @@ public abstract class ALibClass extends ANamedType {
 
     /**
      * 
+     * @param node 
+     */
+    @Override
+    public AJoinPoint insertBeforeImpl(AJoinPoint node) {
+        return this.aNamedType.insertBeforeImpl(node);
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    @Override
+    public AJoinPoint insertBeforeImpl(String code) {
+        return this.aNamedType.insertBeforeImpl(code);
+    }
+
+    /**
+     * 
      * @param jp 
      */
     @Override
@@ -345,32 +373,6 @@ public abstract class ALibClass extends ANamedType {
     @Override
     public AJoinPoint insertReplaceImpl(String code) {
         return this.aNamedType.insertReplaceImpl(code);
-    }
-
-    /**
-     * 
-     * @param jp 
-     */
-    @Override
-    public AJoinPoint replaceWithImpl(AJoinPoint jp) {
-        return this.aNamedType.replaceWithImpl(jp);
-    }
-
-    /**
-     * 
-     * @param code 
-     */
-    @Override
-    public AJoinPoint replaceWithImpl(String code) {
-        return this.aNamedType.replaceWithImpl(code);
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public AJoinPoint copyImpl() {
-        return this.aNamedType.copyImpl();
     }
 
     /**
@@ -401,22 +403,20 @@ public abstract class ALibClass extends ANamedType {
 
     /**
      * 
-     * @param position 
-     * @param code 
+     * @param jp 
      */
     @Override
-    public AJoinPoint[] insertImpl(String position, String code) {
-        return this.aNamedType.insertImpl(position, code);
+    public AJoinPoint replaceWithImpl(AJoinPoint jp) {
+        return this.aNamedType.replaceWithImpl(jp);
     }
 
     /**
      * 
-     * @param position 
      * @param code 
      */
     @Override
-    public AJoinPoint[] insertImpl(String position, JoinPoint code) {
-        return this.aNamedType.insertImpl(position, code);
+    public AJoinPoint replaceWithImpl(String code) {
+        return this.aNamedType.replaceWithImpl(code);
     }
 
     /**
@@ -515,35 +515,35 @@ public abstract class ALibClass extends ANamedType {
      * 
      */
     protected enum LibClassAttributes {
+        INTERFACES("interfaces"),
+        ISSUBTYPEOF("isSubtypeOf"),
+        JAVADOC("javadoc"),
         NAME("name"),
+        PACKAGE("package"),
         QUALIFIEDNAME("qualifiedName"),
         SUPERCLASS("superClass"),
-        PACKAGE("package"),
-        INTERFACES("interfaces"),
-        JAVADOC("javadoc"),
-        ISSUBTYPEOF("isSubtypeOf"),
-        PARENT("parent"),
-        ISSTATIC("isStatic"),
-        CODE("code"),
-        AST("ast"),
-        ISBLOCK("isBlock"),
-        ISINSIDELOOPHEADER("isInsideLoopHeader"),
-        LINE("line"),
-        GETANCESTOR("getAncestor"),
         ANNOTATIONS("annotations"),
-        RIGHT("right"),
-        MODIFIERS("modifiers"),
-        DESCENDANTS("descendants"),
-        ISSTATEMENT("isStatement"),
+        AST("ast"),
         ASTPARENT("astParent"),
+        CHILD("child"),
         CHILDREN("children"),
-        LEFT("left"),
+        CODE("code"),
+        DESCENDANTS("descendants"),
+        GETANCESTOR("getAncestor"),
         HASMODIFIER("hasModifier"),
-        NUMCHILDREN("numChildren"),
-        SRCCODE("srcCode"),
-        ISFINAL("isFinal"),
         ID("id"),
-        CHILD("child");
+        ISBLOCK("isBlock"),
+        ISFINAL("isFinal"),
+        ISINSIDELOOPHEADER("isInsideLoopHeader"),
+        ISSTATEMENT("isStatement"),
+        ISSTATIC("isStatic"),
+        LEFT("left"),
+        LINE("line"),
+        MODIFIERS("modifiers"),
+        NUMCHILDREN("numChildren"),
+        PARENT("parent"),
+        RIGHT("right"),
+        SRCCODE("srcCode");
         private String name;
 
         /**

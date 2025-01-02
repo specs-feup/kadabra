@@ -28,6 +28,111 @@ public abstract class ALocalVariable extends AStatement {
         this.aStatement = aStatement;
     }
     /**
+     * Get value on attribute completeType
+     * @return the attribute's value
+     */
+    public abstract String getCompleteTypeImpl();
+
+    /**
+     * Get value on attribute completeType
+     * @return the attribute's value
+     */
+    public final Object getCompleteType() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "completeType", Optional.empty());
+        	}
+        	String result = this.getCompleteTypeImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "completeType", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "completeType", e);
+        }
+    }
+
+    /**
+     * Initialization of this variable, if present, or undefined of unintialized
+     */
+    public abstract AExpression getInitImpl();
+
+    /**
+     * Initialization of this variable, if present, or undefined of unintialized
+     */
+    public final Object getInit() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "init", Optional.empty());
+        	}
+        	AExpression result = this.getInitImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "init", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "init", e);
+        }
+    }
+
+    /**
+     * 
+     */
+    public void defInitImpl(AExpression value) {
+        throw new UnsupportedOperationException("Join point "+get_class()+": Action def init with type AExpression not implemented ");
+    }
+
+    /**
+     * Get value on attribute isArray
+     * @return the attribute's value
+     */
+    public abstract Boolean getIsArrayImpl();
+
+    /**
+     * Get value on attribute isArray
+     * @return the attribute's value
+     */
+    public final Object getIsArray() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isArray", Optional.empty());
+        	}
+        	Boolean result = this.getIsArrayImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "isArray", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "isArray", e);
+        }
+    }
+
+    /**
+     * Get value on attribute isPrimitive
+     * @return the attribute's value
+     */
+    public abstract Boolean getIsPrimitiveImpl();
+
+    /**
+     * Get value on attribute isPrimitive
+     * @return the attribute's value
+     */
+    public final Object getIsPrimitive() {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isPrimitive", Optional.empty());
+        	}
+        	Boolean result = this.getIsPrimitiveImpl();
+        	if(hasListeners()) {
+        		eventTrigger().triggerAttribute(Stage.END, this, "isPrimitive", Optional.ofNullable(result));
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new AttributeException(get_class(), "isPrimitive", e);
+        }
+    }
+
+    /**
      * Get value on attribute name
      * @return the attribute's value
      */
@@ -103,111 +208,6 @@ public abstract class ALocalVariable extends AStatement {
     }
 
     /**
-     * Get value on attribute isArray
-     * @return the attribute's value
-     */
-    public abstract Boolean getIsArrayImpl();
-
-    /**
-     * Get value on attribute isArray
-     * @return the attribute's value
-     */
-    public final Object getIsArray() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isArray", Optional.empty());
-        	}
-        	Boolean result = this.getIsArrayImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "isArray", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "isArray", e);
-        }
-    }
-
-    /**
-     * Get value on attribute isPrimitive
-     * @return the attribute's value
-     */
-    public abstract Boolean getIsPrimitiveImpl();
-
-    /**
-     * Get value on attribute isPrimitive
-     * @return the attribute's value
-     */
-    public final Object getIsPrimitive() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isPrimitive", Optional.empty());
-        	}
-        	Boolean result = this.getIsPrimitiveImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "isPrimitive", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "isPrimitive", e);
-        }
-    }
-
-    /**
-     * Get value on attribute completeType
-     * @return the attribute's value
-     */
-    public abstract String getCompleteTypeImpl();
-
-    /**
-     * Get value on attribute completeType
-     * @return the attribute's value
-     */
-    public final Object getCompleteType() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "completeType", Optional.empty());
-        	}
-        	String result = this.getCompleteTypeImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "completeType", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "completeType", e);
-        }
-    }
-
-    /**
-     * Initialization of this variable, if present, or undefined of unintialized
-     */
-    public abstract AExpression getInitImpl();
-
-    /**
-     * Initialization of this variable, if present, or undefined of unintialized
-     */
-    public final Object getInit() {
-        try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "init", Optional.empty());
-        	}
-        	AExpression result = this.getInitImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "init", Optional.ofNullable(result));
-        	}
-        	return result!=null?result:getUndefinedValue();
-        } catch(Exception e) {
-        	throw new AttributeException(get_class(), "init", e);
-        }
-    }
-
-    /**
-     * 
-     */
-    public void defInitImpl(AExpression value) {
-        throw new UnsupportedOperationException("Join point "+get_class()+": Action def init with type AExpression not implemented ");
-    }
-
-    /**
      * Default implementation of the method used by the lara interpreter to select inits
      * @return 
      */
@@ -242,21 +242,21 @@ public abstract class ALocalVariable extends AStatement {
     }
 
     /**
-     * Get value on attribute kind
-     * @return the attribute's value
-     */
-    @Override
-    public String getKindImpl() {
-        return this.aStatement.getKindImpl();
-    }
-
-    /**
      * Get value on attribute endLine
      * @return the attribute's value
      */
     @Override
     public Integer getEndLineImpl() {
         return this.aStatement.getEndLineImpl();
+    }
+
+    /**
+     * Get value on attribute kind
+     * @return the attribute's value
+     */
+    @Override
+    public String getKindImpl() {
+        return this.aStatement.getKindImpl();
     }
 
     /**
@@ -278,30 +278,12 @@ public abstract class ALocalVariable extends AStatement {
     }
 
     /**
-     * Get value on attribute parent
+     * Get value on attribute annotationsArrayImpl
      * @return the attribute's value
      */
     @Override
-    public AJoinPoint getParentImpl() {
-        return this.aStatement.getParentImpl();
-    }
-
-    /**
-     * Get value on attribute isStatic
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsStaticImpl() {
-        return this.aStatement.getIsStaticImpl();
-    }
-
-    /**
-     * Get value on attribute code
-     * @return the attribute's value
-     */
-    @Override
-    public String getCodeImpl() {
-        return this.aStatement.getCodeImpl();
+    public AAnnotation[] getAnnotationsArrayImpl() {
+        return this.aStatement.getAnnotationsArrayImpl();
     }
 
     /**
@@ -314,156 +296,12 @@ public abstract class ALocalVariable extends AStatement {
     }
 
     /**
-     * Get value on attribute isBlock
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsBlockImpl() {
-        return this.aStatement.getIsBlockImpl();
-    }
-
-    /**
-     * Get value on attribute isInsideLoopHeader
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsInsideLoopHeaderImpl() {
-        return this.aStatement.getIsInsideLoopHeaderImpl();
-    }
-
-    /**
-     * Get value on attribute line
-     * @return the attribute's value
-     */
-    @Override
-    public Integer getLineImpl() {
-        return this.aStatement.getLineImpl();
-    }
-
-    /**
-     * Get value on attribute getAncestor
-     * @return the attribute's value
-     */
-    @Override
-    public AJoinPoint getAncestorImpl(String type) {
-        return this.aStatement.getAncestorImpl(type);
-    }
-
-    /**
-     * Get value on attribute annotationsArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public AAnnotation[] getAnnotationsArrayImpl() {
-        return this.aStatement.getAnnotationsArrayImpl();
-    }
-
-    /**
-     * Get value on attribute rightArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public AJoinPoint[] getRightArrayImpl() {
-        return this.aStatement.getRightArrayImpl();
-    }
-
-    /**
-     * Get value on attribute modifiersArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public String[] getModifiersArrayImpl() {
-        return this.aStatement.getModifiersArrayImpl();
-    }
-
-    /**
-     * Get value on attribute descendantsArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public AJoinPoint[] getDescendantsArrayImpl() {
-        return this.aStatement.getDescendantsArrayImpl();
-    }
-
-    /**
-     * Get value on attribute isStatement
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsStatementImpl() {
-        return this.aStatement.getIsStatementImpl();
-    }
-
-    /**
      * Get value on attribute astParent
      * @return the attribute's value
      */
     @Override
     public AJoinPoint getAstParentImpl() {
         return this.aStatement.getAstParentImpl();
-    }
-
-    /**
-     * Get value on attribute childrenArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public AJoinPoint[] getChildrenArrayImpl() {
-        return this.aStatement.getChildrenArrayImpl();
-    }
-
-    /**
-     * Get value on attribute leftArrayImpl
-     * @return the attribute's value
-     */
-    @Override
-    public AJoinPoint[] getLeftArrayImpl() {
-        return this.aStatement.getLeftArrayImpl();
-    }
-
-    /**
-     * Get value on attribute hasModifier
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean hasModifierImpl(String modifier) {
-        return this.aStatement.hasModifierImpl(modifier);
-    }
-
-    /**
-     * Get value on attribute numChildren
-     * @return the attribute's value
-     */
-    @Override
-    public Integer getNumChildrenImpl() {
-        return this.aStatement.getNumChildrenImpl();
-    }
-
-    /**
-     * Get value on attribute srcCode
-     * @return the attribute's value
-     */
-    @Override
-    public String getSrcCodeImpl() {
-        return this.aStatement.getSrcCodeImpl();
-    }
-
-    /**
-     * Get value on attribute isFinal
-     * @return the attribute's value
-     */
-    @Override
-    public Boolean getIsFinalImpl() {
-        return this.aStatement.getIsFinalImpl();
-    }
-
-    /**
-     * Get value on attribute id
-     * @return the attribute's value
-     */
-    @Override
-    public String getIdImpl() {
-        return this.aStatement.getIdImpl();
     }
 
     /**
@@ -476,21 +314,193 @@ public abstract class ALocalVariable extends AStatement {
     }
 
     /**
-     * 
-     * @param node 
+     * Get value on attribute childrenArrayImpl
+     * @return the attribute's value
      */
     @Override
-    public AJoinPoint insertBeforeImpl(AJoinPoint node) {
-        return this.aStatement.insertBeforeImpl(node);
+    public AJoinPoint[] getChildrenArrayImpl() {
+        return this.aStatement.getChildrenArrayImpl();
+    }
+
+    /**
+     * Get value on attribute code
+     * @return the attribute's value
+     */
+    @Override
+    public String getCodeImpl() {
+        return this.aStatement.getCodeImpl();
+    }
+
+    /**
+     * Get value on attribute descendantsArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getDescendantsArrayImpl() {
+        return this.aStatement.getDescendantsArrayImpl();
+    }
+
+    /**
+     * Get value on attribute getAncestor
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint getAncestorImpl(String type) {
+        return this.aStatement.getAncestorImpl(type);
+    }
+
+    /**
+     * Get value on attribute hasModifier
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean hasModifierImpl(String modifier) {
+        return this.aStatement.hasModifierImpl(modifier);
+    }
+
+    /**
+     * Get value on attribute id
+     * @return the attribute's value
+     */
+    @Override
+    public String getIdImpl() {
+        return this.aStatement.getIdImpl();
+    }
+
+    /**
+     * Get value on attribute isBlock
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsBlockImpl() {
+        return this.aStatement.getIsBlockImpl();
+    }
+
+    /**
+     * Get value on attribute isFinal
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsFinalImpl() {
+        return this.aStatement.getIsFinalImpl();
+    }
+
+    /**
+     * Get value on attribute isInsideLoopHeader
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsInsideLoopHeaderImpl() {
+        return this.aStatement.getIsInsideLoopHeaderImpl();
+    }
+
+    /**
+     * Get value on attribute isStatement
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsStatementImpl() {
+        return this.aStatement.getIsStatementImpl();
+    }
+
+    /**
+     * Get value on attribute isStatic
+     * @return the attribute's value
+     */
+    @Override
+    public Boolean getIsStaticImpl() {
+        return this.aStatement.getIsStaticImpl();
+    }
+
+    /**
+     * Get value on attribute leftArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getLeftArrayImpl() {
+        return this.aStatement.getLeftArrayImpl();
+    }
+
+    /**
+     * Get value on attribute line
+     * @return the attribute's value
+     */
+    @Override
+    public Integer getLineImpl() {
+        return this.aStatement.getLineImpl();
+    }
+
+    /**
+     * Get value on attribute modifiersArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public String[] getModifiersArrayImpl() {
+        return this.aStatement.getModifiersArrayImpl();
+    }
+
+    /**
+     * Get value on attribute numChildren
+     * @return the attribute's value
+     */
+    @Override
+    public Integer getNumChildrenImpl() {
+        return this.aStatement.getNumChildrenImpl();
+    }
+
+    /**
+     * Get value on attribute parent
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint getParentImpl() {
+        return this.aStatement.getParentImpl();
+    }
+
+    /**
+     * Get value on attribute rightArrayImpl
+     * @return the attribute's value
+     */
+    @Override
+    public AJoinPoint[] getRightArrayImpl() {
+        return this.aStatement.getRightArrayImpl();
+    }
+
+    /**
+     * Get value on attribute srcCode
+     * @return the attribute's value
+     */
+    @Override
+    public String getSrcCodeImpl() {
+        return this.aStatement.getSrcCodeImpl();
     }
 
     /**
      * 
+     */
+    @Override
+    public AJoinPoint copyImpl() {
+        return this.aStatement.copyImpl();
+    }
+
+    /**
+     * 
+     * @param position 
      * @param code 
      */
     @Override
-    public AJoinPoint insertBeforeImpl(String code) {
-        return this.aStatement.insertBeforeImpl(code);
+    public AJoinPoint[] insertImpl(String position, String code) {
+        return this.aStatement.insertImpl(position, code);
+    }
+
+    /**
+     * 
+     * @param position 
+     * @param code 
+     */
+    @Override
+    public AJoinPoint[] insertImpl(String position, JoinPoint code) {
+        return this.aStatement.insertImpl(position, code);
     }
 
     /**
@@ -513,6 +523,24 @@ public abstract class ALocalVariable extends AStatement {
 
     /**
      * 
+     * @param node 
+     */
+    @Override
+    public AJoinPoint insertBeforeImpl(AJoinPoint node) {
+        return this.aStatement.insertBeforeImpl(node);
+    }
+
+    /**
+     * 
+     * @param code 
+     */
+    @Override
+    public AJoinPoint insertBeforeImpl(String code) {
+        return this.aStatement.insertBeforeImpl(code);
+    }
+
+    /**
+     * 
      * @param jp 
      */
     @Override
@@ -527,32 +555,6 @@ public abstract class ALocalVariable extends AStatement {
     @Override
     public AJoinPoint insertReplaceImpl(String code) {
         return this.aStatement.insertReplaceImpl(code);
-    }
-
-    /**
-     * 
-     * @param jp 
-     */
-    @Override
-    public AJoinPoint replaceWithImpl(AJoinPoint jp) {
-        return this.aStatement.replaceWithImpl(jp);
-    }
-
-    /**
-     * 
-     * @param code 
-     */
-    @Override
-    public AJoinPoint replaceWithImpl(String code) {
-        return this.aStatement.replaceWithImpl(code);
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public AJoinPoint copyImpl() {
-        return this.aStatement.copyImpl();
     }
 
     /**
@@ -583,22 +585,20 @@ public abstract class ALocalVariable extends AStatement {
 
     /**
      * 
-     * @param position 
-     * @param code 
+     * @param jp 
      */
     @Override
-    public AJoinPoint[] insertImpl(String position, String code) {
-        return this.aStatement.insertImpl(position, code);
+    public AJoinPoint replaceWithImpl(AJoinPoint jp) {
+        return this.aStatement.replaceWithImpl(jp);
     }
 
     /**
      * 
-     * @param position 
      * @param code 
      */
     @Override
-    public AJoinPoint[] insertImpl(String position, JoinPoint code) {
-        return this.aStatement.insertImpl(position, code);
+    public AJoinPoint replaceWithImpl(String code) {
+        return this.aStatement.replaceWithImpl(code);
     }
 
     /**
@@ -638,6 +638,13 @@ public abstract class ALocalVariable extends AStatement {
     @Override
     public final void defImpl(String attribute, Object value) {
         switch(attribute){
+        case "init": {
+        	if(value instanceof AExpression){
+        		this.defInitImpl((AExpression)value);
+        		return;
+        	}
+        	this.unsupportedTypeForDef(attribute, value);
+        }
         case "line": {
         	if(value instanceof Integer){
         		this.defLineImpl((Integer)value);
@@ -645,13 +652,6 @@ public abstract class ALocalVariable extends AStatement {
         	}
         	if(value instanceof String){
         		this.defLineImpl((String)value);
-        		return;
-        	}
-        	this.unsupportedTypeForDef(attribute, value);
-        }
-        case "init": {
-        	if(value instanceof AExpression){
-        		this.defInitImpl((AExpression)value);
         		return;
         	}
         	this.unsupportedTypeForDef(attribute, value);
@@ -666,13 +666,13 @@ public abstract class ALocalVariable extends AStatement {
     @Override
     protected final void fillWithAttributes(List<String> attributes) {
         this.aStatement.fillWithAttributes(attributes);
+        attributes.add("completeType");
+        attributes.add("init");
+        attributes.add("isArray");
+        attributes.add("isPrimitive");
         attributes.add("name");
         attributes.add("type");
         attributes.add("typeReference");
-        attributes.add("isArray");
-        attributes.add("isPrimitive");
-        attributes.add("completeType");
-        attributes.add("init");
     }
 
     /**
@@ -718,37 +718,37 @@ public abstract class ALocalVariable extends AStatement {
      * 
      */
     protected enum LocalVariableAttributes {
+        COMPLETETYPE("completeType"),
+        INIT("init"),
+        ISARRAY("isArray"),
+        ISPRIMITIVE("isPrimitive"),
         NAME("name"),
         TYPE("type"),
         TYPEREFERENCE("typeReference"),
-        ISARRAY("isArray"),
-        ISPRIMITIVE("isPrimitive"),
-        COMPLETETYPE("completeType"),
-        INIT("init"),
-        KIND("kind"),
         ENDLINE("endLine"),
-        PARENT("parent"),
-        ISSTATIC("isStatic"),
-        CODE("code"),
-        AST("ast"),
-        ISBLOCK("isBlock"),
-        ISINSIDELOOPHEADER("isInsideLoopHeader"),
-        LINE("line"),
-        GETANCESTOR("getAncestor"),
+        KIND("kind"),
         ANNOTATIONS("annotations"),
-        RIGHT("right"),
-        MODIFIERS("modifiers"),
-        DESCENDANTS("descendants"),
-        ISSTATEMENT("isStatement"),
+        AST("ast"),
         ASTPARENT("astParent"),
+        CHILD("child"),
         CHILDREN("children"),
-        LEFT("left"),
+        CODE("code"),
+        DESCENDANTS("descendants"),
+        GETANCESTOR("getAncestor"),
         HASMODIFIER("hasModifier"),
-        NUMCHILDREN("numChildren"),
-        SRCCODE("srcCode"),
-        ISFINAL("isFinal"),
         ID("id"),
-        CHILD("child");
+        ISBLOCK("isBlock"),
+        ISFINAL("isFinal"),
+        ISINSIDELOOPHEADER("isInsideLoopHeader"),
+        ISSTATEMENT("isStatement"),
+        ISSTATIC("isStatic"),
+        LEFT("left"),
+        LINE("line"),
+        MODIFIERS("modifiers"),
+        NUMCHILDREN("numChildren"),
+        PARENT("parent"),
+        RIGHT("right"),
+        SRCCODE("srcCode");
         private String name;
 
         /**
