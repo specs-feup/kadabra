@@ -58,14 +58,14 @@ public abstract class AType extends AJavaWeaverJoinPoint {
      * Get value on attribute interfacesTypes
      * @return the attribute's value
      */
-    public abstract AInterface[] getInterfacesTypesArrayImpl();
+    public abstract AInterfaceType[] getInterfacesTypesArrayImpl();
 
     /**
      * returns the interface join points that this class implements
      */
     public Object getInterfacesTypesImpl() {
-        AInterface[] aInterfaceArrayImpl0 = getInterfacesTypesArrayImpl();
-        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(aInterfaceArrayImpl0);
+        AInterfaceType[] aInterfaceTypeArrayImpl0 = getInterfacesTypesArrayImpl();
+        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(aInterfaceTypeArrayImpl0);
         return nativeArray0;
     }
 
@@ -330,24 +330,24 @@ public abstract class AType extends AJavaWeaverJoinPoint {
 
     /**
      * 
-     * @param _interface 
+     * @param interfaceType 
      */
-    public void addImplementImpl(AInterface _interface) {
+    public void addImplementImpl(AInterfaceType interfaceType) {
         throw new UnsupportedOperationException(get_class()+": Action addImplement not implemented ");
     }
 
     /**
      * 
-     * @param _interface 
+     * @param interfaceType 
      */
-    public final void addImplement(AInterface _interface) {
+    public final void addImplement(AInterfaceType interfaceType) {
         try {
         	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "addImplement", this, Optional.empty(), _interface);
+        		eventTrigger().triggerAction(Stage.BEGIN, "addImplement", this, Optional.empty(), interfaceType);
         	}
-        	this.addImplementImpl(_interface);
+        	this.addImplementImpl(interfaceType);
         	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "addImplement", this, Optional.empty(), _interface);
+        		eventTrigger().triggerAction(Stage.END, "addImplement", this, Optional.empty(), interfaceType);
         	}
         } catch(Exception e) {
         	throw new ActionException(get_class(), "addImplement", e);
@@ -358,7 +358,7 @@ public abstract class AType extends AJavaWeaverJoinPoint {
      * 
      * @param newInterface 
      */
-    public void addInterfaceImpl(AInterface newInterface) {
+    public void addInterfaceImpl(AInterfaceType newInterface) {
         throw new UnsupportedOperationException(get_class()+": Action addInterface not implemented ");
     }
 
@@ -366,7 +366,7 @@ public abstract class AType extends AJavaWeaverJoinPoint {
      * 
      * @param newInterface 
      */
-    public final void addInterface(AInterface newInterface) {
+    public final void addInterface(AInterfaceType newInterface) {
         try {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "addInterface", this, Optional.empty(), newInterface);
@@ -568,7 +568,7 @@ public abstract class AType extends AJavaWeaverJoinPoint {
      * 
      * @param interfaceName 
      */
-    public AInterface removeInterfaceImpl(String interfaceName) {
+    public AInterfaceType removeInterfaceImpl(String interfaceName) {
         throw new UnsupportedOperationException(get_class()+": Action removeInterface not implemented ");
     }
 
@@ -581,7 +581,7 @@ public abstract class AType extends AJavaWeaverJoinPoint {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "removeInterface", this, Optional.empty(), interfaceName);
         	}
-        	AInterface result = this.removeInterfaceImpl(interfaceName);
+        	AInterfaceType result = this.removeInterfaceImpl(interfaceName);
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.END, "removeInterface", this, Optional.ofNullable(result), interfaceName);
         	}
@@ -682,15 +682,15 @@ public abstract class AType extends AJavaWeaverJoinPoint {
     protected void fillWithActions(List<String> actions) {
         super.fillWithActions(actions);
         actions.add("void addClass(class)");
-        actions.add("void addImplement(interface)");
-        actions.add("void addInterface(interface)");
+        actions.add("void addImplement(interfaceType)");
+        actions.add("void addInterface(interfaceType)");
         actions.add("void insertCode(String)");
         actions.add("void insertMethod(String)");
         actions.add("field newField(String[], String, String, String)");
         actions.add("field newField(String[], String, String)");
         actions.add("method newMethod(String[], String, String, Pair[], String)");
         actions.add("method newMethod(String[], String, String, Pair[])");
-        actions.add("interface removeInterface(String)");
+        actions.add("interfaceType removeInterface(String)");
     }
 
     /**

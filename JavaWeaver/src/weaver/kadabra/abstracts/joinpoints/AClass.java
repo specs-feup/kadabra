@@ -77,7 +77,7 @@ public abstract class AClass extends AType {
      * @param associate 
      * @param newFile 
      */
-    public AInterface extractInterfaceImpl(String name, String _package, AMethod method, boolean associate, boolean newFile) {
+    public AInterfaceType extractInterfaceImpl(String name, String _package, AMethod method, boolean associate, boolean newFile) {
         throw new UnsupportedOperationException(get_class()+": Action extractInterface not implemented ");
     }
 
@@ -94,7 +94,7 @@ public abstract class AClass extends AType {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "extractInterface", this, Optional.empty(), name, _package, method, associate, newFile);
         	}
-        	AInterface result = this.extractInterfaceImpl(name, _package, method, associate, newFile);
+        	AInterfaceType result = this.extractInterfaceImpl(name, _package, method, associate, newFile);
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.END, "extractInterface", this, Optional.ofNullable(result), name, _package, method, associate, newFile);
         	}
@@ -134,10 +134,10 @@ public abstract class AClass extends AType {
      * 
      * @param name 
      * @param keyType 
-     * @param _interface 
+     * @param interfaceType 
      * @param methodName 
      */
-    public AClass mapVersionsImpl(String name, String keyType, AInterface _interface, String methodName) {
+    public AClass mapVersionsImpl(String name, String keyType, AInterfaceType interfaceType, String methodName) {
         throw new UnsupportedOperationException(get_class()+": Action mapVersions not implemented ");
     }
 
@@ -145,17 +145,17 @@ public abstract class AClass extends AType {
      * 
      * @param name 
      * @param keyType 
-     * @param _interface 
+     * @param interfaceType 
      * @param methodName 
      */
-    public final Object mapVersions(String name, String keyType, AInterface _interface, String methodName) {
+    public final Object mapVersions(String name, String keyType, AInterfaceType interfaceType, String methodName) {
         try {
         	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "mapVersions", this, Optional.empty(), name, keyType, _interface, methodName);
+        		eventTrigger().triggerAction(Stage.BEGIN, "mapVersions", this, Optional.empty(), name, keyType, interfaceType, methodName);
         	}
-        	AClass result = this.mapVersionsImpl(name, keyType, _interface, methodName);
+        	AClass result = this.mapVersionsImpl(name, keyType, interfaceType, methodName);
         	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "mapVersions", this, Optional.ofNullable(result), name, keyType, _interface, methodName);
+        		eventTrigger().triggerAction(Stage.END, "mapVersions", this, Optional.ofNullable(result), name, keyType, interfaceType, methodName);
         	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
@@ -235,7 +235,7 @@ public abstract class AClass extends AType {
      * @return the attribute's value
      */
     @Override
-    public AInterface[] getInterfacesTypesArrayImpl() {
+    public AInterfaceType[] getInterfacesTypesArrayImpl() {
         return this.aType.getInterfacesTypesArrayImpl();
     }
 
@@ -565,11 +565,11 @@ public abstract class AClass extends AType {
 
     /**
      * 
-     * @param _interface 
+     * @param interfaceType 
      */
     @Override
-    public void addImplementImpl(AInterface _interface) {
-        this.aType.addImplementImpl(_interface);
+    public void addImplementImpl(AInterfaceType interfaceType) {
+        this.aType.addImplementImpl(interfaceType);
     }
 
     /**
@@ -577,7 +577,7 @@ public abstract class AClass extends AType {
      * @param newInterface 
      */
     @Override
-    public void addInterfaceImpl(AInterface newInterface) {
+    public void addInterfaceImpl(AInterfaceType newInterface) {
         this.aType.addInterfaceImpl(newInterface);
     }
 
@@ -751,7 +751,7 @@ public abstract class AClass extends AType {
      * @param interfaceName 
      */
     @Override
-    public AInterface removeInterfaceImpl(String interfaceName) {
+    public AInterfaceType removeInterfaceImpl(String interfaceName) {
         return this.aType.removeInterfaceImpl(interfaceName);
     }
 
@@ -874,9 +874,9 @@ public abstract class AClass extends AType {
     @Override
     protected void fillWithActions(List<String> actions) {
         this.aType.fillWithActions(actions);
-        actions.add("interface extractInterface(String, String, method, boolean, boolean)");
+        actions.add("interfaceType extractInterface(String, String, method, boolean, boolean)");
         actions.add("void insertStatic(String)");
-        actions.add("class mapVersions(String, String, interface, String)");
+        actions.add("class mapVersions(String, String, interfaceType, String)");
         actions.add("constructor newConstructor(String[], Pair[])");
         actions.add("method newFunctionalClass(method, method)");
     }

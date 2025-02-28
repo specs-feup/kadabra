@@ -2373,8 +2373,8 @@
 										"defaultValue": ""
 									},
 									{
-										"type": "interface",
-										"name": "interface",
+										"type": "interfaceType",
+										"name": "interfaceType",
 										"defaultValue": ""
 									},
 									{
@@ -2423,7 +2423,7 @@
 						"type": "action",
 						"children": [
 									{
-										"type": "interface",
+										"type": "interfaceType",
 										"name": "newInterface"
 									},
 									{
@@ -2441,7 +2441,7 @@
 						"type": "action",
 						"children": [
 									{
-										"type": "interface",
+										"type": "interfaceType",
 										"name": "newInterface"
 									},
 									{
@@ -7108,7 +7108,7 @@
 						"tooltip": "returns the interface join points that this class implements",
 						"children": [
 									{
-										"type": "interface[]",
+										"type": "interfaceType[]",
 										"name": "interfacesTypes"
 									}]
 					},
@@ -7438,7 +7438,7 @@
 						"type": "action",
 						"children": [
 									{
-										"type": "interface",
+										"type": "interfaceType",
 										"name": "extractInterface"
 									},
 									{
@@ -7498,8 +7498,8 @@
 										"defaultValue": ""
 									},
 									{
-										"type": "interface",
-										"name": "interface",
+										"type": "interfaceType",
+										"name": "interfaceType",
 										"defaultValue": ""
 									},
 									{
@@ -7566,8 +7566,8 @@
 										"name": "addImplement"
 									},
 									{
-										"type": "interface",
-										"name": "interface",
+										"type": "interfaceType",
+										"name": "interfaceType",
 										"defaultValue": ""
 									}]
 					},
@@ -7579,7 +7579,7 @@
 										"name": "addInterface"
 									},
 									{
-										"type": "interface",
+										"type": "interfaceType",
 										"name": "newInterface",
 										"defaultValue": ""
 									}]
@@ -7728,7 +7728,7 @@
 						"type": "action",
 						"children": [
 									{
-										"type": "interface",
+										"type": "interfaceType",
 										"name": "removeInterface"
 									},
 									{
@@ -9574,7 +9574,7 @@
 						"tooltip": "returns the interface join points that this class implements",
 						"children": [
 									{
-										"type": "interface[]",
+										"type": "interfaceType[]",
 										"name": "interfacesTypes"
 									}]
 					},
@@ -9909,7 +9909,7 @@
 						"type": "action",
 						"children": [
 									{
-										"type": "interface",
+										"type": "interfaceType",
 										"name": "extractInterface"
 									},
 									{
@@ -9969,8 +9969,8 @@
 										"defaultValue": ""
 									},
 									{
-										"type": "interface",
-										"name": "interface",
+										"type": "interfaceType",
+										"name": "interfaceType",
 										"defaultValue": ""
 									},
 									{
@@ -10037,8 +10037,8 @@
 										"name": "addImplement"
 									},
 									{
-										"type": "interface",
-										"name": "interface",
+										"type": "interfaceType",
+										"name": "interfaceType",
 										"defaultValue": ""
 									}]
 					},
@@ -10050,7 +10050,7 @@
 										"name": "addInterface"
 									},
 									{
-										"type": "interface",
+										"type": "interfaceType",
 										"name": "newInterface",
 										"defaultValue": ""
 									}]
@@ -10199,7 +10199,7 @@
 						"type": "action",
 						"children": [
 									{
-										"type": "interface",
+										"type": "interfaceType",
 										"name": "removeInterface"
 									},
 									{
@@ -12938,7 +12938,7 @@
 					},
 					{
 						"type": "select",
-						"clazz": "interface",
+						"clazz": "interfaceType",
 						"alias": "",
 						"tooltip": "Represents Java interfaces"
 					},
@@ -12989,7 +12989,7 @@
 										"name": "addInterface"
 									},
 									{
-										"type": "interface",
+										"type": "interfaceType",
 										"name": "newInterface",
 										"defaultValue": ""
 									}]
@@ -13012,8 +13012,8 @@
 										"defaultValue": ""
 									},
 									{
-										"type": "interface",
-										"name": "interface",
+										"type": "interfaceType",
+										"name": "interfaceType",
 										"defaultValue": ""
 									},
 									{
@@ -13062,7 +13062,7 @@
 						"type": "action",
 						"children": [
 									{
-										"type": "interface",
+										"type": "interfaceType",
 										"name": "newInterface"
 									},
 									{
@@ -13080,7 +13080,7 @@
 						"type": "action",
 						"children": [
 									{
-										"type": "interface",
+										"type": "interfaceType",
 										"name": "newInterface"
 									},
 									{
@@ -13093,7 +13093,7 @@
 						"type": "action",
 						"children": [
 									{
-										"type": "interface",
+										"type": "interfaceType",
 										"name": "removeInterface"
 									},
 									{
@@ -13686,7 +13686,7 @@
 		},
 		{
 			"type": "joinpoint",
-			"name": "interface",
+			"name": "interfaceType",
 			"defaultAttr": "name",
 			"extends": "type"		,
 			"children": [
@@ -13704,7 +13704,7 @@
 						"tooltip": "returns the interface join points that this class implements",
 						"children": [
 									{
-										"type": "interface[]",
+										"type": "interfaceType[]",
 										"name": "interfacesTypes"
 									}]
 					},
@@ -14040,8 +14040,8 @@
 										"name": "addImplement"
 									},
 									{
-										"type": "interface",
-										"name": "interface",
+										"type": "interfaceType",
+										"name": "interfaceType",
 										"defaultValue": ""
 									}]
 					},
@@ -14053,7 +14053,7 @@
 										"name": "addInterface"
 									},
 									{
-										"type": "interface",
+										"type": "interfaceType",
 										"name": "newInterface",
 										"defaultValue": ""
 									}]
@@ -14202,7 +14202,7 @@
 						"type": "action",
 						"children": [
 									{
-										"type": "interface",
+										"type": "interfaceType",
 										"name": "removeInterface"
 									},
 									{
@@ -22738,7 +22738,7 @@
 						"tooltip": "returns the interface join points that this class implements",
 						"children": [
 									{
-										"type": "interface[]",
+										"type": "interfaceType[]",
 										"name": "interfacesTypes"
 									}]
 					},
@@ -23074,8 +23074,8 @@
 										"name": "addImplement"
 									},
 									{
-										"type": "interface",
-										"name": "interface",
+										"type": "interfaceType",
+										"name": "interfaceType",
 										"defaultValue": ""
 									}]
 					},
@@ -23087,7 +23087,7 @@
 										"name": "addInterface"
 									},
 									{
-										"type": "interface",
+										"type": "interfaceType",
 										"name": "newInterface",
 										"defaultValue": ""
 									}]
@@ -23236,7 +23236,7 @@
 						"type": "action",
 						"children": [
 									{
-										"type": "interface",
+										"type": "interfaceType",
 										"name": "removeInterface"
 									},
 									{

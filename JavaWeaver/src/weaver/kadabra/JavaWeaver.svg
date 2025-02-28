@@ -399,16 +399,16 @@
 <path fill="none" stroke="black" d="M206.77,-450.63C192.99,-449.12 175.87,-447.24 160.75,-445.58"/>
 <polygon fill="black" stroke="black" points="160.98,-442.09 150.66,-444.48 160.22,-449.04 160.98,-442.09"/>
 </g>
-<!-- interface -->
+<!-- interfaceType -->
 <g id="node34" class="node">
-<title>interface</title>
-<polygon fill="#b2dfee" stroke="#b2dfee" points="261,-130 207,-130 207,-111 261,-111 261,-130"/>
-<text text-anchor="middle" x="234" y="-118" font-family="Times New Roman,serif" font-size="10.00">interface</text>
+<title>interfaceType</title>
+<polygon fill="#b2dfee" stroke="#b2dfee" points="270,-130 198,-130 198,-111 270,-111 270,-130"/>
+<text text-anchor="middle" x="234" y="-118" font-family="Times New Roman,serif" font-size="10.00">interfaceType</text>
 </g>
-<!-- interface&#45;&gt;type -->
+<!-- interfaceType&#45;&gt;type -->
 <g id="edge29" class="edge">
-<title>interface&#45;&gt;type</title>
-<path fill="none" stroke="black" d="M206.8,-127.76C200.84,-130.55 195.07,-134.35 191,-139.5 138.57,-205.94 204.24,-257.66 155,-326.5 154.63,-327.01 154.25,-327.51 153.84,-328"/>
+<title>interfaceType&#45;&gt;type</title>
+<path fill="none" stroke="black" d="M202.07,-130.23C197.86,-132.68 193.97,-135.73 191,-139.5 138.57,-205.94 204.24,-257.66 155,-326.5 154.63,-327.01 154.25,-327.51 153.84,-328"/>
 <polygon fill="black" stroke="black" points="151.28,-325.59 146.12,-334.85 155.93,-330.83 151.28,-325.59"/>
 </g>
 <!-- libClass -->

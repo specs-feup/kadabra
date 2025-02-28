@@ -8,20 +8,20 @@ import java.util.stream.Collectors;
 import java.util.Arrays;
 
 /**
- * Auto-Generated class for join point AInterface
+ * Auto-Generated class for join point AInterfaceType
  * This class is overwritten by the Weaver Generator.
  * 
  * 
  * @author Lara Weaver Generator
  */
-public abstract class AInterface extends AType {
+public abstract class AInterfaceType extends AType {
 
     protected AType aType;
 
     /**
      * 
      */
-    public AInterface(AType aType){
+    public AInterfaceType(AType aType){
         this.aType = aType;
     }
     /**
@@ -38,7 +38,7 @@ public abstract class AInterface extends AType {
      * @return the attribute's value
      */
     @Override
-    public AInterface[] getInterfacesTypesArrayImpl() {
+    public AInterfaceType[] getInterfacesTypesArrayImpl() {
         return this.aType.getInterfacesTypesArrayImpl();
     }
 
@@ -368,11 +368,11 @@ public abstract class AInterface extends AType {
 
     /**
      * 
-     * @param _interface 
+     * @param interfaceType 
      */
     @Override
-    public void addImplementImpl(AInterface _interface) {
-        this.aType.addImplementImpl(_interface);
+    public void addImplementImpl(AInterfaceType interfaceType) {
+        this.aType.addImplementImpl(interfaceType);
     }
 
     /**
@@ -380,7 +380,7 @@ public abstract class AInterface extends AType {
      * @param newInterface 
      */
     @Override
-    public void addInterfaceImpl(AInterface newInterface) {
+    public void addInterfaceImpl(AInterfaceType newInterface) {
         this.aType.addInterfaceImpl(newInterface);
     }
 
@@ -554,7 +554,7 @@ public abstract class AInterface extends AType {
      * @param interfaceName 
      */
     @Override
-    public AInterface removeInterfaceImpl(String interfaceName) {
+    public AInterfaceType removeInterfaceImpl(String interfaceName) {
         return this.aType.removeInterfaceImpl(interfaceName);
     }
 
@@ -676,7 +676,7 @@ public abstract class AInterface extends AType {
      */
     @Override
     public final String get_class() {
-        return "interface";
+        return "interfaceType";
     }
 
     /**
@@ -694,7 +694,7 @@ public abstract class AInterface extends AType {
     /**
      * 
      */
-    protected enum InterfaceAttributes {
+    protected enum InterfaceTypeAttributes {
         INTERFACES("interfaces"),
         INTERFACESTYPES("interfacesTypes"),
         ISSUBTYPEOF("isSubtypeOf"),
@@ -731,13 +731,13 @@ public abstract class AInterface extends AType {
         /**
          * 
          */
-        private InterfaceAttributes(String name){
+        private InterfaceTypeAttributes(String name){
             this.name = name;
         }
         /**
          * Return an attribute enumeration item from a given attribute name
          */
-        public static Optional<InterfaceAttributes> fromString(String name) {
+        public static Optional<InterfaceTypeAttributes> fromString(String name) {
             return Arrays.asList(values()).stream().filter(attr -> attr.name.equals(name)).findAny();
         }
 
@@ -745,7 +745,7 @@ public abstract class AInterface extends AType {
          * Return a list of attributes in String format
          */
         public static List<String> getNames() {
-            return Arrays.asList(values()).stream().map(InterfaceAttributes::name).collect(Collectors.toList());
+            return Arrays.asList(values()).stream().map(InterfaceTypeAttributes::name).collect(Collectors.toList());
         }
 
         /**

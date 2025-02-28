@@ -75,7 +75,7 @@ public abstract class AEnum extends AClass {
      * @return the attribute's value
      */
     @Override
-    public AInterface[] getInterfacesTypesArrayImpl() {
+    public AInterfaceType[] getInterfacesTypesArrayImpl() {
         return this.aClass.getInterfacesTypesArrayImpl();
     }
 
@@ -405,11 +405,11 @@ public abstract class AEnum extends AClass {
 
     /**
      * 
-     * @param _interface 
+     * @param interfaceType 
      */
     @Override
-    public void addImplementImpl(AInterface _interface) {
-        this.aClass.addImplementImpl(_interface);
+    public void addImplementImpl(AInterfaceType interfaceType) {
+        this.aClass.addImplementImpl(interfaceType);
     }
 
     /**
@@ -417,7 +417,7 @@ public abstract class AEnum extends AClass {
      * @param newInterface 
      */
     @Override
-    public void addInterfaceImpl(AInterface newInterface) {
+    public void addInterfaceImpl(AInterfaceType newInterface) {
         this.aClass.addInterfaceImpl(newInterface);
     }
 
@@ -438,7 +438,7 @@ public abstract class AEnum extends AClass {
      * @param newFile 
      */
     @Override
-    public AInterface extractInterfaceImpl(String name, String _package, AMethod method, boolean associate, boolean newFile) {
+    public AInterfaceType extractInterfaceImpl(String name, String _package, AMethod method, boolean associate, boolean newFile) {
         return this.aClass.extractInterfaceImpl(name, _package, method, associate, newFile);
     }
 
@@ -547,12 +547,12 @@ public abstract class AEnum extends AClass {
      * 
      * @param name 
      * @param keyType 
-     * @param _interface 
+     * @param interfaceType 
      * @param methodName 
      */
     @Override
-    public AClass mapVersionsImpl(String name, String keyType, AInterface _interface, String methodName) {
-        return this.aClass.mapVersionsImpl(name, keyType, _interface, methodName);
+    public AClass mapVersionsImpl(String name, String keyType, AInterfaceType interfaceType, String methodName) {
+        return this.aClass.mapVersionsImpl(name, keyType, interfaceType, methodName);
     }
 
     /**
@@ -645,7 +645,7 @@ public abstract class AEnum extends AClass {
      * @param interfaceName 
      */
     @Override
-    public AInterface removeInterfaceImpl(String interfaceName) {
+    public AInterfaceType removeInterfaceImpl(String interfaceName) {
         return this.aClass.removeInterfaceImpl(interfaceName);
     }
 
