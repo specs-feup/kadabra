@@ -21,7 +21,6 @@ import spoon.reflect.declaration.*;
 import spoon.reflect.reference.CtTypeReference;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.*;
-import weaver.kadabra.entities.Pair;
 import weaver.kadabra.exceptions.JavaWeaverException;
 import weaver.kadabra.spoon.extensions.nodes.CtKadabraSnippetElement;
 import weaver.utils.SpoonUtils;
@@ -251,16 +250,16 @@ public class JType<T> extends AType {
     }
 
     @Override
-    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, Pair[] param, String code) {
-        CtMethod<?> newMethod = ActionUtils.newMethod(node, name, returnType, param, modifiers, code,
+    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, String[] paramLeft, String[] paramRight, String code) {
+        CtMethod<?> newMethod = ActionUtils.newMethod(node, name, returnType, paramLeft, paramRight, modifiers, code,
                 getWeaverProfiler());
         JMethod<?> newInstance = JMethod.newInstance(newMethod);
         return newInstance;
     }
 
     @Override
-    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, Pair[] param) {
-        return newMethodImpl(modifiers, returnType, name, param, "");
+    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, String[] paramLeft, String[] paramRight) {
+        return newMethodImpl(modifiers, returnType, name, paramLeft, paramRight, "");
     }
 
     @Override

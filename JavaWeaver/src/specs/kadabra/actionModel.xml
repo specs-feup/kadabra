@@ -135,7 +135,9 @@
     <!--  CLASS -->
     <action name="newConstructor" class="class" return="constructor">
         <parameter name="modifiers" type="String[]" default="['public']"/>
-        <parameter name="param" type="Pair[]" default="[]"/>
+        <!--<parameter name="param" type="Pair[]" default="[]"/>-->
+        <parameter name="paramLeft" type="String[]" default="[]"/>
+        <parameter name="paramRight" type="String[]" default="[]"/>
     </action>
 
 
@@ -144,7 +146,9 @@
         <parameter name="modifiers" type="String[]" default="['public']"/>
         <parameter name="returnType" type="String"/>
         <parameter name="name" type="String"/>
-        <parameter name="param" type="Pair[]" default="[]"/>
+        <!--<parameter name="param" type="Pair[]" default="[]"/>-->
+        <parameter name="paramLeft" type="String[]" default="[]"/>
+        <parameter name="paramRight" type="String[]" default="[]"/>
         <parameter name="code" type="String" default=""/>
     </action>
     <action name="newMethod" class="type" return="method"
@@ -152,7 +156,9 @@
         <parameter name="modifiers" type="String[]" default="['public']"/>
         <parameter name="returnType" type="String"/>
         <parameter name="name" type="String"/>
-        <parameter name="param" type="Pair[]" default="[]"/>
+        <!--<parameter name="param" type="Pair[]" default="[]"/>-->
+        <parameter name="paramLeft" type="String[]" default="[]"/>
+        <parameter name="paramRight" type="String[]" default="[]"/>
     </action>
     <action name="insertMethod" class="type">
         <parameter name="code" type="template"/>

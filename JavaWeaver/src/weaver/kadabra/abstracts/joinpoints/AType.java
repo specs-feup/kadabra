@@ -6,7 +6,6 @@ import org.lara.interpreter.exception.AttributeException;
 import java.util.List;
 import org.lara.interpreter.weaver.interf.SelectOp;
 import org.lara.interpreter.exception.ActionException;
-import weaver.kadabra.entities.Pair;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 import org.lara.interpreter.weaver.interf.JoinPoint;
 import java.util.stream.Collectors;
@@ -501,10 +500,11 @@ public abstract class AType extends AJavaWeaverJoinPoint {
      * @param modifiers 
      * @param returnType 
      * @param name 
-     * @param param 
+     * @param paramLeft 
+     * @param paramRight 
      * @param code 
      */
-    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, Pair[] param, String code) {
+    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, String[] paramLeft, String[] paramRight, String code) {
         throw new UnsupportedOperationException(get_class()+": Action newMethod not implemented ");
     }
 
@@ -513,17 +513,18 @@ public abstract class AType extends AJavaWeaverJoinPoint {
      * @param modifiers 
      * @param returnType 
      * @param name 
-     * @param param 
+     * @param paramLeft 
+     * @param paramRight 
      * @param code 
      */
-    public final Object newMethod(Object[] modifiers, String returnType, String name, Object[] param, String code) {
+    public final Object newMethod(Object[] modifiers, String returnType, String name, Object[] paramLeft, Object[] paramRight, String code) {
         try {
         	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "newMethod", this, Optional.empty(), modifiers, returnType, name, param, code);
+        		eventTrigger().triggerAction(Stage.BEGIN, "newMethod", this, Optional.empty(), modifiers, returnType, name, paramLeft, paramRight, code);
         	}
-        	AMethod result = this.newMethodImpl(pt.up.fe.specs.util.SpecsCollections.cast(modifiers, String.class), returnType, name, pt.up.fe.specs.util.SpecsCollections.cast(param, Pair.class), code);
+        	AMethod result = this.newMethodImpl(pt.up.fe.specs.util.SpecsCollections.cast(modifiers, String.class), returnType, name, pt.up.fe.specs.util.SpecsCollections.cast(paramLeft, String.class), pt.up.fe.specs.util.SpecsCollections.cast(paramRight, String.class), code);
         	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "newMethod", this, Optional.ofNullable(result), modifiers, returnType, name, param, code);
+        		eventTrigger().triggerAction(Stage.END, "newMethod", this, Optional.ofNullable(result), modifiers, returnType, name, paramLeft, paramRight, code);
         	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
@@ -536,9 +537,10 @@ public abstract class AType extends AJavaWeaverJoinPoint {
      * @param modifiers 
      * @param returnType 
      * @param name 
-     * @param param 
+     * @param paramLeft 
+     * @param paramRight 
      */
-    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, Pair[] param) {
+    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, String[] paramLeft, String[] paramRight) {
         throw new UnsupportedOperationException(get_class()+": Action newMethod not implemented ");
     }
 
@@ -547,16 +549,17 @@ public abstract class AType extends AJavaWeaverJoinPoint {
      * @param modifiers 
      * @param returnType 
      * @param name 
-     * @param param 
+     * @param paramLeft 
+     * @param paramRight 
      */
-    public final Object newMethod(Object[] modifiers, String returnType, String name, Object[] param) {
+    public final Object newMethod(Object[] modifiers, String returnType, String name, Object[] paramLeft, Object[] paramRight) {
         try {
         	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "newMethod", this, Optional.empty(), modifiers, returnType, name, param);
+        		eventTrigger().triggerAction(Stage.BEGIN, "newMethod", this, Optional.empty(), modifiers, returnType, name, paramLeft, paramRight);
         	}
-        	AMethod result = this.newMethodImpl(pt.up.fe.specs.util.SpecsCollections.cast(modifiers, String.class), returnType, name, pt.up.fe.specs.util.SpecsCollections.cast(param, Pair.class));
+        	AMethod result = this.newMethodImpl(pt.up.fe.specs.util.SpecsCollections.cast(modifiers, String.class), returnType, name, pt.up.fe.specs.util.SpecsCollections.cast(paramLeft, String.class), pt.up.fe.specs.util.SpecsCollections.cast(paramRight, String.class));
         	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "newMethod", this, Optional.ofNullable(result), modifiers, returnType, name, param);
+        		eventTrigger().triggerAction(Stage.END, "newMethod", this, Optional.ofNullable(result), modifiers, returnType, name, paramLeft, paramRight);
         	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
@@ -688,8 +691,8 @@ public abstract class AType extends AJavaWeaverJoinPoint {
         actions.add("void insertMethod(String)");
         actions.add("field newField(String[], String, String, String)");
         actions.add("field newField(String[], String, String)");
-        actions.add("method newMethod(String[], String, String, Pair[], String)");
-        actions.add("method newMethod(String[], String, String, Pair[])");
+        actions.add("method newMethod(String[], String, String, String[], String[], String)");
+        actions.add("method newMethod(String[], String, String, String[], String[])");
         actions.add("interfaceType removeInterface(String)");
     }
 

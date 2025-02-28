@@ -7521,9 +7521,14 @@
 										"defaultValue": "['public']"
 									},
 									{
-										"type": "Pair[]",
-										"name": "param",
-										"defaultValue": "[]"
+										"type": "String[]",
+										"name": "paramLeft",
+										"defaultValue": ""
+									},
+									{
+										"type": "String[]",
+										"name": "paramRight",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -7685,9 +7690,14 @@
 										"defaultValue": ""
 									},
 									{
-										"type": "Pair[]",
-										"name": "param",
-										"defaultValue": "[]"
+										"type": "String[]",
+										"name": "paramLeft",
+										"defaultValue": ""
+									},
+									{
+										"type": "String[]",
+										"name": "paramRight",
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -7719,9 +7729,14 @@
 										"defaultValue": ""
 									},
 									{
-										"type": "Pair[]",
-										"name": "param",
-										"defaultValue": "[]"
+										"type": "String[]",
+										"name": "paramLeft",
+										"defaultValue": ""
+									},
+									{
+										"type": "String[]",
+										"name": "paramRight",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -9992,9 +10007,14 @@
 										"defaultValue": "['public']"
 									},
 									{
-										"type": "Pair[]",
-										"name": "param",
-										"defaultValue": "[]"
+										"type": "String[]",
+										"name": "paramLeft",
+										"defaultValue": ""
+									},
+									{
+										"type": "String[]",
+										"name": "paramRight",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -10156,9 +10176,14 @@
 										"defaultValue": ""
 									},
 									{
-										"type": "Pair[]",
-										"name": "param",
-										"defaultValue": "[]"
+										"type": "String[]",
+										"name": "paramLeft",
+										"defaultValue": ""
+									},
+									{
+										"type": "String[]",
+										"name": "paramRight",
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -10190,9 +10215,14 @@
 										"defaultValue": ""
 									},
 									{
-										"type": "Pair[]",
-										"name": "param",
-										"defaultValue": "[]"
+										"type": "String[]",
+										"name": "paramLeft",
+										"defaultValue": ""
+									},
+									{
+										"type": "String[]",
+										"name": "paramRight",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -14159,9 +14189,14 @@
 										"defaultValue": ""
 									},
 									{
-										"type": "Pair[]",
-										"name": "param",
-										"defaultValue": "[]"
+										"type": "String[]",
+										"name": "paramLeft",
+										"defaultValue": ""
+									},
+									{
+										"type": "String[]",
+										"name": "paramRight",
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -14193,9 +14228,14 @@
 										"defaultValue": ""
 									},
 									{
-										"type": "Pair[]",
-										"name": "param",
-										"defaultValue": "[]"
+										"type": "String[]",
+										"name": "paramLeft",
+										"defaultValue": ""
+									},
+									{
+										"type": "String[]",
+										"name": "paramRight",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -23193,9 +23233,14 @@
 										"defaultValue": ""
 									},
 									{
-										"type": "Pair[]",
-										"name": "param",
-										"defaultValue": "[]"
+										"type": "String[]",
+										"name": "paramLeft",
+										"defaultValue": ""
+									},
+									{
+										"type": "String[]",
+										"name": "paramRight",
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -23227,9 +23272,14 @@
 										"defaultValue": ""
 									},
 									{
-										"type": "Pair[]",
-										"name": "param",
-										"defaultValue": "[]"
+										"type": "String[]",
+										"name": "paramLeft",
+										"defaultValue": ""
+									},
+									{
+										"type": "String[]",
+										"name": "paramRight",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -25712,28 +25762,6 @@
 										"type": "String",
 										"name": "code",
 										"defaultValue": ""
-									}]
-					}]
-		},
-		{
-			"type": "typedef",
-			"name": "Pair"
-			,
-			"children": [
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String",
-										"name": "left"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String",
-										"name": "right"
 									}]
 					}]
 		},

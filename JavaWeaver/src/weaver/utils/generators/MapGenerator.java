@@ -240,36 +240,40 @@ public class MapGenerator {
     private void addGetOrDefaultMethod(CtClass<?> funcMapClass) {
         String defaultMethod = "defaultMethod";
         Pair defaultParam = new Pair(_interface.getQualifiedNameImpl(), defaultMethod);
-        Pair[] params = {keyTypeParam, defaultParam};
+        String[] paramLeft = {keyTypeParam.getLeft(), defaultParam.getLeft()};
+        String[] paramRight = {keyTypeParam.getRight(), defaultParam.getRight()};
         String codeStr = "return " + mapName + ".getOrDefault(key, " + defaultMethod + ");";
-        ActionUtils.newMethod(funcMapClass, GET, _interface.getQualifiedNameImpl(), params, DEFAULT_MODIFIERS, codeStr,
+        ActionUtils.newMethod(funcMapClass, GET, _interface.getQualifiedNameImpl(), paramLeft, paramRight, DEFAULT_MODIFIERS, codeStr,
                 weaverProfiler);
 
         // addStatement(factory, getter.getBody(), codeStr);
     }
 
     private void addGetMethod(CtClass<?> funcMapClass) {
-        Pair[] params = {keyTypeParam};
+        String[] paramLeft = {keyTypeParam.getLeft()};
+        String[] paramRight = {keyTypeParam.getRight()};
         String codeStr = "return " + mapName + ".get(key);";
-        ActionUtils.newMethod(funcMapClass, GET, _interface.getQualifiedNameImpl(), params, DEFAULT_MODIFIERS, codeStr,
+        ActionUtils.newMethod(funcMapClass, GET, _interface.getQualifiedNameImpl(), paramLeft, paramRight, DEFAULT_MODIFIERS, codeStr,
                 weaverProfiler);
 
         // addStatement(factory, getter.getBody(), codeStr);
     }
 
     private void addContainsMethod(CtClass<?> funcMapClass) {
-        Pair[] params = {keyTypeParam};
+        String[] paramLeft = {keyTypeParam.getLeft()};
+        String[] paramRight = {keyTypeParam.getRight()};
         String codeStr = "return " + mapName + ".containsKey(key);";
-        ActionUtils.newMethod(funcMapClass, CONTAINS, "boolean", params, DEFAULT_MODIFIERS, codeStr, weaverProfiler);
+        ActionUtils.newMethod(funcMapClass, CONTAINS, "boolean", paramLeft, paramRight, DEFAULT_MODIFIERS, codeStr, weaverProfiler);
 
     }
 
     private void addAddMethod(CtClass<?> funcMapClass) {
         String localVarName = _interface.getNameImpl();
-        Pair[] params = {keyTypeParam,
-                new Pair(_interface.getQualifiedNameImpl(), localVarName)};
+        String[] paramLeft = {keyTypeParam.getLeft(), _interface.getQualifiedNameImpl()};
+        String[] paramRight = {keyTypeParam.getRight(), localVarName};
+
         String codeStr = mapName + ".put(key," + localVarName + ");";
-        ActionUtils.newMethod(funcMapClass, ADD, "void", params, DEFAULT_MODIFIERS, codeStr, weaverProfiler);
+        ActionUtils.newMethod(funcMapClass, ADD, "void", paramLeft, paramRight, DEFAULT_MODIFIERS, codeStr, weaverProfiler);
     }
 
 }

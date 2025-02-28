@@ -2,7 +2,6 @@ package weaver.kadabra.abstracts.joinpoints;
 
 import java.util.List;
 import org.lara.interpreter.weaver.interf.JoinPoint;
-import weaver.kadabra.entities.Pair;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.Arrays;
@@ -512,12 +511,13 @@ public abstract class AInterfaceType extends AType {
      * @param modifiers 
      * @param returnType 
      * @param name 
-     * @param param 
+     * @param paramLeft 
+     * @param paramRight 
      * @param code 
      */
     @Override
-    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, Pair[] param, String code) {
-        return this.aType.newMethodImpl(modifiers, returnType, name, param, code);
+    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, String[] paramLeft, String[] paramRight, String code) {
+        return this.aType.newMethodImpl(modifiers, returnType, name, paramLeft, paramRight, code);
     }
 
     /**
@@ -525,11 +525,12 @@ public abstract class AInterfaceType extends AType {
      * @param modifiers 
      * @param returnType 
      * @param name 
-     * @param param 
+     * @param paramLeft 
+     * @param paramRight 
      */
     @Override
-    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, Pair[] param) {
-        return this.aType.newMethodImpl(modifiers, returnType, name, param);
+    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, String[] paramLeft, String[] paramRight) {
+        return this.aType.newMethodImpl(modifiers, returnType, name, paramLeft, paramRight);
     }
 
     /**

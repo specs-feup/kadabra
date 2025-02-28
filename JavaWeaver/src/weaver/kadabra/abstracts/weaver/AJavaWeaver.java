@@ -3,7 +3,6 @@ package weaver.kadabra.abstracts.weaver;
 import org.lara.interpreter.weaver.LaraWeaverEngine;
 import java.util.Arrays;
 import java.util.List;
-import weaver.kadabra.entities.Pair;
 import weaver.kadabra.enums.LoopType;
 import weaver.kadabra.enums.CommentType;
 import weaver.kadabra.enums.RefType;
@@ -46,7 +45,7 @@ public abstract class AJavaWeaver extends LaraWeaverEngine {
      */
     @Override
     public final List<Class<?>> getAllImportableClasses() {
-        Class<?>[] defaultClasses = {Pair.class, LoopType.class, CommentType.class, RefType.class};
+        Class<?>[] defaultClasses = {LoopType.class, CommentType.class, RefType.class};
         List<Class<?>> otherClasses = this.getImportableClasses();
         List<Class<?>> allClasses = new ArrayList<>(Arrays.asList(defaultClasses));
         allClasses.addAll(otherClasses);

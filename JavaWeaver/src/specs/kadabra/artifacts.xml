@@ -451,10 +451,12 @@
         <attribute name="qualifiedName"	type="String" tooltip="fully qualified name of the type"/>
     </artifact>
 
+    <!--
     <typedef name="Pair">
         <attribute name="left"				type="string"/>
         <attribute name="right"				type="string"/>
     </typedef>
+    -->
     <enum name="LoopType">
         <value name="FOR" string="for"/>
         <value name="FOREACH" string="foreach"/>

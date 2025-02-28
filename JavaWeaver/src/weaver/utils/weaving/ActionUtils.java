@@ -1,11 +1,11 @@
 /**
  * Copyright 2015 SPeCS Research Group.
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License. under the License.
@@ -13,29 +13,14 @@
 
 package weaver.utils.weaving;
 
-import java.io.File;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Set;
-
 import org.lara.interpreter.profile.WeaverProfiler;
-
 import pt.up.fe.specs.util.SpecsCheck;
 import spoon.compiler.Environment;
 import spoon.reflect.code.CtBlock;
 import spoon.reflect.code.CtCodeSnippetStatement;
 import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.CtStatement;
-import spoon.reflect.declaration.CtClass;
-import spoon.reflect.declaration.CtCompilationUnit;
-import spoon.reflect.declaration.CtConstructor;
-import spoon.reflect.declaration.CtElement;
-import spoon.reflect.declaration.CtField;
-import spoon.reflect.declaration.CtInterface;
-import spoon.reflect.declaration.CtMethod;
-import spoon.reflect.declaration.CtPackage;
-import spoon.reflect.declaration.CtType;
-import spoon.reflect.declaration.ModifierKind;
+import spoon.reflect.declaration.*;
 import spoon.reflect.factory.CompilationUnitFactory;
 import spoon.reflect.factory.ConstructorFactory;
 import spoon.reflect.factory.Factory;
@@ -51,6 +36,11 @@ import weaver.utils.SpoonUtils;
 import weaver.utils.scanners.NodeConverter;
 import weaver.utils.weaving.converters.CtElement2JoinPoint;
 
+import java.io.File;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Set;
+
 public class ActionUtils {
 
     public enum Location {
@@ -65,7 +55,7 @@ public class ActionUtils {
     }
 
     public static AJavaWeaverJoinPoint insert(String position, CtElement newElement,
-            final CtElement node, WeaverProfiler weavingProfiler) {
+                                              final CtElement node, WeaverProfiler weavingProfiler) {
 
         Location posIntert = Location.valueOf(position.toUpperCase());
         if (posIntert.equals(Location.REPLACE) && newElement == null) {
@@ -79,50 +69,50 @@ public class ActionUtils {
 
         // LOC for the profiler has to be calculated outside this method
         switch (Location.getLocation(position)) {
-        case BEFORE:
-            if (!(newElement instanceof CtStatement)) {
-                // // If new element is a KadabraSnippet, convert to StatementSnippet
-                // if (newElement instanceof CtKadabraSnippetElement) {
-                // newElement = SnippetFactory.createSnippetStatement(
-                // ((CtKadabraSnippetElement) newElement).getValue(), node.getFactory());
-                // } else {
-                KadabraLog.info("Can only insert statements before nodes, tried to insert a '"
-                        + newElement.getClass() + "':" + newElement);
-                return null;
-                // }
+            case BEFORE:
+                if (!(newElement instanceof CtStatement)) {
+                    // // If new element is a KadabraSnippet, convert to StatementSnippet
+                    // if (newElement instanceof CtKadabraSnippetElement) {
+                    // newElement = SnippetFactory.createSnippetStatement(
+                    // ((CtKadabraSnippetElement) newElement).getValue(), node.getFactory());
+                    // } else {
+                    KadabraLog.info("Can only insert statements before nodes, tried to insert a '"
+                            + newElement.getClass() + "':" + newElement);
+                    return null;
+                    // }
 
-            }
-            referenceStmt.insertBefore((CtStatement) newElement);
-            break;
-        case AFTER:
-            if (!(newElement instanceof CtStatement)) {
-                // // If new element is a KadabraSnippet, convert to StatementSnippet
-                // if (newElement instanceof CtKadabraSnippetElement) {
-                // newElement = SnippetFactory.createSnippetStatement(
-                // ((CtKadabraSnippetElement) newElement).getValue(), node.getFactory());
-                // } else {
-                KadabraLog.info("Can only insert statements after nodes, tried to insert a '"
-                        + newElement.getClass() + "': " + newElement);
-                return null;
-                // }
-            }
-            referenceStmt.insertAfter((CtStatement) newElement);
-            break;
-        case AROUND:
-        case REPLACE:
-            // If new join point is a statement, use the reference statement
-            if (newElement instanceof CtStatement) {
-                referenceStmt.replace(newElement);
-            }
-            // Otherwise, use original node
-            else {
-                node.replace(newElement);
-            }
+                }
+                referenceStmt.insertBefore((CtStatement) newElement);
+                break;
+            case AFTER:
+                if (!(newElement instanceof CtStatement)) {
+                    // // If new element is a KadabraSnippet, convert to StatementSnippet
+                    // if (newElement instanceof CtKadabraSnippetElement) {
+                    // newElement = SnippetFactory.createSnippetStatement(
+                    // ((CtKadabraSnippetElement) newElement).getValue(), node.getFactory());
+                    // } else {
+                    KadabraLog.info("Can only insert statements after nodes, tried to insert a '"
+                            + newElement.getClass() + "': " + newElement);
+                    return null;
+                    // }
+                }
+                referenceStmt.insertAfter((CtStatement) newElement);
+                break;
+            case AROUND:
+            case REPLACE:
+                // If new join point is a statement, use the reference statement
+                if (newElement instanceof CtStatement) {
+                    referenceStmt.replace(newElement);
+                }
+                // Otherwise, use original node
+                else {
+                    node.replace(newElement);
+                }
 
-            break;
-        default:
-            throw new RuntimeException("Code insertion must only be done: " + Arrays.toString(Location.values())
-                    + "; used '" + position + "'");
+                break;
+            default:
+                throw new RuntimeException("Code insertion must only be done: " + Arrays.toString(Location.values())
+                        + "; used '" + position + "'");
         }
 
         var joinPoint = CtElement2JoinPoint.convert(newElement);
@@ -138,18 +128,15 @@ public class ActionUtils {
      * <p>
      * <b>NOTE:</b> this method searches for a parent statement (or the given node) that has a block as its parent
      *
-     * @param position
-     *            position of the insertion: before, after or around
-     * @param snippetStr
-     *            the code to inject
-     * @param node
-     *            the node used as reference for the insertion
+     * @param position   position of the insertion: before, after or around
+     * @param snippetStr the code to inject
+     * @param node       the node used as reference for the insertion
      */
     // public static void insert(String position, String snippetStr, CtStatement statement) {
     //
     // final CtElement parent = statement.getParent();
     public static AJavaWeaverJoinPoint insert(String position, String snippetStr, CtElement node,
-            WeaverProfiler weavingProfiler) {
+                                              WeaverProfiler weavingProfiler) {
 
         var snippet = snippetStr.trim().isEmpty() ? null
                 : SnippetFactory.createSnippetStatement(snippetStr, node.getFactory());
@@ -189,7 +176,7 @@ public class ActionUtils {
     }
 
     public static <T> AJavaWeaverJoinPoint replaceExpression(String position, String snippetStr, CtExpression<T> node,
-            WeaverProfiler weaverProfiler) {
+                                                             WeaverProfiler weaverProfiler) {
 
         var snippet = snippetStr.trim().isEmpty() ? null
                 : SnippetFactory.createSnippetExpression(node.getFactory(), snippetStr);
@@ -218,7 +205,7 @@ public class ActionUtils {
     }
 
     public static <T> AJavaWeaverJoinPoint replaceExpression(String position, CtExpression<?> expression,
-            CtExpression<T> target, WeaverProfiler weaverProfiler) {
+                                                             CtExpression<T> target, WeaverProfiler weaverProfiler) {
 
         CtElement snippet = expression;
         CtElement node = target;
@@ -269,7 +256,7 @@ public class ActionUtils {
      * @param weavingProfiler
      */
     public static AJavaWeaverJoinPoint insertMember(CtElement referenceNode, String codeSnippet, String location,
-            WeaverProfiler weavingProfiler) {
+                                                    WeaverProfiler weavingProfiler) {
 
         Factory factory = referenceNode.getFactory();
         // CtCodeSnippetStatement snippet = SnippetFactory.createSnippetStatement(codeSnippet, factory);
@@ -279,40 +266,40 @@ public class ActionUtils {
     }
 
     public static AJavaWeaverJoinPoint insertMember(CtElement referenceNode, CtElement snippet, String location,
-            WeaverProfiler weavingProfiler) {
+                                                    WeaverProfiler weavingProfiler) {
 
         location = location.toUpperCase();
         Factory factory = referenceNode.getFactory();
         JWEnvironment env = getKadabraEnvironment(factory);
 
         switch (Location.getLocation(location)) {
-        case BEFORE:
-            // AnnotationsTable.getStaticTable().addBefore(referenceNode, snippet);
-            env.getTable().addBefore(referenceNode, snippet);
-            break;
-        case AFTER:
-            env.getTable().addAfter(referenceNode, snippet);
-            break;
-        case AROUND:
-        case REPLACE:
+            case BEFORE:
+                // AnnotationsTable.getStaticTable().addBefore(referenceNode, snippet);
+                env.getTable().addBefore(referenceNode, snippet);
+                break;
+            case AFTER:
+                env.getTable().addAfter(referenceNode, snippet);
+                break;
+            case AROUND:
+            case REPLACE:
 
-            // System.out.println("PARENT: " + referenceNode.getParent().getClass());
-            // System.out.println("REPLACING WITH '" + snippet + "'");
-            // // Insert before node
-            // env.getTable().addBefore(referenceNode, snippet);
-            //
-            // // Set same parent
-            // snippet.setParent(referenceNode.getParent());
-            //
-            // // Remove node from tree
-            // referenceNode.replace(Collections.emptyList());
+                // System.out.println("PARENT: " + referenceNode.getParent().getClass());
+                // System.out.println("REPLACING WITH '" + snippet + "'");
+                // // Insert before node
+                // env.getTable().addBefore(referenceNode, snippet);
+                //
+                // // Set same parent
+                // snippet.setParent(referenceNode.getParent());
+                //
+                // // Remove node from tree
+                // referenceNode.replace(Collections.emptyList());
 
-            env.getTable().addReplace(referenceNode, snippet);
+                env.getTable().addReplace(referenceNode, snippet);
 
-            break;
-        default:
-            throw new RuntimeException("Code insertion must only be done: " + Arrays.toString(Location.values())
-                    + "; used '" + location + "'");
+                break;
+            default:
+                throw new RuntimeException("Code insertion must only be done: " + Arrays.toString(Location.values())
+                        + "; used '" + location + "'");
         }
 
         var joinPoint = CtElement2JoinPoint.convert(snippet);
@@ -324,27 +311,27 @@ public class ActionUtils {
     }
 
     public static AJavaWeaverJoinPoint insertInTable(CtElement referenceNode, String codeSnippet, String location,
-            WeaverProfiler weavingProfiler) {
+                                                     WeaverProfiler weavingProfiler) {
         location = location.toUpperCase();
         Factory factory = referenceNode.getFactory();
 
         JWEnvironment env = getKadabraEnvironment(factory);
         CtCodeSnippetStatement snippet = SnippetFactory.createSnippetStatement(codeSnippet, factory);
         switch (Location.getLocation(location)) {
-        case BEFORE:
-            // AnnotationsTable.getStaticTable().addBefore(referenceNode, snippet);
-            env.getTable().addBefore(referenceNode, snippet);
-            break;
-        case AFTER:
-            env.getTable().addAfter(referenceNode, snippet);
-            break;
-        case AROUND:
-        case REPLACE:
-            env.getTable().addReplace(referenceNode, snippet);
-            break;
-        default:
-            throw new RuntimeException("Code insertion must only be done: " + Arrays.toString(Location.values())
-                    + "; used '" + location + "'");
+            case BEFORE:
+                // AnnotationsTable.getStaticTable().addBefore(referenceNode, snippet);
+                env.getTable().addBefore(referenceNode, snippet);
+                break;
+            case AFTER:
+                env.getTable().addAfter(referenceNode, snippet);
+                break;
+            case AROUND:
+            case REPLACE:
+                env.getTable().addReplace(referenceNode, snippet);
+                break;
+            default:
+                throw new RuntimeException("Code insertion must only be done: " + Arrays.toString(Location.values())
+                        + "; used '" + location + "'");
         }
         String[] lines = codeSnippet.split("\r\n|\r|\n");
         reportLOCs(weavingProfiler, lines.length, true);
@@ -353,7 +340,7 @@ public class ActionUtils {
     }
 
     public static CtInterface<Object> compilationUnitWithInterface(String name, String[] _extends, File outputDir,
-            Factory factory, WeaverProfiler weavingProfiler) {
+                                                                   Factory factory, WeaverProfiler weavingProfiler) {
 
         CtCompilationUnit cu = newCompilationUnit(name, outputDir, factory);
 
@@ -364,7 +351,7 @@ public class ActionUtils {
     }
 
     public static CtInterface<Object> newInterface(String name, String[] _extends, Factory factory,
-            WeaverProfiler weavingProfiler) {
+                                                   WeaverProfiler weavingProfiler) {
         int packageSeparator = name.lastIndexOf(".");
         String simpleName = packageSeparator < 0 ? name : name.substring(packageSeparator + 1);
         String _package = packageSeparator < 0 ? "" : name.substring(0, packageSeparator);
@@ -393,7 +380,7 @@ public class ActionUtils {
     }
 
     public static CtCompilationUnit compilationUnitWithClass(String name, String extend, String[] _implements,
-            File outputDir, Factory factory, WeaverProfiler weavingProfiler) {
+                                                             File outputDir, Factory factory, WeaverProfiler weavingProfiler) {
         final CtClass<Object> newClass = newClass(name, extend, _implements, factory, weavingProfiler);
         CtCompilationUnit cu = newCompilationUnit(name, outputDir, factory);
         cu.addDeclaredType(newClass);
@@ -401,7 +388,7 @@ public class ActionUtils {
     }
 
     public static CtClass<Object> newClass(String name, String extend, String[] _implements, Factory factory,
-            WeaverProfiler weavingProfiler) {
+                                           WeaverProfiler weavingProfiler) {
         CtTypeReference<Object> typeOf = TypeUtils.typeOf(name, factory);
         final CtClass<Object> newClass = factory.Class().create(typeOf.getQualifiedName());
         newClass.addModifier(ModifierKind.PUBLIC);
@@ -429,14 +416,14 @@ public class ActionUtils {
     }
 
     public static CtField<Object> newField(CtType<?> node, String name, String fieldType, String initialValue,
-            String[] modifiers, WeaverProfiler weavingProfiler) {
+                                           String[] modifiers, WeaverProfiler weavingProfiler) {
         final Factory factory = node.getFactory();
         final CtTypeReference<Object> fieldTypeRef = TypeUtils.typeOf(fieldType, factory);
         return newFieldWithSnippet(node, name, fieldTypeRef, initialValue, modifiers, weavingProfiler);
     }
 
     public static <T> CtField<T> newFieldWithType(CtType<?> node, String baseName, CtTypeReference<T> fieldType,
-            T initialValue, String[] modifiers, WeaverProfiler weavingProfiler) {
+                                                  T initialValue, String[] modifiers, WeaverProfiler weavingProfiler) {
         CtExpression<T> init = null;
         if (initialValue != null) {
             init = SpoonUtils.createLiteral(initialValue, node.getFactory());
@@ -445,8 +432,8 @@ public class ActionUtils {
     }
 
     public static <T> CtField<T> newFieldWithType(CtType<?> node, String baseName, CtTypeReference<T> fieldType,
-            CtExpression<T> initialValue,
-            String[] modifiers, WeaverProfiler weavingProfiler) {
+                                                  CtExpression<T> initialValue,
+                                                  String[] modifiers, WeaverProfiler weavingProfiler) {
         final CtField<T> newField = createField(node, baseName, fieldType, modifiers, weavingProfiler);
         if (initialValue != null) {
             // CtExpression<T> init = node.getFactory().Code().createLiteral(initialValue);
@@ -457,8 +444,8 @@ public class ActionUtils {
     }
 
     public static <T> CtField<T> newFieldWithSnippet(CtType<?> node, String baseName, CtTypeReference<T> fieldType,
-            String initialValue,
-            String[] modifiers, WeaverProfiler weavingProfiler) {
+                                                     String initialValue,
+                                                     String[] modifiers, WeaverProfiler weavingProfiler) {
         final CtField<T> newField = createField(node, baseName, fieldType, modifiers, weavingProfiler);
         if (initialValue != null) {
             final CtExpression<T> snippet = SnippetFactory.snippetExpression(initialValue.toString(),
@@ -471,7 +458,7 @@ public class ActionUtils {
     }
 
     private static <T> CtField<T> createField(CtType<?> node, String baseName, CtTypeReference<T> fieldType,
-            String[] modifiers, WeaverProfiler weavingProfiler) {
+                                              String[] modifiers, WeaverProfiler weavingProfiler) {
         final Set<ModifierKind> modifiersSet = SpoonUtils.setOfModifiers(modifiers, ModifierKind.PRIVATE);
 
         String name = baseName;
@@ -495,8 +482,8 @@ public class ActionUtils {
         // }
     }
 
-    public static CtMethod<Object> newMethod(CtType<?> node, String name, String returnType, Pair[] param,
-            String[] modifiers, String code, WeaverProfiler weavingProfiler) {
+    public static CtMethod<Object> newMethod(CtType<?> node, String name, String returnType, String[] paramLeft, String[] paramRight,
+                                             String[] modifiers, String code, WeaverProfiler weavingProfiler) {
         final Factory factory = node.getFactory();
         final MethodFactory methodF = factory.Method();
         final CtTypeReference<Object> returnTypeRef = TypeUtils.typeOf(returnType, factory);
@@ -505,11 +492,14 @@ public class ActionUtils {
         final CtMethod<Object> newMethod = methodF.create(node, modifiersSet, returnTypeRef, name, null, null);
         // Current Best approach for inserting parameters in a method and
         // directly associate to parent method
-        for (final Pair pair : param) {
-            // final CtTypeReference<Object> typeRef = factory.Type().createReference(pair.getLeft());
-            final CtTypeReference<Object> typeRef = TypeUtils.typeOf(pair.getLeft(), factory);
 
-            methodF.createParameter(newMethod, typeRef, pair.getRight());
+        SpecsCheck.checkArgument(paramLeft.length == paramRight.length, () -> "Param left and param right must have same size");
+
+        for (int i = 0; i < paramLeft.length; i++) {
+            // final CtTypeReference<Object> typeRef = factory.Type().createReference(pair.getLeft());
+            final CtTypeReference<Object> typeRef = TypeUtils.typeOf(paramLeft[i], factory);
+
+            methodF.createParameter(newMethod, typeRef, paramRight[i]);
         }
 
         CtBlock<Object> createBlock = factory.Core().createBlock();
@@ -522,15 +512,18 @@ public class ActionUtils {
         return newMethod;
     }
 
-    public static CtConstructor<?> newConstructor(CtClass<?> node, Pair[] param, String[] modifiers,
-            WeaverProfiler weavingProfiler) {
+    public static CtConstructor<?> newConstructor(CtClass<?> node, String[] paramLeft, String[] paramRight, String[] modifiers,
+                                                  WeaverProfiler weavingProfiler) {
         final Factory factory = node.getFactory();
         final Set<ModifierKind> modifiersSet = SpoonUtils.setOfModifiers(modifiers, ModifierKind.PUBLIC);
         ConstructorFactory constFac = factory.Constructor();
         CtConstructor<?> constr = constFac.create(node, modifiersSet, Collections.emptyList(), null);
-        for (final Pair pair : param) {
-            final CtTypeReference<Object> typeRef = factory.Type().createReference(pair.getLeft());
-            constFac.createParameter(constr, typeRef, pair.getRight());
+
+        SpecsCheck.checkArgument(paramLeft.length == paramRight.length, () -> "Param left and param right must have same size");
+
+        for (int i = 0; i < paramLeft.length; i++) {
+            final CtTypeReference<Object> typeRef = factory.Type().createReference(paramLeft[i]);
+            constFac.createParameter(constr, typeRef, paramRight[i]);
         }
         constr.setBody(factory.Core().createBlock());
         reportLOCs(weavingProfiler, 2, false); // 2 for the method header and the brackets
@@ -542,7 +535,7 @@ public class ActionUtils {
     }
 
     public static <N extends CtElement, JP extends AJavaWeaverJoinPoint> JP cloneJP(N node,
-            NodeConverter<N, JP> converter) {
+                                                                                    NodeConverter<N, JP> converter) {
         N newNode = node.getFactory().Core().clone(node);
         return converter.toJoinPoint(newNode);
 

@@ -168,8 +168,8 @@ public class JClass<T> extends AClass {
     }
 
     @Override
-    public AConstructor newConstructorImpl(String[] modifiers, Pair[] param) {
-        CtConstructor<?> newConstructor = ActionUtils.newConstructor(originClass, param, modifiers,
+    public AConstructor newConstructorImpl(String[] modifiers, String[] paramLeft, String[] paramRight) {
+        CtConstructor<?> newConstructor = ActionUtils.newConstructor(originClass, paramLeft, paramRight, modifiers,
                 getWeaverProfiler());
         JConstructor<?> newInstance = SelectUtils.node2JoinPoint(newConstructor, JConstructor::newInstance);
         return newInstance;

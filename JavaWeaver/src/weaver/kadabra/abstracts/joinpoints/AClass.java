@@ -6,7 +6,6 @@ import org.lara.interpreter.exception.AttributeException;
 import java.util.List;
 import org.lara.interpreter.weaver.interf.SelectOp;
 import org.lara.interpreter.exception.ActionException;
-import weaver.kadabra.entities.Pair;
 import org.lara.interpreter.weaver.interf.JoinPoint;
 import java.util.stream.Collectors;
 import java.util.Arrays;
@@ -166,25 +165,27 @@ public abstract class AClass extends AType {
     /**
      * 
      * @param modifiers 
-     * @param param 
+     * @param paramLeft 
+     * @param paramRight 
      */
-    public AConstructor newConstructorImpl(String[] modifiers, Pair[] param) {
+    public AConstructor newConstructorImpl(String[] modifiers, String[] paramLeft, String[] paramRight) {
         throw new UnsupportedOperationException(get_class()+": Action newConstructor not implemented ");
     }
 
     /**
      * 
      * @param modifiers 
-     * @param param 
+     * @param paramLeft 
+     * @param paramRight 
      */
-    public final Object newConstructor(Object[] modifiers, Object[] param) {
+    public final Object newConstructor(Object[] modifiers, Object[] paramLeft, Object[] paramRight) {
         try {
         	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "newConstructor", this, Optional.empty(), modifiers, param);
+        		eventTrigger().triggerAction(Stage.BEGIN, "newConstructor", this, Optional.empty(), modifiers, paramLeft, paramRight);
         	}
-        	AConstructor result = this.newConstructorImpl(pt.up.fe.specs.util.SpecsCollections.cast(modifiers, String.class), pt.up.fe.specs.util.SpecsCollections.cast(param, Pair.class));
+        	AConstructor result = this.newConstructorImpl(pt.up.fe.specs.util.SpecsCollections.cast(modifiers, String.class), pt.up.fe.specs.util.SpecsCollections.cast(paramLeft, String.class), pt.up.fe.specs.util.SpecsCollections.cast(paramRight, String.class));
         	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "newConstructor", this, Optional.ofNullable(result), modifiers, param);
+        		eventTrigger().triggerAction(Stage.END, "newConstructor", this, Optional.ofNullable(result), modifiers, paramLeft, paramRight);
         	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
@@ -709,12 +710,13 @@ public abstract class AClass extends AType {
      * @param modifiers 
      * @param returnType 
      * @param name 
-     * @param param 
+     * @param paramLeft 
+     * @param paramRight 
      * @param code 
      */
     @Override
-    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, Pair[] param, String code) {
-        return this.aType.newMethodImpl(modifiers, returnType, name, param, code);
+    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, String[] paramLeft, String[] paramRight, String code) {
+        return this.aType.newMethodImpl(modifiers, returnType, name, paramLeft, paramRight, code);
     }
 
     /**
@@ -722,11 +724,12 @@ public abstract class AClass extends AType {
      * @param modifiers 
      * @param returnType 
      * @param name 
-     * @param param 
+     * @param paramLeft 
+     * @param paramRight 
      */
     @Override
-    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, Pair[] param) {
-        return this.aType.newMethodImpl(modifiers, returnType, name, param);
+    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, String[] paramLeft, String[] paramRight) {
+        return this.aType.newMethodImpl(modifiers, returnType, name, paramLeft, paramRight);
     }
 
     /**
@@ -877,7 +880,7 @@ public abstract class AClass extends AType {
         actions.add("interfaceType extractInterface(String, String, method, boolean, boolean)");
         actions.add("void insertStatic(String)");
         actions.add("class mapVersions(String, String, interfaceType, String)");
-        actions.add("constructor newConstructor(String[], Pair[])");
+        actions.add("constructor newConstructor(String[], String[], String[])");
         actions.add("method newFunctionalClass(method, method)");
     }
 
