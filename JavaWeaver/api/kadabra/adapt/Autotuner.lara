@@ -22,7 +22,7 @@ function Autotuner(/*AutotunerClass*/ autotunerClass, /*Field*/ $targetField, /*
 
 Autotuner.prototype.init = function(numWarmup, numRuns){
 	if(this.$classContainer === undefined || this.$classContainer === null){
-		nc = call NewClass(this.autotunerClass.$class.package+".Autotuners");
+		nc = call NewClass(this.autotunerClass.$class.packageName+".Autotuners");
 		this.$classContainer = nc.$class;
 	}
 
@@ -503,7 +503,7 @@ function ControlPoint(/*ControlPointClass*/ autotunerClass, /*Class*/ $classCont
 
 ControlPoint.prototype.init = function(numWarmup, numRuns){
 	if(this.$classContainer === undefined || this.$classContainer === null){
-		nc = call NewClass(this.autotunerClass.$class.package+".Autotuners");
+		nc = call NewClass(this.autotunerClass.$class.packageName+".Autotuners");
 		this.$classContainer = nc.$class;
 	}
 

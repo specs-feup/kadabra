@@ -148,12 +148,12 @@ public abstract class AXmlElement extends AXmlNode {
     }
 
     /**
-     * Get value on attribute elementsArrayImpl
+     * Get value on attribute elementsByNameArrayImpl
      * @return the attribute's value
      */
     @Override
-    public AXmlElement[] elementsArrayImpl(String name) {
-        return this.aXmlNode.elementsArrayImpl(name);
+    public AXmlElement[] elementsByNameArrayImpl(String name) {
+        return this.aXmlNode.elementsByNameArrayImpl(name);
     }
 
     /**
@@ -624,6 +624,7 @@ public abstract class AXmlElement extends AXmlNode {
         ATTRIBUTENAMES("attributeNames"),
         NAME("name"),
         ELEMENTS("elements"),
+        ELEMENTSBYNAME("elementsByName"),
         TEXT("text"),
         ANNOTATIONS("annotations"),
         AST("ast"),

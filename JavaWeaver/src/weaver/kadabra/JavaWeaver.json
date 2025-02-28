@@ -415,7 +415,7 @@
 						"children": [
 									{
 										"type": "String",
-										"name": "package"
+										"name": "packageName"
 									}]
 					},
 					{
@@ -818,7 +818,7 @@
 						"children": [
 									{
 										"type": "xmlElement[]",
-										"name": "elements"
+										"name": "elementsByName"
 									},
 									{
 										"type": "String",
@@ -1509,7 +1509,7 @@
 									{
 										"type": "String",
 										"name": "position",
-										"defaultValue": "before"
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -2434,7 +2434,7 @@
 									{
 										"type": "String[]",
 										"name": "extend",
-										"defaultValue": "[]"
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -2915,7 +2915,7 @@
 									{
 										"type": "String",
 										"name": "position",
-										"defaultValue": "before"
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -4271,7 +4271,7 @@
 									{
 										"type": "String",
 										"name": "position",
-										"defaultValue": "before"
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -5729,7 +5729,7 @@
 									{
 										"type": "String",
 										"name": "position",
-										"defaultValue": "before"
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -7149,7 +7149,7 @@
 						"children": [
 									{
 										"type": "String",
-										"name": "package"
+										"name": "packageName"
 									}]
 					},
 					{
@@ -7523,12 +7523,12 @@
 									{
 										"type": "String[]",
 										"name": "paramLeft",
-										"defaultValue": ""
+										"defaultValue": "[]"
 									},
 									{
 										"type": "String[]",
 										"name": "paramRight",
-										"defaultValue": ""
+										"defaultValue": "[]"
 									}]
 					},
 					{
@@ -7625,7 +7625,7 @@
 									{
 										"type": "String[]",
 										"name": "modifiers",
-										"defaultValue": "['private']"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -7653,7 +7653,7 @@
 									{
 										"type": "String[]",
 										"name": "modifiers",
-										"defaultValue": "['private']"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -7677,7 +7677,7 @@
 									{
 										"type": "String[]",
 										"name": "modifiers",
-										"defaultValue": "['public']"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -7692,12 +7692,12 @@
 									{
 										"type": "String[]",
 										"name": "paramLeft",
-										"defaultValue": ""
+										"defaultValue": "[]"
 									},
 									{
 										"type": "String[]",
 										"name": "paramRight",
-										"defaultValue": ""
+										"defaultValue": "[]"
 									},
 									{
 										"type": "String",
@@ -7731,12 +7731,12 @@
 									{
 										"type": "String[]",
 										"name": "paramLeft",
-										"defaultValue": ""
+										"defaultValue": "[]"
 									},
 									{
 										"type": "String[]",
 										"name": "paramRight",
-										"defaultValue": ""
+										"defaultValue": "[]"
 									}]
 					},
 					{
@@ -9630,7 +9630,7 @@
 						"children": [
 									{
 										"type": "String",
-										"name": "package"
+										"name": "packageName"
 									}]
 					},
 					{
@@ -10009,12 +10009,12 @@
 									{
 										"type": "String[]",
 										"name": "paramLeft",
-										"defaultValue": ""
+										"defaultValue": "[]"
 									},
 									{
 										"type": "String[]",
 										"name": "paramRight",
-										"defaultValue": ""
+										"defaultValue": "[]"
 									}]
 					},
 					{
@@ -10111,7 +10111,7 @@
 									{
 										"type": "String[]",
 										"name": "modifiers",
-										"defaultValue": "['private']"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -10139,7 +10139,7 @@
 									{
 										"type": "String[]",
 										"name": "modifiers",
-										"defaultValue": "['private']"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -10163,7 +10163,7 @@
 									{
 										"type": "String[]",
 										"name": "modifiers",
-										"defaultValue": "['public']"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -10178,12 +10178,12 @@
 									{
 										"type": "String[]",
 										"name": "paramLeft",
-										"defaultValue": ""
+										"defaultValue": "[]"
 									},
 									{
 										"type": "String[]",
 										"name": "paramRight",
-										"defaultValue": ""
+										"defaultValue": "[]"
 									},
 									{
 										"type": "String",
@@ -10217,12 +10217,12 @@
 									{
 										"type": "String[]",
 										"name": "paramLeft",
-										"defaultValue": ""
+										"defaultValue": "[]"
 									},
 									{
 										"type": "String[]",
 										"name": "paramRight",
-										"defaultValue": ""
+										"defaultValue": "[]"
 									}]
 					},
 					{
@@ -11563,7 +11563,7 @@
 									{
 										"type": "String",
 										"name": "position",
-										"defaultValue": "before"
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -12531,7 +12531,7 @@
 									{
 										"type": "String",
 										"name": "position",
-										"defaultValue": "before"
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -12734,7 +12734,7 @@
 						"children": [
 									{
 										"type": "String",
-										"name": "package"
+										"name": "packageName"
 									}]
 					},
 					{
@@ -13103,7 +13103,7 @@
 									{
 										"type": "String[]",
 										"name": "extend",
-										"defaultValue": "[]"
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -13775,7 +13775,7 @@
 						"children": [
 									{
 										"type": "String",
-										"name": "package"
+										"name": "packageName"
 									}]
 					},
 					{
@@ -14124,7 +14124,7 @@
 									{
 										"type": "String[]",
 										"name": "modifiers",
-										"defaultValue": "['private']"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -14152,7 +14152,7 @@
 									{
 										"type": "String[]",
 										"name": "modifiers",
-										"defaultValue": "['private']"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -14176,7 +14176,7 @@
 									{
 										"type": "String[]",
 										"name": "modifiers",
-										"defaultValue": "['public']"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -14191,12 +14191,12 @@
 									{
 										"type": "String[]",
 										"name": "paramLeft",
-										"defaultValue": ""
+										"defaultValue": "[]"
 									},
 									{
 										"type": "String[]",
 										"name": "paramRight",
-										"defaultValue": ""
+										"defaultValue": "[]"
 									},
 									{
 										"type": "String",
@@ -14230,12 +14230,12 @@
 									{
 										"type": "String[]",
 										"name": "paramLeft",
-										"defaultValue": ""
+										"defaultValue": "[]"
 									},
 									{
 										"type": "String[]",
 										"name": "paramRight",
-										"defaultValue": ""
+										"defaultValue": "[]"
 									}]
 					},
 					{
@@ -14451,7 +14451,7 @@
 						"children": [
 									{
 										"type": "String",
-										"name": "package"
+										"name": "packageName"
 									}]
 					},
 					{
@@ -15549,7 +15549,7 @@
 									{
 										"type": "String",
 										"name": "position",
-										"defaultValue": "before"
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -16517,7 +16517,7 @@
 									{
 										"type": "boolean",
 										"name": "unique",
-										"defaultValue": "true"
+										"defaultValue": ""
 									},
 									{
 										"type": "joinpoint",
@@ -17547,7 +17547,7 @@
 									{
 										"type": "String",
 										"name": "position",
-										"defaultValue": "before"
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -19661,7 +19661,7 @@
 									{
 										"type": "String",
 										"name": "position",
-										"defaultValue": "before"
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -21350,7 +21350,7 @@
 									{
 										"type": "String",
 										"name": "position",
-										"defaultValue": "before"
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -21800,7 +21800,7 @@
 									{
 										"type": "String",
 										"name": "position",
-										"defaultValue": "before"
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -22819,7 +22819,7 @@
 						"children": [
 									{
 										"type": "String",
-										"name": "package"
+										"name": "packageName"
 									}]
 					},
 					{
@@ -23168,7 +23168,7 @@
 									{
 										"type": "String[]",
 										"name": "modifiers",
-										"defaultValue": "['private']"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -23196,7 +23196,7 @@
 									{
 										"type": "String[]",
 										"name": "modifiers",
-										"defaultValue": "['private']"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -23220,7 +23220,7 @@
 									{
 										"type": "String[]",
 										"name": "modifiers",
-										"defaultValue": "['public']"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -23235,12 +23235,12 @@
 									{
 										"type": "String[]",
 										"name": "paramLeft",
-										"defaultValue": ""
+										"defaultValue": "[]"
 									},
 									{
 										"type": "String[]",
 										"name": "paramRight",
-										"defaultValue": ""
+										"defaultValue": "[]"
 									},
 									{
 										"type": "String",
@@ -23274,12 +23274,12 @@
 									{
 										"type": "String[]",
 										"name": "paramLeft",
-										"defaultValue": ""
+										"defaultValue": "[]"
 									},
 									{
 										"type": "String[]",
 										"name": "paramRight",
-										"defaultValue": ""
+										"defaultValue": "[]"
 									}]
 					},
 					{
@@ -23491,7 +23491,7 @@
 						"children": [
 									{
 										"type": "String",
-										"name": "package"
+										"name": "packageName"
 									}]
 					},
 					{
@@ -24230,7 +24230,7 @@
 									{
 										"type": "String",
 										"name": "position",
-										"defaultValue": "before"
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -24746,7 +24746,7 @@
 									{
 										"type": "String",
 										"name": "position",
-										"defaultValue": "before"
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -24947,7 +24947,7 @@
 						"children": [
 									{
 										"type": "xmlElement[]",
-										"name": "elements"
+										"name": "elementsByName"
 									},
 									{
 										"type": "String",
@@ -25374,7 +25374,7 @@
 						"children": [
 									{
 										"type": "xmlElement[]",
-										"name": "elements"
+										"name": "elementsByName"
 									},
 									{
 										"type": "String",

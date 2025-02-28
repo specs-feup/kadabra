@@ -144,27 +144,27 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
     }
 
     /**
-     * Get value on attribute _package
+     * Get value on attribute packageName
      * @return the attribute's value
      */
-    public abstract String getPackageImpl();
+    public abstract String getPackageNameImpl();
 
     /**
-     * Get value on attribute _package
+     * Get value on attribute packageName
      * @return the attribute's value
      */
-    public final Object getPackage() {
+    public final Object getPackageName() {
         try {
         	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "package", Optional.empty());
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "packageName", Optional.empty());
         	}
-        	String result = this.getPackageImpl();
+        	String result = this.getPackageNameImpl();
         	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "package", Optional.ofNullable(result));
+        		eventTrigger().triggerAttribute(Stage.END, this, "packageName", Optional.ofNullable(result));
         	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
-        	throw new AttributeException(get_class(), "package", e);
+        	throw new AttributeException(get_class(), "packageName", e);
         }
     }
 
@@ -546,7 +546,7 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
         attributes.add("name");
         attributes.add("numClasses");
         attributes.add("numInterfaces");
-        attributes.add("package");
+        attributes.add("packageName");
         attributes.add("path");
     }
 
@@ -597,7 +597,7 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
         NAME("name"),
         NUMCLASSES("numClasses"),
         NUMINTERFACES("numInterfaces"),
-        PACKAGE("package"),
+        PACKAGENAME("packageName"),
         PATH("path"),
         ANNOTATIONS("annotations"),
         AST("ast"),

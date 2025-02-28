@@ -106,12 +106,12 @@ public abstract class AEnum extends AClass {
     }
 
     /**
-     * Get value on attribute _package
+     * Get value on attribute packageName
      * @return the attribute's value
      */
     @Override
-    public String getPackageImpl() {
-        return this.aClass.getPackageImpl();
+    public String getPackageNameImpl() {
+        return this.aClass.getPackageNameImpl();
     }
 
     /**
@@ -804,7 +804,7 @@ public abstract class AEnum extends AClass {
         ISSUBTYPEOF("isSubtypeOf"),
         JAVADOC("javadoc"),
         NAME("name"),
-        PACKAGE("package"),
+        PACKAGENAME("packageName"),
         QUALIFIEDNAME("qualifiedName"),
         SUPERCLASS("superClass"),
         SUPERCLASSJP("superClassJp"),

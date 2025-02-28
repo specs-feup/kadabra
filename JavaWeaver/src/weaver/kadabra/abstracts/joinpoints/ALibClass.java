@@ -69,12 +69,12 @@ public abstract class ALibClass extends ANamedType {
     }
 
     /**
-     * Get value on attribute _package
+     * Get value on attribute packageName
      * @return the attribute's value
      */
     @Override
-    public String getPackageImpl() {
-        return this.aNamedType.getPackageImpl();
+    public String getPackageNameImpl() {
+        return this.aNamedType.getPackageNameImpl();
     }
 
     /**
@@ -519,7 +519,7 @@ public abstract class ALibClass extends ANamedType {
         ISSUBTYPEOF("isSubtypeOf"),
         JAVADOC("javadoc"),
         NAME("name"),
-        PACKAGE("package"),
+        PACKAGENAME("packageName"),
         QUALIFIEDNAME("qualifiedName"),
         SUPERCLASS("superClass"),
         ANNOTATIONS("annotations"),

@@ -23,7 +23,7 @@ class ExcessiveMethodCallsDetector extends BaseDetector {
     analyseClass(jpClass) {
         super.analyseClass(jpClass);
 
-        this.currentPackage = jpClass.package;
+        this.currentPackage = jpClass.packageName;
         let fileName = jpClass.getAncestor("file");
 
         let loops = Query.searchFrom(jpClass, "loop").get();

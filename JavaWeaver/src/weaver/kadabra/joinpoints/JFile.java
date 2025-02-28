@@ -136,7 +136,7 @@ public class JFile extends AFile {
     }
 
     @Override
-    public String getPackageImpl() {
+    public String getPackageNameImpl() {
         CtType<?> type = node.getMainType();
         return type.getPackage().getQualifiedName();
     }

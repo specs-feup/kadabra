@@ -88,7 +88,7 @@
 
     <action name="newInterface" class="file,app" return="interfaceType">
         <parameter name="name" type="String"/>
-        <parameter name="extend" type="String[]" default="[]"/>
+        <parameter name="extend" type="String[]"/>
     </action>
     <action name="newInterface" class="file,app" return="interfaceType">
         <parameter name="name" type="String"/>
@@ -143,7 +143,7 @@
 
     <!-- TYPE -->
     <action name="newMethod" class="type" return="method" tooltip="add a new method inside the class">
-        <parameter name="modifiers" type="String[]" default="['public']"/>
+        <parameter name="modifiers" type="String[]"/>
         <parameter name="returnType" type="String"/>
         <parameter name="name" type="String"/>
         <!--<parameter name="param" type="Pair[]" default="[]"/>-->
@@ -186,13 +186,13 @@
         <parameter name="interfaceType" type="interfaceType"/>
     </action>
     <action name="newField" class="type" return="field">
-        <parameter name="modifiers" type="String[]" default="['private']"/>
+        <parameter name="modifiers" type="String[]"/>
         <parameter name="type" type="String"/>
         <parameter name="name" type="String"/>
         <parameter name="defaultValue" type="String" default="null"/>
     </action>
     <action name="newField" class="type" return="field">
-        <parameter name="modifiers" type="String[]" default="['private']"/>
+        <parameter name="modifiers" type="String[]"/>
         <parameter name="type" type="String"/>
         <parameter name="name" type="String"/>
     </action>
@@ -242,7 +242,7 @@
     <action name="tile" class="loop" return="field">
         <parameter name="tileName" type="string" default=""/>
         <parameter name="block" type="template"/>
-        <parameter name="unique" type="boolean" default="true"/>
+        <parameter name="unique" type="boolean"/>
         <parameter name="around" type="joinpoint" default="null"/>
     </action>
     <action name="tile" class="loop" return="void">
@@ -276,7 +276,7 @@
     <action name="extract" class="expression">
         <parameter name="varName" type="String"/>
         <parameter name="location" type="statement" default="null"/>
-        <parameter name="position" type="String" default="before"/>
+        <parameter name="position" type="String"/>
     </action>
 
     <!-- DECLARATION -->

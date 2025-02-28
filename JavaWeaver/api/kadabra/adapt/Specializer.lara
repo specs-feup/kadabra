@@ -144,7 +144,7 @@ aspectdef ExtractFunctionalInterface //Will assume method without overloading (n
 //		}
 
 		console.log("[LOG] Extracting functional interface from "+$class.name+"#"+$method.name);
-		var interfacePackage = $class.package;
+		var interfacePackage = $class.packageName;
 		var interfaceName = 'I' + $method.name.firstCharToUpper();
 		newInterface = $class.exec extractInterface(interfaceName, interfacePackage, $method, associate, newFile);
 		if(!newFile){

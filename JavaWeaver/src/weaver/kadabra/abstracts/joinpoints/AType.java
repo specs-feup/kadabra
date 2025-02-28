@@ -164,23 +164,23 @@ public abstract class AType extends AJavaWeaverJoinPoint {
     /**
      * package name of this class
      */
-    public abstract String getPackageImpl();
+    public abstract String getPackageNameImpl();
 
     /**
      * package name of this class
      */
-    public final Object getPackage() {
+    public final Object getPackageName() {
         try {
         	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "package", Optional.empty());
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "packageName", Optional.empty());
         	}
-        	String result = this.getPackageImpl();
+        	String result = this.getPackageNameImpl();
         	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "package", Optional.ofNullable(result));
+        		eventTrigger().triggerAttribute(Stage.END, this, "packageName", Optional.ofNullable(result));
         	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
-        	throw new AttributeException(get_class(), "package", e);
+        	throw new AttributeException(get_class(), "packageName", e);
         }
     }
 
@@ -658,7 +658,7 @@ public abstract class AType extends AJavaWeaverJoinPoint {
         attributes.add("isSubtypeOf");
         attributes.add("javadoc");
         attributes.add("name");
-        attributes.add("package");
+        attributes.add("packageName");
         attributes.add("qualifiedName");
         attributes.add("superClass");
         attributes.add("superClassJp");
@@ -713,7 +713,7 @@ public abstract class AType extends AJavaWeaverJoinPoint {
         ISSUBTYPEOF("isSubtypeOf"),
         JAVADOC("javadoc"),
         NAME("name"),
-        PACKAGE("package"),
+        PACKAGENAME("packageName"),
         QUALIFIEDNAME("qualifiedName"),
         SUPERCLASS("superClass"),
         SUPERCLASSJP("superClassJp"),

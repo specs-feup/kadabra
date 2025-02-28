@@ -268,12 +268,12 @@ public abstract class AClass extends AType {
     }
 
     /**
-     * Get value on attribute _package
+     * Get value on attribute packageName
      * @return the attribute's value
      */
     @Override
-    public String getPackageImpl() {
-        return this.aType.getPackageImpl();
+    public String getPackageNameImpl() {
+        return this.aType.getPackageNameImpl();
     }
 
     /**
@@ -915,7 +915,7 @@ public abstract class AClass extends AType {
         ISSUBTYPEOF("isSubtypeOf"),
         JAVADOC("javadoc"),
         NAME("name"),
-        PACKAGE("package"),
+        PACKAGENAME("packageName"),
         QUALIFIEDNAME("qualifiedName"),
         SUPERCLASS("superClass"),
         SUPERCLASSJP("superClassJp"),

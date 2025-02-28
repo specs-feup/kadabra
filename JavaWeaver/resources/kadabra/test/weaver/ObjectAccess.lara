@@ -12,7 +12,7 @@ aspectdef ObjectAccessTest
 
 	//console.log("Arg arg ast: " + Query.search("method").search("call").first().arguments[0].ast);
 	console.log("Arg type type: " + Query.search("method", {name: "test"}).search("call").first().arguments[0].typeReference);
-	console.log("Arg type package: " + Query.search("method", {name: "test"}).search("call").first().arguments[0].typeReference.package);	
+	console.log("Arg type package: " + Query.search("method", {name: "test"}).search("call").first().arguments[0].typeReference.packageName);
 
 
 //	for(var $expr of Query.search("expression", {code: /^R\.*/})) {

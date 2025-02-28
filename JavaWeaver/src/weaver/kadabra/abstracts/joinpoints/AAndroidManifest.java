@@ -60,12 +60,12 @@ public abstract class AAndroidManifest extends AXmlNode {
     }
 
     /**
-     * Get value on attribute elementsArrayImpl
+     * Get value on attribute elementsByNameArrayImpl
      * @return the attribute's value
      */
     @Override
-    public AXmlElement[] elementsArrayImpl(String name) {
-        return this.aXmlNode.elementsArrayImpl(name);
+    public AXmlElement[] elementsByNameArrayImpl(String name) {
+        return this.aXmlNode.elementsByNameArrayImpl(name);
     }
 
     /**
@@ -531,6 +531,7 @@ public abstract class AAndroidManifest extends AXmlNode {
     protected enum AndroidManifestAttributes {
         ASJSON("asJson"),
         ELEMENTS("elements"),
+        ELEMENTSBYNAME("elementsByName"),
         TEXT("text"),
         ANNOTATIONS("annotations"),
         AST("ast"),
