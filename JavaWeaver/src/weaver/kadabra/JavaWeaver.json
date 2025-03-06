@@ -1504,7 +1504,7 @@
 									{
 										"type": "statement",
 										"name": "location",
-										"defaultValue": "null"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -2403,7 +2403,7 @@
 									{
 										"type": "String[]",
 										"name": "implement",
-										"defaultValue": "[]"
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -2910,7 +2910,7 @@
 									{
 										"type": "statement",
 										"name": "location",
-										"defaultValue": "null"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -4266,7 +4266,7 @@
 									{
 										"type": "statement",
 										"name": "location",
-										"defaultValue": "null"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -5724,7 +5724,7 @@
 									{
 										"type": "statement",
 										"name": "location",
-										"defaultValue": "null"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -7448,13 +7448,13 @@
 									},
 									{
 										"type": "String",
-										"name": "package",
+										"name": "packageName",
 										"defaultValue": ""
 									},
 									{
 										"type": "method",
 										"name": "method",
-										"defaultValue": "null"
+										"defaultValue": ""
 									},
 									{
 										"type": "boolean",
@@ -7692,12 +7692,12 @@
 									{
 										"type": "String[]",
 										"name": "paramLeft",
-										"defaultValue": "[]"
+										"defaultValue": ""
 									},
 									{
 										"type": "String[]",
 										"name": "paramRight",
-										"defaultValue": "[]"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -7716,7 +7716,7 @@
 									{
 										"type": "String[]",
 										"name": "modifiers",
-										"defaultValue": "['public']"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -7731,12 +7731,12 @@
 									{
 										"type": "String[]",
 										"name": "paramLeft",
-										"defaultValue": "[]"
+										"defaultValue": ""
 									},
 									{
 										"type": "String[]",
 										"name": "paramRight",
-										"defaultValue": "[]"
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -9934,13 +9934,13 @@
 									},
 									{
 										"type": "String",
-										"name": "package",
+										"name": "packageName",
 										"defaultValue": ""
 									},
 									{
 										"type": "method",
 										"name": "method",
-										"defaultValue": "null"
+										"defaultValue": ""
 									},
 									{
 										"type": "boolean",
@@ -10178,12 +10178,12 @@
 									{
 										"type": "String[]",
 										"name": "paramLeft",
-										"defaultValue": "[]"
+										"defaultValue": ""
 									},
 									{
 										"type": "String[]",
 										"name": "paramRight",
-										"defaultValue": "[]"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -10202,7 +10202,7 @@
 									{
 										"type": "String[]",
 										"name": "modifiers",
-										"defaultValue": "['public']"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -10217,12 +10217,12 @@
 									{
 										"type": "String[]",
 										"name": "paramLeft",
-										"defaultValue": "[]"
+										"defaultValue": ""
 									},
 									{
 										"type": "String[]",
 										"name": "paramRight",
-										"defaultValue": "[]"
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -11558,7 +11558,7 @@
 									{
 										"type": "statement",
 										"name": "location",
-										"defaultValue": "null"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -12526,7 +12526,7 @@
 									{
 										"type": "statement",
 										"name": "location",
-										"defaultValue": "null"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -13072,7 +13072,7 @@
 									{
 										"type": "String[]",
 										"name": "implement",
-										"defaultValue": "[]"
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -14191,12 +14191,12 @@
 									{
 										"type": "String[]",
 										"name": "paramLeft",
-										"defaultValue": "[]"
+										"defaultValue": ""
 									},
 									{
 										"type": "String[]",
 										"name": "paramRight",
-										"defaultValue": "[]"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -14215,7 +14215,7 @@
 									{
 										"type": "String[]",
 										"name": "modifiers",
-										"defaultValue": "['public']"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -14230,12 +14230,12 @@
 									{
 										"type": "String[]",
 										"name": "paramLeft",
-										"defaultValue": "[]"
+										"defaultValue": ""
 									},
 									{
 										"type": "String[]",
 										"name": "paramRight",
-										"defaultValue": "[]"
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -15544,7 +15544,7 @@
 									{
 										"type": "statement",
 										"name": "location",
-										"defaultValue": "null"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -17542,7 +17542,7 @@
 									{
 										"type": "statement",
 										"name": "location",
-										"defaultValue": "null"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -19656,7 +19656,7 @@
 									{
 										"type": "statement",
 										"name": "location",
-										"defaultValue": "null"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -21345,7 +21345,7 @@
 									{
 										"type": "statement",
 										"name": "location",
-										"defaultValue": "null"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -21795,7 +21795,7 @@
 									{
 										"type": "statement",
 										"name": "location",
-										"defaultValue": "null"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -23235,12 +23235,12 @@
 									{
 										"type": "String[]",
 										"name": "paramLeft",
-										"defaultValue": "[]"
+										"defaultValue": ""
 									},
 									{
 										"type": "String[]",
 										"name": "paramRight",
-										"defaultValue": "[]"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -23259,7 +23259,7 @@
 									{
 										"type": "String[]",
 										"name": "modifiers",
-										"defaultValue": "['public']"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -23274,12 +23274,12 @@
 									{
 										"type": "String[]",
 										"name": "paramLeft",
-										"defaultValue": "[]"
+										"defaultValue": ""
 									},
 									{
 										"type": "String[]",
 										"name": "paramRight",
-										"defaultValue": "[]"
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -24225,7 +24225,7 @@
 									{
 										"type": "statement",
 										"name": "location",
-										"defaultValue": "null"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -24741,7 +24741,7 @@
 									{
 										"type": "statement",
 										"name": "location",
-										"defaultValue": "null"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",

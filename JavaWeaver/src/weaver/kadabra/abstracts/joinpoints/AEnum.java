@@ -431,14 +431,14 @@ public abstract class AEnum extends AClass {
     /**
      * 
      * @param name 
-     * @param _package 
+     * @param packageName 
      * @param method 
      * @param associate 
      * @param newFile 
      */
     @Override
-    public AInterfaceType extractInterfaceImpl(String name, String _package, AMethod method, boolean associate, boolean newFile) {
-        return this.aClass.extractInterfaceImpl(name, _package, method, associate, newFile);
+    public AInterfaceType extractInterfaceImpl(String name, String packageName, AMethod method, boolean associate, boolean newFile) {
+        return this.aClass.extractInterfaceImpl(name, packageName, method, associate, newFile);
     }
 
     /**

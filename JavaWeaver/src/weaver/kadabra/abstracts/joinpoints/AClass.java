@@ -71,31 +71,31 @@ public abstract class AClass extends AType {
     /**
      * 
      * @param name 
-     * @param _package 
+     * @param packageName 
      * @param method 
      * @param associate 
      * @param newFile 
      */
-    public AInterfaceType extractInterfaceImpl(String name, String _package, AMethod method, boolean associate, boolean newFile) {
+    public AInterfaceType extractInterfaceImpl(String name, String packageName, AMethod method, boolean associate, boolean newFile) {
         throw new UnsupportedOperationException(get_class()+": Action extractInterface not implemented ");
     }
 
     /**
      * 
      * @param name 
-     * @param _package 
+     * @param packageName 
      * @param method 
      * @param associate 
      * @param newFile 
      */
-    public final Object extractInterface(String name, String _package, AMethod method, boolean associate, boolean newFile) {
+    public final Object extractInterface(String name, String packageName, AMethod method, boolean associate, boolean newFile) {
         try {
         	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "extractInterface", this, Optional.empty(), name, _package, method, associate, newFile);
+        		eventTrigger().triggerAction(Stage.BEGIN, "extractInterface", this, Optional.empty(), name, packageName, method, associate, newFile);
         	}
-        	AInterfaceType result = this.extractInterfaceImpl(name, _package, method, associate, newFile);
+        	AInterfaceType result = this.extractInterfaceImpl(name, packageName, method, associate, newFile);
         	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "extractInterface", this, Optional.ofNullable(result), name, _package, method, associate, newFile);
+        		eventTrigger().triggerAction(Stage.END, "extractInterface", this, Optional.ofNullable(result), name, packageName, method, associate, newFile);
         	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
