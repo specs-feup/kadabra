@@ -1,19 +1,13 @@
-aspectdef Android
+laraImport("weaver.Query");
 
-	select app.androidManifest.element{"action"} end
-	apply
-		console.log("Attributes: " + $element.attributeNames);
-		console.log("Attribute value: " + $element.attribute("android:name"));
-		
-		$element.setAttribute("android:name", "newValue");
-	end
+const manifest = Query.root().manifest;
 
+for (const element of Query.searchFrom(manifest, "xmlElement", "action")) {
+    console.log("Attributes: " + element.attributeNames);
+    console.log("Attribute value: " + element.attribute("android:name"));
 
-	select app.androidManifest end
-	apply
-		console.log("Manifest:");
-		printlnObject($androidManifest.asJson);
-	end
+    element.setAttribute("android:name", "newValue");
+}
 
-end
-
+console.log("Manifest:");
+printlnObject(manifest.asJson);
