@@ -54,7 +54,7 @@ public class JavaWeaverTest {
 
     @Test
     public void testBinaryOperator() {
-        newTester().test("BinaryOperator.lara", "BinaryOperator.java.test");
+        newTester().test("BinaryOperator.js", "BinaryOperator.java.test");
     }
 
     @Test
