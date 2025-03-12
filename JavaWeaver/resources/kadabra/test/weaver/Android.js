@@ -10,4 +10,4 @@ for (const element of Query.searchFrom(manifest, "xmlElement", "action")) {
 }
 
 console.log("Manifest:");
-printlnObject(manifest.asJson);
+console.log(object2string(manifest.asJson));
