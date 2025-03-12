@@ -48,7 +48,7 @@ public class JavaApiTest {
 
     @Test
     public void testTimer() {
-        newTester().test("TimerTest.lara", "TimerTest.java.test");
+        newTester().test("TimerTest.js", "TimerTest.java.test");
     }
 
     @Test
