@@ -1,43 +1,37 @@
-import kadabra.mutation.ArithmeticOperatorDeletionMutation;
-import kadabra.mutation.ConditionalOperatorDeletionMutation;
-import lara.mutation.IterativeMutator;
-import weaver.Query;
+laraImport("kadabra.mutation.ArithmeticOperatorDeletionMutation");
+laraImport("kadabra.mutation.ConditionalOperatorDeletionMutation");
+laraImport("lara.mutation.IterativeMutator");
+laraImport("weaver.Query");
 
-aspectdef MutationsTest
-
-
-	testArithmeticOperatorDeletionMutation();
-	testConditionalOperatorDeletionMutation();
-
-
-end
+testArithmeticOperatorDeletionMutation();
+testConditionalOperatorDeletionMutation();
 
 
 function testArithmeticOperatorDeletionMutation() {
 
-	console.log("ArithmeticOperatorDeletion");
-	
-	var mutator = new IterativeMutator(new ArithmeticOperatorDeletionMutation());
-	mutator.addJps(Query.search("method", "arithmeticOperatorDeletion").first().descendants);
+    console.log("ArithmeticOperatorDeletion");
 
-	// Generate all mutations
-	while(mutator.mutateSource()) {
-		// Print
-		console.log(mutator.getMutatedPoint().getAncestor('statement').srcCode);
-	}
+    var mutator = new IterativeMutator(new ArithmeticOperatorDeletionMutation());
+    mutator.addJps(Query.search("method", "arithmeticOperatorDeletion").first().descendants);
+
+    // Generate all mutations
+    while (mutator.mutateSource()) {
+        // Print
+        console.log(mutator.getMutatedPoint().getAncestor('statement').srcCode);
+    }
 }
 
 
 function testConditionalOperatorDeletionMutation() {
 
-	console.log("ConditionalOperatorDeletionMutation");
-	
-	var mutator = new IterativeMutator(new ConditionalOperatorDeletionMutation());
-	mutator.addJps(Query.search("method", "conditionalOperatorDeletion").first().descendants);
+    console.log("ConditionalOperatorDeletionMutation");
 
-	// Generate all mutations
-	while(mutator.mutateSource()) {
-		// Print
-		console.log(mutator.getMutatedPoint().srcCode);
-	}
+    var mutator = new IterativeMutator(new ConditionalOperatorDeletionMutation());
+    mutator.addJps(Query.search("method", "conditionalOperatorDeletion").first().descendants);
+
+    // Generate all mutations
+    while (mutator.mutateSource()) {
+        // Print
+        console.log(mutator.getMutatedPoint().srcCode);
+    }
 }
