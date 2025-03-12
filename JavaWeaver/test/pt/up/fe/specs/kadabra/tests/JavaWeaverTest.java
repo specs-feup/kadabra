@@ -102,7 +102,7 @@ public class JavaWeaverTest {
 
         newTester()
                 .set(JavaWeaverKeys.NO_CLASSPATH)
-                .test("CompilationError.lara", "CompilationError.java.test");
+                .test("CompilationError.js", "CompilationError.java.test");
     }
 
     @Test
