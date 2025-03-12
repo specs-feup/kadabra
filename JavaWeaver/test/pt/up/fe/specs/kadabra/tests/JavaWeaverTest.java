@@ -49,7 +49,7 @@ public class JavaWeaverTest {
 
     @Test
     public void testGenericJoinPoint() {
-        newTester().test("GenericJoinPoint.lara", "GenericJoinPoint.java.test");
+        newTester().test("GenericJoinPoint.js", "GenericJoinPoint.java.test");
     }
 
     @Test

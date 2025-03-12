@@ -1,19 +1,15 @@
-import weaver.Weaver;
-import weaver.Query;
-import lara.Io;
-
-aspectdef Test
-
-	//var counter = 0;
-
-	// Select binary operators in each file
-	for($op of Query.search('binaryExpression').get()) {
-
-		// Go over each ancestor to trigger construction of join points not yet implemented
-		$op.getAncestor('app');
-	}
+laraImport("weaver.Weaver");
+laraImport("weaver.Query");
+laraImport("lara.Io");
 	
-	console.log("Success");
-	
+//var counter = 0;
 
-end
+// Select binary operators in each file
+for($op of Query.search('binaryExpression').get()) {
+
+	// Go over each ancestor to trigger construction of join points not yet implemented
+	$op.getAncestor('app');
+}
+	
+console.log("Success");
+	
