@@ -37,4 +37,6 @@ for (const call of Query.search("type").search("executable").search("call", "bar
         .log(timer.getAfterJp());
 }
 
-console.log(Query.search("file").getFirst().srcCode);
+for (const file of Query.search("file")) {
+    console.log(file.srcCode);
+}

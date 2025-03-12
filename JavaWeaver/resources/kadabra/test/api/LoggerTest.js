@@ -27,4 +27,6 @@ for (const declaration of Query.search("method", "testAppend").search("declarati
     appendLogger.log(declaration);
 }
 
-console.log(Query.search("class").getFirst().srcCode);
+for (const testClass of Query.search("class")) {
+    console.log(testClass.srcCode);
+}
