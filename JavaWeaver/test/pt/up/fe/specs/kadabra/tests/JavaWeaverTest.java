@@ -132,7 +132,7 @@ public class JavaWeaverTest {
 
     @Test
     public void testConstructor() {
-        newTester().test("Constructor.lara", "Constructor.java.test");
+        newTester().test("Constructor.js", "Constructor.java.test");
     }
 
     @Test

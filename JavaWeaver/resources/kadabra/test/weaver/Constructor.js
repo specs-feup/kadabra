@@ -1,23 +1,18 @@
-import lara.Strings;
+laraImport("lara.Strings");
+laraImport("weaver.Query");
 
-aspectdef ConstructorTest
-
-	select constructor end
-	apply
-		var replaceString = "(app.ClassMutator app";
-		if($constructor.params.length > 0) {
-			replaceString = replaceString + ", ";
-		}
+for(var $constructor of Query.search('constructor').get()){
+	var replaceString = "(app.ClassMutator app";
+	if($constructor.params.length > 0) {
+		replaceString = replaceString + ", ";
+	}
 		
-		var code =  Strings.replacer( $constructor.srcCode,/\(/ , replaceString);
-		$constructor.insertBefore(code);
-		
-	end
+	var code =  Strings.replacer( $constructor.srcCode,/\(/ , replaceString);
+	$constructor.insertBefore(code);
+}
 	
 
-	select app end
-	apply
-		console.log($app.srcCode);
-	end
-end
+for(var $app of Query.search('app').get()){
+	console.log($app.srcCode);	
+}
 
