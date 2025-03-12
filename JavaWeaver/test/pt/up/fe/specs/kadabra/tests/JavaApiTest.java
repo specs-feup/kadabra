@@ -73,7 +73,7 @@ public class JavaApiTest {
 
     @Test
     public void testMutations() {
-        newTester().test("MutationsTest.lara", "Mutations.java.test");
+        newTester().test("MutationsTest.js", "Mutations.java.test");
     }
 
     @Test
