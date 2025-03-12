@@ -43,7 +43,7 @@ public class JavaApiTest {
 
     @Test
     public void testLogger() {
-        newTester().test("LoggerTest.lara", "LoggerTest.java.test");
+        newTester().test("LoggerTest.js", "LoggerTest.java.test");
     }
 
     @Test
