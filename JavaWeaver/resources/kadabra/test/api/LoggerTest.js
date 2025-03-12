@@ -1,40 +1,30 @@
-import lara.code.Logger;
+laraImport("lara.code.Logger");
+laraImport("weaver.Query");
 
-aspectdef LoggerTest
-	
-	var loggerConsole = new Logger();
-	var loggerFile = new Logger(false, "log.txt");
-	
-    select type.executable.call end
-    apply
-	
-        loggerConsole.append("Print double ").appendDouble(2).append(" after " + $call.name).ln();
-        loggerConsole.log($call, true);
-		
-		loggerConsole.append("Printing again").ln();
-		loggerConsole.log($call);
-		
-		loggerFile.append("Logging to a file").ln();
-		loggerFile.log($call, true);
-		
-		loggerFile.append("Logging again to a file").ln();
-		loggerFile.log($call);
-    end
+const loggerConsole = new Logger();
+const loggerFile = new Logger(false, "log.txt");
+
+for (const call of Query.search("type").search("executable").search("call")) {
+    loggerConsole.append("Print double ").appendDouble(2).append(" after " + call.name).ln();
+    loggerConsole.log(call, true);
+
+    loggerConsole.append("Printing again").ln();
+    loggerConsole.log(call);
+
+    loggerFile.append("Logging to a file").ln();
+    loggerFile.log(call, true);
+
+    loggerFile.append("Logging again to a file").ln();
+    loggerFile.log(call);
+}
 
 
-	
-	var appendLogger = (new Logger())
-		.appendLong("10l");
-	
-	select class.function{"testAppend"}.declaration{"a"} end
-	apply
-		appendLogger.log($declaration);
-	end
-	
-	select class end
-	apply
-		console.log($class.srcCode);
-	end
 
-	
-end
+const appendLogger = (new Logger())
+    .appendLong("10l");
+
+for (const declaration of Query.search("method", "testAppend").search("declaration", "a")) {
+    appendLogger.log(declaration);
+}
+
+console.log(Query.search("class").getFirst().srcCode);
