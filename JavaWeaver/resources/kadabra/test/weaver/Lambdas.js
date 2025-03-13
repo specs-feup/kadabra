@@ -1,6 +1,6 @@
 laraImport("weaver.Query");
 
-const code = "";
+var code = "";
 for (const $jp of Query.root().descendants) {
 	if ($jp.joinPointType === 'method' || $jp.joinPointType === 'constructor') {
 		code += $jp.code;		
