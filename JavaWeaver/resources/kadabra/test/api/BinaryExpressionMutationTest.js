@@ -1,22 +1,24 @@
-import kadabra.mutation.BinaryExpressionMutation;
-import weaver.Query;
+laraImport("kadabra.mutation.BinaryExpressionMutation");
+laraImport("weaver.Query");
 
-aspectdef BinaryExpressionMutatorTest
+BinaryExpressionMutatorTest();
 
-	var mutation = new BinaryExpressionMutation(">", "==");
+function BinaryExpressionMutatorTest(){
+
+	const mutation = new BinaryExpressionMutation(">", "==");
 
 	// Select binary operators in each file
-	for($op of Query.search('binaryExpression').get()) {
+	for(const $op of Query.search('binaryExpression').get()) {
 	
 		if($op.operator === '<') {
-			var originalOp = $op;
+			const originalOp = $op;
 			
 			//var mutatedOps = mutation.mutate($op);
 			//for(var $mutatedOp of mutatedOps) {
-			for(var mutationResult of mutation.mutate($op)) {			
+			for(const mutationResult of mutation.mutate($op)) {			
 			//for(var $mutatedOp of mutation.getMutants($op)) {					
 			//for(var $mutatedOp of mutation._generator($op)) {			
-				var $mutatedOp = mutationResult.getMutation();
+				const $mutatedOp = mutationResult.getMutation();
 				
 				// Mutate code
 				$op.insertReplace($mutatedOp);
@@ -29,5 +31,4 @@ aspectdef BinaryExpressionMutatorTest
 			}
 		}
 	}
-
-end
+}
