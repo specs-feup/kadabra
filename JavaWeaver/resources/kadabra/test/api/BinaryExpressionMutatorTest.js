@@ -1,13 +1,14 @@
-import kadabra.mutation.BinaryExpressionMutator;
-import weaver.Query;
+laraImport("kadabra.mutation.BinaryExpressionMutator");
+laraImport("weaver.Query");
 
-aspectdef BinaryExpressionMutatorTest
+BinaryExpressionMutatorTest();
+function BinaryExpressionMutatorTest(){
 
 	// Select binary operators in each file
-	for($op of Query.search('binaryExpression').get()) {
+	for(const $op of Query.search('binaryExpression').get()) {
 	
 		if($op.operator === '<') {
-			var mutator = new BinaryExpressionMutator($op, ">", "=="); // [">", "=="] is also supported
+			const mutator = new BinaryExpressionMutator($op, ">", "=="); // [">", "=="] is also supported
 
 			while(mutator.hasMutations()) {
 				// Mutate
@@ -24,5 +25,4 @@ aspectdef BinaryExpressionMutatorTest
 			}
 		}
 	}
-
-end
+}
