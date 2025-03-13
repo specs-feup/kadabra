@@ -68,7 +68,7 @@ public class JavaApiTest {
 
     @Test
     public void testIterativeMutator() {
-        newTester().test("IterativeMutatorTest.lara", "IterativeMutator.java.test");
+        newTester().test("IterativeMutatorTest.js", "IterativeMutator.java.test");
     }
 
     @Test
