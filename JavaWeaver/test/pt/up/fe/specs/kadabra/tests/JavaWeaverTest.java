@@ -89,7 +89,7 @@ public class JavaWeaverTest {
 
     @Test
     public void testAndroid() {
-        newTester().test("Android.lara", "src/AndroidTest.java.test", "src/main/AndroidManifest.xml");
+        newTester().test("Android.js", "src/AndroidTest.java.test", "src/main/AndroidManifest.xml");
     }
 
     @Test
