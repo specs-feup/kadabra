@@ -2,7 +2,7 @@ laraImport("weaver.Query");
 laraImport("kadabra.KadabraNodes");
 
 function Literal() {
-	for (var $literal of Query.search('method', {name: 'foo1'}).search('literal').get()) {
+	for (const $literal of Query.search('method', {name: 'foo1'}).search('literal')) {
 		console.log("old value: " + $literal.value);	
 		changeType($literal);
 		console.log("new value: " + $literal.value);	

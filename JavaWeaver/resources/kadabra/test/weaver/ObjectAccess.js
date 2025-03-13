@@ -12,14 +12,7 @@ console.log("Arg type type: " + Query.search("method", {name: "test"}).search("c
 console.log("Arg type package: " + Query.search("method", {name: "test"}).search("call").first().arguments[0].typeReference.packageName);
 
 
-//	for (var $expr of Query.search("expression", {code: /^R\.*/})) {
-//		console.log("Code -> " + $expr.code + ": " + $expr.type);
-//		console.log("Qualified name -> " + $expr.qualifiedName);
-//	}
-
-/*
-select class.call end
-apply
-	console.log("Call: " + $call.code);
-end
-*/
+for (const $expr of Query.search("expression", {code: /^R\.*/})) {
+	console.log("Code -> " + $expr.code + ": " + $expr.type);
+	console.log("Qualified name -> " + $expr.qualifiedName);
+}
