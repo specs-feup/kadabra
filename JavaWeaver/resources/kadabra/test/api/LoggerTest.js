@@ -23,7 +23,7 @@ for (const call of Query.search("type").search("executable").search("call")) {
 const appendLogger = (new Logger())
     .appendLong("10l");
 
-for (const declaration of Query.search("method", "testAppend").search("declaration", "a")) {
+for (const declaration of Query.search("method", "testAppend").search("localVariable", "a")) {
     appendLogger.log(declaration);
 }
 
