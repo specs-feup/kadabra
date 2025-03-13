@@ -1,9 +1,8 @@
 laraImport("weaver.Query");
 
 // App children
-for(const $app of Query.search("app")){
-	console.log("app num children: " + $app.numChildren);	
-}
+const $app = Query.root();
+console.log("app num children: " + $app.numChildren);
 	
 // File children
 for(const $file of Query.search("file")){
@@ -18,8 +17,6 @@ for(const $statement of Query.search("type").search("method","foo").search("stat
 	break;
 }
 
-
 // App ast
-for(const $app of Query.search("app")){
-	console.log("app ast:\n" + $app.ast);	
-}
+const $newApp = Query.root();
+console.log("app ast:\n" + $newApp.ast);

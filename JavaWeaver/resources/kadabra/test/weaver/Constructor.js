@@ -11,8 +11,5 @@ for(const $constructor of Query.search("constructor")){
 	$constructor.insertBefore(code);
 }
 	
-
-for(const $app of Query.search("app")){
-	console.log($app.srcCode);	
-}
-
+const $app = Query.root();
+console.log($app.srcCode);	
