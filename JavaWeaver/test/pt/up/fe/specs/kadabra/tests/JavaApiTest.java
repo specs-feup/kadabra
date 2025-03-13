@@ -58,7 +58,7 @@ public class JavaApiTest {
 
     @Test
     public void testBinaryExpressionMutator() {
-        newTester().test("BinaryExpressionMutatorTest.lara", "BinaryExpressionMutator.java.test");
+        newTester().test("BinaryExpressionMutatorTest.js", "BinaryExpressionMutator.java.test");
     }
 
     @Test
