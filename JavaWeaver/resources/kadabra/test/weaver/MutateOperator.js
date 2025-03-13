@@ -1,15 +1,14 @@
-import weaver.Weaver;
-import weaver.Query;
-import lara.Io;
+laraImport("weaver.Weaver");
+laraImport("weaver.Query");
+laraImport("lara.Io");
 
-aspectdef Test
-
+function Test()	{
 	//var counter = 0;
 
 	// Select binary operators in each file
-	for($op of Query.search('binaryExpression').get()) {
+	for ($op of Query.search('binaryExpression').get()) {
 	
-		if($op.operator === '<') {
+		if ($op.operator === '<') {
 		
 			// Store current operator
 			var previousOp = $op.operator;
@@ -32,7 +31,7 @@ aspectdef Test
 	
 
 	// Select unary operators and change them for --
-	for($op of Query.search('method', {name: 'unaryTest'}).search('unaryExpression').get()) {
+	for ($op of Query.search('method', {name: 'unaryTest'}).search('unaryExpression').get()) {
 		// Store current operator
 		var previousOp = $op.operator;
 	
@@ -46,12 +45,12 @@ aspectdef Test
 	}
 	
 	// Select unary operators and remove them
-	for($op of Query.search('method', {name: 'unaryTest2'}).search('unaryExpression').get()) {
+	for ($op of Query.search('method', {name: 'unaryTest2'}).search('unaryExpression').get()) {
 		
 		// If operator is a single statement in a block, cannot replace it with operand
 		// E.g., a++; cannot be replaced with a;, it does not compile in Java
-		if(!$op.parent.isBlock) {
-			$op.insert replace $op.operand;
+		if (!$op.parent.isBlock) {
+			$op.insertReplace($op.operand);
 		}
 	}
 	
@@ -59,8 +58,8 @@ aspectdef Test
 
 
 	// Select unary operators and remove them
-	for($op of Query.search('method', {name: 'unaryTest3'}).search('unaryExpression').get()) {
-		$op.insert replace "--a";
+	for ($op of Query.search('method', {name: 'unaryTest3'}).search('unaryExpression').get()) {
+		$op.insertReplace("--a");
 	}
 	
 	console.log(Query.search('method', {name: 'unaryTest3'}).getFirst().srcCode);
@@ -68,7 +67,7 @@ aspectdef Test
 	
 	
 	// Select unary operator !, remove it and restore it
-	for($op of Query.search('method', {name: 'unaryTest4'}).search('unaryExpression').get()) {
+	for ($op of Query.search('method', {name: 'unaryTest4'}).search('unaryExpression').get()) {
 		
 		// Copies the unary expression (e.g.,  !a)
 		var $originalOp = $op.copy;
@@ -78,10 +77,7 @@ aspectdef Test
 		console.log(Query.search('method', {name: 'unaryTest4'}).getFirst().srcCode);
 
 		// Replaces the new expression with a copy of the original expression (e.g., a becomes !a again)
-		$newOp.insert replace($originalOp);
+		$newOp.insertReplace($originalOp);
 		console.log(Query.search('method', {name: 'unaryTest4'}).getFirst().srcCode);
 	}
-	
-
-
-end
+}

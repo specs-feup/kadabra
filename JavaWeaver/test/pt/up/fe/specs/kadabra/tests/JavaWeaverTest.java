@@ -44,7 +44,7 @@ public class JavaWeaverTest {
 
     @Test
     public void testMutateOperator() {
-        newTester().test("MutateOperator.lara", "MutateOperator.java.test");
+        newTester().test("MutateOperator.js", "MutateOperator.java.test");
     }
 
     @Test
@@ -59,7 +59,7 @@ public class JavaWeaverTest {
 
     @Test
     public void testLiteral() {
-        newTester().test("Literal.lara", "Literal.java.test");
+        newTester().test("Literal.js", "Literal.java.test");
     }
 
     @Test
@@ -79,12 +79,12 @@ public class JavaWeaverTest {
 
     @Test
     public void testType() {
-        newTester().test("Type.lara", "Type.java.test");
+        newTester().test("Type.js", "Type.java.test");
     }
 
     @Test
     public void testSelects() {
-        newTester().test("Selects.lara", "Selects.java.test");
+        newTester().test("Selects.js", "Selects.java.test");
     }
 
     @Test
@@ -107,7 +107,7 @@ public class JavaWeaverTest {
 
     @Test
     public void testObjectAccess() {
-        newTester().set(JavaWeaverKeys.NO_CLASSPATH).set(JavaWeaverKeys.FULLY_QUALIFIED_NAMES).test("ObjectAccess.lara",
+        newTester().set(JavaWeaverKeys.NO_CLASSPATH).set(JavaWeaverKeys.FULLY_QUALIFIED_NAMES).test("ObjectAccess.js",
                 "ObjectAccess.java.test");
     }
 
@@ -127,7 +127,7 @@ public class JavaWeaverTest {
 
     @Test
     public void testLambdas() {
-        newTester().set(JavaWeaverKeys.NO_CLASSPATH).test("Lambdas.lara", "Lambdas.java.test");
+        newTester().set(JavaWeaverKeys.NO_CLASSPATH).test("Lambdas.js", "Lambdas.java.test");
     }
 
     @Test

@@ -1,16 +1,13 @@
-import weaver.Query;
-import kadabra.KadabraNodes;
+laraImport("weaver.Query");
+laraImport("kadabra.KadabraNodes");
 
-
-aspectdef Literal
-
-	for(var $literal of Query.search('method', {name: 'foo1'}).search('literal').get()) {
+function Literal() {
+	for (var $literal of Query.search('method', {name: 'foo1'}).search('literal').get()) {
 		console.log("old value: " + $literal.value);	
 		changeType($literal);
 		console.log("new value: " + $literal.value);	
 	}
 	
-		
 	// Get the literal
 	var $negativeLiteral = Query.search('method', {name: 'foo2'}).search('literal').first();
 
@@ -22,16 +19,14 @@ aspectdef Literal
 
 	// Print
 	console.log(Query.search('method', {name: 'foo2'}).first().code);	
-
-
-end
+}
 
 function changeType($literal) {
-		if($literal.type === 'boolean') {
-			$literal.value = 'false';
-			return;
-		}
-		
-		// Default
-		$literal.value = "100";
+	if ($literal.type === 'boolean') {
+		$literal.value = 'false';
+		return;
+	}
+	
+	// Default
+	$literal.value = "100";
 }
