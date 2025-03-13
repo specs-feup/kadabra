@@ -53,7 +53,7 @@ public class JavaApiTest {
 
     @Test
     public void testEnergy() {
-        newTester().test("EnergyTest.lara", "EnergyTest.java.test");
+        newTester().test("EnergyTest.js", "EnergyTest.java.test");
     }
 
     @Test
