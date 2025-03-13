@@ -1,17 +1,17 @@
 laraImport("weaver.Query");
 
 // App children
-for($app of Query.search("app").get()){
+for(var $app of Query.search("app")){
 	console.log("app num children: " + $app.numChildren);	
 }
 	
 // File children
-for($file of Query.search("file").get()){
+for(var $file of Query.search("file")){
 	console.log("file num children: " + $file.numChildren);	
 }
 
 // Statement children
-for($statement of Query.search("type").search("method","foo").search("statement").get()){
+for(var $statement of Query.search("type").search("method","foo").search("statement")){
 	console.log("stmt children: " + $statement.children);
 	console.log("stmt child 0: " + $statement.child(0));
 	console.log("stmt num children: " + $statement.numChildren);
@@ -20,6 +20,6 @@ for($statement of Query.search("type").search("method","foo").search("statement"
 
 
 // App ast
-for($app of Query.search("app").get()){
+for(var $app of Query.search("app")){
 	console.log("app ast:\n" + $app.ast);	
 }

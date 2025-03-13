@@ -1,7 +1,7 @@
 laraImport("lara.Strings");
 laraImport("weaver.Query");
 
-for(var $constructor of Query.search("constructor").get()){
+for(var $constructor of Query.search("constructor")){
 	var replaceString = "(app.ClassMutator app";
 	if($constructor.params.length > 0) {
 		replaceString = replaceString + ", ";
@@ -12,7 +12,7 @@ for(var $constructor of Query.search("constructor").get()){
 }
 	
 
-for(var $app of Query.search("app").get()){
+for(var $app of Query.search("app")){
 	console.log($app.srcCode);	
 }
 
