@@ -1,31 +1,25 @@
-aspectdef GlobalJp
+laraImport("weaver.Query");
 
-	// App children
-	select app end
-	apply
-		console.log("app num children: " + $app.numChildren);	
-	end
+// App children
+for($app of Query.search("app").get()){
+	console.log("app num children: " + $app.numChildren);	
+}
 	
-	// File children
-	select file end
-	apply
-		console.log("file num children: " + $file.numChildren);	
-	end	
+// File children
+for($file of Query.search("file").get()){
+	console.log("file num children: " + $file.numChildren);	
+}
 
-	// Statement children
-	select type.method{"foo"}.statement end
-	apply
-		console.log("stmt children: " + $statement.children);
-		console.log("stmt child 0: " + $statement.child(0));
-		console.log("stmt num children: " + $statement.numChildren);
-		
-		break;
-	end
+// Statement children
+for($statement of Query.search("type").search("method","foo").search("statement").get()){
+	console.log("stmt children: " + $statement.children);
+	console.log("stmt child 0: " + $statement.child(0));
+	console.log("stmt num children: " + $statement.numChildren);
+	break;
+}
 
 
-	// App ast
-	select app end
-	apply
-		console.log("app ast:\n" + $app.ast);	
-	end
-end
+// App ast
+for($app of Query.search("app").get()){
+	console.log("app ast:\n" + $app.ast);	
+}

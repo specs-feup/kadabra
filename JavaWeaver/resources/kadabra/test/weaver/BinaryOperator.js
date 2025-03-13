@@ -1,6 +1,6 @@
 laraImport("weaver.Query");
 
-for(var $op of Query.search('binaryExpression').get()) {
+for(var $op of Query.search("binaryExpression").get()) {
 	console.log("operator: " + $op.operator);
 	console.log("operands: " + $op.operands);
 	console.log("lhs: " + $op.lhs);
@@ -8,5 +8,5 @@ for(var $op of Query.search('binaryExpression').get()) {
 }
 
 // Ast of the operator copy
-console.log(Query.search('binaryExpression').getFirst().copy().ast);
+console.log(Query.search("binaryExpression").getFirst().copy().ast);
 

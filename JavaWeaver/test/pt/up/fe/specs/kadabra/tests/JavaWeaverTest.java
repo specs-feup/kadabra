@@ -64,7 +64,7 @@ public class JavaWeaverTest {
 
     @Test
     public void testGlobalJp() {
-        newTester().test("GlobalJp.lara", "GlobalJp.java.test");
+        newTester().test("GlobalJp.js", "GlobalJp.java.test");
     }
 
     @Test
