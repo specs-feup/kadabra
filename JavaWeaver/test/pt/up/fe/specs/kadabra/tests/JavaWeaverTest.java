@@ -49,12 +49,12 @@ public class JavaWeaverTest {
 
     @Test
     public void testGenericJoinPoint() {
-        newTester().test("GenericJoinPoint.lara", "GenericJoinPoint.java.test");
+        newTester().test("GenericJoinPoint.js", "GenericJoinPoint.java.test");
     }
 
     @Test
     public void testBinaryOperator() {
-        newTester().test("BinaryOperator.lara", "BinaryOperator.java.test");
+        newTester().test("BinaryOperator.js", "BinaryOperator.java.test");
     }
 
     @Test
@@ -64,7 +64,7 @@ public class JavaWeaverTest {
 
     @Test
     public void testGlobalJp() {
-        newTester().test("GlobalJp.lara", "GlobalJp.java.test");
+        newTester().test("GlobalJp.js", "GlobalJp.java.test");
     }
 
     @Test
@@ -74,7 +74,7 @@ public class JavaWeaverTest {
 
     @Test
     public void testAst2() {
-        newTester().test("Ast2.lara", "Ast2.java.test");
+        newTester().test("Ast2.js", "Ast2.java.test");
     }
 
     @Test
@@ -102,7 +102,7 @@ public class JavaWeaverTest {
 
         newTester()
                 .set(JavaWeaverKeys.NO_CLASSPATH)
-                .test("CompilationError.lara", "CompilationError.java.test");
+                .test("CompilationError.js", "CompilationError.java.test");
     }
 
     @Test
@@ -132,7 +132,7 @@ public class JavaWeaverTest {
 
     @Test
     public void testConstructor() {
-        newTester().test("Constructor.lara", "Constructor.java.test");
+        newTester().test("Constructor.js", "Constructor.java.test");
     }
 
     @Test
