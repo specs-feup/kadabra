@@ -43,12 +43,12 @@ public class JavaApiTest {
 
     @Test
     public void testLogger() {
-        newTester().test("LoggerTest.lara", "LoggerTest.java.test");
+        newTester().test("LoggerTest.js", "LoggerTest.java.test");
     }
 
     @Test
     public void testTimer() {
-        newTester().test("TimerTest.lara", "TimerTest.java.test");
+        newTester().test("TimerTest.js", "TimerTest.java.test");
     }
 
     @Test
@@ -73,7 +73,7 @@ public class JavaApiTest {
 
     @Test
     public void testMutations() {
-        newTester().test("MutationsTest.lara", "Mutations.java.test");
+        newTester().test("MutationsTest.js", "Mutations.java.test");
     }
 
     @Test
