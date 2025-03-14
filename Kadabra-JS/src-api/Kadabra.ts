@@ -1,7 +1,4 @@
-import JavaTypes from "@specs-feup/lara/api/lara/util/JavaTypes.js"
-
-const ArgumentsParser = JavaTypes.getType("pt.up.fe.specs.util.parsing.arguments.ArgumentsParser");
-const KadabraLauncher = JavaTypes.getType("weaver.gui.KadabraLauncher");
+import KadabraJavaTypes from "./kadabra/KadabraJavaTypes.js";
 
 export default class Kadabra {
 
@@ -13,9 +10,9 @@ export default class Kadabra {
   static runKadabra = function (args) {
     // If string, separate arguments
     if (typeof args === "string") {
-      args = ArgumentsParser.newCommandLine().parse(args);
+      args = KadabraJavaTypes.ArgumentsParser.newCommandLine().parse(args);
     }
 
-    return KadabraLauncher.execute(args);
+    return KadabraJavaTypes.KadabraLauncher.execute(args);
   };
 }
