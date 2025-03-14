@@ -3,38 +3,6 @@ laraImport("lara.Io");
 laraImport("weaver.Weaver");
 laraImport("weaver.Query");
 
-function InheritanceIPCMutatorTest() {
-    const mutator = new InheritanceIPCMutator(Query.root());
-
-    while (mutator.hasMutations()) {
-        // Mutate
-        mutator.mutate();
-        // Print
-        //console.log(mutator.getMutationPoint().parent.code);
-        saveFile();
-        // Restore operator
-        mutator.restore();
-    }
-
-    //saveFile();
-}
-
-function saveFile() {
-    const outputFolder = Io.mkdir("./mutatedFilesTest/");
-    Io.deleteFolderContents(outputFolder);
-
-    // Write modified code
-    Weaver.writeCode(outputFolder);
-
-    // Print contents
-    for (const mutatedFile of Io.getFiles(outputFolder, "*.java")) {
-        console.log("<File '" + mutatedFile.getName() + "'>");
-        console.log(Io.readFile(mutatedFile));
-    }
-
-    Io.deleteFolder(outputFolder);
-}
-
 /**
  *  @param {$joinpoint} $joinpoint - Joinpoint used as starting point to search for super constructor calls to be removed.
  */
@@ -138,4 +106,32 @@ class InheritanceIPCMutator extends Mutator {
             }
         }
     }
+}
+
+function saveFile() {
+    const outputFolder = Io.mkdir("./mutatedFilesTest/");
+    Io.deleteFolderContents(outputFolder);
+
+    // Write modified code
+    Weaver.writeCode(outputFolder);
+
+    // Print contents
+    for (const mutatedFile of Io.getFiles(outputFolder, "*.java")) {
+        console.log("<File '" + mutatedFile.getName() + "'>");
+        console.log(Io.readFile(mutatedFile));
+    }
+
+    Io.deleteFolder(outputFolder);
+}
+
+var mutator = new InheritanceIPCMutator(Query.root());
+
+while (mutator.hasMutations()) {
+    // Mutate
+    mutator.mutate();
+    // Print
+    //console.log(mutator.getMutationPoint().parent.code);
+    saveFile();
+    // Restore operator
+    mutator.restore();
 }
