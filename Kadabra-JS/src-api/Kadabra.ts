@@ -1,9 +1,9 @@
-class Kadabra {
-  /*
-	static save() {
-		console.log("Saving");
-	}
-*/
+import JavaTypes from "@specs-feup/lara/api/lara/util/JavaTypes.js"
+
+const ArgumentsParser = JavaTypes.getType("pt.up.fe.specs.util.parsing.arguments.ArgumentsParser");
+const KadabraLauncher = JavaTypes.getType("weaver.gui.KadabraLauncher");
+
+export default class Kadabra {
 
   /**
    * Launches a Kadabra weaving session.
@@ -16,7 +16,6 @@ class Kadabra {
       args = ArgumentsParser.newCommandLine().parse(args);
     }
 
-    const KadabraLauncher = Java.type("weaver.gui.KadabraLauncher");
     return KadabraLauncher.execute(args);
   };
 }

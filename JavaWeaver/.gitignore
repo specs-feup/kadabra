@@ -1,2 +1,3 @@
 src-weaved/*
 !src-weaved/dummy
+package.json
