@@ -53,22 +53,22 @@ public class JavaApiTest {
 
     @Test
     public void testEnergy() {
-        newTester().test("EnergyTest.lara", "EnergyTest.java.test");
+        newTester().test("EnergyTest.js", "EnergyTest.java.test");
     }
 
     @Test
     public void testBinaryExpressionMutator() {
-        newTester().test("BinaryExpressionMutatorTest.lara", "BinaryExpressionMutator.java.test");
+        newTester().test("BinaryExpressionMutatorTest.js", "BinaryExpressionMutator.java.test");
     }
 
     @Test
     public void testBinaryExpressionMutation() {
-        newTester().test("BinaryExpressionMutationTest.lara", "BinaryExpressionMutation.java.test");
+        newTester().test("BinaryExpressionMutationTest.js", "BinaryExpressionMutation.java.test");
     }
 
     @Test
     public void testIterativeMutator() {
-        newTester().test("IterativeMutatorTest.lara", "IterativeMutator.java.test");
+        newTester().test("IterativeMutatorTest.js", "IterativeMutator.java.test");
     }
 
     @Test

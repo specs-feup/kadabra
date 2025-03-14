@@ -1,6 +1,6 @@
 laraImport("kadabra.analysis.energy.EnergyAwareAndroidPatterns");
 
-let r = new MemberIgnoringMethodDetector()
+const r = new MemberIgnoringMethodDetector()
 	.analyse()
 	.save();
 

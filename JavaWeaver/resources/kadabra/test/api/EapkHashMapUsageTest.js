@@ -1,6 +1,6 @@
 laraImport("kadabra.analysis.energy.EnergyAwareAndroidPatterns");
 
-let r = new HashMapUsageDetector()
+const r = new HashMapUsageDetector()
 	.analyse()
 	.save();
 
