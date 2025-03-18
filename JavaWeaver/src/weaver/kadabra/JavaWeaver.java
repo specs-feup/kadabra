@@ -16,6 +16,7 @@ import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.jadx.DecompilationFailedException;
 import pt.up.fe.specs.jadx.SpecsJadx;
 import pt.up.fe.specs.kadabra.weaver.LaraCoreApiResource;
+import pt.up.fe.specs.kadabra.weaver.KadabraApiJsResource;
 import pt.up.fe.specs.kadabra.weaver.LaraWeaverApiResource;
 import pt.up.fe.specs.lara.lcl.LaraCommonLanguageApiResource;
 import pt.up.fe.specs.spoon.SpoonFactory;
@@ -600,6 +601,7 @@ public class JavaWeaver extends AJavaWeaver {
         return ResourceProvider.getResourcesFromEnum(
                 Arrays.asList(LaraAPIResources.class, LaraCommonLanguageApiResource.class, KadabraAPIResources.class,
                         LaraCoreApiResource.class,
+                        KadabraApiJsResource.class,
                         LaraWeaverApiResource.class));
 
         // return ResourceProvider.getResources(LaraAPIResources.class);
