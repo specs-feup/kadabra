@@ -31,7 +31,6 @@ public enum KadabraAPIResources implements ResourceProvider {
     VersionTester(PackageProvider.adaptPackage, "VersionTester"),
     CpuInfo(PackageProvider.systemPackage, "CpuInfo"),
 
-    ArithmeticOperatorDeletionMutation("mutation/", "ArithmeticOperatorDeletionMutation.js"),
     BinaryExpressionMutation("mutation/", "BinaryExpressionMutation.js"),
     BinaryExpressionMutator("mutation/", "BinaryExpressionMutator.js"),
     ConditionalOperatorDeletionMutation("mutation/", "ConditionalOperatorDeletionMutation.js"),
