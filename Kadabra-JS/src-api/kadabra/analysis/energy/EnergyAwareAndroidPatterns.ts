@@ -1,21 +1,25 @@
-laraImport("weaver.WeaverOptions");
-laraImport("kadabra.analysis.energy.detectors.MemberIgnoringMethodDetector");
-laraImport("kadabra.analysis.energy.detectors.InternalGetterDetector");
-laraImport("kadabra.analysis.energy.detectors.HashMapUsageDetector");
-laraImport("kadabra.analysis.energy.detectors.ExcessiveMethodCallsDetector");
+import WeaverOptions from "@specs-feup/lara/api/weaver/WeaverOptions.js";
+import { JSONtoFile } from "@specs-feup/lara/api/core/output.js";
+import MemberIgnoringMethodDetector from "./detectors/MemberIgnoringMethodDetector.js";
+import InternalGetterDetector from "./detectors/InternalGetterDetector.js";
+import HashMapUsageDetector from "./detectors/HashMapUsageDetector.js";
+import ExcessiveMethodCallsDetector from "./detectors/ExcessiveMethodCallsDetector.js";
 
-class EnergyAwareAndroidPatterns {
+export default class EnergyAwareAndroidPatterns {
+  debugEnabled: boolean;
+  detectors: any[];
+
   constructor(debugEnabled = false) {
     this.debugEnabled = debugEnabled;
     this.detectors = [];
   }
 
-  analyse(packageFilter = (_) => true) {
+  analyse(packageFilter = (_: any) => true) {
     this.detectors = [
       new ExcessiveMethodCallsDetector(this.debugEnabled),
-      new HashMapUsageDetector(this.debugEnabled),
-      new InternalGetterDetector(this.debugEnabled),
-      new MemberIgnoringMethodDetector(this.debugEnabled),
+      new HashMapUsageDetector(),
+      new InternalGetterDetector(),
+      new MemberIgnoringMethodDetector(),
     ];
 
     this.detectors.forEach((d) => d.analyse(packageFilter));
@@ -51,7 +55,7 @@ class EnergyAwareAndroidPatterns {
     return results;
   }
 
-  toJson(path) {
-    Io.writeJson(path, this.toReport());
+  toJson(path: any) {
+    JSONtoFile(path, this.toReport());
   }
 }

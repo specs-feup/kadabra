@@ -1,6 +1,11 @@
-laraImport("kadabra.analysis.energy.detectors.BaseDetector");
+import Query from "@specs-feup/lara/api/weaver/Query.js";
+import Collections from "@specs-feup/lara/api/lara/Collections.js";
+import BaseDetector from "./BaseDetector.js";
+import { Call, Class, Joinpoint, Method, Reference, Var } from "../../../../Joinpoints.js";
 
-class MemberIgnoringMethodDetector extends BaseDetector {
+export default class MemberIgnoringMethodDetector extends BaseDetector {
+  dups: Map<any, any>;
+
   constructor() {
     super("Member Ignoring Method Detector");
 
@@ -8,12 +13,12 @@ class MemberIgnoringMethodDetector extends BaseDetector {
     this.computeSameNameMethods();
   }
 
-  static noOverrideAnnotationFilter(annos) {
-    return annos.filter((a) => a.type === "Override").length === 0;
+  static noOverrideAnnotationFilter(annos: any) {
+    return annos.filter((a: any) => a.type === "Override").length === 0;
   }
 
   computeSameNameMethods() {
-    let methods = Query.search("method", {
+    let methods = Query.search(Method, {
       isStatic: false,
       isFinal: false,
       privacy: (p) => p !== "private",
@@ -30,14 +35,14 @@ class MemberIgnoringMethodDetector extends BaseDetector {
     }
   }
 
-  analyseClass(jpClass) {
+  analyseClass(jpClass: Class) {
     super.analyseClass(jpClass);
 
     let checkOverride = !(
       jpClass.interfaces.length == 0 && jpClass.superClassJp == undefined
     );
 
-    let mightBeStatic = Query.childrenFrom(jpClass, "method", {
+    let mightBeStatic = Query.childrenFrom(jpClass, Method, {
       isStatic: false,
       isFinal: false,
       privacy: (p) => p !== "private",
@@ -78,7 +83,7 @@ class MemberIgnoringMethodDetector extends BaseDetector {
     });
   }
 
-  #isOverride(jpMethod) {
+  #isOverride(jpMethod: Method) {
     let dups = this.dups.get(jpMethod.name);
     if (dups === undefined || dups.length < 2) return false;
 
@@ -92,12 +97,12 @@ class MemberIgnoringMethodDetector extends BaseDetector {
     return false;
   }
 
-  #methodCanBeStatic(jp) {
-    if (jp.instanceOf("call") && !this.#callIsStatic(jp)) {
+  #methodCanBeStatic(jp: Joinpoint) {
+    if (jp instanceof Call && !this.#callIsStatic(jp)) {
       return false;
     }
 
-    if (jp.instanceOf("var") && !this.#varIsStatic(jp)) {
+    if (jp instanceof Var && !this.#varIsStatic(jp)) {
       return false;
     }
 
@@ -108,13 +113,13 @@ class MemberIgnoringMethodDetector extends BaseDetector {
     return true;
   }
 
-  #callIsStatic(jpCall) {
+  #callIsStatic(jpCall: Call) {
     return jpCall.decl !== undefined && jpCall.decl.isStatic;
   }
 
-  #varIsStatic(jpVar) {
+  #varIsStatic(jpVar: Var) {
     const isParameter =
-      Query.childrenFrom(jpVar, "reference", { type: "Parameter" }).get()
+      Query.childrenFrom(jpVar, Reference, { type: "Parameter" }).get()
         .length > 0;
     return isParameter ? true : jpVar.isStatic;
   }

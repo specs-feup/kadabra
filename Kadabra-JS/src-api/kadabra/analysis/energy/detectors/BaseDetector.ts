@@ -1,15 +1,18 @@
-laraImport("weaver.Query");
-laraImport("lara.Io");
-laraImport("lara.Collections")
+import { LaraJoinPoint } from "@specs-feup/lara/api/LaraJoinPoint.js";
+import Query from "@specs-feup/lara/api/weaver/Query.js";
 
-class BaseDetector {
-  constructor(name, debugEnabled = false) {
+export default class BaseDetector {
+  name: any;
+  results: any[];
+  debugEnabled: boolean;
+
+  constructor(name: any, debugEnabled = false) {
     this.name = name;
     this.results = [];
     this.debugEnabled = debugEnabled;
   }
 
-  analyse(packageFilter = (_) => true) {
+  analyse(packageFilter = (_: any) => true) {
     console.log(`Running ${this.name}...`);
 
     let classes = Query.search("class", {
@@ -22,7 +25,7 @@ class BaseDetector {
     return this;
   }
 
-  analyseClass(jpClass) {
+  analyseClass(jpClass: LaraJoinPoint) {
     if (
       !jpClass ||
       !("instanceOf" in jpClass) ||
