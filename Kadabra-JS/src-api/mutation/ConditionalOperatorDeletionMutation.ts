@@ -7,7 +7,7 @@ class ConditionalOperatorDeletionMutation extends IterativeMutation {
         super("ConditionalOperatorDeletionMutation");
     }
 
-    isMutationPoint($jp) {
+    isMutationPoint($jp: any) {
         if (
             $jp.instanceOf("if") ||
             $jp.instanceOf("ternary") ||
@@ -24,7 +24,7 @@ class ConditionalOperatorDeletionMutation extends IterativeMutation {
         return false;
     }
 
-    *mutate($jp) {
+    *mutate($jp: any) {
         const mutation = $jp.copy();
 
         mutation.cond.insertReplace(mutation.cond.operand.copy());

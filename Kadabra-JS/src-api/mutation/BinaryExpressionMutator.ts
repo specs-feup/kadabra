@@ -7,12 +7,12 @@ import { arrayFromArgs } from "@specs-feup/lara/api/lara/core/LaraCore.js"
  */
 abstract class BinaryExpressionMutator extends Mutator {
 
-    $binaryExpression;
-    newOperators;
-    currentIndex;
-    previousOp;
+    $binaryExpression: any;
+    newOperators: any[];
+    currentIndex: number;
+    previousOp: any;
 
-    constructor($binaryExpression, ...newOperators) {
+    constructor($binaryExpression: any, ...newOperators: any[]) {
         super();
         // Instance variables
         this.$binaryExpression = $binaryExpression;

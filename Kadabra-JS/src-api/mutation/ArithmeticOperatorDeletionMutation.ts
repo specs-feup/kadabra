@@ -7,11 +7,11 @@ class ArithmeticOperatorDeletionMutation extends IterativeMutation {
         super("ArithmeticOperatorDeletionMutation");
     }
 
-    isMutationPoint($jp) {
+    isMutationPoint($jp: any) {
         return $jp.instanceOf("binaryExpression");
     }
 
-    *mutate($jp) {
+    *mutate($jp: any) {
         const leftOperand = $jp.lhs.copy();
 
         debug("/*--------------------------------------*/");

@@ -7,20 +7,20 @@ import { arrayFromArgs } from "@specs-feup/lara/api/lara/core/LaraCore.js"
  */
 class BinaryExpressionMutation extends IterativeMutation {
     
-    newOperators;
+    newOperators: any[];
 
     // Parent constructor
-    constructor(...newOperators) {
+    constructor(...newOperators: any[]) {
         super("BinaryExpressionMutation");
         // TODO: Check if operators are valid
         this.newOperators = arrayFromArgs(newOperators);
     }
 
-    isMutationPoint($jp) {
+    isMutationPoint($jp: any) {
         return $jp.instanceOf("binaryExpression");
     }
 
-    *mutate($jp) {
+    *mutate($jp: any) {
         for (const newOp of this.newOperators) {
             // Skip when operators are the same
             if ($jp.operator === newOp) {
