@@ -37,14 +37,7 @@ public enum KadabraAPIResources implements ResourceProvider {
     ConditionalOperatorDeletionMutation("mutation/", "ConditionalOperatorDeletionMutation.js"),
 
     KADABRA_JAVA_TYPES("_KadabraJavaTypes"),
-    KADABRA_NODES("KadabraNodes.js"),
-    KADABRA_AST("KadabraAst"),
 
-    Factory("Factory"),
-    Utils("Utils"),
-    Transform("Transform"),
-    Metrics("Metrics"),
-    Types("Types"),
     Concurrent("Concurrent"),
 
     BaseDetector("analysis/energy/detectors/", "BaseDetector.js"),
