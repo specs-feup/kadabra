@@ -1,4 +1,5 @@
-import kadabra.Utils;
+//import kadabra.Utils;
+
 var KTypes = {
 	Thread: "weaver.kadabra.concurrent.KadabraThread",
 	Channel: "weaver.kadabra.concurrent.KadabraChannel",
@@ -10,42 +11,41 @@ var KTypes = {
 	Tuple:  "tdrc.tuple.Tuple",
 	Pair: "tdrc.utils.Pair",
 	Atomic: "java.util.concurrent.atomic.Atomic",
-	channelOf: function a(key,value){
-		return this.Channel+"<"+(key||'Object')+","+(value||'Object')+">";
+	channelOf: function a(key: string, value: string): string {
+		return this.Channel + "<" +(key || 'Object') + "," + (value || 'Object') + ">";
 	},
-	productOf: function a(key,value){
-		if(key == undefined || value == undefined){
+	productOf: function a(key: string, value: string): string {
+		if (key == undefined || value == undefined){
 			return ;
 		}
-		return this.Product+"<"+(key||'Object')+","+(value||'Object')+">";
+		return this.Product + "<" + (key || 'Object') + "," + (value || 'Object') + ">";
 	},
-	controlPointOf: function a(type){
-		return this.ControlPoint+"<"+(type||"Object")+">";
+	controlPointOf: function a(type: string): string {
+		return this.ControlPoint + "<" + (type || "Object") + ">";
 	},
-	providerOf: function(type){
-		return this.VersionProvider+"<"+(type||"Object")+">";
+	providerOf: function(type: string): string {
+		return this.VersionProvider + "<" + (type || "Object") + ">";
 	},
-	tupleOf: function (type){
-	return this.Tuple+"<"+type+">";
+	tupleOf: function (type: string): string {
+	return this.Tuple + "<" + type + ">";
 	},
-	listOf: function (type){
-		return "java.util.List<"+type+">";
+	listOf: function (type: string): string {
+		return "java.util.List<" + type + ">";
 	},
-	pairOf: function (type1,type2){
-		return this.Pair+"<"+type1+","+type2+">";
+	pairOf: function (type1: string, type2: string): string {
+		return this.Pair + "<" + type1 + "," + type2 + ">";
 	},
 
-	atomicOf: function(type){
-		if(isPrimitive(type)){
-			return this.Atomic+toWrapper(type);
+	atomicOf: function(type: string): string {
+		if (isPrimitive(type)){
+			return this.Atomic + toWrapper(type);
 		}
-		return this.Atomic+"Reference<"+type+">";
+		return this.Atomic + "Reference<" + type + ">";
 	},
 };
 
-function toWrapper(type){
-
-	switch(type){
+function toWrapper(type: string): string {
+	switch(type) {
 		case 'bool':
 			return 'Boolean';
 		case 'int':
@@ -58,7 +58,7 @@ function toWrapper(type){
 		case 'long': 
 		case 'float':
 		case 'double':
-			return type.firstCharToUpper(); 
+			return type.charAt(0).toUpperCase() + type.slice(1);
 		default: 
 			return type;
 	}
@@ -66,7 +66,7 @@ function toWrapper(type){
 
 var PRIMITIVE_TYPES = [ 'bool','int','char','void','byte','short','long','float','double'];
 
-function isPrimitive(type){
+function isPrimitive(type: string): boolean {
 	return PRIMITIVE_TYPES.indexOf(type) > -1;
 }
 
