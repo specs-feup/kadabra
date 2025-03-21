@@ -44,52 +44,52 @@ public class JavaWeaverTest {
 
     @Test
     public void testMutateOperator() {
-        newTester().test("MutateOperator.lara", "MutateOperator.java.test");
+        newTester().test("MutateOperator.js", "MutateOperator.java.test");
     }
 
     @Test
     public void testGenericJoinPoint() {
-        newTester().test("GenericJoinPoint.lara", "GenericJoinPoint.java.test");
+        newTester().test("GenericJoinPoint.js", "GenericJoinPoint.java.test");
     }
 
     @Test
     public void testBinaryOperator() {
-        newTester().test("BinaryOperator.lara", "BinaryOperator.java.test");
+        newTester().test("BinaryOperator.js", "BinaryOperator.java.test");
     }
 
     @Test
     public void testLiteral() {
-        newTester().test("Literal.lara", "Literal.java.test");
+        newTester().test("Literal.js", "Literal.java.test");
     }
 
     @Test
     public void testGlobalJp() {
-        newTester().test("GlobalJp.lara", "GlobalJp.java.test");
+        newTester().test("GlobalJp.js", "GlobalJp.java.test");
     }
 
     @Test
     public void testAst() {
-        newTester().test("Ast.lara", "Ast.java.test");
+        newTester().test("Ast.js", "Ast.java.test");
     }
 
     @Test
     public void testAst2() {
-        newTester().test("Ast2.lara", "Ast2.java.test");
+        newTester().test("Ast2.js", "Ast2.java.test");
     }
 
     @Test
     public void testType() {
-        newTester().test("Type.lara", "Type.java.test");
+        newTester().test("Type.js", "Type.java.test");
     }
 
     @Test
     public void testSelects() {
-        newTester().test("Selects.lara", "Selects.java.test");
+        newTester().test("Selects.js", "Selects.java.test");
     }
 
     @Test
     public void testAndroid() {
-        newTester().test("Android.lara", "src/AndroidTest.java.test", "src/main/AndroidManifest.xml");
+        newTester().test("Android.js", "src/AndroidTest.java.test", "src/main/AndroidManifest.xml");
     }
 
     @Test
@@ -102,12 +102,12 @@ public class JavaWeaverTest {
 
         newTester()
                 .set(JavaWeaverKeys.NO_CLASSPATH)
-                .test("CompilationError.lara", "CompilationError.java.test");
+                .test("CompilationError.js", "CompilationError.java.test");
     }
 
     @Test
     public void testObjectAccess() {
-        newTester().set(JavaWeaverKeys.NO_CLASSPATH).set(JavaWeaverKeys.FULLY_QUALIFIED_NAMES).test("ObjectAccess.lara",
+        newTester().set(JavaWeaverKeys.NO_CLASSPATH).set(JavaWeaverKeys.FULLY_QUALIFIED_NAMES).test("ObjectAccess.js",
                 "ObjectAccess.java.test");
     }
 
@@ -127,12 +127,12 @@ public class JavaWeaverTest {
 
     @Test
     public void testLambdas() {
-        newTester().set(JavaWeaverKeys.NO_CLASSPATH).test("Lambdas.lara", "Lambdas.java.test");
+        newTester().set(JavaWeaverKeys.NO_CLASSPATH).test("Lambdas.js", "Lambdas.java.test");
     }
 
     @Test
     public void testConstructor() {
-        newTester().test("Constructor.lara", "Constructor.java.test");
+        newTester().test("Constructor.js", "Constructor.java.test");
     }
 
     @Test

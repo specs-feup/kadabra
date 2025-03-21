@@ -1,6 +1,6 @@
 laraImport("kadabra.analysis.energy.EnergyAwareAndroidPatterns");
 
-let r = new InternalGetterDetector()
+const r = new InternalGetterDetector()
 	.analyse()
 	.save();
 

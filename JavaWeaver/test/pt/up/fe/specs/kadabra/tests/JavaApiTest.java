@@ -43,37 +43,37 @@ public class JavaApiTest {
 
     @Test
     public void testLogger() {
-        newTester().test("LoggerTest.lara", "LoggerTest.java.test");
+        newTester().test("LoggerTest.js", "LoggerTest.java.test");
     }
 
     @Test
     public void testTimer() {
-        newTester().test("TimerTest.lara", "TimerTest.java.test");
+        newTester().test("TimerTest.js", "TimerTest.java.test");
     }
 
     @Test
     public void testEnergy() {
-        newTester().test("EnergyTest.lara", "EnergyTest.java.test");
+        newTester().test("EnergyTest.js", "EnergyTest.java.test");
     }
 
     @Test
     public void testBinaryExpressionMutator() {
-        newTester().test("BinaryExpressionMutatorTest.lara", "BinaryExpressionMutator.java.test");
+        newTester().test("BinaryExpressionMutatorTest.js", "BinaryExpressionMutator.java.test");
     }
 
     @Test
     public void testBinaryExpressionMutation() {
-        newTester().test("BinaryExpressionMutationTest.lara", "BinaryExpressionMutation.java.test");
+        newTester().test("BinaryExpressionMutationTest.js", "BinaryExpressionMutation.java.test");
     }
 
     @Test
     public void testIterativeMutator() {
-        newTester().test("IterativeMutatorTest.lara", "IterativeMutator.java.test");
+        newTester().test("IterativeMutatorTest.js", "IterativeMutator.java.test");
     }
 
     @Test
     public void testMutations() {
-        newTester().test("MutationsTest.lara", "Mutations.java.test");
+        newTester().test("MutationsTest.js", "Mutations.java.test");
     }
 
     @Test
@@ -85,7 +85,7 @@ public class JavaApiTest {
     public void testKadabraAst() {
         newTester()
                 // .set(LaraiKeys.VERBOSE, VerboseLevel.all).set(LaraiKeys.DEBUG_MODE)
-                .test("KadabraAstTest.lara", "KadabraAst.java.test");
+                .test("KadabraAstTest.js", "KadabraAst.java.test");
     }
 
     @Test

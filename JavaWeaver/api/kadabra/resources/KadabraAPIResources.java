@@ -46,7 +46,6 @@ public enum KadabraAPIResources implements ResourceProvider {
     Metrics("Metrics"),
     Types("Types"),
     Concurrent("Concurrent"),
-    Kadabra("Kadabra.js"),
 
     BaseDetector("analysis/energy/detectors/", "BaseDetector.js"),
     ExcessiveMethodCallsDetector("analysis/energy/detectors/", "ExcessiveMethodCallsDetector.js"),

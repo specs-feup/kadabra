@@ -3,18 +3,6 @@ laraImport("lara.Io");
 laraImport("weaver.Weaver");
 laraImport("weaver.Query");
 
-function ConstructorCallMutatorTest() {
-    const mutator = new ConstructorCallMutator(Query.root());
-
-    while (mutator.hasMutations()) {
-        // Mutate
-        mutator.mutate();
-
-        saveFile();
-        // Restore operator
-        mutator.restore();
-    }
-}
 
 function saveFile() {
     const outputFolder = Io.mkdir("./mutatedFilesTest/");
@@ -107,4 +95,15 @@ class ConstructorCallMutator extends Mutator {
         this.$originalParent = undefined;
         this.$referenceParent = undefined;
     }
+}
+
+const mutator = new ConstructorCallMutator(Query.root());
+
+while (mutator.hasMutations()) {
+    // Mutate
+    mutator.mutate();
+
+    saveFile();
+    // Restore operator
+    mutator.restore();
 }

@@ -280,7 +280,7 @@ export class App extends Joinpoint {
   get manifest(): AndroidManifest { return wrapJoinPoint(this._javaObject.getManifest()) }
   showAST(Title: string): string { return wrapJoinPoint(this._javaObject.showAST(unwrapJoinPoint(Title))); }
   mapVersions(name: string, keyType: string, interfaceType: InterfaceType, methodName: string): Class { return wrapJoinPoint(this._javaObject.mapVersions(unwrapJoinPoint(name), unwrapJoinPoint(keyType), unwrapJoinPoint(interfaceType), unwrapJoinPoint(methodName))); }
-  newClass(name: string, extend: string, implement: string[] = []): Class;
+  newClass(name: string, extend: string, implement: string[]): Class;
   newClass(name: string): Class;
   newClass(p1: string, p2?: string, p3?: string[]): Class { return wrapJoinPoint(this._javaObject.newClass(unwrapJoinPoint(p1), unwrapJoinPoint(p2), unwrapJoinPoint(p3))); }
   newInterface(name: string, extend: string[]): InterfaceType;
@@ -347,7 +347,7 @@ export class Expression extends Joinpoint {
   get test(): number { return wrapJoinPoint(this._javaObject.getTest()) }
   get type(): string { return wrapJoinPoint(this._javaObject.getType()) }
   get typeReference(): TypeReference { return wrapJoinPoint(this._javaObject.getTypeReference()) }
-  extract(varName: string, location?: Statement, position: string): void { return wrapJoinPoint(this._javaObject.extract(unwrapJoinPoint(varName), unwrapJoinPoint(location), unwrapJoinPoint(position))); }
+  extract(varName: string, location: Statement, position: string): void { return wrapJoinPoint(this._javaObject.extract(unwrapJoinPoint(varName), unwrapJoinPoint(location), unwrapJoinPoint(position))); }
 }
 
 export class Field extends Declaration {
@@ -388,7 +388,7 @@ export class FileJp extends Joinpoint {
   addImport(qualifiedName: string): void { return wrapJoinPoint(this._javaObject.addImport(unwrapJoinPoint(qualifiedName))); }
   addInterface(newInterface: InterfaceType): void { return wrapJoinPoint(this._javaObject.addInterface(unwrapJoinPoint(newInterface))); }
   mapVersions(name: string, keyType: string, interfaceType: InterfaceType, methodName: string): Class { return wrapJoinPoint(this._javaObject.mapVersions(unwrapJoinPoint(name), unwrapJoinPoint(keyType), unwrapJoinPoint(interfaceType), unwrapJoinPoint(methodName))); }
-  newClass(name: string, extend: string, implement: string[] = []): Class;
+  newClass(name: string, extend: string, implement: string[]): Class;
   newClass(name: string): Class;
   newClass(p1: string, p2?: string, p3?: string[]): Class { return wrapJoinPoint(this._javaObject.newClass(unwrapJoinPoint(p1), unwrapJoinPoint(p2), unwrapJoinPoint(p3))); }
   newInterface(name: string, extend: string[]): InterfaceType;
@@ -630,15 +630,15 @@ export class Type extends Joinpoint {
   /**
    * Add a new method inside the class
    */
-  newMethod(modifiers: string[], returnType: string, name: string, paramLeft: string[] = [], paramRight: string[] = [], code: string): Method;
+  newMethod(modifiers: string[], returnType: string, name: string, paramLeft: string[], paramRight: string[], code: string): Method;
   /**
    * Overload which accepts 4 parameters (code is empty string)
    */
-  newMethod(modifiers: string[] = ['public'], returnType: string, name: string, paramLeft: string[] = [], paramRight: string[] = []): Method;
+  newMethod(modifiers: string[], returnType: string, name: string, paramLeft: string[], paramRight: string[]): Method;
   /**
    * Add a new method inside the class
    */
-  newMethod(p1: string[], p2: string, p3: string, p4?: string[], p5?: string[], p6?: string): Method { return wrapJoinPoint(this._javaObject.newMethod(unwrapJoinPoint(p1), unwrapJoinPoint(p2), unwrapJoinPoint(p3), unwrapJoinPoint(p4), unwrapJoinPoint(p5), unwrapJoinPoint(p6))); }
+  newMethod(p1: string[], p2: string, p3: string, p4: string[], p5: string[], p6?: string): Method { return wrapJoinPoint(this._javaObject.newMethod(unwrapJoinPoint(p1), unwrapJoinPoint(p2), unwrapJoinPoint(p3), unwrapJoinPoint(p4), unwrapJoinPoint(p5), unwrapJoinPoint(p6))); }
   removeInterface(interfaceName: string): InterfaceType { return wrapJoinPoint(this._javaObject.removeInterface(unwrapJoinPoint(interfaceName))); }
 }
 
@@ -904,7 +904,7 @@ export class Class extends Type {
     name: "name",
   };
   get isTopLevel(): boolean { return wrapJoinPoint(this._javaObject.getIsTopLevel()) }
-  extractInterface(name: string, package: string, method?: Method, associate: boolean = false, newFile: boolean): InterfaceType { return wrapJoinPoint(this._javaObject.extractInterface(unwrapJoinPoint(name), unwrapJoinPoint(package), unwrapJoinPoint(method), unwrapJoinPoint(associate), unwrapJoinPoint(newFile))); }
+  extractInterface(name: string, packageName: string, method: Method, associate: boolean = false, newFile: boolean): InterfaceType { return wrapJoinPoint(this._javaObject.extractInterface(unwrapJoinPoint(name), unwrapJoinPoint(packageName), unwrapJoinPoint(method), unwrapJoinPoint(associate), unwrapJoinPoint(newFile))); }
   insertStatic(code: string): void { return wrapJoinPoint(this._javaObject.insertStatic(unwrapJoinPoint(code))); }
   mapVersions(name: string, keyType: string, interfaceType: InterfaceType, methodName: string): Class { return wrapJoinPoint(this._javaObject.mapVersions(unwrapJoinPoint(name), unwrapJoinPoint(keyType), unwrapJoinPoint(interfaceType), unwrapJoinPoint(methodName))); }
   newConstructor(modifiers: string[] = ['public'], paramLeft: string[] = [], paramRight: string[] = []): Constructor { return wrapJoinPoint(this._javaObject.newConstructor(unwrapJoinPoint(modifiers), unwrapJoinPoint(paramLeft), unwrapJoinPoint(paramRight))); }
