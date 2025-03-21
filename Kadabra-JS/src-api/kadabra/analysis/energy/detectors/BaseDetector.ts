@@ -1,5 +1,5 @@
-import { LaraJoinPoint } from "@specs-feup/lara/api/LaraJoinPoint.js";
 import Query from "@specs-feup/lara/api/weaver/Query.js";
+import { Class, Joinpoint } from "../../../../Joinpoints.js";
 
 export default class BaseDetector {
   name: any;
@@ -20,16 +20,16 @@ export default class BaseDetector {
       package: packageFilter,
     }).get();
 
-    classes.forEach((c) => this.analyseClass(c));
+    classes.forEach((c: Joinpoint) => this.analyseClass(c));
 
     return this;
   }
 
-  analyseClass(jpClass: LaraJoinPoint) {
+  analyseClass(jpClass: Joinpoint) {
     if (
       !jpClass ||
       !("instanceOf" in jpClass) ||
-      !jpClass.instanceOf("class")
+      !(jpClass instanceof Class)
     ) {
       console.log("Argument is not a joinpoint of type 'class'");
     }

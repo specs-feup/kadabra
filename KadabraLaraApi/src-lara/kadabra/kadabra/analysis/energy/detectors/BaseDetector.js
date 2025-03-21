@@ -1,4 +1,5 @@
 import Query from "@specs-feup/lara/api/weaver/Query.js";
+import { Class } from "../../../../Joinpoints.js";
 export default class BaseDetector {
     name;
     results;
@@ -20,7 +21,7 @@ export default class BaseDetector {
     analyseClass(jpClass) {
         if (!jpClass ||
             !("instanceOf" in jpClass) ||
-            !jpClass.instanceOf("class")) {
+            !(jpClass instanceof Class)) {
             console.log("Argument is not a joinpoint of type 'class'");
         }
     }
