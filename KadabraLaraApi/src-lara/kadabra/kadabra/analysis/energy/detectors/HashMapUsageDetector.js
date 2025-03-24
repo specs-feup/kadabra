@@ -9,7 +9,7 @@ export default class HashMapUsageDetector extends BaseDetector {
     analyseClass(jpClass) {
         super.analyseClass(jpClass);
         // TODO: refactor to use chain()
-        let hashMapRefs = Query.searchFrom(jpClass, New, { type: "HashMap" })
+        const hashMapRefs = Query.searchFrom(jpClass, New, { type: "HashMap" })
             .get()
             .filter((jp) => jp.typeReference !== undefined &&
             jp.typeReference.packageName === "java.util");
@@ -17,7 +17,7 @@ export default class HashMapUsageDetector extends BaseDetector {
     }
     print() {
         console.log(`${this.name}:`);
-        let data = this.results.map((r) => [
+        const data = this.results.map((r) => [
             r.line.toString(),
             r.getAncestor("file").path,
         ]);
@@ -28,14 +28,14 @@ export default class HashMapUsageDetector extends BaseDetector {
         return this.results.map((r) => {
             let loc = ":" + r.line.toString();
             // Initialized inside method
-            let node = r.getAncestor("method");
-            if (node != null) {
-                loc = node.name + loc;
+            const jpMethod = r.getAncestor("method");
+            if (jpMethod != null) {
+                loc = jpMethod.name + loc;
             }
-            node = r.getAncestor("class");
-            loc = node.name + "/" + loc;
-            node = node.getAncestor("file");
-            loc = node.name.toString() + "/" + loc;
+            const jpClass = r.getAncestor("class");
+            loc = jpClass.name + "/" + loc;
+            const jpFile = jpClass.getAncestor("file");
+            loc = jpFile.name + "/" + loc;
             return loc;
         });
     }

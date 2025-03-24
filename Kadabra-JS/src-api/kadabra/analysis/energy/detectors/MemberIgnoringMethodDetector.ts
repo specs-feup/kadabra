@@ -1,126 +1,137 @@
 import Query from "@specs-feup/lara/api/weaver/Query.js";
 import Collections from "@specs-feup/lara/api/lara/Collections.js";
 import BaseDetector from "./BaseDetector.js";
-import { Call, Class, Joinpoint, Method, Reference, Var } from "../../../../Joinpoints.js";
+import {
+    Annotation,
+    Call,
+    Class,
+    FileJp,
+    Joinpoint,
+    Method,
+    Reference,
+    Var,
+} from "../../../../Joinpoints.js";
 
 export default class MemberIgnoringMethodDetector extends BaseDetector {
-  dups: Map<any, any>;
+    dups: Map<string, Method[]>;
 
-  constructor() {
-    super("Member Ignoring Method Detector");
+    constructor() {
+        super("Member Ignoring Method Detector");
 
-    this.dups = new Map();
-    this.computeSameNameMethods();
-  }
-
-  static noOverrideAnnotationFilter(annos: any) {
-    return annos.filter((a: any) => a.type === "Override").length === 0;
-  }
-
-  computeSameNameMethods() {
-    let methods = Query.search(Method, {
-      isStatic: false,
-      isFinal: false,
-      privacy: (p) => p !== "private",
-      annotations: MemberIgnoringMethodDetector.noOverrideAnnotationFilter,
-    }).get();
-
-    for (const m of methods) {
-      let dup = this.dups.get(m.name);
-      if (dup !== undefined) {
-        dup.push(m);
-      } else {
-        this.dups.set(m.name, [m]);
-      }
+        this.dups = new Map();
+        this.computeSameNameMethods();
     }
-  }
 
-  analyseClass(jpClass: Class) {
-    super.analyseClass(jpClass);
-
-    let checkOverride = !(
-      jpClass.interfaces.length == 0 && jpClass.superClassJp == undefined
-    );
-
-    let mightBeStatic = Query.childrenFrom(jpClass, Method, {
-      isStatic: false,
-      isFinal: false,
-      privacy: (p) => p !== "private",
-      annotations: MemberIgnoringMethodDetector.noOverrideAnnotationFilter,
-    }).get();
-
-    for (let m of mightBeStatic) {
-      if (m.body === undefined || m.body.children.length === 0) continue;
-
-      if (!this.#methodCanBeStatic(m)) continue;
-
-      if (checkOverride && this.#isOverride(m)) continue;
-
-      this.results.push(m);
+    static noOverrideAnnotationFilter(annos: Annotation[]) {
+        return annos.filter((a) => a.type === "Override").length === 0;
     }
-  }
 
-  print() {
-    console.log(`${this.name}:`);
-    let data = this.results.map((r) => [
-      r.line.toString(),
-      r.name,
-      r.getAncestor("file").path,
-    ]);
-    Collections.printTable(["Line", "Method", "File"], data, [10, 30, 100]);
-    console.log();
-  }
+    computeSameNameMethods() {
+        const methods = Query.search(Method, {
+            isStatic: false,
+            isFinal: false,
+            privacy: (p) => p !== "private",
+            annotations:
+                MemberIgnoringMethodDetector.noOverrideAnnotationFilter,
+        });
 
-  save() {
-    return this.results.map((r) => {
-      let node = r;
-      let loc = node.name;
-      node = node.getAncestor("class");
-      loc = node.name + "/" + loc;
-      node = node.getAncestor("file");
-      loc = node.name.toString() + "/" + loc;
-      return loc + ":" + r.line.toString();
-    });
-  }
+        for (const m of methods) {
+            const dup = this.dups.get(m.name);
+            if (dup !== undefined) {
+                dup.push(m);
+            } else {
+                this.dups.set(m.name, [m]);
+            }
+        }
+    }
 
-  #isOverride(jpMethod: Method) {
-    let dups = this.dups.get(jpMethod.name);
-    if (dups === undefined || dups.length < 2) return false;
+    analyseClass(jpClass: Class) {
+        super.analyseClass(jpClass);
 
-    for (const dup of dups) {
-      if (dup.declarator === jpMethod.declarator) continue;
+        const checkOverride = !(
+            jpClass.interfaces.length == 0 && jpClass.superClassJp == undefined
+        );
 
-      if (dup.isOverriding(jpMethod) || jpMethod.isOverriding(dup)) {
+        const mightBeStatic = Query.childrenFrom(jpClass, Method, {
+            isStatic: false,
+            isFinal: false,
+            privacy: (p) => p !== "private",
+            annotations:
+                MemberIgnoringMethodDetector.noOverrideAnnotationFilter,
+        });
+
+        for (const m of mightBeStatic) {
+            if (m.body === undefined || m.body.children.length === 0) continue;
+
+            if (!this.#methodCanBeStatic(m)) continue;
+
+            if (checkOverride && this.#isOverride(m)) continue;
+
+            this.results.push(m);
+        }
+    }
+
+    print() {
+        console.log(`${this.name}:`);
+        const data = this.results.map((r) => [
+            r.line.toString(),
+            r.name,
+            (r.getAncestor("file") as FileJp).path,
+        ]);
+        Collections.printTable(["Line", "Method", "File"], data, [10, 30, 100]);
+        console.log();
+    }
+
+    save() {
+        return this.results.map((r) => {
+            const node = r;
+            let loc = node.name;
+            const jpClass = node.getAncestor("class") as Class;
+            loc = jpClass.name + "/" + loc;
+            const jpFile = jpClass.getAncestor("file") as FileJp;
+            loc = jpFile.name + "/" + loc;
+            return loc + ":" + r.line.toString();
+        });
+    }
+
+    #isOverride(jpMethod: Method) {
+        const dups = this.dups.get(jpMethod.name);
+        if (dups === undefined || dups.length < 2) return false;
+
+        for (const dup of dups) {
+            if (dup.declarator === jpMethod.declarator) continue;
+
+            if (dup.isOverriding(jpMethod) || jpMethod.isOverriding(dup)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    #methodCanBeStatic(jp: Joinpoint) {
+        if (jp instanceof Call && !this.#callIsStatic(jp)) {
+            return false;
+        }
+
+        if (jp instanceof Var && !this.#varIsStatic(jp)) {
+            return false;
+        }
+
+        for (const child of jp.children) {
+            if (!this.#methodCanBeStatic(child)) return false;
+        }
+
         return true;
-      }
-    }
-    return false;
-  }
-
-  #methodCanBeStatic(jp: Joinpoint) {
-    if (jp instanceof Call && !this.#callIsStatic(jp)) {
-      return false;
     }
 
-    if (jp instanceof Var && !this.#varIsStatic(jp)) {
-      return false;
+    #callIsStatic(jpCall: Call) {
+        return jpCall.decl?.isStatic;
     }
 
-    for (let child of jp.children) {
-      if (!this.#methodCanBeStatic(child)) return false;
+    #varIsStatic(jpVar: Var) {
+        const isParameter =
+            Query.childrenFrom(jpVar, Reference, { type: "Parameter" }).get()
+                .length > 0;
+        return isParameter ? true : jpVar.isStatic;
     }
-
-    return true;
-  }
-
-  #callIsStatic(jpCall: Call) {
-    return jpCall.decl !== undefined && jpCall.decl.isStatic;
-  }
-
-  #varIsStatic(jpVar: Var) {
-    const isParameter =
-      Query.childrenFrom(jpVar, Reference, { type: "Parameter" }).get()
-        .length > 0;
-    return isParameter ? true : jpVar.isStatic;
-  }
 }

@@ -1,7 +1,7 @@
 import Query from "@specs-feup/lara/api/weaver/Query.js";
 import Collections from "@specs-feup/lara/api/lara/Collections.js";
 import BaseDetector from "./BaseDetector.js";
-import { Class, New } from "../../../../Joinpoints.js";
+import { Class, FileJp, Method, New } from "../../../../Joinpoints.js";
 
 export default class HashMapUsageDetector extends BaseDetector {
     constructor() {
@@ -12,7 +12,7 @@ export default class HashMapUsageDetector extends BaseDetector {
         super.analyseClass(jpClass);
 
         // TODO: refactor to use chain()
-        let hashMapRefs = Query.searchFrom(jpClass, New, { type: "HashMap" })
+        const hashMapRefs = Query.searchFrom(jpClass, New, { type: "HashMap" })
             .get()
             .filter(
                 (jp) =>
@@ -25,9 +25,9 @@ export default class HashMapUsageDetector extends BaseDetector {
 
     print() {
         console.log(`${this.name}:`);
-        let data = this.results.map((r) => [
+        const data = this.results.map((r) => [
             r.line.toString(),
-            r.getAncestor("file").path,
+            (r.getAncestor("file") as FileJp).path,
         ]);
         Collections.printTable(["Line", "File"], data, [40, 100]);
         console.log();
@@ -38,14 +38,14 @@ export default class HashMapUsageDetector extends BaseDetector {
             let loc = ":" + r.line.toString();
 
             // Initialized inside method
-            let node = r.getAncestor("method");
-            if (node != null) {
-                loc = node.name + loc;
+            const jpMethod = r.getAncestor("method") as Method;
+            if (jpMethod != null) {
+                loc = jpMethod.name + loc;
             }
-            node = r.getAncestor("class");
-            loc = node.name + "/" + loc;
-            node = node.getAncestor("file");
-            loc = node.name.toString() + "/" + loc;
+            const jpClass = r.getAncestor("class") as Class;
+            loc = jpClass.name + "/" + loc;
+            const jpFile = jpClass.getAncestor("file") as FileJp;
+            loc = jpFile.name + "/" + loc;
             return loc;
         });
     }

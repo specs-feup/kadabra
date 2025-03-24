@@ -9,13 +9,14 @@ export default class BaseDetector {
         this.results = [];
         this.debugEnabled = debugEnabled;
     }
-    analyse(packageFilter = (_) => true) {
+    analyse() {
         console.log(`Running ${this.name}...`);
-        let classes = Query.search("class", {
+        const classes = Query.search(Class, {
             isTopLevel: true,
-            package: packageFilter,
-        }).get();
-        classes.forEach((c) => this.analyseClass(c));
+        });
+        for (const c of classes) {
+            this.analyseClass(c);
+        }
         return this;
     }
     analyseClass(jpClass) {

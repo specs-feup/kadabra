@@ -1,33 +1,54 @@
 import Query from "@specs-feup/lara/api/weaver/Query.js";
 import Collections from "@specs-feup/lara/api/lara/Collections.js";
 import BaseDetector from "./BaseDetector.js";
-import { Loop, Var, Call, Joinpoint, Class, RefType, Method, LoopType, LocalVariable, ArrayAccess } from "../../../../Joinpoints.js";
+import {
+    FileJp,
+    Loop,
+    Var,
+    Call,
+    Joinpoint,
+    Class,
+    RefType,
+    Method,
+    LoopType,
+    LocalVariable,
+    ArrayAccess,
+    Constructor,
+    Declaration,
+} from "../../../../Joinpoints.js";
+
+export interface MethodInfo {
+    method: Method;
+    missingInfo: boolean;
+    writes: Var[];
+    reads: Var[];
+}
 
 export default class ExcessiveMethodCallsDetector extends BaseDetector {
-    currentPackage: any;
-    loopGlobalReads: any;
-    loopGlobalWrites: any;
-    loopLocalWrites: any;
-    methodsInfo: any[];
-    variantCalls: any[];
+    currentPackage: string;
+    loopGlobalReads: Declaration[];
+    loopGlobalWrites: Declaration[];
+    loopLocalWrites: Declaration[];
+    methodsInfo: MethodInfo[];
+    variantCalls: string[];
     missingCallDecl: boolean;
 
     constructor(debugEnabled = false) {
         super("Excessive Method Calls Detector", debugEnabled);
     }
 
-    static containsJP(arr: any[], jp: any) {
-        return arr.some((i: any) => i.same(jp));
+    static containsJP(arr: Joinpoint[], jp: Joinpoint) {
+        return arr.some((i) => i.equals(jp));
     }
 
-    static tryGetMethodInfo(arr: any[], jp: any) {
+    static tryGetMethodInfo(arr: MethodInfo[], jp: Method) {
         for (const j of arr) {
-            if (j.method.same(jp)) return j;
+            if (j.method.equals(jp)) return j;
         }
         return null;
     }
 
-    static addIfNew(arr: any[], jp: Joinpoint) {
+    static addIfNew(arr: Joinpoint[], jp: Joinpoint) {
         if (!ExcessiveMethodCallsDetector.containsJP(arr, jp)) arr.push(jp);
     }
 
@@ -37,11 +58,10 @@ export default class ExcessiveMethodCallsDetector extends BaseDetector {
         this.currentPackage = jpClass.packageName;
         const fileName = jpClass.getAncestor("file");
 
-        const loops = Query.searchFrom(jpClass, Loop).get();
-        loops.forEach((l: any) => {
+        for (const l of Query.searchFrom(jpClass, Loop)) {
             this.printDebugInfo(`\n${fileName} @ L${l.line}`);
             this.analyseLoop(l);
-        });
+        }
     }
 
     analyseLoop(jpLoop: Loop) {
@@ -52,19 +72,26 @@ export default class ExcessiveMethodCallsDetector extends BaseDetector {
         this.collectLoopInfo(jpLoop);
 
         if (this.debugEnabled) {
-            console.log("Global Reads: ");
-            this.loopGlobalReads.forEach((lgr: any) => console.log(lgr.name + ", "));
-            console.log("\nGlobal Writes: ");
-            this.loopGlobalWrites.forEach((lgw: any) => console.log(lgw.name + ", "));
-            console.log("\nLocal Writes: ");
-            this.loopLocalWrites.forEach((llw: any) => console.log(llw.name + ", "));
-            console.log("\n");
+            let msg = "Global Reads: ";
+
+            for (const lgr of this.loopGlobalReads) {
+                msg += lgr.name + ", ";
+            }
+            for (const lgw of this.loopGlobalReads) {
+                msg += lgw.name + ", ";
+            }
+            for (const llw of this.loopGlobalReads) {
+                msg += llw.name + ", ";
+            }
+
+            console.log(msg);
         }
 
         // Second pass to analyse loop calls against collected loop info
         this.printDebugInfo("Analyse Loop Calls:");
-        const calls = this.getFirstDescendentsOfTypes(jpLoop, ["call"]);
-        calls.forEach((c) => this.analyseLoopCall(c));
+        for (const call of this.getFirstDescendentsOfTypes(jpLoop, ["call"])) {
+            this.analyseLoopCall(call);
+        }
     }
 
     print() {
@@ -72,7 +99,7 @@ export default class ExcessiveMethodCallsDetector extends BaseDetector {
         const data = this.results.map((r) => [
             r.line.toString(),
             r.name,
-            r.getAncestor("file").path,
+            (r.getAncestor("file") as FileJp).path,
         ]);
         Collections.printTable(["Line", "Call", "File"], data, [10, 30, 100]);
         console.log();
@@ -94,21 +121,23 @@ export default class ExcessiveMethodCallsDetector extends BaseDetector {
     }
 
     save() {
-        return this.results.map((r) => {
+        return this.results.map((r: Call) => {
             let loc = r.name + "(" + r.arguments + "):" + r.line.toString();
 
             // Initialized inside method
-            let node = r.getAncestor("method");
-            if (node !== undefined) {
-                loc = node.name + "/" + loc;
+            const jpMethod = r.getAncestor("method") as Method;
+            if (jpMethod !== undefined) {
+                loc = jpMethod.name + "/" + loc;
             } else {
-                node = r.getAncestor("constructor");
-                loc = node.name + "/" + loc;
+                const jpConstruct = r.getAncestor("constructor") as Constructor;
+                loc = jpConstruct.name + "/" + loc;
             }
-            node = r.getAncestor("class");
-            loc = node.name + "/" + loc;
-            node = node.getAncestor("file");
-            loc = node.name.toString() + "/" + loc;
+
+            const jpClass = r.getAncestor("class") as Class;
+            loc = jpClass.name + "/" + loc;
+            const jpFile = jpClass.getAncestor("file") as FileJp;
+            loc = jpFile.name + "/" + loc;
+
             return loc;
         });
     }
@@ -118,35 +147,24 @@ export default class ExcessiveMethodCallsDetector extends BaseDetector {
     collectLoopInfo(jp: Joinpoint) {
         const addIfNew = ExcessiveMethodCallsDetector.addIfNew;
 
-        jp.children.forEach((child: Joinpoint) => this.collectLoopInfo(child));
+        for (const child of jp.children) {
+            this.collectLoopInfo(child);
+        }
 
         if (jp instanceof Loop && jp.type !== LoopType.FOREACH) {
             if (jp.cond !== undefined) {
-                Query.searchFrom(jp.cond, Var, {
+                for (const v of Query.searchFrom(jp.cond, Var, {
                     declaration: (d) => d !== undefined,
-                })
-                    .get()
-                    .forEach((v) =>
-                        addIfNew(this.loopLocalWrites, v.declaration)
-                    );
+                })) {
+                    addIfNew(this.loopLocalWrites, v.declaration);
+                }
             }
-        }
-        else if (jp instanceof LocalVariable) {
+        } else if (jp instanceof LocalVariable) {
             addIfNew(this.loopLocalWrites, jp);
-        }
-        else if (jp instanceof Var) {
+        } else if (jp instanceof Var) {
             this.analyseVar(jp);
-        }
-        else if (jp instanceof Call) {
-            if (jp.decl === undefined) {
-                this.missingCallDecl = true;
-                this.printDebugInfo("Failed to get declaration of call: " + jp);
-                return;
-            }
-
-            const { writes, reads } = this.analyseMethodRecursive(jp.decl);
-            writes.forEach((w) => addIfNew(this.loopGlobalWrites, w.declaration));
-            reads.forEach((r) => addIfNew(this.loopGlobalReads, r.declaration));
+        } else if (jp instanceof Call) {
+            this.analyseCall(jp);
         }
     }
 
@@ -167,6 +185,25 @@ export default class ExcessiveMethodCallsDetector extends BaseDetector {
             addIfNew(this.loopLocalWrites, jpVar.declaration);
     }
 
+    analyseCall(jpCall: Call) {
+        const addIfNew = ExcessiveMethodCallsDetector.addIfNew;
+
+        if (jpCall.decl === undefined) {
+            this.missingCallDecl = true;
+            this.printDebugInfo("Failed to get declaration of call: " + jpCall);
+            return;
+        }
+
+        const { writes, reads } = this.analyseMethodRecursive(jpCall.decl);
+
+        for (const w of writes) {
+            addIfNew(this.loopGlobalWrites, w.declaration);
+        }
+        for (const r of reads) {
+            addIfNew(this.loopGlobalReads, r.declaration);
+        }
+    }
+
     analyseMethodRecursive(jpMethod: Method) {
         const res = { writes: [], reads: [] };
 
@@ -179,7 +216,8 @@ export default class ExcessiveMethodCallsDetector extends BaseDetector {
             return res;
 
         this.printDebugInfo(
-            `Analysing method: ${jpMethod} ${jpMethod.line !== undefined ? "@ L" + jpMethod.line : ""
+            `Analysing method: ${jpMethod} ${
+                jpMethod.line !== undefined ? "@ L" + jpMethod.line : ""
             }`
         );
 
@@ -207,11 +245,13 @@ export default class ExcessiveMethodCallsDetector extends BaseDetector {
             reads: r,
         });
 
-        callDeclSplit[0].forEach((c) => {
-            const { writes: wi, reads: ri } = this.analyseMethodRecursive(c.decl);
+        for (const call of callDeclSplit[0]) {
+            const { writes: wi, reads: ri } = this.analyseMethodRecursive(
+                call.decl
+            );
             res.writes.push(...wi);
             res.reads.push(...ri);
-        });
+        }
 
         return res;
     }
@@ -247,9 +287,9 @@ export default class ExcessiveMethodCallsDetector extends BaseDetector {
     analyseLoopCall(jp: Joinpoint) {
         let childCallsInvariant = true;
 
-        jp.children.forEach(
-            (child: any) => (childCallsInvariant &&= this.analyseLoopCall(child))
-        );
+        for (const child of jp.children) {
+            childCallsInvariant &&= this.analyseLoopCall(child);
+        }
 
         if (jp instanceof Call) {
             if (childCallsInvariant && this.isCallInvariant(jp)) {
@@ -297,7 +337,9 @@ export default class ExcessiveMethodCallsDetector extends BaseDetector {
                 );
                 this.variantCalls.push(jpCall.toString());
                 return false;
-            } else if (this.loopLocalWrites.some((w: any) => w.same(v.declaration))) {
+            } else if (
+                this.loopLocalWrites.some((w) => w.equals(v.declaration))
+            ) {
                 this.printDebugInfo(
                     `Call: ${jpCall} @ L${jpCall.line} -> VARIANT (usesLoopVar)`
                 );
@@ -306,7 +348,7 @@ export default class ExcessiveMethodCallsDetector extends BaseDetector {
             }
         }
 
-        if (jpCall.descendants.some((d: Joinpoint) => d instanceof ArrayAccess)) {
+        if (jpCall.descendants.some((d) => d instanceof ArrayAccess)) {
             this.printDebugInfo(
                 `Call: ${jpCall} @ L${jpCall.line} -> VARIANT (containsArrayAccess)`
             );
@@ -319,7 +361,7 @@ export default class ExcessiveMethodCallsDetector extends BaseDetector {
             jpCall.decl
         );
 
-        if (mi !== null && mi.missingInfo) {
+        if (mi?.missingInfo) {
             this.printDebugInfo(
                 `Call: ${jpCall} @ L${jpCall.line} -> VARIANT (methodMissingInfo)`
             );
@@ -327,8 +369,8 @@ export default class ExcessiveMethodCallsDetector extends BaseDetector {
             return false;
         }
 
-        const mir = mi.reads.map((r: any) => r.declaration);
-        const miw = mi.writes.map((w: any) => w.declaration);
+        const mir = mi.reads.map((r) => r.declaration);
+        const miw = mi.writes.map((w) => w.declaration);
         const cmr2lw = this.compareFieldUsage(mir, this.loopGlobalWrites);
         const cmw2lr = this.compareFieldUsage(miw, this.loopGlobalReads);
         if (cmr2lw || cmw2lr) {
@@ -364,8 +406,8 @@ export default class ExcessiveMethodCallsDetector extends BaseDetector {
         return true;
     }
 
-    compareFieldUsage(arr1: any[], arr2: any[]) {
-        return arr1.some((r: any) => arr2.some((w: any) => w.same(r)));
+    compareFieldUsage(arr1: Joinpoint[], arr2: Joinpoint[]) {
+        return arr1.some((r) => arr2.some((w) => w.equals(r)));
     }
 
     callUsesVariantArgument(jpCall: Call) {
@@ -389,7 +431,10 @@ export default class ExcessiveMethodCallsDetector extends BaseDetector {
 
             // Read field but unknown call exists in loop
             if (v.isField && this.missingCallDecl)
-                return { isVariant: true, cause: "usesField + missingCallDecl" };
+                return {
+                    isVariant: true,
+                    cause: "usesField + missingCallDecl",
+                };
 
             // Reads variable changed by loop
             if (
@@ -398,7 +443,10 @@ export default class ExcessiveMethodCallsDetector extends BaseDetector {
                     this.loopGlobalWrites,
                     vDecl
                 ) ||
-                    ExcessiveMethodCallsDetector.containsJP(this.loopLocalWrites, vDecl))
+                    ExcessiveMethodCallsDetector.containsJP(
+                        this.loopLocalWrites,
+                        vDecl
+                    ))
             )
                 return { isVariant: true, cause: "varChangedInLoop" };
         }
@@ -419,14 +467,14 @@ export default class ExcessiveMethodCallsDetector extends BaseDetector {
         }
     }
 
-    getFirstDescendentsOfTypes(jp: Joinpoint, types: any[]) {
-        if (types.some((type: any) => jp.instanceOf(type))) {
+    getFirstDescendentsOfTypes(jp: Joinpoint, types: string[]) {
+        if (types.some((type) => jp.instanceOf(type))) {
             return [jp];
         } else {
             const matches = [];
-            jp.children.forEach((child: any) =>
-                matches.push(...this.getFirstDescendentsOfTypes(child, types))
-            );
+            for (const child of jp.children) {
+                matches.push(...this.getFirstDescendentsOfTypes(child, types));
+            }
             return matches;
         }
     }

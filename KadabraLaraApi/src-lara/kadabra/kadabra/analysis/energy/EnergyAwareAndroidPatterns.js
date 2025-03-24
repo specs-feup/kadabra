@@ -11,35 +11,39 @@ export default class EnergyAwareAndroidPatterns {
         this.debugEnabled = debugEnabled;
         this.detectors = [];
     }
-    analyse(packageFilter = (_) => true) {
+    analyse() {
         this.detectors = [
             new ExcessiveMethodCallsDetector(this.debugEnabled),
             new HashMapUsageDetector(),
             new InternalGetterDetector(),
             new MemberIgnoringMethodDetector(),
         ];
-        this.detectors.forEach((d) => d.analyse(packageFilter));
+        for (const d of this.detectors) {
+            d.analyse();
+        }
         return this;
     }
     print() {
-        this.detectors.forEach((d) => d.print());
+        for (const d of this.detectors) {
+            d.print();
+        }
         return this;
     }
     toReport() {
         const files = WeaverOptions.getData().get("workspace").getFiles();
-        let sources = [];
-        for (let f of files) {
+        const sources = [];
+        for (const f of files) {
             sources.push(f.toString());
         }
-        let results = {};
+        const results = {};
         results["sources"] = sources;
         results["total"] = 0;
-        let data = {};
-        this.detectors.forEach((d) => {
-            let res = d.save();
+        const data = {};
+        for (const d of this.detectors) {
+            const res = d.save();
             data[`${d.name}`] = res;
             results["total"] += res.length;
-        });
+        }
         results["detectors"] = data;
         return results;
     }
