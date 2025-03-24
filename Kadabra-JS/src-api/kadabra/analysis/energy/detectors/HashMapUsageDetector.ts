@@ -11,14 +11,10 @@ export default class HashMapUsageDetector extends BaseDetector {
     analyseClass(jpClass: Class) {
         super.analyseClass(jpClass);
 
-        // TODO: refactor to use chain()
-        const hashMapRefs = Query.searchFrom(jpClass, New, { type: "HashMap" })
-            .get()
-            .filter(
-                (jp) =>
-                    jp.typeReference !== undefined &&
-                    jp.typeReference.packageName === "java.util"
-            );
+        const hashMapRefs = Query.searchFrom(jpClass, New, {
+            type: "HashMap",
+            typeReference: (jp) => jp?.packageName === "java.util",
+        }).get();
 
         this.results.push(...hashMapRefs);
     }
