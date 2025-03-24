@@ -27,10 +27,11 @@ public enum KadabraApiJsResource implements LaraResourceProvider {
     JOINPOINTS_JS("Joinpoints.js"),
     KADABRA_JS("Kadabra.js"),
     KADABRAJAVATYPES_JS("kadabra/KadabraJavaTypes.js"),
-    ARITHMETICOPERATORDELETIONMUTATION_JS("mutation/ArithmeticOperatorDeletionMutation.js"),
-    BINARYEXPRESSIONMUTATION_JS("mutation/BinaryExpressionMutation.js"),
-    BINARYEXPRESSIONMUTATOR_JS("mutation/BinaryExpressionMutator.js"),
-    CONDITIONALOPERATORDELETIONMUTATION_JS("mutation/ConditionalOperatorDeletionMutation.js");
+    ARITHMETICOPERATORDELETIONMUTATION_JS("kadabra/mutation/ArithmeticOperatorDeletionMutation.js"),
+    BINARYEXPRESSIONMUTATION_JS("kadabra/mutation/BinaryExpressionMutation.js"),
+    BINARYEXPRESSIONMUTATOR_JS("kadabra/mutation/BinaryExpressionMutator.js"),
+    CONDITIONALOPERATORDELETIONMUTATION_JS("kadabra/mutation/ConditionalOperatorDeletionMutation.js"),
+    CPUINFO_JS("kadabra/system/CpuInfo.js");
 
     private final String resource;
 

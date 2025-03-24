@@ -1,21 +1,24 @@
-import IterativeMutation from  "@specs-feup/lara/api/lara/mutation/IterativeMutation.js";
-import MutationResult from  "@specs-feup/lara/api/lara/mutation/MutationResult.js";
-import debug from 'debug';
+import IterativeMutation from "@specs-feup/lara/api/lara/mutation/IterativeMutation.js";
+import MutationResult from "@specs-feup/lara/api/lara/mutation/MutationResult.js";
+import debug from "debug";
+import {
+    Loop,
+    Joinpoint,
+    Ternary,
+    If,
+    UnaryExpression,
+} from "../../Joinpoints.js";
 
-class ConditionalOperatorDeletionMutation extends IterativeMutation {
+export default class ConditionalOperatorDeletionMutation extends IterativeMutation {
     constructor() {
         super("ConditionalOperatorDeletionMutation");
     }
 
-    isMutationPoint($jp: any) {
-        if (
-            $jp.instanceOf("if") ||
-            $jp.instanceOf("ternary") ||
-            $jp.instanceOf("loop")
-        ) {
+    isMutationPoint(jp: Joinpoint) {
+        if (jp instanceof If || jp instanceof Ternary || jp instanceof Loop) {
             if (
-                $jp.cond.instanceOf("unaryExpression") &&
-                $jp.cond.operator === "!"
+                jp.cond instanceof UnaryExpression &&
+                jp.cond.operator === "!"
             ) {
                 return true;
             }
@@ -24,13 +27,25 @@ class ConditionalOperatorDeletionMutation extends IterativeMutation {
         return false;
     }
 
-    *mutate($jp: any) {
-        const mutation = $jp.copy();
+    *mutate(jp: Joinpoint) {
+        //Joinpoint
+        const mutation: Joinpoint = jp.copy();
 
-        mutation.cond.insertReplace(mutation.cond.operand.copy());
+        if (
+            mutation instanceof If ||
+            mutation instanceof Ternary ||
+            mutation instanceof Loop
+        ) {
+            if (
+                mutation.cond instanceof UnaryExpression &&
+                mutation.cond.operator === "!"
+            ) {
+                mutation.cond.insertReplace(mutation.cond.operand.copy());
+            }
+        }
 
         debug("/*--------------------------------------*/");
-        debug("Mutating operator: " + $jp + " to " + mutation);
+        debug("Mutating operator: " + jp + " to " + mutation);
         debug("/*--------------------------------------*/");
 
         yield new MutationResult(mutation);

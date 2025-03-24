@@ -29,7 +29,6 @@ public enum KadabraAPIResources implements ResourceProvider {
     Algorithm(PackageProvider.adaptPackage, "Algorithm"),
     Autotuner(PackageProvider.adaptPackage, "Autotuner"),
     VersionTester(PackageProvider.adaptPackage, "VersionTester"),
-    CpuInfo(PackageProvider.systemPackage, "CpuInfo"),
 
     KADABRA_JAVA_TYPES("_KadabraJavaTypes"),
     KADABRA_NODES("KadabraNodes.js"),
@@ -59,7 +58,8 @@ public enum KadabraAPIResources implements ResourceProvider {
 
     private KadabraAPIResources(String fileName) {
         // var filenameExtension = SpecsIo.getExtension(fileName);
-        // var realExtension = filenameExtension.isEmpty() ? extension : filenameExtension;
+        // var realExtension = filenameExtension.isEmpty() ? extension :
+        // filenameExtension;
         // resource = basePackage + fileName + realExtension;
         this("", fileName);
     }

@@ -1,21 +1,21 @@
-import Mutator from  "@specs-feup/lara/api/lara/mutation/Mutator.js";
-import { arrayFromArgs } from "@specs-feup/lara/api/lara/core/LaraCore.js"
+import Mutator from "@specs-feup/lara/api/lara/mutation/Mutator.js";
+import { arrayFromArgs } from "@specs-feup/lara/api/lara/core/LaraCore.js";
+import { Joinpoint, BinaryExpression } from "../../Joinpoints.js";
 
 /**
- *  @param {$binaryExpression} $binaryExpression - A join point of type binaryExpression.
+ *  @param {BinaryExpression} binaryExpression - A join point of type binaryExpression.
  *  @param {String[] | String...} newOperators - Operators that will be used to mutate the given binaryExpression.
  */
-abstract class BinaryExpressionMutator extends Mutator {
-
-    $binaryExpression: any;
-    newOperators: any[];
+export default abstract class BinaryExpressionMutator extends Mutator {
+    binaryExpression: Joinpoint;
+    newOperators: string[];
     currentIndex: number;
-    previousOp: any;
+    previousOp: string;
 
-    constructor($binaryExpression: any, ...newOperators: any[]) {
+    constructor(binaryExpression: Joinpoint, ...newOperators: Joinpoint[]) {
         super();
         // Instance variables
-        this.$binaryExpression = $binaryExpression;
+        this.binaryExpression = binaryExpression;
         this.newOperators = arrayFromArgs(newOperators);
         this.currentIndex = 0;
         this.previousOp = undefined;
@@ -23,10 +23,10 @@ abstract class BinaryExpressionMutator extends Mutator {
         // Checks
 
         // Check it is a binaryExpression
-        if (!$binaryExpression.instanceOf("binaryExpression")) {
+        if (!(binaryExpression instanceof BinaryExpression)) {
             throw new Error(
-                "Expected a binaryExpression, received a " +
-                    $binaryExpression.joinPointType
+                "Expected a binaryExpression, received a " // +
+                //    binaryExpression.type.name
             );
         }
 
@@ -38,7 +38,7 @@ abstract class BinaryExpressionMutator extends Mutator {
     }
 
     getMutationPoint() {
-        return this.$binaryExpression;
+        return this.binaryExpression;
     }
 
     mutatePrivate() {
@@ -46,16 +46,20 @@ abstract class BinaryExpressionMutator extends Mutator {
         const newOp = this.newOperators[this.currentIndex];
         this.currentIndex++;
 
-        // Store current operator
-        this.previousOp = this.$binaryExpression.operator;
+        if (this.binaryExpression instanceof BinaryExpression) {
+            // Store current operator
+            this.previousOp = this.binaryExpression.operator;
 
-        // Set new operator
-        this.$binaryExpression.operator = newOp;
+            // Set new operator
+            this.binaryExpression.operator = newOp;
+        }
     }
 
     restorePrivate() {
-        // Restore operator
-        this.$binaryExpression.operator = this.previousOp;
-        this.previousOp = undefined;
+        if (this.binaryExpression instanceof BinaryExpression) {
+            // Restore operator
+            this.binaryExpression.operator = this.previousOp;
+            this.previousOp = undefined;
+        }
     }
 }
