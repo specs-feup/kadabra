@@ -18,5 +18,3 @@ export default function CpuInfo() {
         numThreads: "weaver.kadabra.system.CpuInfo.getCPUThreads()",
     };
 }
-
-CpuInfo();
