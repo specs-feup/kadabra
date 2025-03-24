@@ -73,14 +73,17 @@ export default class ExcessiveMethodCallsDetector extends BaseDetector {
 
         if (this.debugEnabled) {
             let msg = "Global Reads: ";
-
             for (const lgr of this.loopGlobalReads) {
                 msg += lgr.name + ", ";
             }
-            for (const lgw of this.loopGlobalReads) {
+
+            msg += "\nGlobal Writes: ";
+            for (const lgw of this.loopGlobalWrites) {
                 msg += lgw.name + ", ";
             }
-            for (const llw of this.loopGlobalReads) {
+
+            msg += "\nLocal Writes: ";
+            for (const llw of this.loopLocalWrites) {
                 msg += llw.name + ", ";
             }
 
@@ -174,15 +177,16 @@ export default class ExcessiveMethodCallsDetector extends BaseDetector {
         if (jpVar.declaration === undefined) return;
         const isField = jpVar.isField;
         const access = jpVar.reference;
-        if (isField && access === RefType.WRITE)
+        if (isField && access === RefType.WRITE) {
             addIfNew(this.loopGlobalWrites, jpVar.declaration);
-        else if (isField && access === RefType.READ)
+        } else if (isField && access === RefType.READ) {
             addIfNew(this.loopGlobalReads, jpVar.declaration);
-        else if (isField && access === RefType.READWRITE) {
+        } else if (isField && access === RefType.READWRITE) {
             addIfNew(this.loopGlobalWrites, jpVar.declaration);
             addIfNew(this.loopGlobalReads, jpVar.declaration);
-        } else if (!isField && access === RefType.WRITE)
+        } else if (!isField && access === RefType.WRITE) {
             addIfNew(this.loopLocalWrites, jpVar.declaration);
+        }
     }
 
     analyseCall(jpCall: Call) {
