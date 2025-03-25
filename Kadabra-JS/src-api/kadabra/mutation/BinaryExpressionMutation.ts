@@ -6,6 +6,7 @@ import { Joinpoint, BinaryExpression } from "../../Joinpoints.js";
 /**
  *  @param {string[] | string...} newOperators - Operators that will be used to mutate the binaryExpression.
  */
+
 export default class BinaryExpressionMutation extends IterativeMutation {
     newOperators: string[];
 
@@ -16,22 +17,18 @@ export default class BinaryExpressionMutation extends IterativeMutation {
         this.newOperators = arrayFromArgs(newOperators);
     }
 
-    isMutationPoint(jp: Joinpoint) {
-        return jp instanceof BinaryExpression;
+    isMutationPoint(jp: Joinpoint | BinaryExpression): jp is BinaryExpression {
+        return (jp as BinaryExpression).operands !== undefined;
     }
 
     *mutate(jp: Joinpoint) {
         for (const newOp of this.newOperators) {
-            // Skip when operators are the same
-            if (jp instanceof BinaryExpression) {
-                if (jp.operator === newOp) {
-                    continue;
-                }
-            }
-
             const mutation = jp.copy();
 
-            if (mutation instanceof BinaryExpression) {
+            // Skip when operators are the same
+            if (this.isMutationPoint(mutation)) {
+                if (mutation.operator === newOp) continue;
+
                 mutation.operator = newOp;
             }
 

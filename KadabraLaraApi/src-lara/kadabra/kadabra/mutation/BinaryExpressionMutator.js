@@ -1,6 +1,5 @@
 import Mutator from "@specs-feup/lara/api/lara/mutation/Mutator.js";
 import { arrayFromArgs } from "@specs-feup/lara/api/lara/core/LaraCore.js";
-import { BinaryExpression } from "../../Joinpoints.js";
 /**
  *  @param {BinaryExpression} binaryExpression - A join point of type binaryExpression.
  *  @param {String[] | String...} newOperators - Operators that will be used to mutate the given binaryExpression.
@@ -18,12 +17,6 @@ export default class BinaryExpressionMutator extends Mutator {
         this.currentIndex = 0;
         this.previousOp = undefined;
         // Checks
-        // Check it is a binaryExpression
-        if (!(binaryExpression instanceof BinaryExpression)) {
-            throw new Error("Expected a binaryExpression, received a " // +
-            //    binaryExpression.type.name
-            );
-        }
         // TODO: Check if operators are valid
     }
     hasMutations() {
@@ -36,19 +29,15 @@ export default class BinaryExpressionMutator extends Mutator {
         // Obtain new operator, increment index
         const newOp = this.newOperators[this.currentIndex];
         this.currentIndex++;
-        if (this.binaryExpression instanceof BinaryExpression) {
-            // Store current operator
-            this.previousOp = this.binaryExpression.operator;
-            // Set new operator
-            this.binaryExpression.operator = newOp;
-        }
+        // Store current operator
+        this.previousOp = this.binaryExpression.operator;
+        // Set new operator
+        this.binaryExpression.operator = newOp;
     }
     restorePrivate() {
-        if (this.binaryExpression instanceof BinaryExpression) {
-            // Restore operator
-            this.binaryExpression.operator = this.previousOp;
-            this.previousOp = undefined;
-        }
+        // Restore operator
+        this.binaryExpression.operator = this.previousOp;
+        this.previousOp = undefined;
     }
 }
 //# sourceMappingURL=BinaryExpressionMutator.js.map

@@ -1,6 +1,6 @@
 import IterativeMutation from "@specs-feup/lara/api/lara/mutation/IterativeMutation.js";
 import MutationResult from "@specs-feup/lara/api/lara/mutation/MutationResult.js";
-import debug from "debug";
+import { debug } from "@specs-feup/lara/api/lara/core/LaraCore.js";
 import { Loop, Ternary, If, UnaryExpression, } from "../../Joinpoints.js";
 export default class ConditionalOperatorDeletionMutation extends IterativeMutation {
     constructor() {
@@ -18,13 +18,9 @@ export default class ConditionalOperatorDeletionMutation extends IterativeMutati
     *mutate(jp) {
         //Joinpoint
         const mutation = jp.copy();
-        if (mutation instanceof If ||
-            mutation instanceof Ternary ||
-            mutation instanceof Loop) {
-            if (mutation.cond instanceof UnaryExpression &&
-                mutation.cond.operator === "!") {
-                mutation.cond.insertReplace(mutation.cond.operand.copy());
-            }
+        if (this.isMutationPoint(jp)) {
+            const tempCond = mutation.cond.copy();
+            mutation.cond.insertReplace(tempCond.operand.copy());
         }
         debug("/*--------------------------------------*/");
         debug("Mutating operator: " + jp + " to " + mutation);

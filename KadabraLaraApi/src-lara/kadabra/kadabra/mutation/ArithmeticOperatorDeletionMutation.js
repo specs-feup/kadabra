@@ -1,6 +1,6 @@
 import IterativeMutation from "@specs-feup/lara/api/lara/mutation/IterativeMutation.js";
 import MutationResult from "@specs-feup/lara/api/lara/mutation/MutationResult.js";
-import debug from "debug";
+import { debug } from "@specs-feup/lara/api/lara/core/LaraCore.js";
 import { BinaryExpression } from "../../Joinpoints.js";
 export default class ArithmeticOperatorDeletionMutation extends IterativeMutation {
     constructor() {

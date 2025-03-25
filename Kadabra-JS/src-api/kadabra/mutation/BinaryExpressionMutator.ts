@@ -7,12 +7,15 @@ import { Joinpoint, BinaryExpression } from "../../Joinpoints.js";
  *  @param {String[] | String...} newOperators - Operators that will be used to mutate the given binaryExpression.
  */
 export default abstract class BinaryExpressionMutator extends Mutator {
-    binaryExpression: Joinpoint;
+    binaryExpression: BinaryExpression;
     newOperators: string[];
     currentIndex: number;
     previousOp: string;
 
-    constructor(binaryExpression: Joinpoint, ...newOperators: Joinpoint[]) {
+    constructor(
+        binaryExpression: BinaryExpression,
+        ...newOperators: Joinpoint[]
+    ) {
         super();
         // Instance variables
         this.binaryExpression = binaryExpression;
@@ -21,15 +24,6 @@ export default abstract class BinaryExpressionMutator extends Mutator {
         this.previousOp = undefined;
 
         // Checks
-
-        // Check it is a binaryExpression
-        if (!(binaryExpression instanceof BinaryExpression)) {
-            throw new Error(
-                "Expected a binaryExpression, received a " // +
-                //    binaryExpression.type.name
-            );
-        }
-
         // TODO: Check if operators are valid
     }
 
@@ -46,20 +40,16 @@ export default abstract class BinaryExpressionMutator extends Mutator {
         const newOp = this.newOperators[this.currentIndex];
         this.currentIndex++;
 
-        if (this.binaryExpression instanceof BinaryExpression) {
-            // Store current operator
-            this.previousOp = this.binaryExpression.operator;
+        // Store current operator
+        this.previousOp = this.binaryExpression.operator;
 
-            // Set new operator
-            this.binaryExpression.operator = newOp;
-        }
+        // Set new operator
+        this.binaryExpression.operator = newOp;
     }
 
     restorePrivate() {
-        if (this.binaryExpression instanceof BinaryExpression) {
-            // Restore operator
-            this.binaryExpression.operator = this.previousOp;
-            this.previousOp = undefined;
-        }
+        // Restore operator
+        this.binaryExpression.operator = this.previousOp;
+        this.previousOp = undefined;
     }
 }
