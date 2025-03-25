@@ -29,10 +29,15 @@ hs_err_pid*
 bin/
 RemoteSystemsTempFiles/
 .recommenders/
+**/.settings/
 
 
 # Custom ignores #
 ##################
+
+.vscode/settings.json
+.vscode/tasks.json
+.vscode/launch.json
 
 output/
 .idea/
