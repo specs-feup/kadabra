@@ -25,7 +25,15 @@ import org.lara.interpreter.weaver.utils.LaraResourceProvider;
 public enum KadabraApiJsResource implements LaraResourceProvider {
 
     JOINPOINTS_JS("Joinpoints.js"),
-    KADABRA_JS("Kadabra.js");
+    KADABRA_JS("Kadabra.js"),
+    KADABRAJAVATYPES_JS("kadabra/KadabraJavaTypes.js"),
+    FACTORY("kadabra/Factory.js"),
+    KADABRAAST("kadabra/KadabraAst.js"),
+    KADABRANODES("kadabra/KadabraNodes.js"),
+    METRICS("kadabra/Metrics.js"),
+    TRANSFORM("kadabra/Transform.js"),
+    TYPES("kadabra/Types.js"),
+    UTILS("kadabra/Utils.js");
 
     private final String resource;
 
