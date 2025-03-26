@@ -1,164 +1,227 @@
-aspectdef Main
+import Query from "@specs-feup/lara/api/weaver/Query.js";
+import { Body, Case, Field, If, Method, Statement, Type } from "../Joinpoints.js";
 
-	var metrics = call Extract();
-	printObject(metrics.report);
+export class Metric {
+    /**
+     * Main function to extract metrics and print the report.
+     */
+    static main(): void {
+        const metrics = this.extract();
+        console.log(metrics);
+    }
 
-end
+    /**
+     * Extracts metrics for the given packages and classes.
+     *
+     * @param packages - The package pattern to match (default: ".*").
+     * @param classes - The class pattern to match (default: ".*").
+     * @returns The extracted metrics report.
+     */
+    static extract(packages: string = ".*", classes: string = ".*"): MetricsReport {
+        const report: MetricsReport = {
+            types: {},
+            numOf: {
+                classes: 0,
+                interfaces: 0,
+                enums: 0,
+                methods: 0,
+                fields: 0,
+            },
+        };
 
-aspectdef Extract
-	input packages=".*", classes=".*" end
-	output report={
-			types:{},
-			numOf:{
-				classes: 0,
-				interfaces: 0,
-				enums: 0,
-				methods: 0,
-				fields: 0
-			}
-		}
-	end
-	
-	select type end
-	apply
-		typeReport = call ReportType($type);
-		merge(report, typeReport.report);
-	end
-//	var line = toCSVLine(report);
-//	console.log(line);
-end
+        // Iterate over all types and process their metrics
+        for (const type of Query.search(Type)) {
+            const typeReport = this.reportType(type);
+            this.mergeReports(report, typeReport);
+        }
 
-function toCSVLine(report){
-	var line = report.numOf.classes
-		+ "," + report.numOf.interfaces
-		+ "," + report.numOf.enums
-		+ "," + report.numOf.methods
-		+ "," + report.numOf.fields
-		;
-	return line;
+        return report;
+    }
+
+    /**
+     * Converts a metrics report into a CSV line.
+     *
+     * @param report - The metrics report.
+     * @returns The CSV line as a string.
+     */
+    static toCSVLine(report: MetricsReport): string {
+        return `${report.numOf.classes},${report.numOf.interfaces},${report.numOf.enums},${report.numOf.methods},${report.numOf.fields}`;
+    }
+
+    /**
+     * Merges two metrics reports.
+     *
+     * @param mainReport - The main report to merge into.
+     * @param typeReport - The type report to merge.
+     */
+    static mergeReports(mainReport: MetricsReport, typeReport: TypeReport): void {
+        mainReport.types[typeReport.qualifiedName] = typeReport;
+        mainReport.numOf.methods += typeReport.numOf.methods;
+        mainReport.numOf.fields += typeReport.numOf.fields;
+
+        switch (typeReport.type) {
+            case "class":
+                mainReport.numOf.classes++;
+                break;
+            case "interface":
+                mainReport.numOf.interfaces++;
+                break;
+            case "enum":
+                mainReport.numOf.enums++;
+                break;
+            default:
+                console.warn(`Unknown type: ${typeReport.type}`);
+                break;
+        }
+    }
+
+    /**
+     * Generates a report for a specific type.
+     *
+     * @param type - The type join point.
+     * @returns The type report.
+     */
+    static reportType(type: Type): TypeReport {
+        const report: TypeReport = {
+            type: type.joinPointType,
+            name: type.name,
+            qualifiedName: type.qualifiedName,
+            numOf: {
+                methods: 0,
+                fields: 0,
+            },
+            methods: [],
+        };
+
+        // Count fields
+        for (const field of Query.searchFrom(type, Field)) {
+            report.numOf.fields++;
+        }
+
+        // Count methods and generate method reports
+        for (const method of Query.searchFrom(type, Method)) {
+            report.numOf.methods++;
+            const methodReport = this.reportMethod(method);
+            report.methods.push(methodReport);
+        }
+
+        return report;
+    }
+
+    /**
+     * Generates a report for a specific method.
+     *
+     * @param method - The method join point.
+     * @returns The method report.
+     */
+    static reportMethod(method: Method): MethodReport {
+        const report: MethodReport = {
+            type: method.returnType,
+            name: method.name,
+            qualifiedName: method.toQualifiedReference,
+            numOf: {
+                statements: 0,
+            },
+        };
+
+        // Process the method body
+        for (const body of Query.searchFrom(method, Body)) {
+            this.processBody(body, (stmt: Statement) => {
+				report.numOf.statements++;
+			});
+        }
+
+        return report;
+    }
+
+    /**
+     * Processes a body join point and applies a function to each statement.
+     *
+     * @param body - The body join point.
+     * @param func - The function to apply to each statement.
+     */
+    static processBody(body: Body, func: (stmt: Statement) => void): void {
+        for (const statement of Query.searchFrom(body, Statement)) {
+            this.processStatement(statement, func);
+        }
+    }
+
+    /**
+     * Processes a statement join point and applies a function to it.
+     *
+     * @param stmt - The statement join point.
+     * @param func - The function to apply to the statement.
+     */
+    static processStatement(stmt: Statement, func: (stmt: Statement) => void): void {
+        func(stmt);
+
+        switch (stmt.kind) {
+            case "for":
+            case "forEach":
+				for (const body of Query.searchFrom(stmt, Body)) {
+					this.processBody(body, func);
+				}
+                break;
+            case "if":
+				for (const ifStmt of Query.searchFrom(stmt, If)) {
+					if (ifStmt.then) {
+						this.processBody(ifStmt.then, func);
+					}
+					if (ifStmt.else) {
+						this.processBody(ifStmt.else, func);
+					}
+				}
+                break;
+            case "switch":
+                for (const caseStmt of Query.searchFrom(stmt, Case)) {
+                    this.processStatement(caseStmt, func);
+                }
+                break;
+            case "case":
+                this.processBody(stmt as Body, func);
+                break;
+            default:
+                break;
+        }
+    }
 }
 
-function merge(mainReport, typeReport){
-	mainReport.types[typeReport.qualifiedName] = typeReport;
-	mainReport.numOf.methods+=typeReport.numOf.methods;
-	mainReport.numOf.fields+=typeReport.numOf.fields;
-	switch(typeReport.type){
-		case 'class': mainReport.numOf.classes++; break;
-		case 'interface': mainReport.numOf.interfaces++; break;
-		case 'enum': mainReport.numOf.enums++; break;
-		default: console.log("Unknown type: "+typeReport.type); break;
-	}
+/**
+ * Metrics report type definition.
+ */
+export interface MetricsReport {
+    types: Record<string, TypeReport>;
+    numOf: {
+        classes: number;
+        interfaces: number;
+        enums: number;
+        methods: number;
+        fields: number;
+    };
 }
 
+/**
+ * Type report type definition.
+ */
+export interface TypeReport {
+    type: string;
+    name: string;
+    qualifiedName: string;
+    numOf: {
+        methods: number;
+        fields: number;
+    };
+    methods: MethodReport[];
+}
 
-aspectdef ReportType
-	input $type end
-	output report = {
-			type: undefined,
-			name: undefined,
-			qualifiedName: undefined,
-			numOf:{
-				methods: 0,
-				fields: 0
-			},
-			methods:[]
-		}
-	end
-
-	report.name = $type.name;
-	report.qualifiedName = $type.qualifiedName;
-	report.type = $type.joinPointType;
-	
-	select $type.field end
-	apply
-		report.numOf.fields++;
-	end
-	select $type.method end
-	apply
-		report.numOf.methods++;
-		methodReport = call ReportMethod($method);
-		report.methods.push(methodReport.report);
-	end
-end
-
-aspectdef ReportMethod
-	input $method end
-	output report = {
-			type: undefined,
-			name: undefined,
-			qualifiedName: undefined,
-			numOf:{
-				statements: 0,
-				//loops: 0, //todo
-				//...
-			} 
-		}
-	end
-
-	report.type = $method.returnType;
-	report.name = $method.name;
-	report.qualifiedName = $method.toQualifiedReference;
-	select $method.body end
-	apply
-		var statementAction = function ($stmt) { report.numOf.statements++;};
-		call ProcessBody($body, statementAction);
-	end
-end
-
-aspectdef ProcessStatement
-	input $stmt, func end
-	func($stmt);
-	//console.log($stmt.srcCode);
-	switch($stmt.kind){
-		case "for":
-		case "forEach":
-			call ProcessBodyFrom($stmt, func);
-			break;
-		case "if":
-			call ProcessIfElse($stmt, func);
-			break;
-		case "switch":
-			call ProcessSwitch($stmt, func);
-			break;
-		case "case":
-			call ProcessBody($stmt, func);
-			break;
-	}
-end
-
-aspectdef ProcessSwitch
-	input $switch, func end
-	select $switch.case end
-	apply
-		call ProcessStatement($case, func);
-	end
-end
-
-aspectdef ProcessIfElse
-	input $if, func end
-	select $if.then end
-	apply
-		call ProcessBody($then, func);
-	end
-	select $if.else end
-	apply
-		call ProcessBody($else, func);
-	end
-end
-
-aspectdef ProcessBodyFrom
-	input $stmt, func end
-	select $stmt.body end
-	apply
-		call ProcessBody($body, func);
-	end
-end
-
-aspectdef ProcessBody
-	input $body, func end
-	select $body.statement end
-	apply
-		call ProcessStatement($statement, func);
-	end
-	
-end
+/**
+ * Method report type definition.
+ */
+export interface MethodReport {
+    type: string;
+    name: string;
+    qualifiedName: string;
+    numOf: {
+        statements: number;
+    };
+}

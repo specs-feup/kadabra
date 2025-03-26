@@ -1,150 +1,111 @@
-laraImport("kadabra._KadabraJavaTypes");
+import { Joinpoint } from "../Joinpoints.js";
+import KadabraJavaTypes from "./KadabraJavaTypes.js";
 
-/**
- * Utility methods related with the creation of new join points.
- *
- * @class
- */
-var KadabraNodes = {};
-
-
-/**
- * Creates a comment node.
- *
- * @param {string} comment - The string representing the contents of a comment.
- * @param {string} [type="block"] - The type of the comment. Can be one of 'File', 'Javadoc', 'Inline' or 'Block'. If not specified, uses Block as default.
- *
- * @return {comment} a node representing the comment
- */
-KadabraNodes.comment= function(comment, type) {
-	if(comment === undefined) {
-		comment = "";
+export class KadabraNodes {
+	/**
+	 * Creates a comment node.
+	 *
+	 * @param comment - The string representing the contents of a comment.
+	 * @param type- The type of the comment. Can be one of 'File', 'Javadoc', 'Inline' or 'Block'. If not specified, uses Block as default.
+	 *
+	 * @returns A node representing the comment
+	 */
+	static comment(comment: string = "", type: "File" | "Javadoc" | "Inline" | "Block" = "Block") {
+		return KadabraJavaTypes.KadabraJoinPoints.comment(comment, type);
 	}
 
-	// Default type is block
-	if(type === undefined) {
-		type = "block";
+	/**
+	 * Creates a literal node.
+	 *
+	 * @param literal - The string representing the literal. Can pass negative literals.
+	 * @param type - The type of the literal. Can be one of int, long, float, double, char, String or boolean.
+	 *
+	 * @returns An expression representing the literal.
+	 */
+	static literal(literal: string, type: "int" | "long" | "float" | "double" | "char" | "String" | "boolean") {
+		return KadabraJavaTypes.KadabraJoinPoints.literal(literal, type);
 	}
 
-	checkString(type, "KadabraNodes.comment(_, type)");
-
-	comment = comment.toString();
-	type = type.toString();	
-	
-	return _KadabraJavaTypes.getKadabraJoinPoints().comment(comment, type);
-}
-
-/**
- * Creates a literal node.
- *
- * @param {string} literal- The string representing the literal. Can pass negative literals.
- * @param {string} type - The type of the literal. Can be one of int, long, float, double, char, String or boolean.
- *
- * @return {expression} an expression representing the literal. If the literal is a negative number, it will return a unaryExpression, otherwise returns a literal.
- */
-KadabraNodes.literal = function(literal, type) {
-	checkString(literal, "KadabraNodes.literal(literal, _)");
-	checkString(type, "KadabraNodes.literal(_, type)");
-
-	return _KadabraJavaTypes.getKadabraJoinPoints().literal(literal, type);
-}
-
-/**
- * Creates a null literal node
- * @param {jp} referenceJp Optionally indicate a node as a reference (can be useful for casting the null to a specific type)
- * @returns 
- */
-KadabraNodes.nullLiteral = function(referenceJp) {
-	return _KadabraJavaTypes.getKadabraJoinPoints().nullLiteral(referenceJp);
-}
-
-
-/**
- * Creates a unary expression.
- *
- * @param {string} operator - The string representing the operator, can be one of "+", "-", "!", "~", "++_", "--_", "_++", "_--", "++" or "--".
- * @param {expression} operand - The operand, must be a join point of type expression.
- *
- * @return {expression} an expression representing the literal. If the literal is a negative number, it will return a unaryExpression, otherwise returns a literal.
- */
-KadabraNodes.unaryExpression= function(operator, operand) {
-	checkString(operator, "KadabraNodes.unaryExpression(operator, _)");
-	checkJoinPoint(operand, "KadabraNodes.unaryExpression(_, operand)");
-
-	return _KadabraJavaTypes.getKadabraJoinPoints().unaryOperator(operator, operand);
-}
-
-
-/**
- * Creates a binary expression.
- *
- * @param {string} operator - The string representing the operator, can be one of "+", "-", "*", "/", "%", "||", "&&", "|", "^", "&", "==", "!=", "<", ">", "<=", ">=", "<<", ">>", ">>>" or "instanceof".
- * @param {expression} lhs - The left-hand side, must be a join point of type expression.
- * @param {expression} rhs - The right-hand side, must be a join point of type expression. 
- *
- * @return {expression} an expression representing the literal. If the literal is a negative number, it will return a unaryExpression, otherwise returns a literal.
- */
-KadabraNodes.binaryExpression= function(operator, lhs, rhs) {
-	checkString(operator, "KadabraNodes.binaryExpression(operator, _, _)");
-	checkJoinPoint(lhs, "KadabraNodes.binaryExpression(_, lhs, _)");
-	checkJoinPoint(rhs, "KadabraNodes.binaryExpression(_, _, rhs)");	
-
-	return _KadabraJavaTypes.getKadabraJoinPoints().binaryOperator(operator, lhs, rhs);
-}
-
-
-/**
- * Creates an assignment.
- *
- * @param {expression} lhs - The left-hand side, must be a join point of type expression.
- * @param {expression} rhs - The right-hand side, must be a join point of type expression. 
- *
- * @return {assignment} an assignment statement.
- */
-KadabraNodes.assignment= function(lhs, rhs) {
-	return _KadabraJavaTypes.getKadabraJoinPoints().assignment(lhs, rhs);
-}
-
-/**
- * Creates a reference to a local variable.
- *
- * @param {localVariable} localVariable - The local variable declaration to which we will create a variable reference.
- * @param {boolean} [isWrite = false] - True if the variable will be written, false if it will be read. By default creates variables for reading.
- *
- * @return {var} a reference to a variable.
- *
- */
-KadabraNodes.var = function(localVariable, isWrite) {
-    // In Spoon to create a CtVariableAccess, you need a CtVariableReference, which you can get from a CtLocalVariable. However, you need to decide if it will be a variable for read or writing
-	checkJoinPoint(localVariable, "KadabraNodes.var(_, localVariable, _)");
-
-	// Default value is false
-	if(isWrite === undefined) {
-		isWrite = false;
+	/**
+	 * Creates a null literal node.
+	 *
+	 * @param referenceJp - Optionally indicate a node as a reference (can be useful for casting the null to a specific type).
+	 * 
+	 * @returns A null literal node.
+	 */
+	static nullLiteral(referenceJp?: Joinpoint) {
+		return KadabraJavaTypes.KadabraJoinPoints.nullLiteral(referenceJp);
 	}
-	
-	return _KadabraJavaTypes.getKadabraJoinPoints().var(localVariable, isWrite);
-}
 
+	/**
+	 * Creates a unary expression.
+	 *
+	 * @param operator - The string representing the operator, can be one of "+", "-", "!", "~", "++_", "--_", "_++", "_--", "++" or "--".
+	 * @param operand - The operand, must be a join point of type expression.
+	 *
+	 * @returns An expression representing the literal. If the literal is a negative number, it will return a unaryExpression, otherwise returns a literal.
+	 */
+	static unaryExpression(operator: "+" | "-" | "!" | "~" | "++_" | "--_" | "_++" | "_--" | "++" | "--", operand: Joinpoint) {
+		return KadabraJavaTypes.KadabraJoinPoints.unaryOperator(operator, operand);
+	}
 
-/**
- * Creates an expression from code snippet.
- *
- * @param {string} code - The literal code that represents the expression.
- *
- * @return {expression} an expression representing the code snippet.
- */
-KadabraNodes.snippetExpr= function(code) {
-	checkString(code, "KadabraNodes.snippetExpr(code)");
+	/**
+	 * Creates a binary expression.
+	 *
+	 * @param operator - The string representing the operator, can be one of "+", "-", "*", "/", "%", "||", "&&", "|", "^", "&", "==", "!=", "\<", "\>", "\<=", "\>=", "\<\<", "\>\>", "\>\>\>" or "instanceof".
+	 * @param lhs - The left-hand side, must be a join point of type expression.
+	 * @param rhs - The right-hand side, must be a join point of type expression. 
+	 *
+	 * @returns An expression representing the literal. If the literal is a negative number, it will return a unaryExpression, otherwise returns a literal.
+	 */
+	static binaryExpression(operator: "+" | "-" | "*" | "/" | "%" | "||" | "&&" | "|" | "^" | "&" | "==" | "!=" | "<" | ">" | "<=" | ">=" | "<<" | ">>" | ">>>" | "instanceof", lhs: Joinpoint, rhs: Joinpoint) {
+		return KadabraJavaTypes.KadabraJoinPoints.binaryOperator(operator, lhs, rhs);
+	}
 
-	return _KadabraJavaTypes.getKadabraJoinPoints().snippetExpression(code);
-}
+	/**
+	 * Creates an assignment.
+	 *
+	 * @param lhs - The left-hand side, must be a join point of type expression.
+	 * @param rhs - The right-hand side, must be a join point of type expression.
+	 *
+	 * @returns An assignment statement.
+	 */
+	static assignment(lhs: Joinpoint, rhs: Joinpoint) {
+		return KadabraJavaTypes.KadabraJoinPoints.assignment(lhs, rhs);
+	}
 
+	/**
+	 * Creates a reference to a local variable.
+	 *
+	 * @param localVariable - The local variable declaration to which we will create a variable reference.
+	 * @param isWrite - True if the variable will be written, false if it will be read. By default creates variables for reading.
+	 *
+	 * @returns A reference to a variable.
+	 *
+	 */
+	static var(localVariable: Joinpoint, isWrite: boolean = false) {
+		return KadabraJavaTypes.KadabraJoinPoints.var(localVariable, isWrite);
+	}
 
-KadabraNodes.xmlNode = function(xmlCode) {
-	checkString(xmlCode, "KadabraNodes.xmlNode(xmlCode)");
+	/**
+	 * Creates an expression from a code snippet.
+	 *
+	 * @param code - The literal code that represents the expression.
+	 *
+	 * @returns An expression representing the code snippet.
+	 */
+	static snippetExpr(code: string) {
+		return KadabraJavaTypes.KadabraJoinPoints.snippetExpression(code);
+	}
 
-	var androidResources = Java.type("weaver.utils.android.AndroidResources");
-
-	return androidResources.parseXml(xmlCode);
+	/**
+	 * Creates an XML node from a string of XML code.
+	 *
+	 * @param xmlCode - The XML code to parse.
+	 *
+	 * @returns The parsed XML node.
+	 */
+	static xmlNode(xmlCode: string) {
+		return KadabraJavaTypes.AndroidResources.parseXml(xmlCode);
+	}
 }

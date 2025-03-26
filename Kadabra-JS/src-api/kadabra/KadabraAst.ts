@@ -1,138 +1,105 @@
-import lara.util.StringSet;
-import weaver.Query;
-
-import kadabra._KadabraJavaTypes;
-
-/**
- * Utility methods related with the searching join points and AST properties.
- *
- * @class
- */
-var KadabraAst = {};
+import Query from "@specs-feup/lara/api/weaver/Query.js";
+import KadabraJavaTypes from "./KadabraJavaTypes.js";
+import { Assignment, Class, Field, LocalVariable } from "../Joinpoints.js";
+import { LaraJoinPoint } from "@specs-feup/lara/api/LaraJoinPoint.js";
 
 /**
- * Searches constant values. Currently, three types of constants are returned:
- *
- * - Class fields which are final and initialized when declared;
- * - Assignments to final fields;
- * - Local variables which are final and initialized when declared;
- * 
- *
- * @param @param {$jp} [$startingPoint = $root] - The join point where the search for constants will start (inclusive).
- *
- * @return {$jp[]} an array of join points, which can either be a $field, an $assign or a $localVariable.
+ * Utility methods related to searching join points and AST properties.
  */
-KadabraAst.getConstantInitializations = function($startingPoint) {
+export class KadabraAst {
+    private static _BINARY_OP_SET: Set<string> | undefined;
+    private static _UNARY_OP_SET: Set<string> | undefined;
 
-	if($startingPoint === undefined) {
-		$startingPoint = Query.root();
-	}
-
-	var constants = [];
-
-	for(var $field of Query.searchFromInclusive($startingPoint, 'field').get()) {
-
-		if($field.init === undefined) {
-			continue;
-		}
-
-		if(!$field.isFinal) {
-			continue;
-		}
-
-		constants.push($field);
-	}
-
-	for(var $assign of Query.searchFromInclusive($startingPoint, 'assignment').get()) {
-		
-		if(!$assign.lhs.isFinal) {
-			continue;
-		}
-
-		constants.push($assign);
-	}	
-
-
-	for(var $localVar of Query.searchFromInclusive($startingPoint, 'localVariable').get()) {
-		if($localVar.init === undefined) {
-			continue;
-		}
-		
-		if(!$localVar.isFinal) {
-			continue;
-		}
-
-		constants.push($localVar);
-	}	
-
-	return constants;
-}
-
-KadabraAst._BINARY_OP_SET = undefined;
-
-/**
- * @return {lara.util.StringSet} String set with valid binary operators
- */
-KadabraAst.getBinaryOperators = function() {
-
-	// Initialize, if undefined
-	if(KadabraAst._BINARY_OP_SET === undefined) {
-		KadabraAst._BINARY_OP_SET = new StringSet();
-		
-		for(var binaryOp of _KadabraJavaTypes.getOperatorUtils().getValidBinaryStrings()) {
-			KadabraAst._BINARY_OP_SET.add(binaryOp);
-		}
-		
-		// TODO: Lock set?
-	}
-
-	return KadabraAst._BINARY_OP_SET;
-}
-
-KadabraAst._UNARY_OP_SET = undefined;
-
-/**
- * @return {lara.util.StringSet} String set with valid unary operators
- */
-KadabraAst.getUnaryOperators = function() {
-
-	// Initialize, if undefined
-	if(KadabraAst._UNARY_OP_SET === undefined) {
-		KadabraAst._UNARY_OP_SET = new StringSet();
-		
-		for(var unaryOp of _KadabraJavaTypes.getOperatorUtils().getValidUnaryStrings()) {
-			KadabraAst._UNARY_OP_SET.add(unaryOp);
-		}
-		
-		// TODO: Lock set?
-	}
-
-	return KadabraAst._UNARY_OP_SET;
-}
-
-/**
- * Creates an object representing the class hierarchy of the current program.
- *
- * @return {map{string:$class[]}} map where the keys are String with the fully qualified name of the class, and the value is an array with $class join points that are subclasses of the class represented by the key. If the map returns undefined, this means that the class has no subclasses.
- */
-KadabraAst.getHierarchy = function() {
-
-    var hierarchy = {};
-
-    for($jp of Query.search("class")) {
-        var superClass = $jp.superClass;
-        var subClasses = hierarchy[superClass];
-        
-        // Initialize array if needed
-        if(subClasses === undefined) {
-            subClasses = [];
-            hierarchy[superClass] = subClasses;
+    /**
+     * Searches constant values. Currently, three types of constants are returned:
+     * - Class fields which are final and initialized when declared;
+     * - Assignments to final fields;
+     * - Local variables which are final and initialized when declared.
+     *
+     * @param startingPoint - The join point where the search for constants will start (inclusive).
+     * @returns An array of join points, which can either be a field, an assignment, or a local variable.
+     */
+    static getConstantInitializations(startingPoint?: LaraJoinPoint): (Field | Assignment | LocalVariable)[] {
+        if (!startingPoint) {
+            startingPoint = Query.root();
         }
 
-        subClasses.push($jp);
-        
-        //console.log("Name: " + $jp.qualifiedName);
+        const constants: (Field | Assignment | LocalVariable)[] = [];
+
+        // Search for final fields with initializations
+        for (const field of Query.searchFromInclusive(startingPoint, Field)) {
+            if (field.init !== undefined && field.isFinal) {
+                constants.push(field);
+            }
+        }
+
+        // Search for assignments to final fields
+        for (const assign of Query.searchFromInclusive(startingPoint, Assignment)) {
+            if (assign.lhs.isFinal) {
+                constants.push(assign);
+            }
+        }
+
+        // Search for final local variables with initializations
+        for (const localVar of Query.searchFromInclusive(startingPoint, LocalVariable)) {
+            if (localVar.init !== undefined && localVar.isFinal) {
+                constants.push(localVar);
+            }
+        }
+        return constants;
     }
-    
-	return hierarchy;
+
+    /**
+     * Retrieves a set of valid binary operators.
+     *
+     * @returns A Set<string> with valid binary operators.
+     */
+    static getBinaryOperators(): Set<string> {
+        if (!this._BINARY_OP_SET) {
+            this._BINARY_OP_SET = new Set<string>();
+            for (const binaryOp of KadabraJavaTypes.OperatorUtils.getValidBinaryStrings()) {
+                this._BINARY_OP_SET.add(binaryOp);
+            }
+        }
+        return this._BINARY_OP_SET;
+    }
+
+    /**
+     * Retrieves a set of valid unary operators.
+     *
+     * @returns A Set<string> with valid unary operators.
+     */
+    static getUnaryOperators(): Set<string> {
+        if (!this._UNARY_OP_SET) {
+            this._UNARY_OP_SET = new Set<string>();
+            for (const unaryOp of KadabraJavaTypes.OperatorUtils.getValidUnaryStrings()) {
+                this._UNARY_OP_SET.add(unaryOp);
+            }
+        }
+        return this._UNARY_OP_SET;
+    }
+
+    /**
+     * Creates an object representing the class hierarchy of the current program.
+     *
+     * @returns A map where the keys are strings with the fully qualified name of the class,
+     * and the value is an array with class join points that are subclasses of the class represented by the key.
+     * If the map returns undefined, this means that the class has no subclasses.
+     */
+    static getHierarchy(): Record<string, Class[]> {
+        const hierarchy: Record<string, Class[]> = {};
+
+        for (const cls of Query.search(Class)) {
+            const superClass = cls.superClass;
+			let subClasses = hierarchy[superClass];
+
+			if (subClasses === undefined) {
+				subClasses = [];
+				hierarchy[superClass] = subClasses;
+			}
+			subClasses.push(cls);
+        }
+
+        return hierarchy;
+    }
 }
