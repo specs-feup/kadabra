@@ -26,14 +26,14 @@ public enum KadabraApiJsResource implements LaraResourceProvider {
 
     JOINPOINTS_JS("Joinpoints.js"),
     KADABRA_JS("Kadabra.js"),
-    KADABRAJAVATYPES_JS("kadabra/KadabraJavaTypes.js"),
-    FACTORY_JS("kadabra/Factory.js"),
-    KADABRAAST_JS("kadabra/KadabraAst.js"),
-    KADABRANODES_JS("kadabra/KadabraNodes.js"),
-    METRICS_JS("kadabra/Metrics.js"),
-    TRANSFORM_JS("kadabra/Transform.js"),
-    TYPES_JS("kadabra/Types.js"),
-    UTILS_JS("kadabra/Utils.js");
+    KADABRAJAVATYPES_JS("KadabraJavaTypes.js"),
+    FACTORY_JS("Factory.js"),
+    KADABRAAST_JS("KadabraAst.js"),
+    KADABRANODES_JS("KadabraNodes.js"),
+    METRICS_JS("Metrics.js"),
+    TRANSFORM_JS("Transform.js"),
+    TYPES_JS("Types.js"),
+    UTILS_JS("Utils.js");
 
     private final String resource;
 
