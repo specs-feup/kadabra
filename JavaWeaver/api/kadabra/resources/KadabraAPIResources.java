@@ -19,7 +19,6 @@ import pt.up.fe.specs.util.providers.ResourceProvider;
 public enum KadabraAPIResources implements ResourceProvider {
 
     CounterList(PackageProvider.monitorPackage, "CounterList"),
-    Counter(PackageProvider.monitorPackage, "Counter"),
     Timer(PackageProvider.monitorPackage, "Timer"),
     Specializer(PackageProvider.adaptPackage, "Specializer"),
     Adapter(PackageProvider.adaptPackage, "Adapter"),
@@ -64,7 +63,8 @@ public enum KadabraAPIResources implements ResourceProvider {
 
     private KadabraAPIResources(String fileName) {
         // var filenameExtension = SpecsIo.getExtension(fileName);
-        // var realExtension = filenameExtension.isEmpty() ? extension : filenameExtension;
+        // var realExtension = filenameExtension.isEmpty() ? extension :
+        // filenameExtension;
         // resource = basePackage + fileName + realExtension;
         this("", fileName);
     }
