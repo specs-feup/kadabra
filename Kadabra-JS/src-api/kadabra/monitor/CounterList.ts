@@ -5,7 +5,6 @@
 import Query from "@specs-feup/lara/api/weaver/Query.js";
 import {
     App,
-    Body,
     Class,
     Constructor,
     Field,
@@ -68,13 +67,15 @@ export function CountingMonitorList(
 	Returns the counting monitor list. if it does not exist creates a new class
 */
 function GetCountingMonitorList(packageName: string, simpleName: string) {
-    const jpClasses = Query.search(FileJp).search(Class, {
-        name: simpleName,
-        packageName: packageName,
-    });
+    const monitorClass = Query.search(FileJp)
+        .search(Class, {
+            name: simpleName,
+            packageName: packageName,
+        })
+        .getFirst();
 
-    for (const jpClass of jpClasses) {
-        return jpClass;
+    if (monitorClass !== undefined) {
+        return monitorClass;
     }
 
     return NewCountingMonitorList(packageName, simpleName);
@@ -82,35 +83,42 @@ function GetCountingMonitorList(packageName: string, simpleName: string) {
 
 function NewCountingMonitorList(packageName: string, simpleName: string) {
     const className = packageName + "." + simpleName;
-    (Query.root() as App).newClass(className);
+    const monitorClass = (Query.root() as App).newClass(className);
 
-    let monitorClass: Class;
-
-    const classSearch = Query.search(FileJp).search(Class, simpleName);
-    for (const c of classSearch) {
-        monitorClass = c;
-        c.newField(["private"], "int[]", "counter");
-        c.newConstructor(["public"], ["int"], ["size"]);
-        c.newMethod(["public"], "void", "increment", ["int"], ["id"]);
-        c.newMethod(["public"], "int", "get", ["int"], ["id"]);
-        c.newMethod(["public"], "void", "reset", ["int"], ["id"]);
+    if (monitorClass === undefined) {
+        return undefined;
     }
 
-    for (const b of classSearch.search(Method, "increment").search(Body)) {
-        b.insertReplace("counter[id]++");
-    }
+    monitorClass.newField(["private"], "int[]", "counter");
+    monitorClass.newMethod(
+        ["public"],
+        "void",
+        "increment",
+        ["int"],
+        ["id"],
+        "counter[id]++;"
+    );
+    monitorClass.newMethod(
+        ["public"],
+        "int",
+        "get",
+        ["int"],
+        ["id"],
+        "return counter[id];"
+    );
+    monitorClass.newMethod(
+        ["public"],
+        "void",
+        "reset",
+        ["int"],
+        ["id"],
+        "counter[id] = 0;"
+    );
+    monitorClass.newConstructor(["public"], ["int"], ["size"]);
 
-    for (const b of classSearch.search(Method, "get").search(Body)) {
-        b.insertReplace("return counter[id];");
-    }
-
-    for (const b of classSearch.search(Method, "reset").search(Body)) {
-        b.insertReplace("counter[id] = 0;");
-    }
-
-    for (const b of classSearch.search(Constructor).search(Body)) {
-        b.insertReplace("counter = new int[size];");
-    }
+    Query.searchFrom(monitorClass, Constructor, "increment")
+        .getFirst()
+        .body.insertReplace("counter = new int[size];");
 
     return monitorClass;
 }

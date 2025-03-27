@@ -5,7 +5,6 @@ import Query from "@specs-feup/lara/api/weaver/Query.js";
 import { Class, Field, FileJp, } from "../../Joinpoints.js";
 export function NewCounter(jpClass, name = "counter", fullPath = false) {
     const jpField = jpClass.newField(["public", "static"], "weaver.kadabra.monitor.Counter", name, "new Counter()");
-    let $counter;
     let newName = jpField.name;
     if (fullPath) {
         const prefix = jpClass.qualifiedName + ".";
@@ -15,7 +14,6 @@ export function NewCounter(jpClass, name = "counter", fullPath = false) {
     const reset = newName + ".reset()";
     const getValue = newName + ".getValue()";
     return {
-        $counter: $counter,
         increment: increment,
         getValue: getValue,
         reset: reset,
@@ -42,7 +40,7 @@ export function CountingMonitor(targetClass, targetMethod, targetStmt, location 
     }
     targetClass.newField(modifiers, monitorClass.qualifiedName, name, "new " + monitorClass.name + "()");
     if (targetStmt != undefined) {
-        targetStmt.insert(location, "[[increment]];");
+        targetStmt.insert(location, `${increment};`);
     }
     return {
         name: name,
@@ -55,26 +53,27 @@ export function CountingMonitor(targetClass, targetMethod, targetStmt, location 
     Returns the counting monitor. if it does not exist creates a new class
 */
 function GetCountingMonitor(packageName, simpleName) {
-    const jpClasses = Query.search(FileJp).search(Class, {
+    const monitorClass = Query.search(FileJp)
+        .search(Class, {
         name: simpleName,
         packageName: packageName,
-    });
-    for (const jpClass of jpClasses) {
-        return jpClass;
+    })
+        .getFirst();
+    if (monitorClass !== undefined) {
+        return monitorClass;
     }
     return NewCountingMonitor(packageName, simpleName);
 }
 function NewCountingMonitor(packageName, simpleName) {
     const className = packageName + "." + simpleName;
-    Query.root().newClass(className);
-    let monitorClass;
-    for (const c of Query.search(FileJp).search(Class, simpleName)) {
-        monitorClass = c;
-        c.newField(["private"], "int", "counter");
-        c.newMethod(["public"], "void", "increment", [], [], "counter++;");
-        c.newMethod(["public"], "int", "getValue", [], [], "return counter;");
-        c.newMethod(["public"], "void", "reset", [], [], "counter = 0;");
+    const monitorClass = Query.root().newClass(className);
+    if (monitorClass === undefined) {
+        return undefined;
     }
+    monitorClass.newField(["private"], "int", "counter");
+    monitorClass.newMethod(["public"], "void", "increment", [], [], "counter++;");
+    monitorClass.newMethod(["public"], "int", "getValue", [], [], "return counter;");
+    monitorClass.newMethod(["public"], "void", "reset", [], [], "counter = 0;");
     return monitorClass;
 }
 //# sourceMappingURL=Counter.js.map

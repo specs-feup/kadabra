@@ -20,7 +20,6 @@ export function NewCounter(jpClass: Class, name = "counter", fullPath = false) {
         "new Counter()"
     );
 
-    let $counter;
     let newName = jpField.name;
     if (fullPath) {
         const prefix = jpClass.qualifiedName + ".";
@@ -31,7 +30,6 @@ export function NewCounter(jpClass: Class, name = "counter", fullPath = false) {
     const getValue = newName + ".getValue()";
 
     return {
-        $counter: $counter,
         increment: increment,
         getValue: getValue,
         reset: reset,
@@ -90,13 +88,15 @@ export function CountingMonitor(
 	Returns the counting monitor. if it does not exist creates a new class
 */
 function GetCountingMonitor(packageName: string, simpleName: string) {
-    const jpClasses = Query.search(FileJp).search(Class, {
-        name: simpleName,
-        packageName: packageName,
-    });
+    const monitorClass = Query.search(FileJp)
+        .search(Class, {
+            name: simpleName,
+            packageName: packageName,
+        })
+        .getFirst();
 
-    for (const jpClass of jpClasses) {
-        return jpClass;
+    if (monitorClass !== undefined) {
+        return monitorClass;
     }
 
     return NewCountingMonitor(packageName, simpleName);
@@ -104,16 +104,30 @@ function GetCountingMonitor(packageName: string, simpleName: string) {
 
 function NewCountingMonitor(packageName: string, simpleName: string) {
     const className = packageName + "." + simpleName;
-    (Query.root() as App).newClass(className);
+    const monitorClass = (Query.root() as App).newClass(className);
 
-    let monitorClass: Class;
-    for (const c of Query.search(FileJp).search(Class, simpleName)) {
-        monitorClass = c;
-        c.newField(["private"], "int", "counter");
-        c.newMethod(["public"], "void", "increment", [], [], "counter++;");
-        c.newMethod(["public"], "int", "getValue", [], [], "return counter;");
-        c.newMethod(["public"], "void", "reset", [], [], "counter = 0;");
+    if (monitorClass === undefined) {
+        return undefined;
     }
+
+    monitorClass.newField(["private"], "int", "counter");
+    monitorClass.newMethod(
+        ["public"],
+        "void",
+        "increment",
+        [],
+        [],
+        "counter++;"
+    );
+    monitorClass.newMethod(
+        ["public"],
+        "int",
+        "getValue",
+        [],
+        [],
+        "return counter;"
+    );
+    monitorClass.newMethod(["public"], "void", "reset", [], [], "counter = 0;");
 
     return monitorClass;
 }
