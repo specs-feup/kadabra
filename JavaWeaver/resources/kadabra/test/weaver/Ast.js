@@ -1,5 +1,5 @@
 laraImport("weaver.Query");
-import { KadabraNodes } from "../../../../../Kadabra-JS/src-api/kadabra/KadabraNodes.js"
+laraImport("kadabra.KadabraNodes");
 
 // Print AST
 console.log(Query.search('file').first().ast);

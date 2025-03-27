@@ -1,5 +1,5 @@
 laraImport("weaver.Query");
-import { KadabraNodes } from "../../../../../Kadabra-JS/src-api/kadabra/KadabraNodes.js"
+laraImport("kadabra.KadabraNodes");
 
 for (var $literal of Query.search('method', {name: 'foo1'}).search('literal')) {
 	console.log("old value: " + $literal.value);	
