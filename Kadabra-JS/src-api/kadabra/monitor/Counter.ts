@@ -75,7 +75,7 @@ export function CountingMonitor(
     );
 
     if (targetStmt != undefined) {
-        targetStmt.insert(location, "[[increment]];");
+        targetStmt.insert(location, `${increment};`);
     }
 
     return {
