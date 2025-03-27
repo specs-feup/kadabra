@@ -1,16 +1,14 @@
 import Query from "@specs-feup/lara/api/weaver/Query.js";
-import { App, Joinpoint } from "../Joinpoints.js";
+import { App, Body, Class, Method, Return } from "../Joinpoints.js";
 
 export class Utils {
     /**
      * Opens a window with the AST of Spoon.
      *
      * @param name - The name of the AST window.
-     * 
-     * TODO: No idea if this is the correct way to do this
      */
     static showAST(name: string = "Spoon Tree"): void {
-        (Query.root() as App).showAST(name);
+        Query.search(App).getFirst().showAST(name);
     }
 
     /**
@@ -81,8 +79,8 @@ export class Utils {
      * @param message - The message to print.
      */
     static printOnMain(message: string): void {
-        for (const $method of Query.search("class").search("method", "main")) {
-            this.beforeExit($method as Joinpoint, `System.out.println(${message});`);
+        for (const $method of Query.search(Class).search(Method, "main")) {
+            this.beforeExit($method, `System.out.println(${message});`);
         }
     }
 
@@ -92,8 +90,8 @@ export class Utils {
      * @param code - The code to insert.
      */
     static beforeExitMain(code: string): void {
-        for (const $method of Query.search("class").search("method", "main")) {
-            this.beforeExit($method as Joinpoint, code);
+        for (const $method of Query.search(Class).search(Method, "main")) {
+            this.beforeExit($method, code);
         }
     }
 
@@ -103,11 +101,11 @@ export class Utils {
      * @param method - The method join point.
      * @param code - The code to insert.
      */
-    static beforeExit(method: Joinpoint, code: string): void {
+    static beforeExit(method: Method, code: string): void {
         let inserted = false;
 
         // Try to insert before return statements
-        for (const stmt of Query.searchFrom(method).search("body.return")) {
+        for (const stmt of Query.searchFrom(method.body, Return)) { 
             stmt.insert("before", code);
             inserted = true;
         }
@@ -121,7 +119,7 @@ export class Utils {
         if (inserted) return;
 
         // Else, insert into an empty method
-        for (const body of Query.searchFrom(method).search("body")) {
+        for (const body of Query.searchFrom(method).search(Body)) {
             body.insert("replace", code);
         }
     }
@@ -132,12 +130,12 @@ export class Utils {
      * @returns An object containing the API names.
      */
     static getAPINames(): { concurrentPackage: string; channel: string; thread: string; product: string } {
-        const concurrentPackage = "weaver.kadabra.concurrent";
-        const channel = `${concurrentPackage}.KadabraChannel`;
-        const thread = `${concurrentPackage}.KadabraThread`;
-        const product = `${concurrentPackage}.Product`;
-
-        return { concurrentPackage, channel, thread, product };
+        return {
+            concurrentPackage: "weaver.kadabra.concurrent",
+            channel: "weaver.kadabra.concurrent.KadabraChannel",
+            thread: "weaver.kadabra.concurrent.KadabraThread",
+            product: "weaver.kadabra.concurrent.Product"
+        };
     }
 
     /**
@@ -147,7 +145,7 @@ export class Utils {
      * @param defaultValue - The default value of the property (optional).
      * @returns The generated code as a string.
      */
-    static getIntegerProperty(name: string, defaultValue?: string): string {
+    static integerProperty(name: string, defaultValue?: string): string {
         let code = `Integer.parseInt(System.getProperty(${JSON.stringify(name)}`;
         if (defaultValue !== undefined) {
             code += `, "${defaultValue}"`;
@@ -164,21 +162,21 @@ export class Utils {
      * @param methodName - The name of the method.
      * @returns An array of method join points.
      */
-    static getMethods(className: string = ".*", methodName?: string): Joinpoint[] {
+    static getMethod(className: string = ".*", methodName?: string): Method | Array<Method | Method[]> {
         if (!methodName) {
             methodName = className;
             className = ".*";
         }
         // select class{qualifiedName~=className}.method{name==methodName} end
         // This is most likely wrong but I don't know how to do it properly
-        let methods: Joinpoint[] = [];
-        for (const method of Query.search('class', { qualifiedName: className }).search('method', {name: methodName })) {
-            if (methods.length === 0) {
-                methods.push(method as Joinpoint);
+        let methods: Method | Array<Method | Method[]> = undefined;
+        for (const method of Query.search(Class, { qualifiedName: className }).search(Method, { name: methodName })) {
+            if (methods == undefined) {
+                methods = method;
             } else if (Array.isArray(methods)) {
-                methods.push(method as Joinpoint);
+                methods.push(method);
             } else {
-                methods = [methods, method as Joinpoint];
+                methods = [methods, method];
             }
         }
         return methods;
@@ -190,18 +188,18 @@ export class Utils {
      * @param className - The name of the class.
      * @returns An array of class join points.
      */
-    static GetClass(className: string = ".*"): Joinpoint[] {
+    static getClass(className: string = ".*"): Class | Array<Class | Class[]> {
 
         // select class{name~=className} end
         // Same here, don't know how to express the ~= operator
-        let classes: Joinpoint[] = [];
-        for (const cls of Query.search('class', {name: className})) {
-            if (classes.length === 0) {
-                classes.push(cls as Joinpoint);
+        let classes: Class | Array<Class | Class[]> = undefined;
+        for (const cls of Query.search(Class, {name: className})) {
+            if (classes == undefined) {
+                classes = cls;
             } else if (Array.isArray(classes)) {
-                classes.push(cls as Joinpoint);
+                classes.push(cls);
             } else {
-                classes = [classes, cls as Joinpoint];
+                classes = [classes, cls];
             }
         }
         return classes;

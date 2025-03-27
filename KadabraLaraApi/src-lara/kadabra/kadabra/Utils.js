@@ -1,14 +1,14 @@
 import Query from "@specs-feup/lara/api/weaver/Query.js";
+import { App, Body, Class, Method, Return } from "../Joinpoints.js";
+
 export class Utils {
     /**
      * Opens a window with the AST of Spoon.
      *
      * @param name - The name of the AST window.
-     *
-     * TODO: No idea if this is the correct way to do this
      */
     static showAST(name = "Spoon Tree") {
-        Query.root().showAST(name);
+        Query.search(App).getFirst().showAST(name);
     }
     /**
      * Converts a primitive type to its wrapper class.
@@ -75,7 +75,7 @@ export class Utils {
      * @param message - The message to print.
      */
     static printOnMain(message) {
-        for (const $method of Query.search("class").search("method", "main")) {
+        for (const $method of Query.search(Class).search(Method, "main")) {
             this.beforeExit($method, `System.out.println(${message});`);
         }
     }
@@ -85,7 +85,7 @@ export class Utils {
      * @param code - The code to insert.
      */
     static beforeExitMain(code) {
-        for (const $method of Query.search("class").search("method", "main")) {
+        for (const $method of Query.search(Class).search(Method, "main")) {
             this.beforeExit($method, code);
         }
     }
@@ -98,7 +98,7 @@ export class Utils {
     static beforeExit(method, code) {
         let inserted = false;
         // Try to insert before return statements
-        for (const stmt of Query.searchFrom(method).search("body.return")) {
+        for (const stmt of Query.searchFrom(method.body, Return)) { 
             stmt.insert("before", code);
             inserted = true;
         }
@@ -112,7 +112,7 @@ export class Utils {
         if (inserted)
             return;
         // Else, insert into an empty method
-        for (const body of Query.searchFrom(method).search("body")) {
+        for (const body of Query.searchFrom(method).search(Body)) {
             body.insert("replace", code);
         }
     }
@@ -122,11 +122,12 @@ export class Utils {
      * @returns An object containing the API names.
      */
     static getAPINames() {
-        const concurrentPackage = "weaver.kadabra.concurrent";
-        const channel = `${concurrentPackage}.KadabraChannel`;
-        const thread = `${concurrentPackage}.KadabraThread`;
-        const product = `${concurrentPackage}.Product`;
-        return { concurrentPackage, channel, thread, product };
+        return {
+            concurrentPackage: "weaver.kadabra.concurrent",
+            channel: "weaver.kadabra.concurrent.KadabraChannel",
+            thread: "weaver.kadabra.concurrent.KadabraThread",
+            product: "weaver.kadabra.concurrent.Product"
+        };
     }
     /**
      * Generates code to retrieve an integer property from the system.
@@ -150,17 +151,17 @@ export class Utils {
      * @param methodName - The name of the method.
      * @returns An array of method join points.
      */
-    static getMethods(className = ".*", methodName) {
+    static getMethod(className = ".*", methodName) {
         if (!methodName) {
             methodName = className;
             className = ".*";
         }
         // select class{qualifiedName~=className}.method{name==methodName} end
         // This is most likely wrong but I don't know how to do it properly
-        let methods = [];
-        for (const method of Query.search('class', { qualifiedName: className }).search('method', { name: methodName })) {
-            if (methods.length === 0) {
-                methods.push(method);
+        let methods = undefined;
+        for (const method of Query.search(Class, { qualifiedName: className }).search(Method, { name: methodName })) {
+            if (methods == undefined) {
+                methods = method;
             }
             else if (Array.isArray(methods)) {
                 methods.push(method);
@@ -177,13 +178,13 @@ export class Utils {
      * @param className - The name of the class.
      * @returns An array of class join points.
      */
-    static GetClass(className = ".*") {
+    static getClass(className = ".*") {
         // select class{name~=className} end
         // Same here, don't know how to express the ~= operator
-        let classes = [];
-        for (const cls of Query.search('class', { name: className })) {
-            if (classes.length === 0) {
-                classes.push(cls);
+        let classes = undefined;
+        for (const cls of Query.search(Class, {name: className})) {
+            if (classes == undefined) {
+                classes = cls;
             }
             else if (Array.isArray(classes)) {
                 classes.push(cls);
