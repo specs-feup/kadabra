@@ -48,10 +48,11 @@ export function CountingMonitor(
     let name = "kadabra" + monitorClass.name;
 
     let counter = 0;
-    const search = Query.searchFrom(targetClass, Field, {
-        name: (n) => n == name + counter,
-    });
-    for (const _ of search) {
+    while (
+        Query.searchFrom(targetClass, Field, {
+            name: (n) => n == name + counter,
+        }).get().length !== 0
+    ) {
         counter++;
     }
 

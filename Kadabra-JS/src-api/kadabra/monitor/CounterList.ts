@@ -3,14 +3,7 @@
 */
 
 import Query from "@specs-feup/lara/api/weaver/Query.js";
-import {
-    App,
-    Class,
-    Constructor,
-    Field,
-    FileJp,
-    Method,
-} from "../../Joinpoints.js";
+import { App, Class, Constructor, Field, FileJp } from "../../Joinpoints.js";
 
 export function CountingMonitorList(
     targetClass: Class,
@@ -23,10 +16,11 @@ export function CountingMonitorList(
     let name = "kadabra" + monitor.name;
 
     let counter = 0;
-    const search = Query.searchFrom(targetClass, Field, {
-        name: (n) => n == name + counter,
-    });
-    for (const _ of search) {
+    while (
+        Query.searchFrom(targetClass, Field, {
+            name: (n) => n == name + counter,
+        }).get().length !== 0
+    ) {
         counter++;
     }
 

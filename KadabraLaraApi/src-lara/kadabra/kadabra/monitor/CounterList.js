@@ -2,15 +2,14 @@
     Monitor the occurences of a given join point;
 */
 import Query from "@specs-feup/lara/api/weaver/Query.js";
-import { Class, Constructor, Field, FileJp, } from "../../Joinpoints.js";
+import { Class, Constructor, Field, FileJp } from "../../Joinpoints.js";
 export function CountingMonitorList(targetClass, monitorPackage = "pt.up.fe.specs.lara.kadabra.utils") {
     const monitor = GetCountingMonitorList(monitorPackage, "CountingMonitorList");
     let name = "kadabra" + monitor.name;
     let counter = 0;
-    const search = Query.searchFrom(targetClass, Field, {
+    while (Query.searchFrom(targetClass, Field, {
         name: (n) => n == name + counter,
-    });
-    for (const _ of search) {
+    }).get().length !== 0) {
         counter++;
     }
     function callMethod(method, arg) {

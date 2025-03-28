@@ -24,10 +24,9 @@ export function CountingMonitor(targetClass, targetMethod, targetStmt, location 
     const monitorClass = GetCountingMonitor(monitorPackage, "CountingMonitor");
     let name = "kadabra" + monitorClass.name;
     let counter = 0;
-    const search = Query.searchFrom(targetClass, Field, {
+    while (Query.searchFrom(targetClass, Field, {
         name: (n) => n == name + counter,
-    });
-    for (const _ of search) {
+    }).get().length !== 0) {
         counter++;
     }
     name += counter;
