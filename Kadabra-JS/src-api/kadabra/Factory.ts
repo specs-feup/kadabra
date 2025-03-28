@@ -135,10 +135,14 @@ export class Factory {
     }
 }
 
-function Mod() {}
-Mod.PRIVATE = "private";
-Mod.PUBLIC = "private";
-Mod.PROTECTED = "private";
-Mod.STATIC = "private";
-Mod.PUBLIC_STATIC = ["public", "static"];
-Mod.PRIVATE_STATIC = ["private", "static"];
+/**
+ * Utility class for defining common modifiers.
+ */
+export class Mod {
+    static readonly PRIVATE = "private";
+    static readonly PUBLIC = "public";
+    static readonly PROTECTED = "protected";
+    static readonly STATIC = "static";
+    static readonly PUBLIC_STATIC = ["public", "static"];
+    static readonly PRIVATE_STATIC = ["private", "static"];
+}

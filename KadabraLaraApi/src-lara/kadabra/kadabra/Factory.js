@@ -123,11 +123,15 @@ export class Factory {
         };
     }
 }
-function Mod() { }
-Mod.PRIVATE = "private";
-Mod.PUBLIC = "private";
-Mod.PROTECTED = "private";
-Mod.STATIC = "private";
-Mod.PUBLIC_STATIC = ["public", "static"];
-Mod.PRIVATE_STATIC = ["private", "static"];
+/**
+ * Utility class for defining common modifiers.
+ */
+export class Mod {
+    static PRIVATE = "private";
+    static PUBLIC = "public";
+    static PROTECTED = "protected";
+    static STATIC = "static";
+    static PUBLIC_STATIC = ["public", "static"];
+    static PRIVATE_STATIC = ["private", "static"];
+}
 //# sourceMappingURL=Factory.js.map
