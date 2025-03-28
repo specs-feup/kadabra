@@ -31,8 +31,7 @@ export class Metric {
 
         // Iterate over all types and process their metrics
         for (const type of Query.search(Type)) {
-            const typeReport = this.reportType(type);
-            this.mergeReports(report, typeReport);
+            this.mergeReports(report, this.reportType(type));
         }
 
         return report;
@@ -101,8 +100,7 @@ export class Metric {
         // Count methods and generate method reports
         for (const method of Query.searchFrom(type, Method)) {
             report.numOf.methods++;
-            const methodReport = this.reportMethod(method);
-            report.methods.push(methodReport);
+            report.methods.push(this.reportMethod(method));
         }
 
         return report;

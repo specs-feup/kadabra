@@ -170,13 +170,13 @@ export function integerProperty(name: any, defaultValue?: string): string {
  * @param methodName - The name of the method.
  * @returns An array of method join points.
  */
-export function getMethod(className: string = ".*", methodName?: string): Method | Array<Method | Method[]> {
+export function getMethod(className: string = ".*", methodName?: string): Method | Method[] {
     if (!methodName) {
         methodName = className;
         className = ".*";
     }
 
-    let methods: Method | Array<Method | Method[]> = undefined;
+    let methods: Method | Method[] = undefined;
     for (const method of Query.search(Class, { qualifiedName: className }).search(Method, { name: methodName })) {
         if (methods == undefined) {
             methods = method;
@@ -195,8 +195,8 @@ export function getMethod(className: string = ".*", methodName?: string): Method
  * @param className - The name of the class.
  * @returns An array of class join points.
  */
-export function getClass(className: string = ".*"): Class | Array<Class | Class[]> {
-    let classes: Class | Array<Class | Class[]> = undefined;
+export function getClass(className: string = ".*"): Class | Class[] {
+    let classes: Class | Class[] = undefined;
     for (const cls of Query.search(Class, { name: className })) {
         if (classes == undefined) {
             classes = cls;
