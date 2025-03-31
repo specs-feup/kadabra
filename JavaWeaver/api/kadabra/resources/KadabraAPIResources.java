@@ -43,14 +43,7 @@ public enum KadabraAPIResources implements ResourceProvider {
     Transform("Transform"),
     Metrics("Metrics"),
     Types("Types"),
-    Concurrent("Concurrent"),
-
-    BaseDetector("analysis/energy/detectors/", "BaseDetector.js"),
-    ExcessiveMethodCallsDetector("analysis/energy/detectors/", "ExcessiveMethodCallsDetector.js"),
-    HashMapUsageDetector("analysis/energy/detectors/", "HashMapUsageDetector.js"),
-    InternalGetterDetector("analysis/energy/detectors/", "InternalGetterDetector.js"),
-    MemberIgnoringMethodDetector("analysis/energy/detectors/", "MemberIgnoringMethodDetector.js"),
-    EnergyAwareAndroidPatterns("analysis/energy/", "EnergyAwareAndroidPatterns.js");
+    Concurrent("Concurrent");
 
     private KadabraAPIResources(String subPackage, String fileName) {
         var filenameExtension = SpecsIo.getExtension(fileName);

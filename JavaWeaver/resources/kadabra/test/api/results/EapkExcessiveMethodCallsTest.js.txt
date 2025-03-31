@@ -1,5 +1,4 @@
 Running Excessive Method Calls Detector...
 [
-"EapkExcessiveMethodCalls.java/EapkExcessiveMethodCalls/forLoopBad/someAdd(2):17",
-"EapkExcessiveMethodCalls.java/EapkExcessiveMethodCalls/forLoopBad/someMul(2):21"
+"EapkExcessiveMethodCalls.java/EapkExcessiveMethodCalls/forLoopBad/someAdd(2):17"
 ]
