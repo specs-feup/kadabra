@@ -88,7 +88,7 @@ export function CountingMonitor(
 /**
 	Returns the counting monitor. if it does not exist creates a new class
 */
-function GetCountingMonitor(packageName: string, simpleName: string) {
+export function GetCountingMonitor(packageName: string, simpleName: string) {
     const monitorClass = Query.search(FileJp)
         .search(Class, {
             name: simpleName,
@@ -103,7 +103,7 @@ function GetCountingMonitor(packageName: string, simpleName: string) {
     return NewCountingMonitor(packageName, simpleName);
 }
 
-function NewCountingMonitor(packageName: string, simpleName: string) {
+export function NewCountingMonitor(packageName: string, simpleName: string) {
     const className = packageName + "." + simpleName;
     const monitorClass = (Query.root() as App).newClass(className);
 

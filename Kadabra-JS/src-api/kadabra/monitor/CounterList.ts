@@ -60,7 +60,10 @@ export function CountingMonitorList(
 /**
 	Returns the counting monitor list. if it does not exist creates a new class
 */
-function GetCountingMonitorList(packageName: string, simpleName: string) {
+export function GetCountingMonitorList(
+    packageName: string,
+    simpleName: string
+) {
     const monitorClass = Query.search(FileJp)
         .search(Class, {
             name: simpleName,
@@ -75,7 +78,10 @@ function GetCountingMonitorList(packageName: string, simpleName: string) {
     return NewCountingMonitorList(packageName, simpleName);
 }
 
-function NewCountingMonitorList(packageName: string, simpleName: string) {
+export function NewCountingMonitorList(
+    packageName: string,
+    simpleName: string
+) {
     const className = packageName + "." + simpleName;
     const monitorClass = (Query.root() as App).newClass(className);
 
