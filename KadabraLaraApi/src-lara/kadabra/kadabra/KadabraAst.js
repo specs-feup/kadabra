@@ -17,7 +17,7 @@ export class KadabraAst {
      * @returns An array of join points, which can either be a field, an assignment, or a local variable.
      */
     static getConstantInitializations(startingPoint) {
-        if (!startingPoint) {
+        if (startingPoint === undefined) {
             startingPoint = Query.root();
         }
         const constants = [];
@@ -47,7 +47,7 @@ export class KadabraAst {
      * @returns A Set<string> with valid binary operators.
      */
     static getBinaryOperators() {
-        if (!this._BINARY_OP_SET) {
+        if (this._BINARY_OP_SET === undefined) {
             this._BINARY_OP_SET = new Set();
             for (const binaryOp of KadabraJavaTypes.OperatorUtils.getValidBinaryStrings()) {
                 this._BINARY_OP_SET.add(binaryOp);
@@ -61,7 +61,7 @@ export class KadabraAst {
      * @returns A Set<string> with valid unary operators.
      */
     static getUnaryOperators() {
-        if (!this._UNARY_OP_SET) {
+        if (this._UNARY_OP_SET === undefined) {
             this._UNARY_OP_SET = new Set();
             for (const unaryOp of KadabraJavaTypes.OperatorUtils.getValidUnaryStrings()) {
                 this._UNARY_OP_SET.add(unaryOp);

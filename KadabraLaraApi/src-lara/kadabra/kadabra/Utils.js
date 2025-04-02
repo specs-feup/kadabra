@@ -107,22 +107,20 @@ export function beforeExit(method, code) {
     let inserted = false;
     // Try to insert before return statements
     for (const stmt of Query.searchFrom(method.body, Return)) {
-        stmt.insert("before", code);
+        stmt.insertBefore(code);
         inserted = true;
     }
     if (inserted)
         return;
     // Try to insert after the last statement (for void methods)
-    for (const stmt of Query.searchFrom(method).search("body.lastStmt")) {
-        stmt.insert("after", code);
+    for (const body of Query.searchFrom(method, Body)) {
+        body.lastStmt.insertAfter(code);
         inserted = true;
     }
     if (inserted)
         return;
     // Else, insert into an empty method
-    for (const body of Query.searchFrom(method).search(Body)) {
-        body.insert("replace", code);
-    }
+    method.body.insertReplace(code);
 }
 /**
  * Generates API names for concurrent package components.
@@ -159,13 +157,13 @@ export function integerProperty(name, defaultValue) {
  * @returns An array of method join points.
  */
 export function getMethod(className = ".*", methodName) {
-    if (!methodName) {
+    if (methodName === undefined) {
         methodName = className;
         className = ".*";
     }
     let methods = undefined;
     for (const method of Query.search(Class, { qualifiedName: className }).search(Method, { name: methodName })) {
-        if (methods == undefined) {
+        if (methods === undefined) {
             methods = method;
         }
         else if (Array.isArray(methods)) {
@@ -186,7 +184,7 @@ export function getMethod(className = ".*", methodName) {
 export function getClass(className = ".*") {
     let classes = undefined;
     for (const cls of Query.search(Class, { name: className })) {
-        if (classes == undefined) {
+        if (classes === undefined) {
             classes = cls;
         }
         else if (Array.isArray(classes)) {

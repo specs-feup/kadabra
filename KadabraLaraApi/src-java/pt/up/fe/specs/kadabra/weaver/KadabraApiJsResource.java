@@ -26,16 +26,14 @@ public enum KadabraApiJsResource implements LaraResourceProvider {
 
     JOINPOINTS_JS("Joinpoints.js"),
     KADABRA_JS("Kadabra.js"),
-    KADABRAJAVATYPES_JS("kadabra/KadabraJavaTypes.js"),
-  
     FACTORY_JS("kadabra/Factory.js"),
     KADABRAAST_JS("kadabra/KadabraAst.js"),
+    KADABRAJAVATYPES_JS("kadabra/KadabraJavaTypes.js"),
     KADABRANODES_JS("kadabra/KadabraNodes.js"),
     METRICS_JS("kadabra/Metrics.js"),
     TRANSFORM_JS("kadabra/Transform.js"),
     TYPES_JS("kadabra/Types.js"),
     UTILS_JS("kadabra/Utils.js"),
-
     ENERGYAWAREANDROIDPATTERNS_JS("kadabra/analysis/energy/EnergyAwareAndroidPatterns.js"),
     BASEDETECTOR_JS("kadabra/analysis/energy/detectors/BaseDetector.js"),
     EXCESSIVEMETHODCALLSDETECTOR_JS("kadabra/analysis/energy/detectors/ExcessiveMethodCallsDetector.js"),
