@@ -1,139 +1,117 @@
 import Query from "@specs-feup/lara/api/weaver/Query.js";
 import { Class, FileJp, Method, InterfaceType, App } from "../Joinpoints.js";
-import { LaraJoinPoint } from "@specs-feup/lara/api/LaraJoinPoint.js";
 
-export class Factory {
-    /**
-     * Retrieves an existing class or creates a new one.
-     *
-     * @param qualifiedName - The qualified name of the class.
-     * @param extend - The class to extend (optional).
-     * @param implement - The interfaces to implement (optional).
-     * @param target - The target join point (optional).
-     * @returns The class join point.
-     */
-    static getOrNewClass(qualifiedName: string, extend: string | null = null, implement: string[] = [], target?: App): Class {
-		/*
-		select $sel=class{qualifiedName~=qualifiedName} end
-		apply
-			$class = $sel;
-			return;
-		end
+/**
+ * Retrieves an existing class or creates a new one.
+ *
+ * @param qualifiedName - The qualified name of the class.
+ * @param extend - The class to extend (optional).
+ * @param implement - The interfaces to implement (optional).
+ * @param target - The target join point (optional).
+ * @returns The class join point.
+ */
+export function getOrNewClass(qualifiedName: string, extend: string | null = null, implement: string[] = [], target?: App): Class {
+    const existingClass = Query.search(Class, (cls: Class) => cls.qualifiedName == qualifiedName).getFirst();
+    if (existingClass !== undefined) {
+        return existingClass;
+    }
+    return newClass(qualifiedName, extend, implement, target);
+}
 
-		Is '~=' the same as '=='?
+/**
+ * Creates a new class.
+ *
+ * @param qualifiedName - The qualified name of the class.
+ * @param extend - The class to extend (optional).
+ * @param implement - The interfaces to implement (optional).
+ * @param target - The target join point (optional).
+ * @returns The newly created class join point.
+ */
+export function newClass(qualifiedName: string, extend: string | null = null, implement: string[] = [], target?: App): Class {
+    if (target === undefined) {
+        target = Query.search(App).getFirst();
+    }
+    if (!(target instanceof App) || !(target instanceof FileJp)) {
+        throw new Error('The target join point for a new class must be of type App or FileJp.');
+    }
+    return target.newClass(qualifiedName, extend, implement);
+}
 
-		Also, could I write this like this:
-		const existingClass = Query.search(Class, (cls: any) => cls.qualifiedName == qualifiedName)[0];
-		if (existingClass) {
-			return existingClass;
-		}
-		*/
-        const existingClass = Query.search(Class, (cls: Class) => cls.qualifiedName == qualifiedName);
-		for (const cls of existingClass) {
-			if (cls) {
-            	return cls;
-        	}
-		}
-        return this.newClass(qualifiedName, extend, implement, target);
+/**
+ * Generates a provider function.
+ *
+ * @param code - The code to be executed by the provider.
+ * @param args - The arguments for the provider (optional).
+ * @returns The provider function as a string.
+ */
+export function providerOf(code: string, args?: string[]): string {
+    let providerCode = "(";
+    if (args != undefined && args.length > 0) {
+        providerCode += args[0];
+        for (let i = 1; i < args.length; i++) {
+            providerCode += "," + args[i];
+        }
+    }
+    return providerCode + ") -> " + code;
+}
+
+/**
+ * Generates a functional interface based on a method of a class.
+ *
+ * @param targetMethod - The name of the target method.
+ * @param targetClass - The name of the target class (optional).
+ * @param targetFile - The name of the target file (optional).
+ * @param associate - Whether to associate the interface with the class (optional).
+ * @param newFile - Whether to create the interface in a new file (optional).
+ * @returns The generated functional interface and related information.
+ */
+export function generateFunctionalInterface(targetMethod: string, targetClass: string = ".*", targetFile: string = ".*", associate: boolean = false, newFile: boolean = true)
+: {interface: InterfaceType; defaultMethod: Method; function: Method; targetMethodName: string} {
+    const class1 = Query.search(App).search(FileJp, (file: FileJp) => file.name == targetFile).search(Class, (cls: Class) => cls.qualifiedName == targetClass);
+
+    if (class1 === undefined) {
+        throw new Error("Could not find the class specified by the conditions: " + "file{" + targetFile + "}.class{" + targetClass + "}");
     }
 
-    /**
-     * Creates a new class.
-     *
-     * @param qualifiedName - The qualified name of the class.
-     * @param extend - The class to extend (optional).
-     * @param implement - The interfaces to implement (optional).
-     * @param target - The target join point (optional).
-     * @returns The newly created class join point.
-     */
-    static newClass(qualifiedName: string, extend: string | null = null, implement: string[] = [], target?: App): Class {
-        if (!target) {
-            target = Query.root() as App;
-        }
-		if (!(target instanceof LaraJoinPoint)) {
-			throw new Error("Target join point must be a valid join point.");
-		}
-        if (!(target.instanceOf("app") || target.instanceOf("file"))) {
-            throw new Error('The target join point for a new class must be "app" or "file".');
-        }
-		// $target.exec $c:newClass(qualifiedName, extend, implement);
-		// I think this is how to do this?
-        return target.newClass(qualifiedName, extend, implement);
+    const method = class1.search(Method, { name: targetMethod });
+
+    if (method === undefined) {
+        throw new Error("Could not find the method to extract a functional interface, specified by the conditions: " +
+            "file{" + targetFile + "}.class{" + targetClass + "}.method{" + targetMethod + "}");
     }
 
-    /**
-     * Generates a provider function.
-     *
-     * @param code - The code to be executed by the provider.
-     * @param args - The arguments for the provider (optional).
-     * @returns The provider function as a string.
-     */
-    static providerOf(code: string, args?: string[]): string {
-        let providerCode = "(";
-		if (args != undefined && args.length > 0) {
-			providerCode += args[0];
-			for (let i = 1; i < args.length; i++) {
-				providerCode += "," + args[i];
-			}
-		}
-		return providerCode + ") -> " + code;
-    }
+    let interface1 = undefined;
+    let defaultMethod1 = undefined;
+    let tempClass = undefined;
 
-    /**
-     * Generates a functional interface based on a method of a class.
-     *
-     * @param targetMethod - The name of the target method.
-     * @param targetClass - The name of the target class (optional).
-     * @param targetFile - The name of the target file (optional).
-     * @param associate - Whether to associate the interface with the class (optional).
-     * @param newFile - Whether to create the interface in a new file (optional).
-     * @returns The generated functional interface and related information.
-     */
-    static generateFunctionalInterface(targetMethod: string, targetClass: string = ".*", targetFile: string = ".*", associate: boolean = false, newFile: boolean = true)
-	: {interface: InterfaceType; defaultMethod: Method; function: Method , targetMethodName: string} {
-		// select app.file{name~=targetFile}.class{qualifiedName~=targetClass}.method{name==targetMethod} end
-		const class1 = Query.search(App).search(FileJp, (file: FileJp) => file.name == targetFile).search(Class, (cls: Class) => cls.qualifiedName == targetClass);
-        const method = class1.search(Method, { name: targetMethod });
-
-        if (!method) {
-            throw new Error("Could not find the method to extract a functional interface, specified by the conditions: " + 
-                "file{" + targetFile + "}.class{" + targetClass + "}.method{" + targetMethod + "}");
+    for (const m of method) {
+        if (interface1 !== undefined) {
+            throw Error("More than one method to be extracted, please redefine this aspect call. Target method: " +
+                targetMethod + ". 1st Location" + tempClass.qualifiedName + ". 2nd Location " + class1.getFirst().qualifiedName);
         }
-		let interface1 = undefined;
-        let defMethod = undefined;
-		let tempClass = undefined;
+        console.log("[LOG] Extracting functional interface from " + class1.getFirst().name + "#" + m.name);
 
-		for (const m of method) {
-			if (interface1 != undefined) {
-				throw Error("More than one method to be extracted, please redefine this aspect call. Target method: " + targetMethod +
-				". 1st Location" + tempClass.qualifiedName + ". 2nd Location " + class1.getFirst().qualifiedName);
-			}
-			console.log("[LOG] Extracting functional interface from " + class1.getFirst().name + "#" + m.name);
+        const interfacePackage = class1.getFirst().packageName;
+        const interfaceName = "I" + m.name.charAt(0).toUpperCase() + m.name.slice(1);
+        const newInterface = class1.getFirst().extractInterface(interfaceName, interfacePackage, m, associate, newFile);
 
-			const interfacePackage = class1.getFirst().packageName;
-			const interfaceName = 'I' + m.name.charAt(0).toUpperCase() + m.name.slice(1);
-			const newInterface = class1.getFirst().extractInterface(interfaceName, interfacePackage, m, associate, newFile);
+        if (newFile === undefined) {
+            newInterface.def('static', class1.getFirst().modifiers);
+            class1.getFirst().addInterface(newInterface);
+        }
 
-			if (!newFile) {
-                // newInterface.def modifiers = 'static';
-                // I think this is it?
-				newInterface.def('static', class1.getFirst().modifiers);
-				class1.getFirst().addInterface(newInterface);
-			}
-
-			interface1 = newInterface;
-			defMethod = m;
-			tempClass = class1;
+        interface1 = newInterface;
+        defaultMethod1 = m;
+        tempClass = class1;
 		}
 
         return {
             interface: interface1,
-            defaultMethod: defMethod,
+            defaultMethod: defaultMethod1,
             function: Query.searchFrom(interface1).search(Method, { name: targetMethod }).getFirst(),
 			targetMethodName: targetMethod
         };
     }
-}
 
 /**
  * Utility class for defining common modifiers.

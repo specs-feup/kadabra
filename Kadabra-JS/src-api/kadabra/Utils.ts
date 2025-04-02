@@ -116,22 +116,20 @@ export function beforeExit(method: Method, code: string): void {
 
     // Try to insert before return statements
     for (const stmt of Query.searchFrom(method.body, Return)) {
-        stmt.insert("before", code);
+        stmt.insertBefore(code);
         inserted = true;
     }
     if (inserted) return;
 
     // Try to insert after the last statement (for void methods)
-    for (const stmt of Query.searchFrom(method).search("body.lastStmt")) {
-        stmt.insert("after", code);
+    for (const body of Query.searchFrom(method, Body)) {
+        body.lastStmt.insertAfter(code);
         inserted = true;
     }
     if (inserted) return;
 
     // Else, insert into an empty method
-    for (const body of Query.searchFrom(method).search(Body)) {
-        body.insert("replace", code);
-    }
+    method.body.insertReplace(code);
 }
 
 /**
@@ -171,14 +169,14 @@ export function integerProperty(name: any, defaultValue?: string): string {
  * @returns An array of method join points.
  */
 export function getMethod(className: string = ".*", methodName?: string): Method | Method[] {
-    if (!methodName) {
+    if (methodName === undefined) {
         methodName = className;
         className = ".*";
     }
 
     let methods: Method | Method[] = undefined;
     for (const method of Query.search(Class, { qualifiedName: className }).search(Method, { name: methodName })) {
-        if (methods == undefined) {
+        if (methods === undefined) {
             methods = method;
         } else if (Array.isArray(methods)) {
             methods.push(method);
@@ -198,7 +196,7 @@ export function getMethod(className: string = ".*", methodName?: string): Method
 export function getClass(className: string = ".*"): Class | Class[] {
     let classes: Class | Class[] = undefined;
     for (const cls of Query.search(Class, { name: className })) {
-        if (classes == undefined) {
+        if (classes === undefined) {
             classes = cls;
         } else if (Array.isArray(classes)) {
             classes.push(cls);

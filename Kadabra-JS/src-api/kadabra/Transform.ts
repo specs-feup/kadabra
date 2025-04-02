@@ -1,154 +1,142 @@
 import Query from "@specs-feup/lara/api/weaver/Query.js";
-import { Method, InterfaceType, Class, Call, Field } from "../Joinpoints.js";
-import { Factory } from "./Factory.js";
+import { Method, InterfaceType, Class, Call, Field, App, FileJp } from "../Joinpoints.js";
+import { generateFunctionalInterface } from "./Factory.js";
 
 /**
- * Utility class for transforming method calls and generating mapping classes.
+ * Prepares a given method call by:
+ * - Extracting a functional interface.
+ * - Creating a field of that type.
+ * - Initializing the field with the called method.
+ * - Replacing the call with invocation of the field method.
+ *
+ * @param call - The method call join point.
+ * @param method - The method join point (optional).
+ * @param fieldLocation - The location to insert the field (optional).
+ * @param newFile - Whether to create the interface in a new file (default: true).
+ * @param funcInterface - The functional interface join point (optional).
+ * @returns An object containing the extracted field, interface, and related information.
  */
-export class Transform {
-    /**
-     * Prepares a given method call by:
-     * - Extracting a functional interface.
-     * - Creating a field of that type.
-     * - Initializing the field with the called method.
-     * - Replacing the call with invocation of the field method.
-     *
-     * @param call - The method call join point.
-     * @param method - The method join point (optional).
-     * @param fieldLocation - The location to insert the field (optional).
-     * @param newFile - Whether to create the interface in a new file (default: true).
-     * @param funcInterface - The functional interface join point (optional).
-     * @returns An object containing the extracted field, interface, and related information.
-     */
-    static extractToField(call: Call, method?: Method, fieldLocation?: Class, newFile: boolean = true, funcInterface: InterfaceType = null)
-	: {field: Field; interface: InterfaceType; interfaceMethod: Method; defaultMethod: string;} {
-		// check $call end
-		// Is 'check' this:
-		if (!call) {
-			return null;
-		}
-        if (!method) {
-            method = call.getAncestor('method') as Method;
-        }
-
-        if (!funcInterface) {
-            const extracted = Factory.generateFunctionalInterface(call.name, call.declarator, undefined, undefined, newFile);
-            funcInterface = extracted.interface;
-
-            if (funcInterface) {
-                console.log(`[LOG] Extracted a functional interface "${funcInterface.name}" based on method "${call.name}"`);
-            }
-        }
-
-        const defaultMethod = `${call.qualifiedDecl}::${call.name}`;
-
-        if (!fieldLocation) {
-			fieldLocation = Query.search(Class, (cls: Class) => cls.qualifiedName === method.declarator).getFirst();
-    
-        }
-
-        if (!fieldLocation) {
-            throw new Error("Could not get a location to insert new field. Please verify the input arguments of PrepareCall");
-        }
-
-		let field = undefined;
-		let interfaceMethod = undefined;
-
-		// select $interface.($imethod = method){$call.name} end
-		for (const m of Query.searchFrom(funcInterface, Method, (method: Method) => method.name === call.name)) {
-			const interfaceMethod1 = m;
-			const field1 = fieldLocation.newField(method.isStatic ? ["static"] : [], funcInterface.qualifiedName, interfaceMethod1.name, defaultMethod);
-
-			if (field1) {
-				console.log(`[LOG] Extracted a field "${field1.name}", from call "${call.name}", to ${field1.declarator}`);
-                call.def("target", { name: field1.name });
-				call.def("executable", interfaceMethod1);
-			}
-			field = field1;
-			interfaceMethod = interfaceMethod1;
-		}
-	
-		if (funcInterface && field) {
-			console.log(`[LOG] Call to "${call.name}" (in method "${method.name}") is ready!`);
-		}
-
-        return { field, interface: funcInterface, interfaceMethod, defaultMethod };
+export function extractToField(call: Call, method?: Method, fieldLocation?: Class, newFile: boolean = true, funcInterface: InterfaceType = null)
+: { field: Field; interface: InterfaceType; interfaceMethod: Method; defaultMethod: string } {
+    if (call === undefined) {
+        return null;
     }
 
-    /**
-     * Generates a new mapping class for functional mapping.
-     *
-     * @param interfaceJp - The functional interface join point.
-     * @param methodName - The name of the method.
-     * @param getterType - The type of the getter.
-     * @param target - The target join point (optional).
-     * @returns An object containing the mapping class and related methods.
-     */
-    static newMappingClass(interfaceJp: InterfaceType = null, methodName: string = null, getterType: string = null, target?: Class)
-	: {mapClass: Class; put: (key: string, value: string) => string; contains: (key: string) => string; get: (param: string, defaultMethod?: string) => string;} {
-        const DEFAULT_PACKAGE = "pt.up.fe.specs.lara.kadabra.utils";
-
-        if (!target) {
-            target = Query.root() as Class;
-        }
-
-        const targetMethodFirstCap = methodName.charAt(0).toUpperCase() + methodName.slice(1);
-        const mapClassName = `${DEFAULT_PACKAGE}.${targetMethodFirstCap}Caller`;
-
-        console.log(`[LOG] Creating new functional mapping class: ${mapClassName}`);
-
-        if (!["file", "app", "class", "interface"].includes(target.name)) {
-            throw new Error("Target join point for new functional method caller has to be: app, file, class, or interface.");
-        }
-
-        const mapClass = target.mapVersions(mapClassName, getterType, interfaceJp, methodName);
-
-        return {
-            mapClass,
-            put: (key: string, value: string) => `${mapClass.qualifiedName}.put(${key}, ${value})`,
-            contains: (key: string) => `${mapClass.qualifiedName}.contains(${key})`,
-            get: (param: string, defaultMethod?: string) => defaultMethod ? `${mapClass.qualifiedName}.get(${param}, ${defaultMethod})` : `${mapClass.qualifiedName}.get(${param})`,
-        };
+    if (method === undefined) {
+        method = Query.searchFrom(call, Method).getFirst();
     }
 
-    /**
-     * Generates a new functional method caller.
-     *
-     * @param interfaceJp - The functional interface join point.
-     * @param methodName - The name of the method.
-     * @param getterType - The type of the getter.
-     * @param defaultMethodStr - The default method string.
-     * @returns An object containing the mapping class and related methods.
-     */
-    static newFunctionalMethodCaller(interfaceJp: InterfaceType = null, methodName: string = null, getterType: string = null, defaultMethodStr: string = null)
-	: {mapClass: Class; get: (param: string) => string;} {
-		/*
-		output
-			$mapClass,
-			// get = "get",
-			put = "put",
-			contains = "contains",
-			get
-		end
+    if (funcInterface === undefined) {
+        const extracted = generateFunctionalInterface(call.name, call.declarator, undefined, undefined, newFile);
+        funcInterface = extracted.interface;
 
-		This is the original lara output. Should I keep the default returns here?
-		*/
-
-		if (!interfaceJp || !methodName || !getterType || !defaultMethodStr) {
-			return null;
-		}
-        const DEFAULT_PACKAGE = "pt.up.fe.specs.lara.kadabra.utils";
-
-        const targetMethodFirstCap = methodName.charAt(0).toUpperCase() + methodName.slice(1);
-        const mapClassName = `${DEFAULT_PACKAGE}.${targetMethodFirstCap}Caller`;
-
-        console.log(`[LOG] Creating new functional mapping class: ${mapClassName}`);
-
-        const mapClass = (Query.root() as Class).mapVersions(mapClassName, getterType, interfaceJp, methodName);
-
-        return {
-            mapClass,
-            get: (param: string) => `${mapClass.qualifiedName}.get(${param}, ${defaultMethodStr})`,
-        };
+        if (funcInterface !== undefined) {
+            console.log(`[LOG] Extracted a functional interface "${funcInterface.name}" based on method "${call.name}"`);
+        }
     }
+
+    const defaultMethod = `${call.qualifiedDecl}::${call.name}`;
+
+    if (fieldLocation === undefined) {
+        fieldLocation = Query.search(Class, (cls: Class) => cls.qualifiedName === method.declarator).getFirst();
+    }
+
+    if (fieldLocation === undefined) {
+        throw new Error("Could not get a location to insert new field. Please verify the input arguments of extractToField.");
+    }
+
+    let field = undefined;
+    let interfaceMethod = undefined;
+
+    for (const m of Query.searchFrom(funcInterface, Method, (method: Method) => method.name === call.name)) {
+        const interfaceMethod1 = m;
+        const field1 = fieldLocation.newField(
+            method.isStatic ? ["static"] : [],
+            funcInterface.qualifiedName,
+            interfaceMethod1.name,
+            defaultMethod
+        );
+
+        if (field1 !== undefined) {
+            console.log(`[LOG] Extracted a field "${field1.name}", from call "${call.name}", to ${field1.declarator}`);
+            call.def("target", { name: field1.name });
+            call.def("executable", interfaceMethod1);
+        }
+        field = field1;
+        interfaceMethod = interfaceMethod1;
+    }
+
+    if (funcInterface !== undefined && field !== undefined) {
+        console.log(`[LOG] Call to "${call.name}" (in method "${method.name}") is ready!`);
+    }
+
+    return { field, interface: funcInterface, interfaceMethod, defaultMethod };
+}
+
+/**
+ * Generates a new mapping class for functional mapping.
+ *
+ * @param interfaceJp - The functional interface join point.
+ * @param methodName - The name of the method.
+ * @param getterType - The type of the getter.
+ * @param target - The target join point (optional).
+ * @returns An object containing the mapping class and related methods.
+ */
+export function newMappingClass(interfaceJp: InterfaceType = null, methodName: string = null, getterType: string = null, target?: Class | App | FileJp)
+: {mapClass: Class; put: (key: string, value: string) => string; contains: (key: string) => string; get: (param: string, defaultMethod?: string) => string;} {
+    const DEFAULT_PACKAGE = "pt.up.fe.specs.lara.kadabra.utils";
+
+    if (target === undefined) {
+        target = Query.search(App).getFirst();
+    }
+
+    const targetMethodFirstCap = methodName.charAt(0).toUpperCase() + methodName.slice(1);
+    const mapClassName = `${DEFAULT_PACKAGE}.${targetMethodFirstCap}Caller`;
+
+    console.log(`[LOG] Creating new functional mapping class: ${mapClassName}`);
+
+    if (!(target instanceof App) || !(target instanceof FileJp) || !(target instanceof Class) || !(target instanceof InterfaceType)) {
+        throw new Error("Target join point for new functional method caller has to be: app, file, class, or interface.");
+    }
+
+    const mapClass = target.mapVersions(mapClassName, getterType, interfaceJp, methodName);
+
+    return {
+        mapClass,
+        put: (key: string, value: string) => `${mapClass.qualifiedName}.put(${key}, ${value})`,
+        contains: (key: string) => `${mapClass.qualifiedName}.contains(${key})`,
+        get: (param: string, defaultMethod?: string) => defaultMethod ? `${mapClass.qualifiedName}.get(${param}, ${defaultMethod})` : `${mapClass.qualifiedName}.get(${param})`,
+    };
+}
+
+/**
+ * Generates a new functional method caller.
+ *
+ * @param interfaceJp - The functional interface join point.
+ * @param methodName - The name of the method.
+ * @param getterType - The type of the getter.
+ * @param defaultMethodStr - The default method string.
+ * @returns An object containing the mapping class and related methods.
+ */
+export function newFunctionalMethodCaller(interfaceJp: InterfaceType = null, methodName: string = null, getterType: string = null, defaultMethodStr: string = null)
+: { mapClass: Class; put: string; contains: string; get: (param: string) => string } {
+    if (interfaceJp === undefined || methodName === undefined || getterType === undefined || defaultMethodStr === undefined) {
+        return null;
+    }
+
+    const DEFAULT_PACKAGE = "pt.up.fe.specs.lara.kadabra.utils";
+
+    const targetMethodFirstCap = methodName.charAt(0).toUpperCase() + methodName.slice(1);
+    const mapClassName = `${DEFAULT_PACKAGE}.${targetMethodFirstCap}Caller`;
+
+    console.log(`[LOG] Creating new functional mapping class: ${mapClassName}`);
+
+    const mapClass = Query.search(App).getFirst().mapVersions(mapClassName, getterType, interfaceJp, methodName);
+
+    return {
+        mapClass,
+        put: "put",
+        contains: "contains",
+        get: (param: string) => `${mapClass.qualifiedName}.get(${param}, ${defaultMethodStr})`,
+    };
 }
