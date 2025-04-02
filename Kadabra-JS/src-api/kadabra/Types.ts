@@ -20,7 +20,7 @@ export class KTypes {
      * Generates a product type with the specified key and value types.
      */
     static productOf(key: string, value: string): string | undefined {
-        if (!key || !value) {
+        if (key === undefined || value === undefined) {
             return undefined;
         }
         return `${this.Product}<${key},${value}>`;

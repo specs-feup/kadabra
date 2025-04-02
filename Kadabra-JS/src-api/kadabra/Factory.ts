@@ -46,7 +46,7 @@ export function newClass(qualifiedName: string, extend: string | null = null, im
  */
 export function providerOf(code: string, args?: string[]): string {
     let providerCode = "(";
-    if (args != undefined && args.length > 0) {
+    if (args !== undefined && args.length > 0) {
         providerCode += args[0];
         for (let i = 1; i < args.length; i++) {
             providerCode += "," + args[i];

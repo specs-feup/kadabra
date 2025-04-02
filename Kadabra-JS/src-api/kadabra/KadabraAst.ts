@@ -20,7 +20,7 @@ export class KadabraAst {
      * @returns An array of join points, which can either be a field, an assignment, or a local variable.
      */
     static getConstantInitializations(startingPoint?: LaraJoinPoint): (Field | Assignment | LocalVariable)[] {
-        if (!startingPoint) {
+        if (startingPoint  === undefined) {
             startingPoint = Query.root();
         }
 
@@ -55,7 +55,7 @@ export class KadabraAst {
      * @returns A Set<string> with valid binary operators.
      */
     static getBinaryOperators(): Set<string> {
-        if (!this._BINARY_OP_SET) {
+        if (this._BINARY_OP_SET  === undefined) {
             this._BINARY_OP_SET = new Set<string>();
             for (const binaryOp of KadabraJavaTypes.OperatorUtils.getValidBinaryStrings()) {
                 this._BINARY_OP_SET.add(binaryOp);
@@ -70,7 +70,7 @@ export class KadabraAst {
      * @returns A Set<string> with valid unary operators.
      */
     static getUnaryOperators(): Set<string> {
-        if (!this._UNARY_OP_SET) {
+        if (this._UNARY_OP_SET  === undefined) {
             this._UNARY_OP_SET = new Set<string>();
             for (const unaryOp of KadabraJavaTypes.OperatorUtils.getValidUnaryStrings()) {
                 this._UNARY_OP_SET.add(unaryOp);
