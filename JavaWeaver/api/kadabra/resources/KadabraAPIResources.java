@@ -34,7 +34,7 @@ public enum KadabraAPIResources implements ResourceProvider {
     BinaryExpressionMutator("mutation/", "BinaryExpressionMutator.js"),
     ConditionalOperatorDeletionMutation("mutation/", "ConditionalOperatorDeletionMutation.js"),
 
-    Concurrent("Concurrent"),
+    Concurrent("Concurrent");
 
     private KadabraAPIResources(String subPackage, String fileName) {
         var filenameExtension = SpecsIo.getExtension(fileName);

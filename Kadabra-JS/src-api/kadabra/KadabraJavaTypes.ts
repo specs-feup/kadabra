@@ -22,7 +22,6 @@ export default class KadabraJavaTypes {
             "pt.up.fe.specs.util.parsing.arguments.ArgumentsParser"
         ) as KadabraJavaClasses.ArgumentsParser;
     }
-
     static get KadabraLauncher() {
         return JavaTypes.getType(
             "weaver.gui.KadabraLauncher"
