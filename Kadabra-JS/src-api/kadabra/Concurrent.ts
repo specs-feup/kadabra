@@ -1,4 +1,6 @@
 import { getAPINames, convertPrimitive } from "Utils.ts";
+import Query from "@specs-feup/lara/api/weaver/Query.js";
+import Body from "../../Joinpoints.ts";
 
 /**
  * Create an atomic field in the given class. This aspect provides outputs such as get and set of the field
@@ -58,7 +60,7 @@ export function NewThread(
         "new " + names.thread + "()"
     );
     //And the method to execute
-    const $threadMethod = $class.newMethod(
+    const threadMethod = $class.newMethod(
         ["private", "static"],
         "void",
         threadName + "Method",
@@ -71,9 +73,9 @@ export function NewThread(
     const start =
         reference +
         ".start(" +
-        $threadMethod.declarator +
+        threadMethod.declarator +
         "::" +
-        $threadMethod.name +
+        threadMethod.name +
         ")";
     const stop = reference + ".terminate()";
     const running = reference + ".isRunning()";
@@ -88,9 +90,9 @@ export function NewThread(
     */
     //???
     let setCode;
-    for (const $body in $threadMethod.body) {
+    for (const body of Query.search(threadMethod).search(Body)) {
         setCode = function (code) {
-            $body.replace(code, "[[code]]"); //allows adaptation code rewritting
+            body.replace(code, "[[code]]"); //allows adaptation code rewritting
         };
     }
 
