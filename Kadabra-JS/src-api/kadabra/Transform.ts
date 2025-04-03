@@ -95,14 +95,15 @@ export function newMappingClass(interfaceJp: InterfaceType = null, methodName: s
 
     console.log(`[LOG] Creating new functional mapping class: ${mapClassName}`);
 
-    if (!(target instanceof App) || !(target instanceof FileJp) || !(target instanceof Class) || !(target instanceof InterfaceType)) {
-        throw new Error("Target join point for new functional method caller has to be: app, file, class, or interface.");
+    let mapClass = undefined;
+    if ((target instanceof App) || (target instanceof FileJp) || (target instanceof Class)) { //  (target instanceof InterfaceType)
+        mapClass = target.mapVersions(mapClassName, getterType, interfaceJp, methodName);
+    } else {
+        throw new Error("Target join point for new functional method caller has to be: app, file, class, or interface.");        
     }
 
-    const mapClass = target.mapVersions(mapClassName, getterType, interfaceJp, methodName);
-
     return {
-        mapClass,
+        mapClass: mapClass,
         put: (key: string, value: string) => `${mapClass.qualifiedName}.put(${key}, ${value})`,
         contains: (key: string) => `${mapClass.qualifiedName}.contains(${key})`,
         get: (param: string, defaultMethod?: string) => defaultMethod ? `${mapClass.qualifiedName}.get(${param}, ${defaultMethod})` : `${mapClass.qualifiedName}.get(${param})`,

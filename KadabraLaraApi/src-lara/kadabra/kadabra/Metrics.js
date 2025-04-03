@@ -28,6 +28,7 @@ function extract() {
     for (const type of Query.search(Type)) {
         mergeReports(report, reportType(type));
     }
+    console.log(toCSVLine(report));
     return report;
 }
 /**
@@ -107,9 +108,7 @@ function reportMethod(method) {
     };
     // Process the method body
     for (const body of Query.searchFrom(method, Body)) {
-        processBody(body, (stmt) => {
-            report.numOf.statements++;
-        });
+        processBody(body, () => { report.numOf.statements++; });
     }
     return report;
 }
@@ -131,7 +130,7 @@ function processBody(body, func) {
  * @param func - The function to apply to the statement.
  */
 function processStatement(stmt, func) {
-    func(stmt);
+    func();
     switch (stmt.kind) {
         case "for":
         case "forEach":

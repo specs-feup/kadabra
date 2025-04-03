@@ -1,5 +1,5 @@
 import Query from "@specs-feup/lara/api/weaver/Query.js";
-import { App, Body, Class, Method, Return } from "../Joinpoints.js";
+import { App, Class, Method, Return } from "../Joinpoints.js";
 /**
  * Opens a window with the AST of Spoon.
  *
@@ -113,12 +113,10 @@ export function beforeExit(method, code) {
     if (inserted)
         return;
     // Try to insert after the last statement (for void methods)
-    for (const body of Query.searchFrom(method, Body)) {
-        body.lastStmt.insertAfter(code);
-        inserted = true;
-    }
-    if (inserted)
+    if (method.body.lastStmt !== undefined) {
+        method.body.lastStmt.insertAfter(code);
         return;
+    }
     // Else, insert into an empty method
     method.body.insertReplace(code);
 }

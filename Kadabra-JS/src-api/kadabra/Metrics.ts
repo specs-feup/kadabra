@@ -31,7 +31,7 @@ function extract(): MetricsReport {
     for (const type of Query.search(Type)) {
         mergeReports(report, reportType(type));
     }
-
+    console.log(toCSVLine(report));
     return report;
 }
 
@@ -120,9 +120,7 @@ function reportMethod(method: Method): MethodReport {
 
     // Process the method body
     for (const body of Query.searchFrom(method, Body)) {
-        processBody(body, (stmt: Statement) => {
-            report.numOf.statements++;
-        });
+        processBody(body, () => {report.numOf.statements++;});
     }
 
     return report;
@@ -134,7 +132,7 @@ function reportMethod(method: Method): MethodReport {
  * @param body - The body join point.
  * @param func - The function to apply to each statement.
  */
-function processBody(body: Body, func: (stmt: Statement) => void): void {
+function processBody(body: Body, func: () => void): void {
     for (const statement of Query.searchFrom(body, Statement)) {
         processStatement(statement, func);
     }
@@ -146,8 +144,8 @@ function processBody(body: Body, func: (stmt: Statement) => void): void {
  * @param stmt - The statement join point.
  * @param func - The function to apply to the statement.
  */
-function processStatement(stmt: Statement, func: (stmt: Statement) => void): void {
-    func(stmt);
+function processStatement(stmt: Statement, func: () => void): void {
+    func();
 
     switch (stmt.kind) {
         case "for":

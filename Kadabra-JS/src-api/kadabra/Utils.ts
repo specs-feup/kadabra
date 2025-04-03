@@ -122,11 +122,10 @@ export function beforeExit(method: Method, code: string): void {
     if (inserted) return;
 
     // Try to insert after the last statement (for void methods)
-    for (const body of Query.searchFrom(method, Body)) {
-        body.lastStmt.insertAfter(code);
-        inserted = true;
+    if (method.body.lastStmt !== undefined) {
+        method.body.lastStmt.insertAfter(code);
+        return;
     }
-    if (inserted) return;
 
     // Else, insert into an empty method
     method.body.insertReplace(code);
@@ -153,7 +152,7 @@ export function getAPINames(): { concurrentPackage: string; channel: string; thr
  * @param defaultValue - The default value of the property (optional).
  * @returns The generated code as a string.
  */
-export function integerProperty(name: any, defaultValue?: string): string {
+export function integerProperty(name: string, defaultValue?: string): string {
     let code = `Integer.parseInt(System.getProperty(${JSON.stringify(name)}`;
     if (defaultValue !== undefined) {
         code += `, "${defaultValue}\\"`;
