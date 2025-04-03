@@ -20,7 +20,6 @@ public enum KadabraAPIResources implements ResourceProvider {
 
     Timer(PackageProvider.monitorPackage, "Timer"),
     Specializer(PackageProvider.adaptPackage, "Specializer"),
-    Adapter(PackageProvider.adaptPackage, "Adapter"),
     DataFeature(PackageProvider.adaptPackage, "DataFeature"),
     Configs(PackageProvider.adaptPackage, "Configs"),
     Measurers(PackageProvider.adaptPackage, "Measurers"),
