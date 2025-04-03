@@ -238,7 +238,7 @@ export class TaskTimer {
         timerName: string,
         fullPath: boolean
     ) {
-        const wrapper: string = primitive2Class(returnType);
+        const wrapper: string = "temp"; //primitive2Class(returnType);  in Utils.lara ->Utils.ts, which is being converted in another branch
         code = "()-> " + code;
 
         const f: newField = new newField(
