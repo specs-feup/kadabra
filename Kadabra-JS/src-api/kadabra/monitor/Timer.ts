@@ -1,169 +1,211 @@
-import kadabra.Utils;
-import kadabra.Factory;
-function Timer(name, $timer, unit, fullPath){
-	this.name = name;
-	this.$timer = $timer;
-	if(fullPath){
-		this.access = $timer.staticAccess;
-	}else{
-		this.access = name;
-	}
-	this.unit = unit;
+import { Joinpoint } from "../../Joinpoints.js";
+import TimerBase from "@specs-feup/lara/api/lara/code/TimerBase.js";
+import { newField } from "@specs-feup/lara/api/lara/core/AType.js"; //está mal, só para n dar erro em baixo
+
+export default class Timer extends TimerBase<Joinpoint> {
+    name: string;
+    timer;
+    access: string;
+    unit;
+
+    constructor(name: string, timer, unit, fullPath) {
+        super();
+        this.name = name;
+        this.timer = timer;
+        if (fullPath) {
+            this.access = timer.staticAccess;
+        } else {
+            this.access = name;
+        }
+        this.unit = unit;
+    }
+
+    start($target, when) {
+        return this.measureCode("start", $target, when);
+    }
+
+    stop($target, when) {
+        return this.measureCode("stop", $target, when);
+    }
+    pause($target, when) {
+        return this.measureCode("pause", $target, when);
+    }
+
+    getTime() {
+        return this.access + ".getTime()";
+    }
+
+    getCount() {
+        return this.access + ".getCount()";
+    }
+
+    getAvg() {
+        return this.access + ".getAverage()";
+    }
+
+    insertTimerCode(code, $target, when: string) {
+        switch (when) {
+            case "before":
+                $target.insertBefore(code);
+                break;
+            case "after":
+                $target.after(code);
+                break;
+            case "replace":
+                $target.replaceWith(code);
+                break;
+            default:
+                $target.insertBefore(code);
+                break;
+        }
+    }
+
+    get($target, when: string) {
+        //, message) { ?? here*
+        let code = this.getTime();
+        if ($target == undefined) {
+            return code;
+        }
+
+        code = "[[message]]" + [[code]] + "[[this.unit]]"; //?
+        console.log(code);
+
+        this.insertTimerCode(code, $target, when);
+    }
+
+    measure($target, message, $end) {
+        this.start($target, "before");
+        if (message != undefined) {
+            //this order to guarantee correct code injection
+            this.get($end || $target, "after"); //, message); here*
+        }
+        this.stop($end || $target, "after");
+    }
+
+    measureCode(action, $target, when: string) {
+        const code = this.access + "." + action + "();";
+        if ($target == undefined) {
+            return code;
+        }
+        this.insertTimerCode(code, $target, when);
+    }
+
+    MillisTimer($targetClass, timerName: string, fullPath) {
+        $targetClass = $targetClass || null;
+        timerName = timerName || "timer";
+        fullPath = fullPath || true;
+        const timer: MillisTimer = new MillisTimer(
+            $targetClass,
+            timerName,
+            fullPath
+        );
+        return new Timer(timerName, timer.timer, "ms", fullPath);
+    }
+
+    NanoTimer($targetClass, timerName: string, fullPath) {
+        $targetClass = $targetClass || null;
+        timerName = timerName || "timer";
+        fullPath = fullPath || true;
+        const timer: NanoTimer = new NanoTimer(
+            $targetClass,
+            timerName,
+            fullPath
+        );
+        return new Timer(timerName, timer.timer, "ns", fullPath);
+    }
 }
-//$timer,
-//		start, stop, pause, getTime
 
-Timer.millisTimer = function($targetClass, timerName, fullPath){
-	$targetClass = $targetClass || null;
-	timerName = timerName || "timer";
-	fullPath = fullPath || true;
-	call timer: MillisTimer($targetClass, timerName, fullPath);
-	return new Timer(timerName, timer.$timer, "ms", fullPath);
+export class MillisTimer extends Timer {
+    start;
+    stop;
+    pause;
+    getTime;
+
+    constructor($class = null, timerName: string = "timer", fullPath = true) {
+        const timer: TimeMonitor = new TimeMonitor(
+            $class,
+            timerName,
+            fullPath,
+            "MillisTimer"
+        );
+
+        super(timerName, timer.timer, "ms", fullPath);
+        this.start = timer.start;
+        this.stop = timer.stop;
+        this.pause = timer.pause;
+        this.getTime = timer.getTime;
+    }
 }
 
-Timer.nanoTimer = function($targetClass, timerName, fullPath){
-	$targetClass = $targetClass || null;
-	timerName = timerName || "timer";
-	fullPath = fullPath || true;
-	var timer = new kadabra$monitor$Timer$NanoTimer($targetClass, timerName, fullPath);
-	call timer();
-	return new Timer(timerName, timer.$timer, "ns", fullPath);
+export class NanoTimer extends Timer {
+    start;
+    stop;
+    pause;
+    getTime;
+
+    constructor($class = null, timerName: string = "timer", fullPath = true) {
+        const timer: TimeMonitor = new TimeMonitor(
+            $class,
+            timerName,
+            fullPath,
+            "NanoTimer"
+        );
+
+        super(timerName, timer.timer, "ms", fullPath);
+        this.start = timer.start;
+        this.stop = timer.stop;
+        this.pause = timer.pause;
+        this.getTime = timer.getTime;
+    }
 }
-
-Timer.prototype.start = function($target, when){
-	return this.measureCode('start',$target, when);
-}
-Timer.prototype.stop = function($target, when){
-	return this.measureCode('stop',$target, when);
-}
-Timer.prototype.pause = function($target, when){
-	return this.measureCode('pause',$target, when);
-}
-
-Timer.prototype.getTime = function(){
-	return this.access+'.getTime()';
-}
-
-Timer.prototype.getCount = function(){
-	return this.access+'.getCount()';
-}
-
-Timer.prototype.getAvg = function(){
-	return this.access+'.getAverage()';
-}
-
-
-Timer.prototype.get = function($target, when, message){
-
-	var code = this.getTime();
-	if($target == undefined){
-		return code;
-	}
-	code = %{System.out.println("[[message]]"+[[code]]+"[[this.unit]]");}%;
-	Timer.insertTimerCode(code, $target, when);
-}
-
-Timer.prototype.measure = function($target, message, $end){
-	this.start($target, "before");
-	if(message != undefined){ //this order to guarantee correct code injection
-		this.get($end || $target, "after", message);
-	}
-	this.stop($end || $target, "after");
-}
-
-Timer.prototype.measureCode = function(action, $target, when){
-	var code = this.access+'.'+action+'();';
-	if($target == undefined){
-		return code;
-	}
-	Timer.insertTimerCode(code, $target, when);
-}
-
-Timer.insertTimerCode = function(code, $target, when){
-	switch(when){
-	case 'before':
-		$target.insert before code;
-		break;
-	case 'after':
-		$target.insert after code;
-		break;
-	case 'replace':
-		$target.replace code;
-		break;
-	default:
-		$target.insert before code;
-		break;
-	}
-}
-Timer.DEFAULT_CLASS_NAME = "kadabra.utils.Timers";
-
-aspectdef MillisTimer
-	input
-		$class = null,
-		timerName = "timer",
-		fullPath = true//false
-	end
-	output
-		$timer, unit = "ms",
-		start, stop, pause, getTime
-	end
-	call timer: TimeMonitor($class,timerName,fullPath,"MillisTimer");
-	$timer = timer.$timer;
-	start = timer.start;
-	stop = timer.stop;
-	pause = timer.pause;
-	getTime = timer.getTime;
-end
-
-aspectdef NanoTimer
-	input
-		$class = null,
-		timerName = "timer",
-		fullPath = true//false
-	end
-	output
-		$timer, unit = "ns",
-		start, stop, pause, getTime
-	end
-	call timer: TimeMonitor($class,timerName,fullPath,"NanoTimer");
-	$timer = timer.$timer;
-	start = timer.start;
-	stop = timer.stop;
-	pause = timer.pause;
-	getTime = timer.getTime;
-end
 
 /**
 	Monitor the occurences of a given join point;
 */
-aspectdef TimeMonitor
-	input
-		$class = null,
-		timerName = "timer",
-		fullPath = true,//false,
-		timeProvider = "NanoTimer";
-	end
-	output
-		$timer,
-		start, stop, pause, getTime
-	end
-	if($class === undefined || $class === null){
-		call nc: NewTimerClass();
-		$class = nc.$class;
-	}
-	$class.exec $f: newField(["public","static"], "weaver.kadabra.monitor.CodeTimer", timerName, "CodeTimer."+timeProvider+"()");
-	$timer = $f;
-	newName = $timer.name;
-	if(fullPath){
-		prefix = $class.qualifiedName+".";
-		newName = prefix + newName;
-	}
-	start = newName+".start();";
-	stop = newName+".stop();";
-	pause = newName+".pause();";
-	getTime = newName+".getTime()";
-end
 
+export class TimeMonitor {
+    timer;
+    start;
+    stop;
+    pause;
+    getTime;
+
+    constructor(
+        $class = null,
+        timerName: string = "timer",
+        fullPath = true,
+        timeProvider: string = "NanoTimer"
+    ) {
+        if ($class === undefined || $class === null) {
+            const nc: NewTimerClass = new NewTimerClass();
+            $class = nc.class;
+        }
+        const f: newField = new newField(
+            ["public", "static"],
+            "weaver.kadabra.monitor.CodeTimer",
+            timerName,
+            "CodeTimer." + timeProvider + "()"
+        );
+        this.timer = f;
+        let newName: string = this.timer.name;
+
+        if (fullPath) {
+            const prefix = $class.qualifiedName + ".";
+            newName = prefix + newName;
+        }
+
+        this.start = newName + ".start();";
+        this.stop = newName + ".stop();";
+        this.pause = newName + ".pause();";
+        this.getTime = newName + ".getTime()";
+    }
+}
+
+export class NewTimerClass {
+    class;
+}
+
+/*
 aspectdef NewTimerClass
 	output $class end
 	select $c=class{qualifiedName==Timer.DEFAULT_CLASS_NAME} end
@@ -174,35 +216,49 @@ aspectdef NewTimerClass
 	call nc: NewClass(Timer.DEFAULT_CLASS_NAME);
 	$class = nc.$class;
 end
+*/
 
 /**
  * Creates a timed task, which will execute 'time' ms after invoking execute
  */
-aspectdef TaskTimer
-	input
-		$class = null,
-		code = 'return null;',
-		time = '1',
-		returnType = 'Object',
-		timerName = "timedTask",
-		fullPath = false;
-	end
-	output
-		$task,
-		start, stop, ready, get, getAndStart
-	end
-	var wrapper = primitive2Class(returnType);
-	code = '()-> '+code;
-	$class.exec $f: newField(["public","static"], "weaver.kadabra.monitor.TaskTimer<"+wrapper+">", timerName, "new TaskTimer<>("+code+", " +time+")");
-	$field = $f;
-	newName = $field.name;
-	if(fullPath){
-		prefix = $class.qualifiedName+".";
-		newName = prefix + newName;
-	}
-	start = newName+".execute()";
-	stop = newName+".cancel()";
-	ready = newName+".ready()";
-	get = newName+".get()";
-	getAndStart = newName+".getAndExecute()";
-end
+
+export class TaskTimer {
+    task;
+    start;
+    stop;
+    ready;
+    get;
+    getAndStart;
+
+    constructor(
+        $class,
+        code,
+        time: number,
+        returnType: string,
+        timerName: string,
+        fullPath: boolean
+    ) {
+        const wrapper: string = primitive2Class(returnType);
+        code = "()-> " + code;
+
+        const f: newField = new newField(
+            ["public", "static"],
+            "weaver.kadabra.monitor.TaskTimer<" + wrapper + ">",
+            timerName,
+            "new TaskTimer<>(" + code + ", " + time + ")"
+        );
+        //$class.exec $f: newField(["public","static"], "weaver.kadabra.monitor.TaskTimer<"+wrapper+">", timerName, "new TaskTimer<>("+code+", " +time+")");
+        const $field = f;
+
+        let newName: string = $field.name;
+        if (fullPath) {
+            const prefix = $class.qualifiedName + ".";
+            newName = prefix + newName;
+        }
+        this.start = newName + ".execute()";
+        this.stop = newName + ".cancel()";
+        this.ready = newName + ".ready()";
+        this.get = newName + ".get()";
+        this.getAndStart = newName + ".getAndExecute()";
+    }
+}

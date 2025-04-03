@@ -27,6 +27,7 @@ public enum KadabraApiJsResource implements LaraResourceProvider {
     JOINPOINTS_JS("Joinpoints.js"),
     KADABRA_JS("Kadabra.js"),
     KADABRAJAVATYPES_JS("kadabra/KadabraJavaTypes.js"),
+    TIMER_JS("kadabra/monitor/Timer.js"),
     ARITHMETICOPERATORDELETIONMUTATION_JS("kadabra/mutation/ArithmeticOperatorDeletionMutation.js"),
     BINARYEXPRESSIONMUTATION_JS("kadabra/mutation/BinaryExpressionMutation.js"),
     BINARYEXPRESSIONMUTATOR_JS("kadabra/mutation/BinaryExpressionMutator.js"),
