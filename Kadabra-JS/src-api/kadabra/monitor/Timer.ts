@@ -1,6 +1,5 @@
 import { Joinpoint } from "../../Joinpoints.js";
 import TimerBase from "@specs-feup/lara/api/lara/code/TimerBase.js";
-import { newField } from "@specs-feup/lara/api/lara/core/AType.js"; //está mal, só para n dar erro em baixo
 
 export default class Timer extends TimerBase<Joinpoint> {
     name: string;
@@ -180,7 +179,7 @@ export class TimeMonitor {
             const nc: NewTimerClass = new NewTimerClass();
             $class = nc.class;
         }
-        const f: newField = new newField(
+        const f = $class.newField(
             ["public", "static"],
             "weaver.kadabra.monitor.CodeTimer",
             timerName,
@@ -241,7 +240,7 @@ export class TaskTimer {
         const wrapper: string = "temp"; //primitive2Class(returnType);  in Utils.lara ->Utils.ts, which is being converted in another branch
         code = "()-> " + code;
 
-        const f: newField = new newField(
+        const f = $class.newField(
             ["public", "static"],
             "weaver.kadabra.monitor.TaskTimer<" + wrapper + ">",
             timerName,
