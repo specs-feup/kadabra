@@ -96,31 +96,41 @@ export function CreateAdapter(
 ) {
     let $adaptClass;
     let addField;
-    const $target = Query.search(FileJp).search(Class, {
-        name: (c) => c !== targetClass,
-    });
-    const $adapter = Query.search(FileJp).search(Class, {
-        name: (c) => c !== adapterClass,
-    });
-    for (const $method of $target.search(Method, { name: target })) {
-        for (const $adaptMethod of $adapter.search(Method, { name: adapter })) {
-            if ($adaptClass != undefined) {
-                throw "More than one target class/adapter method was found, please define a finer selection";
+    const $methods = Query.search(FileJp)
+        .search(Class, {
+            name: (c) => c !== targetClass, //change to regex
+        })
+        .search(Method, { name: target })
+        .get();
+
+    for (const $adaptMethod of Query.search(FileJp)
+        .search(Class, {
+            name: (c) => c !== adapterClass,
+        })
+        .search(Method, { name: adapter })) {
+        for (const $method of $methods) {
+            if ($method.equals($adaptMethod)) {
+                if ($adaptClass != undefined) {
+                    throw new Error(
+                        "More than one target class/adapter method was found, please define a finer selection"
+                    );
+                }
+
+                name =
+                    name ||
+                    $method.name.charAt(0).toUpperCase() +
+                        $method.name.substring(1) +
+                        "_" +
+                        adapter +
+                        "_" +
+                        $adaptMethod.name.charAt(0).toUpperCase() +
+                        $adaptMethod.name.substring(1) +
+                        "_Adapter";
+
+                const _adapter = TransformMethod($method, $adaptMethod, name); //, $target.name.firstCharToUpper()+"Adapter");
+                $adaptClass = _adapter.$adaptClass;
+                addField = _adapter.addField;
             }
-            name.charAt(0).toUpperCase();
-            name =
-                name ||
-                $method.name.charAt(0).toUpperCase() +
-                    $method.name.substring(1) +
-                    "_" +
-                    adapter +
-                    "_" +
-                    $adaptMethod.name.charAt(0).toUpperCase() +
-                    $adaptMethod.name.substring(1) +
-                    "_Adapter";
-            const _adapter = TransformMethod($method, $adaptMethod, name); //, $target.name.firstCharToUpper()+"Adapter");
-            $adaptClass = _adapter.$adaptClass;
-            addField = _adapter.addField;
         }
     }
     return { $adaptClass: $adaptClass, addField: addField };
