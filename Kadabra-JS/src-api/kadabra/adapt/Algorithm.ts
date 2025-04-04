@@ -1,110 +1,127 @@
-import kadabra.adapt.Adapter;
-import kadabra.Utils;
-var Algorithm = {};
+import {TransformMethod,FunctionGenerator }from "./Adapter.js";
+import {GetMethod } from "../Utils.js";
 
-Algorithm.PACKAGE = 'autotuner.algorithm.';
-Algorithm.PROVIDER_PACKAGE  = Algorithm.PACKAGE + 'provider.';
-function SimpleAlgorithm(lambda, id){
-	if(lambda instanceof Java.type("org.lara.interpreter.weaver.interf.JoinPoint")){
-		this.lambda = lambda.toQualifiedReference;
-	}else{ //assume native lambda code 
-		this.lambda = lambda;
+import KadabraJavaTypes from "../KadabraJavaTypes.js";
+import { Method } from "../../Joinpoints.js";
+
+export abstract class Algorithm{
+	static const PACKAGE = 'autotuner.algorithm.';
+	static const PROVIDER_PACKAGE = this.PACKAGE +'.provider.';
+
+	lambda:string;
+	id:string;
+
+	constructor(){}
+	abstract getAlgorithm():string;
+
+	getSupplier():string {
+		return '()->'+this.getAlgorithm();
 	}
-	this.id = id || this.lambda;
-//	this.isAlgorithm = true; //helper
+
 }
 
-SimpleAlgorithm.prototype.getSupplier = function(){
-	return '()->'+this.getAlgorithm();
-}
-
-SimpleAlgorithm.prototype.getAlgorithm = function(){
-	return 'new '+Algorithm.PROVIDER_PACKAGE+'SingleAlgorithmProvider<>('+this.lambda+', "'+this.id+'")';
-}
-
-SimpleAlgorithm.prototype.instance = function(){
-	return 'new '+Algorithm.PACKAGE+'SimpleAlgorithm<>('+this.lambda+', "'+this.id+'")';
-}
-
-function AlgorithmWithKnob(lambda, id, knobConsumer, configSupplier){
-	this.lambda = lambda;
-	this.id = id;
-	this.knobConsumer = knobConsumer;
-	this.configSupplier = configSupplier;
-//	this.isAlgorithm = true; //helper
-}
-
-
-//function AlgorithmWithKnob(lambda, id, knobs, configSupplier){
-//	this.lambda = lambda;
-//	this.id = id;
-//	this.knobConsumer = knobConsumer;
-//	this.configSupplier = configSupplier;
-//	this.knobs = knobs;
-//	this.isAlgorithm = true; //helper
-//}
-
-AlgorithmWithKnob.prototype.getSupplier = function(){
-	return '()->'+this.getAlgorithm();
-}
-
-AlgorithmWithKnob.prototype.getAlgorithm = function(){
-	return 'new '+Algorithm.PROVIDER_PACKAGE+'AlgorithmWithKnobProvider<>('+this.lambda+', "'+this.id+'",'+this.knobConsumer+','+this.configSupplier+')';
-}
-function AdaptiveAlgorithm(id, $targetMethod, templateName, provider){
-	getter = call GetMethod(templateName);
-	$templateMethod = getter.methods;
-//	console.log($templateMethod);
-	adapter = call TransformMethod($targetMethod, $templateMethod);
-	field = adapter.addField(undefined,id,true);
-	
-	this.lambda = %{k-> {[[field.adapt("k")]] return [[$targetMethod.toQualifiedReference]];}}%;
-	this.id = id;
-	this.provider = provider;
-}
-
-AdaptiveAlgorithm.prototype.getAlgorithm = function(){
-	return 'new '+Algorithm.PROVIDER_PACKAGE+'AdaptiveAlgorithmProvider<>('+this.lambda+', "'+this.id+'",'+this.provider+')';
-}
-
-AdaptiveAlgorithm.prototype.getSupplier = function(){
-	return '()->'+this.getAlgorithm();
-}
-
-function GenerativeAlgorithm(id, $interface, templateName, provider, providerType, extraArg){
-	getter = call GetMethod(templateName);
-	
-	$templateMethod = getter.methods;	
-	if(Array.isArray($templateMethod )){
-		var getters = "";
-		for(var g of $templateMethod ){
-			getters+= g.toQualifiedReference+",";
+export class SimpleAlgorithm extends Algorithm{
+	constructor(lambda: any, id?:string){
+		super();
+		if(lambda instanceof KadabraJavaTypes.JoinPoint){
+			this.lambda = lambda.toQualifiedReference;
+		}else{ //assume native lambda code 
+			this.lambda = lambda;
 		}
-		throw 'Too much methods with template name: '+templateName+'. Origins: '+getters;
+		this.id = id || this.lambda;
+	//	this.isAlgorithm = true; //helper
 	}
-	adapter = call FunctionGenerator($templateMethod, $interface);
-	//field = adapter.addField(undefined,id,true);
-	if(extraArg){
-		this.lambda = %{k-> [[adapter.generateQualified("k", extraArg)]]}%;
-	}else{
-		this.lambda = %{k-> [[adapter.generateQualified("k")]]}%;
+
+	
+	getAlgorithm():string{
+		return 'new '+Algorithm.PROVIDER_PACKAGE+'SingleAlgorithmProvider<>('+this.lambda+', "'+this.id+'")';
 	}
-	this.id = id;
-	this.provider = provider;
-	this.extraArg = extraArg;
-	this.providerType = providerType;
-	this.$interface = $interface;
+
+	instance():string{
+		return 'new '+Algorithm.PACKAGE+'SimpleAlgorithm<>('+this.lambda+', "'+this.id+'")';
+	}
+
 }
 
-GenerativeAlgorithm.prototype.getAlgorithm = function(){
-	var genericType = '';
-	if(this.providerType!=undefined){
-		var interfType = this.$interface.getAncestor("interface").qualifiedName;
-		genericType =	interfType+","+this.providerType;
+export class AlgorithmWithKnob extends Algorithm{
+	knobConsumer:any;
+	configSupplier:any;
+
+	constructor(lambda: any, id:any, knobConsumer:any, configSupplier:any){
+		super();
+		this.lambda = lambda;
+		this.id = id;
+		this.knobConsumer = knobConsumer;
+		this.configSupplier = configSupplier;
+	//	this.isAlgorithm = true; //helper
 	}
-	return 'new '+Algorithm.PROVIDER_PACKAGE+'GenerativeAlgorithmProvider<'+genericType+'>('+this.lambda+',"'+this.id+'",'+this.provider+')';
+
+	getAlgorithm():string{
+		return 'new '+Algorithm.PROVIDER_PACKAGE+'AlgorithmWithKnobProvider<>('+this.lambda+', "'+this.id+'",'+this.knobConsumer+','+this.configSupplier+')';
+	}
+
 }
 
-GenerativeAlgorithm.prototype.getSupplier = function(){
-	return '()->'+this.getAlgorithm();
+export class AdaptiveAlgorithm extends Algorithm{
+	provider:any;
+	
+	constructor(id, $targetMethod, templateName, provider){
+		super()
+		const getter = GetMethod(templateName);
+		const $templateMethod = getter.methods;
+	//	console.log($templateMethod);
+		const adapter = TransformMethod($targetMethod, $templateMethod);
+		const field = adapter.addField(undefined,id,true);
+		
+		//TODO check this: 
+		this.lambda = (k-> [[field.adapt("k")]] return [[$targetMethod.toQualifiedReference]];);
+		this.id = id;
+		this.provider = provider;
+	}
+	getAlgorithm():string{
+		return 'new '+Algorithm.PROVIDER_PACKAGE+'AdaptiveAlgorithmProvider<>('+this.lambda+', "'+this.id+'",'+this.provider+')';
+	}
+}
+
+export class GenerativeAlgorithm extends Algorithm{
+	provider:string;
+	extraArg:string[];
+	providerType:any;
+	$interface:any;
+	constructor(id:string, $interface:Method, templateName:string, provider:string, providerType:any, extraArg?:string[]){
+		super();
+		const getter =GetMethod(templateName);
+		
+		const $templateMethod = getter.methods;	
+		if(Array.isArray($templateMethod )){
+			var getters = "";
+			for(var g of $templateMethod ){
+				getters+= g.toQualifiedReference+",";
+			}
+			throw 'Too much methods with template name: '+templateName+'. Origins: '+getters;
+		}
+		const adapter = FunctionGenerator($templateMethod, $interface);
+		//field = adapter.addField(undefined,id,true);
+		//TODO: check this
+		if(extraArg){
+			this.lambda = adapter.generateQualified([["k"], extraArg]);
+		}else{
+			this.lambda = adapter.generateQualified([["k"]]);
+		}
+		this.id = id;
+		this.provider = provider;
+		this.extraArg = extraArg;
+		this.providerType = providerType;
+		this.$interface = $interface;
+	}
+	getAlgorithm():string{
+		var genericType = '';
+		if(this.providerType!=undefined){
+			var interfType = this.$interface.getAncestor("interface").qualifiedName;
+			genericType =	interfType+","+this.providerType;
+		}
+		return 'new '+Algorithm.PROVIDER_PACKAGE+'GenerativeAlgorithmProvider<'+genericType+'>('+this.lambda+',"'+this.id+'",'+this.provider+')';
+	}
+
+
 }

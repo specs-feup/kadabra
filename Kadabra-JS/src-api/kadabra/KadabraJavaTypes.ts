@@ -7,6 +7,7 @@ export namespace KadabraJavaClasses {
     /* eslint-disable @typescript-eslint/no-empty-interface */
     export interface ArgumentsParser extends JavaClasses.JavaClass { }
     export interface KadabraLauncher extends JavaClasses.JavaClass { }
+    export interface JoinPoint extends JavaClasses.JavaClass { }
     /* eslint-enable @typescript-eslint/no-empty-interface */
 }
 
@@ -25,5 +26,11 @@ export default class KadabraJavaTypes {
         return JavaTypes.getType(
             "weaver.gui.KadabraLauncher"
         ) as KadabraJavaClasses.KadabraLauncher;
+    }
+    
+    static get JoinPoint(){
+        return JavaTypes.getType(
+            "org.lara.interpreter.weaver.interf.JoinPoint"
+        ) as KadabraJavaClasses.JoinPoint;
     }
 }

@@ -2,7 +2,7 @@ import kadabra.Factory;
 import Query from "@specs-feup/lara/api/weaver/Query.js";
 import { Class, FileJp, Method } from "../../Joinpoints.js";
 
-function CreateClassGenerator(adapterMethod :string, adapterClass:string, $interfaceMethod:Method, $storingClass:Class){
+export function CreateClassGenerator(adapterMethod :string, adapterClass?:string, $interfaceMethod:Method, $storingClass:Class){
 	if(adapterClass == undefined) adapterClass ="*";
 
 	let $adaptMethod;
@@ -23,9 +23,9 @@ function CreateClassGenerator(adapterMethod :string, adapterClass:string, $inter
 		throw 'Could not find given method generator: '+adapterMethod+" in "+adapterClass;
 	}
 	
-	return { $adaptMethod:$adaptMethod, generate, generateQualified};
+	return { $adaptMethod:$adaptMethod, generate:generate, generateQualified:generateQualified};
 }
-function FunctionGenerator($adapterMethod:Method, $interfaceMethod:Method, $storingClass:Class){
+export function FunctionGenerator($adapterMethod:Method, $interfaceMethod:Method, $storingClass?:Class){
 
 	if($storingClass == undefined){
 		const creator =GetOrNewClass("kadabra.utils.Adapters");
@@ -33,17 +33,18 @@ function FunctionGenerator($adapterMethod:Method, $interfaceMethod:Method, $stor
 	}
 	console.log("[FunctionGenerator] Creating new functional class with "+$interfaceMethod +" and "+$adapterMethod);
 	const $adaptMethod = $storingClass.newFunctionalClass($interfaceMethod, $adapterMethod);
-	const generate = function(){
+	const generate = function(args:string[][]){
 		var invoke = $adaptMethod +"(";
-		var args = Array.prototype.slice.call(arguments);
-		invoke += args.join(", ");
+		var _args = args.slice();
+		invoke += _args.join(", ");
 		invoke +=")";
 		return invoke;
 	  };
-	 const generateQualified = function(){
+
+	 const generateQualified = function(args:string[][]){
 		var invoke = $storingClass.qualifiedName+"."+$adaptMethod +"(";
-		var args = Array.prototype.slice.call(arguments);
-		invoke += args.join(", ");
+		var _args = args.slice();
+		invoke += _args.join(", ");
 		invoke +=")";
 		return invoke;
 	  };
@@ -52,7 +53,7 @@ function FunctionGenerator($adapterMethod:Method, $interfaceMethod:Method, $stor
 /**
  *
  */
-function CreateAdapter(target:string, adapter:string, targetClass:string, adapterClass:string,name:string){
+export function CreateAdapter(target:string, adapter:string, targetClass:string, adapterClass:string,name:string){
 		
 	let $adaptClass;
 	let addField;
@@ -70,13 +71,13 @@ function CreateAdapter(target:string, adapter:string, targetClass:string, adapte
 			addField = _adapter.addField;
 		}
 	}
-	return {$adaptClas: $adaptClass, addField: addField };
+	return {$adaptClass: $adaptClass, addField: addField };
 }
 /**
  * Create an adapter based on the target class and the method that transforms the class bytecodes.
  * 
  */
-function TransformMethod($target: Method, $adaptMethod: Method, name:string){
+export function TransformMethod($target: Method, $adaptMethod: Method, name?:string){
 	name = name || $target.name.charAt(0).toUpperCase()+$target.name.substring(1)+$adaptMethod.name.charAt(0).toUpperCase+$adaptMethod.name.substring(1)+"Adapter";
 	
 	let $adaptClass :Class;
@@ -91,7 +92,7 @@ function TransformMethod($target: Method, $adaptMethod: Method, name:string){
 		}
 	}
 	//this method returns information regarding the field and class, as well as the methods that can be invoked in the field
-	const addField= ($class:Class, name:string, init:boolean): any=>{
+	const addField= ($class?:Class, name?:string, init?:boolean): any=>{
 		let _$class = $class || $adaptClass;
 		const fieldName = name || $adaptClass.name.charAt(0).toUpperCase()+$adaptClass.name.substring(1);
 		const _init = init || false;
@@ -101,10 +102,10 @@ function TransformMethod($target: Method, $adaptMethod: Method, name:string){
 			name: fieldName,
 			$field: $newField,
 			addAdapter: "weaver.kadabra.agent.AgentUtils.addAdapter("+fieldName+");",
-			adapt: function(){
+			adapt: function(args:string[][]){
 			    		var invoke = $newField.staticAccess+".adapt(";
-			    		var args = Array.prototype.slice.call(arguments);
-			    		invoke += args.join(", ");
+			    		var _args = args.slice();
+			    		invoke += _args.join(", ");
 			    		invoke +=");";
 			    		return invoke;
 				  },
