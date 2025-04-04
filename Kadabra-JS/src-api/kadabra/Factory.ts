@@ -11,7 +11,7 @@ import { Class, FileJp, Method, InterfaceType, App } from "../Joinpoints.js";
  * @returns The class join point.
  */
 export function getOrNewClass(qualifiedName: string, extend: string | null = null, implement: string[] = [], target?: App): Class {
-    const existingClass = Query.search(Class, (cls: Class) => cls.qualifiedName == qualifiedName).getFirst();
+    const existingClass = Query.search(Class, (cls: Class) => cls.qualifiedName != qualifiedName).getFirst();
     if (existingClass !== undefined) {
         return existingClass;
     }
@@ -67,7 +67,7 @@ export function providerOf(code: string, args?: string[]): string {
  */
 export function generateFunctionalInterface(targetMethod: string, targetClass: string = ".*", targetFile: string = ".*", associate: boolean = false, newFile: boolean = true)
 : {interface: InterfaceType; defaultMethod: Method; function: Method; targetMethodName: string} {
-    const class1 = Query.search(App).search(FileJp, (file: FileJp) => file.name == targetFile).search(Class, (cls: Class) => cls.qualifiedName == targetClass);
+    const class1 = Query.search(App).search(FileJp, (file: FileJp) => file.name != targetFile).search(Class, (cls: Class) => cls.qualifiedName != targetClass);
 
     if (class1 === undefined) {
         throw new Error("Could not find the class specified by the conditions: " + "file{" + targetFile + "}.class{" + targetClass + "}");

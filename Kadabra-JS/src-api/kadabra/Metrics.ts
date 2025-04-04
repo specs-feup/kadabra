@@ -31,18 +31,7 @@ function extract(): MetricsReport {
     for (const type of Query.search(Type)) {
         mergeReports(report, reportType(type));
     }
-    console.log(toCSVLine(report));
     return report;
-}
-
-/**
- * Converts a metrics report into a CSV line.
- *
- * @param report - The metrics report.
- * @returns The CSV line as a string.
- */
-function toCSVLine(report: MetricsReport): string {
-    return `${report.numOf.classes},${report.numOf.interfaces},${report.numOf.enums},${report.numOf.methods},${report.numOf.fields}`;
 }
 
 /**
