@@ -59,24 +59,22 @@ export default class Timer extends TimerBase<Joinpoint> {
         }
     }
 
-    get($target, when: string) {
-        //, message) { ?? here*
+    get($target, when: string, message) {
         let code = this.getTime();
         if ($target == undefined) {
             return code;
         }
 
-        code = "[[message]]" + [[code]] + "[[this.unit]]"; //?
-        console.log(code);
+        code = `System.out.println("${message}"+${code}+"${this.unit}");`;
 
         this.insertTimerCode(code, $target, when);
     }
 
-    measure($target, message, $end) {
+    measure($target, message: string | undefined, $end) {
         this.start($target, "before");
         if (message != undefined) {
             //this order to guarantee correct code injection
-            this.get($end || $target, "after"); //, message); here*
+            this.get($end || $target, "after", message);
         }
         this.stop($end || $target, "after");
     }

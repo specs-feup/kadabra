@@ -17,8 +17,8 @@ export default class BinaryExpressionMutation extends IterativeMutation {
         this.newOperators = arrayFromArgs(newOperators);
     }
 
-    isMutationPoint(jp: Joinpoint | BinaryExpression): jp is BinaryExpression {
-        return (jp as BinaryExpression).operator !== undefined;
+    isMutationPoint(jp: Joinpoint): jp is BinaryExpression {
+        return jp instanceof BinaryExpression;
     }
 
     *mutate(jp: Joinpoint) {

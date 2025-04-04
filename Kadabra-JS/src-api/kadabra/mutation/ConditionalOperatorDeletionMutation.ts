@@ -14,27 +14,27 @@ export default class ConditionalOperatorDeletionMutation extends IterativeMutati
         super("ConditionalOperatorDeletionMutation");
     }
 
-    isMutationPoint(jp: Joinpoint) {
-        if (jp instanceof If || jp instanceof Ternary || jp instanceof Loop) {
-            if (
-                jp.cond instanceof UnaryExpression &&
-                jp.cond.operator === "!"
-            ) {
-                return true;
-            }
+    isMutationPoint(jp: If | Ternary | Loop): boolean {
+        if (jp.cond instanceof UnaryExpression && jp.cond.operator === "!") {
+            return true;
         }
 
         return false;
     }
 
+    isOfCorrectType(jp: Joinpoint) {
+        return jp instanceof If || jp instanceof Ternary || jp instanceof Loop;
+    }
+
     *mutate(jp: Joinpoint) {
         //Joinpoint
-        const mutation = jp.copy() as If | Ternary | Loop;
 
-        if (this.isMutationPoint(jp)) {
-            const tempCond = mutation.cond.copy() as UnaryExpression;
-            mutation.cond.insertReplace(tempCond.operand.copy());
+        if (!(this.isOfCorrectType(jp) && this.isMutationPoint(jp))) {
+            yield new MutationResult(jp);
         }
+        const mutation = jp.copy() as If | Ternary | Loop;
+        const tempCond = mutation.cond.copy() as UnaryExpression;
+        mutation.cond.insertReplace(tempCond.operand.copy());
 
         debug("/*--------------------------------------*/");
         debug("Mutating operator: " + jp + " to " + mutation);
