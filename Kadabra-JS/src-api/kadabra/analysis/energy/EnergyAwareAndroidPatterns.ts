@@ -6,6 +6,12 @@ import HashMapUsageDetector from "./detectors/HashMapUsageDetector.js";
 import ExcessiveMethodCallsDetector from "./detectors/ExcessiveMethodCallsDetector.js";
 import BaseDetector from "./detectors/BaseDetector.js";
 
+export interface Report {
+    sources: string[];
+    total: number;
+    detectors: Map<string, string[]>;
+}
+
 export default class EnergyAwareAndroidPatterns {
     debugEnabled: boolean;
     detectors: BaseDetector[];
@@ -40,23 +46,22 @@ export default class EnergyAwareAndroidPatterns {
 
     toReport() {
         const files = WeaverOptions.getData().get("workspace").getFiles();
-        const sources = [];
+        const sources: string[] = [];
         for (const f of files) {
             sources.push(f.toString());
         }
 
-        const results = {};
-        results["sources"] = sources;
-        results["total"] = 0;
-        const data = {};
+        const results: Report = {
+            sources: sources,
+            total: 0,
+            detectors: new Map(),
+        };
 
         for (const d of this.detectors) {
             const res = d.save();
-            data[`${d.name}`] = res;
-            results["total"] += res.length;
+            results.detectors.set(`${d.name}`, res);
+            results.total += res.length;
         }
-
-        results["detectors"] = data;
 
         return results;
     }
