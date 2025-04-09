@@ -5,8 +5,8 @@ import { Class } from "../Joinpoints.js";
  * Create an atomic field in the given class. This aspect provides outputs such as get and set of the field
  */
 export function NewAtomic(
-    $class,
-    type,
+    $class: Class,
+    type: string,
     fieldName: string,
     initValue: string,
     isStatic: boolean = true
@@ -89,8 +89,8 @@ export function NewThread(
 export function NewChannel(
     keyTypeI: { wrapper: string; isPrimitive: boolean },
     valueTypeI: { wrapper: string; isPrimitive: boolean },
-    $class,
-    capacity,
+    $class: Class,
+    capacity: string,
     channelName = "channel",
     isStatic = true
 ) {
