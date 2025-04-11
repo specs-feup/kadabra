@@ -123,7 +123,6 @@
         <attribute name="superClass" type="String" tooltip="name of the superclass this type extends"/>
         <attribute name="packageName" type="String" tooltip="package name of this type"/>
         <attribute name="interfaces" type="String[]" tooltip="list of names of interfaces that this type implements"/>
-        <!--    		<attribute name="modifiers"			type="String[]" tooltip="the modifiers of this type" />  -->
         <attribute name="javadoc" type="String"/>
         <attribute name="isSubtypeOf" type="Boolean"
                    tooltip="verify if the type is extends OR implements the given type">
@@ -353,14 +352,8 @@
         <attribute name="simpleDecl" type="string"/>
         <attribute name="qualifiedDecl" type="string"/>
         <attribute name="declarator" type="string"/>
-        <attribute name="executable" type="string">
-            <def/>
-            <def type="method"/>
-        </attribute>
-        <attribute name="target" type="string">
-            <def/>
-            <def type="expression"/>
-        </attribute>
+        <attribute name="executable" type="string"/>
+        <attribute name="target" type="string"/>
         <attribute name="targetType" type="type"/>
         <attribute name="returnType" type="string"/>
         <attribute name="returnTypeJp" type="typeReference"/>

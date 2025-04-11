@@ -14,6 +14,7 @@ import {
 
 export default class MemberIgnoringMethodDetector extends BaseDetector {
     dups: Map<string, Method[]>;
+    results: Method[] = [];
 
     constructor() {
         super("Member Ignoring Method Detector");
@@ -125,7 +126,7 @@ export default class MemberIgnoringMethodDetector extends BaseDetector {
     }
 
     #callIsStatic(jpCall: Call) {
-        return jpCall.decl?.isStatic;
+        return jpCall.decl.isStatic;
     }
 
     #varIsStatic(jpVar: Var) {

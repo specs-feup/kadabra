@@ -5,6 +5,9 @@ import Query from "@specs-feup/lara/api/weaver/Query.js";
 import { Class, Constructor, Field, FileJp } from "../../Joinpoints.js";
 export function CountingMonitorList(targetClass, monitorPackage = "pt.up.fe.specs.lara.kadabra.utils") {
     const monitor = GetCountingMonitorList(monitorPackage, "CountingMonitorList");
+    if (monitor === undefined) {
+        throw new Error("Expected monitorClass to be of type Class but was undefined.");
+    }
     let name = "kadabra" + monitor.name;
     let counter = 0;
     while (Query.searchFrom(targetClass, Field, {
@@ -63,9 +66,11 @@ export function NewCountingMonitorList(packageName, simpleName) {
     monitorClass.newMethod(["public"], "int", "get", ["int"], ["id"], "return counter[id];");
     monitorClass.newMethod(["public"], "void", "reset", ["int"], ["id"], "counter[id] = 0;");
     monitorClass.newConstructor(["public"], ["int"], ["size"]);
-    Query.searchFrom(monitorClass, Constructor, "increment")
-        .getFirst()
-        .body.insertReplace("counter = new int[size];");
+    const constructor = Query.searchFrom(monitorClass, Constructor, "increment").getFirst();
+    if (constructor === undefined) {
+        throw new Error("Expected constructor to be of type Constructor but was undefined");
+    }
+    constructor.body.insertReplace("counter = new int[size];");
     return monitorClass;
 }
 //# sourceMappingURL=CounterList.js.map

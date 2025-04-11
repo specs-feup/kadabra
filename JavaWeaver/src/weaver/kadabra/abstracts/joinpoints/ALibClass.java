@@ -421,6 +421,15 @@ public abstract class ALibClass extends ANamedType {
 
     /**
      * 
+     * @param modifiers 
+     */
+    @Override
+    public void setModifiersImpl(String[] modifiers) {
+        this.aNamedType.setModifiersImpl(modifiers);
+    }
+
+    /**
+     * 
      */
     @Override
     public Optional<? extends ANamedType> getSuper() {

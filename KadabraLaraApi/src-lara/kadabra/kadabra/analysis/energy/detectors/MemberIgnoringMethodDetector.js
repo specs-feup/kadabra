@@ -4,6 +4,7 @@ import BaseDetector from "./BaseDetector.js";
 import { Call, Method, Reference, Var, } from "../../../../Joinpoints.js";
 export default class MemberIgnoringMethodDetector extends BaseDetector {
     dups;
+    results = [];
     constructor() {
         super("Member Ignoring Method Detector");
         this.dups = new Map();
@@ -96,7 +97,7 @@ export default class MemberIgnoringMethodDetector extends BaseDetector {
         return true;
     }
     #callIsStatic(jpCall) {
-        return jpCall.decl?.isStatic;
+        return jpCall.decl.isStatic;
     }
     #varIsStatic(jpVar) {
         const isParameter = Query.childrenFrom(jpVar, Reference, { type: "Parameter" }).get()

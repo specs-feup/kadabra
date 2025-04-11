@@ -9,7 +9,7 @@ export default [
   eslintConfigPrettier,
   ...typescriptEslint.configs.recommended,
   {
-    ignores: ["**/*.d.ts", "**/*.config.js"],
+    ignores: ["**/*.d.ts", "**/*.config.js", "api", "code"],
   },
   {
     plugins: {

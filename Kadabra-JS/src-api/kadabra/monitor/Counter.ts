@@ -45,6 +45,12 @@ export function CountingMonitor(
     monitorPackage = "pt.up.fe.specs.lara.kadabra.utils"
 ) {
     const monitorClass = GetCountingMonitor(monitorPackage, "CountingMonitor");
+    if (monitorClass === undefined) {
+        throw new Error(
+            "Expected monitorClass to be of type Class but was undefined."
+        );
+    }
+
     let name = "kadabra" + monitorClass.name;
 
     let counter = 0;

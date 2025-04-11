@@ -71,6 +71,10 @@ export class Joinpoint extends LaraJoinPoint {
      */
     get modifiers() { return wrapJoinPoint(this._javaObject.getModifiers()); }
     /**
+     * An array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array
+     */
+    set modifiers(value) { this._javaObject.setModifiers(unwrapJoinPoint(value)); }
+    /**
      * Returns the number of children of the node
      */
     get numChildren() { return wrapJoinPoint(this._javaObject.getNumChildren()); }
@@ -100,6 +104,7 @@ export class Joinpoint extends LaraJoinPoint {
     removeAnnotation(annotation) { return wrapJoinPoint(this._javaObject.removeAnnotation(unwrapJoinPoint(annotation))); }
     removeModifier(modifier) { return wrapJoinPoint(this._javaObject.removeModifier(unwrapJoinPoint(modifier))); }
     replaceWith(p1) { return wrapJoinPoint(this._javaObject.replaceWith(unwrapJoinPoint(p1))); }
+    setModifiers(modifiers) { return wrapJoinPoint(this._javaObject.setModifiers(unwrapJoinPoint(modifiers))); }
 }
 export class NamedType extends Joinpoint {
     /**
@@ -665,16 +670,20 @@ export class Call extends Expression {
     get decl() { return wrapJoinPoint(this._javaObject.getDecl()); }
     get declarator() { return wrapJoinPoint(this._javaObject.getDeclarator()); }
     get executable() { return wrapJoinPoint(this._javaObject.getExecutable()); }
+    set executable(value) { this._javaObject.setExecutable(unwrapJoinPoint(value)); }
     get name() { return wrapJoinPoint(this._javaObject.getName()); }
     get qualifiedDecl() { return wrapJoinPoint(this._javaObject.getQualifiedDecl()); }
     get returnType() { return wrapJoinPoint(this._javaObject.getReturnType()); }
     get returnTypeJp() { return wrapJoinPoint(this._javaObject.getReturnTypeJp()); }
     get simpleDecl() { return wrapJoinPoint(this._javaObject.getSimpleDecl()); }
     get target() { return wrapJoinPoint(this._javaObject.getTarget()); }
+    set target(value) { this._javaObject.setTarget(unwrapJoinPoint(value)); }
     get targetType() { return wrapJoinPoint(this._javaObject.getTargetType()); }
     clone(location, position) { return wrapJoinPoint(this._javaObject.clone(unwrapJoinPoint(location), unwrapJoinPoint(position))); }
     setArgument(newArgument, index) { return wrapJoinPoint(this._javaObject.setArgument(unwrapJoinPoint(newArgument), unwrapJoinPoint(index))); }
     setArguments(newArguments) { return wrapJoinPoint(this._javaObject.setArguments(unwrapJoinPoint(newArguments))); }
+    setExecutable(executable) { return wrapJoinPoint(this._javaObject.setExecutable(unwrapJoinPoint(executable))); }
+    setTarget(p1) { return wrapJoinPoint(this._javaObject.setTarget(unwrapJoinPoint(p1))); }
 }
 export class CallStatement extends Statement {
     /**

@@ -507,6 +507,15 @@ public abstract class AXmlElement extends AXmlNode {
 
     /**
      * 
+     * @param modifiers 
+     */
+    @Override
+    public void setModifiersImpl(String[] modifiers) {
+        this.aXmlNode.setModifiersImpl(modifiers);
+    }
+
+    /**
+     * 
      * @param text 
      */
     @Override

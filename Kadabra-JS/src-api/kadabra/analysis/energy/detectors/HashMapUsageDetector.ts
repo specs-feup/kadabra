@@ -13,7 +13,7 @@ export default class HashMapUsageDetector extends BaseDetector {
 
         const hashMapRefs = Query.searchFrom(jpClass, New, {
             type: "HashMap",
-            typeReference: (jp) => jp?.packageName === "java.util",
+            typeReference: (jp) => jp.packageName === "java.util",
         }).get();
 
         this.results.push(...hashMapRefs);

@@ -3,6 +3,7 @@ import Collections from "@specs-feup/lara/api/lara/Collections.js";
 import BaseDetector from "./BaseDetector.js";
 import { Body, Call, Method, Return, Var, } from "../../../../Joinpoints.js";
 export default class InternalGetterDetector extends BaseDetector {
+    results = [];
     constructor() {
         super("Internal Getter Detector");
     }
@@ -17,7 +18,8 @@ export default class InternalGetterDetector extends BaseDetector {
             .children(Return)
             .children(Var, { isField: true })
             .chain()
-            .map((m) => m["method"]);
+            .map((result) => result["method"])
+            .filter((method) => method !== undefined);
         const internalCalls = Query.searchFrom(jpClass, Call, {
             decl: (d) => d !== undefined && simpleGetters.some((sg) => sg.equals(d)),
         }).get();
