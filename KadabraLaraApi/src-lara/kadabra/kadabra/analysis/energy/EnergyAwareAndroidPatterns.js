@@ -35,16 +35,16 @@ export default class EnergyAwareAndroidPatterns {
         for (const f of files) {
             sources.push(f.toString());
         }
-        const results = {};
-        results["sources"] = sources;
-        results["total"] = 0;
-        const data = {};
+        const results = {
+            sources: sources,
+            total: 0,
+            detectors: new Map(),
+        };
         for (const d of this.detectors) {
             const res = d.save();
-            data[`${d.name}`] = res;
-            results["total"] += res.length;
+            results.detectors.set(`${d.name}`, res);
+            results.total += res.length;
         }
-        results["detectors"] = data;
         return results;
     }
     toJson(path) {

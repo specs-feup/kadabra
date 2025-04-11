@@ -13,6 +13,8 @@ import {
 } from "../../../../Joinpoints.js";
 
 export default class InternalGetterDetector extends BaseDetector {
+    results: Call[] = [];
+
     constructor() {
         super("Internal Getter Detector");
     }
@@ -30,7 +32,8 @@ export default class InternalGetterDetector extends BaseDetector {
             .children(Return)
             .children(Var, { isField: true })
             .chain()
-            .map((m) => m["method"]);
+            .map((result) => result["method"])
+            .filter((method) => method !== undefined);
 
         const internalCalls = Query.searchFrom(jpClass, Call, {
             decl: (d) =>
@@ -52,7 +55,7 @@ export default class InternalGetterDetector extends BaseDetector {
     }
 
     save() {
-        return this.results.map((r: Call) => {
+        return this.results.map((r) => {
             let loc = r.name + "(" + r.arguments + "):" + r.line.toString();
 
             // Initialized inside method

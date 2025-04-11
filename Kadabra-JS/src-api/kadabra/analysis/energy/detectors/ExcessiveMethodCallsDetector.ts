@@ -25,13 +25,14 @@ export interface MethodInfo {
 }
 
 export default class ExcessiveMethodCallsDetector extends BaseDetector {
-    currentPackage: string;
-    loopGlobalReads: Declaration[];
-    loopGlobalWrites: Declaration[];
-    loopLocalWrites: Declaration[];
-    methodsInfo: MethodInfo[];
-    variantCalls: string[];
-    missingCallDecl: boolean;
+    currentPackage: string | undefined;
+    loopGlobalReads: Declaration[] = [];
+    loopGlobalWrites: Declaration[] = [];
+    loopLocalWrites: Declaration[] = [];
+    methodsInfo: MethodInfo[] = [];
+    variantCalls: string[] = [];
+    missingCallDecl: boolean = false;
+    results: Call[] = [];
 
     constructor(debugEnabled = false) {
         super("Excessive Method Calls Detector", debugEnabled);
@@ -124,7 +125,7 @@ export default class ExcessiveMethodCallsDetector extends BaseDetector {
     }
 
     save() {
-        return this.results.map((r: Call) => {
+        return this.results.map((r) => {
             let loc = r.name + "(" + r.arguments + "):" + r.line.toString();
 
             // Initialized inside method
@@ -209,7 +210,7 @@ export default class ExcessiveMethodCallsDetector extends BaseDetector {
     }
 
     analyseMethodRecursive(jpMethod: Method) {
-        const res = { writes: [], reads: [] };
+        const res: { writes: Var[]; reads: Var[] } = { writes: [], reads: [] };
 
         if (
             ExcessiveMethodCallsDetector.tryGetMethodInfo(
@@ -333,7 +334,7 @@ export default class ExcessiveMethodCallsDetector extends BaseDetector {
         }
 
         // Overlap check of some arguments. unavoidable until ast can differentiate in "a.foo(bar)" -> argument vars (bar) and all other vars (a)
-        const vars = this.getFirstDescendentsOfTypes(jpCall, ["var"]);
+        const vars = this.getFirstDescendentsOfTypes(jpCall, ["var"]) as Var[];
         for (const v of vars) {
             if (v.declaration === undefined) {
                 this.printDebugInfo(
@@ -365,7 +366,11 @@ export default class ExcessiveMethodCallsDetector extends BaseDetector {
             jpCall.decl
         );
 
-        if (mi?.missingInfo) {
+        if (mi === null) {
+            throw new Error("Failed to get MethodInfo");
+        }
+
+        if (mi.missingInfo) {
             this.printDebugInfo(
                 `Call: ${jpCall} @ L${jpCall.line} -> VARIANT (methodMissingInfo)`
             );
@@ -460,7 +465,7 @@ export default class ExcessiveMethodCallsDetector extends BaseDetector {
         return { isVariant: false, cause: "" };
     }
 
-    callInvokesVariantMethod(jp: Joinpoint) {
+    callInvokesVariantMethod(jp: Joinpoint): boolean {
         for (const child of jp.children) {
             const isVariant = this.callInvokesVariantMethod(child);
             if (isVariant) return isVariant;
@@ -469,9 +474,11 @@ export default class ExcessiveMethodCallsDetector extends BaseDetector {
         if (jp instanceof Call) {
             return !this.isCallInvariant(jp);
         }
+
+        return false;
     }
 
-    getFirstDescendentsOfTypes(jp: Joinpoint, types: string[]) {
+    getFirstDescendentsOfTypes(jp: Joinpoint, types: string[]): Joinpoint[] {
         if (types.some((type) => jp.instanceOf(type))) {
             return [jp];
         } else {
