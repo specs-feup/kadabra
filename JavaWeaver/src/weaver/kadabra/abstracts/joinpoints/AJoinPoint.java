@@ -83,6 +83,7 @@ public abstract class AJoinPoint extends JoinPoint {
         actions.add("removeModifier(String modifier)");
         actions.add("replaceWith(AJoinPoint jp)");
         actions.add("replaceWith(String code)");
+        actions.add("setModifiers(String[] modifiers)");
     }
 
     /**
@@ -399,6 +400,32 @@ public abstract class AJoinPoint extends JoinPoint {
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "replaceWith", e);
+        }
+    }
+
+    /**
+     * 
+     * @param modifiers 
+     */
+    public void setModifiersImpl(String[] modifiers) {
+        throw new UnsupportedOperationException(get_class()+": Action setModifiers not implemented ");
+    }
+
+    /**
+     * 
+     * @param modifiers 
+     */
+    public final void setModifiers(Object[] modifiers) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "setModifiers", this, Optional.empty(), new Object[] { modifiers});
+        	}
+        	this.setModifiersImpl(pt.up.fe.specs.util.SpecsCollections.cast(modifiers, String.class));
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "setModifiers", this, Optional.empty(), new Object[] { modifiers});
+        	}
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "setModifiers", e);
         }
     }
 

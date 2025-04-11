@@ -489,6 +489,15 @@ public abstract class AOpAssignment extends AAssignment {
 
     /**
      * 
+     * @param modifiers 
+     */
+    @Override
+    public void setModifiersImpl(String[] modifiers) {
+        this.aAssignment.setModifiersImpl(modifiers);
+    }
+
+    /**
+     * 
      * @param rhs 
      */
     @Override

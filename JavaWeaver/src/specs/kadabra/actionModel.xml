@@ -58,6 +58,10 @@
         <parameter name="modifier" type="String"/>
     </action>
 
+    <action name="setModifiers">
+        <parameter name="modifiers" type="String[]"/>
+    </action>
+
     <!-- XML NODE-->
     <action name="setText" class="xmlNode" return="String">
         <parameter name="text" type="String"/>
@@ -226,6 +230,17 @@
 
     <action name="setArguments" class="call" return="void">
         <parameter name="newArguments" type="expression[]"/>
+    </action>
+
+    <action name="setTarget" class="call" return="call">
+        <parameter name="target" type="expression" default="null"/>
+    </action>
+    <action name="setTarget" class="call" return="call">
+        <parameter name="target" type="string" default="null"/>
+    </action>
+
+    <action name="setExecutable" class="call" return="call">
+        <parameter name="executable" type="method"/>
     </action>
 
     <action name="setArgument" class="call" return="void">

@@ -588,6 +588,15 @@ public abstract class AInterfaceType extends AType {
 
     /**
      * 
+     * @param modifiers 
+     */
+    @Override
+    public void setModifiersImpl(String[] modifiers) {
+        this.aType.setModifiersImpl(modifiers);
+    }
+
+    /**
+     * 
      */
     @Override
     public Optional<? extends AType> getSuper() {

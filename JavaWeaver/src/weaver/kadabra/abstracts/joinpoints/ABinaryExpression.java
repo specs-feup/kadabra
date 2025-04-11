@@ -635,6 +635,15 @@ public abstract class ABinaryExpression extends AExpression {
 
     /**
      * 
+     * @param modifiers 
+     */
+    @Override
+    public void setModifiersImpl(String[] modifiers) {
+        this.aExpression.setModifiersImpl(modifiers);
+    }
+
+    /**
+     * 
      */
     @Override
     public Optional<? extends AExpression> getSuper() {
