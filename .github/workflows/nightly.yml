@@ -89,10 +89,19 @@ jobs:
           # This is causing problems in PRs, for now it will always be the default branch
           #ref: ${{ steps.Branch-specs-java-libs.outputs.value == '1' && env.BRANCH_NAME || env.STAGING_BRANCH }}
 
-      - name: Build TS sources
+      - name: Prep TS sources
         run: |
           cd kadabra/Kadabra-JS
           npm install
+      
+      - name: Lint TS sources
+        run: |
+          cd kadabra/Kadabra-JS
+          npm run lint
+      
+      - name: Build TS sources
+        run: |
+          cd kadabra/Kadabra-JS
           npm run build
           npm run java-dist
       
