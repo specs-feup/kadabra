@@ -148,6 +148,12 @@ jobs:
           name: java-binaries
           path: kadabra/JavaWeaver/build/install/JavaWeaver
 
+      - name: SonarQube Quality Gate check
+        id: sonarqube-quality-gate-check
+        uses: sonarsource/sonarqube-quality-gate-action@v1.1.0
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
 
 # Uncomment after adding Kadabra-JS
 #  build-js:
