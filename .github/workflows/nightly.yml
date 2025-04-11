@@ -107,6 +107,8 @@ jobs:
         uses: SonarSource/sonarqube-scan-action@v5
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          projectBaseDir: kadabra/Kadabra-JS
 
       - name: Lint TS sources
         run: |

@@ -76,8 +76,8 @@
         "typescript": "^5.8.2"
     },
     "sonar": {
-        "sonar.projectKey": "specs-feup_kadabra",
-        "sonar.projectName": "Kadabra",
+        "sonar.organization": "specs-feup",
+        "sonar.projectKey": "specs-feup_kadabra-js",
         "sonar.sources": "src-api, src-code"
     }
 }

@@ -90,7 +90,7 @@ sourceSets {
 
 sonar {
   properties {
-    property "sonar.projectKey", "specs-feup_kadabra"
+    property "sonar.projectKey", "specs-feup_kadabra-java"
     property "sonar.organization", "specs-feup"
     property "sonar.host.url", "https://sonarcloud.io"
   }
