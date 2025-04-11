@@ -10,7 +10,7 @@ import { Class, FileJp, Method, App } from "../Joinpoints.js";
  * @returns The class join point.
  */
 export function getOrNewClass(qualifiedName, extend = null, implement = [], target) {
-    const existingClass = Query.search(Class, (cls) => cls.qualifiedName == qualifiedName).getFirst();
+    const existingClass = Query.search(Class, (cls) => cls.qualifiedName.match(qualifiedName) !== null).getFirst();
     if (existingClass !== undefined) {
         return existingClass;
     }
@@ -31,6 +31,9 @@ export function newClass(qualifiedName, extend = null, implement = [], target) {
     }
     if (!(target instanceof App) || !(target instanceof FileJp)) {
         throw new Error('The target join point for a new class must be of type App or FileJp.');
+    }
+    if (extend === null) {
+        throw new Error("Expected extend to be of type string but was null instead.");
     }
     return target.newClass(qualifiedName, extend, implement);
 }
@@ -62,7 +65,7 @@ export function providerOf(code, args) {
  * @returns The generated functional interface and related information.
  */
 export function generateFunctionalInterface(targetMethod, targetClass = ".*", targetFile = ".*", associate = false, newFile = true) {
-    const class1 = Query.search(App).search(FileJp, (file) => file.name == targetFile).search(Class, (cls) => cls.qualifiedName == targetClass);
+    const class1 = Query.search(App).search(FileJp, (file) => file.name.match(targetFile) !== null).search(Class, (cls) => cls.qualifiedName.match(targetClass) !== null);
     if (class1 === undefined) {
         throw new Error("Could not find the class specified by the conditions: " + "file{" + targetFile + "}.class{" + targetClass + "}");
     }
@@ -75,26 +78,42 @@ export function generateFunctionalInterface(targetMethod, targetClass = ".*", ta
     let defaultMethod1 = undefined;
     let tempClass = undefined;
     for (const m of method) {
+        const firstClass = class1.getFirst();
+        if (firstClass === undefined) {
+            throw new Error("Could not extract functional interface because the class is undefined.");
+        }
         if (interface1 !== undefined) {
             throw Error("More than one method to be extracted, please redefine this aspect call. Target method: " +
-                targetMethod + ". 1st Location" + tempClass.qualifiedName + ". 2nd Location " + class1.getFirst().qualifiedName);
+                targetMethod + ". 1st Location" + (tempClass?.qualifiedName ?? "undefined") + ". 2nd Location " + firstClass.qualifiedName);
         }
-        console.log("[LOG] Extracting functional interface from " + class1.getFirst().name + "#" + m.name);
-        const interfacePackage = class1.getFirst().packageName;
+        console.log("[LOG] Extracting functional interface from " + firstClass.name + "#" + m.name);
+        const interfacePackage = firstClass.packageName;
         const interfaceName = "I" + m.name.charAt(0).toUpperCase() + m.name.slice(1);
-        const newInterface = class1.getFirst().extractInterface(interfaceName, interfacePackage, m, associate, newFile);
+        const newInterface = firstClass.extractInterface(interfaceName, interfacePackage, m, associate, newFile);
         if (newFile === undefined) {
-            newInterface.def('static', class1.getFirst().modifiers);
-            class1.getFirst().addInterface(newInterface);
+            newInterface.setModifiers(['static']);
+            firstClass.addInterface(newInterface);
         }
         interface1 = newInterface;
         defaultMethod1 = m;
-        tempClass = class1;
+        tempClass = firstClass;
+    }
+    if (!interface1) {
+        throw new Error("Failed to generate functional interface: interface1 is undefined.");
+    }
+    if (!defaultMethod1) {
+        throw new Error("Failed to generate functional interface: defaultMethod1 is undefined.");
     }
     return {
         interface: interface1,
         defaultMethod: defaultMethod1,
-        function: Query.searchFrom(interface1).search(Method, { name: targetMethod }).getFirst(),
+        function: (() => {
+            const method1 = Query.searchFrom(interface1).search(Method, { name: targetMethod }).getFirst();
+            if (!method1) {
+                throw new Error("Failed to find the function method in the generated interface.");
+            }
+            return method1;
+        })(),
         targetMethodName: targetMethod
     };
 }

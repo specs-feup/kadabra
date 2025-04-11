@@ -1,5 +1,5 @@
 import Query from "@specs-feup/lara/api/weaver/Query.js";
-import { App, Body, Class, Method, Return } from "../Joinpoints.js";
+import { App, Class, Method, Return } from "../Joinpoints.js";
 
 /**
  * Opens a window with the AST of Spoon.
@@ -7,7 +7,10 @@ import { App, Body, Class, Method, Return } from "../Joinpoints.js";
  * @param name - The name of the AST window.
  */
 export function showAST(name: string = "Spoon Tree"): void {
-    Query.search(App).getFirst().showAST(name);
+    const app = Query.search(App).getFirst();
+    if (app) {
+        app.showAST(name);
+    }
 }
 
 /**
@@ -173,8 +176,8 @@ export function getMethod(className: string = ".*", methodName?: string): Method
         className = ".*";
     }
 
-    let methods: Method | Method[] = undefined;
-    for (const method of Query.search(Class, (cls: Class) => cls.qualifiedName != className).search(Method, { name: methodName })) {
+    let methods: Method | Method[] | undefined = undefined;
+    for (const method of Query.search(Class, (cls: Class) => cls.qualifiedName.match(className)  !== null).search(Method, { name: methodName })) {
         if (methods === undefined) {
             methods = method;
         } else if (Array.isArray(methods)) {
@@ -182,6 +185,9 @@ export function getMethod(className: string = ".*", methodName?: string): Method
         } else {
             methods = [methods, method];
         }
+    }
+    if (methods === undefined) {
+        throw new Error(`Method "${methodName}" not found in class "${className}".`);
     }
     return methods;
 }
@@ -193,8 +199,8 @@ export function getMethod(className: string = ".*", methodName?: string): Method
  * @returns An array of class join points.
  */
 export function getClass(className: string = ".*"): Class | Class[] {
-    let classes: Class | Class[] = undefined;
-    for (const cls of Query.search(Class, (cls: Class) => cls.qualifiedName != className)) {
+    let classes: Class | Class[] | undefined = undefined;
+    for (const cls of Query.search(Class, (cls: Class) => cls.qualifiedName.match(className)  !== null)) {
         if (classes === undefined) {
             classes = cls;
         } else if (Array.isArray(classes)) {
@@ -202,6 +208,9 @@ export function getClass(className: string = ".*"): Class | Class[] {
         } else {
             classes = [classes, cls];
         }
+    }
+    if (classes === undefined) {
+        throw new Error(`Class "${className}" not found.`);
     }
     return classes;
 }

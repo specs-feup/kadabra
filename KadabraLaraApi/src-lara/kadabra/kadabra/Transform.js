@@ -17,12 +17,15 @@ import { generateFunctionalInterface } from "./Factory.js";
  */
 export function extractToField(call, method, fieldLocation, newFile = true, funcInterface = null) {
     if (call === undefined) {
-        return null;
+        return { field: null, interface: funcInterface, interfaceMethod: null, defaultMethod: null };
     }
     if (method === undefined) {
         method = Query.searchFrom(call, Method).getFirst();
+        if (!method) {
+            throw new Error("No method found for the given call.");
+        }
     }
-    if (funcInterface === undefined) {
+    if (funcInterface === undefined || funcInterface === null) {
         const extracted = generateFunctionalInterface(call.name, call.declarator, undefined, undefined, newFile);
         funcInterface = extracted.interface;
         if (funcInterface !== undefined) {
@@ -43,11 +46,17 @@ export function extractToField(call, method, fieldLocation, newFile = true, func
         const field1 = fieldLocation.newField(method.isStatic ? ["static"] : [], funcInterface.qualifiedName, interfaceMethod1.name, defaultMethod);
         if (field1 !== undefined) {
             console.log(`[LOG] Extracted a field "${field1.name}", from call "${call.name}", to ${field1.declarator}`);
-            call.def("target", { name: field1.name });
-            call.def("executable", interfaceMethod1);
+            call.setTarget(field1.name);
+            call.setExecutable(interfaceMethod1);
         }
         field = field1;
         interfaceMethod = interfaceMethod1;
+    }
+    if (!field) {
+        throw new Error("Could not create a field for the functional interface.");
+    }
+    if (!interfaceMethod) {
+        throw new Error("Could not create an interfaceMethod for the functional interface.");
     }
     if (funcInterface !== undefined && field !== undefined) {
         console.log(`[LOG] Call to "${call.name}" (in method "${method.name}") is ready!`);
@@ -67,6 +76,15 @@ export function newMappingClass(interfaceJp = null, methodName = null, getterTyp
     const DEFAULT_PACKAGE = "pt.up.fe.specs.lara.kadabra.utils";
     if (target === undefined) {
         target = Query.search(App).getFirst();
+    }
+    if (methodName == null) {
+        throw new Error("Method name cannot be null.");
+    }
+    if (getterType == null) {
+        throw new Error("Getter type cannot be null.");
+    }
+    if (interfaceJp == null) {
+        throw new Error("Functional interface cannot be null.");
     }
     const targetMethodFirstCap = methodName.charAt(0).toUpperCase() + methodName.slice(1);
     const mapClassName = `${DEFAULT_PACKAGE}.${targetMethodFirstCap}Caller`;
@@ -95,14 +113,18 @@ export function newMappingClass(interfaceJp = null, methodName = null, getterTyp
  * @returns An object containing the mapping class and related methods.
  */
 export function newFunctionalMethodCaller(interfaceJp = null, methodName = null, getterType = null, defaultMethodStr = null) {
-    if (interfaceJp === undefined || methodName === undefined || getterType === undefined || defaultMethodStr === undefined) {
-        return null;
+    if (interfaceJp === null || methodName === null || getterType === null || defaultMethodStr === null) {
+        return { mapClass: null, put: null, contains: null, get: () => null };
     }
     const DEFAULT_PACKAGE = "pt.up.fe.specs.lara.kadabra.utils";
     const targetMethodFirstCap = methodName.charAt(0).toUpperCase() + methodName.slice(1);
     const mapClassName = `${DEFAULT_PACKAGE}.${targetMethodFirstCap}Caller`;
     console.log(`[LOG] Creating new functional mapping class: ${mapClassName}`);
-    const mapClass = Query.search(App).getFirst().mapVersions(mapClassName, getterType, interfaceJp, methodName);
+    const appInstance = Query.search(App).getFirst();
+    if (!appInstance) {
+        throw new Error("No App instance found.");
+    }
+    const mapClass = appInstance.mapVersions(mapClassName, getterType, interfaceJp, methodName);
     return {
         mapClass,
         put: "put",
