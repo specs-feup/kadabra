@@ -74,10 +74,5 @@
         "node-notifier": "^10.0.1",
         "ts-jest": "^29.2.6",
         "typescript": "^5.8.2"
-    },
-    "sonar": {
-        "sonar.organization": "specs-feup",
-        "sonar.projectKey": "specs-feup_kadabra-js",
-        "sonar.sources": "src-api, src-code"
     }
 }
