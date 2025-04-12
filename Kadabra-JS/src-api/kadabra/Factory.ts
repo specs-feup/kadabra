@@ -10,7 +10,7 @@ import { Class, FileJp, Method, InterfaceType, App } from "../Joinpoints.js";
  * @param target - The target join point (optional).
  * @returns The class join point.
  */
-export function getOrNewClass(qualifiedName: string, extend: string | null = null, implement: string[] = [], target?: App): Class {
+export function getOrNewClass(qualifiedName: string, extend?: string, implement: string[] = [], target?: App): Class {
     const existingClass = Query.search(Class, (cls: Class) => cls.qualifiedName.match(qualifiedName) !== null).getFirst();
     if (existingClass !== undefined) {
         return existingClass;
@@ -27,17 +27,14 @@ export function getOrNewClass(qualifiedName: string, extend: string | null = nul
  * @param target - The target join point (optional).
  * @returns The newly created class join point.
  */
-export function newClass(qualifiedName: string, extend: string | null = null, implement: string[] = [], target?: App): Class {
+export function newClass(qualifiedName: string, extend?: string, implement: string[] = [], target?: App): Class {
     if (target === undefined) {
         target = Query.search(App).getFirst();
     }
     if (!(target instanceof App) || !(target instanceof FileJp)) {
         throw new Error('The target join point for a new class must be of type App or FileJp.');
     }
-    if (extend === null) {  
-        throw new Error("Expected extend to be of type string but was null instead.");  
-    }
-    return target.newClass(qualifiedName, extend, implement);
+    return target.newClass(qualifiedName, extend ?? "", implement);
 }
 
 /**

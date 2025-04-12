@@ -17,11 +17,7 @@ import { generateFunctionalInterface } from "./Factory.js";
  * @returns An object containing the extracted field, interface, and related information.
  */
 export function extractToField(call: Call, method?: Method, fieldLocation?: Class, newFile: boolean = true, funcInterface: InterfaceType | null = null)
-: { field: Field | null; interface: InterfaceType | null; interfaceMethod: Method | null; defaultMethod: string | null } {
-    if (call === undefined) {
-        return { field: null, interface: funcInterface, interfaceMethod: null, defaultMethod: null };
-    }
-
+: { field: Field; interface: InterfaceType; interfaceMethod: Method; defaultMethod: string } {
     if (method === undefined) {
         method = Query.searchFrom(call, Method).getFirst();
         if (!method) {
@@ -92,24 +88,12 @@ export function extractToField(call: Call, method?: Method, fieldLocation?: Clas
  * @param target - The target join point (optional).
  * @returns An object containing the mapping class and related methods.
  */
-export function newMappingClass(interfaceJp: InterfaceType | null = null, methodName: string | null = null, getterType: string | null = null, target?: Class | App | FileJp)
+export function newMappingClass(interfaceJp: InterfaceType, methodName: string, getterType: string, target?: Class | App | FileJp)
 : {mapClass: Class; put: (key: string, value: string) => string; contains: (key: string) => string; get: (param: string, defaultMethod?: string) => string;} {
     const DEFAULT_PACKAGE = "pt.up.fe.specs.lara.kadabra.utils";
 
     if (target === undefined) {
         target = Query.search(App).getFirst();
-    }
-
-    if (methodName == null) {
-        throw new Error("Method name cannot be null.");
-    }
-
-    if (getterType == null) {
-        throw new Error("Getter type cannot be null.");
-    }
-
-    if (interfaceJp == null) {
-        throw new Error("Functional interface cannot be null.");
     }
 
     const targetMethodFirstCap = methodName.charAt(0).toUpperCase() + methodName.slice(1);
@@ -141,12 +125,8 @@ export function newMappingClass(interfaceJp: InterfaceType | null = null, method
  * @param defaultMethodStr - The default method string.
  * @returns An object containing the mapping class and related methods.
  */
-export function newFunctionalMethodCaller(interfaceJp: InterfaceType | null = null, methodName: string | null = null, getterType: string | null = null, defaultMethodStr: string | null = null)
-: { mapClass: Class | null; put: string | null; contains: string | null; get: (param: string) => string | null } {
-    if (interfaceJp === null || methodName === null || getterType === null || defaultMethodStr === null) {
-        return { mapClass: null, put: null, contains: null, get: () => null };
-    }
-
+export function newFunctionalMethodCaller(interfaceJp: InterfaceType, methodName: string, getterType: string, defaultMethodStr: string)
+: { mapClass: Class; put: string; contains: string; get: (param: string) => string } {
     const DEFAULT_PACKAGE = "pt.up.fe.specs.lara.kadabra.utils";
 
     const targetMethodFirstCap = methodName.charAt(0).toUpperCase() + methodName.slice(1);
