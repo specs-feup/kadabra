@@ -30,7 +30,7 @@ export function newClass(qualifiedName, extend, implement = [], target) {
         target = Query.search(App).getFirst();
     }
     if (!(target instanceof App) || !(target instanceof FileJp)) {
-        throw new Error('The target join point for a new class must be of type App or FileJp.');
+        throw new Error("The target join point for a new class must be of type App or FileJp.");
     }
     return target.newClass(qualifiedName, extend ?? "", implement);
 }
@@ -62,14 +62,27 @@ export function providerOf(code, args) {
  * @returns The generated functional interface and related information.
  */
 export function generateFunctionalInterface(targetMethod, targetClass = ".*", targetFile = ".*", associate = false, newFile = true) {
-    const class1 = Query.search(App).search(FileJp, (file) => file.name.match(targetFile) !== null).search(Class, (cls) => cls.qualifiedName.match(targetClass) !== null);
+    const class1 = Query.search(App)
+        .search(FileJp, (file) => file.name.match(targetFile) !== null)
+        .search(Class, (cls) => cls.qualifiedName.match(targetClass) !== null);
     if (class1 === undefined) {
-        throw new Error("Could not find the class specified by the conditions: " + "file{" + targetFile + "}.class{" + targetClass + "}");
+        throw new Error("Could not find the class specified by the conditions: " +
+            "file{" +
+            targetFile +
+            "}.class{" +
+            targetClass +
+            "}");
     }
     const method = class1.search(Method, { name: targetMethod });
     if (method === undefined) {
         throw new Error("Could not find the method to extract a functional interface, specified by the conditions: " +
-            "file{" + targetFile + "}.class{" + targetClass + "}.method{" + targetMethod + "}");
+            "file{" +
+            targetFile +
+            "}.class{" +
+            targetClass +
+            "}.method{" +
+            targetMethod +
+            "}");
     }
     let interface1 = undefined;
     let defaultMethod1 = undefined;
@@ -81,14 +94,21 @@ export function generateFunctionalInterface(targetMethod, targetClass = ".*", ta
         }
         if (interface1 !== undefined) {
             throw Error("More than one method to be extracted, please redefine this aspect call. Target method: " +
-                targetMethod + ". 1st Location" + (tempClass?.qualifiedName ?? "undefined") + ". 2nd Location " + firstClass.qualifiedName);
+                targetMethod +
+                ". 1st Location" +
+                (tempClass?.qualifiedName ?? "undefined") +
+                ". 2nd Location " +
+                firstClass.qualifiedName);
         }
-        console.log("[LOG] Extracting functional interface from " + firstClass.name + "#" + m.name);
+        console.log("[LOG] Extracting functional interface from " +
+            firstClass.name +
+            "#" +
+            m.name);
         const interfacePackage = firstClass.packageName;
         const interfaceName = "I" + m.name.charAt(0).toUpperCase() + m.name.slice(1);
         const newInterface = firstClass.extractInterface(interfaceName, interfacePackage, m, associate, newFile);
         if (newFile === undefined) {
-            newInterface.setModifiers(['static']);
+            newInterface.setModifiers(["static"]);
             firstClass.addInterface(newInterface);
         }
         interface1 = newInterface;
@@ -105,13 +125,15 @@ export function generateFunctionalInterface(targetMethod, targetClass = ".*", ta
         interface: interface1,
         defaultMethod: defaultMethod1,
         function: (() => {
-            const method1 = Query.searchFrom(interface1).search(Method, { name: targetMethod }).getFirst();
+            const method1 = Query.searchFrom(interface1)
+                .search(Method, { name: targetMethod })
+                .getFirst();
             if (!method1) {
                 throw new Error("Failed to find the function method in the generated interface.");
             }
             return method1;
         })(),
-        targetMethodName: targetMethod
+        targetMethodName: targetMethod,
     };
 }
 /**
