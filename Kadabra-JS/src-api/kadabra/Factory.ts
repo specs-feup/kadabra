@@ -18,11 +18,13 @@ export function getOrNewClass(
 ): Class {
     const existingClass = Query.search(
         Class,
-        (cls: Class) => cls.qualifiedName.match(qualifiedName) !== null
+        (cls) => RegExp(qualifiedName).exec(cls.qualifiedName) !== null
     ).getFirst();
+
     if (existingClass !== undefined) {
         return existingClass;
     }
+
     return newClass(qualifiedName, extend, implement, target);
 }
 
@@ -93,10 +95,10 @@ export function generateFunctionalInterface(
     targetMethodName: string;
 } {
     const class1 = Query.search(App)
-        .search(FileJp, (file: FileJp) => file.name.match(targetFile) !== null)
+        .search(FileJp, (file) => RegExp(targetFile).exec(file.name) !== null)
         .search(
             Class,
-            (cls: Class) => cls.qualifiedName.match(targetClass) !== null
+            (cls) => RegExp(targetClass).exec(cls.qualifiedName) !== null
         );
 
     if (class1 === undefined) {
