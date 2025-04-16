@@ -19,8 +19,10 @@ export class KadabraAst {
      * @param startingPoint - The join point where the search for constants will start (inclusive).
      * @returns An array of join points, which can either be a field, an assignment, or a local variable.
      */
-    static getConstantInitializations(startingPoint?: LaraJoinPoint): (Field | Assignment | LocalVariable)[] {
-        if (startingPoint  === undefined) {
+    static getConstantInitializations(
+        startingPoint?: LaraJoinPoint
+    ): (Field | Assignment | LocalVariable)[] {
+        if (startingPoint === undefined) {
             startingPoint = Query.root();
         }
 
@@ -34,14 +36,20 @@ export class KadabraAst {
         }
 
         // Search for assignments to final fields
-        for (const assign of Query.searchFromInclusive(startingPoint, Assignment)) {
+        for (const assign of Query.searchFromInclusive(
+            startingPoint,
+            Assignment
+        )) {
             if (assign.lhs.isFinal) {
                 constants.push(assign);
             }
         }
 
         // Search for final local variables with initializations
-        for (const localVar of Query.searchFromInclusive(startingPoint, LocalVariable)) {
+        for (const localVar of Query.searchFromInclusive(
+            startingPoint,
+            LocalVariable
+        )) {
             if (localVar.init !== undefined && localVar.isFinal) {
                 constants.push(localVar);
             }
@@ -55,7 +63,7 @@ export class KadabraAst {
      * @returns A Set<string> with valid binary operators.
      */
     static getBinaryOperators(): Set<string> {
-        if (this._BINARY_OP_SET  === undefined) {
+        if (this._BINARY_OP_SET === undefined) {
             this._BINARY_OP_SET = new Set<string>();
             for (const binaryOp of KadabraJavaTypes.OperatorUtils.getValidBinaryStrings()) {
                 this._BINARY_OP_SET.add(binaryOp);
@@ -70,7 +78,7 @@ export class KadabraAst {
      * @returns A Set<string> with valid unary operators.
      */
     static getUnaryOperators(): Set<string> {
-        if (this._UNARY_OP_SET  === undefined) {
+        if (this._UNARY_OP_SET === undefined) {
             this._UNARY_OP_SET = new Set<string>();
             for (const unaryOp of KadabraJavaTypes.OperatorUtils.getValidUnaryStrings()) {
                 this._UNARY_OP_SET.add(unaryOp);
@@ -91,13 +99,13 @@ export class KadabraAst {
 
         for (const cls of Query.search(Class)) {
             const superClass = cls.superClass;
-			let subClasses = hierarchy[superClass];
+            let subClasses = hierarchy[superClass];
 
-			if (subClasses === undefined) {
-				subClasses = [];
-				hierarchy[superClass] = subClasses;
-			}
-			subClasses.push(cls);
+            if (subClasses === undefined) {
+                subClasses = [];
+                hierarchy[superClass] = subClasses;
+            }
+            subClasses.push(cls);
         }
 
         return hierarchy;
