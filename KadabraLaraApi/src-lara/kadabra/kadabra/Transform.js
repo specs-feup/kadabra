@@ -16,9 +16,6 @@ import { generateFunctionalInterface } from "./Factory.js";
  * @returns An object containing the extracted field, interface, and related information.
  */
 export function extractToField(call, method, fieldLocation, newFile = true, funcInterface = null) {
-    if (call === undefined) {
-        return { field: null, interface: funcInterface, interfaceMethod: null, defaultMethod: null };
-    }
     if (method === undefined) {
         method = Query.searchFrom(call, Method).getFirst();
         if (!method) {
@@ -72,19 +69,10 @@ export function extractToField(call, method, fieldLocation, newFile = true, func
  * @param target - The target join point (optional).
  * @returns An object containing the mapping class and related methods.
  */
-export function newMappingClass(interfaceJp = null, methodName = null, getterType = null, target) {
+export function newMappingClass(interfaceJp, methodName, getterType, target) {
     const DEFAULT_PACKAGE = "pt.up.fe.specs.lara.kadabra.utils";
     if (target === undefined) {
         target = Query.search(App).getFirst();
-    }
-    if (methodName == null) {
-        throw new Error("Method name cannot be null.");
-    }
-    if (getterType == null) {
-        throw new Error("Getter type cannot be null.");
-    }
-    if (interfaceJp == null) {
-        throw new Error("Functional interface cannot be null.");
     }
     const targetMethodFirstCap = methodName.charAt(0).toUpperCase() + methodName.slice(1);
     const mapClassName = `${DEFAULT_PACKAGE}.${targetMethodFirstCap}Caller`;
@@ -112,10 +100,7 @@ export function newMappingClass(interfaceJp = null, methodName = null, getterTyp
  * @param defaultMethodStr - The default method string.
  * @returns An object containing the mapping class and related methods.
  */
-export function newFunctionalMethodCaller(interfaceJp = null, methodName = null, getterType = null, defaultMethodStr = null) {
-    if (interfaceJp === null || methodName === null || getterType === null || defaultMethodStr === null) {
-        return { mapClass: null, put: null, contains: null, get: () => null };
-    }
+export function newFunctionalMethodCaller(interfaceJp, methodName, getterType, defaultMethodStr) {
     const DEFAULT_PACKAGE = "pt.up.fe.specs.lara.kadabra.utils";
     const targetMethodFirstCap = methodName.charAt(0).toUpperCase() + methodName.slice(1);
     const mapClassName = `${DEFAULT_PACKAGE}.${targetMethodFirstCap}Caller`;
