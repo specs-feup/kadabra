@@ -12,7 +12,7 @@ import { Class, FileJp, Method, InterfaceType, App } from "../Joinpoints.js";
  */
 export function getOrNewClass(
     qualifiedName: string,
-    extend?: string,
+    extend: string = "",
     implement: string[] = [],
     target?: App | FileJp
 ): Class {
@@ -39,7 +39,7 @@ export function getOrNewClass(
  */
 export function newClass(
     qualifiedName: string,
-    extend?: string,
+    extend: string = "",
     implement: string[] = [],
     target?: App | FileJp
 ): Class {
@@ -51,7 +51,7 @@ export function newClass(
         );
     }
 
-    return target.newClass(qualifiedName, extend ?? "", implement);
+    return target.newClass(qualifiedName, extend, implement);
 }
 
 /**
