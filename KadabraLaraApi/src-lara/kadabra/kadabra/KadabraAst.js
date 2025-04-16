@@ -17,9 +17,7 @@ export class KadabraAst {
      * @returns An array of join points, which can either be a field, an assignment, or a local variable.
      */
     static getConstantInitializations(startingPoint) {
-        if (startingPoint === undefined) {
-            startingPoint = Query.root();
-        }
+        startingPoint ??= Query.root();
         const constants = [];
         // Search for final fields with initializations
         for (const field of Query.searchFromInclusive(startingPoint, Field)) {

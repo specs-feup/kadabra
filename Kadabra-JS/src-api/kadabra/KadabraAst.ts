@@ -22,9 +22,7 @@ export class KadabraAst {
     static getConstantInitializations(
         startingPoint?: LaraJoinPoint
     ): (Field | Assignment | LocalVariable)[] {
-        if (startingPoint === undefined) {
-            startingPoint = Query.root();
-        }
+        startingPoint ??= Query.root();
 
         const constants: (Field | Assignment | LocalVariable)[] = [];
 
