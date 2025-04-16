@@ -31,7 +31,7 @@ export function extractToField(
     newFile: boolean = true,
     funcInterface: InterfaceType | undefined | null = null
 ): {
-    field: Field | null;
+    field: Field | undefined | null;
     interface: InterfaceType | null;
     interfaceMethod: Method | undefined;
     defaultMethod: string | undefined;
@@ -79,46 +79,27 @@ export function extractToField(
             "Could not get a location to insert new field. Please verify the input arguments of extractToField."
         );
     }
+
     let field: Field | undefined = undefined;
     let interfaceMethod: Method | undefined = undefined;
 
-    for (const m of Query.searchFrom(
-        funcInterface,
-        Method,
-        (method: Method) => method.name === call.name
-    )) {
-        const interfaceMethod1 = m;
-        const field1 = fieldLocation.newField(
+    for (const m of Query.searchFrom(funcInterface, Method, call.name)) {
+        interfaceMethod = m;
+        field = fieldLocation.newField(
             method.isStatic ? ["static"] : [],
             funcInterface.qualifiedName,
-            interfaceMethod1.name,
+            interfaceMethod.name,
             defaultMethod
         );
 
-        if (field1 !== undefined) {
-            console.log(
-                `[LOG] Extracted a field "${field1.name}", from call "${call.name}", to ${field1.declarator}`
-            );
-            call.setTarget(field1.name);
-            call.setExecutable(interfaceMethod1);
-        }
-        field = field1;
-        interfaceMethod = interfaceMethod1;
-    }
-
-    if (!field) {
-        throw new Error(
-            "Could not create a field for the functional interface."
+        console.log(
+            `[LOG] Extracted a field "${field.name}", from call "${call.name}", to ${field.declarator}`
         );
+        call.setTarget(field.name);
+        call.setExecutable(interfaceMethod);
     }
 
-    if (!interfaceMethod) {
-        throw new Error(
-            "Could not create an interfaceMethod for the functional interface."
-        );
-    }
-
-    if (funcInterface !== undefined && field !== undefined) {
+    if (field !== undefined) {
         console.log(
             `[LOG] Call to "${call.name}" (in method "${method.name}") is ready!`
         );
