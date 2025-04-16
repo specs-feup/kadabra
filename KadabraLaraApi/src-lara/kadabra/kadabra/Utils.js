@@ -163,7 +163,7 @@ export function getMethod(className = ".*", methodName) {
         className = ".*";
     }
     let methods = undefined;
-    for (const method of Query.search(Class, (cls) => cls.qualifiedName.match(className) !== null).search(Method, { name: methodName })) {
+    for (const method of Query.search(Class, (cls) => RegExp(className).exec(cls.qualifiedName) !== null).search(Method, { name: methodName })) {
         if (methods === undefined) {
             methods = method;
         }
@@ -187,7 +187,7 @@ export function getMethod(className = ".*", methodName) {
  */
 export function getClass(className = ".*") {
     let classes = undefined;
-    for (const cls of Query.search(Class, (cls) => cls.qualifiedName.match(className) !== null)) {
+    for (const cls of Query.search(Class, (cls) => RegExp(className).exec(cls.qualifiedName) !== null)) {
         if (classes === undefined) {
             classes = cls;
         }

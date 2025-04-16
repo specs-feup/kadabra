@@ -190,7 +190,7 @@ export function getMethod(
     let methods: Method | Method[] | undefined = undefined;
     for (const method of Query.search(
         Class,
-        (cls: Class) => cls.qualifiedName.match(className) !== null
+        (cls) => RegExp(className).exec(cls.qualifiedName) !== null
     ).search(Method, { name: methodName })) {
         if (methods === undefined) {
             methods = method;
@@ -218,7 +218,7 @@ export function getClass(className: string = ".*"): Class | Class[] {
     let classes: Class | Class[] | undefined = undefined;
     for (const cls of Query.search(
         Class,
-        (cls: Class) => cls.qualifiedName.match(className) !== null
+        (cls) => RegExp(className).exec(cls.qualifiedName) !== null
     )) {
         if (classes === undefined) {
             classes = cls;
