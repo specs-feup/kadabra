@@ -71,12 +71,9 @@ export function extractToField(
 
     const defaultMethod = `${call.qualifiedDecl}::${call.name}`;
 
-    if (fieldLocation === undefined) {
-        fieldLocation = Query.search(
-            Class,
-            (cls: Class) => cls.qualifiedName === method.declarator
-        ).getFirst();
-    }
+    fieldLocation ??= Query.search(Class, {
+        qualifiedName: method.declarator,
+    }).getFirst();
 
     if (fieldLocation === undefined) {
         throw new Error(
@@ -153,9 +150,7 @@ export function newMappingClass(
 } {
     const DEFAULT_PACKAGE = "pt.up.fe.specs.lara.kadabra.utils";
 
-    if (target === undefined) {
-        target = Query.search(App).getFirst();
-    }
+    target ??= Query.search(App).getFirst();
 
     const targetMethodFirstCap =
         methodName.charAt(0).toUpperCase() + methodName.slice(1);

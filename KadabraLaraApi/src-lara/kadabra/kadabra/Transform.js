@@ -38,9 +38,9 @@ export function extractToField(call, method, fieldLocation, newFile = true, func
         }
     }
     const defaultMethod = `${call.qualifiedDecl}::${call.name}`;
-    if (fieldLocation === undefined) {
-        fieldLocation = Query.search(Class, (cls) => cls.qualifiedName === method.declarator).getFirst();
-    }
+    fieldLocation ??= Query.search(Class, {
+        qualifiedName: method.declarator,
+    }).getFirst();
     if (fieldLocation === undefined) {
         throw new Error("Could not get a location to insert new field. Please verify the input arguments of extractToField.");
     }
@@ -79,9 +79,7 @@ export function extractToField(call, method, fieldLocation, newFile = true, func
  */
 export function newMappingClass(interfaceJp, methodName, getterType, target) {
     const DEFAULT_PACKAGE = "pt.up.fe.specs.lara.kadabra.utils";
-    if (target === undefined) {
-        target = Query.search(App).getFirst();
-    }
+    target ??= Query.search(App).getFirst();
     const targetMethodFirstCap = methodName.charAt(0).toUpperCase() + methodName.slice(1);
     const mapClassName = `${DEFAULT_PACKAGE}.${targetMethodFirstCap}Caller`;
     console.log(`[LOG] Creating new functional mapping class: ${mapClassName}`);
