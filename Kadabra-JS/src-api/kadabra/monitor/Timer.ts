@@ -7,7 +7,7 @@ import { TimerUnit } from "@specs-feup/lara/api/lara/util/TimeUnits.js";
 
 type insertOptions = "before" | "after" | "replace";
 
-export default class Timer extends TimerBase<Joinpoint> {
+abstract class IntermediateTimer extends TimerBase<Joinpoint> {
     static readonly DEFAULT_CLASS_NAME = "kadabra.utils.Timers";
     access: string;
     name: string;
@@ -15,17 +15,94 @@ export default class Timer extends TimerBase<Joinpoint> {
 
     constructor(
         name: string,
-        $timerClass: Field,
+        $timerClassInCode: Field,
         unit: TimerUnit,
         fullPath: boolean
     ) {
         super(unit);
 
         this.name = name;
-        this.$timerClass = $timerClass;
-        this.access = fullPath ? $timerClass.staticAccess : name;
+        this.$timerClass = $timerClassInCode;
+        this.access = fullPath ? $timerClassInCode.staticAccess : name;
     }
 
+    abstract start($target: Joinpoint, when: insertOptions): string | undefined;
+
+    abstract stop($target: Joinpoint, when: insertOptions): string | undefined;
+
+    getCount() {
+        return this.access + ".getCount()";
+    }
+
+    getAvg() {
+        return this.access + ".getAverage()";
+    }
+
+    abstract get(
+        $target?: Joinpoint,
+        when?: insertOptions,
+        message?: string
+    ): string | undefined;
+
+    measure($target: Joinpoint, message?: string, $end: Joinpoint = $target) {
+        let ret: string | undefined = undefined;
+
+        this.start($target, "before");
+        if (message != undefined) {
+            //this order to guarantee correct code injection
+            ret = this.get($end, "after", message);
+        }
+        ret = this.stop($end, "after");
+
+        return ret;
+    }
+
+    time($start: Joinpoint, prefix?: string, $end?: Joinpoint) {
+        return this.measure($start, prefix, $end);
+    }
+
+    measureCode(action: string, $target?: Joinpoint, when?: insertOptions) {
+        const code = this.access + "." + action + "();";
+        if ($target == undefined) {
+            return code;
+        }
+
+        IntermediateTimer.insertTimerCode(code, $target, when);
+    }
+
+    static insertTimerCode(
+        code: string,
+        $target: Joinpoint,
+        when: insertOptions = "before"
+    ) {
+        $target.insert(when, code);
+    }
+}
+
+/**
+ * Monitor the occurences of a given join point;
+ */
+function TimeMonitor(
+    $class: Class = NewTimerClassInCode(),
+    timerName: string = "timer",
+    timeProvider: string = "NanoTimer"
+): Field {
+    return $class.newField(
+        ["public", "static"],
+        "weaver.kadabra.monitor.CodeTimer",
+        timerName,
+        "CodeTimer." + timeProvider + "()"
+    );
+}
+
+function NewTimerClassInCode(): Class {
+    const $class = Query.search(Class, {
+        qualifiedName: IntermediateTimer.DEFAULT_CLASS_NAME,
+    }).getFirst();
+    return $class ?? newClass(IntermediateTimer.DEFAULT_CLASS_NAME);
+}
+
+export default class Timer extends IntermediateTimer {
     static millisTimer(
         $targetClass?: Class,
         timerName = "timer",
@@ -65,117 +142,66 @@ export default class Timer extends TimerBase<Joinpoint> {
     }
 
     getTime() {
-        return this.access + ".getTime()";
+        return this.measureCode("getTime");
     }
 
-    getCount() {
-        return this.access + ".getCount()";
-    }
-
-    getAvg() {
-        return this.access + ".getAverage()";
-    }
-
-    get($target?: Joinpoint, when: insertOptions, message: string) {
+    get(
+        $target?: Joinpoint,
+        when: insertOptions = "before",
+        message: string = ""
+    ): string | undefined {
         let code = this.getTime();
         if ($target == undefined) {
             return code;
         }
         code = `System.out.println("${message}"+${code}+"${this.getUnit().getUnitsString()}");`;
 
-        Timer.insertTimerCode(code, $target, when);
+        IntermediateTimer.insertTimerCode(code, $target, when);
     }
-
-    measure($target: Joinpoint, message?: string, $end: Joinpoint = $target) {
-        let ret: string | undefined = undefined;
-
-        this.start($target, "before");
-        if (message != undefined) {
-            //this order to guarantee correct code injection
-            ret = this.get($end, "after", message);
-        }
-        ret = this.stop($end, "after");
-
-        return ret;
-    }
-
-    time($start: Joinpoint, prefix?: string, $end?: Joinpoint) {
-        return this.measure($start, prefix, $end);
-    }
-
-    measureCode(action: string, $target?: Joinpoint, when?: insertOptions) {
-        const code = this.access + "." + action + "();";
-        if ($target == undefined) {
-            return code;
-        }
-
-        Timer.insertTimerCode(code, $target, when);
-    }
-
-    static insertTimerCode(
-        code: string,
-        $target: Joinpoint,
-        when: insertOptions = "before"
-    ) {
-        $target.insert(when, code);
-    }
-}
-
-/**
- * Monitor the occurences of a given join point;
- */
-function TimeMonitor(
-    $class: Class = NewTimerClass(),
-    timerName: string = "timer",
-    timeProvider: string = "NanoTimer"
-) {
-    const $timer = $class.newField(
-        ["public", "static"],
-        "weaver.kadabra.monitor.CodeTimer",
-        timerName,
-        "CodeTimer." + timeProvider + "()"
-    );
-
-    return $timer;
-}
-
-function NewTimerClass() {
-    const $class = Query.search(Class, {
-        qualifiedName: Timer.DEFAULT_CLASS_NAME,
-    }).getFirst();
-    return $class ?? newClass(Timer.DEFAULT_CLASS_NAME);
 }
 
 /**
  * Creates a timed task, which will execute 'time' ms after invoking execute
  */
-export function TaskTimer(
-    $class: Class = NewTimerClass(),
-    code: string = "return null;",
-    time: string = "1",
-    returnType: string = "Object",
-    timerName: string = "timedTask",
-    fullPath: boolean = false
-) {
-    const wrapper = primitive2Class(returnType);
-    code = "()-> " + code;
+export class TaskTimer extends IntermediateTimer {
+    constructor(
+        $class: Class = NewTimerClassInCode(),
+        code: string = "return null;",
+        time: TimerUnit = TimerUnit.NANOSECONDS,
+        returnType: string = "Object",
+        timerName: string = "timedTask",
+        fullPath: boolean = false
+    ) {
+        const wrapper = primitive2Class(returnType);
+        code = "()-> " + code;
 
-    const $field = $class.newField(
-        ["public", "static"],
-        "weaver.kadabra.monitor.TaskTimer<" + wrapper + ">",
-        timerName,
-        "new TaskTimer<>(" + code + ", " + time + ")"
-    );
+        const $field = $class.newField(
+            ["public", "static"],
+            "weaver.kadabra.monitor.TaskTimer<" + wrapper + ">",
+            timerName,
+            "new TaskTimer<>(" + code + ", " + time + ")"
+        );
 
-    const prefix = $class.qualifiedName + ".";
-    const newName = fullPath ? prefix + $field.name : $field.name;
+        super(timerName, $field, time, fullPath);
+    }
 
-    return {
-        $field,
-        start: newName + ".execute()",
-        stop: newName + ".cancel()",
-        ready: newName + ".ready()",
-        get: newName + ".get()",
-        getAndStart: newName + ".getAndExecute()",
-    };
+    start() {
+        return this.measureCode("execute");
+    }
+
+    stop() {
+        return this.measureCode("cancel");
+    }
+
+    ready() {
+        return this.measureCode("ready");
+    }
+
+    get() {
+        return this.measureCode("get");
+    }
+
+    getAndStart() {
+        return this.measureCode("getAndExecute");
+    }
 }
