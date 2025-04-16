@@ -25,17 +25,26 @@ import { generateFunctionalInterface } from "./Factory.js";
  * @returns An object containing the extracted field, interface, and related information.
  */
 export function extractToField(
-    call: Call,
+    call: Call | undefined | null,
     method?: Method,
     fieldLocation?: Class,
     newFile: boolean = true,
     funcInterface: InterfaceType | null = null
 ): {
-    field: Field;
-    interface: InterfaceType;
-    interfaceMethod: Method;
-    defaultMethod: string;
+    field: Field | null;
+    interface: InterfaceType | null;
+    interfaceMethod: Method | undefined;
+    defaultMethod: string | undefined;
 } {
+    if (call === undefined || call === null) {
+        return {
+            field: null,
+            interface: funcInterface,
+            interfaceMethod: undefined,
+            defaultMethod: undefined,
+        };
+    }
+
     if (method === undefined) {
         method = Query.searchFrom(call, Method).getFirst();
         if (!method) {
