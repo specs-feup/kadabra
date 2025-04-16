@@ -3,9 +3,12 @@ export class KTypes {
     static readonly Channel = "weaver.kadabra.concurrent.KadabraChannel";
     static readonly Product = "weaver.kadabra.concurrent.Product";
     static readonly ControlPoint = "weaver.kadabra.control.ControlPoint";
-    static readonly ControlPointFactory = "weaver.kadabra.control.ControlPointFactory";
-    static readonly VersionProviderUtils = "weaver.kadabra.control.utils.ProviderUtils";
-    static readonly VersionProvider = "weaver.kadabra.control.utils.VersionProvider";
+    static readonly ControlPointFactory =
+        "weaver.kadabra.control.ControlPointFactory";
+    static readonly VersionProviderUtils =
+        "weaver.kadabra.control.utils.ProviderUtils";
+    static readonly VersionProvider =
+        "weaver.kadabra.control.utils.VersionProvider";
     static readonly Tuple = "tdrc.tuple.Tuple";
     static readonly Pair = "tdrc.utils.Pair";
     static readonly Atomic = "java.util.concurrent.atomic.Atomic";
@@ -106,4 +109,14 @@ export class KTypes {
     ];
 }
 
-export enum Types {'bool', 'int', 'char', 'void', 'byte', 'short', 'long', 'float', 'double'};
+export enum Types {
+    "bool",
+    "int",
+    "char",
+    "void",
+    "byte",
+    "short",
+    "long",
+    "float",
+    "double",
+}

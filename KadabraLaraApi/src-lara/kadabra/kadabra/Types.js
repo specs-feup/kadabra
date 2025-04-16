@@ -116,5 +116,4 @@ export var Types;
     Types[Types["float"] = 7] = "float";
     Types[Types["double"] = 8] = "double";
 })(Types || (Types = {}));
-;
 //# sourceMappingURL=Types.js.map
