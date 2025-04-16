@@ -27,7 +27,7 @@ export function getOrNewClass(qualifiedName, extend, implement = [], target) {
  */
 export function newClass(qualifiedName, extend, implement = [], target) {
     target ??= Query.search(App).getFirst();
-    if (!(target instanceof App) || !(target instanceof FileJp)) {
+    if (target === undefined) {
         throw new Error("The target join point for a new class must be of type App or FileJp.");
     }
     return target.newClass(qualifiedName, extend ?? "", implement);

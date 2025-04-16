@@ -14,7 +14,7 @@ export function getOrNewClass(
     qualifiedName: string,
     extend?: string,
     implement: string[] = [],
-    target?: App
+    target?: App | FileJp
 ): Class {
     const existingClass = Query.search(
         Class,
@@ -41,11 +41,11 @@ export function newClass(
     qualifiedName: string,
     extend?: string,
     implement: string[] = [],
-    target?: App
+    target?: App | FileJp
 ): Class {
     target ??= Query.search(App).getFirst();
 
-    if (!(target instanceof App) || !(target instanceof FileJp)) {
+    if (target === undefined) {
         throw new Error(
             "The target join point for a new class must be of type App or FileJp."
         );
