@@ -90,118 +90,81 @@ export function generateFunctionalInterface(
     newFile: boolean = true
 ): {
     interface: InterfaceType;
-    defaultMethod: Method;
-    function: Method;
+    defaultMethod: Method | undefined;
+    function: Method | undefined;
     targetMethodName: string;
 } {
-    const class1 = Query.search(App)
+    let $interface: InterfaceType | undefined = undefined;
+    let tempClass: Class | undefined = undefined;
+    let $defaultMethod: Method | undefined = undefined;
+
+    const search = Query.search(App)
         .search(FileJp, (file) => RegExp(targetFile).exec(file.name) !== null)
         .search(
             Class,
             (cls) => RegExp(targetClass).exec(cls.qualifiedName) !== null
+        )
+        .search(Method, targetMethod)
+        .chain();
+
+    let method: Method | undefined = undefined;
+    for (const result of search) {
+        const cls = result.class as Class;
+        method = result.method as Method;
+
+        if (tempClass !== undefined) {
+            throw new Error(
+                `More than one method to be extracted, please redefine this aspect call. Target method: ${targetMethod}. ` +
+                    `1st Location${tempClass.qualifiedName}. 2nd Location ${cls.qualifiedName}`
+            );
+        }
+
+        console.log(
+            `[LOG] Extracting functional interface from ${cls.name}#${method.name}`
         );
 
-    if (class1 === undefined) {
-        throw new Error(
-            "Could not find the class specified by the conditions: " +
-                "file{" +
-                targetFile +
-                "}.class{" +
-                targetClass +
-                "}"
+        const interfacePackage = cls.packageName;
+        const interfaceName =
+            "I" + method.name.charAt(0).toUpperCase() + method.name.slice(1);
+        const newInterface = cls.extractInterface(
+            interfaceName,
+            interfacePackage,
+            method,
+            associate,
+            newFile
         );
+        if (!newFile) {
+            newInterface.modifiers = ["static"];
+            cls.addInterface(newInterface);
+        }
+        $interface = newInterface;
+        $defaultMethod = method;
+        tempClass = cls;
     }
-
-    const method = class1.search(Method, { name: targetMethod });
 
     if (method === undefined) {
         throw new Error(
             "Could not find the method to extract a functional interface, specified by the conditions: " +
-                "file{" +
-                targetFile +
-                "}.class{" +
-                targetClass +
-                "}.method{" +
-                targetMethod +
-                "}"
+                `file{"${targetFile}"}.class{"${targetClass}"}.method{"${targetMethod}"}`
         );
     }
 
-    let interface1: InterfaceType | undefined = undefined;
-    let defaultMethod1: Method | undefined = undefined;
-    let tempClass: Class | undefined = undefined;
-
-    for (const m of method) {
-        const firstClass = class1.getFirst();
-        if (firstClass === undefined) {
-            throw new Error(
-                "Could not extract functional interface because the class is undefined."
-            );
-        }
-        if (interface1 !== undefined) {
-            throw Error(
-                "More than one method to be extracted, please redefine this aspect call. Target method: " +
-                    targetMethod +
-                    ". 1st Location" +
-                    (tempClass?.qualifiedName ?? "undefined") +
-                    ". 2nd Location " +
-                    firstClass.qualifiedName
-            );
-        }
-        console.log(
-            "[LOG] Extracting functional interface from " +
-                firstClass.name +
-                "#" +
-                m.name
-        );
-
-        const interfacePackage = firstClass.packageName;
-        const interfaceName =
-            "I" + m.name.charAt(0).toUpperCase() + m.name.slice(1);
-        const newInterface = firstClass.extractInterface(
-            interfaceName,
-            interfacePackage,
-            m,
-            associate,
-            newFile
-        );
-
-        if (newFile === undefined) {
-            newInterface.setModifiers(["static"]);
-            firstClass.addInterface(newInterface);
-        }
-
-        interface1 = newInterface;
-        defaultMethod1 = m;
-        tempClass = firstClass;
-    }
-
-    if (!interface1) {
+    if ($interface === undefined) {
         throw new Error(
-            "Failed to generate functional interface: interface1 is undefined."
+            "Expected $interface to be of type InterfaceType but was undefined."
         );
     }
 
-    if (!defaultMethod1) {
-        throw new Error(
-            "Failed to generate functional interface: defaultMethod1 is undefined."
-        );
-    }
+    const $function = Query.searchFrom(
+        $interface,
+        Method,
+        method.name
+    ).getFirst();
 
     return {
-        interface: interface1,
-        defaultMethod: defaultMethod1,
-        function: (() => {
-            const method1 = Query.searchFrom(interface1)
-                .search(Method, { name: targetMethod })
-                .getFirst();
-            if (!method1) {
-                throw new Error(
-                    "Failed to find the function method in the generated interface."
-                );
-            }
-            return method1;
-        })(),
+        interface: $interface,
+        defaultMethod: $defaultMethod,
+        function: $function,
         targetMethodName: targetMethod,
     };
 }
