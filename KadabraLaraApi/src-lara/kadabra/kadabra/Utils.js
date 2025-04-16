@@ -163,7 +163,8 @@ export function getMethod(className = ".*", methodName) {
         className = ".*";
     }
     let methods = undefined;
-    for (const method of Query.search(Class, (cls) => RegExp(className).exec(cls.qualifiedName) !== null).search(Method, { name: methodName })) {
+    const search = Query.search(Class, (cls) => RegExp(className).exec(cls.qualifiedName) !== null).search(Method, methodName);
+    for (const method of search) {
         if (methods === undefined) {
             methods = method;
         }
@@ -173,9 +174,6 @@ export function getMethod(className = ".*", methodName) {
         else {
             methods = [methods, method];
         }
-    }
-    if (methods === undefined) {
-        throw new Error(`Method "${methodName}" not found in class "${className}".`);
     }
     return methods;
 }
@@ -187,7 +185,8 @@ export function getMethod(className = ".*", methodName) {
  */
 export function getClass(className = ".*") {
     let classes = undefined;
-    for (const cls of Query.search(Class, (cls) => RegExp(className).exec(cls.qualifiedName) !== null)) {
+    const search = Query.search(Class, (cls) => RegExp(className).exec(cls.qualifiedName) !== null);
+    for (const cls of search) {
         if (classes === undefined) {
             classes = cls;
         }
@@ -197,9 +196,6 @@ export function getClass(className = ".*") {
         else {
             classes = [classes, cls];
         }
-    }
-    if (classes === undefined) {
-        throw new Error(`Class "${className}" not found.`);
     }
     return classes;
 }
