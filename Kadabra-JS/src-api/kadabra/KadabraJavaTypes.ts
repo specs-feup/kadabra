@@ -5,11 +5,11 @@ import JavaTypes, {
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace KadabraJavaClasses {
     /* eslint-disable @typescript-eslint/no-empty-object-type */
-    export interface ArgumentsParser extends JavaClasses.JavaClass { }
-    export interface KadabraLauncher extends JavaClasses.JavaClass { }
-    export interface KadabraJoinPoints extends JavaClasses.JavaClass { }
-    export interface OperatorUtils extends JavaClasses.JavaClass { }
-    export interface AndroidResources extends JavaClasses.JavaClass { }
+    export interface ArgumentsParser extends JavaClasses.JavaClass {}
+    export interface KadabraLauncher extends JavaClasses.JavaClass {}
+    export interface KadabraJoinPoints extends JavaClasses.JavaClass {}
+    export interface OperatorUtils extends JavaClasses.JavaClass {}
+    export interface AndroidResources extends JavaClasses.JavaClass {}
     /* eslint-enable @typescript-eslint/no-empty-object-type */
 }
 
