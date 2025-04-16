@@ -1,5 +1,5 @@
 import Query from "@specs-feup/lara/api/weaver/Query.js";
-import { Method, Class, App, FileJp } from "../Joinpoints.js";
+import { Method, Class, App, FileJp, } from "../Joinpoints.js";
 import { generateFunctionalInterface } from "./Factory.js";
 /**
  * Prepares a given method call by:
@@ -78,7 +78,10 @@ export function newMappingClass(interfaceJp, methodName, getterType, target) {
     const mapClassName = `${DEFAULT_PACKAGE}.${targetMethodFirstCap}Caller`;
     console.log(`[LOG] Creating new functional mapping class: ${mapClassName}`);
     let mapClass = undefined;
-    if ((target instanceof App) || (target instanceof FileJp) || (target instanceof Class)) { //  (target instanceof InterfaceType)
+    if (target instanceof App ||
+        target instanceof FileJp ||
+        target instanceof Class) {
+        //  (target instanceof InterfaceType)
         mapClass = target.mapVersions(mapClassName, getterType, interfaceJp, methodName);
     }
     else {
@@ -88,7 +91,9 @@ export function newMappingClass(interfaceJp, methodName, getterType, target) {
         mapClass: mapClass,
         put: (key, value) => `${mapClass.qualifiedName}.put(${key}, ${value})`,
         contains: (key) => `${mapClass.qualifiedName}.contains(${key})`,
-        get: (param, defaultMethod) => defaultMethod ? `${mapClass.qualifiedName}.get(${param}, ${defaultMethod})` : `${mapClass.qualifiedName}.get(${param})`,
+        get: (param, defaultMethod) => defaultMethod
+            ? `${mapClass.qualifiedName}.get(${param}, ${defaultMethod})`
+            : `${mapClass.qualifiedName}.get(${param})`,
     };
 }
 /**
