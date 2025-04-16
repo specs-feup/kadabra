@@ -29,7 +29,7 @@ export function extractToField(
     method?: Method,
     fieldLocation?: Class,
     newFile: boolean = true,
-    funcInterface: InterfaceType | null = null
+    funcInterface: InterfaceType | undefined | null = null
 ): {
     field: Field | null;
     interface: InterfaceType | null;
@@ -63,11 +63,9 @@ export function extractToField(
         );
         funcInterface = extracted.interface;
 
-        if (funcInterface !== undefined) {
-            console.log(
-                `[LOG] Extracted a functional interface "${funcInterface.name}" based on method "${call.name}"`
-            );
-        }
+        console.log(
+            `[LOG] Extracted a functional interface "${funcInterface.name}" based on method "${call.name}"`
+        );
     }
 
     const defaultMethod = `${call.qualifiedDecl}::${call.name}`;

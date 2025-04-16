@@ -34,9 +34,7 @@ export function extractToField(call, method, fieldLocation, newFile = true, func
     if (funcInterface === undefined || funcInterface === null) {
         const extracted = generateFunctionalInterface(call.name, call.declarator, undefined, undefined, newFile);
         funcInterface = extracted.interface;
-        if (funcInterface !== undefined) {
-            console.log(`[LOG] Extracted a functional interface "${funcInterface.name}" based on method "${call.name}"`);
-        }
+        console.log(`[LOG] Extracted a functional interface "${funcInterface.name}" based on method "${call.name}"`);
     }
     const defaultMethod = `${call.qualifiedDecl}::${call.name}`;
     fieldLocation ??= Query.search(Class, {
