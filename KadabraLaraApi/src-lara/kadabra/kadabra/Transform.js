@@ -25,10 +25,11 @@ export function extractToField(call, method, fieldLocation, newFile = true, func
         };
     }
     if (method === undefined) {
-        method = Query.searchFrom(call, Method).getFirst();
-        if (!method) {
+        const ancestor = call.getAncestor("method");
+        if (!(ancestor instanceof Method)) {
             throw new Error("No method found for the given call.");
         }
+        method = ancestor;
     }
     if (funcInterface === undefined || funcInterface === null) {
         const extracted = generateFunctionalInterface(call.name, call.declarator, undefined, undefined, newFile);

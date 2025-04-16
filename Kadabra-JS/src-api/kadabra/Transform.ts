@@ -46,10 +46,11 @@ export function extractToField(
     }
 
     if (method === undefined) {
-        method = Query.searchFrom(call, Method).getFirst();
-        if (!method) {
+        const ancestor = call.getAncestor("method");
+        if (!(ancestor instanceof Method)) {
             throw new Error("No method found for the given call.");
         }
+        method = ancestor;
     }
 
     if (funcInterface === undefined || funcInterface === null) {
