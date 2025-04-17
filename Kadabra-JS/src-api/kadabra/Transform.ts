@@ -108,6 +108,8 @@ export function extractToField(
     return { field, interface: funcInterface, interfaceMethod, defaultMethod };
 }
 
+const DEFAULT_PACKAGE = "pt.up.fe.specs.lara.kadabra.utils";
+
 /**
  * Generates a new mapping class for functional mapping.
  *
@@ -128,8 +130,6 @@ export function newMappingClass(
     contains: (key: string) => string;
     get: (param: string, defaultMethod?: string) => string;
 } {
-    const DEFAULT_PACKAGE = "pt.up.fe.specs.lara.kadabra.utils";
-
     target ??= Query.search(App).getFirst();
 
     const targetMethodFirstCap =
@@ -189,8 +189,6 @@ export function newFunctionalMethodCaller(
     contains: string;
     get: (param: string) => string;
 } {
-    const DEFAULT_PACKAGE = "pt.up.fe.specs.lara.kadabra.utils";
-
     const targetMethodFirstCap =
         methodName.charAt(0).toUpperCase() + methodName.slice(1);
     const mapClassName = `${DEFAULT_PACKAGE}.${targetMethodFirstCap}Caller`;

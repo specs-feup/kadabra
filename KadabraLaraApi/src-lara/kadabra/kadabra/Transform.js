@@ -57,6 +57,7 @@ export function extractToField(call, method, fieldLocation, newFile = true, func
     }
     return { field, interface: funcInterface, interfaceMethod, defaultMethod };
 }
+const DEFAULT_PACKAGE = "pt.up.fe.specs.lara.kadabra.utils";
 /**
  * Generates a new mapping class for functional mapping.
  *
@@ -67,7 +68,6 @@ export function extractToField(call, method, fieldLocation, newFile = true, func
  * @returns An object containing the mapping class and related methods.
  */
 export function newMappingClass(interfaceJp, methodName, getterType, target) {
-    const DEFAULT_PACKAGE = "pt.up.fe.specs.lara.kadabra.utils";
     target ??= Query.search(App).getFirst();
     const targetMethodFirstCap = methodName.charAt(0).toUpperCase() + methodName.slice(1);
     const mapClassName = `${DEFAULT_PACKAGE}.${targetMethodFirstCap}Caller`;
@@ -101,7 +101,6 @@ export function newMappingClass(interfaceJp, methodName, getterType, target) {
  * @returns An object containing the mapping class and related methods.
  */
 export function newFunctionalMethodCaller(interfaceJp, methodName, getterType, defaultMethodStr) {
-    const DEFAULT_PACKAGE = "pt.up.fe.specs.lara.kadabra.utils";
     const targetMethodFirstCap = methodName.charAt(0).toUpperCase() + methodName.slice(1);
     const mapClassName = `${DEFAULT_PACKAGE}.${targetMethodFirstCap}Caller`;
     console.log(`[LOG] Creating new functional mapping class: ${mapClassName}`);
