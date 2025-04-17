@@ -59,7 +59,6 @@ export function providerOf(code, args) {
 export function generateFunctionalInterface(targetMethod, targetClass = ".*", targetFile = ".*", associate = false, newFile = true) {
     let $interface = undefined;
     let tempClass = undefined;
-    let $defaultMethod = undefined;
     const search = Query.search(App)
         .search(FileJp, (file) => RegExp(targetFile).exec(file.name) !== null)
         .search(Class, (cls) => RegExp(targetClass).exec(cls.qualifiedName) !== null)
@@ -82,20 +81,16 @@ export function generateFunctionalInterface(targetMethod, targetClass = ".*", ta
             cls.addInterface(newInterface);
         }
         $interface = newInterface;
-        $defaultMethod = method;
         tempClass = cls;
     }
-    if (method === undefined) {
+    if (method === undefined || $interface === undefined) {
         throw new Error("Could not find the method to extract a functional interface, specified by the conditions: " +
             `file{"${targetFile}"}.class{"${targetClass}"}.method{"${targetMethod}"}`);
-    }
-    if ($interface === undefined) {
-        throw new Error("Expected $interface to be of type InterfaceType but was undefined.");
     }
     const $function = Query.searchFrom($interface, Method, method.name).getFirst();
     return {
         interface: $interface,
-        defaultMethod: $defaultMethod,
+        defaultMethod: method,
         function: $function,
         targetMethodName: targetMethod,
     };
