@@ -21,11 +21,7 @@ export function getOrNewClass(
         (cls) => RegExp(qualifiedName).exec(cls.qualifiedName) !== null
     ).getFirst();
 
-    if (existingClass !== undefined) {
-        return existingClass;
-    }
-
-    return newClass(qualifiedName, extend, implement, target);
+    return existingClass ?? newClass(qualifiedName, extend, implement, target);
 }
 
 /**

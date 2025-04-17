@@ -11,10 +11,7 @@ import { Class, FileJp, Method, App } from "../Joinpoints.js";
  */
 export function getOrNewClass(qualifiedName, extend = "", implement = [], target) {
     const existingClass = Query.search(Class, (cls) => RegExp(qualifiedName).exec(cls.qualifiedName) !== null).getFirst();
-    if (existingClass !== undefined) {
-        return existingClass;
-    }
-    return newClass(qualifiedName, extend, implement, target);
+    return existingClass ?? newClass(qualifiedName, extend, implement, target);
 }
 /**
  * Creates a new class.
