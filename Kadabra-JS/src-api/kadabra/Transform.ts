@@ -179,16 +179,30 @@ export function newMappingClass(
  * @returns An object containing the mapping class and related methods.
  */
 export function newFunctionalMethodCaller(
-    interfaceJp: InterfaceType,
-    methodName: string,
-    getterType: string,
-    defaultMethodStr: string
+    interfaceJp: InterfaceType | null = null,
+    methodName: string | null = null,
+    getterType: string | null = null,
+    defaultMethodStr: string | null = null
 ): {
-    mapClass: Class;
+    mapClass: Class | undefined;
     put: string;
     contains: string;
-    get: (param: string) => string;
+    get: ((param: string) => string) | undefined;
 } {
+    if (
+        interfaceJp === null ||
+        methodName === null ||
+        getterType === null ||
+        defaultMethodStr === null
+    ) {
+        return {
+            mapClass: undefined,
+            put: "put",
+            contains: "contains",
+            get: undefined,
+        };
+    }
+
     const targetMethodFirstCap =
         methodName.charAt(0).toUpperCase() + methodName.slice(1);
     const mapClassName = `${DEFAULT_PACKAGE}.${targetMethodFirstCap}Caller`;

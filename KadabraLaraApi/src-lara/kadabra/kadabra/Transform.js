@@ -100,7 +100,18 @@ export function newMappingClass(interfaceJp, methodName, getterType, target) {
  * @param defaultMethodStr - The default method string.
  * @returns An object containing the mapping class and related methods.
  */
-export function newFunctionalMethodCaller(interfaceJp, methodName, getterType, defaultMethodStr) {
+export function newFunctionalMethodCaller(interfaceJp = null, methodName = null, getterType = null, defaultMethodStr = null) {
+    if (interfaceJp === null ||
+        methodName === null ||
+        getterType === null ||
+        defaultMethodStr === null) {
+        return {
+            mapClass: undefined,
+            put: "put",
+            contains: "contains",
+            get: undefined,
+        };
+    }
     const targetMethodFirstCap = methodName.charAt(0).toUpperCase() + methodName.slice(1);
     const mapClassName = `${DEFAULT_PACKAGE}.${targetMethodFirstCap}Caller`;
     console.log(`[LOG] Creating new functional mapping class: ${mapClassName}`);
