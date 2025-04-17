@@ -30,14 +30,6 @@ abstract class IntermediateTimer extends TimerBase<Joinpoint> {
 
     abstract stop($target: Joinpoint, when: insertOptions): string | undefined;
 
-    getCount() {
-        return this.access + ".getCount()";
-    }
-
-    getAvg() {
-        return this.access + ".getAverage()";
-    }
-
     abstract get(
         $target?: Joinpoint,
         when?: insertOptions,
@@ -145,6 +137,14 @@ export default class Timer extends IntermediateTimer {
         return this.measureCode("getTime");
     }
 
+    getCount() {
+        return this.measureCode("getCount");
+    }
+
+    getAvg() {
+        return this.measureCode("getAverage");
+    }
+
     get(
         $target?: Joinpoint,
         when: insertOptions = "before",
@@ -167,7 +167,7 @@ export class TaskTimer extends IntermediateTimer {
     constructor(
         $class: Class = NewTimerClassInCode(),
         code: string = "return null;",
-        time: TimerUnit = TimerUnit.NANOSECONDS,
+        delay: number = 1,
         returnType: string = "Object",
         timerName: string = "timedTask",
         fullPath: boolean = false
@@ -179,10 +179,10 @@ export class TaskTimer extends IntermediateTimer {
             ["public", "static"],
             "weaver.kadabra.monitor.TaskTimer<" + wrapper + ">",
             timerName,
-            "new TaskTimer<>(" + code + ", " + time + ")"
+            "new TaskTimer<>(" + code + ", " + delay + ")"
         );
 
-        super(timerName, $field, time, fullPath);
+        super(timerName, $field, TimerUnit.MILLISECONDS, fullPath);
     }
 
     start() {

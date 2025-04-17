@@ -15,12 +15,6 @@ class IntermediateTimer extends TimerBase {
         this.$timerClass = $timerClassInCode;
         this.access = fullPath ? $timerClassInCode.staticAccess : name;
     }
-    getCount() {
-        return this.access + ".getCount()";
-    }
-    getAvg() {
-        return this.access + ".getAverage()";
-    }
     measure($target, message, $end = $target) {
         let ret1 = undefined;
         this.start($target, "before");
@@ -76,6 +70,12 @@ export default class Timer extends IntermediateTimer {
     getTime() {
         return this.measureCode("getTime");
     }
+    getCount() {
+        return this.measureCode("getCount");
+    }
+    getAvg() {
+        return this.measureCode("getAverage");
+    }
     get($target, when = "before", message = "") {
         let code = this.getTime();
         if ($target == undefined) {
@@ -89,11 +89,11 @@ export default class Timer extends IntermediateTimer {
  * Creates a timed task, which will execute 'time' ms after invoking execute
  */
 export class TaskTimer extends IntermediateTimer {
-    constructor($class = NewTimerClassInCode(), code = "return null;", time = TimerUnit.NANOSECONDS, returnType = "Object", timerName = "timedTask", fullPath = false) {
+    constructor($class = NewTimerClassInCode(), code = "return null;", delay = 1, returnType = "Object", timerName = "timedTask", fullPath = false) {
         const wrapper = primitive2Class(returnType);
         code = "()-> " + code;
-        const $field = $class.newField(["public", "static"], "weaver.kadabra.monitor.TaskTimer<" + wrapper + ">", timerName, "new TaskTimer<>(" + code + ", " + time + ")");
-        super(timerName, $field, time, fullPath);
+        const $field = $class.newField(["public", "static"], "weaver.kadabra.monitor.TaskTimer<" + wrapper + ">", timerName, "new TaskTimer<>(" + code + ", " + delay + ")");
+        super(timerName, $field, TimerUnit.MILLISECONDS, fullPath);
     }
     start() {
         return this.measureCode("execute");
