@@ -22,14 +22,14 @@ class IntermediateTimer extends TimerBase {
         return this.access + ".getAverage()";
     }
     measure($target, message, $end = $target) {
-        let ret = undefined;
+        let ret1 = undefined;
         this.start($target, "before");
         if (message != undefined) {
             //this order to guarantee correct code injection
-            ret = this.get($end, "after", message);
+            ret1 = this.get($end, "after", message);
         }
-        ret = this.stop($end, "after");
-        return ret;
+        const ret2 = this.stop($end, "after");
+        return message != undefined ? ret1 : ret2;
     }
     time($start, prefix, $end) {
         return this.measure($start, prefix, $end);

@@ -45,16 +45,16 @@ abstract class IntermediateTimer extends TimerBase<Joinpoint> {
     ): string | undefined;
 
     measure($target: Joinpoint, message?: string, $end: Joinpoint = $target) {
-        let ret: string | undefined = undefined;
+        let ret1: string | undefined = undefined;
 
         this.start($target, "before");
         if (message != undefined) {
             //this order to guarantee correct code injection
-            ret = this.get($end, "after", message);
+            ret1 = this.get($end, "after", message);
         }
-        ret = this.stop($end, "after");
+        const ret2 = this.stop($end, "after");
 
-        return ret;
+        return message != undefined ? ret1 : ret2;
     }
 
     time($start: Joinpoint, prefix?: string, $end?: Joinpoint) {
