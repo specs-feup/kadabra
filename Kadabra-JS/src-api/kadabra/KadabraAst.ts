@@ -7,8 +7,8 @@ import { LaraJoinPoint } from "@specs-feup/lara/api/LaraJoinPoint.js";
  * Utility methods related to searching join points and AST properties.
  */
 export class KadabraAst {
-    private static _BINARY_OP_SET: Set<string> | undefined;
-    private static _UNARY_OP_SET: Set<string> | undefined;
+    private static _BINARY_OP_SET: Set<string> | undefined = undefined;
+    private static _UNARY_OP_SET: Set<string> | undefined = undefined;
 
     /**
      * Searches constant values. Currently, three types of constants are returned:
@@ -92,18 +92,18 @@ export class KadabraAst {
      * and the value is an array with class join points that are subclasses of the class represented by the key.
      * If the map returns undefined, this means that the class has no subclasses.
      */
-    static getHierarchy(): Record<string, Class[]> {
-        const hierarchy: Record<string, Class[]> = {};
+    static getHierarchy(): Map<string, Class[]> {
+        const hierarchy: Map<string, Class[]> = new Map();
 
         for (const cls of Query.search(Class)) {
             const superClass = cls.superClass;
-            let subClasses = hierarchy[superClass];
+            const subClasses = hierarchy.get(superClass);
 
             if (subClasses === undefined) {
-                subClasses = [];
-                hierarchy[superClass] = subClasses;
+                hierarchy.set(superClass, [cls]);
+            } else {
+                subClasses.push();
             }
-            subClasses.push(cls);
         }
 
         return hierarchy;
