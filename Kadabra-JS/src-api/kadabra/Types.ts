@@ -22,7 +22,7 @@ export class KTypes {
     /**
      * Generates a product type with the specified key and value types.
      */
-    static productOf(key: string, value: string): string | undefined {
+    static productOf(key?: string, value?: string): string | undefined {
         if (key === undefined || value === undefined) {
             return undefined;
         }
