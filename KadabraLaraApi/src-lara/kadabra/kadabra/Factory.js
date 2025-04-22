@@ -89,9 +89,9 @@ export function generateFunctionalInterface(targetMethod, targetClass = ".*", ta
     }
     const $function = Query.searchFrom($interface, Method, method.name).getFirst();
     return {
-        interface: $interface,
-        defaultMethod: method,
-        function: $function,
+        $interface: $interface,
+        $defaultMethod: method,
+        $function: $function,
         targetMethodName: targetMethod,
     };
 }

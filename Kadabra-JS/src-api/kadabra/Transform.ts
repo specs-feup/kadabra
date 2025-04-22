@@ -61,7 +61,7 @@ export function extractToField(
             undefined,
             newFile
         );
-        funcInterface = extracted.interface;
+        funcInterface = extracted.$interface;
 
         console.log(
             `[LOG] Extracted a functional interface "${funcInterface.name}" based on method "${call.name}"`

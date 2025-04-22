@@ -85,9 +85,9 @@ export function generateFunctionalInterface(
     associate: boolean = false,
     newFile: boolean = true
 ): {
-    interface: InterfaceType;
-    defaultMethod: Method;
-    function: Method;
+    $interface: InterfaceType;
+    $defaultMethod: Method;
+    $function: Method;
     targetMethodName: string;
 } {
     let $interface: InterfaceType | undefined = undefined;
@@ -150,9 +150,9 @@ export function generateFunctionalInterface(
     ).getFirst() as Method;
 
     return {
-        interface: $interface,
-        defaultMethod: method,
-        function: $function,
+        $interface: $interface,
+        $defaultMethod: method,
+        $function: $function,
         targetMethodName: targetMethod,
     };
 }
