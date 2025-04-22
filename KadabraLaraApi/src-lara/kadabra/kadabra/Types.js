@@ -58,51 +58,51 @@ export class KTypes {
      * Generates an atomic type with the specified type.
      */
     static atomicOf(type) {
-        if (this.isPrimitive(type)) {
-            return `${this.Atomic}${this.toWrapper(type)}`;
+        if (isPrimitive(type)) {
+            return `${this.Atomic}${toWrapper(type)}`;
         }
         return `${this.Atomic}Reference<${type}>`;
     }
-    /**
-     * Converts a primitive type to its wrapper class.
-     */
-    static toWrapper(type) {
-        switch (type) {
-            case "bool":
-                return "Boolean";
-            case "int":
-                return "Integer";
-            case "char":
-                return "Character";
-            case "void":
-            case "byte":
-            case "short":
-            case "long":
-            case "float":
-            case "double":
-                return type.charAt(0).toUpperCase() + type.slice(1);
-            default:
-                return type;
-        }
+}
+/**
+ * Converts a primitive type to its wrapper class.
+ */
+export function toWrapper(type) {
+    switch (type) {
+        case "bool":
+            return "Boolean";
+        case "int":
+            return "Integer";
+        case "char":
+            return "Character";
+        case "void":
+        case "byte":
+        case "short":
+        case "long":
+        case "float":
+        case "double":
+            return type.charAt(0).toUpperCase() + type.slice(1);
+        default:
+            return type;
     }
-    /**
-     * Checks if a type is a primitive type.
-     */
-    static isPrimitive(type) {
-        return this.PRIMITIVE_TYPES.includes(type);
-    }
-    // List of primitive types
-    static PRIMITIVE_TYPES = [
-        "bool",
-        "int",
-        "char",
-        "void",
-        "byte",
-        "short",
-        "long",
-        "float",
-        "double",
-    ];
+}
+// List of primitive types
+export const PRIMITIVE_TYPES = [
+    "bool",
+    "int",
+    "char",
+    "void",
+    "byte",
+    "short",
+    "long",
+    "float",
+    "double",
+];
+/**
+ * Checks if a type is a primitive type.
+ */
+export function isPrimitive(type) {
+    return PRIMITIVE_TYPES.includes(type);
 }
 export var Types;
 (function (Types) {
