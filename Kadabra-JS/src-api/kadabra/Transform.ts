@@ -31,16 +31,16 @@ export function extractToField(
     newFile: boolean = true,
     funcInterface: InterfaceType | undefined | null = null
 ): {
-    field: Field | undefined | null;
-    interface: InterfaceType | null;
-    interfaceMethod: Method | undefined;
+    $field: Field | undefined | null;
+    $interface: InterfaceType | null;
+    $interfaceMethod: Method | undefined;
     defaultMethod: string | undefined;
 } {
     if (call === undefined || call === null) {
         return {
-            field: null,
-            interface: funcInterface,
-            interfaceMethod: undefined,
+            $field: null,
+            $interface: funcInterface,
+            $interfaceMethod: undefined,
             defaultMethod: undefined,
         };
     }
@@ -105,7 +105,12 @@ export function extractToField(
         );
     }
 
-    return { field, interface: funcInterface, interfaceMethod, defaultMethod };
+    return {
+        $field: field,
+        $interface: funcInterface,
+        $interfaceMethod: interfaceMethod,
+        defaultMethod,
+    };
 }
 
 const DEFAULT_PACKAGE = "pt.up.fe.specs.lara.kadabra.utils";
@@ -125,7 +130,7 @@ export function newMappingClass(
     getterType: string,
     target?: Class | App | FileJp
 ): {
-    mapClass: Class;
+    $mapClass: Class;
     put: (key: string, value: string) => string;
     contains: (key: string) => string;
     get: (param: string, defaultMethod?: string) => string;
@@ -144,7 +149,6 @@ export function newMappingClass(
         target instanceof FileJp ||
         target instanceof Class
     ) {
-        //  (target instanceof InterfaceType)
         mapClass = target.mapVersions(
             mapClassName,
             getterType,
@@ -158,7 +162,7 @@ export function newMappingClass(
     }
 
     return {
-        mapClass: mapClass,
+        $mapClass: mapClass,
         put: (key: string, value: string) =>
             `${mapClass.qualifiedName}.put(${key}, ${value})`,
         contains: (key: string) => `${mapClass.qualifiedName}.contains(${key})`,
@@ -184,7 +188,7 @@ export function newFunctionalMethodCaller(
     getterType: string | null = null,
     defaultMethodStr: string | null = null
 ): {
-    mapClass: Class | undefined;
+    $mapClass: Class | undefined;
     put: string;
     contains: string;
     get: ((param: string) => string) | undefined;
@@ -196,7 +200,7 @@ export function newFunctionalMethodCaller(
         defaultMethodStr === null
     ) {
         return {
-            mapClass: undefined,
+            $mapClass: undefined,
             put: "put",
             contains: "contains",
             get: undefined,
@@ -210,7 +214,7 @@ export function newFunctionalMethodCaller(
     console.log(`[LOG] Creating new functional mapping class: ${mapClassName}`);
 
     const appInstance = Query.search(App).getFirst();
-    if (!appInstance) {
+    if (appInstance === undefined) {
         throw new Error("No App instance found.");
     }
     const mapClass = appInstance.mapVersions(
@@ -221,7 +225,7 @@ export function newFunctionalMethodCaller(
     );
 
     return {
-        mapClass,
+        $mapClass: mapClass,
         put: "put",
         contains: "contains",
         get: (param: string) =>

@@ -18,9 +18,9 @@ import { generateFunctionalInterface } from "./Factory.js";
 export function extractToField(call, method, fieldLocation, newFile = true, funcInterface = null) {
     if (call === undefined || call === null) {
         return {
-            field: null,
-            interface: funcInterface,
-            interfaceMethod: undefined,
+            $field: null,
+            $interface: funcInterface,
+            $interfaceMethod: undefined,
             defaultMethod: undefined,
         };
     }
@@ -55,7 +55,12 @@ export function extractToField(call, method, fieldLocation, newFile = true, func
     if (field !== undefined) {
         console.log(`[LOG] Call to "${call.name}" (in method "${method.name}") is ready!`);
     }
-    return { field, interface: funcInterface, interfaceMethod, defaultMethod };
+    return {
+        $field: field,
+        $interface: funcInterface,
+        $interfaceMethod: interfaceMethod,
+        defaultMethod,
+    };
 }
 const DEFAULT_PACKAGE = "pt.up.fe.specs.lara.kadabra.utils";
 /**
@@ -76,14 +81,13 @@ export function newMappingClass(interfaceJp, methodName, getterType, target) {
     if (target instanceof App ||
         target instanceof FileJp ||
         target instanceof Class) {
-        //  (target instanceof InterfaceType)
         mapClass = target.mapVersions(mapClassName, getterType, interfaceJp, methodName);
     }
     else {
         throw new Error("Target join point for new functional method caller has to be: app, file, class, or interface.");
     }
     return {
-        mapClass: mapClass,
+        $mapClass: mapClass,
         put: (key, value) => `${mapClass.qualifiedName}.put(${key}, ${value})`,
         contains: (key) => `${mapClass.qualifiedName}.contains(${key})`,
         get: (param, defaultMethod) => defaultMethod
@@ -106,7 +110,7 @@ export function newFunctionalMethodCaller(interfaceJp = null, methodName = null,
         getterType === null ||
         defaultMethodStr === null) {
         return {
-            mapClass: undefined,
+            $mapClass: undefined,
             put: "put",
             contains: "contains",
             get: undefined,
@@ -116,12 +120,12 @@ export function newFunctionalMethodCaller(interfaceJp = null, methodName = null,
     const mapClassName = `${DEFAULT_PACKAGE}.${targetMethodFirstCap}Caller`;
     console.log(`[LOG] Creating new functional mapping class: ${mapClassName}`);
     const appInstance = Query.search(App).getFirst();
-    if (!appInstance) {
+    if (appInstance === undefined) {
         throw new Error("No App instance found.");
     }
     const mapClass = appInstance.mapVersions(mapClassName, getterType, interfaceJp, methodName);
     return {
-        mapClass,
+        $mapClass: mapClass,
         put: "put",
         contains: "contains",
         get: (param) => `${mapClass.qualifiedName}.get(${param}, ${defaultMethodStr})`,
