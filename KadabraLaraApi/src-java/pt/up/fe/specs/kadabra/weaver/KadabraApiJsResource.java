@@ -41,7 +41,8 @@ public enum KadabraApiJsResource implements LaraResourceProvider {
     INTERNALGETTERDETECTOR_JS("kadabra/analysis/energy/detectors/InternalGetterDetector.js"),
     MEMBERIGNORINGMETHODDETECTOR_JS("kadabra/analysis/energy/detectors/MemberIgnoringMethodDetector.js"),
     COUNTER_JS("kadabra/monitor/Counter.js"),
-    COUNTERLIST_JS("kadabra/monitor/CounterList.js");
+    COUNTERLIST_JS("kadabra/monitor/CounterList.js"),
+    TIMER_JS("kadabra/monitor/Timer.js");
 
     private final String resource;
 
