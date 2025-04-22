@@ -1,28 +1,29 @@
-laraImport("lara.mutation.Mutator");
+import Mutator from "@specs-feup/lara/api/lara/mutation/Mutator.js";
+import { arrayFromArgs } from "@specs-feup/lara/api/lara/core/LaraCore.js";
+import { Joinpoint, BinaryExpression } from "../../Joinpoints.js";
 
 /**
- *  @param {$binaryExpression} $binaryExpression - A join point of type binaryExpression.
+ *  @param {BinaryExpression} binaryExpression - A join point of type binaryExpression.
  *  @param {String[] | String...} newOperators - Operators that will be used to mutate the given binaryExpression.
  */
-class BinaryExpressionMutator extends Mutator {
-    constructor($binaryExpression, ...newOperators) {
+export default abstract class BinaryExpressionMutator extends Mutator {
+    binaryExpression: BinaryExpression;
+    newOperators: string[];
+    currentIndex: number;
+    previousOp: string;
+
+    constructor(
+        binaryExpression: BinaryExpression,
+        ...newOperators: Joinpoint[]
+    ) {
         super();
         // Instance variables
-        this.$binaryExpression = $binaryExpression;
+        this.binaryExpression = binaryExpression;
         this.newOperators = arrayFromArgs(newOperators);
         this.currentIndex = 0;
         this.previousOp = undefined;
 
         // Checks
-
-        // Check it is a binaryExpression
-        if (!$binaryExpression.instanceOf("binaryExpression")) {
-            throw new Error(
-                "Expected a binaryExpression, received a " +
-                    $binaryExpression.joinPointType
-            );
-        }
-
         // TODO: Check if operators are valid
     }
 
@@ -31,7 +32,7 @@ class BinaryExpressionMutator extends Mutator {
     }
 
     getMutationPoint() {
-        return this.$binaryExpression;
+        return this.binaryExpression;
     }
 
     mutatePrivate() {
@@ -40,15 +41,15 @@ class BinaryExpressionMutator extends Mutator {
         this.currentIndex++;
 
         // Store current operator
-        this.previousOp = this.$binaryExpression.operator;
+        this.previousOp = this.binaryExpression.operator;
 
         // Set new operator
-        this.$binaryExpression.operator = newOp;
+        this.binaryExpression.operator = newOp;
     }
 
     restorePrivate() {
         // Restore operator
-        this.$binaryExpression.operator = this.previousOp;
+        this.binaryExpression.operator = this.previousOp;
         this.previousOp = undefined;
     }
 }
