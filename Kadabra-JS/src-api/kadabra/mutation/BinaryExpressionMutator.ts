@@ -10,7 +10,7 @@ export default abstract class BinaryExpressionMutator extends Mutator {
     binaryExpression: BinaryExpression;
     newOperators: string[];
     currentIndex: number;
-    previousOp: string;
+    previousOp?: string;
 
     constructor(
         binaryExpression: BinaryExpression,
@@ -49,7 +49,8 @@ export default abstract class BinaryExpressionMutator extends Mutator {
 
     restorePrivate() {
         // Restore operator
-        this.binaryExpression.operator = this.previousOp;
+        if (this.previousOp !== undefined)
+            this.binaryExpression.operator = this.previousOp;
         this.previousOp = undefined;
     }
 }

@@ -1,11 +1,11 @@
-function L2Provider() {
-    this.orElse = function (defValue: string) {
+class L2Provider {
+    orElse(defValue: string): string {
         return (
             "weaver.kadabra.system.CpuInfo.getL2CacheSizeOrElse(" +
             defValue +
             ")"
         );
-    };
+    }
 }
 
 export default function CpuInfo() {
