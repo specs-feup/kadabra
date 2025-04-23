@@ -1,5 +1,5 @@
 import Query from "@specs-feup/lara/api/weaver/Query.js";
-import { Class, FileJp, Method, App } from "../Joinpoints.js";
+import { Class, FileJp, Method } from "../Joinpoints.js";
 /**
  * Retrieves an existing class or creates a new one.
  *
@@ -22,8 +22,7 @@ export function getOrNewClass(qualifiedName, extend = "", implement = [], target
  * @param target - The target join point (optional).
  * @returns The newly created class join point.
  */
-export function newClass(qualifiedName, extend = "", implement = [], target) {
-    target ??= Query.search(App).getFirst();
+export function newClass(qualifiedName, extend = "", implement = [], target = Query.root()) {
     if (target === undefined) {
         throw new Error("The target join point for a new class must be of type App or FileJp.");
     }
@@ -59,8 +58,7 @@ export function providerOf(code, args) {
 export function generateFunctionalInterface(targetMethod, targetClass = ".*", targetFile = ".*", associate = false, newFile = true) {
     let $interface = undefined;
     let tempClass = undefined;
-    const search = Query.search(App)
-        .search(FileJp, (file) => RegExp(targetFile).exec(file.name) !== null)
+    const search = Query.search(FileJp, (file) => RegExp(targetFile).exec(file.name) !== null)
         .search(Class, (cls) => RegExp(targetClass).exec(cls.qualifiedName) !== null)
         .search(Method, targetMethod)
         .chain();

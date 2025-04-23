@@ -7,10 +7,8 @@ import { App, Class, Method, Return } from "../Joinpoints.js";
  * @param name - The name of the AST window.
  */
 export function showAST(name: string = "Spoon Tree"): void {
-    const app = Query.root() as App | undefined;
-    if (app) {
-        app.showAST(name);
-    }
+    const app = Query.root() as App;
+    app.showAST(name);
 }
 
 /**

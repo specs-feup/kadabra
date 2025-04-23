@@ -1,15 +1,13 @@
 import Query from "@specs-feup/lara/api/weaver/Query.js";
-import { App, Class, Method, Return } from "../Joinpoints.js";
+import { Class, Method, Return } from "../Joinpoints.js";
 /**
  * Opens a window with the AST of Spoon.
  *
  * @param name - The name of the AST window.
  */
 export function showAST(name = "Spoon Tree") {
-    const app = Query.search(App).getFirst();
-    if (app) {
-        app.showAST(name);
-    }
+    const app = Query.root();
+    app.showAST(name);
 }
 /**
  * Converts a primitive type to its wrapper class.

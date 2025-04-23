@@ -26,7 +26,7 @@ export function extractToField(call, method, fieldLocation, newFile = true, func
     }
     if (method === undefined) {
         const ancestor = call.getAncestor("method");
-        if (!(ancestor instanceof Method)) {
+        if (ancestor == undefined) {
             throw new Error("No method found for the given call.");
         }
         method = ancestor;
@@ -72,8 +72,7 @@ const DEFAULT_PACKAGE = "pt.up.fe.specs.lara.kadabra.utils";
  * @param target - The target join point (optional).
  * @returns An object containing the mapping class and related methods.
  */
-export function newMappingClass(interfaceJp, methodName, getterType, target) {
-    target ??= Query.search(App).getFirst();
+export function newMappingClass(interfaceJp, methodName, getterType, target = Query.root()) {
     const targetMethodFirstCap = methodName.charAt(0).toUpperCase() + methodName.slice(1);
     const mapClassName = `${DEFAULT_PACKAGE}.${targetMethodFirstCap}Caller`;
     console.log(`[LOG] Creating new functional mapping class: ${mapClassName}`);
@@ -119,11 +118,7 @@ export function newFunctionalMethodCaller(interfaceJp = null, methodName = null,
     const targetMethodFirstCap = methodName.charAt(0).toUpperCase() + methodName.slice(1);
     const mapClassName = `${DEFAULT_PACKAGE}.${targetMethodFirstCap}Caller`;
     console.log(`[LOG] Creating new functional mapping class: ${mapClassName}`);
-    const appInstance = Query.search(App).getFirst();
-    if (appInstance === undefined) {
-        throw new Error("No App instance found.");
-    }
-    const mapClass = appInstance.mapVersions(mapClassName, getterType, interfaceJp, methodName);
+    const mapClass = Query.root().mapVersions(mapClassName, getterType, interfaceJp, methodName);
     return {
         $mapClass: mapClass,
         put: "put",
