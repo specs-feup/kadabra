@@ -129,8 +129,7 @@ export function NewMappingClass($interface, methodName, getterType, $target = Qu
     const targetMethodFirstCap = methodName.charAt(0).toUpperCase() + methodName.slice(1);
     const mapClass = `${DEFAULT_PACKAGE}.${targetMethodFirstCap}Caller`;
     console.log("[LOG] Creating new functional mapping class: " + mapClass);
-    let $mapClass;
-    $mapClass = $target.mapVersions(mapClass, getterType, $interface, methodName);
+    const $mapClass = $target.mapVersions(mapClass, getterType, $interface, methodName);
     return {
         $mapClass,
         put: (key, value) => `${$mapClass.qualifiedName}.put(${key},${value})`,

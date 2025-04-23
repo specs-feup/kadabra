@@ -227,8 +227,7 @@ export function NewMappingClass(
 
     console.log("[LOG] Creating new functional mapping class: " + mapClass);
 
-    let $mapClass: Class;
-    $mapClass = $target.mapVersions(
+    const $mapClass = $target.mapVersions(
         mapClass,
         getterType,
         $interface,
