@@ -1,5 +1,5 @@
-laraImport("kadabra.KadabraNodes");
 laraImport("weaver.Query");
+laraImport("kadabra.KadabraNodes");
 
 // Insert a join point before
 const foo = Query.search("method", "foo")

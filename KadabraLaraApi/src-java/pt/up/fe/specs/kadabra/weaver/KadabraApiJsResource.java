@@ -26,7 +26,14 @@ public enum KadabraApiJsResource implements LaraResourceProvider {
 
     JOINPOINTS_JS("Joinpoints.js"),
     KADABRA_JS("Kadabra.js"),
+    FACTORY_JS("kadabra/Factory.js"),
+    KADABRAAST_JS("kadabra/KadabraAst.js"),
     KADABRAJAVATYPES_JS("kadabra/KadabraJavaTypes.js"),
+    KADABRANODES_JS("kadabra/KadabraNodes.js"),
+    METRICS_JS("kadabra/Metrics.js"),
+    TRANSFORM_JS("kadabra/Transform.js"),
+    TYPES_JS("kadabra/Types.js"),
+    UTILS_JS("kadabra/Utils.js"),
     SPECIALIZER_JS("kadabra/adapt/Specializer.js"),
     ENERGYAWAREANDROIDPATTERNS_JS("kadabra/analysis/energy/EnergyAwareAndroidPatterns.js"),
     BASEDETECTOR_JS("kadabra/analysis/energy/detectors/BaseDetector.js"),
@@ -35,7 +42,8 @@ public enum KadabraApiJsResource implements LaraResourceProvider {
     INTERNALGETTERDETECTOR_JS("kadabra/analysis/energy/detectors/InternalGetterDetector.js"),
     MEMBERIGNORINGMETHODDETECTOR_JS("kadabra/analysis/energy/detectors/MemberIgnoringMethodDetector.js"),
     COUNTER_JS("kadabra/monitor/Counter.js"),
-    COUNTERLIST_JS("kadabra/monitor/CounterList.js");
+    COUNTERLIST_JS("kadabra/monitor/CounterList.js"),
+    TIMER_JS("kadabra/monitor/Timer.js");
 
     private final String resource;
 
