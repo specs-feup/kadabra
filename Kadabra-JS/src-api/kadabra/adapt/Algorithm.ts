@@ -1,7 +1,7 @@
 import { TransformMethod, FunctionGenerator } from "./Adapter.js";
 import { GetMethod } from "../Utils.js";
 
-import { Method } from "../../Joinpoints.js";
+import { Method, Type } from "../../Joinpoints.js";
 
 export abstract class Algorithm {
     public static readonly PACKAGE = "autotuner.algorithm.";
@@ -27,7 +27,6 @@ export class SimpleAlgorithm extends Algorithm {
             this.lambda = lambda;
         }
         this.id = id ?? this.lambda;
-        //	this.isAlgorithm = true; //helper
     }
 
     getAlgorithm(): string {
@@ -56,16 +55,20 @@ export class SimpleAlgorithm extends Algorithm {
 }
 
 export class AlgorithmWithKnob extends Algorithm {
-    knobConsumer: any;
-    configSupplier: any;
+    knobConsumer: string;
+    configSupplier: string;
 
-    constructor(lambda: any, id: any, knobConsumer: any, configSupplier: any) {
+    constructor(
+        lambda: string,
+        id: string,
+        knobConsumer: string,
+        configSupplier: string
+    ) {
         super();
         this.lambda = lambda;
         this.id = id;
         this.knobConsumer = knobConsumer;
         this.configSupplier = configSupplier;
-        //	this.isAlgorithm = true; //helper
     }
 
     getAlgorithm(): string {
@@ -92,7 +95,6 @@ export class AdaptiveAlgorithm extends Algorithm {
         super();
         const getter = GetMethod(templateName);
         const $templateMethod = getter.methods;
-        //	console.log($templateMethod);
         const adapter = TransformMethod($targetMethod, $templateMethod);
         const field = adapter.addField(undefined, id, true);
 
@@ -121,14 +123,14 @@ export class AdaptiveAlgorithm extends Algorithm {
 export class GenerativeAlgorithm extends Algorithm {
     provider: string;
     extraArg: string[];
-    providerType: any;
-    $interface: any;
+    providerType: string;
+    $interface: Method;
     constructor(
         id: string,
         $interface: Method,
         templateName: string,
         provider: string,
-        providerType: any,
+        providerType: string,
         extraArg?: string[]
     ) {
         super();
@@ -140,21 +142,17 @@ export class GenerativeAlgorithm extends Algorithm {
             for (const g of $templateMethod) {
                 getters += g.toQualifiedReference + ",";
             }
-            throw (
+            throw new Error(
                 "Too much methods with template name: " +
-                templateName +
-                ". Origins: " +
-                getters
+                    templateName +
+                    ". Origins: " +
+                    getters
             );
         }
         const adapter = FunctionGenerator($templateMethod, $interface);
-        //field = adapter.addField(undefined,id,true);
-        //TODO: check this
-        //before: this.lambda = %{k-> [[adapter.generateQualified("k", extraArg)]]}%;
-        //this.lambda = %{k-> [[adapter.generateQualified("k")]]}%;
 
         if (extraArg) {
-            this.lambda = `k-> ${adapter.generateQualified("k", extraArg)}`;
+            this.lambda = `k-> ${adapter.generateQualified([["k"], extraArg])}`;
             adapter.generateQualified([["k"], extraArg]);
         } else {
             this.lambda = adapter.generateQualified([["k"]]);
@@ -168,8 +166,9 @@ export class GenerativeAlgorithm extends Algorithm {
     getAlgorithm(): string {
         let genericType = "";
         if (this.providerType != undefined) {
-            const interfType =
-                this.$interface.getAncestor("interface").qualifiedName;
+            const interfType = (
+                this.$interface.getAncestor("interface") as Type
+            ).qualifiedName;
             genericType = interfType + "," + this.providerType;
         }
         return (

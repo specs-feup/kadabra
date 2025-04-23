@@ -18,7 +18,9 @@ export function CreateClassGenerator(
         .search(Class, { name: (c: string) => c !== adapterClass })
         .search(Method, adapterMethod)) {
         if ($adaptMethod != undefined) {
-            throw "More than one target method generator was found, please define a finer selection";
+            throw new Error(
+                "More than one target method generator was found, please define a finer selection"
+            );
         }
         const adapter = FunctionGenerator(
             $method,
@@ -30,11 +32,11 @@ export function CreateClassGenerator(
         generateQualified = adapter.generateQualified;
     }
     if ($adaptMethod == undefined) {
-        throw (
+        throw new Error(
             "Could not find given method generator: " +
-            adapterMethod +
-            " in " +
-            adapterClass
+                adapterMethod +
+                " in " +
+                adapterClass
         );
     }
 
@@ -151,7 +153,7 @@ export function TransformMethod(
     name?: string
 ) {
     name =
-        name ||
+        name ??
         $target.name.charAt(0).toUpperCase() +
             $target.name.substring(1) +
             $adaptMethod.name.charAt(0).toUpperCase +
@@ -171,7 +173,7 @@ export function TransformMethod(
     }
     //this method returns information regarding the field and class, as well as the methods that can be invoked in the field
     const addField = ($class?: Class, name?: string, init?: boolean): Field => {
-        const _$class = $class || $adaptClass;
+        const _$class = $class ?? $adaptClass;
         const fieldName =
             name ??
             $adaptClass.name.charAt(0).toUpperCase() +
