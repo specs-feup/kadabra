@@ -1,6 +1,6 @@
 import Query from "@specs-feup/lara/api/weaver/Query.js";
 import { object2string } from "@specs-feup/lara/api/core/output.js";
-import { Body, Case, Field, If, Method, Statement, Type } from "../Joinpoints.js";
+import { Body, Case, Field, If, Method, Statement, Type, } from "../Joinpoints.js";
 /**
  * Main function to extract metrics and print the report.
  */
@@ -98,7 +98,9 @@ function reportMethod(method) {
     };
     // Process the method body
     for (const body of Query.searchFrom(method, Body)) {
-        processBody(body, () => { report.numOf.statements++; });
+        processBody(body, () => {
+            report.numOf.statements++;
+        });
     }
     return report;
 }

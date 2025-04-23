@@ -7,10 +7,8 @@ import { App, Class, Method, Return } from "../Joinpoints.js";
  * @param name - The name of the AST window.
  */
 export function showAST(name: string = "Spoon Tree"): void {
-    const app = Query.search(App).getFirst();
-    if (app) {
-        app.showAST(name);
-    }
+    const app = Query.root() as App;
+    app.showAST(name);
 }
 
 /**
@@ -19,7 +17,10 @@ export function showAST(name: string = "Spoon Tree"): void {
  * @param type - The primitive type to convert.
  * @returns An object containing the wrapper class and whether the type is primitive.
  */
-export function convertPrimitive(type: string): { wrapper: string; isPrimitive: boolean } {
+export function convertPrimitive(type: string): {
+    wrapper: string;
+    isPrimitive: boolean;
+} {
     let wrapper: string;
     let isPrimitive = true;
 
@@ -139,7 +140,12 @@ export function beforeExit(method: Method, code: string): void {
  *
  * @returns An object containing the API names.
  */
-export function getAPINames(): { concurrentPackage: string; channel: string; thread: string; product: string } {
+export function getAPINames(): {
+    concurrentPackage: string;
+    channel: string;
+    thread: string;
+    product: string;
+} {
     return {
         concurrentPackage: "weaver.kadabra.concurrent",
         channel: "weaver.kadabra.concurrent.KadabraChannel",
@@ -170,14 +176,20 @@ export function integerProperty(name: string, defaultValue?: string): string {
  * @param methodName - The name of the method.
  * @returns An array of method join points.
  */
-export function getMethod(className: string = ".*", methodName?: string): Method | Method[] {
+export function getMethod(className: string = ".*", methodName?: string) {
     if (methodName === undefined) {
         methodName = className;
         className = ".*";
     }
 
     let methods: Method | Method[] | undefined = undefined;
-    for (const method of Query.search(Class, (cls: Class) => cls.qualifiedName.match(className)  !== null).search(Method, { name: methodName })) {
+
+    const search = Query.search(
+        Class,
+        (cls) => RegExp(className).exec(cls.qualifiedName) !== null
+    ).search(Method, methodName);
+
+    for (const method of search) {
         if (methods === undefined) {
             methods = method;
         } else if (Array.isArray(methods)) {
@@ -186,9 +198,7 @@ export function getMethod(className: string = ".*", methodName?: string): Method
             methods = [methods, method];
         }
     }
-    if (methods === undefined) {
-        throw new Error(`Method "${methodName}" not found in class "${className}".`);
-    }
+
     return methods;
 }
 
@@ -198,9 +208,15 @@ export function getMethod(className: string = ".*", methodName?: string): Method
  * @param className - The name of the class.
  * @returns An array of class join points.
  */
-export function getClass(className: string = ".*"): Class | Class[] {
+export function getClass(className: string = ".*") {
     let classes: Class | Class[] | undefined = undefined;
-    for (const cls of Query.search(Class, (cls: Class) => cls.qualifiedName.match(className)  !== null)) {
+
+    const search = Query.search(
+        Class,
+        (cls) => RegExp(className).exec(cls.qualifiedName) !== null
+    );
+
+    for (const cls of search) {
         if (classes === undefined) {
             classes = cls;
         } else if (Array.isArray(classes)) {
@@ -209,8 +225,6 @@ export function getClass(className: string = ".*"): Class | Class[] {
             classes = [classes, cls];
         }
     }
-    if (classes === undefined) {
-        throw new Error(`Class "${className}" not found.`);
-    }
+
     return classes;
 }

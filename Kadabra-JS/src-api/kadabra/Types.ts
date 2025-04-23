@@ -3,9 +3,12 @@ export class KTypes {
     static readonly Channel = "weaver.kadabra.concurrent.KadabraChannel";
     static readonly Product = "weaver.kadabra.concurrent.Product";
     static readonly ControlPoint = "weaver.kadabra.control.ControlPoint";
-    static readonly ControlPointFactory = "weaver.kadabra.control.ControlPointFactory";
-    static readonly VersionProviderUtils = "weaver.kadabra.control.utils.ProviderUtils";
-    static readonly VersionProvider = "weaver.kadabra.control.utils.VersionProvider";
+    static readonly ControlPointFactory =
+        "weaver.kadabra.control.ControlPointFactory";
+    static readonly VersionProviderUtils =
+        "weaver.kadabra.control.utils.ProviderUtils";
+    static readonly VersionProvider =
+        "weaver.kadabra.control.utils.VersionProvider";
     static readonly Tuple = "tdrc.tuple.Tuple";
     static readonly Pair = "tdrc.utils.Pair";
     static readonly Atomic = "java.util.concurrent.atomic.Atomic";
@@ -19,7 +22,7 @@ export class KTypes {
     /**
      * Generates a product type with the specified key and value types.
      */
-    static productOf(key: string, value: string): string | undefined {
+    static productOf(key?: string, value?: string): string | undefined {
         if (key === undefined || value === undefined) {
             return undefined;
         }
@@ -59,51 +62,63 @@ export class KTypes {
      * Generates an atomic type with the specified type.
      */
     static atomicOf(type: string): string {
-        if (this.isPrimitive(type)) {
-            return `${this.Atomic}${this.toWrapper(type)}`;
+        if (isPrimitive(type)) {
+            return `${this.Atomic}${toWrapper(type)}`;
         }
         return `${this.Atomic}Reference<${type}>`;
     }
-    /**
-     * Converts a primitive type to its wrapper class.
-     */
-    static toWrapper(type: string): string {
-        switch (type) {
-            case "bool":
-                return "Boolean";
-            case "int":
-                return "Integer";
-            case "char":
-                return "Character";
-            case "void":
-            case "byte":
-            case "short":
-            case "long":
-            case "float":
-            case "double":
-                return type.charAt(0).toUpperCase() + type.slice(1);
-            default:
-                return type;
-        }
-    }
-    /**
-     * Checks if a type is a primitive type.
-     */
-    static isPrimitive(type: string): boolean {
-        return this.PRIMITIVE_TYPES.includes(type);
-    }
-    // List of primitive types
-    private static readonly PRIMITIVE_TYPES = [
-        "bool",
-        "int",
-        "char",
-        "void",
-        "byte",
-        "short",
-        "long",
-        "float",
-        "double",
-    ];
 }
 
-export enum Types {'bool', 'int', 'char', 'void', 'byte', 'short', 'long', 'float', 'double'};
+/**
+ * Converts a primitive type to its wrapper class.
+ */
+export function toWrapper(type: string): string {
+    switch (type) {
+        case "bool":
+            return "Boolean";
+        case "int":
+            return "Integer";
+        case "char":
+            return "Character";
+        case "void":
+        case "byte":
+        case "short":
+        case "long":
+        case "float":
+        case "double":
+            return type.charAt(0).toUpperCase() + type.slice(1);
+        default:
+            return type;
+    }
+}
+
+// List of primitive types
+export const PRIMITIVE_TYPES = [
+    "bool",
+    "int",
+    "char",
+    "void",
+    "byte",
+    "short",
+    "long",
+    "float",
+    "double",
+];
+/**
+ * Checks if a type is a primitive type.
+ */
+export function isPrimitive(type: string): boolean {
+    return PRIMITIVE_TYPES.includes(type);
+}
+
+export enum Types {
+    "bool",
+    "int",
+    "char",
+    "void",
+    "byte",
+    "short",
+    "long",
+    "float",
+    "double",
+}

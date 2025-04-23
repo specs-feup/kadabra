@@ -5,8 +5,8 @@ import { Assignment, Class, Field, LocalVariable } from "../Joinpoints.js";
  * Utility methods related to searching join points and AST properties.
  */
 export class KadabraAst {
-    static _BINARY_OP_SET;
-    static _UNARY_OP_SET;
+    static _BINARY_OP_SET = undefined;
+    static _UNARY_OP_SET = undefined;
     /**
      * Searches constant values. Currently, three types of constants are returned:
      * - Class fields which are final and initialized when declared;
@@ -17,9 +17,7 @@ export class KadabraAst {
      * @returns An array of join points, which can either be a field, an assignment, or a local variable.
      */
     static getConstantInitializations(startingPoint) {
-        if (startingPoint === undefined) {
-            startingPoint = Query.root();
-        }
+        startingPoint ??= Query.root();
         const constants = [];
         // Search for final fields with initializations
         for (const field of Query.searchFromInclusive(startingPoint, Field)) {
@@ -77,15 +75,16 @@ export class KadabraAst {
      * If the map returns undefined, this means that the class has no subclasses.
      */
     static getHierarchy() {
-        const hierarchy = {};
+        const hierarchy = new Map();
         for (const cls of Query.search(Class)) {
             const superClass = cls.superClass;
-            let subClasses = hierarchy[superClass];
+            const subClasses = hierarchy.get(superClass);
             if (subClasses === undefined) {
-                subClasses = [];
-                hierarchy[superClass] = subClasses;
+                hierarchy.set(superClass, [cls]);
             }
-            subClasses.push(cls);
+            else {
+                subClasses.push();
+            }
         }
         return hierarchy;
     }
