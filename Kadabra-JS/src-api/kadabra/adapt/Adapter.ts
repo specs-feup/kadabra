@@ -135,6 +135,12 @@ export function CreateAdapter(
     }
     return { $adaptClass: $adaptClass, addField: addField };
 }
+interface Field {
+    name: string;
+    $field: { staticAccess: string };
+    addAdapter: string;
+    adapt: (...args: string[]) => string;
+}
 /**
  * Create an adapter based on the target class and the method that transforms the class bytecodes.
  *
@@ -164,10 +170,10 @@ export function TransformMethod(
         }
     }
     //this method returns information regarding the field and class, as well as the methods that can be invoked in the field
-    const addField = ($class?: Class, name?: string, init?: boolean): any => {
+    const addField = ($class?: Class, name?: string, init?: boolean): Field => {
         const _$class = $class || $adaptClass;
         const fieldName =
-            name ||
+            name ??
             $adaptClass.name.charAt(0).toUpperCase() +
                 $adaptClass.name.substring(1);
         const _init = init || false;
@@ -193,7 +199,7 @@ export function TransformMethod(
                 return invoke;
             },
         };
-        if (init) {
+        if (_init) {
             _$class.insertStatic(field.addAdapter);
         }
 
