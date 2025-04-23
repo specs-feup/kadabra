@@ -46,8 +46,8 @@ export function extractToField(
     }
 
     if (method === undefined) {
-        const ancestor = call.getAncestor("method");
-        if (!(ancestor instanceof Method)) {
+        const ancestor = call.getAncestor("method") as Method | undefined;
+        if (ancestor == undefined) {
             throw new Error("No method found for the given call.");
         }
         method = ancestor;
@@ -128,15 +128,13 @@ export function newMappingClass(
     interfaceJp: InterfaceType,
     methodName: string,
     getterType: string,
-    target?: Class | App | FileJp
+    target: Class | App | FileJp = Query.root() as App
 ): {
     $mapClass: Class;
     put: (key: string, value: string) => string;
     contains: (key: string) => string;
     get: (param: string, defaultMethod?: string) => string;
 } {
-    target ??= Query.search(App).getFirst();
-
     const targetMethodFirstCap =
         methodName.charAt(0).toUpperCase() + methodName.slice(1);
     const mapClassName = `${DEFAULT_PACKAGE}.${targetMethodFirstCap}Caller`;
@@ -213,11 +211,7 @@ export function newFunctionalMethodCaller(
 
     console.log(`[LOG] Creating new functional mapping class: ${mapClassName}`);
 
-    const appInstance = Query.search(App).getFirst();
-    if (appInstance === undefined) {
-        throw new Error("No App instance found.");
-    }
-    const mapClass = appInstance.mapVersions(
+    const mapClass = (Query.root() as App).mapVersions(
         mapClassName,
         getterType,
         interfaceJp,

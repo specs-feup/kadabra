@@ -37,10 +37,8 @@ export function newClass(
     qualifiedName: string,
     extend: string = "",
     implement: string[] = [],
-    target?: App | FileJp
+    target: App | FileJp = Query.root() as App
 ): Class {
-    target ??= Query.search(App).getFirst();
-
     if (target === undefined) {
         throw new Error(
             "The target join point for a new class must be of type App or FileJp."
@@ -93,8 +91,10 @@ export function generateFunctionalInterface(
     let $interface: InterfaceType | undefined = undefined;
     let tempClass: Class | undefined = undefined;
 
-    const search = Query.search(App)
-        .search(FileJp, (file) => RegExp(targetFile).exec(file.name) !== null)
+    const search = Query.search(
+        FileJp,
+        (file) => RegExp(targetFile).exec(file.name) !== null
+    )
         .search(
             Class,
             (cls) => RegExp(targetClass).exec(cls.qualifiedName) !== null
@@ -147,7 +147,7 @@ export function generateFunctionalInterface(
         $interface,
         Method,
         method.name
-    ).getFirst() as Method;
+    ).getFirst()!;
 
     return {
         $interface: $interface,
