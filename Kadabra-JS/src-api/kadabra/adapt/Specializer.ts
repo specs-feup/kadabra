@@ -228,18 +228,12 @@ export function NewMappingClass(
     console.log("[LOG] Creating new functional mapping class: " + mapClass);
 
     let $mapClass: Class;
-    if ($target !== undefined) {
-        $mapClass = $target.mapVersions(
-            mapClass,
-            getterType,
-            $interface,
-            methodName
-        );
-    } else {
-        throw new Error(
-            "Target join point for new functional method caller has to be: app, file, class or interface"
-        );
-    }
+    $mapClass = $target.mapVersions(
+        mapClass,
+        getterType,
+        $interface,
+        methodName
+    );
 
     return {
         $mapClass,
