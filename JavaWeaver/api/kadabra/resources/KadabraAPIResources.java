@@ -19,12 +19,10 @@ import pt.up.fe.specs.util.providers.ResourceProvider;
 public enum KadabraAPIResources implements ResourceProvider {
 
     Adapter(PackageProvider.adaptPackage, "Adapter"),
-    DataFeature(PackageProvider.adaptPackage, "DataFeature"),
     Configs(PackageProvider.adaptPackage, "Configs"),
     Measurers(PackageProvider.adaptPackage, "Measurers"),
     Algorithm(PackageProvider.adaptPackage, "Algorithm"),
     Autotuner(PackageProvider.adaptPackage, "Autotuner"),
-    VersionTester(PackageProvider.adaptPackage, "VersionTester"),
     CpuInfo(PackageProvider.systemPackage, "CpuInfo"),
 
     ArithmeticOperatorDeletionMutation("mutation/", "ArithmeticOperatorDeletionMutation.js"),
