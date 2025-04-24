@@ -69,6 +69,7 @@ export function NewVersionTester(
         testPos: $tester + ".getTestPos()",
         bestPos: $tester + ".getBestPos()",
         bestVersion: $tester + ".getBestVersion()",
+        numRuns: $tester + ".getNumRuns()",
     };
 }
 

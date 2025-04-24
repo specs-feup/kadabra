@@ -45,6 +45,7 @@ export function NewVersionTester($class, targetType, timeUnit = "Millis", numRun
         testPos: $tester + ".getTestPos()",
         bestPos: $tester + ".getBestPos()",
         bestVersion: $tester + ".getBestVersion()",
+        numRuns: $tester + ".getNumRuns()",
     };
 }
 const mods = ["private", "static"];
