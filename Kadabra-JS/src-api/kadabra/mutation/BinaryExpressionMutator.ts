@@ -12,14 +12,11 @@ export default abstract class BinaryExpressionMutator extends Mutator {
     currentIndex: number;
     previousOp?: string;
 
-    constructor(
-        binaryExpression: BinaryExpression,
-        ...newOperators: Joinpoint[]
-    ) {
+    constructor(binaryExpression: BinaryExpression, ...newOperators: string[]) {
         super();
         // Instance variables
         this.binaryExpression = binaryExpression;
-        this.newOperators = arrayFromArgs(newOperators);
+        this.newOperators = newOperators;
         this.currentIndex = 0;
         this.previousOp = undefined;
 

@@ -1,6 +1,5 @@
 import IterativeMutation from "@specs-feup/lara/api/lara/mutation/IterativeMutation.js";
 import MutationResult from "@specs-feup/lara/api/lara/mutation/MutationResult.js";
-import { arrayFromArgs } from "@specs-feup/lara/api/lara/core/LaraCore.js";
 import { Joinpoint, BinaryExpression } from "../../Joinpoints.js";
 
 /**
@@ -14,7 +13,7 @@ export default class BinaryExpressionMutation extends IterativeMutation {
     constructor(...newOperators: string[]) {
         super("BinaryExpressionMutation");
         // TODO: Check if operators are valid
-        this.newOperators = arrayFromArgs(newOperators);
+        this.newOperators = newOperators;
     }
 
     isMutationPoint(jp: Joinpoint): jp is BinaryExpression {

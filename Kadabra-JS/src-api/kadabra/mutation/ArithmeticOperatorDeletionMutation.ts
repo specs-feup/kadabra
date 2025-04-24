@@ -12,23 +12,21 @@ export default class ArithmeticOperatorDeletionMutation extends IterativeMutatio
         return jp instanceof BinaryExpression;
     }
 
-    *mutate(jp: Joinpoint) {
-        if (jp instanceof BinaryExpression) {
-            const leftOperand = jp.lhs.copy();
+    *mutate(jp: BinaryExpression) {
+        const leftOperand = jp.lhs.copy();
 
-            debug("/*--------------------------------------*/");
-            debug("Mutating operator: " + jp + " to " + leftOperand);
-            debug("/*--------------------------------------*/");
+        debug("/*--------------------------------------*/");
+        debug("Mutating operator: " + jp + " to " + leftOperand);
+        debug("/*--------------------------------------*/");
 
-            yield new MutationResult(leftOperand);
+        yield new MutationResult(leftOperand);
 
-            const rightOperand = jp.rhs.copy();
+        const rightOperand = jp.rhs.copy();
 
-            debug("/*--------------------------------------*/");
-            debug("Mutating operator: " + jp + " to " + rightOperand);
-            debug("/*--------------------------------------*/");
+        debug("/*--------------------------------------*/");
+        debug("Mutating operator: " + jp + " to " + rightOperand);
+        debug("/*--------------------------------------*/");
 
-            yield new MutationResult(rightOperand);
-        }
+        yield new MutationResult(rightOperand);
     }
 }
