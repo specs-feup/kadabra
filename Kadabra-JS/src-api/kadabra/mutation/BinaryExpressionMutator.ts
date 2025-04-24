@@ -1,6 +1,5 @@
 import Mutator from "@specs-feup/lara/api/lara/mutation/Mutator.js";
-import { arrayFromArgs } from "@specs-feup/lara/api/lara/core/LaraCore.js";
-import { Joinpoint, BinaryExpression } from "../../Joinpoints.js";
+import { BinaryExpression } from "../../Joinpoints.js";
 
 /**
  *  @param {BinaryExpression} binaryExpression - A join point of type binaryExpression.
