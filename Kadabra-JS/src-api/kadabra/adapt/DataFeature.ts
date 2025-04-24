@@ -16,8 +16,7 @@ export default class DataFeature {
         this.nc = undefined;
     }
 
-    generate(packageName?: string) {
-        packageName ??= DataFeature.PACKAGE;
+    generate(packageName: string = DataFeature.PACKAGE) {
         this.qualifiedName = packageName + "." + this.name;
         this.nc = newClass(this.qualifiedName, `Comparable<${this.name}>`);
         return this.nc;
