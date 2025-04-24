@@ -23,7 +23,6 @@ public enum KadabraAPIResources implements ResourceProvider {
     Measurers(PackageProvider.adaptPackage, "Measurers"),
     Algorithm(PackageProvider.adaptPackage, "Algorithm"),
     Autotuner(PackageProvider.adaptPackage, "Autotuner"),
-    VersionTester(PackageProvider.adaptPackage, "VersionTester"),
     CpuInfo(PackageProvider.systemPackage, "CpuInfo"),
 
     ArithmeticOperatorDeletionMutation("mutation/", "ArithmeticOperatorDeletionMutation.js"),
