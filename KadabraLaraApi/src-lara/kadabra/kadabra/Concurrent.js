@@ -1,77 +1,42 @@
 import { getAPINames, convertPrimitive } from "./Utils.js";
-import { Class } from "../Joinpoints.js";
-
 /**
  * Create an atomic field in the given class. This aspect provides outputs such as get and set of the field
  */
-export function NewAtomic(
-    $class: Class,
-    type: string,
-    fieldName: string,
-    initValue: string,
-    isStatic: boolean = true
-) {
+export function NewAtomic($class, type, fieldName, initValue, isStatic = true) {
     const convert = convertPrimitive(type);
-    let atomicType: string = "java.util.concurrent.atomic.Atomic";
-    let atomicTypeSimple: string = "Atomic";
-
+    let atomicType = "java.util.concurrent.atomic.Atomic";
+    let atomicTypeSimple = "Atomic";
     if (convert.isPrimitive) {
         atomicType += convert.wrapper;
         atomicTypeSimple += convert.wrapper;
-    } else {
+    }
+    else {
         atomicType += "Reference<" + type + ">";
         atomicTypeSimple += "Reference<>";
     }
-
     const init = initValue || "";
     const mods = ["private"];
     if (isStatic) {
         mods.push("static");
     }
-    const field = $class.newField(
-        mods,
-        atomicType,
-        fieldName,
-        "new " + atomicTypeSimple + "(" + init + ")"
-    );
+    const field = $class.newField(mods, atomicType, fieldName, "new " + atomicTypeSimple + "(" + init + ")");
     const reference = field.declarator + "." + field.name;
     const name = field.name;
     const get = reference + ".get()";
-    const set = function (value: string) {
+    const set = function (value) {
         return reference + ".set(" + value + ")";
     };
-
     return { reference, name, field, get, set };
 }
-
-export function NewThread(
-    $class: Class,
-    threadName: string = "thread",
-    adaptCode: string = ""
-) {
+export function NewThread($class, threadName = "thread", adaptCode = "") {
     const names = getAPINames();
-
     //Add thread field
-    const $thread = $class.newField(
-        ["private", "static"],
-        names.thread,
-        threadName,
-        "new " + names.thread + "()"
-    );
+    const $thread = $class.newField(["private", "static"], names.thread, threadName, "new " + names.thread + "()");
     //And the method to execute
-    const threadMethod = $class.newMethod(
-        ["private", "static"],
-        "void",
-        threadName + "Method",
-        [],
-        [],
-        adaptCode
-    );
-
+    const threadMethod = $class.newMethod(["private", "static"], "void", threadName + "Method", [], [], adaptCode);
     const name = $thread.name;
     const reference = $thread.declarator + "." + name;
-    const start =
-        reference +
+    const start = reference +
         ".start(" +
         threadMethod.declarator +
         "::" +
@@ -79,28 +44,17 @@ export function NewThread(
         ")";
     const stop = reference + ".terminate()";
     const running = reference + ".isRunning()";
-
-    const setCode = (code: string) => {
+    const setCode = (code) => {
         threadMethod.body.replaceWith(code);
     }; //allows adaptation code rewritting
     return { start, stop, running, setCode, name, reference };
 }
-
-export function NewChannel(
-    keyTypeI: { wrapper: string; isPrimitive: boolean },
-    valueTypeI: { wrapper: string; isPrimitive: boolean },
-    $class: Class,
-    capacity: string,
-    channelName = "channel",
-    isStatic = true
-) {
+export function NewChannel(keyTypeI, valueTypeI, $class, capacity, channelName = "channel", isStatic = true) {
     let convert = convertPrimitive(keyTypeI.wrapper);
-    const keyType: string = convert.wrapper;
+    const keyType = convert.wrapper;
     convert = convertPrimitive(valueTypeI.wrapper);
-    const valueType: string = convert.wrapper;
-
+    const valueType = convert.wrapper;
     const names = getAPINames();
-
     const genericTuple = "<" + keyType + "," + valueType + ">";
     const channelType = names.channel + genericTuple;
     const productType = names.product + genericTuple;
@@ -112,11 +66,10 @@ export function NewChannel(
     const $channeltemp = $class.newField(mods, channelType, channelName, init);
     const $channel = $channeltemp;
     const reference = $channel.declarator + "." + $channel.name;
-    const offer = function (key: string, value: string) {
+    const offer = function (key, value) {
         return reference + ".offer(" + key + "," + value + ")";
     };
     const take = reference + ".take()";
-
     return {
         $channel,
         reference,
@@ -128,3 +81,4 @@ export function NewChannel(
         productType,
     };
 }
+//# sourceMappingURL=Concurrent.js.map

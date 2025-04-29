@@ -25,14 +25,15 @@ public enum KadabraAPIResources implements ResourceProvider {
     Measurers(PackageProvider.adaptPackage, "Measurers"),
     Algorithm(PackageProvider.adaptPackage, "Algorithm"),
     Autotuner(PackageProvider.adaptPackage, "Autotuner"),
-    VersionTester(PackageProvider.adaptPackage, "VersionTester"),
+    VersionTester(PackageProvider.adaptPackage, "VersionTester");
 
-    private KadabraAPIResources(String subPackage, String fileName){
-    var filenameExtension = SpecsIo.getExtension(fileName);
-    var realExtension = filenameExtension.isEmpty() ? extension
-            : "." + filenameExtension;fileName=SpecsIo.removeExtension(fileName);
+    private KadabraAPIResources(String subPackage, String fileName) {
+        var filenameExtension = SpecsIo.getExtension(fileName);
+        var realExtension = filenameExtension.isEmpty() ? extension
+                : "." + filenameExtension;
+        fileName = SpecsIo.removeExtension(fileName);
 
-    resource=basePackage+subPackage+fileName+realExtension;
+        resource = basePackage + subPackage + fileName + realExtension;
     }
 
     private KadabraAPIResources(String fileName) {
