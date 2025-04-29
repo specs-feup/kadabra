@@ -18,7 +18,6 @@ import pt.up.fe.specs.util.providers.ResourceProvider;
 
 public enum KadabraAPIResources implements ResourceProvider {
 
-    Timer(PackageProvider.monitorPackage, "Timer"),
     Specializer(PackageProvider.adaptPackage, "Specializer"),
     Adapter(PackageProvider.adaptPackage, "Adapter"),
     DataFeature(PackageProvider.adaptPackage, "DataFeature"),
@@ -28,22 +27,12 @@ public enum KadabraAPIResources implements ResourceProvider {
     Autotuner(PackageProvider.adaptPackage, "Autotuner"),
     VersionTester(PackageProvider.adaptPackage, "VersionTester"),
 
-    KADABRA_JAVA_TYPES("_KadabraJavaTypes"),
-    KADABRA_NODES("KadabraNodes.js"),
-    KADABRA_AST("KadabraAst"),
+    private KadabraAPIResources(String subPackage, String fileName){
+    var filenameExtension = SpecsIo.getExtension(fileName);
+    var realExtension = filenameExtension.isEmpty() ? extension
+            : "." + filenameExtension;fileName=SpecsIo.removeExtension(fileName);
 
-    Factory("Factory"),
-    Utils("Utils"),
-    Transform("Transform"),
-    Metrics("Metrics"),
-    Types("Types");
-
-    private KadabraAPIResources(String subPackage, String fileName) {
-        var filenameExtension = SpecsIo.getExtension(fileName);
-        var realExtension = filenameExtension.isEmpty() ? extension : "." + filenameExtension;
-        fileName = SpecsIo.removeExtension(fileName);
-
-        resource = basePackage + subPackage + fileName + realExtension;
+    resource=basePackage+subPackage+fileName+realExtension;
     }
 
     private KadabraAPIResources(String fileName) {
