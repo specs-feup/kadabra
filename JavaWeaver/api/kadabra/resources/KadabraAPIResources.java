@@ -36,8 +36,7 @@ public enum KadabraAPIResources implements ResourceProvider {
     Utils("Utils"),
     Transform("Transform"),
     Metrics("Metrics"),
-    Types("Types"),
-    Concurrent("Concurrent");
+    Types("Types");
 
     private KadabraAPIResources(String subPackage, String fileName) {
         var filenameExtension = SpecsIo.getExtension(fileName);
