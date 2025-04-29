@@ -20,16 +20,14 @@ export default class BinaryExpressionMutation extends IterativeMutation {
         return jp instanceof BinaryExpression;
     }
 
-    *mutate(jp: Joinpoint) {
+    *mutate(jp: BinaryExpression) {
         for (const newOp of this.newOperators) {
-            const mutation = jp.copy();
+            const mutation = jp.copy() as BinaryExpression;
 
             // Skip when operators are the same
-            if (this.isMutationPoint(mutation)) {
-                if (mutation.operator === newOp) continue;
+            if (mutation.operator === newOp) continue;
 
-                mutation.operator = newOp;
-            }
+            mutation.operator = newOp;
 
             yield new MutationResult(mutation);
         }

@@ -14,8 +14,12 @@ export default class ConditionalOperatorDeletionMutation extends IterativeMutati
         super("ConditionalOperatorDeletionMutation");
     }
 
-    isMutationPoint(jp: If | Ternary | Loop): boolean {
-        if (jp.cond instanceof UnaryExpression && jp.cond.operator === "!") {
+    isMutationPoint(jp: Joinpoint): boolean {
+        if (
+            this.isOfCorrectType(jp) &&
+            jp.cond instanceof UnaryExpression &&
+            jp.cond.operator === "!"
+        ) {
             return true;
         }
 
@@ -26,10 +30,10 @@ export default class ConditionalOperatorDeletionMutation extends IterativeMutati
         return jp instanceof If || jp instanceof Ternary || jp instanceof Loop;
     }
 
-    *mutate(jp: Joinpoint) {
+    *mutate(jp: If | Ternary | Loop) {
         //Joinpoint
 
-        if (!(this.isOfCorrectType(jp) && this.isMutationPoint(jp))) {
+        if (!this.isMutationPoint(jp)) {
             yield new MutationResult(jp);
         }
         const mutation = jp.copy() as If | Ternary | Loop;
