@@ -1,26 +1,28 @@
-//import kadabra.adapt.Algorithm;
-//import kadabra.adapt.Configs;
-//import kadabra.adapt.Measurers;
-//import kadabra.Factory;
-
-import { Class, Field, Statement } from "../../Joinpoints.js";
-
-
 /******
  * Algorithms Autotuner
 *******/
+
+import Query from "@specs-feup/lara/api/weaver/Query.js";
+import { App, Class, Field, FileJp, Statement } from "../../Joinpoints.js";
+import { newClass } from "../Factory.js";
+import { Algorithm } from "./Algorithm.js";
+
+export static function measurerProvider(autotuner:Autotuner, ref:string){
+	var measurer = ($stmt:Statement, $stmtEnd:Statement) =>
+		autotuner.measureWithVar(ref, $stmt, $stmtEnd); 
+	;
+	return measurer;
+}
 /**
  * Class defining the instance of an autotuner 
  */
 export class Autotuner{
 	name:string;
+	$targetField:Field;
+	$classContainer:Class|undefined = undefined;
 	autotunerClass:AutotunerClass;
-	$targetField: Field;
-	$classContainer:Class;
-	numWarmup:number;
-	numRuns:number;
 	autotunerType:string;
-	$tuner:any;
+	$tuner:Field|undefined = undefined;
 
 	/**
 	 * Static variables
@@ -28,9 +30,9 @@ export class Autotuner{
 	public static readonly PACKAGE = "autotuner.";
 	public static readonly MANAGER_PACKAGE = Autotuner.PACKAGE+"manager.";
 	public static readonly KNOB_MANAGER_PACKAGE = Autotuner.PACKAGE+"knob.manager.";
-	
-	constructor(autotunerClass:AutotunerClass,  $targetField:Field, $classContainer:Class,
-			numWarmup:number,  numRuns:number){
+
+	constructor(autotunerClass:AutotunerClass, $targetField:Field, $classContainer:Class,
+			numWarmup:number, numRuns:number){
 		this.name = "tuner";
 		this.$targetField = $targetField;
 		this.$classContainer = $classContainer;
@@ -40,18 +42,19 @@ export class Autotuner{
 	}
 	init(numWarmup:number, numRuns:number):void{
 		if(this.$classContainer === undefined || this.$classContainer === null){
-			nc =NewClass(this.autotunerClass.$class.packageName+".Autotuners");
-			this.$classContainer = nc.$class;
+			let nc = newClass(this.autotunerClass.$class.packageName+".Autotuners");
+			this.$classContainer = nc;
 		}
 
 		this.newField(this.$classContainer, numWarmup, numRuns);
+	
 	}
 	newField($targetClass:Class, numWarmup:number, numRuns:number, modifiers?:string[]):void{
-		modifiers = modifiers ?? ["public", "static"];
+		modifiers ??= ["public", "static"];
 		this.$tuner = $targetClass.newField(modifiers, this.autotunerType,
 									"tuner", "new "+this.autotunerType+"("+numWarmup+","+numRuns+")");
 	}
-	getAlgorithmType(){
+	getAlgorithmType():string{
 		return `${Autotuner.MANAGER_PACKAGE}AlgorithmSampling<${this.autotunerClass.builder.algorithmType},${this.autotunerClass.builder.measurementType}>`;
 	}
 	getAlgorithm (key:string){
@@ -60,17 +63,16 @@ export class Autotuner{
 	getBest(key:string){
 		return `${this.$tuner}.getBest(${key})`;
 	}
-	//???????
-	updateBefore(key:string, $stmt:Statement){
+	updateBefore(key:string, $stmt:Statement):any{
 		$stmt.insert("before",`
 			${this.getAlgorithmType()} algorithm = ${this.getAlgorithm(key)};
 			${this.$targetField} = algorithm.applyAndGet();
-		` );
+		`);
 
 		return measurerProvider(this,"algorithm");
 	}
 	updateAfter(key:string, $stmt:Statement){
-		$stmt.insert("after",`
+		$stmt.insert("after", `
 			${Autotuner.MANAGER_PACKAGE}AlgorithmSampling<${this.autotunerClass.builder.algorithmType},${this.autotunerClass.builder.measurementType}> algorithm =
 				${this.$tuner}.getAlgorithm(${key});
 			${this.$targetField} = algorithm.applyAndGet();
@@ -80,18 +82,19 @@ export class Autotuner{
 	}
 
 	measure(key:string, $stmt:Statement, $stmtEnd?:Statement):void{
-		$stmtEnd = $stmtEnd ?? $stmt;
-		$stmt.insert("before",`
+		$stmtEnd ??= $stmt;
+		$stmt.insert("before", `
 			${this.autotunerClass.measurer.beginMeasure}
 		`);
-		$stmtEnd.insert("after", ` 
+		$stmtEnd.insert("after", `
 			${this.autotunerClass.measurer.endMeasure}
 			${this.$tuner}.update(${key}, ${this.autotunerClass.measurer.getMeasure});
 		`);
 	}
-	measureWithVar(varName:string, $stmt:Statement, $stmtEnd?:Statement):void{
-		$stmtEnd = $stmtEnd ?? $stmt;
-		$stmt.insert("before",`
+
+	measureWithVar(varName:string, $stmt:Statement, $stmtEnd:Statement):void{
+		$stmtEnd ??= $stmt;
+		$stmt.insert("before", `
 			${this.autotunerClass.measurer.beginMeasure}
 		`);
 		$stmtEnd.insert("after", `
@@ -99,13 +102,11 @@ export class Autotuner{
 			${varName}.update(${this.autotunerClass.measurer.getMeasure});
 		`);
 	}
-
-	updateAndMeasure(key:string, $stmt:Statement, $stmtEnd:Statement):Autotuner{
-		var measurer = this.updateBefore(key, $stmt);
+	updateAndMeasure(key:string, $stmt:Statement, $stmtEnd:Statement){
+		let measurer = this.updateBefore(key, $stmt);
 		measurer($stmt, $stmtEnd);
 		return this;
 	}
-
 	inBestMode(key:string):string{
 		return `${this.$tuner}.inBestMode(${key})`;
 	}
@@ -114,73 +115,68 @@ export class Autotuner{
 		return `${this.$tuner}.isSampling(${key})`;
 	}
 
+
 }
 
-function measurerProvider(autotuner:Autotuner, ref:string){
-	var measurer = function ($stmt:Statement, $stmtEnd:Statement){
-		autotuner.measureWithVar(ref, $stmt, $stmtEnd); 
-	};
-	return measurer;
-}
-
-
-/**
+/*
  * Class defining the class of an autotuner 
  */
 export class AutotunerClass{
-	$class:Class; 
-	builder:any;
+	$class:Class;
+	builder:AutotunerBuilder;
 	measurer:any;
 	constructor($class:Class, builder:AutotunerBuilder){
 		this.$class = $class;
 		this.builder = builder;
 		this.measurer = builder.measurer;
 	}
+	newInstance($targetField:Field, numWarmup:number, numRuns:number){
+		let $targetClass = $targetField.getAncestor("class") as Class;
+		let autotuner = new Autotuner(this, $targetField, $targetClass, numWarmup, numRuns);
+		return autotuner;
+	}
+
 }
-
-AutotunerClass.prototype.newInstance = function($targetField, numWarmup, numRuns){
-	var $targetClass = $targetField.getAncestor("class");
-	var autotuner = new Autotuner(this, $targetField, $targetClass, numWarmup, numRuns);
-	return autotuner;
-}
-
-
-
-
 
 
 /**
  * Class defining the builder of an autotuner 
  */
-function AutotunerBuilder(name, datasetType, algorithmType, measurementType){
-	this.name = name;
-	this.datasetType = datasetType;
-	this.algorithmType = algorithmType;
-	this.measurementType = measurementType;
-	this.algorithms = [];
-	this.default = null;
-	this.normalSampling();
-	this.package = undefined;
-	this.distanceMethod = null;
+export class  AutotunerBuilder{
+	name:string;
+	datasetType:any;
+	algorithmType:any;
+	measurementType:any;
+	algorithms:any;
+	default:any;
+	package:string |undefined = undefined;
+	distanceMethod:any;
+
+	constructor(name:string, datasetType, algorithmType, measurementType){
+		this.name = name;
+		this.datasetType = datasetType;
+		this.algorithmType = algorithmType;
+		this.measurementType = measurementType;
+		this.algorithms = [];
+		this.default = null;
+		this.normalSampling();
+		this.package = undefined;
+		this.distanceMethod = null;
+	}
+
+	generate(package:string):AutotunerClass{
+		this.package = package ?? 'kadabra.autotuner';
+		var generator = GenerateTuner(this);
+		generator();
+		
+		var autotunerClass = new AutotunerClass(generator.$autotuner, this);
+		return autotunerClass;
+	}
+
 }
-
-
-
-AutotunerBuilder.prototype.generate = function(package){
-	this.package = package || 'kadabra.autotuner';
-	var generator = new kadabra$adapt$Autotuner$GenerateTuner(this);
-	call generator();
-	
-	var autotunerClass = new AutotunerClass(generator.$autotuner, this);
-	return autotunerClass;
-}
-
-aspectdef GenerateTuner
-	input tuner end
-	output $autotuner end
-	select app end
-	apply
-		var className = tuner.name;
+export static function GenerateTuner(tuner:AutotunerBuilder){
+	for(const $app of Query.search(FileJp).search(App)){
+		let className = tuner.name;
 		if(tuner.package != undefined){
 			className = tuner.package+'.'+className;
 		}
@@ -189,14 +185,14 @@ aspectdef GenerateTuner
 					+ tuner.datasetType + ','
 					+ tuner.algorithmType + ','
 					+ tuner.measurementType + '>';
-		$autotuner = $app.exec newClass(className, expType, []);
-		var algListProviderType = Algorithm.PROVIDER_PACKAGE+'AlgorithmListProvider<'+tuner.algorithmType+'>';
-		$autotuner.exec newField(['private'], algListProviderType, 'algListProvider',null);
-		$constr = $autotuner.exec newConstructor(['public'], [new Pair('int','warmup'), new Pair('int','samples')]);
-		call ReplaceMethodCode($constr,  %{
+		let $autotuner = $app.newClass(className, expType, []);
+		let algListProviderType = Algorithm.PROVIDER_PACKAGE+'AlgorithmListProvider<'+tuner.algorithmType+'>';
+		$autotuner.newField(['private'], algListProviderType, 'algListProvider',undefined);
+		let $constr = $autotuner.newConstructor(['public'], ['int','warmup'],['int','samples']);
+		ReplaceMethodCode($constr, ` 
 			super(warmup,samples);
 			initAlgProvider();
-		}%);
+		`);
 		var algProviderCode = '';
 		if(tuner.algorithms.length > 0){
 			algProviderCode = 'algListProvider';
@@ -205,7 +201,8 @@ aspectdef GenerateTuner
 			}
 			algProviderCode+=';';
 		}
-		$autotuner.exec newMethod(['private'], 'void', 'initAlgProvider', [], 
+		///////////////////////IM HERE HEREEEEEEEEEEEEEEEEEEEEEEEEEEEE
+		$autotuner.newMethod(['private'], 'void', 'initAlgProvider', [], 
 			InitCode(algProviderCode));
 		var defaultCode = null;
 		
@@ -213,11 +210,11 @@ aspectdef GenerateTuner
 			defaultCode = tuner.default.instance();
 		}
 		
-		$autotuner.exec newMethod(['protected'], Algorithm.PACKAGE+'Algorithm<'+tuner.algorithmType+'>', 'defaultAlgorithm', [], 
-			%{return [[defaultCode]];}%);
+		$autotuner.newMethod(['protected'], Algorithm.PACKAGE+'Algorithm<'+tuner.algorithmType+'>', 'defaultAlgorithm', [], 
+			[`return ${defaultCode};`]);
 		
-		$autotuner.exec newMethod(['protected'], 'java.util.function.Supplier<'+tuner.measurer.qualifiedType()+'>', 'measurerProvider', [], 
-			%{return [[tuner.measurer.getProvider()]];}%);
+		$autotuner.newMethod(['protected'], 'java.util.function.Supplier<'+tuner.measurer.qualifiedType()+'>', 'measurerProvider', [], 
+			[`return ${tuner.measurer.getProvider()};`]);
 		$autotuner.exec newMethod(['protected'], Autotuner.MANAGER_PACKAGE+'ConfigProvider<'+tuner.algorithmType+'>', 'configurationProvider', [], 
 			%{return [[tuner.configuration]];}%);
 		$autotuner.exec newMethod(['protected'], 'java.util.function.BiFunction<'+tuner.datasetType+','+tuner.datasetType+',java.lang.Double>', 'distanceProvider', [], 
@@ -232,8 +229,10 @@ aspectdef GenerateTuner
     protected List<AlgorithmProvider<MxM>> getAlgorithms() {
         return algListProvider.build();
     }*/
-	end
-end
+		
+	}
+	//output $autotuner end
+}
 
 
 codedef InitCode(algProvidersCode)%{
