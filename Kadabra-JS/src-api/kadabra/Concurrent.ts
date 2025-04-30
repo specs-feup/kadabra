@@ -87,16 +87,16 @@ export function NewThread(
 }
 
 export function NewChannel(
-    keyTypeI: { wrapper: string; isPrimitive: boolean },
-    valueTypeI: { wrapper: string; isPrimitive: boolean },
+    keyTypeI: string,
+    valueTypeI: string,
     $class: Class,
     capacity: string,
     channelName = "channel",
     isStatic = true
 ) {
-    let convert = convertPrimitive(keyTypeI.wrapper);
+    let convert = convertPrimitive(keyTypeI);
     const keyType: string = convert.wrapper;
-    convert = convertPrimitive(valueTypeI.wrapper);
+    convert = convertPrimitive(valueTypeI);
     const valueType: string = convert.wrapper;
 
     const names = getAPINames();
