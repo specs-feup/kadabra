@@ -50,9 +50,9 @@ export function NewThread($class, threadName = "thread", adaptCode = "") {
     return { start, stop, running, setCode, name, reference };
 }
 export function NewChannel(keyTypeI, valueTypeI, $class, capacity, channelName = "channel", isStatic = true) {
-    let convert = convertPrimitive(keyTypeI.wrapper);
+    let convert = convertPrimitive(keyTypeI);
     const keyType = convert.wrapper;
-    convert = convertPrimitive(valueTypeI.wrapper);
+    convert = convertPrimitive(valueTypeI);
     const valueType = convert.wrapper;
     const names = getAPINames();
     const genericTuple = "<" + keyType + "," + valueType + ">";
