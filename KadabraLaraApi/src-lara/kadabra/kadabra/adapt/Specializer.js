@@ -19,7 +19,7 @@ export function ExtractToField($call, $method, $fieldLocation, newFile = true, $
     }
     if ($method === undefined || $method === null) {
         const ancestor = $call.getAncestor("method");
-        if (!(ancestor instanceof Method)) {
+        if (ancestor === undefined) {
             throw new Error("No method found for the given call.");
         }
         $method = ancestor;
@@ -125,18 +125,11 @@ export function ExtractFunctionalInterface(targetMethod, targetClass = ".*", tar
 }
 const DEFAULT_PACKAGE = "pt.up.fe.specs.lara.kadabra.utils";
 /* Generate class for functional mapping*/
-export function NewMappingClass($interface, methodName, getterType, $target) {
-    $target ??= Query.search(App).getFirst();
+export function NewMappingClass($interface, methodName, getterType, $target = Query.root()) {
     const targetMethodFirstCap = methodName.charAt(0).toUpperCase() + methodName.slice(1);
     const mapClass = `${DEFAULT_PACKAGE}.${targetMethodFirstCap}Caller`;
     console.log("[LOG] Creating new functional mapping class: " + mapClass);
-    let $mapClass;
-    if ($target !== undefined) {
-        $mapClass = $target.mapVersions(mapClass, getterType, $interface, methodName);
-    }
-    else {
-        throw new Error("Target join point for new functional method caller has to be: app, file, class or interface");
-    }
+    const $mapClass = $target.mapVersions(mapClass, getterType, $interface, methodName);
     return {
         $mapClass,
         put: (key, value) => `${$mapClass.qualifiedName}.put(${key},${value})`,
@@ -165,10 +158,7 @@ export function NewFunctionalMethodCaller2($interface = null, methodName = null,
     const targetMethodFirstCap = methodName.charAt(0).toUpperCase() + methodName.slice(1);
     const mapClass = `${DEFAULT_PACKAGE}.${targetMethodFirstCap}Caller`;
     console.log("[LOG] Creating new functional mapping class: " + mapClass);
-    const app = Query.search(App).getFirst();
-    if (app === undefined) {
-        throw new Error("Expected search for App to yield a result but it didn't.");
-    }
+    const app = Query.root();
     const $mapClass = app.mapVersions(mapClass, getterType, $interface, methodName);
     return {
         $mapClass,
