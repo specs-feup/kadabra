@@ -1,7 +1,6 @@
 laraImport("weaver.Query");
-const loop = Query.search("method", "sortedListOfMuscleIdsFrom")
-  .search("loop")
-  .first();
+
+const loop = Query.search("method", "sortedListOfMuscleIdsFrom").search("loop").first();
 
 console.log("Loop in inner class ancestors:");
 console.log("Parent x 1: " + loop.parent.joinPointType);

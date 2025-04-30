@@ -1,6 +1,6 @@
 //import kadabra.Factory;
 import Query from "@specs-feup/lara/api/weaver/Query.js";
-import { Class, FileJp, Method } from "../../Joinpoints.js";
+import { Class, FileJp, Method, Field } from "../../Joinpoints.js";
 
 export function CreateClassGenerator(
     adapterMethod: string,
@@ -137,9 +137,9 @@ export function CreateAdapter(
     }
     return { $adaptClass: $adaptClass, addField: addField };
 }
-interface Field {
+interface InterfaceField {
     name: string;
-    $field: { staticAccess: string };
+    $field: Field;
     addAdapter: string;
     adapt: (...args: string[]) => string;
 }
@@ -172,7 +172,11 @@ export function TransformMethod(
         }
     }
     //this method returns information regarding the field and class, as well as the methods that can be invoked in the field
-    const addField = ($class?: Class, name?: string, init?: boolean): Field => {
+    const addField = (
+        $class?: Class,
+        name?: string,
+        init?: boolean
+    ): InterfaceField => {
         const _$class = $class ?? $adaptClass;
         const fieldName =
             name ??

@@ -4,12 +4,13 @@ import BaseDetector from "./BaseDetector.js";
 import { Loop, Var, Call, RefType, LoopType, LocalVariable, ArrayAccess, } from "../../../../Joinpoints.js";
 export default class ExcessiveMethodCallsDetector extends BaseDetector {
     currentPackage;
-    loopGlobalReads;
-    loopGlobalWrites;
-    loopLocalWrites;
-    methodsInfo;
-    variantCalls;
-    missingCallDecl;
+    loopGlobalReads = [];
+    loopGlobalWrites = [];
+    loopLocalWrites = [];
+    methodsInfo = [];
+    variantCalls = [];
+    missingCallDecl = false;
+    results = [];
     constructor(debugEnabled = false) {
         super("Excessive Method Calls Detector", debugEnabled);
     }
@@ -261,7 +262,10 @@ export default class ExcessiveMethodCallsDetector extends BaseDetector {
             return false;
         }
         const mi = ExcessiveMethodCallsDetector.tryGetMethodInfo(this.methodsInfo, jpCall.decl);
-        if (mi?.missingInfo) {
+        if (mi === null) {
+            throw new Error("Failed to get MethodInfo");
+        }
+        if (mi.missingInfo) {
             this.printDebugInfo(`Call: ${jpCall} @ L${jpCall.line} -> VARIANT (methodMissingInfo)`);
             this.variantCalls.push(jpCall.toString());
             return false;
@@ -334,6 +338,7 @@ export default class ExcessiveMethodCallsDetector extends BaseDetector {
         if (jp instanceof Call) {
             return !this.isCallInvariant(jp);
         }
+        return false;
     }
     getFirstDescendentsOfTypes(jp, types) {
         if (types.some((type) => jp.instanceOf(type))) {

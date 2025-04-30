@@ -1,7 +1,9 @@
-import kadabra.adapt.Algorithm;
-import kadabra.adapt.Configs;
-import kadabra.adapt.Measurers;
-import kadabra.Factory;
+//import kadabra.adapt.Algorithm;
+//import kadabra.adapt.Configs;
+//import kadabra.adapt.Measurers;
+//import kadabra.Factory;
+
+import { Class, Field, Statement } from "../../Joinpoints.js";
 
 
 /******
@@ -10,121 +12,130 @@ import kadabra.Factory;
 /**
  * Class defining the instance of an autotuner 
  */
-function Autotuner(/*AutotunerClass*/ autotunerClass, /*Field*/ $targetField, /*Class*/ $classContainer,
-			/*int*/ numWarmup, /*int*/ numRuns){
-	this.name = "tuner";
-	this.$targetField = $targetField;
-	this.$classContainer = $classContainer;
-	this.autotunerClass = autotunerClass;
-	this.autotunerType = this.autotunerClass.$class.qualifiedName;
-	this.init(numWarmup, numRuns);
-}
+export class Autotuner{
+	name:string;
+	autotunerClass:AutotunerClass;
+	$targetField: Field;
+	$classContainer:Class;
+	numWarmup:number;
+	numRuns:number;
+	autotunerType:string;
+	$tuner:any;
 
-Autotuner.prototype.init = function(numWarmup, numRuns){
-	if(this.$classContainer === undefined || this.$classContainer === null){
-		nc = call NewClass(this.autotunerClass.$class.packageName+".Autotuners");
-		this.$classContainer = nc.$class;
+	/**
+	 * Static variables
+	 */
+	public static readonly PACKAGE = "autotuner.";
+	public static readonly MANAGER_PACKAGE = Autotuner.PACKAGE+"manager.";
+	public static readonly KNOB_MANAGER_PACKAGE = Autotuner.PACKAGE+"knob.manager.";
+	
+	constructor(autotunerClass:AutotunerClass,  $targetField:Field, $classContainer:Class,
+			numWarmup:number,  numRuns:number){
+		this.name = "tuner";
+		this.$targetField = $targetField;
+		this.$classContainer = $classContainer;
+		this.autotunerClass = autotunerClass;
+		this.autotunerType = this.autotunerClass.$class.qualifiedName;
+		this.init(numWarmup, numRuns);
+	}
+	init(numWarmup:number, numRuns:number):void{
+		if(this.$classContainer === undefined || this.$classContainer === null){
+			nc =NewClass(this.autotunerClass.$class.packageName+".Autotuners");
+			this.$classContainer = nc.$class;
+		}
+
+		this.newField(this.$classContainer, numWarmup, numRuns);
+	}
+	newField($targetClass:Class, numWarmup:number, numRuns:number, modifiers?:string[]):void{
+		modifiers = modifiers ?? ["public", "static"];
+		this.$tuner = $targetClass.newField(modifiers, this.autotunerType,
+									"tuner", "new "+this.autotunerType+"("+numWarmup+","+numRuns+")");
+	}
+	getAlgorithmType(){
+		return `${Autotuner.MANAGER_PACKAGE}AlgorithmSampling<${this.autotunerClass.builder.algorithmType},${this.autotunerClass.builder.measurementType}>`;
+	}
+	getAlgorithm (key:string){
+		return `${this.$tuner}.getAlgorithm(${key})`;
+	}
+	getBest(key:string){
+		return `${this.$tuner}.getBest(${key})`;
+	}
+	//???????
+	updateBefore(key:string, $stmt:Statement){
+		$stmt.insert("before",`
+			${this.getAlgorithmType()} algorithm = ${this.getAlgorithm(key)};
+			${this.$targetField} = algorithm.applyAndGet();
+		` );
+
+		return measurerProvider(this,"algorithm");
+	}
+	updateAfter(key:string, $stmt:Statement){
+		$stmt.insert("after",`
+			${Autotuner.MANAGER_PACKAGE}AlgorithmSampling<${this.autotunerClass.builder.algorithmType},${this.autotunerClass.builder.measurementType}> algorithm =
+				${this.$tuner}.getAlgorithm(${key});
+			${this.$targetField} = algorithm.applyAndGet();
+		`);
+
+		return measurerProvider(this,"algorithm");
 	}
 
-	this.newField(this.$classContainer, numWarmup, numRuns);
-	
+	measure(key:string, $stmt:Statement, $stmtEnd?:Statement):void{
+		$stmtEnd = $stmtEnd ?? $stmt;
+		$stmt.insert("before",`
+			${this.autotunerClass.measurer.beginMeasure}
+		`);
+		$stmtEnd.insert("after", ` 
+			${this.autotunerClass.measurer.endMeasure}
+			${this.$tuner}.update(${key}, ${this.autotunerClass.measurer.getMeasure});
+		`);
+	}
+	measureWithVar(varName:string, $stmt:Statement, $stmtEnd?:Statement):void{
+		$stmtEnd = $stmtEnd ?? $stmt;
+		$stmt.insert("before",`
+			${this.autotunerClass.measurer.beginMeasure}
+		`);
+		$stmtEnd.insert("after", `
+			${this.autotunerClass.measurer.endMeasure}
+			${varName}.update(${this.autotunerClass.measurer.getMeasure});
+		`);
+	}
+
+	updateAndMeasure(key:string, $stmt:Statement, $stmtEnd:Statement):Autotuner{
+		var measurer = this.updateBefore(key, $stmt);
+		measurer($stmt, $stmtEnd);
+		return this;
+	}
+
+	inBestMode(key:string):string{
+		return `${this.$tuner}.inBestMode(${key})`;
+	}
+
+	isSampling(key:string):string{
+		return `${this.$tuner}.isSampling(${key})`;
+	}
+
 }
 
-Autotuner.prototype.newField = function($targetClass, numWarmup, numRuns, modifiers){
-	
-	modifiers = modifiers || ["public", "static"];
-	this.$tuner = $targetClass.exec newField(modifiers, this.autotunerType,
-								"tuner", "new "+this.autotunerType+"("+numWarmup+","+numRuns+")");
-}
-
-Autotuner.prototype.getAlgorithmType = function(){
-	return %{[[Autotuner.MANAGER_PACKAGE]]AlgorithmSampling<[[this.autotunerClass.builder.algorithmType]],[[this.autotunerClass.builder.measurementType]]>}%;
-}
-Autotuner.prototype.getAlgorithm = function(key){
-	return %{[[this.$tuner]].getAlgorithm([[key]])}%;
-}
-
-Autotuner.prototype.getBest = function(key){
-	return %{[[this.$tuner]].getBest([[key]])}%;
-}
-
-
-Autotuner.prototype.updateBefore = function(key, $stmt){
-	$stmt.insert before %{
-		[[this.getAlgorithmType()]] algorithm = [[this.getAlgorithm(key)]];
-		[[this.$targetField]] = algorithm.applyAndGet();
-	}%;
-
-	//return "algorithm";
-	return measurerProvider(this,"algorithm");
-}
-
-
-
-Autotuner.prototype.updateAfter = function(key, $stmt){
-	$stmt.insert after %{
-		[[Autotuner.MANAGER_PACKAGE]]AlgorithmSampling<[[this.autotunerClass.builder.algorithmType]],[[this.autotunerClass.builder.measurementType]]> algorithm =
-			[[this.$tuner]].getAlgorithm([[key]]);
-		[[this.$targetField]] = algorithm.applyAndGet();
-	}%;
-
-	return measurerProvider(this,"algorithm");
-}
-
-function measurerProvider(autotuner, ref){
-	var measurer = function ($stmt, $stmtEnd){
+function measurerProvider(autotuner:Autotuner, ref:string){
+	var measurer = function ($stmt:Statement, $stmtEnd:Statement){
 		autotuner.measureWithVar(ref, $stmt, $stmtEnd); 
 	};
 	return measurer;
 }
 
 
-Autotuner.prototype.measure = function(key, $stmt, $stmtEnd){
-	$stmtEnd = $stmtEnd || $stmt;
-	$stmt.insert before %{
-		[[this.autotunerClass.measurer.beginMeasure]]
-	}%;
-	$stmtEnd.insert after %{
-		[[this.autotunerClass.measurer.endMeasure]]
-		[[this.$tuner]].update([[key]], [[this.autotunerClass.measurer.getMeasure]]);
-	}%;
-}
-
-Autotuner.prototype.measureWithVar = function(varName, $stmt, $stmtEnd){
-	$stmtEnd = $stmtEnd || $stmt;
-	$stmt.insert before %{
-		[[this.autotunerClass.measurer.beginMeasure]]
-	}%;
-	$stmtEnd.insert after %{
-		[[this.autotunerClass.measurer.endMeasure]]
-		[[varName]].update([[this.autotunerClass.measurer.getMeasure]]);
-	}%;
-}
-
-
-
-Autotuner.prototype.updateAndMeasure = function(key, $stmt, $stmtEnd){
-	measurer = this.updateBefore(key, $stmt);
-	measurer($stmt, $stmtEnd);
-	return this;
-}
-
-Autotuner.prototype.inBestMode = function(key){
-	return %{[[this.$tuner]].inBestMode([[key]])}%;
-}
-
-Autotuner.prototype.isSampling = function(key){
-	return %{[[this.$tuner]].isSampling([[key]])}%;
-}
-
-
 /**
  * Class defining the class of an autotuner 
  */
-function AutotunerClass(/*class*/ $class, /*AutotunerBuilder*/ builder){
-	this.$class = $class;
-	this.builder = builder;
-	this.measurer = builder.measurer;
+export class AutotunerClass{
+	$class:Class; 
+	builder:any;
+	measurer:any;
+	constructor($class:Class, builder:AutotunerBuilder){
+		this.$class = $class;
+		this.builder = builder;
+		this.measurer = builder.measurer;
+	}
 }
 
 AutotunerClass.prototype.newInstance = function($targetField, numWarmup, numRuns){
@@ -137,12 +148,6 @@ AutotunerClass.prototype.newInstance = function($targetField, numWarmup, numRuns
 
 
 
-/**
- * Static variables
- */
-Autotuner.PACKAGE = "autotuner.";
-Autotuner.MANAGER_PACKAGE = Autotuner.PACKAGE+"manager.";
-Autotuner.KNOB_MANAGER_PACKAGE = Autotuner.PACKAGE+"knob.manager.";
 
 /**
  * Class defining the builder of an autotuner 

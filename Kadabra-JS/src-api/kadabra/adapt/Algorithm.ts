@@ -97,11 +97,9 @@ export class AdaptiveAlgorithm extends Algorithm {
         const $templateMethod = getter.methods;
         const adapter = TransformMethod($targetMethod, $templateMethod);
         const field = adapter.addField(undefined, id, true);
-
-        this.lambda = `k-> ${field.adapt("k")} return ${
+        this.lambda = `k -> {${field.adapt("k")} return ${
             $targetMethod.toQualifiedReference
         };}`;
-
         this.id = id;
         this.provider = provider;
     }
@@ -152,10 +150,12 @@ export class GenerativeAlgorithm extends Algorithm {
         const adapter = FunctionGenerator($templateMethod, $interface);
 
         if (extraArg) {
-            this.lambda = `k-> ${adapter.generateQualified([["k"], extraArg])}`;
-            adapter.generateQualified([["k"], extraArg]);
+            this.lambda = `k -> ${adapter.generateQualified([
+                ["k"],
+                extraArg,
+            ])}`;
         } else {
-            this.lambda = adapter.generateQualified([["k"]]);
+            this.lambda = `k -> ${adapter.generateQualified([["k"]])}`;
         }
         this.id = id;
         this.provider = provider;
@@ -167,7 +167,7 @@ export class GenerativeAlgorithm extends Algorithm {
         let genericType = "";
         if (this.providerType != undefined) {
             const interfType = (
-                this.$interface.getAncestor("interface") as Type
+                (this.$interface.getAncestor("interface") as Type) || undefined
             ).qualifiedName;
             genericType = interfType + "," + this.providerType;
         }

@@ -18,13 +18,10 @@ import pt.up.fe.specs.util.providers.ResourceProvider;
 
 public enum KadabraAPIResources implements ResourceProvider {
 
-    Timer(PackageProvider.monitorPackage, "Timer"),
-    Specializer(PackageProvider.adaptPackage, "Specializer"),
-    DataFeature(PackageProvider.adaptPackage, "DataFeature"),
+    Adapter(PackageProvider.adaptPackage, "Adapter"),
     Configs(PackageProvider.adaptPackage, "Configs"),
     Measurers(PackageProvider.adaptPackage, "Measurers"),
     Autotuner(PackageProvider.adaptPackage, "Autotuner"),
-    VersionTester(PackageProvider.adaptPackage, "VersionTester"),
     CpuInfo(PackageProvider.systemPackage, "CpuInfo"),
 
     ArithmeticOperatorDeletionMutation("mutation/", "ArithmeticOperatorDeletionMutation.js"),
@@ -32,15 +29,6 @@ public enum KadabraAPIResources implements ResourceProvider {
     BinaryExpressionMutator("mutation/", "BinaryExpressionMutator.js"),
     ConditionalOperatorDeletionMutation("mutation/", "ConditionalOperatorDeletionMutation.js"),
 
-    KADABRA_JAVA_TYPES("_KadabraJavaTypes"),
-    KADABRA_NODES("KadabraNodes.js"),
-    KADABRA_AST("KadabraAst"),
-
-    Factory("Factory"),
-    Utils("Utils"),
-    Transform("Transform"),
-    Metrics("Metrics"),
-    Types("Types"),
     Concurrent("Concurrent");
 
     private KadabraAPIResources(String subPackage, String fileName) {

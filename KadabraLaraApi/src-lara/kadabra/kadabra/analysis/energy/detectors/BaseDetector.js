@@ -20,6 +20,7 @@ export default class BaseDetector {
         return this;
     }
     analyseClass(jpClass) {
+        jpClass.insert("before", "foo");
         if (!jpClass ||
             !("instanceOf" in jpClass) ||
             !(jpClass instanceof Class)) {

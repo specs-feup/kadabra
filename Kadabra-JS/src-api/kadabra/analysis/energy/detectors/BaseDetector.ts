@@ -1,9 +1,9 @@
 import Query from "@specs-feup/lara/api/weaver/Query.js";
-import { Call, Class, Joinpoint, Method, New } from "../../../../Joinpoints.js";
+import { Class, Joinpoint } from "../../../../Joinpoints.js";
 
 export default class BaseDetector {
     name: string;
-    results: (Call | New | Method)[];
+    results: Joinpoint[];
     debugEnabled: boolean;
 
     constructor(name: string, debugEnabled = false) {
@@ -27,6 +27,7 @@ export default class BaseDetector {
     }
 
     analyseClass(jpClass: Joinpoint) {
+        jpClass.insert("before", "foo");
         if (
             !jpClass ||
             !("instanceOf" in jpClass) ||

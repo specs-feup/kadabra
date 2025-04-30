@@ -489,6 +489,15 @@ public abstract class AField extends ADeclaration {
 
     /**
      * 
+     * @param modifiers 
+     */
+    @Override
+    public void setModifiersImpl(String[] modifiers) {
+        this.aDeclaration.setModifiersImpl(modifiers);
+    }
+
+    /**
+     * 
      */
     @Override
     public Optional<? extends ADeclaration> getSuper() {
