@@ -18,7 +18,9 @@ import pt.up.fe.specs.util.providers.ResourceProvider;
 
 public enum KadabraAPIResources implements ResourceProvider {
 
+    Specializer(PackageProvider.adaptPackage, "Specializer"),
     Adapter(PackageProvider.adaptPackage, "Adapter"),
+    DataFeature(PackageProvider.adaptPackage, "DataFeature"),
     Configs(PackageProvider.adaptPackage, "Configs"),
     Measurers(PackageProvider.adaptPackage, "Measurers"),
     Algorithm(PackageProvider.adaptPackage, "Algorithm"),
