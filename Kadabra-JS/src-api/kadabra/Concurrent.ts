@@ -1,82 +1,130 @@
-import kadabra.Utils;
+import { getAPINames, convertPrimitive } from "./Utils.js";
+import { Class } from "../Joinpoints.js";
 
 /**
  * Create an atomic field in the given class. This aspect provides outputs such as get and set of the field
  */
-aspectdef NewAtomic
-	input 
-		$class, type, fieldName, initValue, isStatic = true
-	end
-	output reference, name, $field, get,set end
-	call convert: Utils.ConvertPrimitive(type);
-	atomicType = "java.util.concurrent.atomic.Atomic";
-	atomicTypeSimple = "Atomic";
-	if(convert.isPrimitive){
-		atomicType += convert.wrapper;
-		atomicTypeSimple +=convert.wrapper;
-	}else{
-		atomicType +="Reference<"+type+">";
-		atomicTypeSimple +="Reference<>";
-	}
-	var init = initValue || '';
-	var mods = ["private"];
-	if(isStatic){
-		mods.push("static");
-	}
-	$class.exec $field: newField(mods, atomicType, fieldName, "new "+atomicTypeSimple+"("+init+")");
-	reference = $field.declarator+"."+$field.name;
-	name = $field.name;
-	get = reference+".get()";
-	set = function(value){ return reference+".set("+value+")";};
-end
+export function NewAtomic(
+    $class: Class,
+    type: string,
+    fieldName: string,
+    initValue: string,
+    isStatic: boolean = true
+) {
+    const convert = convertPrimitive(type);
+    let atomicType: string = "java.util.concurrent.atomic.Atomic";
+    let atomicTypeSimple: string = "Atomic";
 
-aspectdef NewThread
-	input $class, threadName = "thread", adaptCode ="" end
-	output start, stop, running, setCode, name, reference end //setCode, $method
-	call names: APINames;
+    if (convert.isPrimitive) {
+        atomicType += convert.wrapper;
+        atomicTypeSimple += convert.wrapper;
+    } else {
+        atomicType += "Reference<" + type + ">";
+        atomicTypeSimple += "Reference<>";
+    }
 
-	//Add thread field 
-	$class.exec $thread: newField(["private", "static"], names.thread, threadName, "new "+names.thread+"()");
-	//And the method to execute
-	$class.exec $threadMethod: newMethod(["private", "static"], "void", threadName+"Method",[], adaptCode);
-	
-	name = $thread.name;
-	reference = $thread.declarator+"."+name;
-	start = reference+".start("+$threadMethod.declarator+"::"+$threadMethod.name+")";
-	stop = reference+'.terminate()';
-	running = reference+'.isRunning()';
+    const init = initValue || "";
+    const mods = ["private"];
+    if (isStatic) {
+        mods.push("static");
+    }
+    const field = $class.newField(
+        mods,
+        atomicType,
+        fieldName,
+        "new " + atomicTypeSimple + "(" + init + ")"
+    );
+    const reference = field.declarator + "." + field.name;
+    const name = field.name;
+    const get = reference + ".get()";
+    const set = function (value: string) {
+        return reference + ".set(" + value + ")";
+    };
 
-	select $threadMethod.body end
-	apply
-		setCode = function(code){
-			$body.replace "[[code]]"; //allows adaptation code rewritting
-		};
-	end
-end
+    return { reference, name, field, get, set };
+}
 
-aspectdef NewChannel
-	input keyTypeI, valueTypeI, $class, capacity, channelName = "channel", isStatic=true end
-	output $channel, reference, offer, take, keyType, valueType, channelType, productType end
+export function NewThread(
+    $class: Class,
+    threadName: string = "thread",
+    adaptCode: string = ""
+) {
+    const names = getAPINames();
 
-	call convert: ConvertPrimitive(keyTypeI);
-	keyType = convert.wrapper;
-	call convert: ConvertPrimitive(valueTypeI);
-	valueType = convert.wrapper;
-	call names: APINames;
-	var genericTuple = "<"+keyType+","+valueType+">";
-	channelType = names.channel+genericTuple;
-	productType = names.product+genericTuple;
-	var init = "KadabraChannel.newInstance("+capacity+")";
-	var mods = ["private"];
-	if(isStatic){
-		mods.push("static");
-	}
-	$class.exec $channeltemp: newField(mods, channelType, channelName, init);
-	$channel = $channeltemp;
-	reference = $channel.declarator+"."+$channel.name;
-	offer = function(key,value){
-		return reference+".offer("+key+","+value+")";
-	};
-	take = reference+".take()";
+    //Add thread field
+    const $thread = $class.newField(
+        ["private", "static"],
+        names.thread,
+        threadName,
+        "new " + names.thread + "()"
+    );
+    //And the method to execute
+    const threadMethod = $class.newMethod(
+        ["private", "static"],
+        "void",
+        threadName + "Method",
+        [],
+        [],
+        adaptCode
+    );
 
-end
+    const name = $thread.name;
+    const reference = $thread.declarator + "." + name;
+    const start =
+        reference +
+        ".start(" +
+        threadMethod.declarator +
+        "::" +
+        threadMethod.name +
+        ")";
+    const stop = reference + ".terminate()";
+    const running = reference + ".isRunning()";
+
+    const setCode = (code: string) => {
+        threadMethod.body.replaceWith(code);
+    }; //allows adaptation code rewritting
+    return { start, stop, running, setCode, name, reference };
+}
+
+export function NewChannel(
+    keyTypeI: string,
+    valueTypeI: string,
+    $class: Class,
+    capacity: string,
+    channelName = "channel",
+    isStatic = true
+) {
+    let convert = convertPrimitive(keyTypeI);
+    const keyType: string = convert.wrapper;
+    convert = convertPrimitive(valueTypeI);
+    const valueType: string = convert.wrapper;
+
+    const names = getAPINames();
+
+    const genericTuple = "<" + keyType + "," + valueType + ">";
+    const channelType = names.channel + genericTuple;
+    const productType = names.product + genericTuple;
+    const init = "KadabraChannel.newInstance(" + capacity + ")";
+    const mods = ["private"];
+    if (isStatic) {
+        mods.push("static");
+    }
+    const $channeltemp = $class.newField(mods, channelType, channelName, init);
+    const $channel = $channeltemp;
+    const reference = $channel.declarator + "." + $channel.name;
+    const offer = function (key: string, value: string) {
+        return reference + ".offer(" + key + "," + value + ")";
+    };
+    const take = reference + ".take()";
+
+    return {
+        $channel,
+        reference,
+        offer,
+        take,
+        keyType,
+        valueType,
+        channelType,
+        productType,
+    };
+}

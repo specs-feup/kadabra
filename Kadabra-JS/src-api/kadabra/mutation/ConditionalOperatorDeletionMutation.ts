@@ -1,35 +1,47 @@
-laraImport("lara.mutation.IterativeMutation");
-laraImport("lara.mutation.MutationResult");
+import IterativeMutation from "@specs-feup/lara/api/lara/mutation/IterativeMutation.js";
+import MutationResult from "@specs-feup/lara/api/lara/mutation/MutationResult.js";
+import { debug } from "@specs-feup/lara/api/lara/core/LaraCore.js";
+import {
+    Loop,
+    Joinpoint,
+    Ternary,
+    If,
+    UnaryExpression,
+} from "../../Joinpoints.js";
 
-class ConditionalOperatorDeletionMutation extends IterativeMutation {
+export default class ConditionalOperatorDeletionMutation extends IterativeMutation {
     constructor() {
         super("ConditionalOperatorDeletionMutation");
     }
 
-    isMutationPoint($jp) {
+    isMutationPoint(jp: Joinpoint): boolean {
         if (
-            $jp.instanceOf("if") ||
-            $jp.instanceOf("ternary") ||
-            $jp.instanceOf("loop")
+            this.isOfCorrectType(jp) &&
+            jp.cond instanceof UnaryExpression &&
+            jp.cond.operator === "!"
         ) {
-            if (
-                $jp.cond.instanceOf("unaryExpression") &&
-                $jp.cond.operator === "!"
-            ) {
-                return true;
-            }
+            return true;
         }
 
         return false;
     }
 
-    *mutate($jp) {
-        const mutation = $jp.copy();
+    isOfCorrectType(jp: Joinpoint) {
+        return jp instanceof If || jp instanceof Ternary || jp instanceof Loop;
+    }
 
-        mutation.cond.insertReplace(mutation.cond.operand.copy());
+    *mutate(jp: If | Ternary | Loop) {
+        //Joinpoint
+
+        if (!this.isMutationPoint(jp)) {
+            yield new MutationResult(jp);
+        }
+        const mutation = jp.copy() as If | Ternary | Loop;
+        const tempCond = mutation.cond.copy() as UnaryExpression;
+        mutation.cond.insertReplace(tempCond.operand.copy());
 
         debug("/*--------------------------------------*/");
-        debug("Mutating operator: " + $jp + " to " + mutation);
+        debug("Mutating operator: " + jp + " to " + mutation);
         debug("/*--------------------------------------*/");
 
         yield new MutationResult(mutation);
