@@ -1,34 +1,26 @@
 import IterativeMutation from "@specs-feup/lara/api/lara/mutation/IterativeMutation.js";
 import MutationResult from "@specs-feup/lara/api/lara/mutation/MutationResult.js";
-import { Joinpoint, BinaryExpression } from "../../Joinpoints.js";
-
-/**
- *  @param newOperators - Operators that will be used to mutate the binaryExpression.
- */
+import { BinaryExpression } from "../../Joinpoints.js";
 export default class BinaryExpressionMutation extends IterativeMutation {
-    newOperators: string[];
-
+    newOperators;
     // Parent constructor
-    constructor(...newOperators: string[]) {
+    constructor(...newOperators) {
         super("BinaryExpressionMutation");
         // TODO: Check if operators are valid
         this.newOperators = newOperators;
     }
-
-    isMutationPoint(jp: Joinpoint): jp is BinaryExpression {
+    isMutationPoint(jp) {
         return jp instanceof BinaryExpression;
     }
-
-    *mutate(jp: BinaryExpression) {
+    *mutate(jp) {
         for (const newOp of this.newOperators) {
-            const mutation = jp.copy() as BinaryExpression;
-
+            const mutation = jp.copy();
             // Skip when operators are the same
-            if (mutation.operator === newOp) continue;
-
+            if (mutation.operator === newOp)
+                continue;
             mutation.operator = newOp;
-
             yield new MutationResult(mutation);
         }
     }
 }
+//# sourceMappingURL=BinaryExpressionMutation.js.map
