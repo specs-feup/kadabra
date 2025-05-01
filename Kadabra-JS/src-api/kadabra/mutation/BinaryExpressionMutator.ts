@@ -45,8 +45,10 @@ export default abstract class BinaryExpressionMutator extends Mutator {
 
     restorePrivate() {
         // Restore operator
-        if (this.previousOp !== undefined)
-            this.binaryExpression.operator = this.previousOp;
+        if (this.previousOp === undefined) {
+            throw new Error("PreviousOp is undefined.");
+        }
+        this.binaryExpression.operator = this.previousOp;
         this.previousOp = undefined;
     }
 }

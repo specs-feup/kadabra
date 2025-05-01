@@ -109,8 +109,7 @@ export function NewChannel(
     if (isStatic) {
         mods.push("static");
     }
-    const $channeltemp = $class.newField(mods, channelType, channelName, init);
-    const $channel = $channeltemp;
+    const $channel = $class.newField(mods, channelType, channelName, init);
     const reference = $channel.declarator + "." + $channel.name;
     const offer = function (key: string, value: string) {
         return reference + ".offer(" + key + "," + value + ")";

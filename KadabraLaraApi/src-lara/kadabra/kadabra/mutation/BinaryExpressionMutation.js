@@ -1,6 +1,9 @@
 import IterativeMutation from "@specs-feup/lara/api/lara/mutation/IterativeMutation.js";
 import MutationResult from "@specs-feup/lara/api/lara/mutation/MutationResult.js";
 import { BinaryExpression } from "../../Joinpoints.js";
+/**
+ *  @param newOperators - Operators that will be used to mutate the binaryExpression.
+ */
 export default class BinaryExpressionMutation extends IterativeMutation {
     newOperators;
     // Parent constructor

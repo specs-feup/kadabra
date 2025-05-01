@@ -1,4 +1,8 @@
 import Mutator from "@specs-feup/lara/api/lara/mutation/Mutator.js";
+/**
+ *  @param binaryExpression - A join point of type binaryExpression.
+ *  @param newOperators - Operators that will be used to mutate the given binaryExpression.
+ */
 export default class BinaryExpressionMutator extends Mutator {
     binaryExpression;
     newOperators;
@@ -31,8 +35,10 @@ export default class BinaryExpressionMutator extends Mutator {
     }
     restorePrivate() {
         // Restore operator
-        if (this.previousOp !== undefined)
-            this.binaryExpression.operator = this.previousOp;
+        if (this.previousOp === undefined) {
+            throw new Error("PreviousOp is undefined.");
+        }
+        this.binaryExpression.operator = this.previousOp;
         this.previousOp = undefined;
     }
 }

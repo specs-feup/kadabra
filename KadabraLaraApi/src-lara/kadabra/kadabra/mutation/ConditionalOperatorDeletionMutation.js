@@ -18,9 +18,8 @@ export default class ConditionalOperatorDeletionMutation extends IterativeMutati
         return jp instanceof If || jp instanceof Ternary || jp instanceof Loop;
     }
     *mutate(jp) {
-        //Joinpoint
         if (!this.isMutationPoint(jp)) {
-            yield new MutationResult(jp);
+            throw new Error("Argument is not a mutation point.");
         }
         const mutation = jp.copy();
         const tempCond = mutation.cond.copy();
