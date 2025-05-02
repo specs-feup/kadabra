@@ -1,36 +1,59 @@
-import kadabra.monitor.Timer;
-function Measurer(type, beginMeasure, endMeasure, getMeasure, newMeasurerCode){
-//	this.initCode  = initCode;
-	this.beginMeasure = beginMeasure;
-	this.endMeasure = endMeasure;
-	this.getMeasure = getMeasure;
-	this.newMeasurerCode = newMeasurerCode;
-	this.type = type;
-}
+import Timer from "../monitor/Timer.js";
 
-Measurer.PACKAGE = 'autotuner.measurer.';
-Measurer.classOf = function(generic){
-	if(generic === undefined){
-		return Measurer.PACKAGE +'Measurer';
-	}
-	return Measurer.PACKAGE +'Measurer<'+generic+'>';
-}
+export class Measurer {
+    type: string;
+    beginMeasure: string;
+    endMeasure: string;
+    getMeasure: string;
+    newMeasurerCode: string;
+    public static readonly PACKAGE = "autotuner.measurer.";
 
-Measurer.prototype.qualifiedType = function(){
-	return Measurer.PACKAGE +'Measurer<'+this.type+'>';
-}
-Measurer.prototype
-.getProvider = function (name) {
-	var init = name === undefined?'': 'java.util.function.Supplier<'+this.type+'> '+name+' = ';
-	var fini = name === undefined?'':';';
-	return init + '() -> '+ this.newMeasurerCode+fini;
-}
-
-Measurer.avgTime = function(timer){
-//	if(timer === undefined){
-//		call t:  NanoTimer();
-//		timer = t;
-//	}
-	timer = timer || Timer.nanoTimer();
-	return new Measurer('java.lang.Long', timer.start(), timer.stop(), timer.getTime(), 'new '+Measurer.PACKAGE+'AvgLongMeasurer("'+timer.unit+'")');
+    constructor(
+        type: string,
+        beginMeasure: string,
+        endMeasure: string,
+        getMeasure: string,
+        newMeasurerCode: string
+    ) {
+        this.beginMeasure = beginMeasure;
+        this.endMeasure = endMeasure;
+        this.getMeasure = getMeasure;
+        this.newMeasurerCode = newMeasurerCode;
+        this.type = type;
+    }
+    static classOf(generic: string) {
+        if (generic === undefined) {
+            return Measurer.PACKAGE + "Measurer";
+        }
+        return Measurer.PACKAGE + "Measurer<" + generic + ">";
+    }
+    qualifiedType() {
+        return Measurer.PACKAGE + "Measurer<" + this.type + ">";
+    }
+    getProvider(name: string) {
+        const init =
+            name === undefined
+                ? ""
+                : "java.util.function.Supplier<" +
+                  this.type +
+                  "> " +
+                  name +
+                  " = ";
+        const fini = name === undefined ? "" : ";";
+        return init + "() -> " + this.newMeasurerCode + fini;
+    }
+    static avgTime(timer: Timer) {
+        timer = timer || Timer.nanoTimer();
+        return new Measurer(
+            "java.lang.Long",
+            timer.start(),
+            timer.stop(),
+            timer.getTime(),
+            "new " +
+                Measurer.PACKAGE +
+                'AvgLongMeasurer("' +
+                timer.getUnit().getUnitsString() +
+                '")'
+        );
+    }
 }
