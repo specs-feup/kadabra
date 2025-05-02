@@ -17,7 +17,7 @@ export abstract class Algorithm {
 }
 
 export class SimpleAlgorithm extends Algorithm {
-    constructor(lambda: string | Method, id: string | undefined) {
+    constructor(lambda: string | Method, id?: string) {
         super();
         if (lambda instanceof Method) {
             this.lambda = lambda.toQualifiedReference;

@@ -30,7 +30,7 @@ export class Measurer {
     qualifiedType() {
         return Measurer.PACKAGE + "Measurer<" + this.type + ">";
     }
-    getProvider(name: string) {
+    getProvider(name?: string) {
         const init =
             name === undefined
                 ? ""
@@ -42,8 +42,7 @@ export class Measurer {
         const fini = name === undefined ? "" : ";";
         return init + "() -> " + this.newMeasurerCode + fini;
     }
-    static avgTime(timer: Timer) {
-        timer = timer || Timer.nanoTimer();
+    static avgTime(timer: Timer = Timer.nanoTimer()) {
         return new Measurer(
             "java.lang.Long",
             timer.start(),

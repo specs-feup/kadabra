@@ -59,7 +59,7 @@ abstract class IntermediateTimer extends TimerBase<Joinpoint> {
             return code;
         }
 
-        IntermediateTimer.insertTimerCode(code, $target, when);
+        return IntermediateTimer.insertTimerCode(code, $target, when).code;
     }
 
     static insertTimerCode(
@@ -67,7 +67,7 @@ abstract class IntermediateTimer extends TimerBase<Joinpoint> {
         $target: Joinpoint,
         when: insertOptions = "before"
     ) {
-        $target.insert(when, code);
+        return $target.insert(when, code) as Joinpoint;
     }
 }
 
@@ -121,15 +121,15 @@ export default class Timer extends IntermediateTimer {
         );
     }
 
-    start($target: Joinpoint, when: insertOptions) {
+    start($target?: Joinpoint, when?: insertOptions) {
         return this.measureCode("start", $target, when);
     }
 
-    stop($target: Joinpoint, when: insertOptions) {
+    stop($target?: Joinpoint, when?: insertOptions) {
         return this.measureCode("stop", $target, when);
     }
 
-    pause($target: Joinpoint, when: insertOptions) {
+    pause($target?: Joinpoint, when?: insertOptions) {
         return this.measureCode("pause", $target, when);
     }
 
