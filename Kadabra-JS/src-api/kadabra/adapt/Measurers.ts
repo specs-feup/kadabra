@@ -19,8 +19,8 @@ Measurer.classOf = function(generic){
 Measurer.prototype.qualifiedType = function(){
 	return Measurer.PACKAGE +'Measurer<'+this.type+'>';
 }
-
-Measurer.prototype.getProvider = function(name){
+Measurer.prototype
+.getProvider = function (name) {
 	var init = name === undefined?'': 'java.util.function.Supplier<'+this.type+'> '+name+' = ';
 	var fini = name === undefined?'':';';
 	return init + '() -> '+ this.newMeasurerCode+fini;
