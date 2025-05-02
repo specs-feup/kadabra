@@ -82,7 +82,6 @@ export class Configuration {
             let applierCode = "(knobs) -> {\n";
             for (let i = 0; i < knobs.length; i++) {
                 const k = knobs[i];
-                //validateKnob(k);
                 applierCode +=
                     "\t" +
                     k.staticAccess +
@@ -132,19 +131,6 @@ export class Configuration {
         return this.get();
     }
 }
-
-/*function validateKnob(knob: Joinpoint) {
-    if (!(knob instanceof Joinpoint))
-        throw new Error(
-            "The knobs used in the configuration must be join points"
-        );
-    if (!(knob instanceof Field))
-        throw new Error(
-            "A join point of type " +
-                knob.joinPointType +
-                " was given. The current supported knobs are: field."
-        );
-}*/
 
 //////////////////////////////////////////////////////////////
 //////////////// GENERIC CONFIGS USING LISTS /////////////////
@@ -329,39 +315,3 @@ export class FloatRange extends PrimitiveRange {
         super("Float", lowerLimit, upperLimit, step, value);
     }
 }
-
-/*
-IntegerRange.prototype.setClimbers= function(descend, ascend){
-	this.descend = descend;
-	this.ascend = ascend;
-	this.step = undefined;
-	return this;
-}
-
-IntegerRange.prototype.initValue = function(value){
-	this.value = value;
-	return this;
-}
-
-IntegerRange.prototype.instance = function(){
-	
-	if(this.ascend != undefined){
-		var newKnob = "new "+ Configs.RANGED +"CustomStepIntegerKnob("+this.lowerLimit+","+this.upperLimit+",";
-		if(this.value != undefined){
-			newKnob+= this.value+",";
-		}
-		return newKnob+this.descend+","+this.ascend+")";
-	}
-	
-	var newKnob = "new "+ Configs.RANGED +"IntegerStep("+this.lowerLimit+","+this.upperLimit+",";
-	if(this.value != undefined){
-		newKnob+= this.value+",";
-	}
-	return newKnob+this.step+")";
-	
-}
-
-IntegerRange.prototype.declare = function(name){
-	return Configs.RANGED+'RangedKnob<'+this.type+'>'+name+' = '+this.instance();
-}
-/**/
