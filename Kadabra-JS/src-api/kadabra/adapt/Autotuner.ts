@@ -3,9 +3,10 @@
 *******/
 
 import Query from "@specs-feup/lara/api/weaver/Query.js";
-import { App, Class, Field, FileJp, Statement } from "../../Joinpoints.js";
+import { App, Body, Class, Constructor, Field, FileJp, Method, Statement } from "../../Joinpoints.js";
 import { newClass } from "../Factory.js";
-import { Algorithm } from "./Algorithm.js";
+import { Algorithm ,AlgorithmWithKnob,SimpleAlgorithm} from "./Algorithm.js";
+import JoinPoints from "@specs-feup/lara/api/weaver/JoinPoints.js";
 
 export static function measurerProvider(autotuner:Autotuner, ref:string){
 	var measurer = ($stmt:Statement, $stmtEnd:Statement) =>
@@ -23,7 +24,7 @@ export class Autotuner{
 	autotunerClass:AutotunerClass;
 	autotunerType:string;
 	$tuner:Field|undefined = undefined;
-
+	
 	/**
 	 * Static variables
 	 */
@@ -121,7 +122,7 @@ export class Autotuner{
 /*
  * Class defining the class of an autotuner 
  */
-export class AutotunerClass{
+export class AutotunerClass {
 	$class:Class;
 	builder:AutotunerBuilder;
 	measurer:any;
@@ -166,11 +167,33 @@ export class  AutotunerBuilder{
 
 	generate(package:string):AutotunerClass{
 		this.package = package ?? 'kadabra.autotuner';
-		var generator = GenerateTuner(this);
+		let generator= GenerateTuner(this);
 		generator();
+		if(generator instanceof Class){
+			var autotunerClass = new AutotunerClass(generator.$autotuner, this);
+			return autotunerClass;
+		}else{
+			throw new Error("[generate] generator is undefined");
+		}
 		
-		var autotunerClass = new AutotunerClass(generator.$autotuner, this);
-		return autotunerClass;
+	}
+	addAlgorithm(/*Code | SimpleAlgorithm | AlgorithmWithKnob*/ algorithm:string|SimpleAlgorithm|AlgorithmWithKnob, id:string|undefined){
+		if(id === undefined){
+			if(algorithm instanceof SimpleAlgorithm || algorithm instanceof AlgorithmWithKnob){
+				return this.pushAlgorithm(algorithm);
+			}else if((typeof algorithm).equals('string')){ //Will assume native code "lambda"
+				return this.pushAlgorithm(new SimpleAlgorithm(algorithm));
+			}
+			else{
+				throw 'adding an algorithm without id assumes the first argument as a SimpleAlgorithm or AlgorithmWithKnob, however, '+typeof algorithm+' was given';
+			}
+		}
+
+		return this.pushAlgorithm(new SimpleAlgorithm(algorithm,id));
+	}
+	addAlgorithmWithKnob(/*Code */ algorithm:string, id:string, /* Configuration */ configuration:){
+
+		return this.pushAlgorithm(new AlgorithmWithKnob(algorithm,id, configuration.applier, configuration.get()));
 	}
 
 }
@@ -193,7 +216,7 @@ export static function GenerateTuner(tuner:AutotunerBuilder){
 			super(warmup,samples);
 			initAlgProvider();
 		`);
-		var algProviderCode = '';
+		let algProviderCode = '';
 		if(tuner.algorithms.length > 0){
 			algProviderCode = 'algListProvider';
 			for(var alg of tuner.algorithms){
@@ -201,7 +224,6 @@ export static function GenerateTuner(tuner:AutotunerBuilder){
 			}
 			algProviderCode+=';';
 		}
-		///////////////////////IM HERE HEREEEEEEEEEEEEEEEEEEEEEEEEEEEE
 		$autotuner.newMethod(['private'], 'void', 'initAlgProvider', [], 
 			InitCode(algProviderCode));
 		var defaultCode = null;
@@ -215,14 +237,14 @@ export static function GenerateTuner(tuner:AutotunerBuilder){
 		
 		$autotuner.newMethod(['protected'], 'java.util.function.Supplier<'+tuner.measurer.qualifiedType()+'>', 'measurerProvider', [], 
 			[`return ${tuner.measurer.getProvider()};`]);
-		$autotuner.exec newMethod(['protected'], Autotuner.MANAGER_PACKAGE+'ConfigProvider<'+tuner.algorithmType+'>', 'configurationProvider', [], 
-			%{return [[tuner.configuration]];}%);
-		$autotuner.exec newMethod(['protected'], 'java.util.function.BiFunction<'+tuner.datasetType+','+tuner.datasetType+',java.lang.Double>', 'distanceProvider', [], 
-			%{return [[tuner.distanceMethod]];}%);
+		$autotuner.newMethod(['protected'], Autotuner.MANAGER_PACKAGE+'ConfigProvider<'+tuner.algorithmType+'>', 'configurationProvider', [], 
+			[`return ${tuner.configuration};`]);
+		$autotuner.newMethod(['protected'], 'java.util.function.BiFunction<'+tuner.datasetType+','+tuner.datasetType+',java.lang.Double>', 'distanceProvider', [], 
+			[`{return ${tuner.distanceMethod};`]);
 		
 		var algProviderType = Algorithm.PROVIDER_PACKAGE+'AlgorithmProvider<'+tuner.algorithmType+'>';
-		$autotuner.exec newMethod(['protected'], 'java.util.List<'+algProviderType+'>', 'getAlgorithms', [], 
-			%{return algListProvider.build();}%);
+		$autotuner.newMethod(['protected'], 'java.util.List<'+algProviderType+'>', 'getAlgorithms', [], 
+			[`return algListProvider.build();`]);
 //		 private AlgorithmListProvider<MxM> algListProvider
 /*
     @Override
@@ -230,50 +252,39 @@ export static function GenerateTuner(tuner:AutotunerBuilder){
         return algListProvider.build();
     }*/
 		
+		return $autotuner;
 	}
 	//output $autotuner end
 }
 
 
-codedef InitCode(algProvidersCode)%{
+export function InitCode(algProvidersCode:string){
+	return `
 	 algListProvider = new AlgorithmListProvider<>();
-	 [[algProvidersCode]]
-}%end
+	 ${algProvidersCode}`;
+}
 
-aspectdef ReplaceMethodCode
+/*aspectdef ReplaceMethodCode
 	input $method, code end
 	select $method.body end
 	apply
 		$body.replace code;
 	end
-end
+end*/
+export function ReplaceMethodCode($method :JoinPoints, code:string){
+	for(let _method of Query.search(FileJp).search(Method, $method)){
+		_method.body.replaceWith(code)
+	}
+}
 /**
  * Adds a simple algorithm 
  */ 
-AutotunerBuilder.prototype.addAlgorithm = function(/*Code | SimpleAlgorithm | AlgorithmWithKnob*/ algorithm, id){
-	if(id === undefined){
-		if(algorithm instanceof SimpleAlgorithm || algorithm instanceof AlgorithmWithKnob){
-			return this.pushAlgorithm(algorithm);
-		}else if((typeof algorithm).equals('string')){ //Will assume native code "lambda"
-			return this.pushAlgorithm(new SimpleAlgorithm(algorithm));
-		}
-		else{
-			throw 'adding an algorithm without id assumes the first argument as a SimpleAlgorithm or AlgorithmWithKnob, however, '+typeof algorithm+' was given';
-		}
-	}
-
-	return this.pushAlgorithm(new SimpleAlgorithm(algorithm,id));
-}
 
 
 /**
  * Adds an algorithm containing a knob
  */ 
-AutotunerBuilder.prototype.addAlgorithmWithKnob = function (/*Code */ algorithm, id, /* Configuration */ configuration){
-
-	return this.pushAlgorithm(new AlgorithmWithKnob(algorithm,id, configuration.applier, configuration.get()));
-}
-
+AutotunerBuilder.prototype.
 AutotunerBuilder.prototype.addAdaptiveAlg = function (/*String*/ id, /* JMethod */ targetMethod,  
 	/* String */ templateName, /* InputArgsProvider */ provider){
 	return this.pushAlgorithm(new AdaptiveAlgorithm(id, targetMethod, templateName, provider));
