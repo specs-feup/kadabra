@@ -168,6 +168,7 @@ export class  AutotunerBuilder{
 	generate(package:string):AutotunerClass{
 		this.package = package ?? 'kadabra.autotuner';
 		let generator= GenerateTuner(this);
+		//Confirm This
 		generator();
 		if(generator instanceof Class){
 			var autotunerClass = new AutotunerClass(generator.$autotuner, this);
