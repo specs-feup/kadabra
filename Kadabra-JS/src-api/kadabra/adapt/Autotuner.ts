@@ -224,7 +224,7 @@ export class AutotunerBuilder {
     algorithmType: string;
     measurementType: string;
     algorithms: Algorithm[];
-    default: SimpleAlgorithm | null;
+    default: SimpleAlgorithm | string | null;
     package: string | undefined;
     distanceMethod: string | null;
     measurer: Measurer | undefined;
@@ -371,7 +371,7 @@ export function GenerateTuner(tuner: AutotunerBuilder) {
     const $app = Query.root() as App;
 
     let className = tuner.name;
-    if (tuner.package != undefined) {
+    if (tuner.package !== undefined) {
         className = tuner.package + "." + className;
     }
     console.log(
@@ -413,8 +413,10 @@ export function GenerateTuner(tuner: AutotunerBuilder) {
         InitCode(algProviderCode)
     );
 
-    if (tuner.default === null) {
-        throw new Error("Expected default to be of type SimpleAlgorithm.");
+    if (!(tuner.default instanceof SimpleAlgorithm)) {
+        throw new Error(
+            "Expected AutotunerBuilder.default to be of type SimpleAlgorithm."
+        );
     }
     $autotuner.newMethod(
         ["protected"],
@@ -426,7 +428,7 @@ export function GenerateTuner(tuner: AutotunerBuilder) {
     );
 
     if (tuner.measurer === undefined) {
-        throw new Error("Expected AutotunerBuilder.measurer");
+        throw new Error("Expected AutotunerBuilder.measurer to be defined.");
     }
     $autotuner.newMethod(
         ["protected"],
@@ -437,6 +439,11 @@ export function GenerateTuner(tuner: AutotunerBuilder) {
         `return ${tuner.measurer.getProvider()};`
     );
 
+    if (tuner.configuration === undefined) {
+        throw new Error(
+            "Expected AutotunerBuilder.configuration to be defined."
+        );
+    }
     $autotuner.newMethod(
         ["protected"],
         `${Autotuner.MANAGER_PACKAGE}ConfigProvider<${tuner.algorithmType}>`,
@@ -446,6 +453,11 @@ export function GenerateTuner(tuner: AutotunerBuilder) {
         `return ${tuner.configuration};`
     );
 
+    if (tuner.distanceMethod === null) {
+        throw new Error(
+            "Expected AutotunerBuilder.distanceMethod to be defined."
+        );
+    }
     $autotuner.newMethod(
         ["protected"],
         `java.util.function.BiFunction<${tuner.datasetType},${tuner.datasetType},java.lang.Double>`,
@@ -477,9 +489,6 @@ export function InitCode(algProvidersCode: string) {
 export function ReplaceMethodCode($method: Constructor, code: string) {
     $method.body.replaceWith(code);
 }
-/**
- * Define the code that provides a new algorithm measurer (e.g. weaver.kadabra.control...measurers.AvgLongMeasurer )
- */
 
 /******
  * Knobs Autotuner
@@ -493,21 +502,26 @@ export class ControlPointBuilder extends AutotunerBuilder {
     knobType: string;
     config: Configuration | undefined;
     configId: string | undefined;
-    default: string | null = null;
-    package: string = "kadabra.autotuner";
-    distanceMethod = null;
-    applyKnob = undefined;
+    default: string | null;
+    applyKnob: string | undefined;
     concurrent = false;
+
     constructor(
         name: string,
-        datasetType: any,
+        datasetType: string,
         knobs: Field | Field[],
-        measurementType: any
+        measurementType: string
     ) {
-        super(name, datasetType, undefined, measurementType);
+        super(name, datasetType, "", measurementType);
+
         this.knobs = knobs;
         this.knobType = getKnobType(knobs);
+        this.config = undefined;
+        this.configId = undefined;
+        this.default = null;
+        this.applyKnob = undefined;
     }
+
     generate(packageName: string = "kadabra.autotuner"): AutotunerClass {
         this.package = packageName;
         const $autotuner = GenerateKnobTuner(this);
@@ -528,9 +542,9 @@ export class ControlPointBuilder extends AutotunerBuilder {
     /**
      * Adds a simple algorithm
      */
-    setConfig(config: Configuration, id: string) {
+    setConfig(config: Configuration, id?: string) {
         this.config = config;
-        this.configId = id || this.configId;
+        this.configId = id ?? this.configId;
         return this;
     }
 
@@ -565,14 +579,6 @@ export class ControlPointBuilder extends AutotunerBuilder {
         this.setConfig(Configs.randomOf(this.knobs, ranges), id);
         return this;
     }
-
-    /**
-     * Define the code that provides a new algorithm measurer (e.g. weaver.kadabra.control...measurers.AvgLongMeasurer )
-     */
-    setMeasurer(measurer: Measurer) {
-        this.measurer = measurer;
-        return this;
-    }
 }
 
 const TUPLES_PACKAGE = "org.javatuples.";
@@ -590,46 +596,35 @@ const TUPLES_NAMES = [
     "Decade",
 ];
 
-function getKnobType(knobs: Field | Field[]) {
+export function getKnobType(knobs: Field | Field[]) {
     if (!Array.isArray(knobs)) {
         return knobs.type;
     } else {
-        let tupleName =
-            TUPLES_PACKAGE +
-            TUPLES_NAMES[knobs.length] +
-            "<" +
-            primitive2Class(knobs[0].type);
+        let tupleName = `${TUPLES_PACKAGE}${
+            TUPLES_NAMES[knobs.length]
+        }<${primitive2Class(knobs[0].type)}`;
         for (let i = 1; i < knobs.length; i++) {
             tupleName += ", " + primitive2Class(knobs[i].type);
         }
-        tupleName += ">";
-        return tupleName;
+        return tupleName + ">";
     }
 }
 
 export function GenerateKnobTuner(tuner: ControlPointBuilder) {
-    //output $autotuner end
     const app = Query.root() as App;
+
     let className = tuner.name;
-    if (tuner.package != undefined) {
+    if (tuner.package !== undefined) {
         className = tuner.package + "." + className;
     }
     console.log(
         "[LOG] Generating Autotuner with the qualified name: " + className
     );
+
     const conc = tuner.concurrent ? "Concurrent" : "";
-    const expType =
-        Autotuner.KNOB_MANAGER_PACKAGE +
-        "KnobExploration" +
-        conc +
-        "Supervisor<" +
-        tuner.datasetType +
-        "," +
-        tuner.knobType +
-        "," +
-        tuner.measurementType +
-        ">";
+    const expType = `${Autotuner.KNOB_MANAGER_PACKAGE}KnobExploration${conc}Supervisor<${tuner.datasetType},${tuner.knobType},${tuner.measurementType}>`;
     const $autotuner = app.newClass(className, expType, []);
+
     const $constr = $autotuner.newConstructor(
         ["public"],
         ["int", "int"],
@@ -642,51 +637,51 @@ export function GenerateKnobTuner(tuner: ControlPointBuilder) {
         `
     );
 
-    let defaultCode = null;
-    if (tuner.default != null) {
-        defaultCode = tuner.default;
+    if (tuner.default === null) {
+        throw new Error(
+            "Expected ControlPointBuilder.default to be of type string."
+        );
     }
-
     $autotuner.newMethod(
         ["protected"],
         tuner.knobType,
         "defaultKnobValue",
         [],
         [],
-        `return ${defaultCode};`
+        `return ${tuner.default};`
     );
 
     if (tuner.measurer === undefined) {
-        throw new Error("Expected AutotunerBuilder.measurer");
+        throw new Error("Expected ControlPointBuilder.measurer to be defined.");
     }
-
     $autotuner.newMethod(
         ["protected"],
-        "java.util.function.Supplier<" + tuner.measurer.qualifiedType() + ">",
+        `java.util.function.Supplier<${tuner.measurer.qualifiedType()}>`,
         "measurerProvider",
         [],
         [],
         `return ${tuner.measurer.getProvider()};`
     );
 
+    if (tuner.distanceMethod === null) {
+        throw new Error(
+            "Expected ControlPointBuilder.distanceMethod to be defined."
+        );
+    }
     $autotuner.newMethod(
         ["protected"],
-        "java.util.function.BiFunction<" +
-            tuner.datasetType +
-            "," +
-            tuner.datasetType +
-            ",java.lang.Double>",
+        `java.util.function.BiFunction<${tuner.datasetType},${tuner.datasetType},java.lang.Double>`,
         "distanceProvider",
         [],
         [],
         `return ${tuner.distanceMethod};`
     );
 
-    const knobProviderType = "KnobProvider<" + tuner.knobType + ">";
+    const knobProviderType = `KnobProvider<${tuner.knobType}>`;
     const id = tuner.configId ?? '"config"';
 
     let code = "(tuple) -> {";
-    if (tuner.applyKnob == undefined) {
+    if (tuner.applyKnob === undefined) {
         const knobs = tuner.knobs;
         if (!Array.isArray(knobs))
             throw new Error("[GenerateKnobTuner] knobs is not an array");
@@ -700,9 +695,8 @@ export function GenerateKnobTuner(tuner: ControlPointBuilder) {
     }
 
     if (tuner.config === undefined) {
-        throw new Error("Expected AutotunerBuilder.measurer");
+        throw new Error("Expected ControlPointBuilder.config to be defined.");
     }
-
     $autotuner.newMethod(
         ["protected"],
         Autotuner.KNOB_MANAGER_PACKAGE + knobProviderType,
