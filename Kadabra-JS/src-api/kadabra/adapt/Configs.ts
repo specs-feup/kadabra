@@ -1,6 +1,5 @@
 import { Field } from "../../Joinpoints.js";
 import { primitive2Class } from "../Utils.js";
-import { object2string } from "@specs-feup/lara/api/core/output.js";
 
 /**
  * Class defining the structure of an autotuner
@@ -274,6 +273,10 @@ export class PrimitiveRange {
                 ",";
             if (this.value !== undefined) {
                 newKnob += this.value + ",";
+            }
+
+            if (this.descend === undefined) {
+                throw new Error("Expected descend to be defined.");
             }
             return newKnob + this.descend + "," + this.ascend + ")";
         }
