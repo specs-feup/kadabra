@@ -18,12 +18,6 @@ import pt.up.fe.specs.util.providers.ResourceProvider;
 
 public enum KadabraAPIResources implements ResourceProvider {
 
-    Adapter(PackageProvider.adaptPackage, "Adapter"),
-    Configs(PackageProvider.adaptPackage, "Configs"),
-    Measurers(PackageProvider.adaptPackage, "Measurers"),
-    Algorithm(PackageProvider.adaptPackage, "Algorithm"),
-    Autotuner(PackageProvider.adaptPackage, "Autotuner");
-
     private KadabraAPIResources(String subPackage, String fileName) {
         var filenameExtension = SpecsIo.getExtension(fileName);
         var realExtension = filenameExtension.isEmpty() ? extension : "." + filenameExtension;
