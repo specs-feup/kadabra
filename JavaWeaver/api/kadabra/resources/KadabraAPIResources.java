@@ -21,15 +21,8 @@ public enum KadabraAPIResources implements ResourceProvider {
     Adapter(PackageProvider.adaptPackage, "Adapter"),
     Configs(PackageProvider.adaptPackage, "Configs"),
     Measurers(PackageProvider.adaptPackage, "Measurers"),
-    Autotuner(PackageProvider.adaptPackage, "Autotuner"),
-    CpuInfo(PackageProvider.systemPackage, "CpuInfo"),
-
-    ArithmeticOperatorDeletionMutation("mutation/", "ArithmeticOperatorDeletionMutation.js"),
-    BinaryExpressionMutation("mutation/", "BinaryExpressionMutation.js"),
-    BinaryExpressionMutator("mutation/", "BinaryExpressionMutator.js"),
-    ConditionalOperatorDeletionMutation("mutation/", "ConditionalOperatorDeletionMutation.js"),
-
-    Concurrent("Concurrent");
+    Algorithm(PackageProvider.adaptPackage, "Algorithm"),
+    Autotuner(PackageProvider.adaptPackage, "Autotuner");
 
     private KadabraAPIResources(String subPackage, String fileName) {
         var filenameExtension = SpecsIo.getExtension(fileName);
