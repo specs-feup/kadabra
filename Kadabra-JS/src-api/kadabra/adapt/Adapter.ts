@@ -9,8 +9,8 @@ export function CreateClassGenerator(
     $storingClass: Class
 ) {
     let $adaptMethod: Method | undefined;
-    let generate: ((args: string[][]) => string) | undefined;
-    let generateQualified: ((args: string[][]) => string) | undefined;
+    let generate: ((...args: string[]) => string) | undefined;
+    let generateQualified: ((...args: string[]) => string) | undefined;
 
     for (const $method of Query.search(FileJp)
         .search(Class, (c: Class) => RegExp(adapterClass).exec(c.name) !== null)
@@ -52,8 +52,8 @@ export function FunctionGenerator(
     $storingClass: Class = getOrNewClass("kadabra.utils.Adapters")
 ): {
     $adaptMethod: Method;
-    generate: (args: string[][]) => string;
-    generateQualified: (args: string[][]) => string;
+    generate: (...args: string[]) => string;
+    generateQualified: (...args: string[]) => string;
 } {
     console.log(
         "[FunctionGenerator] Creating new functional class with " +
@@ -66,7 +66,7 @@ export function FunctionGenerator(
         $interfaceMethod,
         $adapterMethod
     );
-    const generate = function (args: string[][]) {
+    const generate = function (...args: string[]) {
         let invoke = $adaptMethod + "(";
         const _args = args.slice();
         invoke += _args.join(", ");
@@ -74,7 +74,7 @@ export function FunctionGenerator(
         return invoke;
     };
 
-    const generateQualified = function (args: string[][]) {
+    const generateQualified = function (...args: string[]) {
         let invoke = $storingClass.qualifiedName + "." + $adaptMethod + "(";
         const _args = args.slice();
         invoke += _args.join(", ");
