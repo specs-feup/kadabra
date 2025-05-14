@@ -1,12 +1,14 @@
-///////////////////////////////////////////////////
-//////////////// USEFUL CONSTANTS /////////////////
-
 import { Field } from "../../Joinpoints.js";
 import { primitive2Class } from "../Utils.js";
 import { object2string } from "@specs-feup/lara/api/core/output.js";
 
-///////////////////////////////////////////////////
+/**
+ * Class defining the structure of an autotuner
+ */
 export class Configs {
+    ///////////////////////////////////////////////////
+    //////////////// USEFUL CONSTANTS /////////////////
+    ///////////////////////////////////////////////////
     public static readonly PACKAGE = "autotuner.configs.";
     public static readonly FACTORY = Configs.PACKAGE + "autotuner.configs.";
     public static readonly RANGED = Configs.PACKAGE + "knobs.number.ranged.";
@@ -16,10 +18,16 @@ export class Configs {
         random: Configs.FACTORY + "::random",
     };
 
+    /**
+	A list of values to test in the order they are given.
+    **/
     static default(knobs: Field | Field[], values: string[], type: string) {
         return list2Config(knobs, "normal", values, false, type);
     }
 
+    /**
+	A list of values to test in random order.
+    **/
     static random(knobs: Field | Field[], values: string[], type: string) {
         return list2Config(knobs, "random", values, false, type);
     }
@@ -43,6 +51,9 @@ export class Configs {
         );
     }
 
+    /*
+	This configuration uses Ranged knobs, which are defined in the lower part of this file (e.g. IntegerRange)
+    */
     static randomOf(
         knobs: Field | Field[],
         ranges: PrimitiveRange | PrimitiveRange[]
@@ -178,9 +189,6 @@ function list2Config(
 ///////////////////////////////////////////////////////
 //////////////// CONFIGS USING RANGES /////////////////
 ///////////////////////////////////////////////////////
-/*
-	This configuration uses Ranged knobs, which are defined in the lower part of this file (e.g. IntegerRange)
-*/
 
 export function rangedConfig(
     knobs: Field | Field[],
