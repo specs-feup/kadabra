@@ -49,58 +49,44 @@ export function CreateClassGenerator(
 export function FunctionGenerator(
     $adapterMethod: Method,
     $interfaceMethod: Method,
-    $storingClass?: Class
+    $storingClass: Class = getOrNewClass("kadabra.utils.Adapters")
 ): {
     $adaptMethod: Method;
     generate: (args: string[][]) => string;
     generateQualified: (args: string[][]) => string;
 } {
-    if ($storingClass == undefined) {
-        const $class = getOrNewClass("kadabra.utils.Adapters");
-        $storingClass = $class;
-    }
-
-    if ($storingClass !== undefined) {
-        console.log(
-            "[FunctionGenerator] Creating new functional class with " +
-                $interfaceMethod +
-                " and " +
-                $adapterMethod
-        );
-
-        const $adaptMethod = $storingClass.newFunctionalClass(
-            $interfaceMethod,
+    console.log(
+        "[FunctionGenerator] Creating new functional class with " +
+            $interfaceMethod +
+            " and " +
             $adapterMethod
-        );
-        const generate = function (args: string[][]) {
-            let invoke = $adaptMethod + "(";
-            const _args = args.slice();
-            invoke += _args.join(", ");
-            invoke += ")";
-            return invoke;
-        };
+    );
 
-        const generateQualified = function (args: string[][]) {
-            let invoke = $storingClass.qualifiedName + "." + $adaptMethod + "(";
-            const _args = args.slice();
-            invoke += _args.join(", ");
-            invoke += ")";
-            return invoke;
-        };
+    const $adaptMethod = $storingClass.newFunctionalClass(
+        $interfaceMethod,
+        $adapterMethod
+    );
+    const generate = function (args: string[][]) {
+        let invoke = $adaptMethod + "(";
+        const _args = args.slice();
+        invoke += _args.join(", ");
+        invoke += ")";
+        return invoke;
+    };
 
-        return {
-            $adaptMethod: $adapterMethod,
-            generate: generate,
-            generateQualified: generateQualified,
-        };
-    } else {
-        throw new Error(
-            "[FunctionGenerator] Cant create new functional class with " +
-                $interfaceMethod +
-                " and " +
-                $adapterMethod
-        );
-    }
+    const generateQualified = function (args: string[][]) {
+        let invoke = $storingClass.qualifiedName + "." + $adaptMethod + "(";
+        const _args = args.slice();
+        invoke += _args.join(", ");
+        invoke += ")";
+        return invoke;
+    };
+
+    return {
+        $adaptMethod: $adapterMethod,
+        generate: generate,
+        generateQualified: generateQualified,
+    };
 }
 
 /**
