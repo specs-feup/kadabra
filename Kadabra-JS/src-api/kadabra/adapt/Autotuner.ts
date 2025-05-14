@@ -369,6 +369,7 @@ export class AutotunerBuilder {
 
 export function GenerateTuner(tuner: AutotunerBuilder) {
     const $app = Query.root() as App;
+
     let className = tuner.name;
     if (tuner.package != undefined) {
         className = tuner.package + "." + className;
@@ -376,26 +377,16 @@ export function GenerateTuner(tuner: AutotunerBuilder) {
     console.log(
         "[LOG] Generating Autotuner with the qualified name: " + className
     );
-    const expType =
-        Autotuner.MANAGER_PACKAGE +
-        "ExplorationSupervisor<" +
-        tuner.datasetType +
-        "," +
-        tuner.algorithmType +
-        "," +
-        tuner.measurementType +
-        ">";
+
+    const expType = `${Autotuner.MANAGER_PACKAGE}ExplorationSupervisor<${tuner.datasetType},${tuner.algorithmType},${tuner.measurementType}>`;
     const $autotuner = $app.newClass(className, expType, []);
-    const algListProviderType =
-        Algorithm.PROVIDER_PACKAGE +
-        "AlgorithmListProvider<" +
-        tuner.algorithmType +
-        ">";
+    const algListProviderType = `${Algorithm.PROVIDER_PACKAGE}AlgorithmListProvider<${tuner.algorithmType}>`;
     $autotuner.newField(["private"], algListProviderType, "algListProvider");
+
     const $constr = $autotuner.newConstructor(
         ["public"],
-        ["int", "warmup"],
-        ["int", "samples"]
+        ["int", "int"],
+        ["warmup", "samples"]
     );
     ReplaceMethodCode(
         $constr,
@@ -404,11 +395,12 @@ export function GenerateTuner(tuner: AutotunerBuilder) {
         initAlgProvider();
     `
     );
+
     let algProviderCode = "";
     if (tuner.algorithms.length > 0) {
         algProviderCode = "algListProvider";
         for (const alg of tuner.algorithms) {
-            algProviderCode += "\n\t.algorithm(" + alg.getSupplier() + ")";
+            algProviderCode += `\n\t.algorithm(${alg.getSupplier()})`;
         }
         algProviderCode += ";";
     }
@@ -420,28 +412,25 @@ export function GenerateTuner(tuner: AutotunerBuilder) {
         [],
         InitCode(algProviderCode)
     );
-    let defaultCode = null;
 
-    if (tuner.default !== null) {
-        defaultCode = tuner.default.instance();
+    if (tuner.default === null) {
+        throw new Error("Expected default to be of type SimpleAlgorithm.");
     }
-
     $autotuner.newMethod(
         ["protected"],
-        Algorithm.PACKAGE + "Algorithm<" + tuner.algorithmType + ">",
+        `${Algorithm.PACKAGE}Algorithm<${tuner.algorithmType}>`,
         "defaultAlgorithm",
         [],
         [],
-        `return ${defaultCode};`
+        `return ${tuner.default.instance()};`
     );
 
     if (tuner.measurer === undefined) {
         throw new Error("Expected AutotunerBuilder.measurer");
     }
-
     $autotuner.newMethod(
         ["protected"],
-        "java.util.function.Supplier<" + tuner.measurer.qualifiedType() + ">",
+        `java.util.function.Supplier<${tuner.measurer.qualifiedType()}>`,
         "measurerProvider",
         [],
         [],
@@ -450,10 +439,7 @@ export function GenerateTuner(tuner: AutotunerBuilder) {
 
     $autotuner.newMethod(
         ["protected"],
-        Autotuner.MANAGER_PACKAGE +
-            "ConfigProvider<" +
-            tuner.algorithmType +
-            ">",
+        `${Autotuner.MANAGER_PACKAGE}ConfigProvider<${tuner.algorithmType}>`,
         "configurationProvider",
         [],
         [],
@@ -462,25 +448,16 @@ export function GenerateTuner(tuner: AutotunerBuilder) {
 
     $autotuner.newMethod(
         ["protected"],
-        "java.util.function.BiFunction<" +
-            tuner.datasetType +
-            "," +
-            tuner.datasetType +
-            ",java.lang.Double>",
+        `java.util.function.BiFunction<${tuner.datasetType},${tuner.datasetType},java.lang.Double>`,
         "distanceProvider",
         [],
         [],
         `{return ${tuner.distanceMethod};`
     );
 
-    const algProviderType =
-        Algorithm.PROVIDER_PACKAGE +
-        "AlgorithmProvider<" +
-        tuner.algorithmType +
-        ">";
     $autotuner.newMethod(
         ["protected"],
-        "java.util.List<" + algProviderType + ">",
+        `java.util.List<${Algorithm.PROVIDER_PACKAGE}AlgorithmProvider<${tuner.algorithmType}>>`,
         "getAlgorithms",
         [],
         [],
