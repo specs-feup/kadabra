@@ -27,6 +27,7 @@ export class SimpleAlgorithm extends Algorithm {
         }
         this.id = id ?? this.lambda;
     }
+
     getAlgorithm(): string {
         return (
             "new " +
@@ -68,6 +69,7 @@ export class AlgorithmWithKnob extends Algorithm {
         this.knobConsumer = knobConsumer;
         this.configSupplier = configSupplier;
     }
+
     getAlgorithm(): string {
         return (
             "new " +
@@ -84,8 +86,10 @@ export class AlgorithmWithKnob extends Algorithm {
         );
     }
 }
+
 export class AdaptiveAlgorithm extends Algorithm {
-    provider: string | undefined = undefined;
+    provider: string;
+
     constructor(
         id: string,
         $targetMethod: Method,
@@ -95,22 +99,24 @@ export class AdaptiveAlgorithm extends Algorithm {
         super();
         const getter = getMethod(templateName);
 
-        if (getter instanceof Method) {
-            const $templateMethod = getter;
-            const adapter = TransformMethod($targetMethod, $templateMethod);
-            const field = adapter.addField(undefined, id, true);
-
-            this.lambda = `k-> {${field.adapt("k")} return ${
-                $targetMethod.toQualifiedReference
-            };}`;
-            this.id = id;
-            this.provider = provider;
-        } else {
+        if (!(getter instanceof Method)) {
             throw new Error(
                 "[AdaptiveAlgorithm] Multiple methods or undefined method"
             );
         }
+
+        const $templateMethod = getter;
+        const adapter = TransformMethod($targetMethod, $templateMethod);
+        const field = adapter.addField(undefined, id, true);
+
+        this.lambda = `k-> {${field.adapt("k")} return ${
+            $targetMethod.toQualifiedReference
+        };}`;
+
+        this.id = id;
+        this.provider = provider;
     }
+
     getAlgorithm() {
         return (
             "new " +
@@ -127,17 +133,18 @@ export class AdaptiveAlgorithm extends Algorithm {
 }
 
 export class GenerativeAlgorithm extends Algorithm {
-    provider: string | undefined = undefined;
-    extraArg: string[] | undefined = undefined;
+    provider: string;
+    extraArg: string;
     providerType: string | undefined = undefined;
     $interface: Method;
+
     constructor(
         id: string,
         $interface: Method,
         templateName: string,
         provider: string,
         providerType: string,
-        extraArg: string[]
+        extraArg: string
     ) {
         super();
         const getter = getMethod(templateName);
@@ -147,12 +154,9 @@ export class GenerativeAlgorithm extends Algorithm {
             const adapter = FunctionGenerator($templateMethod, $interface);
 
             if (extraArg) {
-                this.lambda = `k-> ${adapter.generateQualified([
-                    ["k"],
-                    extraArg,
-                ])}`;
+                this.lambda = `k-> ${adapter.generateQualified("k", extraArg)}`;
             } else {
-                this.lambda = `k-> ${adapter.generateQualified([["k"]])}`;
+                this.lambda = `k-> ${adapter.generateQualified("k")}`;
             }
             this.id = id;
             this.provider = provider;
@@ -174,9 +178,10 @@ export class GenerativeAlgorithm extends Algorithm {
             throw new Error("[AdaptiveAlgorithm] Undefined method");
         }
     }
+
     getAlgorithm(): string {
         let genericType = "";
-        if (this.providerType != undefined) {
+        if (this.providerType !== undefined) {
             const interfType = (
                 this.$interface.getAncestor("interface") as Type
             ).qualifiedName;
