@@ -195,12 +195,14 @@ export class AutotunerClass {
         this.measurer = builder.measurer;
     }
 
-    newInstance($targetField: Joinpoint, numWarmup: number, numRuns: number) {
-        if (!($targetField instanceof Field))
-            throw new Error(
-                "[AutotunerClass - newInstance] $targetField not type Field"
-            );
-        const $targetClass = $targetField.getAncestor("class") as Class;
+    newInstance($targetField: Field, numWarmup: number, numRuns: number) {
+        const $targetClass = $targetField.getAncestor("class") as
+            | Class
+            | undefined;
+        if ($targetClass === undefined) {
+            throw new Error("No class found for the given field.");
+        }
+
         const autotuner = new Autotuner(
             this,
             $targetField,
@@ -208,6 +210,7 @@ export class AutotunerClass {
             numWarmup,
             numRuns
         );
+
         return autotuner;
     }
 }
