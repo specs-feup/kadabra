@@ -1,4 +1,4 @@
-import { Method, Type } from "../../Joinpoints.js";
+import { InterfaceType, Method } from "../../Joinpoints.js";
 import { getMethod } from "../Utils.js";
 import { FunctionGenerator, TransformMethod } from "./Adapter.js";
 
@@ -182,10 +182,15 @@ export class GenerativeAlgorithm extends Algorithm {
     getAlgorithm(): string {
         let genericType = "";
         if (this.providerType !== undefined) {
-            const interfType = (
-                this.$interface.getAncestor("interface") as Type
-            ).qualifiedName;
-            genericType = interfType + "," + this.providerType;
+            const ancestor = this.$interface.getAncestor("interface") as
+                | InterfaceType
+                | undefined;
+
+            if (ancestor === undefined) {
+                throw new Error("No interface found for the given method.");
+            }
+
+            genericType = ancestor.qualifiedName + "," + this.providerType;
         }
         return (
             "new " +
