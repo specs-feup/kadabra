@@ -220,17 +220,22 @@ export class AutotunerClass {
  */
 export class AutotunerBuilder {
     name: string;
-    datasetType: any;
-    algorithmType: string | undefined;
-    measurementType: any;
-    algorithms: any;
-    default: any;
+    datasetType: string;
+    algorithmType: string;
+    measurementType: string;
+    algorithms: Algorithm[];
+    default: SimpleAlgorithm | null;
     package: string | undefined;
-    distanceMethod: any;
+    distanceMethod: string | null;
     measurer: Measurer | undefined;
     configuration: string | undefined;
 
-    constructor(name: string, datasetType, algorithmType, measurementType) {
+    constructor(
+        name: string,
+        datasetType: string,
+        algorithmType: string,
+        measurementType: string
+    ) {
         this.name = name;
         this.datasetType = datasetType;
         this.algorithmType = algorithmType;
@@ -242,43 +247,54 @@ export class AutotunerBuilder {
         this.distanceMethod = null;
     }
 
-    generate(packageName: string = "kadabra.autotuner"): AutotunerClass {
+    generate(packageName = "kadabra.autotuner"): AutotunerClass {
         this.package = packageName;
         const $autotuner = GenerateTuner(this);
-        //Confirm This
-        if ($autotuner instanceof Class) {
-            const autotunerClass = new AutotunerClass($autotuner, this);
-            return autotunerClass;
-        } else {
-            throw new Error("[generate] generator is undefined");
-        }
+
+        return new AutotunerClass($autotuner, this);
     }
+
+    /**
+     * Adds a simple algorithm
+     */
     addAlgorithm(
-        /*Code | SimpleAlgorithm | AlgorithmWithKnob*/ algorithm:
-            | string
-            | Algorithm,
-        id: string | undefined
+        algorithm: string | Method | SimpleAlgorithm | AlgorithmWithKnob,
+        id?: string
     ) {
-        if (
-            algorithm instanceof SimpleAlgorithm ||
-            algorithm instanceof AlgorithmWithKnob
-        ) {
-            return this.pushAlgorithm(algorithm);
-        } else if (typeof algorithm == "string") {
-            //Will assume native code "lambda"
-            return this.pushAlgorithm(new SimpleAlgorithm(algorithm, id));
-        } else {
+        if (id === undefined) {
+            if (
+                algorithm instanceof SimpleAlgorithm ||
+                algorithm instanceof AlgorithmWithKnob
+            ) {
+                return this.pushAlgorithm(algorithm);
+            } else if (typeof algorithm == "string") {
+                //Will assume native code "lambda"
+                return this.pushAlgorithm(new SimpleAlgorithm(algorithm));
+            } else {
+                throw new Error(
+                    "adding an algorithm without id assumes the first argument as a SimpleAlgorithm or AlgorithmWithKnob, however, " +
+                        typeof algorithm +
+                        " was given"
+                );
+            }
+        }
+
+        if (typeof algorithm != "string" && !(algorithm instanceof Method)) {
             throw new Error(
-                "adding an algorithm without id assumes the first argument as a SimpleAlgorithm or AlgorithmWithKnob, however, " +
-                    typeof algorithm +
-                    " was given"
+                `Expected algorithm to be of type string or Method but was ${typeof algorithm}.`
             );
         }
+
+        return this.pushAlgorithm(new SimpleAlgorithm(algorithm, id));
     }
+
+    /**
+     * Adds an algorithm containing a knob
+     */
     addAlgorithmWithKnob(
-        /*Code */ algorithm: string,
+        algorithm: string,
         id: string,
-        /* Configuration */ configuration: Configuration
+        configuration: Configuration
     ) {
         return this.pushAlgorithm(
             new AlgorithmWithKnob(
@@ -300,12 +316,13 @@ export class AutotunerBuilder {
             new AdaptiveAlgorithm(id, targetMethod, templateName, provider)
         );
     }
+
     addGenerativeAlg(
         id: string,
         $interface: Method,
         templateName: string,
         provider: string,
-        providerType: any,
+        providerType: string,
         extraArg: string
     ) {
         return this.pushAlgorithm(
@@ -320,28 +337,36 @@ export class AutotunerBuilder {
         );
     }
 
-    pushAlgorithm(algorithm: any) {
+    pushAlgorithm(algorithm: Algorithm) {
         this.algorithms.push(algorithm);
         return this;
     }
+
+    /**
+     * Set the algorithms sampling in a random order
+     */
     randomSampling() {
         this.configuration = Configs.order.random;
         return this;
     }
+
+    /**
+     * Set the algorithms sampling in the order they are defined
+     */
     normalSampling() {
         this.configuration = Configs.order.normal;
         return this;
     }
+
+    /**
+     * Define the code that provides a new algorithm measurer (e.g. weaver.kadabra.control...measurers.AvgLongMeasurer )
+     */
     setMeasurer(measurer: Measurer) {
-        if (!(measurer instanceof Measurer)) {
-            throw new Error(
-                "The measurer for the autotuner must be of class Measurer from the import: kadabra.adapt.Measurers"
-            );
-        }
         this.measurer = measurer;
         return this;
     }
 }
+
 export function GenerateTuner(tuner: AutotunerBuilder) {
     const $app = Query.root() as App;
     let className = tuner.name;
@@ -397,7 +422,7 @@ export function GenerateTuner(tuner: AutotunerBuilder) {
     );
     let defaultCode = null;
 
-    if (tuner.default != null) {
+    if (tuner.default !== null) {
         defaultCode = tuner.default.instance();
     }
 
@@ -468,7 +493,8 @@ export function GenerateTuner(tuner: AutotunerBuilder) {
 export function InitCode(algProvidersCode: string) {
     return `
      algListProvider = new AlgorithmListProvider<>();
-     ${algProvidersCode}`;
+     ${algProvidersCode}
+     `;
 }
 
 export function ReplaceMethodCode($method: Constructor, code: string) {
