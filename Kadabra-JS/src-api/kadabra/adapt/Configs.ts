@@ -3,6 +3,7 @@
 
 import { Field } from "../../Joinpoints.js";
 import { primitive2Class } from "../Utils.js";
+import { object2string } from "@specs-feup/lara/api/core/output.js";
 
 ///////////////////////////////////////////////////
 export class Configs {
@@ -25,7 +26,9 @@ export class Configs {
 
     static combine(knobs: Field | Field[], values: string[][], type: string) {
         if (!Array.isArray(values) || values.length < 2) {
-            throw "At least two values must be provided to combine values";
+            throw new Error(
+                "At least two values must be provided to combine values"
+            );
         }
         const args = values.map((arg) => {
             return "java.util.Arrays.asList(" + arg.join(",") + ")";
@@ -77,6 +80,7 @@ export class Configuration {
     applier: string;
     configCode: string;
     type: string;
+
     constructor(knobs: Field | Field[], configCode: string, type: string) {
         if (Array.isArray(knobs)) {
             let applierCode = "(knobs) -> {\n";
@@ -98,6 +102,7 @@ export class Configuration {
         this.type = type;
         this.configCode = configCode;
     }
+
     declare(name: string) {
         return (
             Configs.PACKAGE +
@@ -109,6 +114,7 @@ export class Configuration {
             this.get()
         );
     }
+
     declareProvider(name: string) {
         return (
             "java.util.function.Supplier< " +
@@ -121,12 +127,15 @@ export class Configuration {
             this.provider()
         );
     }
+
     provider() {
         return "()-> " + this.configCode;
     }
+
     get() {
         return this.configCode;
     }
+
     toString() {
         return this.get();
     }
@@ -144,10 +153,10 @@ function list2Config(
     type: string
 ) {
     if (values.length == 0) {
-        throw (
+        throw new Error(
             "At least one value must be provided to create a " +
-            constructor +
-            " configuration"
+                constructor +
+                " configuration"
         );
     }
 
@@ -158,7 +167,7 @@ function list2Config(
             type
         );
     }
-    //	return  new Configuration(knobs, Configs.FACTORY+'.'+constructor+'(java.util.Arrays.asList('+values.join(',')+'))',type);
+
     return new Configuration(
         knobs,
         Configs.FACTORY + "." + constructor + "(" + values.join(",") + ")",
@@ -182,10 +191,10 @@ export function rangedConfig(
     let args;
     if (Array.isArray(ranges)) {
         if (ranges.length == 0) {
-            throw (
+            throw new Error(
                 "At least one value must be provided to create a(n) " +
-                type +
-                " configuration"
+                    type +
+                    " configuration"
             );
         }
 
@@ -193,16 +202,16 @@ export function rangedConfig(
             if (range.instance !== undefined) {
                 return range.instance();
             }
-            throw (
+            throw new Error(
                 "when defining a ranged configuration: one of the given arguments is not a RangedKnob: " +
-                range
+                    object2string(range)
             );
         });
     } else {
         if (ranges.instance === undefined) {
             throw new Error(
                 "when defining a ranged configuration: one of the given arguments is not a RangedKnob: " +
-                    ranges
+                    object2string(ranges)
             );
         }
         args = [ranges.instance()];
@@ -218,15 +227,16 @@ export class PrimitiveRange {
     lowerLimit: number;
     upperLimit: number;
     step: number | undefined;
-    value: number;
+    value: number | undefined;
     descend: number | undefined;
     ascend: number | undefined;
+
     constructor(
         type: string,
         lowerLimit: number,
         upperLimit: number,
         step: number = 1,
-        value: number
+        value?: number
     ) {
         this.type = primitive2Class(type);
         this.lowerLimit = lowerLimit;
@@ -236,20 +246,24 @@ export class PrimitiveRange {
         this.descend = undefined;
         this.ascend = undefined;
     }
+
     setClimbers(descend: number, ascend: number) {
         this.descend = descend;
         this.ascend = ascend;
         this.step = undefined;
         return this;
     }
+
     initValue(value: number) {
         this.value = value;
         return this;
     }
+
     toConfig() {
         const instanceCode = this.instance();
         return Configs.FACTORY + ".range(" + instanceCode + ")";
     }
+
     instance() {
         if (this.ascend != undefined) {
             let newKnob =
@@ -262,7 +276,7 @@ export class PrimitiveRange {
                 "," +
                 this.upperLimit +
                 ",";
-            if (this.value != undefined) {
+            if (this.value !== undefined) {
                 newKnob += this.value + ",";
             }
             return newKnob + this.descend + "," + this.ascend + ")";
@@ -277,11 +291,12 @@ export class PrimitiveRange {
             "," +
             this.upperLimit +
             ",";
-        if (this.value != undefined) {
+        if (this.value !== undefined) {
             newKnob += this.value + ",";
         }
         return newKnob + this.step + ")";
     }
+
     declare(name: string) {
         return (
             Configs.RANGED +
@@ -294,6 +309,7 @@ export class PrimitiveRange {
         );
     }
 }
+
 export class IntegerRange extends PrimitiveRange {
     constructor(
         lowerLimit: number,
