@@ -21,7 +21,7 @@ export class Measurer {
         this.newMeasurerCode = newMeasurerCode;
         this.type = type;
     }
-    static classOf(generic: string) {
+    static classOf(generic?: string) {
         if (generic === undefined) {
             return Measurer.PACKAGE + "Measurer";
         }

@@ -225,13 +225,13 @@ export class PrimitiveRange {
         type: string,
         lowerLimit: number,
         upperLimit: number,
-        step: number,
+        step: number = 1,
         value: number
     ) {
         this.type = primitive2Class(type);
         this.lowerLimit = lowerLimit;
         this.upperLimit = upperLimit;
-        this.step = step || 1;
+        this.step = step;
         this.value = value;
         this.descend = undefined;
         this.ascend = undefined;

@@ -191,16 +191,15 @@ export function TransformMethod(
     if ($adaptClass != undefined) {
         //this method returns information regarding the field and class, as well as the methods that can be invoked in the field
         const addField = (
-            $class: Class | undefined,
+            $class: Class = $adaptClass,
             name: string,
-            init?: boolean
+            init: boolean = false
         ) => {
-            $class ??= $adaptClass;
             const fieldName =
                 name ||
                 $adaptClass.name.charAt(0).toLowerCase() +
                     $adaptClass.name.substring(1);
-            init ??= false;
+
             const $newField = $class.newField(
                 ["public", "static"],
                 $adaptClass.qualifiedName,
