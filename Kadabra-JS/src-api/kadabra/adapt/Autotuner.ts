@@ -29,7 +29,7 @@ import { Configs, Configuration, PrimitiveRange } from "./Configs.js";
  */
 export class Autotuner {
     name: string;
-    $targetField: Field;
+    $targetField: Field | undefined;
     $classContainer: Class;
     autotunerClass: AutotunerClass;
     autotunerType: string;
@@ -45,7 +45,7 @@ export class Autotuner {
 
     constructor(
         autotunerClass: AutotunerClass,
-        $targetField: Field,
+        $targetField: Field | undefined,
         $classContainer: Class | undefined,
         numWarmup: number,
         numRuns: number
@@ -97,6 +97,10 @@ export class Autotuner {
     }
 
     updateBefore(key: string, $stmt: Statement) {
+        if (this.$targetField === undefined) {
+            throw new Error("Expected $targetField to be defined.");
+        }
+
         $stmt.insertBefore(`
             ${this.getAlgorithmType()} algorithm = ${this.getAlgorithm(key)};
             ${this.$targetField} = algorithm.applyAndGet();
@@ -106,6 +110,10 @@ export class Autotuner {
     }
 
     updateAfter(key: string, $stmt: Statement) {
+        if (this.$targetField === undefined) {
+            throw new Error("Expected $targetField to be defined.");
+        }
+
         $stmt.insertAfter(`
             ${Autotuner.MANAGER_PACKAGE}AlgorithmSampling<${this.autotunerClass.builder.algorithmType},${this.autotunerClass.builder.measurementType}> algorithm =
                 ${this.$tuner}.getAlgorithm(${key});
@@ -195,7 +203,13 @@ export class AutotunerClass {
         this.measurer = builder.measurer;
     }
 
-    newInstance($targetField: Field, numWarmup: number, numRuns: number) {
+    newInstance($targetField: Joinpoint, numWarmup: number, numRuns: number) {
+        if (!($targetField instanceof Field)) {
+            throw new Error(
+                "[AutotunerClass - newInstance] $targetField not type Field"
+            );
+        }
+
         const $targetClass = $targetField.getAncestor("class") as
             | Class
             | undefined;
@@ -784,10 +798,12 @@ export class ControlPointClass extends AutotunerClass {
         numWarmup: number,
         numRuns: number
     ): Autotuner {
-        if (!($targetClass instanceof Class))
+        if (!($targetClass instanceof Class)) {
             throw new Error(
                 "[ControlPointClass - newInstance] $targetClass not of type Class"
             );
+        }
+
         return new ControlPoint(this, $targetClass, numWarmup, numRuns);
     }
 }
