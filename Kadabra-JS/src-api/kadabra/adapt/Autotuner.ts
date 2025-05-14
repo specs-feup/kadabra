@@ -5,12 +5,9 @@
 import Query from "@specs-feup/lara/api/weaver/Query.js";
 import {
     App,
-    Body,
     Class,
     Constructor,
     Field,
-    FileJp,
-    InterfaceType,
     Joinpoint,
     Method,
     Statement,
@@ -23,7 +20,6 @@ import {
     GenerativeAlgorithm,
     SimpleAlgorithm,
 } from "./Algorithm.js";
-import JoinPoints from "@specs-feup/lara/api/weaver/JoinPoints.js";
 import { Measurer } from "./Measurers.js";
 import { primitive2Class } from "../Utils.js";
 import { Configs, Configuration, PrimitiveRange } from "./Configs.js";
@@ -33,6 +29,7 @@ export function measurerProvider(autotuner: Autotuner, ref: string) {
         autotuner.measureWithVar(ref, $stmt, $stmtEnd);
     return measurer;
 }
+
 /**
  * Class defining the instance of an autotuner
  */
@@ -125,14 +122,18 @@ export class Autotuner {
         return measurerProvider(this, "algorithm");
     }
 
-    measure(key: string, $stmt: Statement, $stmtEnd?: Statement): void {
-        $stmtEnd ??= $stmt;
+    measure(key: string, $stmt: Statement, $stmtEnd: Statement = $stmt): void {
+        if (this.autotunerClass.measurer === undefined) {
+            throw new Error("Expected autotunerClass.measurer to be defined.");
+        }
+
         $stmt.insert(
             "before",
             `
             ${this.autotunerClass.measurer.beginMeasure}
         `
         );
+
         $stmtEnd.insert(
             "after",
             `
@@ -145,15 +146,19 @@ export class Autotuner {
     measureWithVar(
         varName: string,
         $stmt: Statement,
-        $stmtEnd: Statement
+        $stmtEnd: Statement = $stmt
     ): void {
-        $stmtEnd ??= $stmt;
+        if (this.autotunerClass.measurer === undefined) {
+            throw new Error("Expected autotunerClass.measurer to be defined.");
+        }
+
         $stmt.insert(
             "before",
             `
             ${this.autotunerClass.measurer.beginMeasure}
         `
         );
+
         $stmtEnd.insert(
             "after",
             `
@@ -162,11 +167,13 @@ export class Autotuner {
         `
         );
     }
+
     updateAndMeasure(key: string, $stmt: Statement, $stmtEnd: Statement) {
         const measurer = this.updateBefore(key, $stmt);
         measurer($stmt, $stmtEnd);
         return this;
     }
+
     inBestMode(key: string): string {
         return `${this.$tuner}.inBestMode(${key})`;
     }
@@ -182,12 +189,14 @@ export class Autotuner {
 export class AutotunerClass {
     $class: Class;
     builder: AutotunerBuilder;
-    measurer: any;
+    measurer: Measurer | undefined;
+
     constructor($class: Class, builder: AutotunerBuilder) {
         this.$class = $class;
         this.builder = builder;
         this.measurer = builder.measurer;
     }
+
     newInstance($targetField: Joinpoint, numWarmup: number, numRuns: number) {
         if (!($targetField instanceof Field))
             throw new Error(
@@ -211,11 +220,11 @@ export class AutotunerClass {
 export class AutotunerBuilder {
     name: string;
     datasetType: any;
-    algorithmType: any;
+    algorithmType: string | undefined;
     measurementType: any;
     algorithms: any;
     default: any;
-    package: string | undefined = undefined;
+    package: string | undefined;
     distanceMethod: any;
     measurer: Measurer | undefined;
     configuration: string | undefined;
@@ -232,8 +241,8 @@ export class AutotunerBuilder {
         this.distanceMethod = null;
     }
 
-    generate(package: string = "kadabra.autotuner"): AutotunerClass {
-        this.package = package;
+    generate(packageName: string = "kadabra.autotuner"): AutotunerClass {
+        this.package = packageName;
         const $autotuner = GenerateTuner(this);
         //Confirm This
         if ($autotuner instanceof Class) {
@@ -258,10 +267,10 @@ export class AutotunerBuilder {
             //Will assume native code "lambda"
             return this.pushAlgorithm(new SimpleAlgorithm(algorithm, id));
         } else {
-            throw (
+            throw new Error(
                 "adding an algorithm without id assumes the first argument as a SimpleAlgorithm or AlgorithmWithKnob, however, " +
-                typeof algorithm +
-                " was given"
+                    typeof algorithm +
+                    " was given"
             );
         }
     }
@@ -296,7 +305,7 @@ export class AutotunerBuilder {
         templateName: string,
         provider: string,
         providerType: any,
-        extraArg: string[][]
+        extraArg: string
     ) {
         return this.pushAlgorithm(
             new GenerativeAlgorithm(
@@ -324,7 +333,9 @@ export class AutotunerBuilder {
     }
     setMeasurer(measurer: Measurer) {
         if (!(measurer instanceof Measurer)) {
-            throw "The measurer for the autotuner must be of class Measurer from the import: kadabra.adapt.Measurers";
+            throw new Error(
+                "The measurer for the autotuner must be of class Measurer from the import: kadabra.adapt.Measurers"
+            );
         }
         this.measurer = measurer;
         return this;
@@ -354,12 +365,7 @@ export function GenerateTuner(tuner: AutotunerBuilder) {
         "AlgorithmListProvider<" +
         tuner.algorithmType +
         ">";
-    $autotuner.newField(
-        ["private"],
-        algListProviderType,
-        "algListProvider",
-        undefined
-    );
+    $autotuner.newField(["private"], algListProviderType, "algListProvider");
     const $constr = $autotuner.newConstructor(
         ["public"],
         ["int", "warmup"],
@@ -403,6 +409,10 @@ export function GenerateTuner(tuner: AutotunerBuilder) {
         `return ${defaultCode};`
     );
 
+    if (tuner.measurer === undefined) {
+        throw new Error("Expected AutotunerBuilder.measurer");
+    }
+
     $autotuner.newMethod(
         ["protected"],
         "java.util.function.Supplier<" + tuner.measurer.qualifiedType() + ">",
@@ -411,6 +421,7 @@ export function GenerateTuner(tuner: AutotunerBuilder) {
         [],
         `return ${tuner.measurer.getProvider()};`
     );
+
     $autotuner.newMethod(
         ["protected"],
         Autotuner.MANAGER_PACKAGE +
@@ -422,6 +433,7 @@ export function GenerateTuner(tuner: AutotunerBuilder) {
         [],
         `return ${tuner.configuration};`
     );
+
     $autotuner.newMethod(
         ["protected"],
         "java.util.function.BiFunction<" +
@@ -475,7 +487,7 @@ export function ReplaceMethodCode($method: Constructor, code: string) {
 export class ControlPointBuilder extends AutotunerBuilder {
     knobs: Field | Field[];
     knobType: string;
-    config: Configuration | Algorithm | undefined;
+    config: Configuration | undefined;
     configId: string | undefined;
     default: string | null = null;
     package: string = "kadabra.autotuner";
@@ -488,12 +500,12 @@ export class ControlPointBuilder extends AutotunerBuilder {
         knobs: Field | Field[],
         measurementType: any
     ) {
-        super(name, datasetType, AlgorithmTypeVRR, measurementType);
+        super(name, datasetType, undefined, measurementType);
         this.knobs = knobs;
         this.knobType = getKnobType(knobs);
     }
-    generate(package: string = "kadabra.autotuner"): AutotunerClass {
-        this.package = package;
+    generate(packageName: string = "kadabra.autotuner"): AutotunerClass {
+        this.package = packageName;
         const $autotuner = GenerateKnobTuner(this);
         //TODO
         return new ControlPointClass($autotuner, this);
@@ -512,34 +524,41 @@ export class ControlPointBuilder extends AutotunerBuilder {
     /**
      * Adds a simple algorithm
      */
-    setConfig(config: Configuration | Algorithm, id: string) {
+    setConfig(config: Configuration, id: string) {
         this.config = config;
         this.configId = id || this.configId;
         return this;
     }
 
-    withConfig(configFunction, ranges, id) {
-        this.setConfig(configFunction(this.knobs, ranges), id || "user_config");
+    withConfig(
+        configFunction: (
+            knobs: Field | Field[],
+            ranges: PrimitiveRange | PrimitiveRange[]
+        ) => Configuration,
+        ranges: PrimitiveRange | PrimitiveRange[],
+        id = "user_config"
+    ) {
+        this.setConfig(configFunction(this.knobs, ranges), id);
         return this;
     }
 
-    around(ranges: PrimitiveRange | PrimitiveRange[], id: string = "around") {
+    around(ranges: PrimitiveRange | PrimitiveRange[], id = "around") {
         this.setConfig(Configs.around(this.knobs, ranges), id);
         return this;
     }
 
-    range(ranges, id) {
-        this.setConfig(Configs.range(this.knobs, ranges), id || "range");
+    range(ranges: PrimitiveRange | PrimitiveRange[], id = "range") {
+        this.setConfig(Configs.range(this.knobs, ranges), id);
         return this;
     }
 
-    linear(ranges, id) {
-        this.setConfig(Configs.linear(this.knobs, ranges), id || "linear");
+    linear(ranges: PrimitiveRange | PrimitiveRange[], id = "linear") {
+        this.setConfig(Configs.linear(this.knobs, ranges), id);
         return this;
     }
 
-    random(ranges, id) {
-        this.setConfig(Configs.randomOf(this.knobs, ranges), id || "random");
+    random(ranges: PrimitiveRange | PrimitiveRange[], id = "random") {
+        this.setConfig(Configs.randomOf(this.knobs, ranges), id);
         return this;
     }
 
@@ -609,7 +628,8 @@ export function GenerateKnobTuner(tuner: ControlPointBuilder) {
     const $autotuner = app.newClass(className, expType, []);
     const $constr = $autotuner.newConstructor(
         ["public"],
-        [new Pair("int", "warmup"), new Pair("int", "samples")]
+        ["int", "int"],
+        ["warmup", "samples"]
     );
     ReplaceMethodCode(
         $constr,
@@ -631,6 +651,10 @@ export function GenerateKnobTuner(tuner: ControlPointBuilder) {
         [],
         `return ${defaultCode};`
     );
+
+    if (tuner.measurer === undefined) {
+        throw new Error("Expected AutotunerBuilder.measurer");
+    }
 
     $autotuner.newMethod(
         ["protected"],
@@ -655,20 +679,24 @@ export function GenerateKnobTuner(tuner: ControlPointBuilder) {
     );
 
     const knobProviderType = "KnobProvider<" + tuner.knobType + ">";
-    const id = tuner.configId || '"config"';
+    const id = tuner.configId ?? '"config"';
+
+    let code = "(tuple) -> {";
     if (tuner.applyKnob == undefined) {
-        var code = "(tuple) -> {";
-        var pos = 0;
         const knobs = tuner.knobs;
         if (!Array.isArray(knobs))
             throw new Error("[GenerateKnobTuner] knobs is not an array");
-        for (var pos = 0; pos < knobs.length; pos++) {
+        for (let pos = 0; pos < knobs.length; pos++) {
             code +=
                 knobs[pos].staticAccess + " = tuple.getValue" + pos + "(); ";
         }
         code += "}";
     } else {
         code = tuner.applyKnob;
+    }
+
+    if (tuner.config === undefined) {
+        throw new Error("Expected AutotunerBuilder.measurer");
     }
 
     $autotuner.newMethod(
@@ -697,18 +725,22 @@ export function GenerateKnobTuner(tuner: ControlPointBuilder) {
  * Class defining the instance of an autotuner
  */
 export class ControlPoint extends Autotuner {
+    autotunerClass: ControlPointClass;
+
     constructor(
         autotunerClass: ControlPointClass,
-        $classContainer?: Class,
+        $classContainer: Class | undefined,
         numWarmup: number,
         numRuns: number
     ) {
         super(autotunerClass, undefined, $classContainer, numWarmup, numRuns);
+        this.autotunerClass = autotunerClass;
     }
 
     getKnobType() {
         return `${Autotuner.KNOB_MANAGER_PACKAGE}KnobSampling<${this.autotunerClass.builder.knobType},${this.autotunerClass.builder.measurementType}>`;
     }
+
     getKnob(key: string) {
         return `${this.$tuner}.getKnob(${key})`;
     }
@@ -722,7 +754,6 @@ export class ControlPoint extends Autotuner {
     `
         );
 
-        //return "algorithm";
         return measurerProvider(this, "knob");
     }
 
@@ -743,6 +774,13 @@ export class ControlPoint extends Autotuner {
  * Class defining the class of an autotuner
  */
 export class ControlPointClass extends AutotunerClass {
+    builder: ControlPointBuilder;
+
+    constructor($class: Class, builder: ControlPointBuilder) {
+        super($class, builder);
+        this.builder = builder;
+    }
+
     newInstance(
         $targetClass: Joinpoint,
         numWarmup: number,
