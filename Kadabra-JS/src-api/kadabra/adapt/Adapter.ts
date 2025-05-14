@@ -4,9 +4,9 @@ import { getOrNewClass } from "../Factory.js";
 
 export function CreateClassGenerator(
     adapterMethod: string,
-    adapterClass: string,
     $interfaceMethod: Method,
-    $storingClass: Class
+    adapterClass: string = ".*",
+    $storingClass?: Class
 ) {
     let $adaptMethod: Method | undefined;
     let generate: ((...args: string[]) => string) | undefined;
@@ -95,9 +95,9 @@ export function FunctionGenerator(
 export function CreateAdapter(
     target: string,
     adapter: string,
-    targetClass: string,
-    adapterClass: string,
-    name: string
+    name: string,
+    targetClass: string = ".*",
+    adapterClass: string = ".*"
 ) {
     let $adaptClass: Class | undefined;
     let addField;
@@ -161,7 +161,7 @@ export function TransformMethod(
         $adaptClass = $class;
     }
 
-    if ($adaptClass == undefined) {
+    if ($adaptClass === undefined) {
         try {
             $adaptClass = $target.createAdapter($adaptMethod, name);
         } catch (e) {
@@ -169,48 +169,48 @@ export function TransformMethod(
         }
     }
 
-    if ($adaptClass != undefined) {
-        //this method returns information regarding the field and class, as well as the methods that can be invoked in the field
-        const addField = (
-            $class: Class = $adaptClass,
-            fieldName: string = $adaptClass.name.charAt(0).toLowerCase() +
-                $adaptClass.name.substring(1),
-            init: boolean = false
-        ) => {
-            const $newField = $class.newField(
-                ["public", "static"],
-                $adaptClass.qualifiedName,
-                fieldName,
-                "new " + $adaptClass.name + "()"
-            );
+    if ($adaptClass === undefined) {
+        throw new Error("[TransformMethod] couldn't create $adaptClass");
+    }
 
-            const field = {
-                name: fieldName,
-                $field: $newField,
-                addAdapter:
-                    "weaver.kadabra.agent.AgentUtils.addAdapter(" +
-                    fieldName +
-                    ");",
-                adapt: (...args: string[]) => {
-                    let invoke = $newField.staticAccess + ".adapt(";
-                    const _args = args.slice();
-                    invoke += _args.join(", ");
-                    invoke += ");";
-                    return invoke;
-                },
-            };
+    //this method returns information regarding the field and class, as well as the methods that can be invoked in the field
+    const addField = (
+        $class: Class = $adaptClass,
+        fieldName: string = $adaptClass.name.charAt(0).toLowerCase() +
+            $adaptClass.name.substring(1),
+        init: boolean = false
+    ) => {
+        const $newField = $class.newField(
+            ["public", "static"],
+            $adaptClass.qualifiedName,
+            fieldName,
+            "new " + $adaptClass.name + "()"
+        );
 
-            if (init) {
-                $class.insertStatic(`${field.addAdapter}`);
-            }
-
-            return field;
+        const field = {
+            name: fieldName,
+            $field: $newField,
+            addAdapter:
+                "weaver.kadabra.agent.AgentUtils.addAdapter(" +
+                fieldName +
+                ");",
+            adapt: (...args: string[]) => {
+                let invoke = $newField.staticAccess + ".adapt(";
+                const _args = args.slice();
+                invoke += _args.join(", ");
+                invoke += ");";
+                return invoke;
+            },
         };
 
-        return { $adaptClass: $adaptClass, addField: addField };
-    } else {
-        throw new Error("[TransformMethod] cant create $adaptClass");
-    }
+        if (init) {
+            $class.insertStatic(`${field.addAdapter}`);
+        }
+
+        return field;
+    };
+
+    return { $adaptClass: $adaptClass, addField: addField };
 }
 
 function defaultTransformMethodName($target: Method, $adaptMethod: Method) {
