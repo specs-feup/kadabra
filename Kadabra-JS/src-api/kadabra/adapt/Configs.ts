@@ -207,21 +207,9 @@ export function rangedConfig(
         }
 
         args = ranges.map(function (range) {
-            if (range.instance !== undefined) {
-                return range.instance();
-            }
-            throw new Error(
-                "when defining a ranged configuration: one of the given arguments is not a RangedKnob: " +
-                    object2string(range)
-            );
+            return range.instance();
         });
     } else {
-        if (ranges.instance === undefined) {
-            throw new Error(
-                "when defining a ranged configuration: one of the given arguments is not a RangedKnob: " +
-                    object2string(ranges)
-            );
-        }
         args = [ranges.instance()];
     }
     return list2Config(knobs, "", args, acceptsSingle, type);
@@ -236,8 +224,8 @@ export class PrimitiveRange {
     upperLimit: number;
     step: number | undefined;
     value: number | undefined;
-    descend: number | undefined;
-    ascend: number | undefined;
+    descend: string | undefined;
+    ascend: string | undefined;
 
     constructor(
         type: string,
@@ -255,7 +243,7 @@ export class PrimitiveRange {
         this.ascend = undefined;
     }
 
-    setClimbers(descend: number, ascend: number) {
+    setClimbers(descend: string, ascend: string) {
         this.descend = descend;
         this.ascend = ascend;
         this.step = undefined;
@@ -301,6 +289,10 @@ export class PrimitiveRange {
             ",";
         if (this.value !== undefined) {
             newKnob += this.value + ",";
+        }
+
+        if (this.step === undefined) {
+            throw new Error("Expected step to be defined.");
         }
         return newKnob + this.step + ")";
     }
