@@ -1,7 +1,3 @@
-/******
- * Algorithms Autotuner
- *******/
-
 import Query from "@specs-feup/lara/api/weaver/Query.js";
 import {
     App,
@@ -24,22 +20,20 @@ import { Measurer } from "./Measurers.js";
 import { primitive2Class } from "../Utils.js";
 import { Configs, Configuration, PrimitiveRange } from "./Configs.js";
 
-export function measurerProvider(autotuner: Autotuner, ref: string) {
-    const measurer = ($stmt: Statement, $stmtEnd: Statement) =>
-        autotuner.measureWithVar(ref, $stmt, $stmtEnd);
-    return measurer;
-}
+/******
+ * Algorithms Autotuner
+ *******/
 
 /**
  * Class defining the instance of an autotuner
  */
 export class Autotuner {
     name: string;
-    $targetField: Field | undefined;
-    $classContainer: Class | undefined = undefined;
+    $targetField: Field;
+    $classContainer: Class;
     autotunerClass: AutotunerClass;
     autotunerType: string;
-    $tuner: Field | undefined = undefined;
+    $tuner: Field;
 
     /**
      * Static variables
@@ -51,73 +45,72 @@ export class Autotuner {
 
     constructor(
         autotunerClass: AutotunerClass,
-        $targetField: Field | undefined,
+        $targetField: Field,
         $classContainer: Class | undefined,
         numWarmup: number,
         numRuns: number
     ) {
         this.name = "tuner";
         this.$targetField = $targetField;
-        this.$classContainer = $classContainer;
+        this.$classContainer =
+            $classContainer ??
+            newClass(autotunerClass.$class.packageName + ".Autotuners");
         this.autotunerClass = autotunerClass;
         this.autotunerType = this.autotunerClass.$class.qualifiedName;
-        this.init(numWarmup, numRuns);
-    }
-    init(numWarmup: number, numRuns: number): void {
-        if (
-            this.$classContainer === undefined ||
-            this.$classContainer === null
-        ) {
-            const nc = newClass(
-                this.autotunerClass.$class.packageName + ".Autotuners"
-            );
-            this.$classContainer = nc;
-        }
 
+        this.$tuner = this.$classContainer.newField(
+            ["public", "static"],
+            this.autotunerType,
+            "tuner",
+            `new ${this.autotunerType}(${numWarmup},${numRuns})`
+        );
+    }
+
+    init(numWarmup: number, numRuns: number): void {
         this.newField(this.$classContainer, numWarmup, numRuns);
     }
+
     newField(
         $targetClass: Class,
         numWarmup: number,
         numRuns: number,
-        modifiers: string[] = ["public", "static"]
+        modifiers = ["public", "static"]
     ): void {
         this.$tuner = $targetClass.newField(
             modifiers,
             this.autotunerType,
             "tuner",
-            "new " + this.autotunerType + "(" + numWarmup + "," + numRuns + ")"
+            `new ${this.autotunerType}(${numWarmup},${numRuns})`
         );
     }
+
     getAlgorithmType(): string {
         return `${Autotuner.MANAGER_PACKAGE}AlgorithmSampling<${this.autotunerClass.builder.algorithmType},${this.autotunerClass.builder.measurementType}>`;
     }
+
     getAlgorithm(key: string) {
         return `${this.$tuner}.getAlgorithm(${key})`;
     }
+
     getBest(key: string) {
         return `${this.$tuner}.getBest(${key})`;
     }
-    updateBefore(key: string, $stmt: Statement): any {
-        $stmt.insert(
-            "before",
-            `
+
+    updateBefore(key: string, $stmt: Statement) {
+        $stmt.insertBefore(`
             ${this.getAlgorithmType()} algorithm = ${this.getAlgorithm(key)};
             ${this.$targetField} = algorithm.applyAndGet();
-        `
-        );
+        `);
 
         return measurerProvider(this, "algorithm");
     }
+
     updateAfter(key: string, $stmt: Statement) {
-        $stmt.insert(
-            "after",
-            `
+        $stmt.insertAfter(`
             ${Autotuner.MANAGER_PACKAGE}AlgorithmSampling<${this.autotunerClass.builder.algorithmType},${this.autotunerClass.builder.measurementType}> algorithm =
                 ${this.$tuner}.getAlgorithm(${key});
             ${this.$targetField} = algorithm.applyAndGet();
-        `
-        );
+        `);
 
         return measurerProvider(this, "algorithm");
     }
@@ -181,6 +174,11 @@ export class Autotuner {
     isSampling(key: string): string {
         return `${this.$tuner}.isSampling(${key})`;
     }
+}
+
+export function measurerProvider(autotuner: Autotuner, ref: string) {
+    return ($stmt: Statement, $stmtEnd: Statement) =>
+        autotuner.measureWithVar(ref, $stmt, $stmtEnd);
 }
 
 /*
