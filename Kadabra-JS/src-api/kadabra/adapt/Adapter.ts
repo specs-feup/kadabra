@@ -45,6 +45,7 @@ export function CreateClassGenerator(
         generateQualified: generateQualified,
     };
 }
+
 export function FunctionGenerator(
     $adapterMethod: Method,
     $interfaceMethod: Method,
@@ -101,6 +102,7 @@ export function FunctionGenerator(
         );
     }
 }
+
 /**
  *
  */
@@ -115,8 +117,7 @@ export function CreateAdapter(
     let addField;
     const $methods = Query.search(FileJp)
         .search(Class, (c: Class) => RegExp(targetClass).exec(c.name) !== null)
-        .search(Method, { name: target })
-        .get();
+        .search(Method, { name: target });
 
     for (const $adaptMethod of Query.search(FileJp)
         .search(Class, (c: Class) => RegExp(adapterClass).exec(c.name) != null)
@@ -147,6 +148,7 @@ export function CreateAdapter(
     }
     return { $adaptClass: $adaptClass, addField: addField };
 }
+
 /**
  * Create an adapter based on the target class and the method that transforms the class bytecodes.
  *
@@ -154,12 +156,12 @@ export function CreateAdapter(
 export function TransformMethod(
     $target: Method,
     $adaptMethod: Method,
-    name?: string
+    name: string = defaultTransformMethodName($target, $adaptMethod)
 ): {
     $adaptClass: Class;
     addField: (
-        $class: Class | undefined,
-        name: string,
+        $class?: Class,
+        name?: string,
         init?: boolean
     ) => {
         name: string;
@@ -168,13 +170,6 @@ export function TransformMethod(
         adapt: (...args: string[]) => string;
     };
 } {
-    name ??=
-        $target.name.charAt(0).toUpperCase() +
-        $target.name.substring(1) +
-        $adaptMethod.name.charAt(0).toUpperCase +
-        $adaptMethod.name.substring(1) +
-        "Adapter";
-
     let $adaptClass: Class | undefined;
     for (const $class of Query.search(FileJp).search(Class, { name: name })) {
         $adaptClass = $class;
@@ -192,14 +187,10 @@ export function TransformMethod(
         //this method returns information regarding the field and class, as well as the methods that can be invoked in the field
         const addField = (
             $class: Class = $adaptClass,
-            name: string,
+            fieldName: string = $adaptClass.name.charAt(0).toLowerCase() +
+                $adaptClass.name.substring(1),
             init: boolean = false
         ) => {
-            const fieldName =
-                name ||
-                $adaptClass.name.charAt(0).toLowerCase() +
-                    $adaptClass.name.substring(1);
-
             const $newField = $class.newField(
                 ["public", "static"],
                 $adaptClass.qualifiedName,
@@ -234,4 +225,14 @@ export function TransformMethod(
     } else {
         throw new Error("[TransformMethod] cant create $adaptClass");
     }
+}
+
+function defaultTransformMethodName($target: Method, $adaptMethod: Method) {
+    return (
+        $target.name.charAt(0).toUpperCase() +
+        $target.name.substring(1) +
+        $adaptMethod.name.charAt(0).toUpperCase +
+        $adaptMethod.name.substring(1) +
+        "Adapter"
+    );
 }
