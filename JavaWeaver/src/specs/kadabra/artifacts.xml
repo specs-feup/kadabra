@@ -144,7 +144,7 @@
         <!--    		<attribute name="javadoc"			type="String" /> -->
     </artifact>
 
-    <artifact class="interface" default="name">
+    <artifact class="interfaceType" default="name">
         <!--    		<attribute name="name"				type="String"/>	 -->
         <!--    		<attribute name="qualifiedName"		type="String"/>	 -->
         <!--    		<attribute name="package"			type="String"/> -->
