@@ -33,10 +33,10 @@ class IntermediateTimer extends TimerBase {
         if ($target == undefined) {
             return code;
         }
-        IntermediateTimer.insertTimerCode(code, $target, when);
+        return IntermediateTimer.insertTimerCode(code, $target, when).code;
     }
     static insertTimerCode(code, $target, when = "before") {
-        $target.insert(when, code);
+        return $target.insert(when, code);
     }
 }
 /**

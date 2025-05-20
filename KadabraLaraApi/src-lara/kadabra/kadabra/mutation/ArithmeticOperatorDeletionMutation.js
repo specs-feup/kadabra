@@ -2,9 +2,6 @@ import IterativeMutation from "@specs-feup/lara/api/lara/mutation/IterativeMutat
 import MutationResult from "@specs-feup/lara/api/lara/mutation/MutationResult.js";
 import { debug } from "@specs-feup/lara/api/lara/core/LaraCore.js";
 import { BinaryExpression } from "../../Joinpoints.js";
-/**
- *  @param newOperators - Operators that will be used to mutate the binaryExpression.
- */
 export default class ArithmeticOperatorDeletionMutation extends IterativeMutation {
     constructor() {
         super("ArithmeticOperatorDeletionMutation");

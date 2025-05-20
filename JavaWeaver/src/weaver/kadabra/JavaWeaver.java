@@ -1,6 +1,5 @@
 package weaver.kadabra;
 
-import kadabra.resources.KadabraAPIResources;
 import kadabra.resources.LaraAPIResources;
 import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecutor;
@@ -600,7 +599,7 @@ public class JavaWeaver extends AJavaWeaver {
     public List<ResourceProvider> getAspectsAPI() {
         // TODO: refactor in a similar to Clava, which uses .getApis() function
         return ResourceProvider.getResourcesFromEnum(
-                Arrays.asList(LaraAPIResources.class, LaraCommonLanguageApiResource.class, KadabraAPIResources.class,
+                Arrays.asList(LaraAPIResources.class, LaraCommonLanguageApiResource.class,
                         LaraCoreApiResource.class,
                         LaraWeaverApiResource.class));
 
