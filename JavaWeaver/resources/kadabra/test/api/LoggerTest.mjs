@@ -1,11 +1,15 @@
 laraImport("lara.code.Logger");
-laraImport("weaver.Query");
+import Query from "@specs-feup/lara/api/weaver/Query.js";
 
 const loggerConsole = new Logger();
 const loggerFile = new Logger(false, "log.txt");
 
 for (const call of Query.search("type").search("executable").search("call")) {
-    loggerConsole.append("Print double ").appendDouble(2).append(" after " + call.name).ln();
+    loggerConsole
+        .append("Print double ")
+        .appendDouble(2)
+        .append(" after " + call.name)
+        .ln();
     loggerConsole.log(call, true);
 
     loggerConsole.append("Printing again").ln();
@@ -18,12 +22,12 @@ for (const call of Query.search("type").search("executable").search("call")) {
     loggerFile.log(call);
 }
 
+const appendLogger = new Logger().appendLong("10l");
 
-
-const appendLogger = (new Logger())
-    .appendLong("10l");
-
-for (const declaration of Query.search("method", "testAppend").search("localVariable", "a")) {
+for (const declaration of Query.search("method", "testAppend").search(
+    "localVariable",
+    "a"
+)) {
     appendLogger.log(declaration);
 }
 

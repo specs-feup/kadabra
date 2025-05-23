@@ -1,10 +1,8 @@
-laraImport("weaver.Query");
+import Query from "@specs-feup/lara/api/weaver/Query.js";
 laraImport("kadabra.KadabraNodes");
 
 // Insert a join point before
-const foo = Query.search("method", "foo")
-    .search("expression")
-    .getFirst();
+const foo = Query.search("method", "foo").search("expression").getFirst();
 foo.insertBefore(KadabraNodes.comment("A comment"));
 
 // Replace a join point
@@ -39,7 +37,9 @@ const foo5Assign = KadabraNodes.assignment(foo5Var, foo5Lhs);
 // Add assignment after initialization
 foo5LocalVar.insertAfter(foo5Assign);
 
-for (const chainJp of Query.search("method", "snippetExpr").search("new").chain()) {
+for (const chainJp of Query.search("method", "snippetExpr")
+    .search("new")
+    .chain()) {
     chainJp["new"].insertReplace(KadabraNodes.snippetExpr("null"));
 }
 

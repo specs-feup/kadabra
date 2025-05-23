@@ -1,7 +1,7 @@
 laraImport("lara.mutation.Mutator");
 laraImport("lara.Io");
 laraImport("weaver.Weaver");
-laraImport("weaver.Query");
+import Query from "@specs-feup/lara/api/weaver/Query.js";
 
 /**
  *  @param {$joinpoint} $joinpoint - Joinpoint used as starting point to search for super constructor calls to be removed.
