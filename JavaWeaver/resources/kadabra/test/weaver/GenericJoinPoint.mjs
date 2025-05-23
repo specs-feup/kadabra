@@ -1,6 +1,4 @@
-laraImport("weaver.Weaver");
 import Query from "@specs-feup/lara/api/weaver/Query.js";
-laraImport("lara.Io");
 
 //var counter = 0;
 

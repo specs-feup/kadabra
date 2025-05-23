@@ -1,7 +1,5 @@
-laraImport("kadabra.analysis.energy.detectors.MemberIgnoringMethodDetector");
+import MemberIgnoringMethodDetector from "KADABRA/api/kadabra/analysis/energy/detectors/MemberIgnoringMethodDetector.js";
 
-const r = new MemberIgnoringMethodDetector()
-    .analyse()
-    .save();
+const r = new MemberIgnoringMethodDetector().analyse().save();
 
-console.log(JSON.stringify(r, null, ' '));
+console.log(JSON.stringify(r, null, " "));

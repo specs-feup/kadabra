@@ -1,12 +1,12 @@
-laraImport("lara.code.EnergyBase");
-laraImport("lara.code.Logger");
-laraImport("lara.util.IdGenerator");
-laraImport("lara.util.PrintOnce");
+import EnergyBase from "@specs-feup/lara/api/lara/code/EnergyBase.js";
+import Logger from "./Logger.js";
+import IdGenerator from "@specs-feup/lara/api/lara/util/IdGenerator.js";
+import PrintOnce from "@specs-feup/lara/api/lara/util/PrintOnce.js";
 
 // TODO: Detect if Odroid or Ubuntu?
 const EnergyCheckClass = "weaver.kadabra.monitor.pc.ubuntu.UbuntuEnergyCheck";
 
-class Energy extends EnergyBase {
+export default class Energy extends EnergyBase {
     measure($start, prefix, $end) {
         //Check for valid joinpoints and additional conditions
 

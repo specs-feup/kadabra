@@ -1,5 +1,5 @@
-laraImport("kadabra.mutation.BinaryExpressionMutation");
-laraImport("lara.mutation.IterativeMutator");
+import BinaryExpressionMutation from "KADABRA/api/kadabra/mutation/BinaryExpressionMutation.js";
+import IterativeMutator from "@specs-feup/lara/api/lara/mutation/IterativeMutator.js";
 import Query from "@specs-feup/lara/api/weaver/Query.js";
 
 const mutation1 = new BinaryExpressionMutation(">", "==");

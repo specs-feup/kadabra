@@ -1,5 +1,5 @@
 import Query from "@specs-feup/lara/api/weaver/Query.js";
-laraImport("kadabra.KadabraNodes");
+import { KadabraNodes } from "KADABRA/api/kadabra/KadabraNodes.js";
 
 for (var $literal of Query.search("method", { name: "foo1" }).search(
     "literal"

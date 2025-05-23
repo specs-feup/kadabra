@@ -1,4 +1,4 @@
-laraImport("lara.Strings");
+import Strings from "@specs-feup/lara/api/lara/Strings.js";
 import Query from "@specs-feup/lara/api/weaver/Query.js";
 
 for (const $constructor of Query.search("constructor")) {

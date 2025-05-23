@@ -1,7 +1,7 @@
-laraImport("lara.mutation.Mutator");
-laraImport("lara.Io");
-laraImport("weaver.Weaver");
+import Mutator from "@specs-feup/lara/api/lara/mutation/Mutator.js";
+import Io from "@specs-feup/lara/api/lara/Io.js";
 import Query from "@specs-feup/lara/api/weaver/Query.js";
+import Weaver from "@specs-feup/lara/api/weaver/Weaver.js";
 
 function saveFile() {
     const outputFolder = Io.mkdir("./mutatedFilesTest/");

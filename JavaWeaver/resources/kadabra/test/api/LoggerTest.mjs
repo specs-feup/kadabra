@@ -1,4 +1,4 @@
-laraImport("lara.code.Logger");
+import Logger from "KADABRA/api/lara/code/Logger.js";
 import Query from "@specs-feup/lara/api/weaver/Query.js";
 
 const loggerConsole = new Logger();

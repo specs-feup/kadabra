@@ -1,8 +1,4 @@
-laraImport("weaver.Weaver");
 import Query from "@specs-feup/lara/api/weaver/Query.js";
-laraImport("lara.Io");
-
-//var counter = 0;
 
 // Select binary operators in each file
 for (var $op of Query.search("binaryExpression")) {
@@ -14,13 +10,6 @@ for (var $op of Query.search("binaryExpression")) {
         $op.operator = ">";
 
         console.log($op.getAncestor("method").srcCode);
-
-        // Create output folder for this code version
-        //const outputFolder = Io.getPath("output_" + counter);
-        //counter++;
-
-        // Write modified code
-        //Weaver.writeCode(outputFolder);
 
         // Restore operator
         $op.operator = previousOp;

@@ -1,4 +1,4 @@
-laraImport("lara.code.Energy");
+import Energy from "KADABRA/api/lara/code/Energy.js";
 import Query from "@specs-feup/lara/api/weaver/Query.js";
 
 // Instrument call
