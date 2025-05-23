@@ -63,7 +63,7 @@ public class JavaApiTest {
 
     @Test
     public void testBinaryExpressionMutation() {
-        newTester().test("BinaryExpressionMutationTest.js", "BinaryExpressionMutation.java.test");
+        newTester().test("BinaryExpressionMutationTest.mjs", "BinaryExpressionMutation.java.test");
     }
 
     @Test
