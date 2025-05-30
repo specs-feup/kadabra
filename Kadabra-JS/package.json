@@ -1,6 +1,6 @@
 {
     "name": "@specs-feup/kadabra",
-    "version": "1.0.0",
+    "version": "1.0.1-rc3",
     "description": "A Java source-to-source compiler written in Typescript",
     "type": "module",
     "files": [
@@ -20,7 +20,7 @@
         "typedoc.config.js"
     ],
     "bin": {
-        "kadabra": "./code/index.js"
+        "kadabra": "code/index.js"
     },
     "scripts": {
         "run": "node ./code/index.js",
@@ -55,7 +55,7 @@
     },
     "homepage": "https://github.com/specs-feup/kadabra#readme",
     "dependencies": {
-        "@specs-feup/lara": "^3.0.5"
+        "@specs-feup/lara": "^3.0.7"
     },
     "devDependencies": {
         "@jest/globals": "^29.7.0",
