@@ -10,6 +10,7 @@ for (const call of Query.search("type").search("executable").search("call")) {
         .appendDouble(2)
         .append(" after " + call.name)
         .ln();
+
     loggerConsole.log(call, true);
 
     loggerConsole.append("Printing again").ln();

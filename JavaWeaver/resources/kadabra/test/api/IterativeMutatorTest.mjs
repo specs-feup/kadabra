@@ -5,7 +5,7 @@ import Query from "@specs-feup/lara/api/weaver/Query.js";
 const mutation1 = new BinaryExpressionMutation(">", "==");
 const mutation2 = new BinaryExpressionMutation("!=");
 
-var mutator = new IterativeMutator(mutation1, mutation2);
+const mutator = new IterativeMutator(mutation1, mutation2);
 mutator.addJps(Query.root().descendants);
 
 // Generate all mutations
