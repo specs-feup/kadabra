@@ -1,4 +1,4 @@
-import BinaryExpressionMutation from "KADABRA/api/kadabra/mutation/BinaryExpressionMutation.js";
+import BinaryExpressionMutation from "@specs-feup/kadabra/api/kadabra/mutation/BinaryExpressionMutation.js";
 import Query from "@specs-feup/lara/api/weaver/Query.js";
 
 const mutation = new BinaryExpressionMutation(">", "==");

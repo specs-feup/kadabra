@@ -1,4 +1,4 @@
-import MemberIgnoringMethodDetector from "KADABRA/api/kadabra/analysis/energy/detectors/MemberIgnoringMethodDetector.js";
+import MemberIgnoringMethodDetector from "@specs-feup/kadabra/api/kadabra/analysis/energy/detectors/MemberIgnoringMethodDetector.js";
 
 const r = new MemberIgnoringMethodDetector().analyse().save();
 

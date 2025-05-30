@@ -1,4 +1,4 @@
-import BinaryExpressionMutator from "KADABRA/api/kadabra/mutation/BinaryExpressionMutator.js";
+import BinaryExpressionMutator from "@specs-feup/kadabra/api/kadabra/mutation/BinaryExpressionMutator.js";
 import Query from "@specs-feup/lara/api/weaver/Query.js";
 
 // Select binary operators in each file

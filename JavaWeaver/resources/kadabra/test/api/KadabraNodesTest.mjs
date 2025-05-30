@@ -1,5 +1,5 @@
 import Query from "@specs-feup/lara/api/weaver/Query.js";
-import { KadabraNodes } from "KADABRA/api/kadabra/KadabraNodes.js";
+import { KadabraNodes } from "@specs-feup/kadabra/api/kadabra/KadabraNodes.js";
 
 // Insert a join point before
 const foo = Query.search("method", "foo").search("expression").getFirst();

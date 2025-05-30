@@ -1,5 +1,5 @@
-import ArithmeticOperatorDeletionMutation from "KADABRA/api/kadabra/mutation/ArithmeticOperatorDeletionMutation.js";
-import ConditionalOperatorDeletionMutation from "KADABRA/api/kadabra/mutation/ConditionalOperatorDeletionMutation.js";
+import ArithmeticOperatorDeletionMutation from "@specs-feup/kadabra/api/kadabra/mutation/ArithmeticOperatorDeletionMutation.js";
+import ConditionalOperatorDeletionMutation from "@specs-feup/kadabra/api/kadabra/mutation/ConditionalOperatorDeletionMutation.js";
 import IterativeMutator from "@specs-feup/lara/api/lara/mutation/IterativeMutator.js";
 import Query from "@specs-feup/lara/api/weaver/Query.js";
 

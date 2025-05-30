@@ -1,5 +1,5 @@
-import Timer from "KADABRA/api/lara/code/Timer.js";
-import Logger from "KADABRA/api/lara/code/Logger.js";
+import Timer from "@specs-feup/kadabra/api/lara/code/Timer.js";
+import Logger from "@specs-feup/kadabra/api/lara/code/Logger.js";
 import Query from "@specs-feup/lara/api/weaver/Query.js";
 
 // Instrument call to 'Calculate'
