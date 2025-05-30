@@ -44,57 +44,57 @@ public class JavaWeaverTest {
 
     @Test
     public void testMutateOperator() {
-        newTester().test("MutateOperator.js", "MutateOperator.java.test");
+        newTester().test("MutateOperator.mjs", "MutateOperator.java.test");
     }
 
     @Test
     public void testGenericJoinPoint() {
-        newTester().test("GenericJoinPoint.js", "GenericJoinPoint.java.test");
+        newTester().test("GenericJoinPoint.mjs", "GenericJoinPoint.java.test");
     }
 
     @Test
     public void testBinaryOperator() {
-        newTester().test("BinaryOperator.js", "BinaryOperator.java.test");
+        newTester().test("BinaryOperator.mjs", "BinaryOperator.java.test");
     }
 
     @Test
     public void testLiteral() {
-        newTester().test("Literal.js", "Literal.java.test");
+        newTester().test("Literal.mjs", "Literal.java.test");
     }
 
     @Test
     public void testGlobalJp() {
-        newTester().test("GlobalJp.js", "GlobalJp.java.test");
+        newTester().test("GlobalJp.mjs", "GlobalJp.java.test");
     }
 
     @Test
     public void testAst() {
-        newTester().test("Ast.js", "Ast.java.test");
+        newTester().test("Ast.mjs", "Ast.java.test");
     }
 
     @Test
     public void testAst2() {
-        newTester().test("Ast2.js", "Ast2.java.test");
+        newTester().test("Ast2.mjs", "Ast2.java.test");
     }
 
     @Test
     public void testType() {
-        newTester().test("Type.js", "Type.java.test");
+        newTester().test("Type.mjs", "Type.java.test");
     }
 
     @Test
     public void testSelects() {
-        newTester().test("Selects.js", "Selects.java.test");
+        newTester().test("Selects.mjs", "Selects.java.test");
     }
 
     @Test
     public void testAndroid() {
-        newTester().test("Android.js", "src/AndroidTest.java.test", "src/main/AndroidManifest.xml");
+        newTester().test("Android.mjs", "src/AndroidTest.java.test", "src/main/AndroidManifest.xml");
     }
 
     @Test
     public void testAndroid2() {
-        newTester().test("Android2.js", "src/AndroidTest2.java.test", "src/main/AndroidManifest.xml");
+        newTester().test("Android2.mjs", "src/AndroidTest2.java.test", "src/main/AndroidManifest.xml");
     }
 
     // @Test
@@ -102,12 +102,12 @@ public class JavaWeaverTest {
 
         newTester()
                 .set(JavaWeaverKeys.NO_CLASSPATH)
-                .test("CompilationError.js", "CompilationError.java.test");
+                .test("CompilationError.mjs", "CompilationError.java.test");
     }
 
     @Test
     public void testObjectAccess() {
-        newTester().set(JavaWeaverKeys.NO_CLASSPATH).set(JavaWeaverKeys.FULLY_QUALIFIED_NAMES).test("ObjectAccess.js",
+        newTester().set(JavaWeaverKeys.NO_CLASSPATH).set(JavaWeaverKeys.FULLY_QUALIFIED_NAMES).test("ObjectAccess.mjs",
                 "ObjectAccess.java.test");
     }
 
@@ -116,32 +116,32 @@ public class JavaWeaverTest {
         newTester()
                 // .set(JavaWeaverKeys.NO_CLASSPATH)
                 // .set(JavaWeaverKeys.FULLY_QUALIFIED_NAMES)
-                .test("InheritanceIPCMutator.js", "InheritanceIPCTest.java.test");
+                .test("InheritanceIPCMutator.mjs", "InheritanceIPCTest.java.test");
     }
 
     @Test
     public void testConstructorCallMutator() {
-        newTester().set(JavaWeaverKeys.FULLY_QUALIFIED_NAMES).test("ConstructorCallMutator.js",
+        newTester().set(JavaWeaverKeys.FULLY_QUALIFIED_NAMES).test("ConstructorCallMutator.mjs",
                 "ConstructorCallTest.java.test");
     }
 
     @Test
     public void testLambdas() {
-        newTester().set(JavaWeaverKeys.NO_CLASSPATH).test("Lambdas.js", "Lambdas.java.test");
+        newTester().set(JavaWeaverKeys.NO_CLASSPATH).test("Lambdas.mjs", "Lambdas.java.test");
     }
 
     @Test
     public void testConstructor() {
-        newTester().test("Constructor.js", "Constructor.java.test");
+        newTester().test("Constructor.mjs", "Constructor.java.test");
     }
 
     @Test
     public void testFor() {
-        newTester().test("For.js", "For.java.test");
+        newTester().test("For.mjs", "For.java.test");
     }
 
     @Test
     public void testTypeReference() {
-        newTester().test("TypeReference.js", "TypeReference.java.test");
+        newTester().test("TypeReference.mjs", "TypeReference.java.test");
     }
 }

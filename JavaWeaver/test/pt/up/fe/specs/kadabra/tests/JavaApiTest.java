@@ -43,69 +43,69 @@ public class JavaApiTest {
 
     @Test
     public void testLogger() {
-        newTester().test("LoggerTest.js", "LoggerTest.java.test");
+        newTester().test("LoggerTest.mjs", "LoggerTest.java.test");
     }
 
     @Test
     public void testTimer() {
-        newTester().test("TimerTest.js", "TimerTest.java.test");
+        newTester().test("TimerTest.mjs", "TimerTest.java.test");
     }
 
     @Test
     public void testEnergy() {
-        newTester().test("EnergyTest.js", "EnergyTest.java.test");
+        newTester().test("EnergyTest.mjs", "EnergyTest.java.test");
     }
 
     @Test
     public void testBinaryExpressionMutator() {
-        newTester().test("BinaryExpressionMutatorTest.js", "BinaryExpressionMutator.java.test");
+        newTester().test("BinaryExpressionMutatorTest.mjs", "BinaryExpressionMutator.java.test");
     }
 
     @Test
     public void testBinaryExpressionMutation() {
-        newTester().test("BinaryExpressionMutationTest.js", "BinaryExpressionMutation.java.test");
+        newTester().test("BinaryExpressionMutationTest.mjs", "BinaryExpressionMutation.java.test");
     }
 
     @Test
     public void testIterativeMutator() {
-        newTester().test("IterativeMutatorTest.js", "IterativeMutator.java.test");
+        newTester().test("IterativeMutatorTest.mjs", "IterativeMutator.java.test");
     }
 
     @Test
     public void testMutations() {
-        newTester().test("MutationsTest.js", "Mutations.java.test");
+        newTester().test("MutationsTest.mjs", "Mutations.java.test");
     }
 
     @Test
     public void testKadabraNodes() {
-        newTester().test("KadabraNodesTest.js", "KadabraNodes.java.test");
+        newTester().test("KadabraNodesTest.mjs", "KadabraNodes.java.test");
     }
 
     @Test
     public void testKadabraAst() {
         newTester()
                 // .set(LaraiKeys.VERBOSE, VerboseLevel.all).set(LaraiKeys.DEBUG_MODE)
-                .test("KadabraAstTest.js", "KadabraAst.java.test");
+                .test("KadabraAstTest.mjs", "KadabraAst.java.test");
     }
 
     @Test
     public void testEAPKInternalGetter() {
-        newTester().test("EapkInternalGetterTest.js", "EapkInternalGetter.java.test");
+        newTester().test("EapkInternalGetterTest.mjs", "EapkInternalGetter.java.test");
     }
 
     @Test
     public void testEAPKExcessiveMethodCalls() {
-        newTester().test("EapkExcessiveMethodCallsTest.js", "EapkExcessiveMethodCalls.java.test");
+        newTester().test("EapkExcessiveMethodCallsTest.mjs", "EapkExcessiveMethodCalls.java.test");
     }
 
     @Test
     public void testEAPKHashMapUsage() {
-        newTester().test("EapkHashMapUsageTest.js", "EapkHashMapUsage.java.test");
+        newTester().test("EapkHashMapUsageTest.mjs", "EapkHashMapUsage.java.test");
     }
 
     @Test
     public void testEAPKMemberIgnoringMethod() {
         newTester()
-                .test("EapkMemberIgnoringMethodTest.js", "EapkMemberIgnoringMethod.java.test");
+                .test("EapkMemberIgnoringMethodTest.mjs", "EapkMemberIgnoringMethod.java.test");
     }
 }
