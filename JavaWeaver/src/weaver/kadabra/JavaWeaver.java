@@ -15,8 +15,8 @@ import org.lara.language.specification.dsl.LanguageSpecification;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.jadx.DecompilationFailedException;
 import pt.up.fe.specs.jadx.SpecsJadx;
-import pt.up.fe.specs.kadabra.weaver.LaraCoreApiResource;
 import pt.up.fe.specs.kadabra.weaver.KadabraApiJsResource;
+import pt.up.fe.specs.kadabra.weaver.LaraCoreApiResource;
 import pt.up.fe.specs.kadabra.weaver.LaraWeaverApiResource;
 import pt.up.fe.specs.lara.lcl.LaraCommonLanguageApiResource;
 import pt.up.fe.specs.spoon.SpoonFactory;
@@ -68,6 +68,9 @@ public class JavaWeaver extends AJavaWeaver {
     static {
         KadabraLog.setDebug(true);
     }
+
+    private static final String KADABRA_API_NAME = "@specs-feup/kadabra";
+
 
     // private static final Set<String> WEAVER_NAMES = SpecsCollections.asSet("kadabra");
     private static final Set<String> LANGUAGES = SpecsCollections.asSet("java");
@@ -593,6 +596,11 @@ public class JavaWeaver extends AJavaWeaver {
     @Override
     public String getName() {
         return "KADABRA";
+    }
+
+    @Override
+    public String getWeaverApiName() {
+        return KADABRA_API_NAME;
     }
 
     @Override
