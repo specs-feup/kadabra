@@ -1,7 +1,0 @@
-https://github.com/specs-feup/specs-java-libs
-https://github.com/specs-feup/lara-framework
-https://github.com/specs-feup/kadabra
---build
---project JavaWeaver
---main weaver.gui.KadabraLauncher
---jar subfolder

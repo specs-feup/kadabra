@@ -1,18 +1,15 @@
 plugins {
     id 'distribution'
+    id 'java'
+    id 'application'
 }
 
-// Java project
-apply plugin: 'java'
-
-// Executable
-apply plugin: 'application'
-
 java {
+    withSourcesJar()
+
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
 }
-
 
 // Repositories providers
 repositories {
@@ -40,9 +37,6 @@ dependencies {
     implementation ':KadabraLaraApi'
 
     implementation ':LanguageSpecification'
-    implementation ':LaraCommonLanguageApi'
-    implementation ':LaraDoc'
-    implementation ':LaraFramework'
     implementation ':LaraUtils'
     implementation ':LARAI'
     implementation ':WeaverInterface'
@@ -56,11 +50,6 @@ dependencies {
     implementation group: 'org.ow2.asm', name: 'asm', version: '7.1'
 }
 
-java {
-    withSourcesJar()
-}
-
-
 // Project sources
 sourceSets {
     main {
@@ -68,7 +57,6 @@ sourceSets {
             srcDir 'src'
             srcDir 'api'
         }
-
         resources {
             srcDir 'api'
             srcDir 'resources'
@@ -80,20 +68,16 @@ sourceSets {
         java {
             srcDir 'test'
         }
-
         resources {
             srcDir 'src-lara'
             srcDir 'resources'
         }
     }
-
-
 }
 
 application {
     mainClass.set("weaver.gui.KadabraLauncher")
 }
-
 
 // Kadabra
 task kadabra(type: JavaExec) {
@@ -102,4 +86,22 @@ task kadabra(type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
     mainClass = application.mainClass
     args = []
+}
+
+// Weaver Generator
+task generateWeaver(type: Exec) {
+    group = "Execution"
+    description = "Generates the join point classes from the Language Specification"
+
+    executable "./../../lara-framework/WeaverGenerator/build/install/WeaverGenerator/bin/WeaverGenerator"
+
+    args = [
+        '-w', 'JavaWeaver',
+        '-x', './src/specs/kadabra',
+        '-o', './src',
+        '-p', 'weaver.kadabra',
+        '-n', 'spoon.reflect.declaration.CtElement',
+        '-j',
+        '-d'
+    ]
 }
