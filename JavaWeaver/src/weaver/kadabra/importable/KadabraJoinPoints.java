@@ -208,10 +208,8 @@ public class KadabraJoinPoints {
 
     }
 
-    public static Object var(Object localVariable, boolean isWrite) {
-        var localVarJp = JoinPointsUtils.toJavaJoinPoint(localVariable, "localVariable", JLocalVariable.class);
-
-        var localVarSpoon = localVarJp.getNode();
+    public static Object var(JLocalVariable localVariable, boolean isWrite) {
+        var localVarSpoon = localVariable.getNode();
         return CtElement2JoinPoint.convert(JavaWeaver.getFactory().var(localVarSpoon, isWrite));
     }
 

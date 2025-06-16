@@ -1,4 +1,5 @@
-import { Joinpoint } from "../Joinpoints.js";
+import { unwrapJoinPoint } from "@specs-feup/lara/api/LaraJoinPoint.js";
+import { Joinpoint, LocalVariable } from "../Joinpoints.js";
 import KadabraJavaTypes from "./KadabraJavaTypes.js";
 
 export class KadabraNodes {
@@ -140,8 +141,8 @@ export class KadabraNodes {
      * @returns A reference to a variable.
      *
      */
-    static var(localVariable: Joinpoint, isWrite: boolean = false) {
-        return KadabraJavaTypes.KadabraJoinPoints.var(localVariable, isWrite);
+    static var(localVariable: LocalVariable, isWrite: boolean = false) {
+        return KadabraJavaTypes.KadabraJoinPoints.var(unwrapJoinPoint(localVariable), isWrite);
     }
 
     /**
