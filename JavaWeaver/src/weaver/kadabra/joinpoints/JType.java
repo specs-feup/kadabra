@@ -16,7 +16,6 @@ package weaver.kadabra.joinpoints;
 import org.lara.interpreter.weaver.interf.JoinPoint;
 import pt.up.fe.specs.util.SpecsLogs;
 import spoon.refactoring.Refactoring;
-import spoon.reflect.code.CtComment;
 import spoon.reflect.declaration.*;
 import spoon.reflect.reference.CtTypeReference;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
@@ -24,14 +23,9 @@ import weaver.kadabra.abstracts.joinpoints.*;
 import weaver.kadabra.exceptions.JavaWeaverException;
 import weaver.kadabra.spoon.extensions.nodes.CtKadabraSnippetElement;
 import weaver.utils.SpoonUtils;
-import weaver.utils.scanners.NodeConverter;
-import weaver.utils.scanners.NodeSearcher;
 import weaver.utils.weaving.ActionUtils;
-import weaver.utils.weaving.SelectUtils;
 import weaver.utils.weaving.SnippetFactory;
 import weaver.utils.weaving.converters.CtElement2JoinPoint;
-import weaver.utils.weaving.converters.CtExecutable2AExecutable;
-
 import java.util.*;
 import java.util.stream.Collectors;
 
