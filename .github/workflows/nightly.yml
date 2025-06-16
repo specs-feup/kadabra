@@ -41,11 +41,6 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: ${{ env.JAVA_VERSION }}
-    
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20.x"
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
@@ -88,22 +83,6 @@ jobs:
           path: specs-java-libs
           # This is causing problems in PRs, for now it will always be the default branch
           #ref: ${{ steps.Branch-specs-java-libs.outputs.value == '1' && env.BRANCH_NAME || env.STAGING_BRANCH }}
-
-      - name: Prep TS sources
-        run: |
-          cd kadabra/Kadabra-JS
-          npm install
-      
-      - name: Lint TS sources
-        run: |
-          cd kadabra/Kadabra-JS
-          npm run lint
-      
-      - name: Build TS sources
-        run: |
-          cd kadabra/Kadabra-JS
-          npm run build
-          npm run java-dist
       
       - name: Build with Gradle
         run: |
@@ -130,68 +109,70 @@ jobs:
           name: java-binaries
           path: kadabra/JavaWeaver/build/install/JavaWeaver
 
+  build-js:
+    name: Build JS
+    needs: build-java
+    strategy:
+      fail-fast: false
+      matrix:
+        #node-version: ['latest', '22.x', '20.x']
+        node-version: ['22.x', '20.x']
+        os: [ubuntu-latest, windows-latest, macos-latest]
 
-# Uncomment after adding Kadabra-JS
-#  build-js:
-#    name: Build JS
-#    needs: build-java
-#    strategy:
-#      fail-fast: false
-#      matrix:
-#        #node-version: ['latest', '20.x', '18.x']
-#        node-version: ['20.x', '18.x']
-#        os: [ubuntu-latest, windows-latest, macos-latest]
-#
-#    runs-on: ${{ matrix.os }}
-#
-#    steps:
-#      - name: Setup Java
-#        uses: actions/setup-java@v4
-#        with:
-#          distribution: 'temurin'
-#          java-version: ${{ env.JAVA_VERSION }}
-#
-#      - name: Setup Node.js
-#        uses: actions/setup-node@v4
-#        with:
-#          node-version: ${{ matrix.node-version }}
-#
-#      - name: Checkout Kadabra
-#        uses: actions/checkout@v4
-#        with:
-#          path: kadabra
-#
-#      - name: Checkout lara-framework
-#        uses: actions/checkout@v4
-#        with:
-#          repository: specs-feup/lara-framework
-#          path: lara-framework
-#          ref: ${{ needs.build-java.outputs.branch-exists-lara-framework == '1' && env.BRANCH_NAME || env.DEFAULT_BRANCH }}
-#
-#      - name: Setup js workspace
-#        run: |
-#          echo '{ "name": "SPeCS Workspace", "type": "module", "workspaces": [ "kadabra/Kadabra-JS", "lara-framework/Lara-JS" ] }' > package.json
-#          npm install
-#
-#      - name: Build Lara-JS
-#        run: |
-#          cd lara-framework/Lara-JS
-#          npm run build
-#
-#      - name: Build Kadabra-JS
-#        run: |
-#          cd kadabra/Kadabra-JS
-#          npm run build
-#
-#      - name: Pull java-binaries
-#        uses: actions/download-artifact@v4
-#        with:
-#          name: java-binaries
-#          path: kadabra/Kadabra-JS/java-binaries
-#
-#      # TODO: Uncomment this after adding tests to the flow
-#      #- name: Test JS
-#      #  run: |
-#      #    cd alpakka/Alpakka-JS
-#      #    npm run test
-#
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: ${{ env.JAVA_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Checkout Kadabra
+        uses: actions/checkout@v4
+        with:
+          path: kadabra
+
+      - name: Checkout lara-framework
+        uses: actions/checkout@v4
+        with:
+          repository: specs-feup/lara-framework
+          path: lara-framework
+          ref: ${{ needs.build-java.outputs.branch-exists-lara-framework == '1' && env.BRANCH_NAME || env.DEFAULT_BRANCH }}
+
+      - name: Setup js workspace
+        run: |
+          echo '{ "name": "SPeCS Workspace", "type": "module", "workspaces": [ "kadabra/Kadabra-JS", "lara-framework/Lara-JS" ] }' > package.json
+          npm install
+
+      - name: Build Lara-JS
+        run: |
+          cd lara-framework/Lara-JS
+          npm run build
+
+      - name: Lint TS sources
+        run: |
+          cd kadabra/Kadabra-JS
+          npm run lint
+
+      - name: Build Kadabra-JS
+        run: |
+          cd kadabra/Kadabra-JS
+          npm run build
+
+      - name: Pull java-binaries
+        uses: actions/download-artifact@v4
+        with:
+          name: java-binaries
+          path: kadabra/Kadabra-JS/java-binaries
+
+      # TODO: Uncomment this after adding tests to the flow
+      #- name: Test JS
+      #  run: |
+      #    cd alpakka/Alpakka-JS
+      #    npm run test
