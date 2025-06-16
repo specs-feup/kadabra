@@ -1,15 +1,12 @@
 package weaver.kadabra.abstracts.joinpoints;
 
-import org.lara.interpreter.weaver.interf.events.Stage;
-import java.util.Optional;
 import org.lara.interpreter.exception.AttributeException;
-import java.util.List;
-import org.lara.interpreter.weaver.interf.SelectOp;
 import org.lara.interpreter.exception.ActionException;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
-import org.lara.interpreter.weaver.interf.JoinPoint;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Auto-Generated class for join point AExecutable
@@ -32,13 +29,7 @@ public abstract class AExecutable extends AJavaWeaverJoinPoint {
      */
     public final Object getBody() {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "body", Optional.empty());
-        	}
         	ABody result = this.getBodyImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "body", Optional.ofNullable(result));
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "body", e);
@@ -57,24 +48,11 @@ public abstract class AExecutable extends AJavaWeaverJoinPoint {
      */
     public final Object getName() {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "name", Optional.empty());
-        	}
         	String result = this.getNameImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "name", Optional.ofNullable(result));
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "name", e);
         }
-    }
-
-    /**
-     * 
-     */
-    public void defNameImpl(String value) {
-        throw new UnsupportedOperationException("Join point "+get_class()+": Action def name with type String not implemented ");
     }
 
     /**
@@ -89,7 +67,7 @@ public abstract class AExecutable extends AJavaWeaverJoinPoint {
      */
     public Object getParamsImpl() {
         ADeclaration[] aDeclarationArrayImpl0 = getParamsArrayImpl();
-        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(aDeclarationArrayImpl0);
+        Object nativeArray0 = aDeclarationArrayImpl0;
         return nativeArray0;
     }
 
@@ -99,13 +77,7 @@ public abstract class AExecutable extends AJavaWeaverJoinPoint {
      */
     public final Object getParams() {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "params", Optional.empty());
-        	}
         	Object result = this.getParamsImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "params", Optional.ofNullable(result));
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "params", e);
@@ -124,13 +96,7 @@ public abstract class AExecutable extends AJavaWeaverJoinPoint {
      */
     public final Object getReturnRef() {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "returnRef", Optional.empty());
-        	}
         	ATypeReference result = this.getReturnRefImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "returnRef", Optional.ofNullable(result));
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "returnRef", e);
@@ -149,33 +115,11 @@ public abstract class AExecutable extends AJavaWeaverJoinPoint {
      */
     public final Object getReturnType() {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "returnType", Optional.empty());
-        	}
         	String result = this.getReturnTypeImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "returnType", Optional.ofNullable(result));
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "returnType", e);
         }
-    }
-
-    /**
-     * Default implementation of the method used by the lara interpreter to select bodys
-     * @return 
-     */
-    public List<? extends ABody> selectBody() {
-        return select(weaver.kadabra.abstracts.joinpoints.ABody.class, SelectOp.DESCENDANTS);
-    }
-
-    /**
-     * Default implementation of the method used by the lara interpreter to select params
-     * @return 
-     */
-    public List<? extends ADeclaration> selectParam() {
-        return select(weaver.kadabra.abstracts.joinpoints.ADeclaration.class, SelectOp.DESCENDANTS);
     }
 
     /**
@@ -192,97 +136,11 @@ public abstract class AExecutable extends AJavaWeaverJoinPoint {
      */
     public final Object setName(String name) {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "setName", this, Optional.empty(), name);
-        	}
         	String result = this.setNameImpl(name);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "setName", this, Optional.ofNullable(result), name);
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "setName", e);
         }
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public List<? extends JoinPoint> select(String selectName) {
-        List<? extends JoinPoint> joinPointList;
-        switch(selectName) {
-        	case "body": 
-        		joinPointList = selectBody();
-        		break;
-        	case "param": 
-        		joinPointList = selectParam();
-        		break;
-        	default:
-        		joinPointList = super.select(selectName);
-        		break;
-        }
-        return joinPointList;
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public void defImpl(String attribute, Object value) {
-        switch(attribute){
-        case "name": {
-        	if(value instanceof String){
-        		this.defNameImpl((String)value);
-        		return;
-        	}
-        	this.unsupportedTypeForDef(attribute, value);
-        }
-        case "line": {
-        	if(value instanceof Integer){
-        		this.defLineImpl((Integer)value);
-        		return;
-        	}
-        	if(value instanceof String){
-        		this.defLineImpl((String)value);
-        		return;
-        	}
-        	this.unsupportedTypeForDef(attribute, value);
-        }
-        default: throw new UnsupportedOperationException("Join point "+get_class()+": attribute '"+attribute+"' cannot be defined");
-        }
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected void fillWithAttributes(List<String> attributes) {
-        super.fillWithAttributes(attributes);
-        attributes.add("body");
-        attributes.add("name");
-        attributes.add("params");
-        attributes.add("returnRef");
-        attributes.add("returnType");
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected void fillWithSelects(List<String> selects) {
-        super.fillWithSelects(selects);
-        selects.add("body");
-        selects.add("param");
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected void fillWithActions(List<String> actions) {
-        super.fillWithActions(actions);
-        actions.add("String setName(String)");
     }
 
     /**

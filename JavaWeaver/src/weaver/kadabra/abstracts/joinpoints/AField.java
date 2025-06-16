@@ -1,12 +1,11 @@
 package weaver.kadabra.abstracts.joinpoints;
 
-import org.lara.interpreter.weaver.interf.events.Stage;
-import java.util.Optional;
 import org.lara.interpreter.exception.AttributeException;
-import java.util.List;
 import org.lara.interpreter.weaver.interf.JoinPoint;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Auto-Generated class for join point AField
@@ -37,13 +36,7 @@ public abstract class AField extends ADeclaration {
      */
     public final Object getDeclarator() {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "declarator", Optional.empty());
-        	}
         	String result = this.getDeclaratorImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "declarator", Optional.ofNullable(result));
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "declarator", e);
@@ -62,13 +55,7 @@ public abstract class AField extends ADeclaration {
      */
     public final Object getStaticAccess() {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "staticAccess", Optional.empty());
-        	}
         	String result = this.getStaticAccessImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "staticAccess", Optional.ofNullable(result));
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "staticAccess", e);
@@ -136,22 +123,6 @@ public abstract class AField extends ADeclaration {
     @Override
     public ATypeReference getTypeReferenceImpl() {
         return this.aDeclaration.getTypeReferenceImpl();
-    }
-
-    /**
-     * Method used by the lara interpreter to select inits
-     * @return 
-     */
-    @Override
-    public List<? extends AExpression> selectInit() {
-        return this.aDeclaration.selectInit();
-    }
-
-    /**
-     * 
-     */
-    public void defInitImpl(AExpression value) {
-        this.aDeclaration.defInitImpl(value);
     }
 
     /**
@@ -502,77 +473,6 @@ public abstract class AField extends ADeclaration {
     @Override
     public Optional<? extends ADeclaration> getSuper() {
         return Optional.of(this.aDeclaration);
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public List<? extends JoinPoint> select(String selectName) {
-        List<? extends JoinPoint> joinPointList;
-        switch(selectName) {
-        	case "init": 
-        		joinPointList = selectInit();
-        		break;
-        	default:
-        		joinPointList = this.aDeclaration.select(selectName);
-        		break;
-        }
-        return joinPointList;
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public void defImpl(String attribute, Object value) {
-        switch(attribute){
-        case "init": {
-        	if(value instanceof AExpression){
-        		this.defInitImpl((AExpression)value);
-        		return;
-        	}
-        	this.unsupportedTypeForDef(attribute, value);
-        }
-        case "line": {
-        	if(value instanceof Integer){
-        		this.defLineImpl((Integer)value);
-        		return;
-        	}
-        	if(value instanceof String){
-        		this.defLineImpl((String)value);
-        		return;
-        	}
-        	this.unsupportedTypeForDef(attribute, value);
-        }
-        default: throw new UnsupportedOperationException("Join point "+get_class()+": attribute '"+attribute+"' cannot be defined");
-        }
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected void fillWithAttributes(List<String> attributes) {
-        this.aDeclaration.fillWithAttributes(attributes);
-        attributes.add("declarator");
-        attributes.add("staticAccess");
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected void fillWithSelects(List<String> selects) {
-        this.aDeclaration.fillWithSelects(selects);
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected void fillWithActions(List<String> actions) {
-        this.aDeclaration.fillWithActions(actions);
     }
 
     /**

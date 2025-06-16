@@ -1,11 +1,10 @@
 package weaver.kadabra.abstracts.joinpoints;
 
-import java.util.List;
-import org.lara.interpreter.weaver.interf.SelectOp;
 import org.lara.interpreter.weaver.interf.JoinPoint;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Auto-Generated class for join point ALibClass
@@ -24,14 +23,6 @@ public abstract class ALibClass extends ANamedType {
     public ALibClass(ANamedType aNamedType){
         this.aNamedType = aNamedType;
     }
-    /**
-     * methods that belong to this class
-     * @return 
-     */
-    public List<? extends ALibMethod> selectLibMethod() {
-        return select(weaver.kadabra.abstracts.joinpoints.ALibMethod.class, SelectOp.DESCENDANTS);
-    }
-
     /**
      * Get value on attribute interfacesArrayImpl
      * @return the attribute's value
@@ -434,69 +425,6 @@ public abstract class ALibClass extends ANamedType {
     @Override
     public Optional<? extends ANamedType> getSuper() {
         return Optional.of(this.aNamedType);
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public final List<? extends JoinPoint> select(String selectName) {
-        List<? extends JoinPoint> joinPointList;
-        switch(selectName) {
-        	case "libMethod": 
-        		joinPointList = selectLibMethod();
-        		break;
-        	default:
-        		joinPointList = this.aNamedType.select(selectName);
-        		break;
-        }
-        return joinPointList;
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public final void defImpl(String attribute, Object value) {
-        switch(attribute){
-        case "line": {
-        	if(value instanceof Integer){
-        		this.defLineImpl((Integer)value);
-        		return;
-        	}
-        	if(value instanceof String){
-        		this.defLineImpl((String)value);
-        		return;
-        	}
-        	this.unsupportedTypeForDef(attribute, value);
-        }
-        default: throw new UnsupportedOperationException("Join point "+get_class()+": attribute '"+attribute+"' cannot be defined");
-        }
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected final void fillWithAttributes(List<String> attributes) {
-        this.aNamedType.fillWithAttributes(attributes);
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected final void fillWithSelects(List<String> selects) {
-        this.aNamedType.fillWithSelects(selects);
-        selects.add("libMethod");
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected final void fillWithActions(List<String> actions) {
-        this.aNamedType.fillWithActions(actions);
     }
 
     /**

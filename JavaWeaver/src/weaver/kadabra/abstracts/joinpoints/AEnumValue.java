@@ -1,10 +1,10 @@
 package weaver.kadabra.abstracts.joinpoints;
 
-import java.util.List;
 import org.lara.interpreter.weaver.interf.JoinPoint;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Auto-Generated class for join point AEnumValue
@@ -103,22 +103,6 @@ public abstract class AEnumValue extends AField {
     @Override
     public ATypeReference getTypeReferenceImpl() {
         return this.aField.getTypeReferenceImpl();
-    }
-
-    /**
-     * Method used by the lara interpreter to select inits
-     * @return 
-     */
-    @Override
-    public List<? extends AExpression> selectInit() {
-        return this.aField.selectInit();
-    }
-
-    /**
-     * 
-     */
-    public void defInitImpl(AExpression value) {
-        this.aField.defInitImpl(value);
     }
 
     /**
@@ -469,75 +453,6 @@ public abstract class AEnumValue extends AField {
     @Override
     public Optional<? extends AField> getSuper() {
         return Optional.of(this.aField);
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public final List<? extends JoinPoint> select(String selectName) {
-        List<? extends JoinPoint> joinPointList;
-        switch(selectName) {
-        	case "init": 
-        		joinPointList = selectInit();
-        		break;
-        	default:
-        		joinPointList = this.aField.select(selectName);
-        		break;
-        }
-        return joinPointList;
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public final void defImpl(String attribute, Object value) {
-        switch(attribute){
-        case "init": {
-        	if(value instanceof AExpression){
-        		this.defInitImpl((AExpression)value);
-        		return;
-        	}
-        	this.unsupportedTypeForDef(attribute, value);
-        }
-        case "line": {
-        	if(value instanceof Integer){
-        		this.defLineImpl((Integer)value);
-        		return;
-        	}
-        	if(value instanceof String){
-        		this.defLineImpl((String)value);
-        		return;
-        	}
-        	this.unsupportedTypeForDef(attribute, value);
-        }
-        default: throw new UnsupportedOperationException("Join point "+get_class()+": attribute '"+attribute+"' cannot be defined");
-        }
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected final void fillWithAttributes(List<String> attributes) {
-        this.aField.fillWithAttributes(attributes);
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected final void fillWithSelects(List<String> selects) {
-        this.aField.fillWithSelects(selects);
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected final void fillWithActions(List<String> actions) {
-        this.aField.fillWithActions(actions);
     }
 
     /**

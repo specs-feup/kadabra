@@ -1,15 +1,12 @@
 package weaver.kadabra.abstracts.joinpoints;
 
-import org.lara.interpreter.weaver.interf.events.Stage;
-import java.util.Optional;
 import org.lara.interpreter.exception.AttributeException;
-import java.util.List;
-import org.lara.interpreter.weaver.interf.SelectOp;
 import org.lara.interpreter.exception.ActionException;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
-import org.lara.interpreter.weaver.interf.JoinPoint;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Auto-Generated class for join point AApp
@@ -32,7 +29,7 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
      */
     public Object getFilesImpl() {
         AFile[] aFileArrayImpl0 = getFilesArrayImpl();
-        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(aFileArrayImpl0);
+        Object nativeArray0 = aFileArrayImpl0;
         return nativeArray0;
     }
 
@@ -42,13 +39,7 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
      */
     public final Object getFiles() {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "files", Optional.empty());
-        	}
         	Object result = this.getFilesImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "files", Optional.ofNullable(result));
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "files", e);
@@ -67,13 +58,7 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
      */
     public final Object getFolder() {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "folder", Optional.empty());
-        	}
         	String result = this.getFolderImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "folder", Optional.ofNullable(result));
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "folder", e);
@@ -92,13 +77,7 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
      */
     public final Object getManifest() {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "manifest", Optional.empty());
-        	}
         	AAndroidManifest result = this.getManifestImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "manifest", Optional.ofNullable(result));
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "manifest", e);
@@ -119,41 +98,11 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
      */
     public final Object showAST(String Title) {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "showAST", Optional.empty(), Title);
-        	}
         	String result = this.showASTImpl(Title);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "showAST", Optional.ofNullable(result), Title);
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "showAST", e);
         }
-    }
-
-    /**
-     * files of the application
-     * @return 
-     */
-    public List<? extends AFile> selectFile() {
-        return select(weaver.kadabra.abstracts.joinpoints.AFile.class, SelectOp.DESCENDANTS);
-    }
-
-    /**
-     * class that is part of a library included in the classpath. This select may be slow, depending on the number of included types
-     * @return 
-     */
-    public List<? extends ALibClass> selectLibClass() {
-        return select(weaver.kadabra.abstracts.joinpoints.ALibClass.class, SelectOp.DESCENDANTS);
-    }
-
-    /**
-     * Default implementation of the method used by the lara interpreter to select androidManifests
-     * @return 
-     */
-    public List<? extends AAndroidManifest> selectAndroidManifest() {
-        return select(weaver.kadabra.abstracts.joinpoints.AAndroidManifest.class, SelectOp.DESCENDANTS);
     }
 
     /**
@@ -176,13 +125,7 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
      */
     public final Object mapVersions(String name, String keyType, AInterfaceType interfaceType, String methodName) {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "mapVersions", this, Optional.empty(), name, keyType, interfaceType, methodName);
-        	}
         	AClass result = this.mapVersionsImpl(name, keyType, interfaceType, methodName);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "mapVersions", this, Optional.ofNullable(result), name, keyType, interfaceType, methodName);
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "mapVersions", e);
@@ -207,13 +150,7 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
      */
     public final Object newClass(String name, String extend, Object[] implement) {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "newClass", this, Optional.empty(), name, extend, implement);
-        	}
         	AClass result = this.newClassImpl(name, extend, pt.up.fe.specs.util.SpecsCollections.cast(implement, String.class));
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "newClass", this, Optional.ofNullable(result), name, extend, implement);
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "newClass", e);
@@ -234,13 +171,7 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
      */
     public final Object newClass(String name) {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "newClass", this, Optional.empty(), name);
-        	}
         	AClass result = this.newClassImpl(name);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "newClass", this, Optional.ofNullable(result), name);
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "newClass", e);
@@ -263,13 +194,7 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
      */
     public final Object newInterface(String name, Object[] extend) {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "newInterface", this, Optional.empty(), name, extend);
-        	}
         	AInterfaceType result = this.newInterfaceImpl(name, pt.up.fe.specs.util.SpecsCollections.cast(extend, String.class));
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "newInterface", this, Optional.ofNullable(result), name, extend);
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "newInterface", e);
@@ -290,97 +215,11 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
      */
     public final Object newInterface(String name) {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "newInterface", this, Optional.empty(), name);
-        	}
         	AInterfaceType result = this.newInterfaceImpl(name);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "newInterface", this, Optional.ofNullable(result), name);
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "newInterface", e);
         }
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public final List<? extends JoinPoint> select(String selectName) {
-        List<? extends JoinPoint> joinPointList;
-        switch(selectName) {
-        	case "file": 
-        		joinPointList = selectFile();
-        		break;
-        	case "libClass": 
-        		joinPointList = selectLibClass();
-        		break;
-        	case "androidManifest": 
-        		joinPointList = selectAndroidManifest();
-        		break;
-        	default:
-        		joinPointList = super.select(selectName);
-        		break;
-        }
-        return joinPointList;
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public final void defImpl(String attribute, Object value) {
-        switch(attribute){
-        case "line": {
-        	if(value instanceof Integer){
-        		this.defLineImpl((Integer)value);
-        		return;
-        	}
-        	if(value instanceof String){
-        		this.defLineImpl((String)value);
-        		return;
-        	}
-        	this.unsupportedTypeForDef(attribute, value);
-        }
-        default: throw new UnsupportedOperationException("Join point "+get_class()+": attribute '"+attribute+"' cannot be defined");
-        }
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected final void fillWithAttributes(List<String> attributes) {
-        super.fillWithAttributes(attributes);
-        attributes.add("files");
-        attributes.add("folder");
-        attributes.add("manifest");
-        attributes.add("showAST");
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected final void fillWithSelects(List<String> selects) {
-        super.fillWithSelects(selects);
-        selects.add("file");
-        selects.add("libClass");
-        selects.add("androidManifest");
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected final void fillWithActions(List<String> actions) {
-        super.fillWithActions(actions);
-        actions.add("class mapVersions(String, String, interfaceType, String)");
-        actions.add("class newClass(String, String, String[])");
-        actions.add("class newClass(String)");
-        actions.add("interfaceType newInterface(String, String[])");
-        actions.add("interfaceType newInterface(String)");
     }
 
     /**

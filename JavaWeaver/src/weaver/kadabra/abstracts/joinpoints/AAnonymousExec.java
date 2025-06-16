@@ -1,10 +1,10 @@
 package weaver.kadabra.abstracts.joinpoints;
 
-import java.util.List;
 import org.lara.interpreter.weaver.interf.JoinPoint;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Auto-Generated class for join point AAnonymousExec
@@ -66,31 +66,6 @@ public abstract class AAnonymousExec extends AExecutable {
     @Override
     public String getReturnTypeImpl() {
         return this.aExecutable.getReturnTypeImpl();
-    }
-
-    /**
-     * Method used by the lara interpreter to select bodys
-     * @return 
-     */
-    @Override
-    public List<? extends ABody> selectBody() {
-        return this.aExecutable.selectBody();
-    }
-
-    /**
-     * Method used by the lara interpreter to select params
-     * @return 
-     */
-    @Override
-    public List<? extends ADeclaration> selectParam() {
-        return this.aExecutable.selectParam();
-    }
-
-    /**
-     * 
-     */
-    public void defNameImpl(String value) {
-        this.aExecutable.defNameImpl(value);
     }
 
     /**
@@ -441,78 +416,6 @@ public abstract class AAnonymousExec extends AExecutable {
     @Override
     public Optional<? extends AExecutable> getSuper() {
         return Optional.of(this.aExecutable);
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public final List<? extends JoinPoint> select(String selectName) {
-        List<? extends JoinPoint> joinPointList;
-        switch(selectName) {
-        	case "body": 
-        		joinPointList = selectBody();
-        		break;
-        	case "param": 
-        		joinPointList = selectParam();
-        		break;
-        	default:
-        		joinPointList = this.aExecutable.select(selectName);
-        		break;
-        }
-        return joinPointList;
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public final void defImpl(String attribute, Object value) {
-        switch(attribute){
-        case "name": {
-        	if(value instanceof String){
-        		this.defNameImpl((String)value);
-        		return;
-        	}
-        	this.unsupportedTypeForDef(attribute, value);
-        }
-        case "line": {
-        	if(value instanceof Integer){
-        		this.defLineImpl((Integer)value);
-        		return;
-        	}
-        	if(value instanceof String){
-        		this.defLineImpl((String)value);
-        		return;
-        	}
-        	this.unsupportedTypeForDef(attribute, value);
-        }
-        default: throw new UnsupportedOperationException("Join point "+get_class()+": attribute '"+attribute+"' cannot be defined");
-        }
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected final void fillWithAttributes(List<String> attributes) {
-        this.aExecutable.fillWithAttributes(attributes);
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected final void fillWithSelects(List<String> selects) {
-        this.aExecutable.fillWithSelects(selects);
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected final void fillWithActions(List<String> actions) {
-        this.aExecutable.fillWithActions(actions);
     }
 
     /**

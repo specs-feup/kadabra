@@ -1,13 +1,12 @@
 package weaver.kadabra.abstracts.joinpoints;
 
-import org.lara.interpreter.weaver.interf.events.Stage;
-import java.util.Optional;
 import org.lara.interpreter.exception.AttributeException;
 import org.lara.interpreter.exception.ActionException;
-import java.util.List;
 import org.lara.interpreter.weaver.interf.JoinPoint;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Auto-Generated class for join point AMethod
@@ -38,13 +37,7 @@ public abstract class AMethod extends AExecutable {
      */
     public final Object getDeclarator() {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "declarator", Optional.empty());
-        	}
         	String result = this.getDeclaratorImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "declarator", Optional.ofNullable(result));
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "declarator", e);
@@ -65,13 +58,7 @@ public abstract class AMethod extends AExecutable {
      */
     public final Object isOverriding(AMethod method) {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isOverriding", Optional.empty(), method);
-        	}
         	Boolean result = this.isOverridingImpl(method);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "isOverriding", Optional.ofNullable(result), method);
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "isOverriding", e);
@@ -90,24 +77,11 @@ public abstract class AMethod extends AExecutable {
      */
     public final Object getPrivacy() {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "privacy", Optional.empty());
-        	}
         	String result = this.getPrivacyImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "privacy", Optional.ofNullable(result));
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "privacy", e);
         }
-    }
-
-    /**
-     * 
-     */
-    public void defPrivacyImpl(String value) {
-        throw new UnsupportedOperationException("Join point "+get_class()+": Action def privacy with type String not implemented ");
     }
 
     /**
@@ -122,13 +96,7 @@ public abstract class AMethod extends AExecutable {
      */
     public final Object getToQualifiedReference() {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "toQualifiedReference", Optional.empty());
-        	}
         	String result = this.getToQualifiedReferenceImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "toQualifiedReference", Optional.ofNullable(result));
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "toQualifiedReference", e);
@@ -147,13 +115,7 @@ public abstract class AMethod extends AExecutable {
      */
     public final Object getToReference() {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "toReference", Optional.empty());
-        	}
         	String result = this.getToReferenceImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "toReference", Optional.ofNullable(result));
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "toReference", e);
@@ -174,13 +136,7 @@ public abstract class AMethod extends AExecutable {
      */
     public final void addComment(String comment) {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "addComment", this, Optional.empty(), comment);
-        	}
         	this.addCommentImpl(comment);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "addComment", this, Optional.empty(), comment);
-        	}
         } catch(Exception e) {
         	throw new ActionException(get_class(), "addComment", e);
         }
@@ -202,13 +158,7 @@ public abstract class AMethod extends AExecutable {
      */
     public final void addParameter(String type, String name) {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "addParameter", this, Optional.empty(), type, name);
-        	}
         	this.addParameterImpl(type, name);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "addParameter", this, Optional.empty(), type, name);
-        	}
         } catch(Exception e) {
         	throw new ActionException(get_class(), "addParameter", e);
         }
@@ -228,13 +178,7 @@ public abstract class AMethod extends AExecutable {
      */
     public final Object clone(String newName) {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "clone", this, Optional.empty(), newName);
-        	}
         	AMethod result = this.cloneImpl(newName);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "clone", this, Optional.ofNullable(result), newName);
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "clone", e);
@@ -257,13 +201,7 @@ public abstract class AMethod extends AExecutable {
      */
     public final Object createAdapter(AMethod adaptMethod, String name) {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "createAdapter", this, Optional.empty(), adaptMethod, name);
-        	}
         	AClass result = this.createAdapterImpl(adaptMethod, name);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "createAdapter", this, Optional.ofNullable(result), adaptMethod, name);
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "createAdapter", e);
@@ -313,31 +251,6 @@ public abstract class AMethod extends AExecutable {
     @Override
     public String getReturnTypeImpl() {
         return this.aExecutable.getReturnTypeImpl();
-    }
-
-    /**
-     * Method used by the lara interpreter to select bodys
-     * @return 
-     */
-    @Override
-    public List<? extends ABody> selectBody() {
-        return this.aExecutable.selectBody();
-    }
-
-    /**
-     * Method used by the lara interpreter to select params
-     * @return 
-     */
-    @Override
-    public List<? extends ADeclaration> selectParam() {
-        return this.aExecutable.selectParam();
-    }
-
-    /**
-     * 
-     */
-    public void defNameImpl(String value) {
-        this.aExecutable.defNameImpl(value);
     }
 
     /**
@@ -688,94 +601,6 @@ public abstract class AMethod extends AExecutable {
     @Override
     public Optional<? extends AExecutable> getSuper() {
         return Optional.of(this.aExecutable);
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public final List<? extends JoinPoint> select(String selectName) {
-        List<? extends JoinPoint> joinPointList;
-        switch(selectName) {
-        	case "body": 
-        		joinPointList = selectBody();
-        		break;
-        	case "param": 
-        		joinPointList = selectParam();
-        		break;
-        	default:
-        		joinPointList = this.aExecutable.select(selectName);
-        		break;
-        }
-        return joinPointList;
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public final void defImpl(String attribute, Object value) {
-        switch(attribute){
-        case "privacy": {
-        	if(value instanceof String){
-        		this.defPrivacyImpl((String)value);
-        		return;
-        	}
-        	this.unsupportedTypeForDef(attribute, value);
-        }
-        case "name": {
-        	if(value instanceof String){
-        		this.defNameImpl((String)value);
-        		return;
-        	}
-        	this.unsupportedTypeForDef(attribute, value);
-        }
-        case "line": {
-        	if(value instanceof Integer){
-        		this.defLineImpl((Integer)value);
-        		return;
-        	}
-        	if(value instanceof String){
-        		this.defLineImpl((String)value);
-        		return;
-        	}
-        	this.unsupportedTypeForDef(attribute, value);
-        }
-        default: throw new UnsupportedOperationException("Join point "+get_class()+": attribute '"+attribute+"' cannot be defined");
-        }
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected final void fillWithAttributes(List<String> attributes) {
-        this.aExecutable.fillWithAttributes(attributes);
-        attributes.add("declarator");
-        attributes.add("isOverriding");
-        attributes.add("privacy");
-        attributes.add("toQualifiedReference");
-        attributes.add("toReference");
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected final void fillWithSelects(List<String> selects) {
-        this.aExecutable.fillWithSelects(selects);
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected final void fillWithActions(List<String> actions) {
-        this.aExecutable.fillWithActions(actions);
-        actions.add("void addComment(String)");
-        actions.add("void addParameter(String, String)");
-        actions.add("method clone(String)");
-        actions.add("class createAdapter(method, String)");
     }
 
     /**

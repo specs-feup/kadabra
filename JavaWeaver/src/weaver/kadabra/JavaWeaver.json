@@ -1070,12 +1070,6 @@
 									}]
 					},
 					{
-						"type": "select",
-						"clazz": "xmlElement",
-						"alias": "element",
-						"tooltip": "elements inside the Android manifest"
-					},
-					{
 						"type": "action",
 						"children": [
 									{
@@ -1502,31 +1496,6 @@
 										"type": "String",
 										"name": "srcCode"
 									}]
-					},
-					{
-						"type": "select",
-						"clazz": "expression",
-						"alias": "expr"
-					},
-					{
-						"type": "select",
-						"clazz": "var",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "arrayAccess",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "binaryExpression",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "binaryExpression",
-						"alias": "binaryExpr"
 					},
 					{
 						"type": "action",
@@ -1967,16 +1936,6 @@
 									}]
 					},
 					{
-						"type": "select",
-						"clazz": "body",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "declaration",
-						"alias": "param"
-					},
-					{
 						"type": "action",
 						"tooltip": "Sets the name of this executable, returns the previous name",
 						"children": [
@@ -2402,23 +2361,6 @@
 										"type": "String",
 										"name": "srcCode"
 									}]
-					},
-					{
-						"type": "select",
-						"clazz": "file",
-						"alias": "",
-						"tooltip": "files of the application"
-					},
-					{
-						"type": "select",
-						"clazz": "libClass",
-						"alias": "",
-						"tooltip": "class that is part of a library included in the classpath. This select may be slow, depending on the number of included types"
-					},
-					{
-						"type": "select",
-						"clazz": "androidManifest",
-						"alias": ""
 					},
 					{
 						"type": "action",
@@ -2939,41 +2881,6 @@
 									}]
 					},
 					{
-						"type": "select",
-						"clazz": "expression",
-						"alias": "target"
-					},
-					{
-						"type": "select",
-						"clazz": "expression",
-						"alias": "index"
-					},
-					{
-						"type": "select",
-						"clazz": "expression",
-						"alias": "expr"
-					},
-					{
-						"type": "select",
-						"clazz": "var",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "arrayAccess",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "binaryExpression",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "binaryExpression",
-						"alias": "binaryExpr"
-					},
-					{
 						"type": "action",
 						"children": [
 									{
@@ -3386,26 +3293,6 @@
 										"type": "String",
 										"name": "srcCode"
 									}]
-					},
-					{
-						"type": "select",
-						"clazz": "expression",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "expression",
-						"alias": "expr"
-					},
-					{
-						"type": "select",
-						"clazz": "var",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "call",
-						"alias": ""
 					},
 					{
 						"type": "action",
@@ -3821,26 +3708,6 @@
 										"type": "String",
 										"name": "srcCode"
 									}]
-					},
-					{
-						"type": "select",
-						"clazz": "expression",
-						"alias": "lhs"
-					},
-					{
-						"type": "select",
-						"clazz": "expression",
-						"alias": "rhs"
-					},
-					{
-						"type": "select",
-						"clazz": "var",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "call",
-						"alias": ""
 					},
 					{
 						"type": "action",
@@ -4316,46 +4183,6 @@
 									}]
 					},
 					{
-						"type": "select",
-						"clazz": "expression",
-						"alias": "lhs"
-					},
-					{
-						"type": "select",
-						"clazz": "expression",
-						"alias": "rhs"
-					},
-					{
-						"type": "select",
-						"clazz": "expression",
-						"alias": "operands"
-					},
-					{
-						"type": "select",
-						"clazz": "expression",
-						"alias": "expr"
-					},
-					{
-						"type": "select",
-						"clazz": "var",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "arrayAccess",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "binaryExpression",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "binaryExpression",
-						"alias": "binaryExpr"
-					},
-					{
 						"type": "action",
 						"children": [
 									{
@@ -4792,71 +4619,6 @@
 									}]
 					},
 					{
-						"type": "select",
-						"clazz": "statement",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "statement",
-						"alias": "stmt"
-					},
-					{
-						"type": "select",
-						"clazz": "statement",
-						"alias": "firstStmt"
-					},
-					{
-						"type": "select",
-						"clazz": "statement",
-						"alias": "lastStmt"
-					},
-					{
-						"type": "select",
-						"clazz": "localVariable",
-						"alias": "declaration"
-					},
-					{
-						"type": "select",
-						"clazz": "loop",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "if",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "return",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "assignment",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "pragma",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "comment",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "var",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "call",
-						"alias": ""
-					},
-					{
 						"type": "action",
 						"children": [
 									{
@@ -5272,16 +5034,6 @@
 										"type": "String",
 										"name": "srcCode"
 									}]
-					},
-					{
-						"type": "select",
-						"clazz": "var",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "call",
-						"alias": ""
 					},
 					{
 						"type": "action",
@@ -5785,36 +5537,6 @@
 										"type": "String",
 										"name": "srcCode"
 									}]
-					},
-					{
-						"type": "select",
-						"clazz": "expression",
-						"alias": "arg"
-					},
-					{
-						"type": "select",
-						"clazz": "expression",
-						"alias": "expr"
-					},
-					{
-						"type": "select",
-						"clazz": "var",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "arrayAccess",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "binaryExpression",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "binaryExpression",
-						"alias": "binaryExpr"
 					},
 					{
 						"type": "action",
@@ -6327,16 +6049,6 @@
 									}]
 					},
 					{
-						"type": "select",
-						"clazz": "var",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "call",
-						"alias": ""
-					},
-					{
 						"type": "action",
 						"children": [
 									{
@@ -6753,36 +6465,6 @@
 										"type": "String",
 										"name": "srcCode"
 									}]
-					},
-					{
-						"type": "select",
-						"clazz": "expression",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "expression",
-						"alias": "expr"
-					},
-					{
-						"type": "select",
-						"clazz": "statement",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "statement",
-						"alias": "stmt"
-					},
-					{
-						"type": "select",
-						"clazz": "var",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "call",
-						"alias": ""
 					},
 					{
 						"type": "action",
@@ -7636,52 +7318,6 @@
 									}]
 					},
 					{
-						"type": "select",
-						"clazz": "constructor",
-						"alias": "",
-						"tooltip": "the class constructors"
-					},
-					{
-						"type": "select",
-						"clazz": "anonymousExec",
-						"alias": "",
-						"tooltip": "anonymous code blocks defined in a class"
-					},
-					{
-						"type": "select",
-						"clazz": "field",
-						"alias": "",
-						"tooltip": "fields inside a class"
-					},
-					{
-						"type": "select",
-						"clazz": "executable",
-						"alias": "",
-						"tooltip": "methods, constructors or static/instance blocks"
-					},
-					{
-						"type": "select",
-						"clazz": "method",
-						"alias": "",
-						"tooltip": "methods inside a class"
-					},
-					{
-						"type": "select",
-						"clazz": "pragma",
-						"alias": "",
-						"tooltip": "comments that start with @ followed by the pragma name"
-					},
-					{
-						"type": "select",
-						"clazz": "method",
-						"alias": "function"
-					},
-					{
-						"type": "select",
-						"clazz": "comment",
-						"alias": ""
-					},
-					{
 						"type": "action",
 						"children": [
 									{
@@ -8407,16 +8043,6 @@
 									}]
 					},
 					{
-						"type": "select",
-						"clazz": "var",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "call",
-						"alias": ""
-					},
-					{
 						"type": "action",
 						"children": [
 									{
@@ -8840,16 +8466,6 @@
 									}]
 					},
 					{
-						"type": "select",
-						"clazz": "body",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "declaration",
-						"alias": "param"
-					},
-					{
 						"type": "action",
 						"tooltip": "Sets the name of this executable, returns the previous name",
 						"children": [
@@ -9253,16 +8869,6 @@
 										"type": "String",
 										"name": "srcCode"
 									}]
-					},
-					{
-						"type": "select",
-						"clazz": "var",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "call",
-						"alias": ""
 					},
 					{
 						"type": "action",
@@ -9694,11 +9300,6 @@
 										"type": "String",
 										"name": "srcCode"
 									}]
-					},
-					{
-						"type": "select",
-						"clazz": "expression",
-						"alias": "init"
 					},
 					{
 						"type": "action",
@@ -10180,57 +9781,6 @@
 										"type": "String",
 										"name": "srcCode"
 									}]
-					},
-					{
-						"type": "select",
-						"clazz": "field",
-						"alias": "values"
-					},
-					{
-						"type": "select",
-						"clazz": "constructor",
-						"alias": "",
-						"tooltip": "the class constructors"
-					},
-					{
-						"type": "select",
-						"clazz": "anonymousExec",
-						"alias": "",
-						"tooltip": "anonymous code blocks defined in a class"
-					},
-					{
-						"type": "select",
-						"clazz": "field",
-						"alias": "",
-						"tooltip": "fields inside a class"
-					},
-					{
-						"type": "select",
-						"clazz": "executable",
-						"alias": "",
-						"tooltip": "methods, constructors or static/instance blocks"
-					},
-					{
-						"type": "select",
-						"clazz": "method",
-						"alias": "",
-						"tooltip": "methods inside a class"
-					},
-					{
-						"type": "select",
-						"clazz": "pragma",
-						"alias": "",
-						"tooltip": "comments that start with @ followed by the pragma name"
-					},
-					{
-						"type": "select",
-						"clazz": "method",
-						"alias": "function"
-					},
-					{
-						"type": "select",
-						"clazz": "comment",
-						"alias": ""
 					},
 					{
 						"type": "action",
@@ -10998,11 +10548,6 @@
 									}]
 					},
 					{
-						"type": "select",
-						"clazz": "expression",
-						"alias": "init"
-					},
-					{
 						"type": "action",
 						"children": [
 									{
@@ -11429,16 +10974,6 @@
 										"type": "String",
 										"name": "srcCode"
 									}]
-					},
-					{
-						"type": "select",
-						"clazz": "body",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "declaration",
-						"alias": "param"
 					},
 					{
 						"type": "action",
@@ -11868,31 +11403,6 @@
 										"type": "String",
 										"name": "srcCode"
 									}]
-					},
-					{
-						"type": "select",
-						"clazz": "expression",
-						"alias": "expr"
-					},
-					{
-						"type": "select",
-						"clazz": "var",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "arrayAccess",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "binaryExpression",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "binaryExpression",
-						"alias": "binaryExpr"
 					},
 					{
 						"type": "action",
@@ -12363,11 +11873,6 @@
 										"type": "String",
 										"name": "srcCode"
 									}]
-					},
-					{
-						"type": "select",
-						"clazz": "expression",
-						"alias": "init"
 					},
 					{
 						"type": "action",
@@ -12864,31 +12369,6 @@
 									}]
 					},
 					{
-						"type": "select",
-						"clazz": "expression",
-						"alias": "expr"
-					},
-					{
-						"type": "select",
-						"clazz": "var",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "arrayAccess",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "binaryExpression",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "binaryExpression",
-						"alias": "binaryExpr"
-					},
-					{
 						"type": "action",
 						"children": [
 									{
@@ -13343,36 +12823,6 @@
 										"type": "String",
 										"name": "srcCode"
 									}]
-					},
-					{
-						"type": "select",
-						"clazz": "type",
-						"alias": "",
-						"tooltip": "Represents classes, interfaces and enums"
-					},
-					{
-						"type": "select",
-						"clazz": "class",
-						"alias": "",
-						"tooltip": "Represents Java classes"
-					},
-					{
-						"type": "select",
-						"clazz": "interfaceType",
-						"alias": "",
-						"tooltip": "Represents Java interfaces"
-					},
-					{
-						"type": "select",
-						"clazz": "pragma",
-						"alias": "",
-						"tooltip": "Comments that start with @ followed by the pragma name"
-					},
-					{
-						"type": "select",
-						"clazz": "comment",
-						"alias": "",
-						"tooltip": "Java comments"
 					},
 					{
 						"type": "action",
@@ -13946,31 +13396,6 @@
 									}]
 					},
 					{
-						"type": "select",
-						"clazz": "expression",
-						"alias": "cond"
-					},
-					{
-						"type": "select",
-						"clazz": "body",
-						"alias": "then"
-					},
-					{
-						"type": "select",
-						"clazz": "body",
-						"alias": "else"
-					},
-					{
-						"type": "select",
-						"clazz": "var",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "call",
-						"alias": ""
-					},
-					{
 						"type": "action",
 						"children": [
 									{
@@ -14429,40 +13854,6 @@
 										"type": "String",
 										"name": "srcCode"
 									}]
-					},
-					{
-						"type": "select",
-						"clazz": "field",
-						"alias": "",
-						"tooltip": "fields inside a class"
-					},
-					{
-						"type": "select",
-						"clazz": "executable",
-						"alias": "",
-						"tooltip": "methods, constructors or static/instance blocks"
-					},
-					{
-						"type": "select",
-						"clazz": "method",
-						"alias": "",
-						"tooltip": "methods inside a class"
-					},
-					{
-						"type": "select",
-						"clazz": "pragma",
-						"alias": "",
-						"tooltip": "comments that start with @ followed by the pragma name"
-					},
-					{
-						"type": "select",
-						"clazz": "method",
-						"alias": "function"
-					},
-					{
-						"type": "select",
-						"clazz": "comment",
-						"alias": ""
 					},
 					{
 						"type": "action",
@@ -15111,12 +14502,6 @@
 									}]
 					},
 					{
-						"type": "select",
-						"clazz": "libMethod",
-						"alias": "",
-						"tooltip": "methods that belong to this class"
-					},
-					{
 						"type": "action",
 						"children": [
 									{
@@ -15516,12 +14901,6 @@
 										"type": "String",
 										"name": "srcCode"
 									}]
-					},
-					{
-						"type": "select",
-						"clazz": "declaration",
-						"alias": "param",
-						"tooltip": "parameter of a library method"
 					},
 					{
 						"type": "action",
@@ -15945,31 +15324,6 @@
 										"type": "String",
 										"name": "srcCode"
 									}]
-					},
-					{
-						"type": "select",
-						"clazz": "expression",
-						"alias": "expr"
-					},
-					{
-						"type": "select",
-						"clazz": "var",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "arrayAccess",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "binaryExpression",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "binaryExpression",
-						"alias": "binaryExpr"
 					},
 					{
 						"type": "action",
@@ -16456,21 +15810,6 @@
 									}]
 					},
 					{
-						"type": "select",
-						"clazz": "expression",
-						"alias": "init"
-					},
-					{
-						"type": "select",
-						"clazz": "var",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "call",
-						"alias": ""
-					},
-					{
 						"type": "action",
 						"children": [
 									{
@@ -16929,41 +16268,6 @@
 										"type": "String",
 										"name": "srcCode"
 									}]
-					},
-					{
-						"type": "select",
-						"clazz": "statement",
-						"alias": "init"
-					},
-					{
-						"type": "select",
-						"clazz": "expression",
-						"alias": "cond"
-					},
-					{
-						"type": "select",
-						"clazz": "statement",
-						"alias": "step"
-					},
-					{
-						"type": "select",
-						"clazz": "expression",
-						"alias": "expr"
-					},
-					{
-						"type": "select",
-						"clazz": "body",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "var",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "call",
-						"alias": ""
 					},
 					{
 						"type": "action",
@@ -17480,16 +16784,6 @@
 									}]
 					},
 					{
-						"type": "select",
-						"clazz": "body",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "declaration",
-						"alias": "param"
-					},
-					{
 						"type": "action",
 						"children": [
 									{
@@ -17997,31 +17291,6 @@
 									}]
 					},
 					{
-						"type": "select",
-						"clazz": "expression",
-						"alias": "expr"
-					},
-					{
-						"type": "select",
-						"clazz": "var",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "arrayAccess",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "binaryExpression",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "binaryExpression",
-						"alias": "binaryExpr"
-					},
-					{
 						"type": "action",
 						"children": [
 									{
@@ -18471,26 +17740,6 @@
 										"type": "String",
 										"name": "srcCode"
 									}]
-					},
-					{
-						"type": "select",
-						"clazz": "expression",
-						"alias": "lhs"
-					},
-					{
-						"type": "select",
-						"clazz": "expression",
-						"alias": "rhs"
-					},
-					{
-						"type": "select",
-						"clazz": "var",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "call",
-						"alias": ""
 					},
 					{
 						"type": "action",
@@ -18945,16 +18194,6 @@
 										"type": "String",
 										"name": "srcCode"
 									}]
-					},
-					{
-						"type": "select",
-						"clazz": "var",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "call",
-						"alias": ""
 					},
 					{
 						"type": "action",
@@ -19751,16 +18990,6 @@
 									}]
 					},
 					{
-						"type": "select",
-						"clazz": "var",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "call",
-						"alias": ""
-					},
-					{
 						"type": "action",
 						"children": [
 									{
@@ -20174,31 +19403,6 @@
 										"type": "String",
 										"name": "srcCode"
 									}]
-					},
-					{
-						"type": "select",
-						"clazz": "expression",
-						"alias": "expr"
-					},
-					{
-						"type": "select",
-						"clazz": "var",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "arrayAccess",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "binaryExpression",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "binaryExpression",
-						"alias": "binaryExpr"
 					},
 					{
 						"type": "action",
@@ -20628,16 +19832,6 @@
 									}]
 					},
 					{
-						"type": "select",
-						"clazz": "var",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "call",
-						"alias": ""
-					},
-					{
 						"type": "action",
 						"children": [
 									{
@@ -21042,16 +20236,6 @@
 									}]
 					},
 					{
-						"type": "select",
-						"clazz": "var",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "call",
-						"alias": ""
-					},
-					{
 						"type": "action",
 						"children": [
 									{
@@ -21449,21 +20633,6 @@
 										"type": "String",
 										"name": "srcCode"
 									}]
-					},
-					{
-						"type": "select",
-						"clazz": "case",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "var",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "call",
-						"alias": ""
 					},
 					{
 						"type": "action",
@@ -21915,46 +21084,6 @@
 									}]
 					},
 					{
-						"type": "select",
-						"clazz": "expression",
-						"alias": "condition"
-					},
-					{
-						"type": "select",
-						"clazz": "expression",
-						"alias": "then"
-					},
-					{
-						"type": "select",
-						"clazz": "expression",
-						"alias": "else"
-					},
-					{
-						"type": "select",
-						"clazz": "expression",
-						"alias": "expr"
-					},
-					{
-						"type": "select",
-						"clazz": "var",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "arrayAccess",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "binaryExpression",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "binaryExpression",
-						"alias": "binaryExpr"
-					},
-					{
 						"type": "action",
 						"children": [
 									{
@@ -22393,31 +21522,6 @@
 									}]
 					},
 					{
-						"type": "select",
-						"clazz": "expression",
-						"alias": "expr"
-					},
-					{
-						"type": "select",
-						"clazz": "var",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "arrayAccess",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "binaryExpression",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "binaryExpression",
-						"alias": "binaryExpr"
-					},
-					{
 						"type": "action",
 						"children": [
 									{
@@ -22832,26 +21936,6 @@
 									}]
 					},
 					{
-						"type": "select",
-						"clazz": "expression",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "expression",
-						"alias": "expr"
-					},
-					{
-						"type": "select",
-						"clazz": "var",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "call",
-						"alias": ""
-					},
-					{
 						"type": "action",
 						"children": [
 									{
@@ -23257,21 +22341,6 @@
 										"type": "String",
 										"name": "srcCode"
 									}]
-					},
-					{
-						"type": "select",
-						"clazz": "body",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "var",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "call",
-						"alias": ""
 					},
 					{
 						"type": "action",
@@ -23733,40 +22802,6 @@
 										"type": "String",
 										"name": "srcCode"
 									}]
-					},
-					{
-						"type": "select",
-						"clazz": "field",
-						"alias": "",
-						"tooltip": "fields inside a class"
-					},
-					{
-						"type": "select",
-						"clazz": "executable",
-						"alias": "",
-						"tooltip": "methods, constructors or static/instance blocks"
-					},
-					{
-						"type": "select",
-						"clazz": "method",
-						"alias": "",
-						"tooltip": "methods inside a class"
-					},
-					{
-						"type": "select",
-						"clazz": "pragma",
-						"alias": "",
-						"tooltip": "comments that start with @ followed by the pragma name"
-					},
-					{
-						"type": "select",
-						"clazz": "method",
-						"alias": "function"
-					},
-					{
-						"type": "select",
-						"clazz": "comment",
-						"alias": ""
 					},
 					{
 						"type": "action",
@@ -24869,36 +23904,6 @@
 									}]
 					},
 					{
-						"type": "select",
-						"clazz": "expression",
-						"alias": "operand"
-					},
-					{
-						"type": "select",
-						"clazz": "expression",
-						"alias": "expr"
-					},
-					{
-						"type": "select",
-						"clazz": "var",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "arrayAccess",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "binaryExpression",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "binaryExpression",
-						"alias": "binaryExpr"
-					},
-					{
 						"type": "action",
 						"tooltip": "Sets the operator of the unary expression. To distinguish between postfix and prefix operator, add an underscore signalling the place of the variable (e.g., _++ for postfix incremment). If no underscore is specified, postfix is assumed.",
 						"children": [
@@ -25417,31 +24422,6 @@
 									}]
 					},
 					{
-						"type": "select",
-						"clazz": "expression",
-						"alias": "expr"
-					},
-					{
-						"type": "select",
-						"clazz": "var",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "arrayAccess",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "binaryExpression",
-						"alias": ""
-					},
-					{
-						"type": "select",
-						"clazz": "binaryExpression",
-						"alias": "binaryExpr"
-					},
-					{
 						"type": "action",
 						"children": [
 									{
@@ -25901,12 +24881,6 @@
 									}]
 					},
 					{
-						"type": "select",
-						"clazz": "xmlElement",
-						"alias": "element",
-						"tooltip": "elements inside the Android manifest"
-					},
-					{
 						"type": "action",
 						"children": [
 									{
@@ -26339,12 +25313,6 @@
 										"type": "String",
 										"name": "srcCode"
 									}]
-					},
-					{
-						"type": "select",
-						"clazz": "xmlElement",
-						"alias": "element",
-						"tooltip": "elements inside the Android manifest"
 					},
 					{
 						"type": "action",

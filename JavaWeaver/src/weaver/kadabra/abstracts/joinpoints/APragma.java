@@ -1,12 +1,11 @@
 package weaver.kadabra.abstracts.joinpoints;
 
-import org.lara.interpreter.weaver.interf.events.Stage;
-import java.util.Optional;
 import org.lara.interpreter.exception.AttributeException;
-import java.util.List;
 import org.lara.interpreter.weaver.interf.JoinPoint;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Auto-Generated class for join point APragma
@@ -38,13 +37,7 @@ public abstract class APragma extends AComment {
      */
     public final Object getName() {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "name", Optional.empty());
-        	}
         	String result = this.getNameImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "name", Optional.ofNullable(result));
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "name", e);
@@ -85,24 +78,6 @@ public abstract class APragma extends AComment {
     @Override
     public String getKindImpl() {
         return this.aComment.getKindImpl();
-    }
-
-    /**
-     * Method used by the lara interpreter to select vars
-     * @return 
-     */
-    @Override
-    public List<? extends AVar> selectVar() {
-        return this.aComment.selectVar();
-    }
-
-    /**
-     * Method used by the lara interpreter to select calls
-     * @return 
-     */
-    @Override
-    public List<? extends ACall> selectCall() {
-        return this.aComment.selectCall();
     }
 
     /**
@@ -444,72 +419,6 @@ public abstract class APragma extends AComment {
     @Override
     public Optional<? extends AComment> getSuper() {
         return Optional.of(this.aComment);
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public final List<? extends JoinPoint> select(String selectName) {
-        List<? extends JoinPoint> joinPointList;
-        switch(selectName) {
-        	case "var": 
-        		joinPointList = selectVar();
-        		break;
-        	case "call": 
-        		joinPointList = selectCall();
-        		break;
-        	default:
-        		joinPointList = this.aComment.select(selectName);
-        		break;
-        }
-        return joinPointList;
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public final void defImpl(String attribute, Object value) {
-        switch(attribute){
-        case "line": {
-        	if(value instanceof Integer){
-        		this.defLineImpl((Integer)value);
-        		return;
-        	}
-        	if(value instanceof String){
-        		this.defLineImpl((String)value);
-        		return;
-        	}
-        	this.unsupportedTypeForDef(attribute, value);
-        }
-        default: throw new UnsupportedOperationException("Join point "+get_class()+": attribute '"+attribute+"' cannot be defined");
-        }
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected final void fillWithAttributes(List<String> attributes) {
-        this.aComment.fillWithAttributes(attributes);
-        attributes.add("name");
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected final void fillWithSelects(List<String> selects) {
-        this.aComment.fillWithSelects(selects);
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected final void fillWithActions(List<String> actions) {
-        this.aComment.fillWithActions(actions);
     }
 
     /**

@@ -1,14 +1,12 @@
 package weaver.kadabra.abstracts.joinpoints;
 
-import org.lara.interpreter.weaver.interf.events.Stage;
-import java.util.Optional;
 import org.lara.interpreter.exception.AttributeException;
-import java.util.List;
-import org.lara.interpreter.weaver.interf.SelectOp;
 import org.lara.interpreter.exception.ActionException;
 import org.lara.interpreter.weaver.interf.JoinPoint;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Auto-Generated class for join point AAssignment
@@ -39,24 +37,11 @@ public abstract class AAssignment extends AStatement {
      */
     public final Object getLhs() {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "lhs", Optional.empty());
-        	}
         	AExpression result = this.getLhsImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "lhs", Optional.ofNullable(result));
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "lhs", e);
         }
-    }
-
-    /**
-     * 
-     */
-    public void defLhsImpl(AExpression value) {
-        throw new UnsupportedOperationException("Join point "+get_class()+": Action def lhs with type AExpression not implemented ");
     }
 
     /**
@@ -71,24 +56,11 @@ public abstract class AAssignment extends AStatement {
      */
     public final Object getOperator() {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "operator", Optional.empty());
-        	}
         	String result = this.getOperatorImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "operator", Optional.ofNullable(result));
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "operator", e);
         }
-    }
-
-    /**
-     * 
-     */
-    public void defOperatorImpl(String value) {
-        throw new UnsupportedOperationException("Join point "+get_class()+": Action def operator with type String not implemented ");
     }
 
     /**
@@ -103,40 +75,11 @@ public abstract class AAssignment extends AStatement {
      */
     public final Object getRhs() {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "rhs", Optional.empty());
-        	}
         	AExpression result = this.getRhsImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "rhs", Optional.ofNullable(result));
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "rhs", e);
         }
-    }
-
-    /**
-     * 
-     */
-    public void defRhsImpl(AExpression value) {
-        throw new UnsupportedOperationException("Join point "+get_class()+": Action def rhs with type AExpression not implemented ");
-    }
-
-    /**
-     * Default implementation of the method used by the lara interpreter to select lhss
-     * @return 
-     */
-    public List<? extends AExpression> selectLhs() {
-        return select(weaver.kadabra.abstracts.joinpoints.AExpression.class, SelectOp.DESCENDANTS);
-    }
-
-    /**
-     * Default implementation of the method used by the lara interpreter to select rhss
-     * @return 
-     */
-    public List<? extends AExpression> selectRhs() {
-        return select(weaver.kadabra.abstracts.joinpoints.AExpression.class, SelectOp.DESCENDANTS);
     }
 
     /**
@@ -153,13 +96,7 @@ public abstract class AAssignment extends AStatement {
      */
     public final void setLhs(AExpression lhs) {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "setLhs", this, Optional.empty(), lhs);
-        	}
         	this.setLhsImpl(lhs);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "setLhs", this, Optional.empty(), lhs);
-        	}
         } catch(Exception e) {
         	throw new ActionException(get_class(), "setLhs", e);
         }
@@ -179,13 +116,7 @@ public abstract class AAssignment extends AStatement {
      */
     public final void setRhs(AExpression rhs) {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "setRhs", this, Optional.empty(), rhs);
-        	}
         	this.setRhsImpl(rhs);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "setRhs", this, Optional.empty(), rhs);
-        	}
         } catch(Exception e) {
         	throw new ActionException(get_class(), "setRhs", e);
         }
@@ -207,24 +138,6 @@ public abstract class AAssignment extends AStatement {
     @Override
     public String getKindImpl() {
         return this.aStatement.getKindImpl();
-    }
-
-    /**
-     * Method used by the lara interpreter to select vars
-     * @return 
-     */
-    @Override
-    public List<? extends AVar> selectVar() {
-        return this.aStatement.selectVar();
-    }
-
-    /**
-     * Method used by the lara interpreter to select calls
-     * @return 
-     */
-    @Override
-    public List<? extends ACall> selectCall() {
-        return this.aStatement.selectCall();
     }
 
     /**
@@ -566,105 +479,6 @@ public abstract class AAssignment extends AStatement {
     @Override
     public Optional<? extends AStatement> getSuper() {
         return Optional.of(this.aStatement);
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public List<? extends JoinPoint> select(String selectName) {
-        List<? extends JoinPoint> joinPointList;
-        switch(selectName) {
-        	case "lhs": 
-        		joinPointList = selectLhs();
-        		break;
-        	case "rhs": 
-        		joinPointList = selectRhs();
-        		break;
-        	case "var": 
-        		joinPointList = selectVar();
-        		break;
-        	case "call": 
-        		joinPointList = selectCall();
-        		break;
-        	default:
-        		joinPointList = this.aStatement.select(selectName);
-        		break;
-        }
-        return joinPointList;
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public void defImpl(String attribute, Object value) {
-        switch(attribute){
-        case "lhs": {
-        	if(value instanceof AExpression){
-        		this.defLhsImpl((AExpression)value);
-        		return;
-        	}
-        	this.unsupportedTypeForDef(attribute, value);
-        }
-        case "operator": {
-        	if(value instanceof String){
-        		this.defOperatorImpl((String)value);
-        		return;
-        	}
-        	this.unsupportedTypeForDef(attribute, value);
-        }
-        case "rhs": {
-        	if(value instanceof AExpression){
-        		this.defRhsImpl((AExpression)value);
-        		return;
-        	}
-        	this.unsupportedTypeForDef(attribute, value);
-        }
-        case "line": {
-        	if(value instanceof Integer){
-        		this.defLineImpl((Integer)value);
-        		return;
-        	}
-        	if(value instanceof String){
-        		this.defLineImpl((String)value);
-        		return;
-        	}
-        	this.unsupportedTypeForDef(attribute, value);
-        }
-        default: throw new UnsupportedOperationException("Join point "+get_class()+": attribute '"+attribute+"' cannot be defined");
-        }
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected void fillWithAttributes(List<String> attributes) {
-        this.aStatement.fillWithAttributes(attributes);
-        attributes.add("lhs");
-        attributes.add("operator");
-        attributes.add("rhs");
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected void fillWithSelects(List<String> selects) {
-        this.aStatement.fillWithSelects(selects);
-        selects.add("lhs");
-        selects.add("rhs");
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected void fillWithActions(List<String> actions) {
-        this.aStatement.fillWithActions(actions);
-        actions.add("void setLhs(expression)");
-        actions.add("void setRhs(expression)");
     }
 
     /**

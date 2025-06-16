@@ -1,15 +1,12 @@
 package weaver.kadabra.abstracts.joinpoints;
 
-import org.lara.interpreter.weaver.interf.events.Stage;
-import java.util.Optional;
 import org.lara.interpreter.exception.AttributeException;
-import java.util.List;
-import org.lara.interpreter.weaver.interf.SelectOp;
 import org.lara.interpreter.exception.ActionException;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
-import org.lara.interpreter.weaver.interf.JoinPoint;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Auto-Generated class for join point AXmlNode
@@ -32,7 +29,7 @@ public abstract class AXmlNode extends AJavaWeaverJoinPoint {
      */
     public Object getElementsImpl() {
         AXmlElement[] aXmlElementArrayImpl0 = getElementsArrayImpl();
-        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(aXmlElementArrayImpl0);
+        Object nativeArray0 = aXmlElementArrayImpl0;
         return nativeArray0;
     }
 
@@ -42,13 +39,7 @@ public abstract class AXmlNode extends AJavaWeaverJoinPoint {
      */
     public final Object getElements() {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "elements", Optional.empty());
-        	}
         	Object result = this.getElementsImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "elements", Optional.ofNullable(result));
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "elements", e);
@@ -69,7 +60,7 @@ public abstract class AXmlNode extends AJavaWeaverJoinPoint {
      */
     public Object elementsByNameImpl(String name) {
         AXmlElement[] aXmlElementArrayImpl0 = elementsByNameArrayImpl(name);
-        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(aXmlElementArrayImpl0);
+        Object nativeArray0 = aXmlElementArrayImpl0;
         return nativeArray0;
     }
 
@@ -80,13 +71,7 @@ public abstract class AXmlNode extends AJavaWeaverJoinPoint {
      */
     public final Object elementsByName(String name) {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "elementsByName", Optional.empty(), name);
-        	}
         	Object result = this.elementsByNameImpl(name);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "elementsByName", Optional.ofNullable(result), name);
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "elementsByName", e);
@@ -105,32 +90,11 @@ public abstract class AXmlNode extends AJavaWeaverJoinPoint {
      */
     public final Object getText() {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "text", Optional.empty());
-        	}
         	String result = this.getTextImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "text", Optional.ofNullable(result));
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "text", e);
         }
-    }
-
-    /**
-     * 
-     */
-    public void defTextImpl(String value) {
-        throw new UnsupportedOperationException("Join point "+get_class()+": Action def text with type String not implemented ");
-    }
-
-    /**
-     * elements inside the Android manifest
-     * @return 
-     */
-    public List<? extends AXmlElement> selectElement() {
-        return select(weaver.kadabra.abstracts.joinpoints.AXmlElement.class, SelectOp.DESCENDANTS);
     }
 
     /**
@@ -147,91 +111,11 @@ public abstract class AXmlNode extends AJavaWeaverJoinPoint {
      */
     public final Object setText(String text) {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "setText", this, Optional.empty(), text);
-        	}
         	String result = this.setTextImpl(text);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "setText", this, Optional.ofNullable(result), text);
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "setText", e);
         }
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public List<? extends JoinPoint> select(String selectName) {
-        List<? extends JoinPoint> joinPointList;
-        switch(selectName) {
-        	case "element": 
-        		joinPointList = selectElement();
-        		break;
-        	default:
-        		joinPointList = super.select(selectName);
-        		break;
-        }
-        return joinPointList;
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public void defImpl(String attribute, Object value) {
-        switch(attribute){
-        case "text": {
-        	if(value instanceof String){
-        		this.defTextImpl((String)value);
-        		return;
-        	}
-        	this.unsupportedTypeForDef(attribute, value);
-        }
-        case "line": {
-        	if(value instanceof Integer){
-        		this.defLineImpl((Integer)value);
-        		return;
-        	}
-        	if(value instanceof String){
-        		this.defLineImpl((String)value);
-        		return;
-        	}
-        	this.unsupportedTypeForDef(attribute, value);
-        }
-        default: throw new UnsupportedOperationException("Join point "+get_class()+": attribute '"+attribute+"' cannot be defined");
-        }
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected void fillWithAttributes(List<String> attributes) {
-        super.fillWithAttributes(attributes);
-        attributes.add("elements");
-        attributes.add("elementsByName");
-        attributes.add("text");
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected void fillWithSelects(List<String> selects) {
-        super.fillWithSelects(selects);
-        selects.add("element");
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected void fillWithActions(List<String> actions) {
-        super.fillWithActions(actions);
-        actions.add("String setText(String)");
     }
 
     /**

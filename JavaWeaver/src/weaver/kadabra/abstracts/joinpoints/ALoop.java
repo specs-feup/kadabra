@@ -1,14 +1,12 @@
 package weaver.kadabra.abstracts.joinpoints;
 
-import org.lara.interpreter.weaver.interf.events.Stage;
-import java.util.Optional;
 import org.lara.interpreter.exception.AttributeException;
-import java.util.List;
-import org.lara.interpreter.weaver.interf.SelectOp;
 import org.lara.interpreter.exception.ActionException;
 import org.lara.interpreter.weaver.interf.JoinPoint;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Auto-Generated class for join point ALoop
@@ -39,13 +37,7 @@ public abstract class ALoop extends AStatement {
      */
     public final Object getCond() {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "cond", Optional.empty());
-        	}
         	AExpression result = this.getCondImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "cond", Optional.ofNullable(result));
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "cond", e);
@@ -64,13 +56,7 @@ public abstract class ALoop extends AStatement {
      */
     public final Object getControlVar() {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "controlVar", Optional.empty());
-        	}
         	String result = this.getControlVarImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "controlVar", Optional.ofNullable(result));
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "controlVar", e);
@@ -89,13 +75,7 @@ public abstract class ALoop extends AStatement {
      */
     public final Object getIsInnermost() {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isInnermost", Optional.empty());
-        	}
         	Boolean result = this.getIsInnermostImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "isInnermost", Optional.ofNullable(result));
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "isInnermost", e);
@@ -114,13 +94,7 @@ public abstract class ALoop extends AStatement {
      */
     public final Object getIsOutermost() {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isOutermost", Optional.empty());
-        	}
         	Boolean result = this.getIsOutermostImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "isOutermost", Optional.ofNullable(result));
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "isOutermost", e);
@@ -139,13 +113,7 @@ public abstract class ALoop extends AStatement {
      */
     public final Object getNestedLevel() {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "nestedLevel", Optional.empty());
-        	}
         	Integer result = this.getNestedLevelImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "nestedLevel", Optional.ofNullable(result));
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "nestedLevel", e);
@@ -164,13 +132,7 @@ public abstract class ALoop extends AStatement {
      */
     public final Object getRank() {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "rank", Optional.empty());
-        	}
         	String result = this.getRankImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "rank", Optional.ofNullable(result));
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "rank", e);
@@ -189,57 +151,11 @@ public abstract class ALoop extends AStatement {
      */
     public final Object getType() {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "type", Optional.empty());
-        	}
         	String result = this.getTypeImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "type", Optional.ofNullable(result));
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "type", e);
         }
-    }
-
-    /**
-     * Default implementation of the method used by the lara interpreter to select inits
-     * @return 
-     */
-    public List<? extends AStatement> selectInit() {
-        return select(weaver.kadabra.abstracts.joinpoints.AStatement.class, SelectOp.DESCENDANTS);
-    }
-
-    /**
-     * Default implementation of the method used by the lara interpreter to select conds
-     * @return 
-     */
-    public List<? extends AExpression> selectCond() {
-        return select(weaver.kadabra.abstracts.joinpoints.AExpression.class, SelectOp.DESCENDANTS);
-    }
-
-    /**
-     * Default implementation of the method used by the lara interpreter to select steps
-     * @return 
-     */
-    public List<? extends AStatement> selectStep() {
-        return select(weaver.kadabra.abstracts.joinpoints.AStatement.class, SelectOp.DESCENDANTS);
-    }
-
-    /**
-     * Default implementation of the method used by the lara interpreter to select exprs
-     * @return 
-     */
-    public List<? extends AExpression> selectExpr() {
-        return select(weaver.kadabra.abstracts.joinpoints.AExpression.class, SelectOp.DESCENDANTS);
-    }
-
-    /**
-     * Default implementation of the method used by the lara interpreter to select bodys
-     * @return 
-     */
-    public List<? extends ABody> selectBody() {
-        return select(weaver.kadabra.abstracts.joinpoints.ABody.class, SelectOp.DESCENDANTS);
     }
 
     /**
@@ -256,13 +172,7 @@ public abstract class ALoop extends AStatement {
      */
     public final void interchange(ALoop loop2) {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "interchange", this, Optional.empty(), loop2);
-        	}
         	this.interchangeImpl(loop2);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "interchange", this, Optional.empty(), loop2);
-        	}
         } catch(Exception e) {
         	throw new ActionException(get_class(), "interchange", e);
         }
@@ -288,13 +198,7 @@ public abstract class ALoop extends AStatement {
      */
     public final Object tile(String tileName, String block, boolean unique, AJoinPoint around) {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "tile", this, Optional.empty(), tileName, block, unique, around);
-        	}
         	AField result = this.tileImpl(tileName, block, unique, around);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "tile", this, Optional.ofNullable(result), tileName, block, unique, around);
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "tile", e);
@@ -315,13 +219,7 @@ public abstract class ALoop extends AStatement {
      */
     public final void tile(int block) {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "tile", this, Optional.empty(), block);
-        	}
         	this.tileImpl(block);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "tile", this, Optional.empty(), block);
-        	}
         } catch(Exception e) {
         	throw new ActionException(get_class(), "tile", e);
         }
@@ -343,24 +241,6 @@ public abstract class ALoop extends AStatement {
     @Override
     public String getKindImpl() {
         return this.aStatement.getKindImpl();
-    }
-
-    /**
-     * Method used by the lara interpreter to select vars
-     * @return 
-     */
-    @Override
-    public List<? extends AVar> selectVar() {
-        return this.aStatement.selectVar();
-    }
-
-    /**
-     * Method used by the lara interpreter to select calls
-     * @return 
-     */
-    @Override
-    public List<? extends ACall> selectCall() {
-        return this.aStatement.selectCall();
     }
 
     /**
@@ -702,101 +582,6 @@ public abstract class ALoop extends AStatement {
     @Override
     public Optional<? extends AStatement> getSuper() {
         return Optional.of(this.aStatement);
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public final List<? extends JoinPoint> select(String selectName) {
-        List<? extends JoinPoint> joinPointList;
-        switch(selectName) {
-        	case "init": 
-        		joinPointList = selectInit();
-        		break;
-        	case "cond": 
-        		joinPointList = selectCond();
-        		break;
-        	case "step": 
-        		joinPointList = selectStep();
-        		break;
-        	case "expr": 
-        		joinPointList = selectExpr();
-        		break;
-        	case "body": 
-        		joinPointList = selectBody();
-        		break;
-        	case "var": 
-        		joinPointList = selectVar();
-        		break;
-        	case "call": 
-        		joinPointList = selectCall();
-        		break;
-        	default:
-        		joinPointList = this.aStatement.select(selectName);
-        		break;
-        }
-        return joinPointList;
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public final void defImpl(String attribute, Object value) {
-        switch(attribute){
-        case "line": {
-        	if(value instanceof Integer){
-        		this.defLineImpl((Integer)value);
-        		return;
-        	}
-        	if(value instanceof String){
-        		this.defLineImpl((String)value);
-        		return;
-        	}
-        	this.unsupportedTypeForDef(attribute, value);
-        }
-        default: throw new UnsupportedOperationException("Join point "+get_class()+": attribute '"+attribute+"' cannot be defined");
-        }
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected final void fillWithAttributes(List<String> attributes) {
-        this.aStatement.fillWithAttributes(attributes);
-        attributes.add("cond");
-        attributes.add("controlVar");
-        attributes.add("isInnermost");
-        attributes.add("isOutermost");
-        attributes.add("nestedLevel");
-        attributes.add("rank");
-        attributes.add("type");
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected final void fillWithSelects(List<String> selects) {
-        this.aStatement.fillWithSelects(selects);
-        selects.add("init");
-        selects.add("cond");
-        selects.add("step");
-        selects.add("expr");
-        selects.add("body");
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected final void fillWithActions(List<String> actions) {
-        this.aStatement.fillWithActions(actions);
-        actions.add("void interchange(loop)");
-        actions.add("field tile(String, String, boolean, joinpoint)");
-        actions.add("void tile(int)");
     }
 
     /**

@@ -1,10 +1,10 @@
 package weaver.kadabra.abstracts.joinpoints;
 
-import java.util.List;
 import org.lara.interpreter.weaver.interf.JoinPoint;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Auto-Generated class for join point AFieldAccess
@@ -139,65 +139,6 @@ public abstract class AFieldAccess extends AVar {
     @Override
     public ATypeReference getTypeReferenceImpl() {
         return this.aVar.getTypeReferenceImpl();
-    }
-
-    /**
-     * Method used by the lara interpreter to select exprs
-     * @return 
-     */
-    @Override
-    public List<? extends AExpression> selectExpr() {
-        return this.aVar.selectExpr();
-    }
-
-    /**
-     * Method used by the lara interpreter to select vars
-     * @return 
-     */
-    @Override
-    public List<? extends AVar> selectVar() {
-        return this.aVar.selectVar();
-    }
-
-    /**
-     * Method used by the lara interpreter to select arrayAccesss
-     * @return 
-     */
-    @Override
-    public List<? extends AArrayAccess> selectArrayAccess() {
-        return this.aVar.selectArrayAccess();
-    }
-
-    /**
-     * Method used by the lara interpreter to select binaryExpressions
-     * @return 
-     */
-    @Override
-    public List<? extends ABinaryExpression> selectBinaryExpression() {
-        return this.aVar.selectBinaryExpression();
-    }
-
-    /**
-     * Method used by the lara interpreter to select binaryExprs
-     * @return 
-     */
-    @Override
-    public List<? extends ABinaryExpression> selectBinaryExpr() {
-        return this.aVar.selectBinaryExpr();
-    }
-
-    /**
-     * 
-     */
-    public void defTestImpl(Integer value) {
-        this.aVar.defTestImpl(value);
-    }
-
-    /**
-     * 
-     */
-    public void defTestImpl(AExpression value) {
-        this.aVar.defTestImpl(value);
     }
 
     /**
@@ -550,91 +491,6 @@ public abstract class AFieldAccess extends AVar {
     @Override
     public Optional<? extends AVar> getSuper() {
         return Optional.of(this.aVar);
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public final List<? extends JoinPoint> select(String selectName) {
-        List<? extends JoinPoint> joinPointList;
-        switch(selectName) {
-        	case "expr": 
-        		joinPointList = selectExpr();
-        		break;
-        	case "var": 
-        		joinPointList = selectVar();
-        		break;
-        	case "arrayAccess": 
-        		joinPointList = selectArrayAccess();
-        		break;
-        	case "binaryExpression": 
-        		joinPointList = selectBinaryExpression();
-        		break;
-        	case "binaryExpr": 
-        		joinPointList = selectBinaryExpr();
-        		break;
-        	default:
-        		joinPointList = this.aVar.select(selectName);
-        		break;
-        }
-        return joinPointList;
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public final void defImpl(String attribute, Object value) {
-        switch(attribute){
-        case "test": {
-        	if(value instanceof Integer){
-        		this.defTestImpl((Integer)value);
-        		return;
-        	}
-        	if(value instanceof AExpression){
-        		this.defTestImpl((AExpression)value);
-        		return;
-        	}
-        	this.unsupportedTypeForDef(attribute, value);
-        }
-        case "line": {
-        	if(value instanceof Integer){
-        		this.defLineImpl((Integer)value);
-        		return;
-        	}
-        	if(value instanceof String){
-        		this.defLineImpl((String)value);
-        		return;
-        	}
-        	this.unsupportedTypeForDef(attribute, value);
-        }
-        default: throw new UnsupportedOperationException("Join point "+get_class()+": attribute '"+attribute+"' cannot be defined");
-        }
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected final void fillWithAttributes(List<String> attributes) {
-        this.aVar.fillWithAttributes(attributes);
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected final void fillWithSelects(List<String> selects) {
-        this.aVar.fillWithSelects(selects);
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected final void fillWithActions(List<String> actions) {
-        this.aVar.fillWithActions(actions);
     }
 
     /**

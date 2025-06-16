@@ -1,13 +1,11 @@
 package weaver.kadabra.abstracts.joinpoints;
 
-import org.lara.interpreter.weaver.interf.events.Stage;
-import java.util.Optional;
 import org.lara.interpreter.exception.AttributeException;
-import java.util.List;
-import org.lara.interpreter.weaver.interf.SelectOp;
 import org.lara.interpreter.weaver.interf.JoinPoint;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Auto-Generated class for join point ACase
@@ -36,13 +34,7 @@ public abstract class ACase extends AStatement {
      */
     public final Object getExpr() {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "expr", Optional.empty());
-        	}
         	AExpression result = this.getExprImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "expr", Optional.ofNullable(result));
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "expr", e);
@@ -59,13 +51,7 @@ public abstract class ACase extends AStatement {
      */
     public final Object getIsDefault() {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isDefault", Optional.empty());
-        	}
         	Boolean result = this.getIsDefaultImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "isDefault", Optional.ofNullable(result));
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "isDefault", e);
@@ -83,7 +69,7 @@ public abstract class ACase extends AStatement {
      */
     public Object getStmtsImpl() {
         AStatement[] aStatementArrayImpl0 = getStmtsArrayImpl();
-        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(aStatementArrayImpl0);
+        Object nativeArray0 = aStatementArrayImpl0;
         return nativeArray0;
     }
 
@@ -92,49 +78,11 @@ public abstract class ACase extends AStatement {
      */
     public final Object getStmts() {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "stmts", Optional.empty());
-        	}
         	Object result = this.getStmtsImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "stmts", Optional.ofNullable(result));
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "stmts", e);
         }
-    }
-
-    /**
-     * Default implementation of the method used by the lara interpreter to select expressions
-     * @return 
-     */
-    public List<? extends AExpression> selectExpression() {
-        return select(weaver.kadabra.abstracts.joinpoints.AExpression.class, SelectOp.DESCENDANTS);
-    }
-
-    /**
-     * Default implementation of the method used by the lara interpreter to select exprs
-     * @return 
-     */
-    public List<? extends AExpression> selectExpr() {
-        return select(weaver.kadabra.abstracts.joinpoints.AExpression.class, SelectOp.DESCENDANTS);
-    }
-
-    /**
-     * Default implementation of the method used by the lara interpreter to select statements
-     * @return 
-     */
-    public List<? extends AStatement> selectStatement() {
-        return select(weaver.kadabra.abstracts.joinpoints.AStatement.class, SelectOp.DESCENDANTS);
-    }
-
-    /**
-     * Default implementation of the method used by the lara interpreter to select stmts
-     * @return 
-     */
-    public List<? extends AStatement> selectStmt() {
-        return select(weaver.kadabra.abstracts.joinpoints.AStatement.class, SelectOp.DESCENDANTS);
     }
 
     /**
@@ -153,24 +101,6 @@ public abstract class ACase extends AStatement {
     @Override
     public String getKindImpl() {
         return this.aStatement.getKindImpl();
-    }
-
-    /**
-     * Method used by the lara interpreter to select vars
-     * @return 
-     */
-    @Override
-    public List<? extends AVar> selectVar() {
-        return this.aStatement.selectVar();
-    }
-
-    /**
-     * Method used by the lara interpreter to select calls
-     * @return 
-     */
-    @Override
-    public List<? extends ACall> selectCall() {
-        return this.aStatement.selectCall();
     }
 
     /**
@@ -512,90 +442,6 @@ public abstract class ACase extends AStatement {
     @Override
     public Optional<? extends AStatement> getSuper() {
         return Optional.of(this.aStatement);
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public final List<? extends JoinPoint> select(String selectName) {
-        List<? extends JoinPoint> joinPointList;
-        switch(selectName) {
-        	case "expression": 
-        		joinPointList = selectExpression();
-        		break;
-        	case "expr": 
-        		joinPointList = selectExpr();
-        		break;
-        	case "statement": 
-        		joinPointList = selectStatement();
-        		break;
-        	case "stmt": 
-        		joinPointList = selectStmt();
-        		break;
-        	case "var": 
-        		joinPointList = selectVar();
-        		break;
-        	case "call": 
-        		joinPointList = selectCall();
-        		break;
-        	default:
-        		joinPointList = this.aStatement.select(selectName);
-        		break;
-        }
-        return joinPointList;
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public final void defImpl(String attribute, Object value) {
-        switch(attribute){
-        case "line": {
-        	if(value instanceof Integer){
-        		this.defLineImpl((Integer)value);
-        		return;
-        	}
-        	if(value instanceof String){
-        		this.defLineImpl((String)value);
-        		return;
-        	}
-        	this.unsupportedTypeForDef(attribute, value);
-        }
-        default: throw new UnsupportedOperationException("Join point "+get_class()+": attribute '"+attribute+"' cannot be defined");
-        }
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected final void fillWithAttributes(List<String> attributes) {
-        this.aStatement.fillWithAttributes(attributes);
-        attributes.add("expr");
-        attributes.add("isDefault");
-        attributes.add("stmts");
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected final void fillWithSelects(List<String> selects) {
-        this.aStatement.fillWithSelects(selects);
-        selects.add("expression");
-        selects.add("expr");
-        selects.add("statement");
-        selects.add("stmt");
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected final void fillWithActions(List<String> actions) {
-        this.aStatement.fillWithActions(actions);
     }
 
     /**

@@ -1,11 +1,10 @@
 package weaver.kadabra.abstracts.joinpoints;
 
-import java.util.List;
-import org.lara.interpreter.weaver.interf.SelectOp;
 import org.lara.interpreter.weaver.interf.JoinPoint;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Auto-Generated class for join point AEnum
@@ -26,38 +25,12 @@ public abstract class AEnum extends AClass {
         this.aClass = aClass;
     }
     /**
-     * Default implementation of the method used by the lara interpreter to select valuess
-     * @return 
-     */
-    public List<? extends AField> selectValues() {
-        return select(weaver.kadabra.abstracts.joinpoints.AField.class, SelectOp.DESCENDANTS);
-    }
-
-    /**
      * Get value on attribute isTopLevel
      * @return the attribute's value
      */
     @Override
     public Boolean getIsTopLevelImpl() {
         return this.aClass.getIsTopLevelImpl();
-    }
-
-    /**
-     * the class constructors
-     * @return 
-     */
-    @Override
-    public List<? extends AConstructor> selectConstructor() {
-        return this.aClass.selectConstructor();
-    }
-
-    /**
-     * anonymous code blocks defined in a class
-     * @return 
-     */
-    @Override
-    public List<? extends AAnonymousExec> selectAnonymousExec() {
-        return this.aClass.selectAnonymousExec();
     }
 
     /**
@@ -139,60 +112,6 @@ public abstract class AEnum extends AClass {
     @Override
     public ATypeReference getSuperClassJpImpl() {
         return this.aClass.getSuperClassJpImpl();
-    }
-
-    /**
-     * fields inside a class
-     * @return 
-     */
-    @Override
-    public List<? extends AField> selectField() {
-        return this.aClass.selectField();
-    }
-
-    /**
-     * methods, constructors or static/instance blocks
-     * @return 
-     */
-    @Override
-    public List<? extends AExecutable> selectExecutable() {
-        return this.aClass.selectExecutable();
-    }
-
-    /**
-     * methods inside a class
-     * @return 
-     */
-    @Override
-    public List<? extends AMethod> selectMethod() {
-        return this.aClass.selectMethod();
-    }
-
-    /**
-     * comments that start with @ followed by the pragma name
-     * @return 
-     */
-    @Override
-    public List<? extends APragma> selectPragma() {
-        return this.aClass.selectPragma();
-    }
-
-    /**
-     * Method used by the lara interpreter to select functions
-     * @return 
-     */
-    @Override
-    public List<? extends AMethod> selectFunction() {
-        return this.aClass.selectFunction();
-    }
-
-    /**
-     * Method used by the lara interpreter to select comments
-     * @return 
-     */
-    @Override
-    public List<? extends AComment> selectComment() {
-        return this.aClass.selectComment();
     }
 
     /**
@@ -693,93 +612,6 @@ public abstract class AEnum extends AClass {
     @Override
     public Optional<? extends AClass> getSuper() {
         return Optional.of(this.aClass);
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public final List<? extends JoinPoint> select(String selectName) {
-        List<? extends JoinPoint> joinPointList;
-        switch(selectName) {
-        	case "values": 
-        		joinPointList = selectValues();
-        		break;
-        	case "constructor": 
-        		joinPointList = selectConstructor();
-        		break;
-        	case "anonymousExec": 
-        		joinPointList = selectAnonymousExec();
-        		break;
-        	case "field": 
-        		joinPointList = selectField();
-        		break;
-        	case "executable": 
-        		joinPointList = selectExecutable();
-        		break;
-        	case "method": 
-        		joinPointList = selectMethod();
-        		break;
-        	case "pragma": 
-        		joinPointList = selectPragma();
-        		break;
-        	case "function": 
-        		joinPointList = selectFunction();
-        		break;
-        	case "comment": 
-        		joinPointList = selectComment();
-        		break;
-        	default:
-        		joinPointList = this.aClass.select(selectName);
-        		break;
-        }
-        return joinPointList;
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public final void defImpl(String attribute, Object value) {
-        switch(attribute){
-        case "line": {
-        	if(value instanceof Integer){
-        		this.defLineImpl((Integer)value);
-        		return;
-        	}
-        	if(value instanceof String){
-        		this.defLineImpl((String)value);
-        		return;
-        	}
-        	this.unsupportedTypeForDef(attribute, value);
-        }
-        default: throw new UnsupportedOperationException("Join point "+get_class()+": attribute '"+attribute+"' cannot be defined");
-        }
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected final void fillWithAttributes(List<String> attributes) {
-        this.aClass.fillWithAttributes(attributes);
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected final void fillWithSelects(List<String> selects) {
-        this.aClass.fillWithSelects(selects);
-        selects.add("values");
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected final void fillWithActions(List<String> actions) {
-        this.aClass.fillWithActions(actions);
     }
 
     /**

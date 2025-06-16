@@ -1,10 +1,10 @@
 package weaver.kadabra.abstracts.joinpoints;
 
-import java.util.List;
 import org.lara.interpreter.weaver.interf.JoinPoint;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Auto-Generated class for join point AInterfaceType
@@ -102,60 +102,6 @@ public abstract class AInterfaceType extends AType {
     @Override
     public ATypeReference getSuperClassJpImpl() {
         return this.aType.getSuperClassJpImpl();
-    }
-
-    /**
-     * fields inside a class
-     * @return 
-     */
-    @Override
-    public List<? extends AField> selectField() {
-        return this.aType.selectField();
-    }
-
-    /**
-     * methods, constructors or static/instance blocks
-     * @return 
-     */
-    @Override
-    public List<? extends AExecutable> selectExecutable() {
-        return this.aType.selectExecutable();
-    }
-
-    /**
-     * methods inside a class
-     * @return 
-     */
-    @Override
-    public List<? extends AMethod> selectMethod() {
-        return this.aType.selectMethod();
-    }
-
-    /**
-     * comments that start with @ followed by the pragma name
-     * @return 
-     */
-    @Override
-    public List<? extends APragma> selectPragma() {
-        return this.aType.selectPragma();
-    }
-
-    /**
-     * Method used by the lara interpreter to select functions
-     * @return 
-     */
-    @Override
-    public List<? extends AMethod> selectFunction() {
-        return this.aType.selectFunction();
-    }
-
-    /**
-     * Method used by the lara interpreter to select comments
-     * @return 
-     */
-    @Override
-    public List<? extends AComment> selectComment() {
-        return this.aType.selectComment();
     }
 
     /**
@@ -601,83 +547,6 @@ public abstract class AInterfaceType extends AType {
     @Override
     public Optional<? extends AType> getSuper() {
         return Optional.of(this.aType);
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public final List<? extends JoinPoint> select(String selectName) {
-        List<? extends JoinPoint> joinPointList;
-        switch(selectName) {
-        	case "field": 
-        		joinPointList = selectField();
-        		break;
-        	case "executable": 
-        		joinPointList = selectExecutable();
-        		break;
-        	case "method": 
-        		joinPointList = selectMethod();
-        		break;
-        	case "pragma": 
-        		joinPointList = selectPragma();
-        		break;
-        	case "function": 
-        		joinPointList = selectFunction();
-        		break;
-        	case "comment": 
-        		joinPointList = selectComment();
-        		break;
-        	default:
-        		joinPointList = this.aType.select(selectName);
-        		break;
-        }
-        return joinPointList;
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public final void defImpl(String attribute, Object value) {
-        switch(attribute){
-        case "line": {
-        	if(value instanceof Integer){
-        		this.defLineImpl((Integer)value);
-        		return;
-        	}
-        	if(value instanceof String){
-        		this.defLineImpl((String)value);
-        		return;
-        	}
-        	this.unsupportedTypeForDef(attribute, value);
-        }
-        default: throw new UnsupportedOperationException("Join point "+get_class()+": attribute '"+attribute+"' cannot be defined");
-        }
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected final void fillWithAttributes(List<String> attributes) {
-        this.aType.fillWithAttributes(attributes);
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected final void fillWithSelects(List<String> selects) {
-        this.aType.fillWithSelects(selects);
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected final void fillWithActions(List<String> actions) {
-        this.aType.fillWithActions(actions);
     }
 
     /**

@@ -1,14 +1,12 @@
 package weaver.kadabra.abstracts.joinpoints;
 
-import org.lara.interpreter.weaver.interf.events.Stage;
-import java.util.Optional;
 import org.lara.interpreter.exception.AttributeException;
-import java.util.List;
-import org.lara.interpreter.weaver.interf.SelectOp;
 import org.lara.interpreter.exception.ActionException;
 import org.lara.interpreter.weaver.interf.JoinPoint;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Auto-Generated class for join point AClass
@@ -39,33 +37,11 @@ public abstract class AClass extends AType {
      */
     public final Object getIsTopLevel() {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isTopLevel", Optional.empty());
-        	}
         	Boolean result = this.getIsTopLevelImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "isTopLevel", Optional.ofNullable(result));
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "isTopLevel", e);
         }
-    }
-
-    /**
-     * the class constructors
-     * @return 
-     */
-    public List<? extends AConstructor> selectConstructor() {
-        return select(weaver.kadabra.abstracts.joinpoints.AConstructor.class, SelectOp.DESCENDANTS);
-    }
-
-    /**
-     * anonymous code blocks defined in a class
-     * @return 
-     */
-    public List<? extends AAnonymousExec> selectAnonymousExec() {
-        return select(weaver.kadabra.abstracts.joinpoints.AAnonymousExec.class, SelectOp.DESCENDANTS);
     }
 
     /**
@@ -90,13 +66,7 @@ public abstract class AClass extends AType {
      */
     public final Object extractInterface(String name, String packageName, AMethod method, boolean associate, boolean newFile) {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "extractInterface", this, Optional.empty(), name, packageName, method, associate, newFile);
-        	}
         	AInterfaceType result = this.extractInterfaceImpl(name, packageName, method, associate, newFile);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "extractInterface", this, Optional.ofNullable(result), name, packageName, method, associate, newFile);
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "extractInterface", e);
@@ -117,13 +87,7 @@ public abstract class AClass extends AType {
      */
     public final void insertStatic(String code) {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "insertStatic", this, Optional.empty(), code);
-        	}
         	this.insertStaticImpl(code);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "insertStatic", this, Optional.empty(), code);
-        	}
         } catch(Exception e) {
         	throw new ActionException(get_class(), "insertStatic", e);
         }
@@ -149,13 +113,7 @@ public abstract class AClass extends AType {
      */
     public final Object mapVersions(String name, String keyType, AInterfaceType interfaceType, String methodName) {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "mapVersions", this, Optional.empty(), name, keyType, interfaceType, methodName);
-        	}
         	AClass result = this.mapVersionsImpl(name, keyType, interfaceType, methodName);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "mapVersions", this, Optional.ofNullable(result), name, keyType, interfaceType, methodName);
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "mapVersions", e);
@@ -180,13 +138,7 @@ public abstract class AClass extends AType {
      */
     public final Object newConstructor(Object[] modifiers, Object[] paramLeft, Object[] paramRight) {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "newConstructor", this, Optional.empty(), modifiers, paramLeft, paramRight);
-        	}
         	AConstructor result = this.newConstructorImpl(pt.up.fe.specs.util.SpecsCollections.cast(modifiers, String.class), pt.up.fe.specs.util.SpecsCollections.cast(paramLeft, String.class), pt.up.fe.specs.util.SpecsCollections.cast(paramRight, String.class));
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "newConstructor", this, Optional.ofNullable(result), modifiers, paramLeft, paramRight);
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "newConstructor", e);
@@ -209,13 +161,7 @@ public abstract class AClass extends AType {
      */
     public final Object newFunctionalClass(AMethod interfaceMethod, AMethod generatorMethod) {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "newFunctionalClass", this, Optional.empty(), interfaceMethod, generatorMethod);
-        	}
         	AMethod result = this.newFunctionalClassImpl(interfaceMethod, generatorMethod);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "newFunctionalClass", this, Optional.ofNullable(result), interfaceMethod, generatorMethod);
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "newFunctionalClass", e);
@@ -301,60 +247,6 @@ public abstract class AClass extends AType {
     @Override
     public ATypeReference getSuperClassJpImpl() {
         return this.aType.getSuperClassJpImpl();
-    }
-
-    /**
-     * fields inside a class
-     * @return 
-     */
-    @Override
-    public List<? extends AField> selectField() {
-        return this.aType.selectField();
-    }
-
-    /**
-     * methods, constructors or static/instance blocks
-     * @return 
-     */
-    @Override
-    public List<? extends AExecutable> selectExecutable() {
-        return this.aType.selectExecutable();
-    }
-
-    /**
-     * methods inside a class
-     * @return 
-     */
-    @Override
-    public List<? extends AMethod> selectMethod() {
-        return this.aType.selectMethod();
-    }
-
-    /**
-     * comments that start with @ followed by the pragma name
-     * @return 
-     */
-    @Override
-    public List<? extends APragma> selectPragma() {
-        return this.aType.selectPragma();
-    }
-
-    /**
-     * Method used by the lara interpreter to select functions
-     * @return 
-     */
-    @Override
-    public List<? extends AMethod> selectFunction() {
-        return this.aType.selectFunction();
-    }
-
-    /**
-     * Method used by the lara interpreter to select comments
-     * @return 
-     */
-    @Override
-    public List<? extends AComment> selectComment() {
-        return this.aType.selectComment();
     }
 
     /**
@@ -800,97 +692,6 @@ public abstract class AClass extends AType {
     @Override
     public Optional<? extends AType> getSuper() {
         return Optional.of(this.aType);
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public List<? extends JoinPoint> select(String selectName) {
-        List<? extends JoinPoint> joinPointList;
-        switch(selectName) {
-        	case "constructor": 
-        		joinPointList = selectConstructor();
-        		break;
-        	case "anonymousExec": 
-        		joinPointList = selectAnonymousExec();
-        		break;
-        	case "field": 
-        		joinPointList = selectField();
-        		break;
-        	case "executable": 
-        		joinPointList = selectExecutable();
-        		break;
-        	case "method": 
-        		joinPointList = selectMethod();
-        		break;
-        	case "pragma": 
-        		joinPointList = selectPragma();
-        		break;
-        	case "function": 
-        		joinPointList = selectFunction();
-        		break;
-        	case "comment": 
-        		joinPointList = selectComment();
-        		break;
-        	default:
-        		joinPointList = this.aType.select(selectName);
-        		break;
-        }
-        return joinPointList;
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public void defImpl(String attribute, Object value) {
-        switch(attribute){
-        case "line": {
-        	if(value instanceof Integer){
-        		this.defLineImpl((Integer)value);
-        		return;
-        	}
-        	if(value instanceof String){
-        		this.defLineImpl((String)value);
-        		return;
-        	}
-        	this.unsupportedTypeForDef(attribute, value);
-        }
-        default: throw new UnsupportedOperationException("Join point "+get_class()+": attribute '"+attribute+"' cannot be defined");
-        }
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected void fillWithAttributes(List<String> attributes) {
-        this.aType.fillWithAttributes(attributes);
-        attributes.add("isTopLevel");
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected void fillWithSelects(List<String> selects) {
-        this.aType.fillWithSelects(selects);
-        selects.add("constructor");
-        selects.add("anonymousExec");
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected void fillWithActions(List<String> actions) {
-        this.aType.fillWithActions(actions);
-        actions.add("interfaceType extractInterface(String, String, method, boolean, boolean)");
-        actions.add("void insertStatic(String)");
-        actions.add("class mapVersions(String, String, interfaceType, String)");
-        actions.add("constructor newConstructor(String[], String[], String[])");
-        actions.add("method newFunctionalClass(method, method)");
     }
 
     /**

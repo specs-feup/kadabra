@@ -1,12 +1,11 @@
 package weaver.kadabra.abstracts.joinpoints;
 
-import org.lara.interpreter.weaver.interf.events.Stage;
-import java.util.Optional;
 import org.lara.interpreter.exception.AttributeException;
-import java.util.List;
 import org.lara.interpreter.weaver.interf.JoinPoint;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Auto-Generated class for join point AVar
@@ -37,13 +36,7 @@ public abstract class AVar extends AExpression {
      */
     public final Object getDeclaration() {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "declaration", Optional.empty());
-        	}
         	AJoinPoint result = this.getDeclarationImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "declaration", Optional.ofNullable(result));
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "declaration", e);
@@ -60,13 +53,7 @@ public abstract class AVar extends AExpression {
      */
     public final Object getInLoopHeader() {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "inLoopHeader", Optional.empty());
-        	}
         	Boolean result = this.getInLoopHeaderImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "inLoopHeader", Optional.ofNullable(result));
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "inLoopHeader", e);
@@ -85,13 +72,7 @@ public abstract class AVar extends AExpression {
      */
     public final Object getIsArray() {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isArray", Optional.empty());
-        	}
         	Boolean result = this.getIsArrayImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "isArray", Optional.ofNullable(result));
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "isArray", e);
@@ -110,13 +91,7 @@ public abstract class AVar extends AExpression {
      */
     public final Object getIsField() {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isField", Optional.empty());
-        	}
         	Boolean result = this.getIsFieldImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "isField", Optional.ofNullable(result));
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "isField", e);
@@ -135,13 +110,7 @@ public abstract class AVar extends AExpression {
      */
     public final Object getIsPrimitive() {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "isPrimitive", Optional.empty());
-        	}
         	Boolean result = this.getIsPrimitiveImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "isPrimitive", Optional.ofNullable(result));
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "isPrimitive", e);
@@ -160,13 +129,7 @@ public abstract class AVar extends AExpression {
      */
     public final Object getName() {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "name", Optional.empty());
-        	}
         	String result = this.getNameImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "name", Optional.ofNullable(result));
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "name", e);
@@ -185,13 +148,7 @@ public abstract class AVar extends AExpression {
      */
     public final Object getReference() {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "reference", Optional.empty());
-        	}
         	String result = this.getReferenceImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "reference", Optional.ofNullable(result));
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "reference", e);
@@ -209,7 +166,7 @@ public abstract class AVar extends AExpression {
      */
     public Object getReferenceChainImpl() {
         AJoinPoint[] aJoinPointArrayImpl0 = getReferenceChainArrayImpl();
-        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(aJoinPointArrayImpl0);
+        Object nativeArray0 = aJoinPointArrayImpl0;
         return nativeArray0;
     }
 
@@ -218,13 +175,7 @@ public abstract class AVar extends AExpression {
      */
     public final Object getReferenceChain() {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "referenceChain", Optional.empty());
-        	}
         	Object result = this.getReferenceChainImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "referenceChain", Optional.ofNullable(result));
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "referenceChain", e);
@@ -274,65 +225,6 @@ public abstract class AVar extends AExpression {
     @Override
     public ATypeReference getTypeReferenceImpl() {
         return this.aExpression.getTypeReferenceImpl();
-    }
-
-    /**
-     * Method used by the lara interpreter to select exprs
-     * @return 
-     */
-    @Override
-    public List<? extends AExpression> selectExpr() {
-        return this.aExpression.selectExpr();
-    }
-
-    /**
-     * Method used by the lara interpreter to select vars
-     * @return 
-     */
-    @Override
-    public List<? extends AVar> selectVar() {
-        return this.aExpression.selectVar();
-    }
-
-    /**
-     * Method used by the lara interpreter to select arrayAccesss
-     * @return 
-     */
-    @Override
-    public List<? extends AArrayAccess> selectArrayAccess() {
-        return this.aExpression.selectArrayAccess();
-    }
-
-    /**
-     * Method used by the lara interpreter to select binaryExpressions
-     * @return 
-     */
-    @Override
-    public List<? extends ABinaryExpression> selectBinaryExpression() {
-        return this.aExpression.selectBinaryExpression();
-    }
-
-    /**
-     * Method used by the lara interpreter to select binaryExprs
-     * @return 
-     */
-    @Override
-    public List<? extends ABinaryExpression> selectBinaryExpr() {
-        return this.aExpression.selectBinaryExpr();
-    }
-
-    /**
-     * 
-     */
-    public void defTestImpl(Integer value) {
-        this.aExpression.defTestImpl(value);
-    }
-
-    /**
-     * 
-     */
-    public void defTestImpl(AExpression value) {
-        this.aExpression.defTestImpl(value);
     }
 
     /**
@@ -685,99 +577,6 @@ public abstract class AVar extends AExpression {
     @Override
     public Optional<? extends AExpression> getSuper() {
         return Optional.of(this.aExpression);
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public List<? extends JoinPoint> select(String selectName) {
-        List<? extends JoinPoint> joinPointList;
-        switch(selectName) {
-        	case "expr": 
-        		joinPointList = selectExpr();
-        		break;
-        	case "var": 
-        		joinPointList = selectVar();
-        		break;
-        	case "arrayAccess": 
-        		joinPointList = selectArrayAccess();
-        		break;
-        	case "binaryExpression": 
-        		joinPointList = selectBinaryExpression();
-        		break;
-        	case "binaryExpr": 
-        		joinPointList = selectBinaryExpr();
-        		break;
-        	default:
-        		joinPointList = this.aExpression.select(selectName);
-        		break;
-        }
-        return joinPointList;
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public void defImpl(String attribute, Object value) {
-        switch(attribute){
-        case "test": {
-        	if(value instanceof Integer){
-        		this.defTestImpl((Integer)value);
-        		return;
-        	}
-        	if(value instanceof AExpression){
-        		this.defTestImpl((AExpression)value);
-        		return;
-        	}
-        	this.unsupportedTypeForDef(attribute, value);
-        }
-        case "line": {
-        	if(value instanceof Integer){
-        		this.defLineImpl((Integer)value);
-        		return;
-        	}
-        	if(value instanceof String){
-        		this.defLineImpl((String)value);
-        		return;
-        	}
-        	this.unsupportedTypeForDef(attribute, value);
-        }
-        default: throw new UnsupportedOperationException("Join point "+get_class()+": attribute '"+attribute+"' cannot be defined");
-        }
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected void fillWithAttributes(List<String> attributes) {
-        this.aExpression.fillWithAttributes(attributes);
-        attributes.add("declaration");
-        attributes.add("inLoopHeader");
-        attributes.add("isArray");
-        attributes.add("isField");
-        attributes.add("isPrimitive");
-        attributes.add("name");
-        attributes.add("reference");
-        attributes.add("referenceChain");
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected void fillWithSelects(List<String> selects) {
-        this.aExpression.fillWithSelects(selects);
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected void fillWithActions(List<String> actions) {
-        this.aExpression.fillWithActions(actions);
     }
 
     /**

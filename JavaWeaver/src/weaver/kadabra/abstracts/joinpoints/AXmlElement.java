@@ -1,13 +1,12 @@
 package weaver.kadabra.abstracts.joinpoints;
 
-import org.lara.interpreter.weaver.interf.events.Stage;
-import java.util.Optional;
 import org.lara.interpreter.exception.AttributeException;
 import org.lara.interpreter.exception.ActionException;
-import java.util.List;
 import org.lara.interpreter.weaver.interf.JoinPoint;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Auto-Generated class for join point AXmlElement
@@ -40,13 +39,7 @@ public abstract class AXmlElement extends AXmlNode {
      */
     public final Object attribute(String name) {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "attribute", Optional.empty(), name);
-        	}
         	String result = this.attributeImpl(name);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "attribute", Optional.ofNullable(result), name);
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "attribute", e);
@@ -64,7 +57,7 @@ public abstract class AXmlElement extends AXmlNode {
      */
     public Object getAttributeNamesImpl() {
         String[] stringArrayImpl0 = getAttributeNamesArrayImpl();
-        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(stringArrayImpl0);
+        Object nativeArray0 = stringArrayImpl0;
         return nativeArray0;
     }
 
@@ -73,13 +66,7 @@ public abstract class AXmlElement extends AXmlNode {
      */
     public final Object getAttributeNames() {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "attributeNames", Optional.empty());
-        	}
         	Object result = this.getAttributeNamesImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "attributeNames", Optional.ofNullable(result));
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "attributeNames", e);
@@ -96,13 +83,7 @@ public abstract class AXmlElement extends AXmlNode {
      */
     public final Object getName() {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "name", Optional.empty());
-        	}
         	String result = this.getNameImpl();
-        	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "name", Optional.ofNullable(result));
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new AttributeException(get_class(), "name", e);
@@ -125,13 +106,7 @@ public abstract class AXmlElement extends AXmlNode {
      */
     public final Object setAttribute(String name, String value) {
         try {
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "setAttribute", this, Optional.empty(), name, value);
-        	}
         	String result = this.setAttributeImpl(name, value);
-        	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "setAttribute", this, Optional.ofNullable(result), name, value);
-        	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
         	throw new ActionException(get_class(), "setAttribute", e);
@@ -163,22 +138,6 @@ public abstract class AXmlElement extends AXmlNode {
     @Override
     public String getTextImpl() {
         return this.aXmlNode.getTextImpl();
-    }
-
-    /**
-     * elements inside the Android manifest
-     * @return 
-     */
-    @Override
-    public List<? extends AXmlElement> selectElement() {
-        return this.aXmlNode.selectElement();
-    }
-
-    /**
-     * 
-     */
-    public void defTextImpl(String value) {
-        this.aXmlNode.defTextImpl(value);
     }
 
     /**
@@ -529,79 +488,6 @@ public abstract class AXmlElement extends AXmlNode {
     @Override
     public Optional<? extends AXmlNode> getSuper() {
         return Optional.of(this.aXmlNode);
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public final List<? extends JoinPoint> select(String selectName) {
-        List<? extends JoinPoint> joinPointList;
-        switch(selectName) {
-        	case "element": 
-        		joinPointList = selectElement();
-        		break;
-        	default:
-        		joinPointList = this.aXmlNode.select(selectName);
-        		break;
-        }
-        return joinPointList;
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public final void defImpl(String attribute, Object value) {
-        switch(attribute){
-        case "text": {
-        	if(value instanceof String){
-        		this.defTextImpl((String)value);
-        		return;
-        	}
-        	this.unsupportedTypeForDef(attribute, value);
-        }
-        case "line": {
-        	if(value instanceof Integer){
-        		this.defLineImpl((Integer)value);
-        		return;
-        	}
-        	if(value instanceof String){
-        		this.defLineImpl((String)value);
-        		return;
-        	}
-        	this.unsupportedTypeForDef(attribute, value);
-        }
-        default: throw new UnsupportedOperationException("Join point "+get_class()+": attribute '"+attribute+"' cannot be defined");
-        }
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected final void fillWithAttributes(List<String> attributes) {
-        this.aXmlNode.fillWithAttributes(attributes);
-        attributes.add("attribute");
-        attributes.add("attributeNames");
-        attributes.add("name");
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected final void fillWithSelects(List<String> selects) {
-        this.aXmlNode.fillWithSelects(selects);
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected final void fillWithActions(List<String> actions) {
-        this.aXmlNode.fillWithActions(actions);
-        actions.add("String setAttribute(String, String)");
     }
 
     /**
