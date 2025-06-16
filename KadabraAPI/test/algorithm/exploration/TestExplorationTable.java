@@ -47,7 +47,6 @@ public class TestExplorationTable {
         ExplorationManager<IMedian, Long> explorer = newExplorer();
         explorer.setPrintingLimit(10);
         CodeTimer timer = CodeTimer.NanoTimer();
-        int dataSet = 10000;
         // System.out.println(table);
         int numForUpdate = 10;
         for (int i = 0; i < 400; i++) {

@@ -117,17 +117,6 @@ public class JFile extends AFile {
         }
 
         return true;
-        // EqualsVisitor v = new EqualsVisitor();
-        // // System.out.println("NODE TYPES: " + StringUtils.join(node.getDeclaredTypes(), CtType::getSimpleName,
-        // ","));
-        // // System.out.println("OTHER TYPES: " + StringUtils.join(other.getDeclaredTypes(), CtType::getSimpleName,
-        // ","));
-        // boolean isNotEqual = v.biScan(node.getDeclaredTypes(), other.getDeclaredTypes());
-        // if (isNotEqual) {
-        // return false;
-        // }
-        //
-        // return true;
     }
 
     @Override

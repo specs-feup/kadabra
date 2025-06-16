@@ -28,9 +28,7 @@ public class OLDSEManager<K, V> {
     private ExpMode mode;
     private Configuration<K> configuration;
     private ExpPoint<K, V> current;
-    private int numTests;
     private int numWarmup;
-    private boolean first;
 
     public OLDSEManager(Configuration<K> configuration) {
         this(0, 1, configuration);
@@ -38,10 +36,8 @@ public class OLDSEManager<K, V> {
 
     public OLDSEManager(int numWarmup, int numTests, Configuration<K> configuration) {
         reset();
-        this.numTests = numTests;
         this.numWarmup = numWarmup;
         this.configuration = configuration;
-        this.first = true;
     }
 
     private void reset() {

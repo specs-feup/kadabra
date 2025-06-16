@@ -20,12 +20,12 @@ import weaver.kadabra.abstracts.joinpoints.ALibClass;
 
 public class JLibClass extends ALibClass {
 
-    private ClassInfo info;
-    private Class<?> libClass;
+    // private ClassInfo info;
+    // private Class<?> libClass;
 
     private JLibClass(ClassInfo info) {
         super(JNamedType.newInstance(info));
-        this.info = info;
+        // this.info = info;
     }
 
     public static JLibClass newInstance(ClassInfo info) {

@@ -121,7 +121,6 @@ public class TestConfigs {
         Pair<Integer, Float> value = linear.getFirst();
         System.out.println(value);
         // pause();
-        int pos = 0;
         boolean hasNext = linear.hasNext(value);
         while (hasNext) {
             value = linear.next();

@@ -30,7 +30,6 @@ public class MainTestKnob {
     }
 
     private static final KnobSimulAutotuner autotuner = new KnobSimulAutotuner(1, 2);
-    private static final int LIMIT = 1000;
 
     public static void main(String[] args) {
         int[] tests = new int[] { 0, 1, 2 };

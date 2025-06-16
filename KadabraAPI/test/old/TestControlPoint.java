@@ -30,8 +30,6 @@ public class TestControlPoint {
     private static int K = 16;
     private static int J = 16;
 
-    private static int execs = 60;
-
     public static void main(String[] args) throws InterruptedException {
         // System.out.println("RANGE");
         // testRange(60);

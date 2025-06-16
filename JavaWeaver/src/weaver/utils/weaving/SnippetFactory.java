@@ -93,7 +93,7 @@ public class SnippetFactory {
                     level--;
                     alreadyTook = 1;
                 }
-                builder.append(StringUtils.repeat(indent, level));
+                builder.append(indent.repeat(level));
                 builder.append(line);
                 builder.append(newLine);
                 level += StringUtils.countMatches(line, "{") - StringUtils.countMatches(line, "}") + alreadyTook;
