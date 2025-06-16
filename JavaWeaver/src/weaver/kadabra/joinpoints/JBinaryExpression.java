@@ -13,9 +13,6 @@
 
 package weaver.kadabra.joinpoints;
 
-import java.util.Arrays;
-import java.util.List;
-
 import pt.up.fe.specs.util.SpecsLogs;
 import spoon.reflect.code.BinaryOperatorKind;
 import spoon.reflect.code.CtBinaryOperator;
@@ -48,7 +45,7 @@ public class JBinaryExpression<T> extends ABinaryExpression {
     }
 
     @Override
-    public void defOperatorImpl(String value) {
+    public void setOperatorImpl(String value) {
         // Convert string to kind
         BinaryOperatorKind kind = OperatorUtils.parseBinaryTry(value).orElse(null);
 
@@ -58,11 +55,6 @@ public class JBinaryExpression<T> extends ABinaryExpression {
         }
 
         node.setKind(kind);
-    }
-
-    @Override
-    public void setOperatorImpl(String operator) {
-        defOperatorImpl(operator);
     }
 
     @Override

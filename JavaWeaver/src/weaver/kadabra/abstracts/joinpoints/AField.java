@@ -460,6 +460,24 @@ public abstract class AField extends ADeclaration {
 
     /**
      * 
+     * @param value 
+     */
+    @Override
+    public void setLineImpl(int value) {
+        this.aDeclaration.setLineImpl(value);
+    }
+
+    /**
+     * 
+     * @param value 
+     */
+    @Override
+    public void setLineImpl(String value) {
+        this.aDeclaration.setLineImpl(value);
+    }
+
+    /**
+     * 
      * @param modifiers 
      */
     @Override

@@ -599,6 +599,24 @@ public abstract class AEnum extends AClass {
 
     /**
      * 
+     * @param value 
+     */
+    @Override
+    public void setLineImpl(int value) {
+        this.aClass.setLineImpl(value);
+    }
+
+    /**
+     * 
+     * @param value 
+     */
+    @Override
+    public void setLineImpl(String value) {
+        this.aClass.setLineImpl(value);
+    }
+
+    /**
+     * 
      * @param modifiers 
      */
     @Override

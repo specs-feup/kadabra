@@ -388,6 +388,24 @@ public abstract class ASnippetStmt extends AStatement {
 
     /**
      * 
+     * @param value 
+     */
+    @Override
+    public void setLineImpl(int value) {
+        this.aStatement.setLineImpl(value);
+    }
+
+    /**
+     * 
+     * @param value 
+     */
+    @Override
+    public void setLineImpl(String value) {
+        this.aStatement.setLineImpl(value);
+    }
+
+    /**
+     * 
      * @param modifiers 
      */
     @Override

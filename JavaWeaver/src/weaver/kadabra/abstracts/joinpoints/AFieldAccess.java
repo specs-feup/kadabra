@@ -478,11 +478,47 @@ public abstract class AFieldAccess extends AVar {
 
     /**
      * 
+     * @param value 
+     */
+    @Override
+    public void setLineImpl(int value) {
+        this.aVar.setLineImpl(value);
+    }
+
+    /**
+     * 
+     * @param value 
+     */
+    @Override
+    public void setLineImpl(String value) {
+        this.aVar.setLineImpl(value);
+    }
+
+    /**
+     * 
      * @param modifiers 
      */
     @Override
     public void setModifiersImpl(String[] modifiers) {
         this.aVar.setModifiersImpl(modifiers);
+    }
+
+    /**
+     * 
+     * @param test 
+     */
+    @Override
+    public void setTestImpl(AExpression test) {
+        this.aVar.setTestImpl(test);
+    }
+
+    /**
+     * 
+     * @param test 
+     */
+    @Override
+    public void setTestImpl(int test) {
+        this.aVar.setTestImpl(test);
     }
 
     /**

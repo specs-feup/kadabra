@@ -138,18 +138,13 @@ public class JCall<T> extends ACall {
     }
 
     @Override
-    public void defArgumentsImpl(AExpression[] value) {
+    public void setArgumentsImpl(AExpression[] newArguments) {
         var newArgs = new ArrayList<CtExpression<?>>();
-        for (var arg : value) {
+        for (var arg : newArguments) {
             newArgs.add((CtExpression<?>) arg.getNode());
         }
 
         node.setArguments(newArgs);
-    }
-
-    @Override
-    public void setArgumentsImpl(AExpression[] newArguments) {
-        defArgumentsImpl(newArguments);
     }
 
     @Override

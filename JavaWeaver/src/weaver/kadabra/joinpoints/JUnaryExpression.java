@@ -13,9 +13,6 @@
 
 package weaver.kadabra.joinpoints;
 
-import java.util.Arrays;
-import java.util.List;
-
 import pt.up.fe.specs.util.SpecsLogs;
 import spoon.reflect.code.CtUnaryOperator;
 import spoon.reflect.code.UnaryOperatorKind;
@@ -53,21 +50,16 @@ public class JUnaryExpression<T> extends AUnaryExpression {
     }
 
     @Override
-    public void defOperatorImpl(String value) {
+    public void setOperatorImpl(String operator) {
         // Convert string to kind
-        UnaryOperatorKind kind = OperatorUtils.parseUnaryTry(value).orElse(null);
+        UnaryOperatorKind kind = OperatorUtils.parseUnaryTry(operator).orElse(null);
 
         if (kind == null) {
-            SpecsLogs.msgInfo("Could not parse unary operator '" + value + "'");
+            SpecsLogs.msgInfo("Could not parse unary operator '" + operator + "'");
             return;
         }
 
         node.setKind(kind);
-    }
-
-    @Override
-    public void setOperatorImpl(String operator) {
-        defOperatorImpl(operator);
     }
 
     @Override

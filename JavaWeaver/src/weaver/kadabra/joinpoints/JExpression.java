@@ -21,10 +21,8 @@ import weaver.kadabra.exceptions.JavaWeaverException;
 import weaver.kadabra.util.KadabraLog;
 import weaver.utils.SpoonUtils;
 import weaver.utils.weaving.ActionUtils;
-import weaver.utils.weaving.SelectUtils;
 import weaver.utils.weaving.converters.CtExpression2AExpression;
 
-import java.util.List;
 import java.util.Optional;
 
 public class JExpression<T> extends AExpression {
@@ -64,12 +62,12 @@ public class JExpression<T> extends AExpression {
     }
 
     @Override
-    public void defTestImpl(AExpression value) {
-        defTestImpl(value.getLineImpl());
+    public void setTestImpl(AExpression value) {
+        setTestImpl(value.getLineImpl());
     }
 
     @Override
-    public void defTestImpl(Integer value) {
+    public void setTestImpl(int value) {
         test = value;
     }
 

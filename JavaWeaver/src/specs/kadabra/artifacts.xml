@@ -17,10 +17,7 @@
         <attribute name="getAncestor" type="joinpoint">
             <parameter name="type" type="String"/>
         </attribute>
-        <attribute name="line" type="int">
-            <def/>
-            <def type="String"/>
-        </attribute>
+        <attribute name="line" type="int"/>
         <attribute name="descendants" type="joinpoint[]"/>
         <attribute name="left" type="joinpoint[]" tooltip="Sibling nodes to the left of this node"/>
         <attribute name="right" type="joinpoint[]" tooltip="Sibling nodes to the right of this node"/>
@@ -58,9 +55,7 @@
         <attribute name="elementsByName" type="xmlElement[]">
             <parameter name="name" type="String"/>
         </attribute>
-        <attribute name="text" type="String">
-            <def/>
-        </attribute>
+        <attribute name="text" type="String"/>
     </artifact>
 
 
@@ -154,9 +149,7 @@
 
     <!-- EXECUTABLE -->
     <artifact class="executable" default="name">
-        <attribute name="name" type="String">
-            <def/>
-        </attribute>
+        <attribute name="name" type="String"/>
         <attribute name="returnType" type="String"/>
         <attribute name="body" type="body"/>
         <attribute name="params" type="declaration[]"/>
@@ -167,9 +160,7 @@
     <artifact class="method" default="name">
         <!-- <attribute name="isStatic"			type="boolean"/> -->
         <attribute name="declarator" type="string"/>
-        <attribute name="privacy" type="string">
-            <def/>
-        </attribute>
+        <attribute name="privacy" type="string"/>
         <attribute name="toReference" type="string"/>
         <attribute name="toQualifiedReference" type="string"/>
         <attribute name="isOverriding" type="Boolean">
@@ -204,15 +195,11 @@
         <attribute name="isPrimitive" type="Boolean"/>
         <attribute name="completeType" type="String"/>
         <attribute name="init" type="expression"
-                   tooltip="Initialization of this variable, if present, or undefined of unintialized">
-            <def/>
-        </attribute>
+                   tooltip="Initialization of this variable, if present, or undefined of unintialized"/>
     </artifact>
 
     <artifact class="literal" default="value">
-        <attribute name="value" type="String">
-            <def/>
-        </attribute>
+        <attribute name="value" type="String"/>
     </artifact>
 
 
@@ -224,9 +211,7 @@
         <attribute name="isArray" type="Boolean"/>
         <attribute name="isPrimitive" type="Boolean"/>
         <attribute name="completeType" type="String"/>
-        <attribute name="init" type="expression">
-            <def/>
-        </attribute>
+        <attribute name="init" type="expression"/>
     </artifact>
 
     <!-- STATEMENT -->
@@ -358,24 +343,18 @@
         <attribute name="returnType" type="string"/>
         <attribute name="returnTypeJp" type="typeReference"/>
         <!-- <attribute name="arguments"			type="argument[]"/> -->
-        <attribute name="arguments" type="expression[]">
-            <def type="expression[]"/>
-        </attribute>
+        <attribute name="arguments" type="expression[]"/>
     </artifact>
 
     <!-- NEW -->
     <artifact class="new" default="name">
         <attribute name="name" type="string"/>
-        <attribute name="arguments" type="expression[]">
-            <def type="expression[]"/>
-        </attribute>
+        <attribute name="arguments" type="expression[]"/>
     </artifact>
 
     <!-- BINARY EXPRESSION -->
     <artifact class="binaryExpression" default="operator">
-        <attribute name="operator" type="string">
-            <def/>
-        </attribute>
+        <attribute name="operator" type="string"/>
         <attribute name="operands" type="expression[]"/>
         <attribute name="lhs" type="expression"/>
         <attribute name="rhs" type="expression"/>
@@ -385,9 +364,7 @@
     <!-- UNARY EXPRESSION -->
     <artifact class="unaryExpression" default="operator">
         <attribute name="operand" type="expression"/>
-        <attribute name="operator" type="string">
-            <def/>
-        </attribute>
+        <attribute name="operator" type="string"/>
     </artifact>
 
     <!-- TERNARY -->
@@ -400,15 +377,9 @@
 
     <!-- ASSIGNMENT -->
     <artifact class="assignment" default="operator">
-        <attribute name="operator" type="string">
-            <def/>
-        </attribute>
-        <attribute name="lhs" type="expression">
-            <def/>
-        </attribute>
-        <attribute name="rhs" type="expression">
-            <def/>
-        </attribute>
+        <attribute name="operator" type="string"/>
+        <attribute name="lhs" type="expression"/>
+        <attribute name="rhs" type="expression"/>
     </artifact>
 
     <!-- OP_ASSIGNMENT -->
@@ -422,10 +393,7 @@
         <attribute name="type" type="String"/> <!-- int, List,...-->
         <attribute name="qualifiedType" type="String"/> <!-- int, java.util.List,...-->
         <attribute name="typeReference" type="typeReference"/> <!-- int, List,...-->
-        <attribute name="test" type="int"> <!-- int, List,...-->
-            <def/>
-            <def type="expression"/>
-        </attribute>
+        <attribute name="test" type="int"/> <!-- int, List,...-->
     </artifact>
 
     <artifact class="comment" default="type">

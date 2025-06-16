@@ -412,6 +412,24 @@ public abstract class ALibClass extends ANamedType {
 
     /**
      * 
+     * @param value 
+     */
+    @Override
+    public void setLineImpl(int value) {
+        this.aNamedType.setLineImpl(value);
+    }
+
+    /**
+     * 
+     * @param value 
+     */
+    @Override
+    public void setLineImpl(String value) {
+        this.aNamedType.setLineImpl(value);
+    }
+
+    /**
+     * 
      * @param modifiers 
      */
     @Override

@@ -103,7 +103,7 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
     // }
 
     @Override
-    public void defLineImpl(Integer value) {
+    public void setLineImpl(int value) {
         CtElement node = getNode();
         if (node == null) {
             KadabraLog.warning("Cannot change line in this join point: " + getJoinPointType());
@@ -117,8 +117,8 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
     }
 
     @Override
-    public void defLineImpl(String value) {
-        defLineImpl(Integer.parseInt(value));
+    public void setLineImpl(String value) {
+        setLineImpl(Integer.parseInt(value));
     }
 
     @Override

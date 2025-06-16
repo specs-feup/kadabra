@@ -367,6 +367,32 @@
 						"children": [
 									{
 										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
 										"name": "setModifiers"
 									},
 									{
@@ -809,6 +835,32 @@
 						"children": [
 									{
 										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
 										"name": "setModifiers"
 									},
 									{
@@ -1233,6 +1285,32 @@
 						"children": [
 									{
 										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
 										"name": "setModifiers"
 									},
 									{
@@ -1524,6 +1602,32 @@
 						"type": "action",
 						"children": [
 									{
+										"type": "void",
+										"name": "setTest"
+									},
+									{
+										"type": "expression",
+										"name": "test",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setTest"
+									},
+									{
+										"type": "int",
+										"name": "test",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
 										"type": "joinpoint",
 										"name": "copy"
 									}]
@@ -1663,6 +1767,32 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
 										"defaultValue": ""
 									}]
 					},
@@ -2092,6 +2222,32 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
 										"defaultValue": ""
 									}]
 					},
@@ -2608,6 +2764,32 @@
 						"children": [
 									{
 										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
 										"name": "setModifiers"
 									},
 									{
@@ -2907,6 +3089,32 @@
 						"type": "action",
 						"children": [
 									{
+										"type": "void",
+										"name": "setTest"
+									},
+									{
+										"type": "expression",
+										"name": "test",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setTest"
+									},
+									{
+										"type": "int",
+										"name": "test",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
 										"type": "joinpoint",
 										"name": "copy"
 									}]
@@ -3046,6 +3254,32 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
 										"defaultValue": ""
 									}]
 					},
@@ -3437,6 +3671,32 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
 										"defaultValue": ""
 									}]
 					},
@@ -3886,6 +4146,32 @@
 						"children": [
 									{
 										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
 										"name": "setModifiers"
 									},
 									{
@@ -4222,6 +4508,32 @@
 						"type": "action",
 						"children": [
 									{
+										"type": "void",
+										"name": "setTest"
+									},
+									{
+										"type": "expression",
+										"name": "test",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setTest"
+									},
+									{
+										"type": "int",
+										"name": "test",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
 										"type": "joinpoint",
 										"name": "copy"
 									}]
@@ -4361,6 +4673,32 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
 										"defaultValue": ""
 									}]
 					},
@@ -4795,6 +5133,32 @@
 						"children": [
 									{
 										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
 										"name": "setModifiers"
 									},
 									{
@@ -5178,6 +5542,32 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
 										"defaultValue": ""
 									}]
 					},
@@ -5653,6 +6043,32 @@
 						"type": "action",
 						"children": [
 									{
+										"type": "void",
+										"name": "setTest"
+									},
+									{
+										"type": "expression",
+										"name": "test",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setTest"
+									},
+									{
+										"type": "int",
+										"name": "test",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
 										"type": "joinpoint",
 										"name": "copy"
 									}]
@@ -5792,6 +6208,32 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
 										"defaultValue": ""
 									}]
 					},
@@ -6191,6 +6633,32 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
 										"defaultValue": ""
 									}]
 					},
@@ -6617,6 +7085,32 @@
 						"children": [
 									{
 										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
 										"name": "setModifiers"
 									},
 									{
@@ -6991,6 +7485,32 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
 										"defaultValue": ""
 									}]
 					},
@@ -7786,6 +8306,32 @@
 						"children": [
 									{
 										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
 										"name": "setModifiers"
 									},
 									{
@@ -8185,6 +8731,32 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
 										"defaultValue": ""
 									}]
 					},
@@ -8630,6 +9202,32 @@
 						"children": [
 									{
 										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
 										"name": "setModifiers"
 									},
 									{
@@ -9013,6 +9611,32 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
 										"defaultValue": ""
 									}]
 					},
@@ -9457,6 +10081,32 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
 										"defaultValue": ""
 									}]
 					},
@@ -10251,6 +10901,32 @@
 						"children": [
 									{
 										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
 										"name": "setModifiers"
 									},
 									{
@@ -10711,6 +11387,32 @@
 						"children": [
 									{
 										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
 										"name": "setModifiers"
 									},
 									{
@@ -11140,6 +11842,32 @@
 						"children": [
 									{
 										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
 										"name": "setModifiers"
 									},
 									{
@@ -11431,6 +12159,32 @@
 						"type": "action",
 						"children": [
 									{
+										"type": "void",
+										"name": "setTest"
+									},
+									{
+										"type": "expression",
+										"name": "test",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setTest"
+									},
+									{
+										"type": "int",
+										"name": "test",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
 										"type": "joinpoint",
 										"name": "copy"
 									}]
@@ -11570,6 +12324,32 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
 										"defaultValue": ""
 									}]
 					},
@@ -12038,6 +12818,32 @@
 						"children": [
 									{
 										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
 										"name": "setModifiers"
 									},
 									{
@@ -12395,6 +13201,32 @@
 						"type": "action",
 						"children": [
 									{
+										"type": "void",
+										"name": "setTest"
+									},
+									{
+										"type": "expression",
+										"name": "test",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setTest"
+									},
+									{
+										"type": "int",
+										"name": "test",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
 										"type": "joinpoint",
 										"name": "copy"
 									}]
@@ -12534,6 +13366,32 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
 										"defaultValue": ""
 									}]
 					},
@@ -13123,6 +13981,32 @@
 						"children": [
 									{
 										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
 										"name": "setModifiers"
 									},
 									{
@@ -13538,6 +14422,32 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
 										"defaultValue": ""
 									}]
 					},
@@ -14209,6 +15119,32 @@
 						"children": [
 									{
 										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
 										"name": "setModifiers"
 									},
 									{
@@ -14652,6 +15588,32 @@
 						"children": [
 									{
 										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
 										"name": "setModifiers"
 									},
 									{
@@ -15053,6 +16015,32 @@
 						"children": [
 									{
 										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
 										"name": "setModifiers"
 									},
 									{
@@ -15365,6 +16353,32 @@
 						"type": "action",
 						"children": [
 									{
+										"type": "void",
+										"name": "setTest"
+									},
+									{
+										"type": "expression",
+										"name": "test",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setTest"
+									},
+									{
+										"type": "int",
+										"name": "test",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
 										"type": "joinpoint",
 										"name": "copy"
 									}]
@@ -15504,6 +16518,32 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
 										"defaultValue": ""
 									}]
 					},
@@ -15965,6 +17005,32 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
 										"defaultValue": ""
 									}]
 					},
@@ -16474,6 +17540,32 @@
 						"children": [
 									{
 										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
 										"name": "setModifiers"
 									},
 									{
@@ -16847,6 +17939,19 @@
 					},
 					{
 						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setPrivacy"
+									},
+									{
+										"type": "String",
+										"name": "privacy",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
 						"tooltip": "Sets the name of this executable, returns the previous name",
 						"children": [
 									{
@@ -17002,6 +18107,32 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
 										"defaultValue": ""
 									}]
 					},
@@ -17330,6 +18461,32 @@
 						"type": "action",
 						"children": [
 									{
+										"type": "void",
+										"name": "setTest"
+									},
+									{
+										"type": "expression",
+										"name": "test",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setTest"
+									},
+									{
+										"type": "int",
+										"name": "test",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
 										"type": "joinpoint",
 										"name": "copy"
 									}]
@@ -17469,6 +18626,32 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
 										"defaultValue": ""
 									}]
 					},
@@ -17931,6 +19114,32 @@
 						"children": [
 									{
 										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
 										"name": "setModifiers"
 									},
 									{
@@ -18346,6 +19555,32 @@
 						"children": [
 									{
 										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
 										"name": "setModifiers"
 									},
 									{
@@ -18749,6 +19984,32 @@
 						"children": [
 									{
 										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
 										"name": "setModifiers"
 									},
 									{
@@ -19140,6 +20401,32 @@
 						"children": [
 									{
 										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
 										"name": "setModifiers"
 									},
 									{
@@ -19444,6 +20731,32 @@
 						"type": "action",
 						"children": [
 									{
+										"type": "void",
+										"name": "setTest"
+									},
+									{
+										"type": "expression",
+										"name": "test",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setTest"
+									},
+									{
+										"type": "int",
+										"name": "test",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
 										"type": "joinpoint",
 										"name": "copy"
 									}]
@@ -19583,6 +20896,32 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
 										"defaultValue": ""
 									}]
 					},
@@ -19995,6 +21334,32 @@
 						"children": [
 									{
 										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
 										"name": "setModifiers"
 									},
 									{
@@ -20378,6 +21743,32 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
 										"defaultValue": ""
 									}]
 					},
@@ -20785,6 +22176,32 @@
 						"children": [
 									{
 										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
 										"name": "setModifiers"
 									},
 									{
@@ -21110,6 +22527,32 @@
 						"type": "action",
 						"children": [
 									{
+										"type": "void",
+										"name": "setTest"
+									},
+									{
+										"type": "expression",
+										"name": "test",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setTest"
+									},
+									{
+										"type": "int",
+										"name": "test",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
 										"type": "joinpoint",
 										"name": "copy"
 									}]
@@ -21249,6 +22692,32 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
 										"defaultValue": ""
 									}]
 					},
@@ -21548,6 +23017,32 @@
 						"type": "action",
 						"children": [
 									{
+										"type": "void",
+										"name": "setTest"
+									},
+									{
+										"type": "expression",
+										"name": "test",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setTest"
+									},
+									{
+										"type": "int",
+										"name": "test",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
 										"type": "joinpoint",
 										"name": "copy"
 									}]
@@ -21687,6 +23182,32 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
 										"defaultValue": ""
 									}]
 					},
@@ -22078,6 +23599,32 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
 										"defaultValue": ""
 									}]
 					},
@@ -22485,6 +24032,32 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
 										"defaultValue": ""
 									}]
 					},
@@ -23157,6 +24730,32 @@
 						"children": [
 									{
 										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
 										"name": "setModifiers"
 									},
 									{
@@ -23623,6 +25222,32 @@
 						"children": [
 									{
 										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
 										"name": "setModifiers"
 									},
 									{
@@ -23944,6 +25569,32 @@
 						"type": "action",
 						"children": [
 									{
+										"type": "void",
+										"name": "setTest"
+									},
+									{
+										"type": "expression",
+										"name": "test",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setTest"
+									},
+									{
+										"type": "int",
+										"name": "test",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
 										"type": "joinpoint",
 										"name": "copy"
 									}]
@@ -24083,6 +25734,32 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
 										"defaultValue": ""
 									}]
 					},
@@ -24448,6 +26125,32 @@
 						"type": "action",
 						"children": [
 									{
+										"type": "void",
+										"name": "setTest"
+									},
+									{
+										"type": "expression",
+										"name": "test",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setTest"
+									},
+									{
+										"type": "int",
+										"name": "test",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
 										"type": "joinpoint",
 										"name": "copy"
 									}]
@@ -24587,6 +26290,32 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
 										"defaultValue": ""
 									}]
 					},
@@ -25062,6 +26791,32 @@
 						"children": [
 									{
 										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
 										"name": "setModifiers"
 									},
 									{
@@ -25470,6 +27225,32 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "int",
+										"name": "value",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setLine"
+									},
+									{
+										"type": "String",
+										"name": "value",
 										"defaultValue": ""
 									}]
 					},

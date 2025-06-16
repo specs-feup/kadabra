@@ -39,29 +39,24 @@ public class JOpAssignment<T, V extends T> extends AOpAssignment {
     }
 
     @Override
-    public void defOperatorImpl(String value) {
+    public void setOperatorImpl(String operator) {
 
-        if (!value.endsWith("=")) {
-            SpecsLogs.msgInfo("Invalid assignment operator '" + value + "', must end with '='");
+        if (!operator.endsWith("=")) {
+            SpecsLogs.msgInfo("Invalid assignment operator '" + operator + "', must end with '='");
             return;
         }
 
-        var spoonOp = value.substring(0, value.length() - 1);
+        var spoonOp = operator.substring(0, operator.length() - 1);
 
         // Convert string to kind
         var kind = OperatorUtils.parseBinaryTry(spoonOp).orElse(null);
 
         if (kind == null) {
-            SpecsLogs.msgInfo("Could not parse assignment operator '" + value + "'");
+            SpecsLogs.msgInfo("Could not parse assignment operator '" + operator + "'");
             return;
         }
 
         node.setKind(kind);
-    }
-
-    @Override
-    public void setOperatorImpl(String operator) {
-        defOperatorImpl(operator);
     }
 
 }

@@ -40,7 +40,6 @@ dependencies {
     implementation ':LaraUtils'
     implementation ':LARAI'
     implementation ':WeaverInterface'
-    implementation ':JavaWeaverSpecs'
 
     implementation "org.apache.commons:commons-lang3:3.6"
     implementation "org.apache.commons:commons-exec:1.3"

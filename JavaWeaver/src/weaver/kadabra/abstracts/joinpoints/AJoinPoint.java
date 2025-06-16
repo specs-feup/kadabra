@@ -288,6 +288,46 @@ public abstract class AJoinPoint extends JoinPoint {
 
     /**
      * 
+     * @param value 
+     */
+    public void setLineImpl(int value) {
+        throw new UnsupportedOperationException(get_class()+": Action setLine not implemented ");
+    }
+
+    /**
+     * 
+     * @param value 
+     */
+    public final void setLine(int value) {
+        try {
+        	this.setLineImpl(value);
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "setLine", e);
+        }
+    }
+
+    /**
+     * 
+     * @param value 
+     */
+    public void setLineImpl(String value) {
+        throw new UnsupportedOperationException(get_class()+": Action setLine not implemented ");
+    }
+
+    /**
+     * 
+     * @param value 
+     */
+    public final void setLine(String value) {
+        try {
+        	this.setLineImpl(value);
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "setLine", e);
+        }
+    }
+
+    /**
+     * 
      * @param modifiers 
      */
     public void setModifiersImpl(String[] modifiers) {

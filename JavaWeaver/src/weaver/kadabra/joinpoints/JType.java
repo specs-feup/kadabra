@@ -230,32 +230,6 @@ public class JType<T> extends AType {
         return docComment != null ? docComment : "";
     }
 
-    @Override
-    public void defImpl(String attributeStr, Object value) {
-        Optional<TypeAttributes> attributeOpt = TypeAttributes.fromString(attributeStr);
-        if (!attributeOpt.isPresent()) {
-            throw new JavaWeaverException("The attribute to be defined for class does not exist: " + attributeStr);
-        }
-        switch (attributeOpt.get()) {
-            case MODIFIERS:
-                if (value instanceof String) {
-                    node.addModifier(getModifier((String) value));
-                } else if (value instanceof String[]) {
-                    String[] value2 = (String[]) value;
-                    List<String> valuesList = Arrays.asList(value2);
-                    Set<ModifierKind> collect = valuesList.stream().map(ModifierKind::valueOf).collect(Collectors.toSet());
-                    node.setModifiers(collect);
-                } else {
-                    throw new JavaWeaverException(
-                            "The attribute 'modifiers' can only be defined with: string OR string[]. Given type: "
-                                    + value.getClass());
-                }
-                break;
-            default:
-                break;
-        }
-    }
-
     public static ModifierKind getModifier(String value) {
 
         try {

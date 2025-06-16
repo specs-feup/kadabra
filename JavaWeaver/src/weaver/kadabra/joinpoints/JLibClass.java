@@ -13,18 +13,10 @@
 
 package weaver.kadabra.joinpoints;
 
-import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import com.google.common.reflect.ClassPath.ClassInfo;
 
 import spoon.reflect.declaration.CtElement;
 import weaver.kadabra.abstracts.joinpoints.ALibClass;
-import weaver.kadabra.abstracts.joinpoints.ALibMethod;
-import weaver.kadabra.util.KadabraLog;
 
 public class JLibClass extends ALibClass {
 

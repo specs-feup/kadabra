@@ -465,11 +465,47 @@ public abstract class AUnaryExpression extends AExpression {
 
     /**
      * 
+     * @param value 
+     */
+    @Override
+    public void setLineImpl(int value) {
+        this.aExpression.setLineImpl(value);
+    }
+
+    /**
+     * 
+     * @param value 
+     */
+    @Override
+    public void setLineImpl(String value) {
+        this.aExpression.setLineImpl(value);
+    }
+
+    /**
+     * 
      * @param modifiers 
      */
     @Override
     public void setModifiersImpl(String[] modifiers) {
         this.aExpression.setModifiersImpl(modifiers);
+    }
+
+    /**
+     * 
+     * @param test 
+     */
+    @Override
+    public void setTestImpl(AExpression test) {
+        this.aExpression.setTestImpl(test);
+    }
+
+    /**
+     * 
+     * @param test 
+     */
+    @Override
+    public void setTestImpl(int test) {
+        this.aExpression.setTestImpl(test);
     }
 
     /**

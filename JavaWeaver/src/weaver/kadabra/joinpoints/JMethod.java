@@ -169,7 +169,7 @@ public class JMethod<T> extends AMethod {
     }
 
     @Override
-    public void defPrivacyImpl(String value) {
+    public void setPrivacyImpl(String value) {
         node.addModifier(ModifierKind.valueOf(value.toString()));
     }
 

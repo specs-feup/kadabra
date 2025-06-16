@@ -21,9 +21,6 @@ import weaver.kadabra.abstracts.joinpoints.AXmlElement;
 import weaver.kadabra.abstracts.joinpoints.AXmlNode;
 import weaver.utils.weaving.converters.XmlNode2JoinPoint;
 
-import java.util.Arrays;
-import java.util.List;
-
 public class JXmlNode extends AXmlNode {
 
     private final XmlNode node;
@@ -73,11 +70,6 @@ public class JXmlNode extends AXmlNode {
     @Override
     public String getTextImpl() {
         return node.getText();
-    }
-
-    @Override
-    public void defTextImpl(String value) {
-        setTextImpl(value);
     }
 
     @Override

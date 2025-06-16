@@ -137,6 +137,46 @@ public abstract class AExpression extends AJavaWeaverJoinPoint {
     }
 
     /**
+     * 
+     * @param test 
+     */
+    public void setTestImpl(AExpression test) {
+        throw new UnsupportedOperationException(get_class()+": Action setTest not implemented ");
+    }
+
+    /**
+     * 
+     * @param test 
+     */
+    public final void setTest(AExpression test) {
+        try {
+        	this.setTestImpl(test);
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "setTest", e);
+        }
+    }
+
+    /**
+     * 
+     * @param test 
+     */
+    public void setTestImpl(int test) {
+        throw new UnsupportedOperationException(get_class()+": Action setTest not implemented ");
+    }
+
+    /**
+     * 
+     * @param test 
+     */
+    public final void setTest(int test) {
+        try {
+        	this.setTestImpl(test);
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "setTest", e);
+        }
+    }
+
+    /**
      * Returns the join point type of this class
      * @return The join point type
      */

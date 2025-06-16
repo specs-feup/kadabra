@@ -209,6 +209,26 @@ public abstract class AMethod extends AExecutable {
     }
 
     /**
+     * 
+     * @param privacy 
+     */
+    public void setPrivacyImpl(String privacy) {
+        throw new UnsupportedOperationException(get_class()+": Action setPrivacy not implemented ");
+    }
+
+    /**
+     * 
+     * @param privacy 
+     */
+    public final void setPrivacy(String privacy) {
+        try {
+        	this.setPrivacyImpl(privacy);
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "setPrivacy", e);
+        }
+    }
+
+    /**
      * Get value on attribute body
      * @return the attribute's value
      */
@@ -575,6 +595,24 @@ public abstract class AMethod extends AExecutable {
     @Override
     public AJoinPoint replaceWithImpl(String code) {
         return this.aExecutable.replaceWithImpl(code);
+    }
+
+    /**
+     * 
+     * @param value 
+     */
+    @Override
+    public void setLineImpl(int value) {
+        this.aExecutable.setLineImpl(value);
+    }
+
+    /**
+     * 
+     * @param value 
+     */
+    @Override
+    public void setLineImpl(String value) {
+        this.aExecutable.setLineImpl(value);
     }
 
     /**

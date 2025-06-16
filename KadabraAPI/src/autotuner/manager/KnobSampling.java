@@ -14,7 +14,6 @@
 package autotuner.manager;
 
 import autotuner.knob.KnobApplier;
-import autotuner.manager.ExplorationManager;
 import autotuner.measurer.Measurer;
 
 /**

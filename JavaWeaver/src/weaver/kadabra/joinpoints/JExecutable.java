@@ -13,15 +13,10 @@
 
 package weaver.kadabra.joinpoints;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 import org.lara.interpreter.weaver.interf.JoinPoint;
 
 import spoon.reflect.code.CtBlock;
 import spoon.reflect.declaration.CtExecutable;
-import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.factory.Factory;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.ABody;
@@ -30,7 +25,6 @@ import weaver.kadabra.abstracts.joinpoints.AExecutable;
 import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.ATypeReference;
 import weaver.kadabra.spoon.extensions.nodes.CtKadabraSnippetElement;
-import weaver.utils.scanners.NodeConverter;
 import weaver.utils.weaving.ActionUtils;
 import weaver.utils.weaving.SelectUtils;
 import weaver.utils.weaving.SnippetFactory;
@@ -54,14 +48,9 @@ public class JExecutable<R> extends AExecutable {
     }
 
     @Override
-    public void defNameImpl(String value) {
-        node.setSimpleName(value);
-    }
-
-    @Override
     public String setNameImpl(String name) {
         var currentName = node.getSimpleName();
-        defNameImpl(name);
+        node.setSimpleName(name);
         return currentName;
     }
 
