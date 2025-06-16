@@ -34,7 +34,6 @@
         "test:code": "npm run test -- src-code",
         "test:cov": "npm run test -- --coverage",
         "test:watch": "npm run test -- --watch",
-        "java-dist": "npx lara-java-dist --jsSourceFolder api --jsDestinationFolder ../KadabraLaraApi/src-lara/kadabra/ --javaClassname KadabraApiJsResource --javaPackageName pt.up.fe.specs.kadabra.weaver --javaDestinationFolder ../KadabraLaraApi/src-java/pt/up/fe/specs/kadabra/weaver/ --javaResourceNamespace kadabra",
         "build-interfaces": "npx lara-build-interfaces --input ../JavaWeaver/src/weaver/kadabra/JavaWeaver.json --lara @specs-feup/lara/LaraJoinPointSpecification.json --output src-api/Joinpoints.ts"
     },
     "repository": {

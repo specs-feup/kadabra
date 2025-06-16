@@ -34,7 +34,6 @@ dependencies {
     implementation ':JsEngine'
 
     implementation ':KadabraAPI'
-    implementation ':KadabraLaraApi'
 
     implementation ':LanguageSpecification'
     implementation ':LaraUtils'
