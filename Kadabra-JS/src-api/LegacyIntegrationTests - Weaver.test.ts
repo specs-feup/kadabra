@@ -1,6 +1,6 @@
 import { KadabraWeaverTester } from "./LegacyIntegrationTestsHelpers.test.js";
 import path from "path";
-import "@specs-feup/clava/api/Joinpoints.js";
+import "@specs-feup/kadabra/api/Joinpoints.js";
 import KadabraJavaTypes from "./kadabra/KadabraJavaTypes.js";
 
 /* eslint-disable jest/expect-expect */
