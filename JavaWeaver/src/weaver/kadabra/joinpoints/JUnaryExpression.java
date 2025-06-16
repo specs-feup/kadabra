@@ -43,12 +43,6 @@ public class JUnaryExpression<T> extends AUnaryExpression {
     }
 
     @Override
-    public List<? extends AExpression> selectOperand() {
-        return Arrays.asList(getOperandImpl());
-        // return SelectUtils.expression2JoinPointList(node.getOperand());
-    }
-
-    @Override
     public String toString() {
         return "Unary Expression: " + node;
     }

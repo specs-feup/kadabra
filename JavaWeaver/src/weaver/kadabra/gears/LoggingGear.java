@@ -18,7 +18,6 @@ import java.util.Optional;
 import org.lara.interpreter.weaver.interf.AGear;
 import org.lara.interpreter.weaver.interf.events.Stage;
 import org.lara.interpreter.weaver.interf.events.data.ApplyEvent;
-import org.lara.interpreter.weaver.interf.events.data.SelectEvent;
 import org.lara.interpreter.weaver.joinpoint.LaraJoinPoint;
 
 import weaver.kadabra.util.KadabraLog;
@@ -32,19 +31,9 @@ public class LoggingGear extends AGear {
             String message = "Apply '" + data.getLabel()
                     + "' was not executed for select '" + data.getSelect_label()
                     + "'. Reason: the select is empty.";
-            String aspect_name = data.getAspect_name();
-            printWarning(aspect_name, message);
+            printWarning("SomewhereInCode", message);
         }
 
-    }
-
-    @Override
-    public void onSelect(SelectEvent data) {
-        if (data.getStage().equals(Stage.END) && !data.getPointcut().isPresent()) {
-            String message = "Select '" + data.getLabel() + "' is  empty.";
-            String aspect_name = data.getAspect_name();
-            printWarning(aspect_name, message);
-        }
     }
 
     private static void printWarning(String aspect_name, String message) {

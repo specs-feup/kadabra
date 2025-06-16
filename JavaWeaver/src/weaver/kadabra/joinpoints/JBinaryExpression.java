@@ -43,30 +43,6 @@ public class JBinaryExpression<T> extends ABinaryExpression {
     }
 
     @Override
-    public List<? extends AExpression> selectLhs() {
-        return Arrays.asList(getLhsImpl());
-        // final List<AExpression> exprs = SelectUtils.expression2JoinPointList(node.getLeftHandOperand());
-        // return exprs;
-    }
-
-    // @Override
-    // public String toString() {
-    // return "Binary Expression: " + node;
-    // }
-
-    @Override
-    public List<? extends AExpression> selectRhs() {
-        return Arrays.asList(getRhsImpl());
-        // final List<AExpression> exprs = SelectUtils.expression2JoinPointList(node.getRightHandOperand());
-        // return exprs;
-    }
-
-    @Override
-    public List<? extends AExpression> selectOperands() {
-        return Arrays.asList(getOperandsArrayImpl());
-    }
-
-    @Override
     public CtBinaryOperator<?> getNode() {
         return node;
     }

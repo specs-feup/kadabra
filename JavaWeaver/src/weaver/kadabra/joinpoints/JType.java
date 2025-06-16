@@ -130,67 +130,6 @@ public class JType<T> extends AType {
         return package1.getQualifiedName();
     }
 
-    // @Override
-    // public String[] getModifiersArrayImpl() {
-    // List<String> collect = node.getModifiers().stream().map(ModifierKind::name).collect(Collectors.toList());
-    // return collect.toArray(new String[0]);
-    // }
-
-    @Override
-    public List<? extends AField> selectField() {
-        // final List<JField<?>> fields = SelectUtils.select(node, CtField.class, JField::newInstance); //all
-        // fields, including the ones that are not from this class (inner type)
-        NodeConverter<CtField<?>, JField<?>> converter = JField::newInstance;
-        final List<JField<?>> fields = SelectUtils.nodeList2JoinPointList(node.getFields(), converter);
-        return fields;
-    }
-
-    // @Override
-    // public List<? extends AMethod> selectFunction() {
-    // return selectMethod();
-    // }
-
-    @Override
-    public List<? extends AMethod> selectFunction() {
-        return selectMethod();
-    }
-
-    @Override
-    public List<? extends AExecutable> selectExecutable() {
-
-        // final List<JMethod<?>> methods = WeavingUtils.select(node, CtMethod.class, JMethod::newInstance);
-        final List<AExecutable> methods = node.getTypeMembers().stream()
-                .filter(CtExecutable.class::isInstance)
-                .map(member -> CtExecutable2AExecutable.convert((CtExecutable<?>) member))
-                .collect(Collectors.toList());
-        return methods;
-    }
-
-    @Override
-    public List<? extends AMethod> selectMethod() {
-
-        // final List<JMethod<?>> methods = WeavingUtils.select(node, CtMethod.class, JMethod::newInstance);
-        final List<JMethod<?>> methods = SelectUtils.<CtMethod<?>, JMethod<?>>nodeList2JoinPointList(
-                node.getMethods(), JMethod::newInstance);
-        return methods;
-    }
-
-    @Override
-    public List<? extends APragma> selectPragma() {
-        List<CtComment> comments = NodeSearcher.list(CtComment.class, node, Collections.emptyList())
-                .stream()
-                .filter(JPragma::isPragma)
-                .collect(Collectors.toList());
-        final List<JPragma> pragmas = SelectUtils.nodeList2JoinPointList(comments, JPragma::newInstance);
-        return pragmas;
-    }
-
-    @Override
-    public List<? extends AComment> selectComment() {
-        final List<JComment> comments = SelectUtils.select(node, CtComment.class, JComment::newInstance);
-        return comments;
-    }
-
     @Override
     public void addInterfaceImpl(AInterfaceType newInterface) {
         node.addNestedType((CtType<?>) newInterface.getNode());
@@ -251,8 +190,7 @@ public class JType<T> extends AType {
 
     @Override
     public AMethod newMethodImpl(String[] modifiers, String returnType, String name, String[] paramLeft, String[] paramRight, String code) {
-        CtMethod<?> newMethod = ActionUtils.newMethod(node, name, returnType, paramLeft, paramRight, modifiers, code,
-                getWeaverProfiler());
+        CtMethod<?> newMethod = ActionUtils.newMethod(node, name, returnType, paramLeft, paramRight, modifiers, code);
         JMethod<?> newInstance = JMethod.newInstance(newMethod);
         return newInstance;
     }
@@ -275,8 +213,7 @@ public class JType<T> extends AType {
 
     @Override
     public AField newFieldImpl(String[] modifiers, String fieldType, String baseName, String initialValue) {
-        CtField<Object> newField = ActionUtils.newField(node, baseName, fieldType, initialValue, modifiers,
-                getWeaverProfiler());
+        CtField<Object> newField = ActionUtils.newField(node, baseName, fieldType, initialValue, modifiers);
         JField<Object> newInstance = JField.newInstance(newField);
         return newInstance;
     }
@@ -339,11 +276,11 @@ public class JType<T> extends AType {
     }
 
     public AJavaWeaverJoinPoint insertImplJType(String position, CtElement code) {
-        return ActionUtils.insertMember(node, code, position, getWeaverProfiler());
+        return ActionUtils.insertMember(node, code, position);
     }
 
     public AJavaWeaverJoinPoint insertImplJType(String position, String code) {
-        return ActionUtils.insertMember(node, code, position, getWeaverProfiler());
+        return ActionUtils.insertMember(node, code, position);
     }
 
     @Override

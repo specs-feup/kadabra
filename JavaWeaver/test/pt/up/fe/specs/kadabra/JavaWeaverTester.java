@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.lara.interpreter.joptions.config.interpreter.LaraiKeys;
-import org.lara.interpreter.joptions.config.interpreter.VerboseLevel;
 import org.lara.interpreter.joptions.keys.FileList;
 import org.lara.interpreter.joptions.keys.OptionalFile;
 import org.suikasoft.jOptions.Datakey.DataKey;
@@ -215,7 +214,6 @@ public class JavaWeaverTester {
         data.add(LaraiKeys.LARA_FILE, laraFile);
         data.add(LaraiKeys.OUTPUT_FOLDER, outputFolder);
         data.add(LaraiKeys.WORKSPACE_FOLDER, FileList.newInstance(workFolder));
-        data.add(LaraiKeys.VERBOSE, VerboseLevel.warnings);
         data.add(LaraiKeys.LOG_JS_OUTPUT, Boolean.TRUE);
         data.add(LaraiKeys.LOG_FILE, OptionalFile.newInstance(getWeaverLog().getAbsolutePath()));
         // data.add(JavaWeaverKeys.NO_CLASSPATH, Boolean.TRUE);

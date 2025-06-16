@@ -2,7 +2,6 @@ package weaver.kadabra.abstracts;
 
 import com.google.common.base.Preconditions;
 import org.lara.interpreter.weaver.interf.JoinPoint;
-import org.lara.interpreter.weaver.interf.SelectOp;
 import pt.up.fe.specs.util.SpecsEnums;
 import pt.up.fe.specs.util.SpecsLogs;
 import pt.up.fe.specs.util.exceptions.NotImplementedException;
@@ -316,15 +315,6 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
     @Override
     public AJoinPoint[] insertImpl(String position, JoinPoint JoinPoint) {
         throw new NotImplementedException(this);
-    }
-
-    /**
-     * Generic select function, used by the default select implementations.
-     */
-    @Override
-    public <T extends AJoinPoint> List<? extends T> select(Class<T> joinPointClass, SelectOp op) {
-        throw new RuntimeException(
-                "Generic select function not implemented yet. Implement it in order to use the default implementations of select");
     }
 
     @Override

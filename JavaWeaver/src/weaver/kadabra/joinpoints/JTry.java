@@ -13,11 +13,8 @@
 
 package weaver.kadabra.joinpoints;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.stream.Collectors;
 
-import spoon.reflect.code.CtBlock;
 import spoon.reflect.code.CtTry;
 import weaver.kadabra.abstracts.joinpoints.ABody;
 import weaver.kadabra.abstracts.joinpoints.ACatch;
@@ -35,16 +32,6 @@ public class JTry extends ATry {
 
     public static JTry newInstance(CtTry node) {
         return new JTry(node);
-    }
-
-    @Override
-    public List<? extends ABody> selectBody() {
-        // TODO Auto-generated method stub
-        CtBlock<?> body = node.getBody();
-        if (body == null) {
-            return Collections.emptyList();
-        }
-        return weaver.utils.weaving.SelectUtils.node2JoinPointList(body, JBody::newInstance);
     }
 
     @Override

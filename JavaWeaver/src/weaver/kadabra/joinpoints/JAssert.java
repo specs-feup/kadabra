@@ -13,12 +13,8 @@
 
 package weaver.kadabra.joinpoints;
 
-import java.util.List;
-
 import spoon.reflect.code.CtAssert;
 import weaver.kadabra.abstracts.joinpoints.AAssert;
-import weaver.kadabra.abstracts.joinpoints.AExpression;
-import weaver.utils.weaving.SelectUtils;
 
 public class JAssert<T> extends AAssert {
 
@@ -31,16 +27,6 @@ public class JAssert<T> extends AAssert {
 
     public static <T> JAssert<T> newInstance(CtAssert<T> node) {
         return new JAssert<>(node);
-    }
-
-    @Override
-    public List<? extends AExpression> selectExpression() {
-        return SelectUtils.expression2JoinPointList(node.getExpression());
-    }
-
-    @Override
-    public List<? extends AExpression> selectExpr() {
-        return selectExpression();
     }
 
     @Override

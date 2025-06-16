@@ -17,7 +17,6 @@ import org.apache.commons.lang3.NotImplementedException;
 import org.lara.interpreter.weaver.interf.JoinPoint;
 import pt.up.fe.specs.util.SpecsIo;
 import pt.up.fe.specs.util.SpecsLogs;
-import spoon.reflect.code.CtComment;
 import spoon.reflect.declaration.*;
 import spoon.support.reflect.declaration.CtImportImpl;
 import spoon.support.reflect.reference.CtTypeReferenceImpl;
@@ -26,14 +25,10 @@ import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.*;
 import weaver.utils.generators.MapGenerator;
 import weaver.utils.weaving.ActionUtils;
-import weaver.utils.weaving.SelectUtils;
 import weaver.utils.weaving.converters.CtElement2JoinPoint;
-import weaver.utils.weaving.converters.CtType2AType;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class JFile extends AFile {
@@ -183,53 +178,6 @@ public class JFile extends AFile {
         return node.equals(other.node);
     }
 
-    @Override
-    public List<? extends AType> selectType() {
-
-        List<AType> classes = streamOfTypes().map(CtType2AType::convert)
-                .collect(Collectors.toList());
-        return classes;
-    }
-
-    @Override
-    public List<? extends AClass> selectClass() {
-
-        List<JClass<?>> classes = streamOfClasses()
-                .map(cl -> JClass.newInstance(cl, node))
-                .collect(Collectors.toList());
-
-        return classes;
-    }
-
-    @Override
-    public List<? extends AInterfaceType> selectInterfaceType() {
-        return streamOfInterfaces()
-                .<JInterfaceType<?>>map(JInterfaceType::newInstance)
-                .collect(Collectors.toList());
-    }
-
-
-    @Override
-    public List<? extends APragma> selectPragma() {
-        return selectComment().stream()
-                .filter(c -> JPragma.isPragma(c.getNode()))
-                .map(JPragma::newInstance)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<JComment> selectComment() {
-        List<JComment> comments = new ArrayList<>();
-
-        Stream<CtType<?>> allTypes = streamOfTypes();
-        allTypes.forEach(type -> {
-            final List<JComment> currentComments = SelectUtils.select(type, CtComment.class, JComment::newInstance);
-            comments.addAll(currentComments);
-        });
-
-        return comments;
-    }
-
     private Stream<CtInterface<?>> streamOfInterfaces() {
         Stream<CtInterface<?>> filter = streamOfTypes().filter(c -> c instanceof CtInterface<?>)
                 .map(CtInterface.class::cast);
@@ -255,8 +203,7 @@ public class JFile extends AFile {
 
     @Override
     public AClass newClassImpl(String name, String extend, String[] implement) {
-        final CtClass<Object> newClass = ActionUtils.newClass(name, extend, implement, node.getFactory(),
-                getWeaverProfiler());
+        final CtClass<Object> newClass = ActionUtils.newClass(name, extend, implement, node.getFactory());
         node.getDeclaredTypes().add(newClass);
         JClass<Object> newInstance = JClass.newInstance(newClass, node);
         return newInstance;
@@ -269,8 +216,7 @@ public class JFile extends AFile {
 
     @Override
     public AInterfaceType newInterfaceImpl(String name, String[] extend) {
-        final CtInterface<Object> newInterface = ActionUtils.newInterface(name, extend, node.getFactory(),
-                getWeaverProfiler());
+        final CtInterface<Object> newInterface = ActionUtils.newInterface(name, extend, node.getFactory());
         node.getDeclaredTypes().add(newInterface);
         JInterfaceType<Object> newInstance = JInterfaceType.newInstance(newInterface);
         return newInstance;
@@ -303,8 +249,7 @@ public class JFile extends AFile {
     @Override
     public AClass mapVersionsImpl(String name, String keyType, AInterfaceType _interface, String methodName) {
 
-        CtClass<?> newClass = MapGenerator.generate(node.getFactory(), name, keyType, _interface, methodName,
-                getWeaverProfiler());
+        CtClass<?> newClass = MapGenerator.generate(node.getFactory(), name, keyType, _interface, methodName);
         node.getDeclaredTypes().add(newClass);
         AClass newInstance = JClass.newInstance(newClass, node);
         return newInstance;

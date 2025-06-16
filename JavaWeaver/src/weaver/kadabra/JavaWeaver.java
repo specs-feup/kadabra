@@ -18,7 +18,6 @@ import pt.up.fe.specs.jadx.SpecsJadx;
 import pt.up.fe.specs.kadabra.weaver.KadabraApiJsResource;
 import pt.up.fe.specs.kadabra.weaver.LaraCoreApiResource;
 import pt.up.fe.specs.kadabra.weaver.LaraWeaverApiResource;
-import pt.up.fe.specs.lara.lcl.LaraCommonLanguageApiResource;
 import pt.up.fe.specs.spoon.SpoonFactory;
 import pt.up.fe.specs.util.SpecsCollections;
 import pt.up.fe.specs.util.SpecsIo;
@@ -33,9 +32,9 @@ import spoon.support.JavaOutputProcessor;
 import spoon.support.SerializationModelStreamer;
 import weaver.kadabra.abstracts.weaver.AJavaWeaver;
 import weaver.kadabra.exceptions.JavaWeaverException;
-import weaver.kadabra.gears.KadabraMetrics;
 import weaver.kadabra.gears.LoggingGear;
 import weaver.kadabra.gears.Report;
+import weaver.kadabra.importable.KadabraJoinPoints;
 import weaver.kadabra.joinpoints.JApp;
 import weaver.kadabra.spoon.extensions.launcher.JWSpoonLauncher;
 import weaver.kadabra.spoon.extensions.nodes.CtApp;
@@ -69,9 +68,6 @@ public class JavaWeaver extends AJavaWeaver {
         KadabraLog.setDebug(true);
     }
 
-    private static final String KADABRA_API_NAME = "@specs-feup/kadabra";
-
-
     // private static final Set<String> WEAVER_NAMES = SpecsCollections.asSet("kadabra");
     private static final Set<String> LANGUAGES = SpecsCollections.asSet("java");
 
@@ -100,7 +96,6 @@ public class JavaWeaver extends AJavaWeaver {
         reportGear = new Report();
         reportGear.setActive(false);
         table = AnnotationsTable.getStaticTable();
-        this.setWeaverProfiler(new KadabraMetrics());
     }
 
     /**
@@ -220,16 +215,6 @@ public class JavaWeaver extends AJavaWeaver {
         }
 
         return Optional.empty();
-    }
-
-    /**
-     * Return a JoinPoint instance of the language root, i.e., an instance of AApp
-     *
-     * @return an instance of the join point root/program
-     */
-    @Override
-    public JoinPoint select() {
-        return jApp;
     }
 
     /**
@@ -598,27 +583,6 @@ public class JavaWeaver extends AJavaWeaver {
         return "KADABRA";
     }
 
-    @Override
-    public String getWeaverApiName() {
-        return KADABRA_API_NAME;
-    }
-
-    @Override
-    public List<ResourceProvider> getAspectsAPI() {
-        // TODO: refactor in a similar to Clava, which uses .getApis() function
-        return ResourceProvider.getResourcesFromEnum(
-                Arrays.asList(LaraAPIResources.class, LaraCommonLanguageApiResource.class,
-                        LaraCoreApiResource.class,
-                        LaraWeaverApiResource.class));
-
-        // return ResourceProvider.getResources(LaraAPIResources.class);
-    }
-
-    @Override
-    protected List<LaraResourceProvider> getWeaverNpmResources() {
-        return Arrays.asList(KadabraApiJsResource.values());
-    }
-
     private void callAstyle() {
 
         CommandLine astyle;
@@ -682,5 +646,10 @@ public class JavaWeaver extends AJavaWeaver {
     @Override
     public Object getRootNode() {
         return new CtApp(spoon);
+    }
+
+    @Override
+    public JoinPoint getRootJp() {
+        return jApp;
     }
 }

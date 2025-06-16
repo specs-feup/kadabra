@@ -13,8 +13,6 @@
 
 package weaver.kadabra.joinpoints;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import spoon.reflect.code.CtBlock;
@@ -63,41 +61,6 @@ public class JIf extends AIf {
         List<Integer> ranks = RankCalculator.calculate(node, CtIf.class, executableAncestor);
         rank = StringUtils.join(ranks, ".");
         return rank;
-    }
-
-    @Override
-    public List<? extends AExpression> selectCond() {
-        return Arrays.asList(getCondImpl());
-        // return SelectUtils.expression2JoinPointList(node.getCondition());
-    }
-
-    @Override
-    public List<? extends ABody> selectThen() {
-        return Arrays.asList(getThenImpl());
-        // CtStatement thenStatement = node.getThenStatement();
-        // if (!(thenStatement instanceof CtBlock)) {
-        // throw new JavaWeaverException("The then statement must always be a block");
-        // }
-        //
-        // return SelectUtils.node2JoinPointList((CtBlock<?>) thenStatement, JBody::newInstance);
-    }
-
-    @Override
-    public List<? extends ABody> selectElse() {
-        var elseStatement = getElseImpl();
-
-        // CtStatement elseStatement = node.getElseStatement();
-
-        if (elseStatement == null) {
-            return Collections.emptyList();
-        }
-
-        return Arrays.asList(elseStatement);
-        // if (!(elseStatement instanceof CtBlock)) {
-        // throw new JavaWeaverException("The else statement must always be a block");
-        // }
-        //
-        // return SelectUtils.node2JoinPointList((CtBlock<?>) elseStatement, JBody::newInstance);
     }
 
     @Override

@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.lara.interpreter.weaver.interf.JoinPoint;
-
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 
 /**
@@ -17,75 +15,6 @@ import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
  * @author Lara Weaver Generator
  */
 public abstract class ALib extends AJavaWeaverJoinPoint {
-
-    /**
-     * class pertaining to a library, included in the classpath. This select may be slow, depending on the number of included types.
-     * @return 
-     */
-    public abstract List<? extends ALibClass> selectClass();
-
-    /**
-     * 
-     */
-    @Override
-    public final List<? extends JoinPoint> select(String selectName) {
-        List<? extends JoinPoint> joinPointList;
-        switch(selectName) {
-        	case "class": 
-        		joinPointList = selectClass();
-        		break;
-        	default:
-        		joinPointList = super.select(selectName);
-        		break;
-        }
-        return joinPointList;
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public final void defImpl(String attribute, Object value) {
-        switch(attribute){
-        case "line": {
-        	if(value instanceof Integer){
-        		this.defLineImpl((Integer)value);
-        		return;
-        	}
-        	if(value instanceof String){
-        		this.defLineImpl((String)value);
-        		return;
-        	}
-        	this.unsupportedTypeForDef(attribute, value);
-        }
-        default: throw new UnsupportedOperationException("Join point "+get_class()+": attribute '"+attribute+"' cannot be defined");
-        }
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected final void fillWithAttributes(List<String> attributes) {
-        super.fillWithAttributes(attributes);
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected final void fillWithSelects(List<String> selects) {
-        super.fillWithSelects(selects);
-        selects.add("class");
-    }
-
-    /**
-     * 
-     */
-    @Override
-    protected final void fillWithActions(List<String> actions) {
-        super.fillWithActions(actions);
-    }
 
     /**
      * Returns the join point type of this class

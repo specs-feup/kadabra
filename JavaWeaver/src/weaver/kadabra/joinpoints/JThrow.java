@@ -13,12 +13,8 @@
 
 package weaver.kadabra.joinpoints;
 
-import java.util.List;
-
 import spoon.reflect.code.CtThrow;
-import weaver.kadabra.abstracts.joinpoints.AExpression;
 import weaver.kadabra.abstracts.joinpoints.AThrow;
-import weaver.utils.weaving.SelectUtils;
 
 public class JThrow extends AThrow {
 
@@ -31,16 +27,6 @@ public class JThrow extends AThrow {
 
     public static JThrow newInstance(CtThrow node) {
         return new JThrow(node);
-    }
-
-    @Override
-    public List<? extends AExpression> selectExpression() {
-        return SelectUtils.expression2JoinPointList(node.getThrownExpression());
-    }
-
-    @Override
-    public List<? extends AExpression> selectExpr() {
-        return selectExpression();
     }
 
     @Override

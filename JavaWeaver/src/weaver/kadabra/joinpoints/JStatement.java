@@ -13,20 +13,15 @@
 
 package weaver.kadabra.joinpoints;
 
-import java.util.List;
-
 import org.lara.interpreter.weaver.interf.JoinPoint;
 
 import spoon.reflect.code.CtStatement;
 import spoon.reflect.declaration.CtElement;
 import tdrc.utils.StringUtils;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
-import weaver.kadabra.abstracts.joinpoints.ACall;
 import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.AStatement;
-import weaver.kadabra.abstracts.joinpoints.AVar;
 import weaver.utils.weaving.ActionUtils;
-import weaver.utils.weaving.SelectUtils;
 import weaver.utils.weaving.converters.CtStatement2AStatement;
 
 public class JStatement extends AStatement {
@@ -44,25 +39,6 @@ public class JStatement extends AStatement {
     }
 
     @Override
-    public List<? extends AVar> selectVar() {
-        return SelectUtils.selectVar(node);
-    }
-
-    @Override
-    public List<? extends ACall> selectCall() {
-        return SelectUtils.selectCall(node);
-
-        // List<JCall<?>> select = SelectUtils.select(node, CtInvocation.class, JCall::newInstance);
-        //
-        // select.stream().forEach(call -> System.out.println("Call name:" + call.getNameImpl()));
-        //
-        // return select.stream()
-        // .filter(call -> !call.getNameImpl().equals("<init>"))
-        // .collect(Collectors.toList());
-        // return select;
-    }
-
-    @Override
     public AJoinPoint[] insertImpl(String position, JoinPoint code) {
         return new AJoinPoint[] { insertImplJStatement(position, (CtElement) code.getNode()) };
     }
@@ -73,11 +49,11 @@ public class JStatement extends AStatement {
     }
 
     public AJavaWeaverJoinPoint insertImplJStatement(String position, CtElement code) {
-        return ActionUtils.insert(position, code, node, getWeaverProfiler());
+        return ActionUtils.insert(position, code, node);
     }
 
     public AJavaWeaverJoinPoint insertImplJStatement(String position, String code) {
-        return ActionUtils.insert(position, code, node, getWeaverProfiler());
+        return ActionUtils.insert(position, code, node);
     }
 
     @Override

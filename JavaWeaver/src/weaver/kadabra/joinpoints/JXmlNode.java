@@ -66,11 +66,6 @@ public class JXmlNode extends AXmlNode {
     }
 
     @Override
-    public List<? extends AXmlElement> selectElement() {
-        return Arrays.asList(getElementsArrayImpl());
-    }
-
-    @Override
     public AXmlElement[] elementsByNameArrayImpl(String name) {
         return node.getElementsByName(name).toArray(length -> new AXmlElement[length]);
     }

@@ -138,13 +138,6 @@ public class JCall<T> extends ACall {
     }
 
     @Override
-    public List<? extends AExpression> selectArg() {
-        final List<AExpression> exprs = SelectUtils.nodeList2JoinPointList(node.getArguments(),
-                arg -> JExpression.newInstance(arg));
-        return exprs;
-    }
-
-    @Override
     public void defArgumentsImpl(AExpression[] value) {
         var newArgs = new ArrayList<CtExpression<?>>();
         for (var arg : value) {
@@ -253,13 +246,15 @@ public class JCall<T> extends ACall {
         JStatement stat = (JStatement) location;
 
         CtInvocation<T> cloned = ActionUtils.cloneElement(node);
-        ActionUtils.insert(position, cloned, stat.getNode(), getWeaverProfiler());
+        ActionUtils.insert(position, cloned, stat.getNode());
         return JCall.newInstance(cloned);
     }
 
     @Override
     public AExpression[] getArgumentsArrayImpl() {
-        return selectArg().toArray(size -> new AExpression[size]);
+        final List<AExpression> exprs = SelectUtils.nodeList2JoinPointList(node.getArguments(),
+                arg -> JExpression.newInstance(arg));
+        return exprs.toArray(size -> new AExpression[size]);
     }
 
     @Override

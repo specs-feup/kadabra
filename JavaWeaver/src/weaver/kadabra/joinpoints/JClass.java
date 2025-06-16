@@ -20,7 +20,6 @@ import spoon.reflect.declaration.*;
 import spoon.reflect.factory.Factory;
 import spoon.reflect.reference.CtTypeReference;
 import weaver.kadabra.abstracts.joinpoints.*;
-import weaver.kadabra.entities.Pair;
 import weaver.utils.generators.FunctionalClassGenerator;
 import weaver.utils.generators.MapGenerator;
 import weaver.utils.weaving.ActionUtils;
@@ -76,8 +75,7 @@ public class JClass<T> extends AClass {
     @Override
     public AClass mapVersionsImpl(String name, String keyType, AInterfaceType _interface, String methodName) {
 
-        CtClass<?> generate = MapGenerator.generate(originClass.getFactory(), name, keyType, _interface, methodName,
-                getWeaverProfiler());
+        CtClass<?> generate = MapGenerator.generate(originClass.getFactory(), name, keyType, _interface, methodName);
         originClass.addNestedType(generate);
         JClass<?> jClass = new JClass<>(generate, parent);
         return jClass;
@@ -109,9 +107,9 @@ public class JClass<T> extends AClass {
         final CtInterface<Object> newInterface;
         if (newFile) {
             newInterface = ActionUtils.compilationUnitWithInterface(qualifiedName, null,
-                    parent.getFile().getParentFile(), factory, getWeaverProfiler());
+                    parent.getFile().getParentFile(), factory);
         } else {
-            newInterface = ActionUtils.newInterface(name, null, originClass.getFactory(), getWeaverProfiler());
+            newInterface = ActionUtils.newInterface(name, null, originClass.getFactory());
             // file.addInterface(new JInterface(newInterface));
         }
 
@@ -153,24 +151,8 @@ public class JClass<T> extends AClass {
     }
 
     @Override
-    public List<? extends AConstructor> selectConstructor() {
-        // Apparently, Spoon returns the same hashCode for different constructors
-        // for (var c : originClass.getConstructors()) {
-        // System.out.println("C: " + c.hashCode());
-        // }
-
-        return SelectUtils.nodeList2JoinPointList(originClass.getConstructors(), JConstructor::newInstance);
-    }
-
-    @Override
-    public List<? extends AAnonymousExec> selectAnonymousExec() {
-        return SelectUtils.nodeList2JoinPointList(originClass.getAnonymousExecutables(), JAnonymousExec::newInstance);
-    }
-
-    @Override
     public AConstructor newConstructorImpl(String[] modifiers, String[] paramLeft, String[] paramRight) {
-        CtConstructor<?> newConstructor = ActionUtils.newConstructor(originClass, paramLeft, paramRight, modifiers,
-                getWeaverProfiler());
+        CtConstructor<?> newConstructor = ActionUtils.newConstructor(originClass, paramLeft, paramRight, modifiers);
         JConstructor<?> newInstance = SelectUtils.node2JoinPoint(newConstructor, JConstructor::newInstance);
         return newInstance;
     }

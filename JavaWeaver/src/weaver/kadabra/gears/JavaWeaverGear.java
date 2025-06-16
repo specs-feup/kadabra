@@ -14,24 +14,12 @@
 package weaver.kadabra.gears;
 
 import org.lara.interpreter.weaver.interf.AGear;
-import org.lara.interpreter.weaver.interf.events.data.AspectEvent;
-
-import weaver.kadabra.util.KadabraLog;
 
 @Deprecated
 public class JavaWeaverGear extends AGear {
 
     public static final String TIMER_CLASS = "weaver/kadabra/monitor/CodeTimer.tmpl";
-    private static final String TIMER_ASPECT = "kadabra$monitor$Timer$TimeMonitor";
     private boolean timerUsed = false;
-
-    @Override
-    public void onAspect(AspectEvent data) {
-        if (!timerUsed && data.getAspectCallee().equals(TIMER_ASPECT)) {
-            KadabraLog.info("Timer.java will be copied to workspace");
-            timerUsed = true;
-        }
-    }
 
     public boolean isTimerUsed() {
         return timerUsed;

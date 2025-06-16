@@ -13,15 +13,9 @@
 
 package weaver.kadabra.joinpoints;
 
-import java.util.Collections;
-import java.util.List;
-
-import pt.up.fe.specs.util.SpecsLogs;
 import spoon.reflect.code.CtWhile;
 import weaver.kadabra.abstracts.joinpoints.AExpression;
-import weaver.kadabra.abstracts.joinpoints.AStatement;
 import weaver.kadabra.enums.LoopType;
-import weaver.utils.weaving.SelectUtils;
 import weaver.utils.weaving.converters.CtElement2JoinPoint;
 
 public class JWhile extends JLoop {
@@ -38,34 +32,8 @@ public class JWhile extends JLoop {
     }
 
     @Override
-    public List<? extends AStatement> selectInit() {
-
-        SpecsLogs.warn(
-                "The while loop does not contain an init. The select 'init' should only be used in 'for' loops");
-        return Collections.emptyList();
-    }
-
-    // @Override
-    // public List<? extends AExpression> selectCond() {
-    // return SelectUtils.expression2JoinPointList(node.getLoopingExpression());
-    //
-    // }
-
-    @Override
     public AExpression getCondImpl() {
         return (AExpression) CtElement2JoinPoint.convert(node.getLoopingExpression());
-    }
-
-    @Override
-    public List<? extends AStatement> selectStep() {
-        SpecsLogs.warn(
-                "The while loop does not contain a step. The select 'step' should only be used in 'for' loops");
-        return Collections.emptyList();
-    }
-
-    @Override
-    public List<? extends AExpression> selectExpr() {
-        return SelectUtils.expression2JoinPointList(node.getLoopingExpression());
     }
 
     @Override

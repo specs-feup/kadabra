@@ -13,13 +13,9 @@
 
 package weaver.kadabra.joinpoints;
 
-import java.util.List;
-
-import spoon.reflect.code.CtCase;
 import spoon.reflect.code.CtSwitch;
 import weaver.kadabra.abstracts.joinpoints.ACase;
 import weaver.kadabra.abstracts.joinpoints.ASwitch;
-import weaver.utils.weaving.SelectUtils;
 import weaver.utils.weaving.converters.CtElement2JoinPoint;
 
 public class JSwitch<S> extends ASwitch {
@@ -33,12 +29,6 @@ public class JSwitch<S> extends ASwitch {
 
     public static <S> JSwitch<S> newInstance(CtSwitch<S> node) {
         return new JSwitch<>(node);
-    }
-
-    @Override
-    public List<? extends ACase> selectCase() {
-        List<CtCase<? super S>> cases = node.getCases();
-        return SelectUtils.nodeList2JoinPointList(cases, JCase::newInstance);
     }
 
     @Override

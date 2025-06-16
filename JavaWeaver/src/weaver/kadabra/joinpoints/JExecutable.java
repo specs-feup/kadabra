@@ -81,27 +81,6 @@ public class JExecutable<R> extends AExecutable {
     }
 
     @Override
-    public List<? extends ABody> selectBody() {
-        var body = getBodyImpl();
-
-        // final CtBlock<?> body = node.getBody();
-        if (body == null) {
-            return Collections.emptyList();
-        }
-        // return SelectUtils.node2JoinPointList(body, JBody::newInstance);
-
-        return Arrays.asList(body);
-    }
-
-    @Override
-    public List<? extends ADeclaration> selectParam() {
-        List<CtParameter<?>> parameters = node.getParameters();
-        NodeConverter<CtParameter<?>, JDeclaration<?>> converter = JDeclaration::newInstance;
-        final List<JDeclaration<?>> params = SelectUtils.nodeList2JoinPointList(parameters, converter);
-        return params;
-    }
-
-    @Override
     public CtExecutable<R> getNode() {
         return node;
     }
@@ -143,11 +122,11 @@ public class JExecutable<R> extends AExecutable {
 
         CtKadabraSnippetElement snippet = SnippetFactory.createSnippetElement(factory, code);
 
-        return ActionUtils.insertMember(node, snippet, position, getWeaverEngine().getWeaverProfiler());
+        return ActionUtils.insertMember(node, snippet, position);
     }
 
     public AJavaWeaverJoinPoint insertImplExecutable(String position, AJoinPoint code) {
-        return ActionUtils.insertMember(node, code.getNode(), position, getWeaverEngine().getWeaverProfiler());
+        return ActionUtils.insertMember(node, code.getNode(), position);
     }
 
 }

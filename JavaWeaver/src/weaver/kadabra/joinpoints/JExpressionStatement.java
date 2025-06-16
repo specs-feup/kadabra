@@ -13,10 +13,7 @@
 
 package weaver.kadabra.joinpoints;
 
-import java.util.List;
-
 import spoon.reflect.code.CtStatement;
-import weaver.kadabra.abstracts.joinpoints.ACall;
 
 /**
  * This class encapsulates expressions that can also be a statement, such as Invocations (JCall/CtInvocation) and
@@ -36,14 +33,7 @@ public class JExpressionStatement extends JStatement {
     }
 
     @Override
-    public List<? extends ACall> selectCall() {
-        // TODO Verify if this also selects self (which is important!!)
-        return super.selectCall();
-    }
-
-    @Override
     public String getKindImpl() {
-
         return "expressionStatement";
     }
 }

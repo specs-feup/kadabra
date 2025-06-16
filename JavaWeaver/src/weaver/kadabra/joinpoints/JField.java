@@ -63,11 +63,11 @@ public class JField<T> extends AField {
     }
 
     public AJavaWeaverJoinPoint insertImplJField(String position, CtElement code) {
-        return ActionUtils.insertMember(node, code, position, getWeaverProfiler());
+        return ActionUtils.insertMember(node, code, position);
     }
 
     public AJavaWeaverJoinPoint insertImplJField(String position, String code) {
-        return ActionUtils.insertMember(node, code, position, getWeaverProfiler());
+        return ActionUtils.insertMember(node, code, position);
     }
 
     @Override

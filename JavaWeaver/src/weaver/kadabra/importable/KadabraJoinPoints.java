@@ -16,7 +16,6 @@ package weaver.kadabra.importable;
 import java.util.Arrays;
 
 import org.lara.interpreter.weaver.interf.JoinPoint;
-import org.lara.interpreter.weaver.utils.JoinPointsUtils;
 
 import pt.up.fe.specs.util.SpecsCheck;
 import spoon.reflect.code.BinaryOperatorKind;
