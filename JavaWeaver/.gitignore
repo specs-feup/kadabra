@@ -1,3 +1,9 @@
 src-weaved/*
 !src-weaved/dummy
 package.json
+
+src/weaver/kadabra/abstracts/
+src/weaver/kadabra/exceptions/
+src/weaver/kadabra/enums/
+*.dotty
+JavaWeaver.json

@@ -91,7 +91,7 @@ task generateWeaver(type: Exec) {
 
     args = [
         '-w', 'JavaWeaver',
-        '-x', './src/specs/kadabra',
+        '-x', './resources/specs/kadabra',
         '-o', './src',
         '-p', 'weaver.kadabra',
         '-n', 'spoon.reflect.declaration.CtElement',
