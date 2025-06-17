@@ -1,0 +1,50 @@
+package org.literal;
+
+import test.NonExistentClass;
+
+/**
+ * Literal comments
+ */
+ @Test
+public class Literal extends NonExistentClass {
+
+	public static void foo1() {
+		int IL = 1;
+		long LL = 1l;
+		float FL = 1.0f;	
+		double DL = 1.0;	
+		char CL = 'c';	
+		String SL = "a string";	
+		boolean BL = true;	
+		
+		System.out.println("Printing int: " + IL);
+		System.out.println("Reprinting int: " + IL);
+	}
+
+	public static void foo2() {	
+		int negativeOne = -1;		
+	}
+
+	static class A {
+		B b;
+	}
+
+	static class B {
+		A a;
+	}
+	
+	/*
+	public static int foo() {
+		int a = 1;
+		double b = 2.0;
+		
+		return a + 3;
+	}
+	*/
+	
+	public static void foo3() {	
+	}
+
+	public static void foo4() {	
+	}
+}
