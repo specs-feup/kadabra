@@ -3,7 +3,6 @@ rootProject.name = 'JavaWeaver'
 includeBuild("../../specs-java-libs/JadxPlus")
 includeBuild("../../specs-java-libs/JavaGenerator")
 includeBuild("../../specs-java-libs/jOptions")
-includeBuild("../../specs-java-libs/LogbackPlus")
 includeBuild("../../specs-java-libs/SpecsUtils")
 includeBuild("../../specs-java-libs/tdrcLibrary")
 includeBuild("../../specs-java-libs/JsEngine")
