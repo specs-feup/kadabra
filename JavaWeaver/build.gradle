@@ -56,9 +56,7 @@ sourceSets {
             srcDir 'api'
         }
         resources {
-            srcDir 'api'
             srcDir 'resources'
-            srcDir 'src'
         }
     }
 
