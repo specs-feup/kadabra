@@ -36,13 +36,13 @@ public class JAndroidManifest extends AAndroidManifest {
 
     @Override
     public Object getAsJsonImpl() {
-        // System.out.println("AS STRING: " + manifest.toString());
-        // File outputFile = new File("./xpto_test.xml");
-        // manifest.write(outputFile);
-        // System.out.println("AS FILE: " + outputFile.getAbsolutePath());
-        return getWeaverEngine().getScriptEngine()
-                .eval("var lara_android_manifest = " + XML.toJSONObject(manifest.toString()).toString(4)
-                        + "; lara_android_manifest;");
+        // return getWeaverEngine().getScriptEngine()
+        //         .eval("var lara_android_manifest = " + XML.toJSONObject(manifest.toString()).toString(4)
+        //                 + "; lara_android_manifest;");
+        throw new UnsupportedOperationException(
+            "'getAsJson' is currently under refactor. If you need this feature, please open an issue so we can prioritize it.");
+        // TODO: Implement this method properly. A way of doing it would be to return the JSON object as a string and then parse it on the TS side. See below.
+        //return XML.toJSONObject(manifest.toString()).toString(4);
     }
 
     @Override

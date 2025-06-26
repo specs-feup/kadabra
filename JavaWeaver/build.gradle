@@ -34,7 +34,6 @@ dependencies {
     implementation ':jOptions'
     implementation ':SpecsUtils'
     implementation ':tdrcLibrary'
-    implementation ':JsEngine'
 
     implementation ':KadabraAPI'
 
