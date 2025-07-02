@@ -120,21 +120,16 @@ public class TestConfigs {
         Pair<Integer, Float> target = Pair.with(-1, 8f);
         Pair<Integer, Float> value = linear.getFirst();
         System.out.println(value);
-        // pause();
+
         boolean hasNext = linear.hasNext(value);
         while (hasNext) {
             value = linear.next();
             System.out.println(value);
-            // pause();
 
             // Pair<Integer, Float> expected = EXPECTED_ARRAY.get(pos++);
             // assertEquals(expected, value);
             hasNext = linear.hasNext(target);
         }
-    }
-
-    public void pause() {
-        new Scanner(System.in).next();
     }
 
     public static List<Pair<Integer, Float>> EXPECTED_ARRAY;
