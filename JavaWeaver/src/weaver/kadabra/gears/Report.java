@@ -19,8 +19,6 @@ import java.util.Set;
 import org.lara.interpreter.weaver.interf.AGear;
 import org.lara.interpreter.weaver.interf.JoinPoint;
 import org.lara.interpreter.weaver.interf.events.data.ActionEvent;
-import org.lara.interpreter.weaver.interf.events.data.ApplyEvent;
-import org.lara.interpreter.weaver.interf.events.data.ApplyIterationEvent;
 
 import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
 import weaver.kadabra.util.KadabraLog;
@@ -28,17 +26,6 @@ import weaver.kadabra.util.KadabraLog;
 public class Report extends AGear {
 
     private final Set<Object> advisedJoinPoints = new HashSet<>();
-
-    @Override
-    public void onApply(ApplyEvent data) {
-
-        // System.out.println(data.getStage() + " " + data.getLabel());
-    }
-
-    @Override
-    public void onApply(ApplyIterationEvent data) {
-        // System.out.println(data.getStage() + " " + data.getPointcutChain());
-    }
 
     @Override
     public void onAction(ActionEvent data) {

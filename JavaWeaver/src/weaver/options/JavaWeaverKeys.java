@@ -31,7 +31,6 @@ public interface JavaWeaverKeys {
             .setLabel("Writes the AST Java code to the output folder").setDefault(() -> true);
     static DataKey<Boolean> CLEAR_OUTPUT_FOLDER = KeyFactory.bool("clear_output").setLabel("Clear the output folder");
     static DataKey<Boolean> FORMAT = KeyFactory.bool("format").setLabel("Format Code and organize imports");
-    static DataKey<Boolean> SHOW_LOG_INFO = KeyFactory.bool("show info").setLabel("Show Log Information");
     static DataKey<Boolean> NO_CLASSPATH = KeyFactory.bool("noclasspath").setLabel("Compile with incomplete classpath");
     static DataKey<Boolean> REPORT = KeyFactory.bool("report kadabra").setLabel("Report Metrics");
     static DataKey<Boolean> FULLY_QUALIFIED_NAMES = KeyFactory.bool("fully_qualified_names")

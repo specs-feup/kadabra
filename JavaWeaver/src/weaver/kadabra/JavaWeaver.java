@@ -27,7 +27,6 @@ import spoon.support.JavaOutputProcessor;
 import spoon.support.SerializationModelStreamer;
 import weaver.kadabra.abstracts.weaver.AJavaWeaver;
 import weaver.kadabra.exceptions.JavaWeaverException;
-import weaver.kadabra.gears.LoggingGear;
 import weaver.kadabra.gears.Report;
 import weaver.kadabra.joinpoints.JApp;
 import weaver.kadabra.spoon.extensions.launcher.JWSpoonLauncher;
@@ -79,14 +78,11 @@ public class JavaWeaver extends AJavaWeaver {
 
     private boolean noClassPath = false; // Continues even if an error of missing lib occurs
     private OutputType outType = OutputType.COMPILATION_UNITS;
-    private final LoggingGear loggingGear;
     private final Report reportGear;
     // private final JavaWeaverGear dependeciesGear = new JavaWeaverGear();
     private File temp;
 
     public JavaWeaver() {
-        loggingGear = new LoggingGear();
-        loggingGear.setActive(false);
         reportGear = new Report();
         reportGear.setActive(false);
         table = AnnotationsTable.getStaticTable();
@@ -344,8 +340,6 @@ public class JavaWeaver extends AJavaWeaver {
     public List<AGear> getGears() {
         List<AGear> gears = new ArrayList<>();
         gears.add(reportGear);
-        gears.add(loggingGear);
-        // gears.add(dependeciesGear);
         return gears;
     }
 
@@ -353,7 +347,6 @@ public class JavaWeaver extends AJavaWeaver {
         SpoonUtils.resetCounter();
         table.reset();
         /*RESET GEARS*/
-        loggingGear.reset();
         reportGear.reset();
     }
 
@@ -496,9 +489,6 @@ public class JavaWeaver extends AJavaWeaver {
         }
         if (args.hasValue(JavaWeaverKeys.OUTPUT_TYPE)) {
             outType = args.get(JavaWeaverKeys.OUTPUT_TYPE);
-        }
-        if (args.hasValue(JavaWeaverKeys.SHOW_LOG_INFO)) {
-            loggingGear.setActive(args.get(JavaWeaverKeys.SHOW_LOG_INFO));
         }
         if (args.hasValue(JavaWeaverKeys.FORMAT)) {
             prettyPrint = args.get(JavaWeaverKeys.FORMAT);
