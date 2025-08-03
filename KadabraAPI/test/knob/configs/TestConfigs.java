@@ -16,7 +16,6 @@ package knob.configs;
 import static org.junit.Assert.assertEquals;
 
 import java.util.List;
-import java.util.Scanner;
 
 import org.javatuples.Pair;
 import org.junit.Test;

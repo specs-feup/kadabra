@@ -13,8 +13,6 @@
 
 package weaver.kadabra.joinpoints;
 
-import org.json.XML;
-
 import pt.up.fe.specs.util.xml.XmlDocument;
 import spoon.reflect.declaration.CtElement;
 import weaver.kadabra.abstracts.joinpoints.AAndroidManifest;
