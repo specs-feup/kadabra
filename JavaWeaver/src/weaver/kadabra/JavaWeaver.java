@@ -17,7 +17,6 @@ import pt.up.fe.specs.spoon.SpoonFactory;
 import pt.up.fe.specs.util.SpecsCollections;
 import pt.up.fe.specs.util.SpecsIo;
 import pt.up.fe.specs.util.SpecsLogs;
-import pt.up.fe.specs.util.providers.ResourceProvider;
 import pt.up.fe.specs.util.utilities.LineStream;
 import spoon.Launcher;
 import spoon.OutputType;
@@ -606,16 +605,6 @@ public class JavaWeaver extends AJavaWeaver {
     public static SpoonFactory getFactory() {
         return new SpoonFactory(getJavaWeaver().spoon.getFactory());
     }
-
-    @Override
-    public ResourceProvider getIcon() {
-        return () -> "specs/kadabra/kadabra_icon_300dpi.png";
-    }
-
-    // @Override
-    // public Set<String> getWeaverNames() {
-    // return WEAVER_NAMES;
-    // }
 
     @Override
     public Set<String> getLanguages() {
