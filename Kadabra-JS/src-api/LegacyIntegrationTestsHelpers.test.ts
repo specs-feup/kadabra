@@ -129,8 +129,6 @@ export class KadabraWeaverTester {
             out += "\n";
         });
 
-        this.set(JavaTypes.LaraiKeys.LOG_JS_OUTPUT);
-
         try {
             Query.root().push();
             const program = Query.root();
