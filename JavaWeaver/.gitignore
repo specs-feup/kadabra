@@ -7,3 +7,5 @@ src/weaver/kadabra/exceptions/
 src/weaver/kadabra/enums/
 *.dotty
 JavaWeaver.json
+JavaWeaver.png
+JavaWeaver.svg
