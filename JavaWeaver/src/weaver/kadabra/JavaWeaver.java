@@ -1,7 +1,5 @@
 package weaver.kadabra;
 
-import org.apache.commons.exec.CommandLine;
-import org.apache.commons.exec.DefaultExecutor;
 import org.apache.commons.io.FileUtils;
 import org.lara.interpreter.joptions.config.interpreter.LaraiKeys;
 import org.lara.interpreter.weaver.ast.AstMethods;
@@ -96,7 +94,7 @@ public class JavaWeaver extends AJavaWeaver {
      * @return true if the file type is valid
      */
     @Override
-    public boolean begin(List<File> sources, File outputDir, DataStore args) {
+    protected boolean begin(List<File> sources, File outputDir, DataStore args) {
         this.args = args;
         classPath = new ArrayList<>();
         this.outputDir = outputDir;
@@ -212,7 +210,7 @@ public class JavaWeaver extends AJavaWeaver {
      * @return if close was successful
      */
     @Override
-    public boolean close() {
+    protected boolean close() {
 
         if (clearOutputFolder) {
             if (!args.hasValue(LaraiKeys.OUTPUT_FOLDER)) {
@@ -279,55 +277,6 @@ public class JavaWeaver extends AJavaWeaver {
 
         // Write XML files
         jApp.getAndroidResources().write(outputFolder);
-    }
-
-    public boolean closeOld() {
-
-        if (clearOutputFolder) {
-            try {
-                FileUtils.cleanDirectory(outputDir);
-            } catch (final IOException e) {
-                KadabraLog.warning("Output folder could not be cleaned before code generation: " + e.getMessage());
-            }
-        }
-        spoon.prettyprint();
-
-        if (prettyPrint) {
-            callAstyle();
-            /*
-             * if recompile
-            Launcher tempSpoon = newSpoon(Arrays.asList(tempOutFolder), outputDir);
-            tempSpoon.buildModel();
-            tempSpoon.prettyprint();
-            try {
-            FileUtils.cleanDirectory(tempOutFolder);
-            } catch (final IOException e) {
-            KadabraLog.warning("Temporary Output folder could not be cleaned: " + e.getMessage());
-            }*/
-        }
-        // // spoon.getEnvironment().setNoClasspath(true);
-        // SpoonCompiler compiler = spoon.createCompiler(Arrays.asList(new FileSystemFolder(outputDir)));
-        // // compiler.set
-        // System.out.println("rebuild");
-        // compiler.build();
-        // System.out.println("generating");
-        // compiler.generateProcessedSourceFiles(OutputType.COMPILATION_UNITS, null);
-        // // spoon.prettyprint();
-        // }
-
-        if (reportGear.isActive()) {
-
-            KadabraLog.info("REPORT: ");
-            KadabraLog.info("Advised Join Points: " + reportGear.getAdvisedJoinPoints().size());
-        }
-        // if (dependeciesGear.isTimerUsed()) {
-        // String contents = IoUtils.getResource(JavaWeaverGear.TIMER_CLASS);
-        //
-        // File timerFile = IoUtils.safeFolder(new File(outputDir, "weaver/kadabra/monitor"));
-        // timerFile = new File(timerFile, "KadabraTimer.java");
-        // IoUtils.write(timerFile, contents);
-        // }
-        return true;
     }
 
     /**
@@ -564,35 +513,6 @@ public class JavaWeaver extends AJavaWeaver {
     @Override
     public String getName() {
         return "KADABRA";
-    }
-
-    private void callAstyle() {
-
-        CommandLine astyle;
-        if (System.getProperty("os.name").startsWith("Windows")) {
-            astyle = new CommandLine("CMD");
-            astyle.addArgument("/C");
-            astyle.addArgument("astyle");
-            // }
-        } else {
-            astyle = new CommandLine("astyle");
-        }
-        astyle.addArgument("-nq"); // q:quiet, n:no backup files
-
-        List<File> files = SpecsIo.getFilesRecursive(outputDir, "java");
-        files.forEach(x -> astyle.addArgument(x.getAbsolutePath()));
-
-        // astyle.addArgument(Driver.getOptionValue("outdir") + "/*.c");
-        // astyle.addArgument(Driver.getOptionValue("outdir") + "/*.h");
-
-        SpecsLogs.msgLib("[Kadabra] Formatting code: " + astyle.toString());
-        DefaultExecutor executor = new DefaultExecutor();
-        try {
-            executor.setWorkingDirectory(outputDir);
-            executor.execute(astyle);
-        } catch (IOException e) {
-            SpecsLogs.warn("[Kadabra] Formatting code: " + e.getMessage());
-        }
     }
 
     /**

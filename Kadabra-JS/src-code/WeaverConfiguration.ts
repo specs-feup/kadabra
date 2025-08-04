@@ -10,6 +10,6 @@ export const weaverConfig: WeaverConfiguration = {
     path.dirname(path.dirname(fileURLToPath(import.meta.url))),
     "./java-binaries/"
   ),
-  javaWeaverQualifiedName: "weaver.kadabra.JavaWeaver", // FIXME maybe
-  importForSideEffects: ["@specs-feup/kadabra/api/Joinpoints.js"], // FIXME maybe
+  javaWeaverQualifiedName: "weaver.kadabra.JavaWeaver",
+  importForSideEffects: ["@specs-feup/kadabra/api/Joinpoints.js"],
 };

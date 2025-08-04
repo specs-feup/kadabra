@@ -101,8 +101,7 @@ task generateWeaver(type: JavaExec) {
         '-p', 'weaver.kadabra',
         '-n', 'spoon.reflect.declaration.CtElement',
         "-e",
-        '-j',
-        '-d'
+        '-j'
     ]
 }
 
