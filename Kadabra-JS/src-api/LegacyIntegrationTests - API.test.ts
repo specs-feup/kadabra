@@ -1,4 +1,4 @@
-import { KadabraWeaverTester } from "./LegacyIntegrationTestsHelpers.test.js";
+import { KadabraWeaverTester } from "../Jest/KadabraLegacyTester.js";
 import path from "path";
 import "@specs-feup/kadabra/api/Joinpoints.js";
 

@@ -6,6 +6,7 @@
     "files": [
         "api",
         "code",
+        "jest",
         "src-api",
         "src-code",
         "java-binaries",
