@@ -22,7 +22,6 @@ env:
   # Setting default branch to staging assuming PRs will be done against the staging versions of the repository
   # main versions will just receive what comes from the staging
   DEFAULT_BRANCH: ${{ github.base_ref || 'staging' }}
-  STAGING_BRANCH: 'staging'
   #SPECS_JAVA_LIBS_BRANCH: ${{ 'master' }}
   #LARA_FRAMEWORK_BRANCH: ${{ github.head_ref || github.ref_name }}
 
@@ -74,16 +73,15 @@ jobs:
         with:
           repository: specs-feup/lara-framework
           path: lara-framework
-          ref: ${{ steps.Branch-lara-framework.outputs.value == '1' && env.BRANCH_NAME || env.STAGING_BRANCH }}
+          ref: ${{ steps.Branch-lara-framework.outputs.value == '1' && env.BRANCH_NAME || env.DEFAULT_BRANCH }}
 
       - name: Checkout specs-java-libs
         uses: actions/checkout@v4
         with:
           repository: specs-feup/specs-java-libs
           path: specs-java-libs
-          # This is causing problems in PRs, for now it will always be the default branch
-          #ref: ${{ steps.Branch-specs-java-libs.outputs.value == '1' && env.BRANCH_NAME || env.STAGING_BRANCH }}
-      
+          ref: ${{ steps.Branch-specs-java-libs.outputs.value == '1' && env.BRANCH_NAME || env.DEFAULT_BRANCH }}
+
       - name: Build with Gradle
         run: |
           cd kadabra/JavaWeaver
@@ -171,8 +169,7 @@ jobs:
           name: java-binaries
           path: kadabra/Kadabra-JS/java-binaries
 
-      # TODO: Uncomment this after adding tests to the flow
-      #- name: Test JS
-      #  run: |
-      #    cd alpakka/Alpakka-JS
-      #    npm run test
+      - name: Test JS
+        run: |
+          cd kadabra/Kadabra-JS
+          npm run test
