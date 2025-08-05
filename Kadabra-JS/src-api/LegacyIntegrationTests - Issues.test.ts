@@ -16,6 +16,6 @@ describe("IssuesTest", () => {
     it("Issue168", async () => {
         await newTester()
             .set(KadabraJavaTypes.JavaWeaverKeys.NO_CLASSPATH)
-            .test("IssueInnerClass.js", "Muscle.java.test");
+            .test("IssueInnerClass.js", "Muscle.java");
     });
 });

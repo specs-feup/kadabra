@@ -14,48 +14,48 @@ describe("WeaverTest", () => {
     }
 
     it("MutateOperator", async () => {
-        await newTester().test("MutateOperator.js", "MutateOperator.java.test");
+        await newTester().test("MutateOperator.js", "MutateOperator.java");
     });
 
     it("GenericJoinPoint", async () => {
         await newTester().test(
             "GenericJoinPoint.js",
-            "GenericJoinPoint.java.test"
+            "GenericJoinPoint.java"
         );
     });
 
     it("BinaryOperator", async () => {
-        await newTester().test("BinaryOperator.js", "BinaryOperator.java.test");
+        await newTester().test("BinaryOperator.js", "BinaryOperator.java");
     });
 
     it("Literal", async () => {
-        await newTester().test("Literal.js", "Literal.java.test");
+        await newTester().test("Literal.js", "Literal.java");
     });
 
     it("GlobalJp", async () => {
-        await newTester().test("GlobalJp.js", "GlobalJp.java.test");
+        await newTester().test("GlobalJp.js", "GlobalJp.java");
     });
 
     it("Ast", async () => {
-        await newTester().test("Ast.js", "Ast.java.test");
+        await newTester().test("Ast.js", "Ast.java");
     });
 
     it("Ast2", async () => {
-        await newTester().test("Ast2.js", "Ast2.java.test");
+        await newTester().test("Ast2.js", "Ast2.java");
     });
 
     it("Type", async () => {
-        await newTester().test("Type.js", "Type.java.test");
+        await newTester().test("Type.js", "Type.java");
     });
 
     it("Selects", async () => {
-        await newTester().test("Selects.js", "Selects.java.test");
+        await newTester().test("Selects.js", "Selects.java");
     });
 
     it("Android", async () => {
         await newTester().test(
             "Android.js",
-            "src/AndroidTest.java.test",
+            "src/AndroidTest.java",
             "src/main/AndroidManifest.xml"
         );
     });
@@ -63,7 +63,7 @@ describe("WeaverTest", () => {
     it("Android2", async () => {
         await newTester().test(
             "Android2.js",
-            "src/AndroidTest2.java.test",
+            "src/AndroidTest2.java",
             "src/main/AndroidManifest.xml"
         );
     });
@@ -71,44 +71,44 @@ describe("WeaverTest", () => {
     it("CompilationError", async () => {
         await newTester()
             .set(KadabraJavaTypes.JavaWeaverKeys.NO_CLASSPATH)
-            .test("CompilationError.js", "CompilationError.java.test");
+            .test("CompilationError.js", "CompilationError.java");
     });
 
     it("ObjectAccess", async () => {
         await newTester()
             .set(KadabraJavaTypes.JavaWeaverKeys.NO_CLASSPATH)
             .set(KadabraJavaTypes.JavaWeaverKeys.FULLY_QUALIFIED_NAMES)
-            .test("ObjectAccess.js", "ObjectAccess.java.test");
+            .test("ObjectAccess.js", "ObjectAccess.java");
     });
 
     it("InheritanceIPCMutator", async () => {
         await newTester().test(
             "InheritanceIPCMutator.js",
-            "InheritanceIPCTest.java.test"
+            "InheritanceIPCTest.java"
         );
     });
 
     it("ConstructorCallMutator", async () => {
         await newTester()
             .set(KadabraJavaTypes.JavaWeaverKeys.FULLY_QUALIFIED_NAMES)
-            .test("ConstructorCallMutator.js", "ConstructorCallTest.java.test");
+            .test("ConstructorCallMutator.js", "ConstructorCallTest.java");
     });
 
     it("Lambdas", async () => {
         await newTester()
             .set(KadabraJavaTypes.JavaWeaverKeys.NO_CLASSPATH)
-            .test("Lambdas.js", "Lambdas.java.test");
+            .test("Lambdas.js", "Lambdas.java");
     });
 
     it("Constructor", async () => {
-        await newTester().test("Constructor.js", "Constructor.java.test");
+        await newTester().test("Constructor.js", "Constructor.java");
     });
 
     it("For", async () => {
-        await newTester().test("For.js", "For.java.test");
+        await newTester().test("For.js", "For.java");
     });
 
     it("TypeReference", async () => {
-        await newTester().test("TypeReference.js", "TypeReference.java.test");
+        await newTester().test("TypeReference.js", "TypeReference.java");
     });
 });

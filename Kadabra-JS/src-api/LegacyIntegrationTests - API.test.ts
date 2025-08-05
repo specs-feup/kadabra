@@ -13,75 +13,75 @@ describe("ApiTest", () => {
     }
 
     it("Logger", async () => {
-        await newTester().test("LoggerTest.js", "LoggerTest.java.test");
+        await newTester().test("LoggerTest.js", "LoggerTest.java");
     });
 
     it("Timer", async () => {
-        await newTester().test("TimerTest.js", "TimerTest.java.test");
+        await newTester().test("TimerTest.js", "TimerTest.java");
     });
 
     it("Energy", async () => {
-        await newTester().test("EnergyTest.js", "EnergyTest.java.test");
+        await newTester().test("EnergyTest.js", "EnergyTest.java");
     });
 
     it("BinaryExpressionMutator", async () => {
         await newTester().test(
             "BinaryExpressionMutatorTest.js",
-            "BinaryExpressionMutator.java.test"
+            "BinaryExpressionMutator.java"
         );
     });
 
     it("BinaryExpressionMutation", async () => {
         await newTester().test(
             "BinaryExpressionMutationTest.js",
-            "BinaryExpressionMutation.java.test"
+            "BinaryExpressionMutation.java"
         );
     });
 
     it("IterativeMutator", async () => {
         await newTester().test(
             "IterativeMutatorTest.js",
-            "IterativeMutator.java.test"
+            "IterativeMutator.java"
         );
     });
 
     it("Mutations", async () => {
-        await newTester().test("MutationsTest.js", "Mutations.java.test");
+        await newTester().test("MutationsTest.js", "Mutations.java");
     });
 
     it("KadabraNodes", async () => {
-        await newTester().test("KadabraNodesTest.js", "KadabraNodes.java.test");
+        await newTester().test("KadabraNodesTest.js", "KadabraNodes.java");
     });
 
     it("KadabraAst", async () => {
-        await newTester().test("KadabraAstTest.js", "KadabraAst.java.test");
+        await newTester().test("KadabraAstTest.js", "KadabraAst.java");
     });
 
     it("EAPKInternalGetter", async () => {
         await newTester().test(
             "EapkInternalGetterTest.js",
-            "EapkInternalGetter.java.test"
+            "EapkInternalGetter.java"
         );
     });
 
     it("EAPKExcessiveMethodCalls", async () => {
         await newTester().test(
             "EapkExcessiveMethodCallsTest.js",
-            "EapkExcessiveMethodCalls.java.test"
+            "EapkExcessiveMethodCalls.java"
         );
     });
 
     it("EAPKHashMapUsage", async () => {
         await newTester().test(
             "EapkHashMapUsageTest.js",
-            "EapkHashMapUsage.java.test"
+            "EapkHashMapUsage.java"
         );
     });
 
     it("EAPKMemberIgnoringMethod", async () => {
         await newTester().test(
             "EapkMemberIgnoringMethodTest.js",
-            "EapkMemberIgnoringMethod.java.test"
+            "EapkMemberIgnoringMethod.java"
         );
     });
 });
