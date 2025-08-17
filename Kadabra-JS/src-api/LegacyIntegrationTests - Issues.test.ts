@@ -7,7 +7,7 @@ import KadabraJavaTypes from "./kadabra/KadabraJavaTypes.js";
 describe("IssuesTest", () => {
     function newTester() {
         return new KadabraWeaverTester(
-            path.resolve("../JavaWeaver/resources/kadabra/test/issues")
+            path.resolve("../JavaWeaver/test-resources/kadabra/test/issues")
         )
             .setResultPackage("results")
             .setSrcPackage("src");

@@ -15,9 +15,6 @@ java {
 repositories {
     mavenCentral()
 
-    // Gearman
-    maven { url="https://oss.sonatype.org/content/repositories/snapshots" }
-
     // Jadx
     google()
 }
@@ -66,10 +63,6 @@ sourceSets {
     test {
         java {
             srcDir 'test'
-        }
-        resources {
-            srcDir 'src-lara'
-            srcDir 'resources'
         }
     }
 }
