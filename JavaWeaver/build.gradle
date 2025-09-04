@@ -39,9 +39,7 @@ dependencies {
     implementation ':LARAI'
     implementation ':WeaverInterface'
 
-    implementation group: 'org.apache.commons', name: 'commons-exec', version: '1.5.0'
     implementation group: 'fr.inria.gforge.spoon', name: 'spoon-core', version: '11.2.1'
-    implementation group: 'org.json', name: 'json', version: '20250517'
     implementation group: 'com.google.guava', name: 'guava', version: '33.4.0-jre'
     implementation group: 'org.ow2.asm', name: 'asm', version: '9.8'
 
@@ -72,7 +70,7 @@ application {
 }
 
 // Kadabra
-task kadabra(type: JavaExec) {
+tasks.register('kadabra', JavaExec) {
     group = "Execution"
     description = "Launches Kadabra"
     classpath = sourceSets.main.runtimeClasspath
@@ -81,7 +79,7 @@ task kadabra(type: JavaExec) {
 }
 
 // Weaver Generator
-task generateWeaver(type: JavaExec) {
+tasks.register('generateWeaver', JavaExec) {
     group = "Execution"
     description = "Generates the join point classes from the Language Specification"
     classpath = configurations.weaverGeneratorRuntime
