@@ -15,8 +15,8 @@ package weaver.kadabra.joinpoints;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-import pt.up.fe.specs.util.SpecsCheck;
 import pt.up.fe.specs.util.SpecsLogs;
 import spoon.reflect.code.CtCodeSnippetExpression;
 import spoon.reflect.code.CtExpression;
@@ -126,7 +126,7 @@ public class JCall<T> extends ACall {
     @Override
     public ATypeReference getReturnTypeJpImpl() {
         var executable = node.getExecutable();
-        SpecsCheck.checkNotNull(executable, () -> "Call should have an executable");
+        Objects.requireNonNull(executable, () -> "Call should have an executable");
 
         var declaringType = executable.getDeclaringType();
 
