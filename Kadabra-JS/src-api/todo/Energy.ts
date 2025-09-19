@@ -2,12 +2,13 @@ import EnergyBase from "@specs-feup/lara/api/lara/code/EnergyBase.js";
 import Logger from "./Logger.js";
 import IdGenerator from "@specs-feup/lara/api/lara/util/IdGenerator.js";
 import PrintOnce from "@specs-feup/lara/api/lara/util/PrintOnce.js";
+import { Joinpoint } from "../Joinpoints.js";
 
 // TODO: Detect if Odroid or Ubuntu?
 const EnergyCheckClass = "weaver.kadabra.monitor.pc.ubuntu.UbuntuEnergyCheck";
 
-export default class Energy extends EnergyBase {
-    measure($start, prefix, $end) {
+export default class Energy extends EnergyBase<Joinpoint> {
+    measure($start: Joinpoint, prefix: string, $end: Joinpoint) {
         //Check for valid joinpoints and additional conditions
 
         if (!this.measureValidate($start, $end, "body")) {
@@ -45,11 +46,11 @@ export default class Energy extends EnergyBase {
 
 //System.out.println("Power consumption of dram: " + (after[0] - before[0]) / 10.0 + " power consumption of cpu: " + (after[1] - before[1]) / 10.0 + " power consumption of package: " + (after[2] - before[2]) / 10.0);
 //Will only consider the CPU consumption
-function _energy_rapl_start(energyVar, energyClass) {
+function _energy_rapl_start(energyVar: string, energyClass: string) {
     return `double[] ${energyVar}Before = ${energyClass}.getEnergyStats();`;
 }
 
-function _energy_rapl_end(energyVar, energyClass) {
+function _energy_rapl_end(energyVar: string, energyClass: string) {
     return `double[] ${energyVar}After = ${energyClass}.getEnergyStats();
 double ${energyVar} = 0;
 for(int ${energyVar}Counter = 0; ${energyVar}Counter < ${energyVar}Before.length; ${energyVar}Counter++){

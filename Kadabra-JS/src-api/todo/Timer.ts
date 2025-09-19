@@ -1,10 +1,10 @@
 import TimerBase from "@specs-feup/lara/api/lara/code/TimerBase.js";
 import IdGenerator from "@specs-feup/lara/api/lara/util/IdGenerator.js";
-import Platforms from "@specs-feup/lara/api/lara/Platforms.js";
 import Logger from "./Logger.js";
+import { Joinpoint } from "../Joinpoints.js";
 
-export default class Timer extends TimerBase {
-    time($start, prefix, $end) {
+export default class Timer extends TimerBase<Joinpoint> {
+    time($start: Joinpoint, prefix: string, $end: Joinpoint) {
         if (!this._timeValidate($start, $end, "executable")) {
             return;
         }
@@ -51,12 +51,12 @@ export default class Timer extends TimerBase {
 
         // insert measuring code after $end point
         const $timeMeasure = $end.insertAfter(codeAfter);
-        let afterJp = $timeMeasure;
+        let afterJp: Joinpoint | undefined = $timeMeasure;
 
         // Print after measure code
         if (this.print) {
-            logger.log($timeMeasure);
-            afterJp = logger.getAfterJp();
+            logger!.log($timeMeasure);
+            afterJp = logger!.getAfterJp();
         }
 
         this.setAfterJp(afterJp);
@@ -66,10 +66,10 @@ export default class Timer extends TimerBase {
 }
 
 //Java codedefs
-function _timer_java_now(timeVar) {
+function _timer_java_now(timeVar: string) {
     return `long ${timeVar} = System.nanoTime();`;
 }
 
-function _timer_java_calc_interval(timeVar, durationVar, factorConversion) {
+function _timer_java_calc_interval(timeVar: string, durationVar: string, factorConversion: number) {
     return `double ${durationVar} = (double)(System.nanoTime() - ${timeVar}) /  (double)${factorConversion};`;
 }
