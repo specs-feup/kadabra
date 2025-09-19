@@ -6,7 +6,7 @@ import "@specs-feup/kadabra/api/Joinpoints.js";
 describe("ApiTest", () => {
     function newTester() {
         return new KadabraWeaverTester(
-            path.resolve("../JavaWeaver/test-resources/kadabra/test/api")
+            path.resolve("../JavaWeaver/test-resources/tests/kadabra/test/api")
         )
             .setResultPackage("results")
             .setSrcPackage("src");
