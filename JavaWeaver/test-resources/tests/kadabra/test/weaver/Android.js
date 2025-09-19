@@ -1,4 +1,5 @@
 import Query from "@specs-feup/lara/api/weaver/Query.js";
+import { object2string } from "@specs-feup/lara/api/core/output.js";
 
 const manifest = Query.root().manifest;
 

@@ -1,7 +1,7 @@
 import TimerBase from "@specs-feup/lara/api/lara/code/TimerBase.js";
 import IdGenerator from "@specs-feup/lara/api/lara/util/IdGenerator.js";
 import Logger from "./Logger.js";
-import { Joinpoint } from "../Joinpoints.js";
+import { Joinpoint } from "../../Joinpoints.js";
 
 export default class Timer extends TimerBase<Joinpoint> {
     time($start: Joinpoint, prefix: string, $end: Joinpoint) {

@@ -2,7 +2,7 @@ import EnergyBase from "@specs-feup/lara/api/lara/code/EnergyBase.js";
 import Logger from "./Logger.js";
 import IdGenerator from "@specs-feup/lara/api/lara/util/IdGenerator.js";
 import PrintOnce from "@specs-feup/lara/api/lara/util/PrintOnce.js";
-import { Joinpoint } from "../Joinpoints.js";
+import { Joinpoint } from "../../Joinpoints.js";
 
 // TODO: Detect if Odroid or Ubuntu?
 const EnergyCheckClass = "weaver.kadabra.monitor.pc.ubuntu.UbuntuEnergyCheck";

@@ -1,6 +1,6 @@
 import PrintOnce from "@specs-feup/lara/api/lara/util/PrintOnce.js";
 import LoggerBase from "@specs-feup/lara/api/lara/code/LoggerBase.js";
-import { Joinpoint } from "../Joinpoints.js";
+import { Joinpoint } from "../../Joinpoints.js";
 
 export default class Logger extends LoggerBase<Joinpoint> {
     constructor(isGlobal: boolean = false, filename?: string) {

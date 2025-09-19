@@ -2,6 +2,7 @@ import Mutator from "@specs-feup/lara/api/lara/mutation/Mutator.js";
 import Io from "@specs-feup/lara/api/lara/Io.js";
 import Weaver from "@specs-feup/lara/api/weaver/Weaver.js";
 import Query from "@specs-feup/lara/api/weaver/Query.js";
+import { arrayFromArgs } from "@specs-feup/lara/api/lara/core/LaraCore.js";
 
 /**
  *  @param {$joinpoint} $joinpoint - Joinpoint used as starting point to search for super constructor calls to be removed.
