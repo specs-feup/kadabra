@@ -28,7 +28,7 @@ export default class Logger extends LoggerBase<Joinpoint> {
             return;
         }
 
-        const code = this._log_code($jp);
+        const code = this._log_code();
         if (code === undefined) {
             return;
         }
@@ -38,15 +38,15 @@ export default class Logger extends LoggerBase<Joinpoint> {
         return this;
     }
 
-    _log_code($jp: Joinpoint) {
+    _log_code() {
         if (this.filename === undefined) {
-            return this._log_code_console($jp);
+            return this._log_code_console();
         }
 
-        return this._log_code_file($jp);
+        return this._log_code_file();
     }
 
-    _log_code_console($jp: Joinpoint) {
+    _log_code_console() {
         // Define suffix as ")", since Kadabra 'insert' automatically adds ';',
         // unless it is inserted before/after a join point 'statement'
         //var suffix = $jp.joinPointType === "statement" || $jp.joinPointType === "call" ? ");" : ")";
@@ -56,7 +56,7 @@ export default class Logger extends LoggerBase<Joinpoint> {
         return this._printfFormat("System.out.printf", undefined, suffix);
     }
 
-    _log_code_file($jp: Joinpoint) {
+    _log_code_file() {
         PrintOnce.message(
             "Weaved code has dependency to project SpecsUtils, which can be found at https://github.com/specs-feup/specs-java-libs"
         );
