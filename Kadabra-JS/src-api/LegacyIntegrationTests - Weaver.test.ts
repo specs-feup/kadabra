@@ -1,6 +1,5 @@
-import { KadabraWeaverTester } from "../Jest/KadabraLegacyTester.js";
+import { KadabraWeaverTester } from "../jest/KadabraLegacyTester.js";
 import path from "path";
-import "@specs-feup/kadabra/api/Joinpoints.js";
 import KadabraJavaTypes from "./kadabra/KadabraJavaTypes.js";
 
 /* eslint-disable jest/expect-expect */
@@ -20,10 +19,7 @@ describe("WeaverTest", () => {
     });
 
     it("GenericJoinPoint", async () => {
-        await newTester().test(
-            "GenericJoinPoint.js",
-            "GenericJoinPoint.java"
-        );
+        await newTester().test("GenericJoinPoint.js", "GenericJoinPoint.java");
     });
 
     it("BinaryOperator", async () => {

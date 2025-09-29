@@ -1,6 +1,5 @@
-import { KadabraWeaverTester } from "../Jest/KadabraLegacyTester.js";
+import { KadabraWeaverTester } from "../jest/KadabraLegacyTester.js";
 import path from "path";
-import "@specs-feup/kadabra/api/Joinpoints.js";
 
 /* eslint-disable jest/expect-expect */
 describe("ApiTest", () => {
