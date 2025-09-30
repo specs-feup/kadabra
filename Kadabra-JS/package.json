@@ -55,7 +55,7 @@
   },
   "homepage": "https://github.com/specs-feup/kadabra#readme",
   "dependencies": {
-    "@specs-feup/lara": "^3.0.7"
+    "@specs-feup/lara": "~3.0.7"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
