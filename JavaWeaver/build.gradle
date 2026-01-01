@@ -1,16 +1,19 @@
 plugins {
     id 'distribution'
+    id 'java' // Java project
+    id 'application' // Executable
+    id "org.sonarqube" version "6.0.1.5171"
 }
-
-// Java project
-apply plugin: 'java'
-
-// Executable
-apply plugin: 'application'
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
+
+    withSourcesJar()
+}
+
+application {
+    mainClass.set("weaver.gui.KadabraLauncher")
 }
 
 
@@ -56,11 +59,6 @@ dependencies {
     implementation group: 'org.ow2.asm', name: 'asm', version: '7.1'
 }
 
-java {
-    withSourcesJar()
-}
-
-
 // Project sources
 sourceSets {
     main {
@@ -90,8 +88,12 @@ sourceSets {
 
 }
 
-application {
-    mainClass.set("weaver.gui.KadabraLauncher")
+sonar {
+  properties {
+    property "sonar.projectKey", "specs-feup_kadabra-java"
+    property "sonar.organization", "specs-feup"
+    property "sonar.host.url", "https://sonarcloud.io"
+  }
 }
 
 
