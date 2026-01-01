@@ -49,7 +49,7 @@ public class JNamedType extends ANamedType {
     }
 
     @Override
-    public String getPackageImpl() {
+    public String getPackageNameImpl() {
         return info.getPackageName();
     }
 

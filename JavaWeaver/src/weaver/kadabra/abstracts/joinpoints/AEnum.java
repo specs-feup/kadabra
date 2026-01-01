@@ -3,7 +3,6 @@ package weaver.kadabra.abstracts.joinpoints;
 import java.util.List;
 import org.lara.interpreter.weaver.interf.SelectOp;
 import org.lara.interpreter.weaver.interf.JoinPoint;
-import weaver.kadabra.entities.Pair;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.Arrays;
@@ -75,7 +74,7 @@ public abstract class AEnum extends AClass {
      * @return the attribute's value
      */
     @Override
-    public AInterface[] getInterfacesTypesArrayImpl() {
+    public AInterfaceType[] getInterfacesTypesArrayImpl() {
         return this.aClass.getInterfacesTypesArrayImpl();
     }
 
@@ -107,12 +106,12 @@ public abstract class AEnum extends AClass {
     }
 
     /**
-     * Get value on attribute _package
+     * Get value on attribute packageName
      * @return the attribute's value
      */
     @Override
-    public String getPackageImpl() {
-        return this.aClass.getPackageImpl();
+    public String getPackageNameImpl() {
+        return this.aClass.getPackageNameImpl();
     }
 
     /**
@@ -405,11 +404,11 @@ public abstract class AEnum extends AClass {
 
     /**
      * 
-     * @param _interface 
+     * @param interfaceType 
      */
     @Override
-    public void addImplementImpl(AInterface _interface) {
-        this.aClass.addImplementImpl(_interface);
+    public void addImplementImpl(AInterfaceType interfaceType) {
+        this.aClass.addImplementImpl(interfaceType);
     }
 
     /**
@@ -417,7 +416,7 @@ public abstract class AEnum extends AClass {
      * @param newInterface 
      */
     @Override
-    public void addInterfaceImpl(AInterface newInterface) {
+    public void addInterfaceImpl(AInterfaceType newInterface) {
         this.aClass.addInterfaceImpl(newInterface);
     }
 
@@ -432,14 +431,14 @@ public abstract class AEnum extends AClass {
     /**
      * 
      * @param name 
-     * @param _package 
+     * @param packageName 
      * @param method 
      * @param associate 
      * @param newFile 
      */
     @Override
-    public AInterface extractInterfaceImpl(String name, String _package, AMethod method, boolean associate, boolean newFile) {
-        return this.aClass.extractInterfaceImpl(name, _package, method, associate, newFile);
+    public AInterfaceType extractInterfaceImpl(String name, String packageName, AMethod method, boolean associate, boolean newFile) {
+        return this.aClass.extractInterfaceImpl(name, packageName, method, associate, newFile);
     }
 
     /**
@@ -547,22 +546,23 @@ public abstract class AEnum extends AClass {
      * 
      * @param name 
      * @param keyType 
-     * @param _interface 
+     * @param interfaceType 
      * @param methodName 
      */
     @Override
-    public AClass mapVersionsImpl(String name, String keyType, AInterface _interface, String methodName) {
-        return this.aClass.mapVersionsImpl(name, keyType, _interface, methodName);
+    public AClass mapVersionsImpl(String name, String keyType, AInterfaceType interfaceType, String methodName) {
+        return this.aClass.mapVersionsImpl(name, keyType, interfaceType, methodName);
     }
 
     /**
      * 
      * @param modifiers 
-     * @param param 
+     * @param paramLeft 
+     * @param paramRight 
      */
     @Override
-    public AConstructor newConstructorImpl(String[] modifiers, Pair[] param) {
-        return this.aClass.newConstructorImpl(modifiers, param);
+    public AConstructor newConstructorImpl(String[] modifiers, String[] paramLeft, String[] paramRight) {
+        return this.aClass.newConstructorImpl(modifiers, paramLeft, paramRight);
     }
 
     /**
@@ -603,12 +603,13 @@ public abstract class AEnum extends AClass {
      * @param modifiers 
      * @param returnType 
      * @param name 
-     * @param param 
+     * @param paramLeft 
+     * @param paramRight 
      * @param code 
      */
     @Override
-    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, Pair[] param, String code) {
-        return this.aClass.newMethodImpl(modifiers, returnType, name, param, code);
+    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, String[] paramLeft, String[] paramRight, String code) {
+        return this.aClass.newMethodImpl(modifiers, returnType, name, paramLeft, paramRight, code);
     }
 
     /**
@@ -616,11 +617,12 @@ public abstract class AEnum extends AClass {
      * @param modifiers 
      * @param returnType 
      * @param name 
-     * @param param 
+     * @param paramLeft 
+     * @param paramRight 
      */
     @Override
-    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, Pair[] param) {
-        return this.aClass.newMethodImpl(modifiers, returnType, name, param);
+    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, String[] paramLeft, String[] paramRight) {
+        return this.aClass.newMethodImpl(modifiers, returnType, name, paramLeft, paramRight);
     }
 
     /**
@@ -645,7 +647,7 @@ public abstract class AEnum extends AClass {
      * @param interfaceName 
      */
     @Override
-    public AInterface removeInterfaceImpl(String interfaceName) {
+    public AInterfaceType removeInterfaceImpl(String interfaceName) {
         return this.aClass.removeInterfaceImpl(interfaceName);
     }
 
@@ -674,6 +676,15 @@ public abstract class AEnum extends AClass {
     @Override
     public AJoinPoint replaceWithImpl(String code) {
         return this.aClass.replaceWithImpl(code);
+    }
+
+    /**
+     * 
+     * @param modifiers 
+     */
+    @Override
+    public void setModifiersImpl(String[] modifiers) {
+        this.aClass.setModifiersImpl(modifiers);
     }
 
     /**
@@ -802,7 +813,7 @@ public abstract class AEnum extends AClass {
         ISSUBTYPEOF("isSubtypeOf"),
         JAVADOC("javadoc"),
         NAME("name"),
-        PACKAGE("package"),
+        PACKAGENAME("packageName"),
         QUALIFIEDNAME("qualifiedName"),
         SUPERCLASS("superClass"),
         SUPERCLASSJP("superClassJp"),

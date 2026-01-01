@@ -1,11 +1,11 @@
 /**
  * Copyright 2015 SPeCS Research Group.
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License. under the License.
@@ -13,38 +13,28 @@
 
 package weaver.kadabra.joinpoints;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import org.apache.commons.lang3.NotImplementedException;
 import org.lara.interpreter.weaver.interf.JoinPoint;
-
 import pt.up.fe.specs.util.SpecsIo;
 import pt.up.fe.specs.util.SpecsLogs;
 import spoon.reflect.code.CtComment;
-import spoon.reflect.declaration.CtClass;
-import spoon.reflect.declaration.CtCompilationUnit;
-import spoon.reflect.declaration.CtElement;
-import spoon.reflect.declaration.CtInterface;
-import spoon.reflect.declaration.CtType;
+import spoon.reflect.declaration.*;
 import spoon.support.reflect.declaration.CtImportImpl;
 import spoon.support.reflect.reference.CtTypeReferenceImpl;
 import spoon.support.visitor.equals.EqualsVisitor;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
-import weaver.kadabra.abstracts.joinpoints.AClass;
-import weaver.kadabra.abstracts.joinpoints.AFile;
-import weaver.kadabra.abstracts.joinpoints.AInterface;
-import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
-import weaver.kadabra.abstracts.joinpoints.APragma;
-import weaver.kadabra.abstracts.joinpoints.AType;
+import weaver.kadabra.abstracts.joinpoints.*;
 import weaver.utils.generators.MapGenerator;
 import weaver.utils.weaving.ActionUtils;
 import weaver.utils.weaving.SelectUtils;
 import weaver.utils.weaving.converters.CtElement2JoinPoint;
 import weaver.utils.weaving.converters.CtType2AType;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class JFile extends AFile {
 
@@ -124,7 +114,7 @@ public class JFile extends AFile {
         List<CtType<?>> others = other.getDeclaredTypes();
 
         for (Iterator<? extends CtElement> firstIt = elements.iterator(), secondIt = others.iterator(); (firstIt
-                .hasNext()) && (secondIt.hasNext());) {
+                .hasNext()) && (secondIt.hasNext()); ) {
             boolean isNotEqual = EqualsVisitor.equals(firstIt.next(), secondIt.next());
             if (isNotEqual) {
                 return false;
@@ -146,7 +136,7 @@ public class JFile extends AFile {
     }
 
     @Override
-    public String getPackageImpl() {
+    public String getPackageNameImpl() {
         CtType<?> type = node.getMainType();
         return type.getPackage().getQualifiedName();
     }
@@ -212,12 +202,12 @@ public class JFile extends AFile {
     }
 
     @Override
-    public List<? extends AInterface> selectInterface() {
-
+    public List<? extends AInterfaceType> selectInterfaceType() {
         return streamOfInterfaces()
-                .<JInterface<?>> map(JInterface::newInstance)
+                .<JInterfaceType<?>>map(JInterfaceType::newInstance)
                 .collect(Collectors.toList());
     }
+
 
     @Override
     public List<? extends APragma> selectPragma() {
@@ -278,16 +268,16 @@ public class JFile extends AFile {
     }
 
     @Override
-    public AInterface newInterfaceImpl(String name, String[] extend) {
+    public AInterfaceType newInterfaceImpl(String name, String[] extend) {
         final CtInterface<Object> newInterface = ActionUtils.newInterface(name, extend, node.getFactory(),
                 getWeaverProfiler());
         node.getDeclaredTypes().add(newInterface);
-        JInterface<Object> newInstance = JInterface.newInstance(newInterface);
+        JInterfaceType<Object> newInstance = JInterfaceType.newInstance(newInterface);
         return newInstance;
     }
 
     @Override
-    public AInterface newInterfaceImpl(String name) {
+    public AInterfaceType newInterfaceImpl(String name) {
         return newInterfaceImpl(name, null);
     }
 
@@ -297,12 +287,12 @@ public class JFile extends AFile {
     }
 
     @Override
-    public void addInterfaceImpl(AInterface newInterface) {
+    public void addInterfaceImpl(AInterfaceType newInterface) {
         add((CtType<?>) newInterface.getNode());
     }
 
     @Override
-    public AInterface removeInterfaceImpl(String interfaceName) {
+    public AInterfaceType removeInterfaceImpl(String interfaceName) {
         throw new NotImplementedException("Not implemented yet");
     }
 
@@ -311,7 +301,7 @@ public class JFile extends AFile {
     }
 
     @Override
-    public AClass mapVersionsImpl(String name, String keyType, AInterface _interface, String methodName) {
+    public AClass mapVersionsImpl(String name, String keyType, AInterfaceType _interface, String methodName) {
 
         CtClass<?> newClass = MapGenerator.generate(node.getFactory(), name, keyType, _interface, methodName,
                 getWeaverProfiler());

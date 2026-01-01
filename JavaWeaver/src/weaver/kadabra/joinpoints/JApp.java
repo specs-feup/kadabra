@@ -1,11 +1,11 @@
 /**
  * Copyright 2015 SPeCS Research Group.
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License. under the License.
@@ -13,17 +13,7 @@
 
 package weaver.kadabra.joinpoints;
 
-import java.io.File;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import javax.swing.WindowConstants;
-
 import org.lara.interpreter.weaver.interf.JoinPoint;
-
 import pt.up.fe.specs.util.SpecsCollections;
 import spoon.Launcher;
 import spoon.reflect.declaration.CtClass;
@@ -31,19 +21,21 @@ import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtInterface;
 import spoon.reflect.factory.Factory;
 import spoon.support.gui.SpoonModelTree;
-import weaver.kadabra.abstracts.joinpoints.AAndroidManifest;
-import weaver.kadabra.abstracts.joinpoints.AApp;
-import weaver.kadabra.abstracts.joinpoints.AClass;
-import weaver.kadabra.abstracts.joinpoints.AFile;
-import weaver.kadabra.abstracts.joinpoints.AInterface;
-import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
-import weaver.kadabra.abstracts.joinpoints.ALibClass;
+import weaver.kadabra.abstracts.joinpoints.*;
 import weaver.kadabra.spoon.extensions.nodes.CtApp;
 import weaver.kadabra.util.KadabraLog;
 import weaver.utils.android.AndroidResources;
 import weaver.utils.generators.MapGenerator;
 import weaver.utils.weaving.ActionUtils;
 import weaver.utils.weaving.SelectUtils;
+
+import javax.swing.*;
+import java.io.File;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class JApp extends AApp {
 
@@ -128,22 +120,22 @@ public class JApp extends AApp {
     }
 
     @Override
-    public AInterface newInterfaceImpl(String name) {
+    public AInterfaceType newInterfaceImpl(String name) {
         return newInterfaceImpl(name, null);
     }
 
     @Override
-    public AInterface newInterfaceImpl(String name, String[] extend) {
+    public AInterfaceType newInterfaceImpl(String name, String[] extend) {
         final CtInterface<Object> newInterface = ActionUtils.compilationUnitWithInterface(name, extend,
                 spoon.getModelBuilder().getBinaryOutputDirectory(),
                 spoon.getFactory(),
                 getWeaverProfiler());
-        JInterface<Object> newInstance = JInterface.newInstance(newInterface);
+        JInterfaceType<Object> newInstance = JInterfaceType.newInstance(newInterface);
         return newInstance;
     }
 
     @Override
-    public AClass mapVersionsImpl(String name, String keyType, AInterface _interface, String methodName) {
+    public AClass mapVersionsImpl(String name, String keyType, AInterfaceType _interface, String methodName) {
 
         File outDir = spoon.getModelBuilder().getBinaryOutputDirectory();
         Factory factory = spoon.getFactory();

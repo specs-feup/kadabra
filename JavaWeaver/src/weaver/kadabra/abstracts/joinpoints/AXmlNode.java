@@ -60,15 +60,15 @@ public abstract class AXmlNode extends AJavaWeaverJoinPoint {
      * @param name
      * @return 
      */
-    public abstract AXmlElement[] elementsArrayImpl(String name);
+    public abstract AXmlElement[] elementsByNameArrayImpl(String name);
 
     /**
      * 
      * @param name
      * @return 
      */
-    public Object elementsImpl(String name) {
-        AXmlElement[] aXmlElementArrayImpl0 = elementsArrayImpl(name);
+    public Object elementsByNameImpl(String name) {
+        AXmlElement[] aXmlElementArrayImpl0 = elementsByNameArrayImpl(name);
         Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(aXmlElementArrayImpl0);
         return nativeArray0;
     }
@@ -78,18 +78,18 @@ public abstract class AXmlNode extends AJavaWeaverJoinPoint {
      * @param name
      * @return 
      */
-    public final Object elements(String name) {
+    public final Object elementsByName(String name) {
         try {
         	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "elements", Optional.empty(), name);
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "elementsByName", Optional.empty(), name);
         	}
-        	Object result = this.elementsImpl(name);
+        	Object result = this.elementsByNameImpl(name);
         	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "elements", Optional.ofNullable(result), name);
+        		eventTrigger().triggerAttribute(Stage.END, this, "elementsByName", Optional.ofNullable(result), name);
         	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
-        	throw new AttributeException(get_class(), "elements", e);
+        	throw new AttributeException(get_class(), "elementsByName", e);
         }
     }
 
@@ -212,7 +212,7 @@ public abstract class AXmlNode extends AJavaWeaverJoinPoint {
     protected void fillWithAttributes(List<String> attributes) {
         super.fillWithAttributes(attributes);
         attributes.add("elements");
-        attributes.add("elements");
+        attributes.add("elementsByName");
         attributes.add("text");
     }
 
@@ -247,6 +247,7 @@ public abstract class AXmlNode extends AJavaWeaverJoinPoint {
      */
     protected enum XmlNodeAttributes {
         ELEMENTS("elements"),
+        ELEMENTSBYNAME("elementsByName"),
         TEXT("text"),
         ANNOTATIONS("annotations"),
         AST("ast"),

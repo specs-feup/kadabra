@@ -3,7 +3,6 @@ package weaver.kadabra.abstracts.weaver;
 import org.lara.interpreter.weaver.LaraWeaverEngine;
 import java.util.Arrays;
 import java.util.List;
-import weaver.kadabra.entities.Pair;
 import weaver.kadabra.enums.LoopType;
 import weaver.kadabra.enums.CommentType;
 import weaver.kadabra.enums.RefType;
@@ -25,7 +24,7 @@ public abstract class AJavaWeaver extends LaraWeaverEngine {
      */
     @Override
     public final List<String> getActions() {
-        String[] weaverActions= {"copy", "insertAfter", "insertAfter", "insertBefore", "insertBefore", "insertReplace", "insertReplace", "remove", "removeAnnotation", "removeModifier", "replaceWith", "replaceWith", "setText", "extract", "setName", "mapVersions", "newClass", "newClass", "newInterface", "newInterface", "setLhs", "setRhs", "setOperator", "insertBegin", "insertBegin", "clone", "setArgument", "setArguments", "extractInterface", "insertStatic", "mapVersions", "newConstructor", "newFunctionalClass", "addClass", "addImplement", "addInterface", "insertCode", "insertMethod", "newField", "newField", "newMethod", "newMethod", "removeInterface", "setInit", "addClass", "addImport", "addInterface", "mapVersions", "newClass", "newClass", "newInterface", "newInterface", "removeInterface", "setValue", "setInit", "interchange", "tile", "tile", "addComment", "addParameter", "clone", "createAdapter", "setArguments", "setOperator", "setLine", "setLine", "setOperator", "setAttribute"};
+        String[] weaverActions= {"copy", "insertAfter", "insertAfter", "insertBefore", "insertBefore", "insertReplace", "insertReplace", "remove", "removeAnnotation", "removeModifier", "replaceWith", "replaceWith", "setModifiers", "setText", "extract", "setName", "mapVersions", "newClass", "newClass", "newInterface", "newInterface", "setLhs", "setRhs", "setOperator", "insertBegin", "insertBegin", "clone", "setArgument", "setArguments", "setExecutable", "setTarget", "setTarget", "extractInterface", "insertStatic", "mapVersions", "newConstructor", "newFunctionalClass", "addClass", "addImplement", "addInterface", "insertCode", "insertMethod", "newField", "newField", "newMethod", "newMethod", "removeInterface", "setInit", "addClass", "addImport", "addInterface", "mapVersions", "newClass", "newClass", "newInterface", "newInterface", "removeInterface", "setValue", "setInit", "interchange", "tile", "tile", "addComment", "addParameter", "clone", "createAdapter", "setArguments", "setOperator", "setLine", "setLine", "setOperator", "setAttribute"};
         return Arrays.asList(weaverActions);
     }
 
@@ -46,7 +45,7 @@ public abstract class AJavaWeaver extends LaraWeaverEngine {
      */
     @Override
     public final List<Class<?>> getAllImportableClasses() {
-        Class<?>[] defaultClasses = {Pair.class, LoopType.class, CommentType.class, RefType.class};
+        Class<?>[] defaultClasses = {LoopType.class, CommentType.class, RefType.class};
         List<Class<?>> otherClasses = this.getImportableClasses();
         List<Class<?>> allClasses = new ArrayList<>(Arrays.asList(defaultClasses));
         allClasses.addAll(otherClasses);

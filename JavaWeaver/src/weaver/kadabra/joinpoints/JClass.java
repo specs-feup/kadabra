@@ -1,11 +1,11 @@
 /**
  * Copyright 2015 SPeCS Research Group.
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License. under the License.
@@ -13,32 +13,13 @@
 
 package weaver.kadabra.joinpoints;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import spoon.reflect.code.CtBlock;
 import spoon.reflect.code.CtCodeSnippetStatement;
 import spoon.reflect.cu.CompilationUnit;
-import spoon.reflect.declaration.CtAnonymousExecutable;
-import spoon.reflect.declaration.CtClass;
-import spoon.reflect.declaration.CtCompilationUnit;
-import spoon.reflect.declaration.CtConstructor;
-import spoon.reflect.declaration.CtInterface;
-import spoon.reflect.declaration.CtMethod;
-import spoon.reflect.declaration.CtPackage;
-import spoon.reflect.declaration.CtParameter;
-import spoon.reflect.declaration.ModifierKind;
+import spoon.reflect.declaration.*;
 import spoon.reflect.factory.Factory;
 import spoon.reflect.reference.CtTypeReference;
-import weaver.kadabra.abstracts.joinpoints.AAnonymousExec;
-import weaver.kadabra.abstracts.joinpoints.AClass;
-import weaver.kadabra.abstracts.joinpoints.AConstructor;
-import weaver.kadabra.abstracts.joinpoints.AInterface;
-import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
-import weaver.kadabra.abstracts.joinpoints.AMethod;
+import weaver.kadabra.abstracts.joinpoints.*;
 import weaver.kadabra.entities.Pair;
 import weaver.utils.generators.FunctionalClassGenerator;
 import weaver.utils.generators.MapGenerator;
@@ -46,6 +27,8 @@ import weaver.utils.weaving.ActionUtils;
 import weaver.utils.weaving.SelectUtils;
 import weaver.utils.weaving.SnippetFactory;
 import weaver.utils.weaving.converters.CtElement2JoinPoint;
+
+import java.util.*;
 
 public class JClass<T> extends AClass {
 
@@ -91,7 +74,7 @@ public class JClass<T> extends AClass {
     }
 
     @Override
-    public AClass mapVersionsImpl(String name, String keyType, AInterface _interface, String methodName) {
+    public AClass mapVersionsImpl(String name, String keyType, AInterfaceType _interface, String methodName) {
 
         CtClass<?> generate = MapGenerator.generate(originClass.getFactory(), name, keyType, _interface, methodName,
                 getWeaverProfiler());
@@ -101,8 +84,8 @@ public class JClass<T> extends AClass {
     }
 
     @Override
-    public AInterface extractInterfaceImpl(String name, String _package, AMethod method, boolean associate,
-            boolean newFile) {
+    public AInterfaceType extractInterfaceImpl(String name, String _package, AMethod method, boolean associate,
+                                               boolean newFile) {
 
         Factory factory = originClass.getFactory();
         // First create the interface
@@ -145,7 +128,7 @@ public class JClass<T> extends AClass {
         newMethod.removeModifier(ModifierKind.PRIVATE); // we want this method to be public
         newMethod.addModifier(ModifierKind.PUBLIC);
         newMethod.setParent(newInterface);
-        JInterface<?> newInstance = JInterface.newInstance(newInterface);
+        JInterfaceType<?> newInstance = JInterfaceType.newInstance(newInterface);
         return newInstance;
     }
 
@@ -185,8 +168,8 @@ public class JClass<T> extends AClass {
     }
 
     @Override
-    public AConstructor newConstructorImpl(String[] modifiers, Pair[] param) {
-        CtConstructor<?> newConstructor = ActionUtils.newConstructor(originClass, param, modifiers,
+    public AConstructor newConstructorImpl(String[] modifiers, String[] paramLeft, String[] paramRight) {
+        CtConstructor<?> newConstructor = ActionUtils.newConstructor(originClass, paramLeft, paramRight, modifiers,
                 getWeaverProfiler());
         JConstructor<?> newInstance = SelectUtils.node2JoinPoint(newConstructor, JConstructor::newInstance);
         return newInstance;

@@ -6,7 +6,6 @@ import org.lara.interpreter.exception.AttributeException;
 import java.util.List;
 import org.lara.interpreter.weaver.interf.SelectOp;
 import org.lara.interpreter.exception.ActionException;
-import weaver.kadabra.entities.Pair;
 import org.lara.interpreter.weaver.interf.JoinPoint;
 import java.util.stream.Collectors;
 import java.util.Arrays;
@@ -72,31 +71,31 @@ public abstract class AClass extends AType {
     /**
      * 
      * @param name 
-     * @param _package 
+     * @param packageName 
      * @param method 
      * @param associate 
      * @param newFile 
      */
-    public AInterface extractInterfaceImpl(String name, String _package, AMethod method, boolean associate, boolean newFile) {
+    public AInterfaceType extractInterfaceImpl(String name, String packageName, AMethod method, boolean associate, boolean newFile) {
         throw new UnsupportedOperationException(get_class()+": Action extractInterface not implemented ");
     }
 
     /**
      * 
      * @param name 
-     * @param _package 
+     * @param packageName 
      * @param method 
      * @param associate 
      * @param newFile 
      */
-    public final Object extractInterface(String name, String _package, AMethod method, boolean associate, boolean newFile) {
+    public final Object extractInterface(String name, String packageName, AMethod method, boolean associate, boolean newFile) {
         try {
         	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "extractInterface", this, Optional.empty(), name, _package, method, associate, newFile);
+        		eventTrigger().triggerAction(Stage.BEGIN, "extractInterface", this, Optional.empty(), name, packageName, method, associate, newFile);
         	}
-        	AInterface result = this.extractInterfaceImpl(name, _package, method, associate, newFile);
+        	AInterfaceType result = this.extractInterfaceImpl(name, packageName, method, associate, newFile);
         	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "extractInterface", this, Optional.ofNullable(result), name, _package, method, associate, newFile);
+        		eventTrigger().triggerAction(Stage.END, "extractInterface", this, Optional.ofNullable(result), name, packageName, method, associate, newFile);
         	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
@@ -134,10 +133,10 @@ public abstract class AClass extends AType {
      * 
      * @param name 
      * @param keyType 
-     * @param _interface 
+     * @param interfaceType 
      * @param methodName 
      */
-    public AClass mapVersionsImpl(String name, String keyType, AInterface _interface, String methodName) {
+    public AClass mapVersionsImpl(String name, String keyType, AInterfaceType interfaceType, String methodName) {
         throw new UnsupportedOperationException(get_class()+": Action mapVersions not implemented ");
     }
 
@@ -145,17 +144,17 @@ public abstract class AClass extends AType {
      * 
      * @param name 
      * @param keyType 
-     * @param _interface 
+     * @param interfaceType 
      * @param methodName 
      */
-    public final Object mapVersions(String name, String keyType, AInterface _interface, String methodName) {
+    public final Object mapVersions(String name, String keyType, AInterfaceType interfaceType, String methodName) {
         try {
         	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "mapVersions", this, Optional.empty(), name, keyType, _interface, methodName);
+        		eventTrigger().triggerAction(Stage.BEGIN, "mapVersions", this, Optional.empty(), name, keyType, interfaceType, methodName);
         	}
-        	AClass result = this.mapVersionsImpl(name, keyType, _interface, methodName);
+        	AClass result = this.mapVersionsImpl(name, keyType, interfaceType, methodName);
         	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "mapVersions", this, Optional.ofNullable(result), name, keyType, _interface, methodName);
+        		eventTrigger().triggerAction(Stage.END, "mapVersions", this, Optional.ofNullable(result), name, keyType, interfaceType, methodName);
         	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
@@ -166,25 +165,27 @@ public abstract class AClass extends AType {
     /**
      * 
      * @param modifiers 
-     * @param param 
+     * @param paramLeft 
+     * @param paramRight 
      */
-    public AConstructor newConstructorImpl(String[] modifiers, Pair[] param) {
+    public AConstructor newConstructorImpl(String[] modifiers, String[] paramLeft, String[] paramRight) {
         throw new UnsupportedOperationException(get_class()+": Action newConstructor not implemented ");
     }
 
     /**
      * 
      * @param modifiers 
-     * @param param 
+     * @param paramLeft 
+     * @param paramRight 
      */
-    public final Object newConstructor(Object[] modifiers, Object[] param) {
+    public final Object newConstructor(Object[] modifiers, Object[] paramLeft, Object[] paramRight) {
         try {
         	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "newConstructor", this, Optional.empty(), modifiers, param);
+        		eventTrigger().triggerAction(Stage.BEGIN, "newConstructor", this, Optional.empty(), modifiers, paramLeft, paramRight);
         	}
-        	AConstructor result = this.newConstructorImpl(pt.up.fe.specs.util.SpecsCollections.cast(modifiers, String.class), pt.up.fe.specs.util.SpecsCollections.cast(param, Pair.class));
+        	AConstructor result = this.newConstructorImpl(pt.up.fe.specs.util.SpecsCollections.cast(modifiers, String.class), pt.up.fe.specs.util.SpecsCollections.cast(paramLeft, String.class), pt.up.fe.specs.util.SpecsCollections.cast(paramRight, String.class));
         	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "newConstructor", this, Optional.ofNullable(result), modifiers, param);
+        		eventTrigger().triggerAction(Stage.END, "newConstructor", this, Optional.ofNullable(result), modifiers, paramLeft, paramRight);
         	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
@@ -235,7 +236,7 @@ public abstract class AClass extends AType {
      * @return the attribute's value
      */
     @Override
-    public AInterface[] getInterfacesTypesArrayImpl() {
+    public AInterfaceType[] getInterfacesTypesArrayImpl() {
         return this.aType.getInterfacesTypesArrayImpl();
     }
 
@@ -267,12 +268,12 @@ public abstract class AClass extends AType {
     }
 
     /**
-     * Get value on attribute _package
+     * Get value on attribute packageName
      * @return the attribute's value
      */
     @Override
-    public String getPackageImpl() {
-        return this.aType.getPackageImpl();
+    public String getPackageNameImpl() {
+        return this.aType.getPackageNameImpl();
     }
 
     /**
@@ -565,11 +566,11 @@ public abstract class AClass extends AType {
 
     /**
      * 
-     * @param _interface 
+     * @param interfaceType 
      */
     @Override
-    public void addImplementImpl(AInterface _interface) {
-        this.aType.addImplementImpl(_interface);
+    public void addImplementImpl(AInterfaceType interfaceType) {
+        this.aType.addImplementImpl(interfaceType);
     }
 
     /**
@@ -577,7 +578,7 @@ public abstract class AClass extends AType {
      * @param newInterface 
      */
     @Override
-    public void addInterfaceImpl(AInterface newInterface) {
+    public void addInterfaceImpl(AInterfaceType newInterface) {
         this.aType.addInterfaceImpl(newInterface);
     }
 
@@ -709,12 +710,13 @@ public abstract class AClass extends AType {
      * @param modifiers 
      * @param returnType 
      * @param name 
-     * @param param 
+     * @param paramLeft 
+     * @param paramRight 
      * @param code 
      */
     @Override
-    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, Pair[] param, String code) {
-        return this.aType.newMethodImpl(modifiers, returnType, name, param, code);
+    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, String[] paramLeft, String[] paramRight, String code) {
+        return this.aType.newMethodImpl(modifiers, returnType, name, paramLeft, paramRight, code);
     }
 
     /**
@@ -722,11 +724,12 @@ public abstract class AClass extends AType {
      * @param modifiers 
      * @param returnType 
      * @param name 
-     * @param param 
+     * @param paramLeft 
+     * @param paramRight 
      */
     @Override
-    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, Pair[] param) {
-        return this.aType.newMethodImpl(modifiers, returnType, name, param);
+    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, String[] paramLeft, String[] paramRight) {
+        return this.aType.newMethodImpl(modifiers, returnType, name, paramLeft, paramRight);
     }
 
     /**
@@ -751,7 +754,7 @@ public abstract class AClass extends AType {
      * @param interfaceName 
      */
     @Override
-    public AInterface removeInterfaceImpl(String interfaceName) {
+    public AInterfaceType removeInterfaceImpl(String interfaceName) {
         return this.aType.removeInterfaceImpl(interfaceName);
     }
 
@@ -780,6 +783,15 @@ public abstract class AClass extends AType {
     @Override
     public AJoinPoint replaceWithImpl(String code) {
         return this.aType.replaceWithImpl(code);
+    }
+
+    /**
+     * 
+     * @param modifiers 
+     */
+    @Override
+    public void setModifiersImpl(String[] modifiers) {
+        this.aType.setModifiersImpl(modifiers);
     }
 
     /**
@@ -874,10 +886,10 @@ public abstract class AClass extends AType {
     @Override
     protected void fillWithActions(List<String> actions) {
         this.aType.fillWithActions(actions);
-        actions.add("interface extractInterface(String, String, method, boolean, boolean)");
+        actions.add("interfaceType extractInterface(String, String, method, boolean, boolean)");
         actions.add("void insertStatic(String)");
-        actions.add("class mapVersions(String, String, interface, String)");
-        actions.add("constructor newConstructor(String[], Pair[])");
+        actions.add("class mapVersions(String, String, interfaceType, String)");
+        actions.add("constructor newConstructor(String[], String[], String[])");
         actions.add("method newFunctionalClass(method, method)");
     }
 
@@ -912,7 +924,7 @@ public abstract class AClass extends AType {
         ISSUBTYPEOF("isSubtypeOf"),
         JAVADOC("javadoc"),
         NAME("name"),
-        PACKAGE("package"),
+        PACKAGENAME("packageName"),
         QUALIFIEDNAME("qualifiedName"),
         SUPERCLASS("superClass"),
         SUPERCLASSJP("superClassJp"),

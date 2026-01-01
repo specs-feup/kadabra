@@ -145,20 +145,6 @@ public abstract class ACall extends AExpression {
     }
 
     /**
-     * 
-     */
-    public void defExecutableImpl(String value) {
-        throw new UnsupportedOperationException("Join point "+get_class()+": Action def executable with type String not implemented ");
-    }
-
-    /**
-     * 
-     */
-    public void defExecutableImpl(AMethod value) {
-        throw new UnsupportedOperationException("Join point "+get_class()+": Action def executable with type AMethod not implemented ");
-    }
-
-    /**
      * Get value on attribute name
      * @return the attribute's value
      */
@@ -309,20 +295,6 @@ public abstract class ACall extends AExpression {
     }
 
     /**
-     * 
-     */
-    public void defTargetImpl(String value) {
-        throw new UnsupportedOperationException("Join point "+get_class()+": Action def target with type String not implemented ");
-    }
-
-    /**
-     * 
-     */
-    public void defTargetImpl(AExpression value) {
-        throw new UnsupportedOperationException("Join point "+get_class()+": Action def target with type AExpression not implemented ");
-    }
-
-    /**
      * Get value on attribute targetType
      * @return the attribute's value
      */
@@ -435,6 +407,87 @@ public abstract class ACall extends AExpression {
         	}
         } catch(Exception e) {
         	throw new ActionException(get_class(), "setArguments", e);
+        }
+    }
+
+    /**
+     * 
+     * @param executable 
+     */
+    public ACall setExecutableImpl(AMethod executable) {
+        throw new UnsupportedOperationException(get_class()+": Action setExecutable not implemented ");
+    }
+
+    /**
+     * 
+     * @param executable 
+     */
+    public final Object setExecutable(AMethod executable) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "setExecutable", this, Optional.empty(), executable);
+        	}
+        	ACall result = this.setExecutableImpl(executable);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "setExecutable", this, Optional.ofNullable(result), executable);
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "setExecutable", e);
+        }
+    }
+
+    /**
+     * 
+     * @param target 
+     */
+    public ACall setTargetImpl(AExpression target) {
+        throw new UnsupportedOperationException(get_class()+": Action setTarget not implemented ");
+    }
+
+    /**
+     * 
+     * @param target 
+     */
+    public final Object setTarget(AExpression target) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "setTarget", this, Optional.empty(), target);
+        	}
+        	ACall result = this.setTargetImpl(target);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "setTarget", this, Optional.ofNullable(result), target);
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "setTarget", e);
+        }
+    }
+
+    /**
+     * 
+     * @param target 
+     */
+    public ACall setTargetImpl(String target) {
+        throw new UnsupportedOperationException(get_class()+": Action setTarget not implemented ");
+    }
+
+    /**
+     * 
+     * @param target 
+     */
+    public final Object setTarget(String target) {
+        try {
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.BEGIN, "setTarget", this, Optional.empty(), target);
+        	}
+        	ACall result = this.setTargetImpl(target);
+        	if(hasListeners()) {
+        		eventTrigger().triggerAction(Stage.END, "setTarget", this, Optional.ofNullable(result), target);
+        	}
+        	return result!=null?result:getUndefinedValue();
+        } catch(Exception e) {
+        	throw new ActionException(get_class(), "setTarget", e);
         }
     }
 
@@ -879,6 +932,15 @@ public abstract class ACall extends AExpression {
 
     /**
      * 
+     * @param modifiers 
+     */
+    @Override
+    public void setModifiersImpl(String[] modifiers) {
+        this.aExpression.setModifiersImpl(modifiers);
+    }
+
+    /**
+     * 
      */
     @Override
     public Optional<? extends AExpression> getSuper() {
@@ -926,28 +988,6 @@ public abstract class ACall extends AExpression {
         case "arguments": {
         	if(value instanceof AExpression[]){
         		this.defArgumentsImpl((AExpression[])value);
-        		return;
-        	}
-        	this.unsupportedTypeForDef(attribute, value);
-        }
-        case "executable": {
-        	if(value instanceof String){
-        		this.defExecutableImpl((String)value);
-        		return;
-        	}
-        	if(value instanceof AMethod){
-        		this.defExecutableImpl((AMethod)value);
-        		return;
-        	}
-        	this.unsupportedTypeForDef(attribute, value);
-        }
-        case "target": {
-        	if(value instanceof String){
-        		this.defTargetImpl((String)value);
-        		return;
-        	}
-        	if(value instanceof AExpression){
-        		this.defTargetImpl((AExpression)value);
         		return;
         	}
         	this.unsupportedTypeForDef(attribute, value);
@@ -1015,6 +1055,9 @@ public abstract class ACall extends AExpression {
         actions.add("call clone(statement, String)");
         actions.add("void setArgument(expression, Integer)");
         actions.add("void setArguments(expression[])");
+        actions.add("call setExecutable(method)");
+        actions.add("call setTarget(expression)");
+        actions.add("call setTarget(String)");
     }
 
     /**

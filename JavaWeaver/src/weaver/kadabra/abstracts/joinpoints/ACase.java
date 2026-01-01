@@ -499,6 +499,15 @@ public abstract class ACase extends AStatement {
 
     /**
      * 
+     * @param modifiers 
+     */
+    @Override
+    public void setModifiersImpl(String[] modifiers) {
+        this.aStatement.setModifiersImpl(modifiers);
+    }
+
+    /**
+     * 
      */
     @Override
     public Optional<? extends AStatement> getSuper() {

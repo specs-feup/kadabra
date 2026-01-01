@@ -144,27 +144,27 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
     }
 
     /**
-     * Get value on attribute _package
+     * Get value on attribute packageName
      * @return the attribute's value
      */
-    public abstract String getPackageImpl();
+    public abstract String getPackageNameImpl();
 
     /**
-     * Get value on attribute _package
+     * Get value on attribute packageName
      * @return the attribute's value
      */
-    public final Object getPackage() {
+    public final Object getPackageName() {
         try {
         	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "package", Optional.empty());
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "packageName", Optional.empty());
         	}
-        	String result = this.getPackageImpl();
+        	String result = this.getPackageNameImpl();
         	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "package", Optional.ofNullable(result));
+        		eventTrigger().triggerAttribute(Stage.END, this, "packageName", Optional.ofNullable(result));
         	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
-        	throw new AttributeException(get_class(), "package", e);
+        	throw new AttributeException(get_class(), "packageName", e);
         }
     }
 
@@ -213,8 +213,8 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
      * Represents Java interfaces
      * @return 
      */
-    public List<? extends AInterface> selectInterface() {
-        return select(weaver.kadabra.abstracts.joinpoints.AInterface.class, SelectOp.DESCENDANTS);
+    public List<? extends AInterfaceType> selectInterfaceType() {
+        return select(weaver.kadabra.abstracts.joinpoints.AInterfaceType.class, SelectOp.DESCENDANTS);
     }
 
     /**
@@ -289,7 +289,7 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
      * 
      * @param newInterface 
      */
-    public void addInterfaceImpl(AInterface newInterface) {
+    public void addInterfaceImpl(AInterfaceType newInterface) {
         throw new UnsupportedOperationException(get_class()+": Action addInterface not implemented ");
     }
 
@@ -297,7 +297,7 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
      * 
      * @param newInterface 
      */
-    public final void addInterface(AInterface newInterface) {
+    public final void addInterface(AInterfaceType newInterface) {
         try {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "addInterface", this, Optional.empty(), newInterface);
@@ -315,10 +315,10 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
      * 
      * @param name 
      * @param keyType 
-     * @param _interface 
+     * @param interfaceType 
      * @param methodName 
      */
-    public AClass mapVersionsImpl(String name, String keyType, AInterface _interface, String methodName) {
+    public AClass mapVersionsImpl(String name, String keyType, AInterfaceType interfaceType, String methodName) {
         throw new UnsupportedOperationException(get_class()+": Action mapVersions not implemented ");
     }
 
@@ -326,17 +326,17 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
      * 
      * @param name 
      * @param keyType 
-     * @param _interface 
+     * @param interfaceType 
      * @param methodName 
      */
-    public final Object mapVersions(String name, String keyType, AInterface _interface, String methodName) {
+    public final Object mapVersions(String name, String keyType, AInterfaceType interfaceType, String methodName) {
         try {
         	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "mapVersions", this, Optional.empty(), name, keyType, _interface, methodName);
+        		eventTrigger().triggerAction(Stage.BEGIN, "mapVersions", this, Optional.empty(), name, keyType, interfaceType, methodName);
         	}
-        	AClass result = this.mapVersionsImpl(name, keyType, _interface, methodName);
+        	AClass result = this.mapVersionsImpl(name, keyType, interfaceType, methodName);
         	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "mapVersions", this, Optional.ofNullable(result), name, keyType, _interface, methodName);
+        		eventTrigger().triggerAction(Stage.END, "mapVersions", this, Optional.ofNullable(result), name, keyType, interfaceType, methodName);
         	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
@@ -407,7 +407,7 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
      * @param name 
      * @param extend 
      */
-    public AInterface newInterfaceImpl(String name, String[] extend) {
+    public AInterfaceType newInterfaceImpl(String name, String[] extend) {
         throw new UnsupportedOperationException(get_class()+": Action newInterface not implemented ");
     }
 
@@ -421,7 +421,7 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "newInterface", this, Optional.empty(), name, extend);
         	}
-        	AInterface result = this.newInterfaceImpl(name, pt.up.fe.specs.util.SpecsCollections.cast(extend, String.class));
+        	AInterfaceType result = this.newInterfaceImpl(name, pt.up.fe.specs.util.SpecsCollections.cast(extend, String.class));
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.END, "newInterface", this, Optional.ofNullable(result), name, extend);
         	}
@@ -435,7 +435,7 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
      * 
      * @param name 
      */
-    public AInterface newInterfaceImpl(String name) {
+    public AInterfaceType newInterfaceImpl(String name) {
         throw new UnsupportedOperationException(get_class()+": Action newInterface not implemented ");
     }
 
@@ -448,7 +448,7 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "newInterface", this, Optional.empty(), name);
         	}
-        	AInterface result = this.newInterfaceImpl(name);
+        	AInterfaceType result = this.newInterfaceImpl(name);
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.END, "newInterface", this, Optional.ofNullable(result), name);
         	}
@@ -462,7 +462,7 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
      * 
      * @param interfaceName 
      */
-    public AInterface removeInterfaceImpl(String interfaceName) {
+    public AInterfaceType removeInterfaceImpl(String interfaceName) {
         throw new UnsupportedOperationException(get_class()+": Action removeInterface not implemented ");
     }
 
@@ -475,7 +475,7 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "removeInterface", this, Optional.empty(), interfaceName);
         	}
-        	AInterface result = this.removeInterfaceImpl(interfaceName);
+        	AInterfaceType result = this.removeInterfaceImpl(interfaceName);
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.END, "removeInterface", this, Optional.ofNullable(result), interfaceName);
         	}
@@ -498,8 +498,8 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
         	case "class": 
         		joinPointList = selectClass();
         		break;
-        	case "interface": 
-        		joinPointList = selectInterface();
+        	case "interfaceType": 
+        		joinPointList = selectInterfaceType();
         		break;
         	case "pragma": 
         		joinPointList = selectPragma();
@@ -546,7 +546,7 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
         attributes.add("name");
         attributes.add("numClasses");
         attributes.add("numInterfaces");
-        attributes.add("package");
+        attributes.add("packageName");
         attributes.add("path");
     }
 
@@ -558,7 +558,7 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
         super.fillWithSelects(selects);
         selects.add("type");
         selects.add("class");
-        selects.add("interface");
+        selects.add("interfaceType");
         selects.add("pragma");
         selects.add("comment");
     }
@@ -571,13 +571,13 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
         super.fillWithActions(actions);
         actions.add("void addClass(class)");
         actions.add("void addImport(String)");
-        actions.add("void addInterface(interface)");
-        actions.add("class mapVersions(String, String, interface, String)");
+        actions.add("void addInterface(interfaceType)");
+        actions.add("class mapVersions(String, String, interfaceType, String)");
         actions.add("class newClass(String, String, String[])");
         actions.add("class newClass(String)");
-        actions.add("interface newInterface(String, String[])");
-        actions.add("interface newInterface(String)");
-        actions.add("interface removeInterface(String)");
+        actions.add("interfaceType newInterface(String, String[])");
+        actions.add("interfaceType newInterface(String)");
+        actions.add("interfaceType removeInterface(String)");
     }
 
     /**
@@ -597,7 +597,7 @@ public abstract class AFile extends AJavaWeaverJoinPoint {
         NAME("name"),
         NUMCLASSES("numClasses"),
         NUMINTERFACES("numInterfaces"),
-        PACKAGE("package"),
+        PACKAGENAME("packageName"),
         PATH("path"),
         ANNOTATIONS("annotations"),
         AST("ast"),

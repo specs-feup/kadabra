@@ -1,11 +1,11 @@
 /**
  * Copyright 2017 SPeCS.
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License. under the License.
@@ -13,39 +13,14 @@
 
 package weaver.kadabra.joinpoints;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import org.lara.interpreter.weaver.interf.JoinPoint;
-
 import pt.up.fe.specs.util.SpecsLogs;
 import spoon.refactoring.Refactoring;
 import spoon.reflect.code.CtComment;
-import spoon.reflect.declaration.CtCompilationUnit;
-import spoon.reflect.declaration.CtElement;
-import spoon.reflect.declaration.CtExecutable;
-import spoon.reflect.declaration.CtField;
-import spoon.reflect.declaration.CtMethod;
-import spoon.reflect.declaration.CtPackage;
-import spoon.reflect.declaration.CtType;
-import spoon.reflect.declaration.ModifierKind;
+import spoon.reflect.declaration.*;
 import spoon.reflect.reference.CtTypeReference;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
-import weaver.kadabra.abstracts.joinpoints.AClass;
-import weaver.kadabra.abstracts.joinpoints.AComment;
-import weaver.kadabra.abstracts.joinpoints.AExecutable;
-import weaver.kadabra.abstracts.joinpoints.AField;
-import weaver.kadabra.abstracts.joinpoints.AInterface;
-import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
-import weaver.kadabra.abstracts.joinpoints.AMethod;
-import weaver.kadabra.abstracts.joinpoints.APragma;
-import weaver.kadabra.abstracts.joinpoints.AType;
-import weaver.kadabra.abstracts.joinpoints.ATypeReference;
-import weaver.kadabra.entities.Pair;
+import weaver.kadabra.abstracts.joinpoints.*;
 import weaver.kadabra.exceptions.JavaWeaverException;
 import weaver.kadabra.spoon.extensions.nodes.CtKadabraSnippetElement;
 import weaver.utils.SpoonUtils;
@@ -56,6 +31,9 @@ import weaver.utils.weaving.SelectUtils;
 import weaver.utils.weaving.SnippetFactory;
 import weaver.utils.weaving.converters.CtElement2JoinPoint;
 import weaver.utils.weaving.converters.CtExecutable2AExecutable;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class JType<T> extends AType {
 
@@ -71,12 +49,9 @@ public class JType<T> extends AType {
     // * @deprecated use version that does not need the parent paramenter
 
     /**
-     * 
      * @param <T>
      * @param node
      * @param parent
-     * 
-     * 
      * @return
      */
     // @Deprecated
@@ -127,12 +102,12 @@ public class JType<T> extends AType {
     }
 
     @Override
-    public AInterface[] getInterfacesTypesArrayImpl() {
+    public AInterfaceType[] getInterfacesTypesArrayImpl() {
         var els = node.getSuperInterfaces().stream()
-                .map(el -> CtElement2JoinPoint.convert(el, AInterface.class))
+                .map(el -> CtElement2JoinPoint.convert(el, AInterfaceType.class))
                 .collect(Collectors.toList());
 
-        return els.toArray(new AInterface[0]);
+        return els.toArray(new AInterfaceType[0]);
     }
 
     @Override
@@ -146,7 +121,7 @@ public class JType<T> extends AType {
     }
 
     @Override
-    public String getPackageImpl() {
+    public String getPackageNameImpl() {
 
         CtPackage package1 = node.getPackage();
         if (package1 == null) {
@@ -195,7 +170,7 @@ public class JType<T> extends AType {
     public List<? extends AMethod> selectMethod() {
 
         // final List<JMethod<?>> methods = WeavingUtils.select(node, CtMethod.class, JMethod::newInstance);
-        final List<JMethod<?>> methods = SelectUtils.<CtMethod<?>, JMethod<?>> nodeList2JoinPointList(
+        final List<JMethod<?>> methods = SelectUtils.<CtMethod<?>, JMethod<?>>nodeList2JoinPointList(
                 node.getMethods(), JMethod::newInstance);
         return methods;
     }
@@ -217,7 +192,7 @@ public class JType<T> extends AType {
     }
 
     @Override
-    public void addInterfaceImpl(AInterface newInterface) {
+    public void addInterfaceImpl(AInterfaceType newInterface) {
         node.addNestedType((CtType<?>) newInterface.getNode());
     }
 
@@ -228,7 +203,7 @@ public class JType<T> extends AType {
     // }
 
     @Override
-    public AInterface removeInterfaceImpl(String interfaceName) {
+    public AInterfaceType removeInterfaceImpl(String interfaceName) {
 
         var interfaceNode = node.getSuperInterfaces().stream()
                 .filter(si -> si.getQualifiedName().equals(interfaceName))
@@ -259,7 +234,7 @@ public class JType<T> extends AType {
             return null;
         }
 
-        return CtElement2JoinPoint.convert(interfaceNode.getTypeDeclaration(), AInterface.class);
+        return CtElement2JoinPoint.convert(interfaceNode.getTypeDeclaration(), AInterfaceType.class);
     }
 
     @Override
@@ -268,23 +243,23 @@ public class JType<T> extends AType {
     }
 
     @Override
-    public void addImplementImpl(AInterface _interface) {
+    public void addImplementImpl(AInterfaceType _interface) {
 
         CtType<?> type = (CtType<?>) _interface.getNode();
         node.addSuperInterface(type.getReference());
     }
 
     @Override
-    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, Pair[] param, String code) {
-        CtMethod<?> newMethod = ActionUtils.newMethod(node, name, returnType, param, modifiers, code,
+    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, String[] paramLeft, String[] paramRight, String code) {
+        CtMethod<?> newMethod = ActionUtils.newMethod(node, name, returnType, paramLeft, paramRight, modifiers, code,
                 getWeaverProfiler());
         JMethod<?> newInstance = JMethod.newInstance(newMethod);
         return newInstance;
     }
 
     @Override
-    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, Pair[] param) {
-        return newMethodImpl(modifiers, returnType, name, param, "");
+    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, String[] paramLeft, String[] paramRight) {
+        return newMethodImpl(modifiers, returnType, name, paramLeft, paramRight, "");
     }
 
     @Override
@@ -325,22 +300,22 @@ public class JType<T> extends AType {
             throw new JavaWeaverException("The attribute to be defined for class does not exist: " + attributeStr);
         }
         switch (attributeOpt.get()) {
-        case MODIFIERS:
-            if (value instanceof String) {
-                node.addModifier(getModifier((String) value));
-            } else if (value instanceof String[]) {
-                String[] value2 = (String[]) value;
-                List<String> valuesList = Arrays.asList(value2);
-                Set<ModifierKind> collect = valuesList.stream().map(ModifierKind::valueOf).collect(Collectors.toSet());
-                node.setModifiers(collect);
-            } else {
-                throw new JavaWeaverException(
-                        "The attribute 'modifiers' can only be defined with: string OR string[]. Given type: "
-                                + value.getClass());
-            }
-            break;
-        default:
-            break;
+            case MODIFIERS:
+                if (value instanceof String) {
+                    node.addModifier(getModifier((String) value));
+                } else if (value instanceof String[]) {
+                    String[] value2 = (String[]) value;
+                    List<String> valuesList = Arrays.asList(value2);
+                    Set<ModifierKind> collect = valuesList.stream().map(ModifierKind::valueOf).collect(Collectors.toSet());
+                    node.setModifiers(collect);
+                } else {
+                    throw new JavaWeaverException(
+                            "The attribute 'modifiers' can only be defined with: string OR string[]. Given type: "
+                                    + value.getClass());
+                }
+                break;
+            default:
+                break;
         }
     }
 
@@ -355,12 +330,12 @@ public class JType<T> extends AType {
 
     @Override
     public AJoinPoint[] insertImpl(String position, JoinPoint code) {
-        return new AJoinPoint[] { insertImplJType(position, (CtElement) code.getNode()) };
+        return new AJoinPoint[]{insertImplJType(position, (CtElement) code.getNode())};
     }
 
     @Override
     public AJoinPoint[] insertImpl(String position, String code) {
-        return new AJoinPoint[] { insertImplJType(position, code) };
+        return new AJoinPoint[]{insertImplJType(position, code)};
     }
 
     public AJavaWeaverJoinPoint insertImplJType(String position, CtElement code) {

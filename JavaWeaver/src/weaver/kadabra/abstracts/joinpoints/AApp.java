@@ -160,10 +160,10 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
      * 
      * @param name 
      * @param keyType 
-     * @param _interface 
+     * @param interfaceType 
      * @param methodName 
      */
-    public AClass mapVersionsImpl(String name, String keyType, AInterface _interface, String methodName) {
+    public AClass mapVersionsImpl(String name, String keyType, AInterfaceType interfaceType, String methodName) {
         throw new UnsupportedOperationException(get_class()+": Action mapVersions not implemented ");
     }
 
@@ -171,17 +171,17 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
      * 
      * @param name 
      * @param keyType 
-     * @param _interface 
+     * @param interfaceType 
      * @param methodName 
      */
-    public final Object mapVersions(String name, String keyType, AInterface _interface, String methodName) {
+    public final Object mapVersions(String name, String keyType, AInterfaceType interfaceType, String methodName) {
         try {
         	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "mapVersions", this, Optional.empty(), name, keyType, _interface, methodName);
+        		eventTrigger().triggerAction(Stage.BEGIN, "mapVersions", this, Optional.empty(), name, keyType, interfaceType, methodName);
         	}
-        	AClass result = this.mapVersionsImpl(name, keyType, _interface, methodName);
+        	AClass result = this.mapVersionsImpl(name, keyType, interfaceType, methodName);
         	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "mapVersions", this, Optional.ofNullable(result), name, keyType, _interface, methodName);
+        		eventTrigger().triggerAction(Stage.END, "mapVersions", this, Optional.ofNullable(result), name, keyType, interfaceType, methodName);
         	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
@@ -252,7 +252,7 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
      * @param name 
      * @param extend 
      */
-    public AInterface newInterfaceImpl(String name, String[] extend) {
+    public AInterfaceType newInterfaceImpl(String name, String[] extend) {
         throw new UnsupportedOperationException(get_class()+": Action newInterface not implemented ");
     }
 
@@ -266,7 +266,7 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "newInterface", this, Optional.empty(), name, extend);
         	}
-        	AInterface result = this.newInterfaceImpl(name, pt.up.fe.specs.util.SpecsCollections.cast(extend, String.class));
+        	AInterfaceType result = this.newInterfaceImpl(name, pt.up.fe.specs.util.SpecsCollections.cast(extend, String.class));
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.END, "newInterface", this, Optional.ofNullable(result), name, extend);
         	}
@@ -280,7 +280,7 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
      * 
      * @param name 
      */
-    public AInterface newInterfaceImpl(String name) {
+    public AInterfaceType newInterfaceImpl(String name) {
         throw new UnsupportedOperationException(get_class()+": Action newInterface not implemented ");
     }
 
@@ -293,7 +293,7 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "newInterface", this, Optional.empty(), name);
         	}
-        	AInterface result = this.newInterfaceImpl(name);
+        	AInterfaceType result = this.newInterfaceImpl(name);
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.END, "newInterface", this, Optional.ofNullable(result), name);
         	}
@@ -376,11 +376,11 @@ public abstract class AApp extends AJavaWeaverJoinPoint {
     @Override
     protected final void fillWithActions(List<String> actions) {
         super.fillWithActions(actions);
-        actions.add("class mapVersions(String, String, interface, String)");
+        actions.add("class mapVersions(String, String, interfaceType, String)");
         actions.add("class newClass(String, String, String[])");
         actions.add("class newClass(String)");
-        actions.add("interface newInterface(String, String[])");
-        actions.add("interface newInterface(String)");
+        actions.add("interfaceType newInterface(String, String[])");
+        actions.add("interfaceType newInterface(String)");
     }
 
     /**
