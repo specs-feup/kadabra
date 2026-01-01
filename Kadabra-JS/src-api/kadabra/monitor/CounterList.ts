@@ -1,0 +1,138 @@
+/**
+	Monitor the occurences of a given join point;
+*/
+
+import Query from "@specs-feup/lara/api/weaver/Query.js";
+import { App, Class, Constructor, Field, FileJp } from "../../Joinpoints.js";
+
+export function CountingMonitorList(
+    targetClass: Class,
+    monitorPackage = "pt.up.fe.specs.lara.kadabra.utils"
+) {
+    const monitor = GetCountingMonitorList(
+        monitorPackage,
+        "CountingMonitorList"
+    );
+    if (monitor === undefined) {
+        throw new Error(
+            "Expected monitorClass to be of type Class but was undefined."
+        );
+    }
+
+    let name = "kadabra" + monitor.name;
+
+    let counter = 0;
+    while (
+        Query.searchFrom(targetClass, Field, {
+            name: (n) => n == name + counter,
+        }).get().length !== 0
+    ) {
+        counter++;
+    }
+
+    function callMethod(method: string, arg: string) {
+        return name + "." + method + "(" + arg + ");";
+    }
+
+    name += counter;
+    const get = function (id: string) {
+        return callMethod("get", id);
+    };
+    const reset = function (id: string) {
+        return callMethod("reset", id);
+    };
+    const increment = function (id: string) {
+        return callMethod("increment", id);
+    };
+    const init = function (size: string) {
+        const modifiers = ["private", "static"];
+        targetClass.newField(
+            modifiers,
+            monitor.qualifiedName,
+            name,
+            "new " + monitor.name + "(" + size + ")"
+        );
+    };
+
+    return {
+        name: name,
+        increment: increment,
+        get: get,
+        reset: reset,
+        init: init,
+    };
+}
+
+/**
+	Returns the counting monitor list. if it does not exist creates a new class
+*/
+export function GetCountingMonitorList(
+    packageName: string,
+    simpleName: string
+) {
+    const monitorClass = Query.search(FileJp)
+        .search(Class, {
+            name: simpleName,
+            packageName: packageName,
+        })
+        .getFirst();
+
+    if (monitorClass !== undefined) {
+        return monitorClass;
+    }
+
+    return NewCountingMonitorList(packageName, simpleName);
+}
+
+export function NewCountingMonitorList(
+    packageName: string,
+    simpleName: string
+) {
+    const className = packageName + "." + simpleName;
+    const monitorClass = (Query.root() as App).newClass(className);
+
+    if (monitorClass === undefined) {
+        return undefined;
+    }
+
+    monitorClass.newField(["private"], "int[]", "counter");
+    monitorClass.newMethod(
+        ["public"],
+        "void",
+        "increment",
+        ["int"],
+        ["id"],
+        "counter[id]++;"
+    );
+    monitorClass.newMethod(
+        ["public"],
+        "int",
+        "get",
+        ["int"],
+        ["id"],
+        "return counter[id];"
+    );
+    monitorClass.newMethod(
+        ["public"],
+        "void",
+        "reset",
+        ["int"],
+        ["id"],
+        "counter[id] = 0;"
+    );
+    monitorClass.newConstructor(["public"], ["int"], ["size"]);
+
+    const constructor = Query.searchFrom(
+        monitorClass,
+        Constructor,
+        "increment"
+    ).getFirst();
+    if (constructor === undefined) {
+        throw new Error(
+            "Expected constructor to be of type Constructor but was undefined"
+        );
+    }
+    constructor.body.insertReplace("counter = new int[size];");
+
+    return monitorClass;
+}

@@ -1,0 +1,11 @@
+{
+    "recommendations": [
+        "sonarsource.sonarlint-vscode",
+        "orta.vscode-jest",
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint",
+        "redhat.java",
+        "vscjava.vscode-gradle",
+        "vscjava.vscode-java-debug"
+    ]
+}

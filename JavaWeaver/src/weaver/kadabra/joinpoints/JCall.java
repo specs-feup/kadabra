@@ -185,23 +185,25 @@ public class JCall<T> extends ACall {
     // }
 
     @Override
-    public void defTargetImpl(String value) {
+    public ACall setTargetImpl(String value) {
         CtCodeSnippetExpression<Object> newTarget = SnippetFactory.snippetExpression(value.toString(),
                 node.getFactory());
         node.setTarget(newTarget);
+        return this;
     }
 
     @Override
-    public void defTargetImpl(AExpression value) {
-        defTargetImpl(value.getSrcCodeImpl());
+    public ACall setTargetImpl(AExpression value) {
+        return setTargetImpl(value.getSrcCodeImpl());
     }
 
     @Override
-    public void defExecutableImpl(AMethod executable) {
+    public ACall setExecutableImpl(AMethod executable) {
         @SuppressWarnings("unchecked")
         JMethod<T> method = JMethod.class.cast(executable);
         CtExecutableReference<T> reference = method.getNode().getReference();
         node.setExecutable(reference);
+        return this;
     }
 
     //

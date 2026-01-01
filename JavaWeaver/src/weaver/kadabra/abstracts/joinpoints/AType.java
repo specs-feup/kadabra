@@ -6,7 +6,6 @@ import org.lara.interpreter.exception.AttributeException;
 import java.util.List;
 import org.lara.interpreter.weaver.interf.SelectOp;
 import org.lara.interpreter.exception.ActionException;
-import weaver.kadabra.entities.Pair;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 import org.lara.interpreter.weaver.interf.JoinPoint;
 import java.util.stream.Collectors;
@@ -58,14 +57,14 @@ public abstract class AType extends AJavaWeaverJoinPoint {
      * Get value on attribute interfacesTypes
      * @return the attribute's value
      */
-    public abstract AInterface[] getInterfacesTypesArrayImpl();
+    public abstract AInterfaceType[] getInterfacesTypesArrayImpl();
 
     /**
      * returns the interface join points that this class implements
      */
     public Object getInterfacesTypesImpl() {
-        AInterface[] aInterfaceArrayImpl0 = getInterfacesTypesArrayImpl();
-        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(aInterfaceArrayImpl0);
+        AInterfaceType[] aInterfaceTypeArrayImpl0 = getInterfacesTypesArrayImpl();
+        Object nativeArray0 = getWeaverEngine().getScriptEngine().toNativeArray(aInterfaceTypeArrayImpl0);
         return nativeArray0;
     }
 
@@ -165,23 +164,23 @@ public abstract class AType extends AJavaWeaverJoinPoint {
     /**
      * package name of this class
      */
-    public abstract String getPackageImpl();
+    public abstract String getPackageNameImpl();
 
     /**
      * package name of this class
      */
-    public final Object getPackage() {
+    public final Object getPackageName() {
         try {
         	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "package", Optional.empty());
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "packageName", Optional.empty());
         	}
-        	String result = this.getPackageImpl();
+        	String result = this.getPackageNameImpl();
         	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "package", Optional.ofNullable(result));
+        		eventTrigger().triggerAttribute(Stage.END, this, "packageName", Optional.ofNullable(result));
         	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
-        	throw new AttributeException(get_class(), "package", e);
+        	throw new AttributeException(get_class(), "packageName", e);
         }
     }
 
@@ -330,24 +329,24 @@ public abstract class AType extends AJavaWeaverJoinPoint {
 
     /**
      * 
-     * @param _interface 
+     * @param interfaceType 
      */
-    public void addImplementImpl(AInterface _interface) {
+    public void addImplementImpl(AInterfaceType interfaceType) {
         throw new UnsupportedOperationException(get_class()+": Action addImplement not implemented ");
     }
 
     /**
      * 
-     * @param _interface 
+     * @param interfaceType 
      */
-    public final void addImplement(AInterface _interface) {
+    public final void addImplement(AInterfaceType interfaceType) {
         try {
         	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "addImplement", this, Optional.empty(), _interface);
+        		eventTrigger().triggerAction(Stage.BEGIN, "addImplement", this, Optional.empty(), interfaceType);
         	}
-        	this.addImplementImpl(_interface);
+        	this.addImplementImpl(interfaceType);
         	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "addImplement", this, Optional.empty(), _interface);
+        		eventTrigger().triggerAction(Stage.END, "addImplement", this, Optional.empty(), interfaceType);
         	}
         } catch(Exception e) {
         	throw new ActionException(get_class(), "addImplement", e);
@@ -358,7 +357,7 @@ public abstract class AType extends AJavaWeaverJoinPoint {
      * 
      * @param newInterface 
      */
-    public void addInterfaceImpl(AInterface newInterface) {
+    public void addInterfaceImpl(AInterfaceType newInterface) {
         throw new UnsupportedOperationException(get_class()+": Action addInterface not implemented ");
     }
 
@@ -366,7 +365,7 @@ public abstract class AType extends AJavaWeaverJoinPoint {
      * 
      * @param newInterface 
      */
-    public final void addInterface(AInterface newInterface) {
+    public final void addInterface(AInterfaceType newInterface) {
         try {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "addInterface", this, Optional.empty(), newInterface);
@@ -501,10 +500,11 @@ public abstract class AType extends AJavaWeaverJoinPoint {
      * @param modifiers 
      * @param returnType 
      * @param name 
-     * @param param 
+     * @param paramLeft 
+     * @param paramRight 
      * @param code 
      */
-    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, Pair[] param, String code) {
+    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, String[] paramLeft, String[] paramRight, String code) {
         throw new UnsupportedOperationException(get_class()+": Action newMethod not implemented ");
     }
 
@@ -513,17 +513,18 @@ public abstract class AType extends AJavaWeaverJoinPoint {
      * @param modifiers 
      * @param returnType 
      * @param name 
-     * @param param 
+     * @param paramLeft 
+     * @param paramRight 
      * @param code 
      */
-    public final Object newMethod(Object[] modifiers, String returnType, String name, Object[] param, String code) {
+    public final Object newMethod(Object[] modifiers, String returnType, String name, Object[] paramLeft, Object[] paramRight, String code) {
         try {
         	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "newMethod", this, Optional.empty(), modifiers, returnType, name, param, code);
+        		eventTrigger().triggerAction(Stage.BEGIN, "newMethod", this, Optional.empty(), modifiers, returnType, name, paramLeft, paramRight, code);
         	}
-        	AMethod result = this.newMethodImpl(pt.up.fe.specs.util.SpecsCollections.cast(modifiers, String.class), returnType, name, pt.up.fe.specs.util.SpecsCollections.cast(param, Pair.class), code);
+        	AMethod result = this.newMethodImpl(pt.up.fe.specs.util.SpecsCollections.cast(modifiers, String.class), returnType, name, pt.up.fe.specs.util.SpecsCollections.cast(paramLeft, String.class), pt.up.fe.specs.util.SpecsCollections.cast(paramRight, String.class), code);
         	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "newMethod", this, Optional.ofNullable(result), modifiers, returnType, name, param, code);
+        		eventTrigger().triggerAction(Stage.END, "newMethod", this, Optional.ofNullable(result), modifiers, returnType, name, paramLeft, paramRight, code);
         	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
@@ -536,9 +537,10 @@ public abstract class AType extends AJavaWeaverJoinPoint {
      * @param modifiers 
      * @param returnType 
      * @param name 
-     * @param param 
+     * @param paramLeft 
+     * @param paramRight 
      */
-    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, Pair[] param) {
+    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, String[] paramLeft, String[] paramRight) {
         throw new UnsupportedOperationException(get_class()+": Action newMethod not implemented ");
     }
 
@@ -547,16 +549,17 @@ public abstract class AType extends AJavaWeaverJoinPoint {
      * @param modifiers 
      * @param returnType 
      * @param name 
-     * @param param 
+     * @param paramLeft 
+     * @param paramRight 
      */
-    public final Object newMethod(Object[] modifiers, String returnType, String name, Object[] param) {
+    public final Object newMethod(Object[] modifiers, String returnType, String name, Object[] paramLeft, Object[] paramRight) {
         try {
         	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.BEGIN, "newMethod", this, Optional.empty(), modifiers, returnType, name, param);
+        		eventTrigger().triggerAction(Stage.BEGIN, "newMethod", this, Optional.empty(), modifiers, returnType, name, paramLeft, paramRight);
         	}
-        	AMethod result = this.newMethodImpl(pt.up.fe.specs.util.SpecsCollections.cast(modifiers, String.class), returnType, name, pt.up.fe.specs.util.SpecsCollections.cast(param, Pair.class));
+        	AMethod result = this.newMethodImpl(pt.up.fe.specs.util.SpecsCollections.cast(modifiers, String.class), returnType, name, pt.up.fe.specs.util.SpecsCollections.cast(paramLeft, String.class), pt.up.fe.specs.util.SpecsCollections.cast(paramRight, String.class));
         	if(hasListeners()) {
-        		eventTrigger().triggerAction(Stage.END, "newMethod", this, Optional.ofNullable(result), modifiers, returnType, name, param);
+        		eventTrigger().triggerAction(Stage.END, "newMethod", this, Optional.ofNullable(result), modifiers, returnType, name, paramLeft, paramRight);
         	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
@@ -568,7 +571,7 @@ public abstract class AType extends AJavaWeaverJoinPoint {
      * 
      * @param interfaceName 
      */
-    public AInterface removeInterfaceImpl(String interfaceName) {
+    public AInterfaceType removeInterfaceImpl(String interfaceName) {
         throw new UnsupportedOperationException(get_class()+": Action removeInterface not implemented ");
     }
 
@@ -581,7 +584,7 @@ public abstract class AType extends AJavaWeaverJoinPoint {
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.BEGIN, "removeInterface", this, Optional.empty(), interfaceName);
         	}
-        	AInterface result = this.removeInterfaceImpl(interfaceName);
+        	AInterfaceType result = this.removeInterfaceImpl(interfaceName);
         	if(hasListeners()) {
         		eventTrigger().triggerAction(Stage.END, "removeInterface", this, Optional.ofNullable(result), interfaceName);
         	}
@@ -655,7 +658,7 @@ public abstract class AType extends AJavaWeaverJoinPoint {
         attributes.add("isSubtypeOf");
         attributes.add("javadoc");
         attributes.add("name");
-        attributes.add("package");
+        attributes.add("packageName");
         attributes.add("qualifiedName");
         attributes.add("superClass");
         attributes.add("superClassJp");
@@ -682,15 +685,15 @@ public abstract class AType extends AJavaWeaverJoinPoint {
     protected void fillWithActions(List<String> actions) {
         super.fillWithActions(actions);
         actions.add("void addClass(class)");
-        actions.add("void addImplement(interface)");
-        actions.add("void addInterface(interface)");
+        actions.add("void addImplement(interfaceType)");
+        actions.add("void addInterface(interfaceType)");
         actions.add("void insertCode(String)");
         actions.add("void insertMethod(String)");
         actions.add("field newField(String[], String, String, String)");
         actions.add("field newField(String[], String, String)");
-        actions.add("method newMethod(String[], String, String, Pair[], String)");
-        actions.add("method newMethod(String[], String, String, Pair[])");
-        actions.add("interface removeInterface(String)");
+        actions.add("method newMethod(String[], String, String, String[], String[], String)");
+        actions.add("method newMethod(String[], String, String, String[], String[])");
+        actions.add("interfaceType removeInterface(String)");
     }
 
     /**
@@ -710,7 +713,7 @@ public abstract class AType extends AJavaWeaverJoinPoint {
         ISSUBTYPEOF("isSubtypeOf"),
         JAVADOC("javadoc"),
         NAME("name"),
-        PACKAGE("package"),
+        PACKAGENAME("packageName"),
         QUALIFIEDNAME("qualifiedName"),
         SUPERCLASS("superClass"),
         SUPERCLASSJP("superClassJp"),

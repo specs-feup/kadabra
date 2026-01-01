@@ -2,61 +2,63 @@
 <artifacts>
 
     <!-- Global Joinpoint -->
-    <!-- These properties are shared by all joinpoints -->	
+    <!-- These properties are shared by all joinpoints -->
     <global>
-		<attribute name="code"  				type="String" tooltip="The source code corresponding to this join point"/>
-		<attribute name="srcCode"  				type="String" tooltip="Alias for attribute 'code'"/>
-		<attribute name="ast"  					type="String" tooltip="A string representation of the AST corresponding to this node"/>
-		<attribute name="numChildren" 			type="Integer" tooltip="Returns the number of children of the node"/>
-		<attribute name="children" 				type="joinpoint[]" tooltip="Returns an array with the children of the node"/>
-		<attribute name="child"					type="joinpoint" tooltip="Returns the child of the node at the given index">
-			<parameter name="index" 			type="Integer" />
+        <attribute name="code" type="String" tooltip="The source code corresponding to this join point"/>
+        <attribute name="srcCode" type="String" tooltip="Alias for attribute 'code'"/>
+        <attribute name="ast" type="String" tooltip="A string representation of the AST corresponding to this node"/>
+        <attribute name="numChildren" type="Integer" tooltip="Returns the number of children of the node"/>
+        <attribute name="children" type="joinpoint[]" tooltip="Returns an array with the children of the node"/>
+        <attribute name="child" type="joinpoint" tooltip="Returns the child of the node at the given index">
+            <parameter name="index" type="Integer"/>
         </attribute>
-		<attribute name="parent" 				type="joinpoint"/>
-		<attribute name="astParent" 			type="joinpoint" tooltip="Alias of attribute 'parent'"/>		
-		<attribute name="getAncestor" 				type="joinpoint">
-			<parameter name="type" 				type="String"/>
+        <attribute name="parent" type="joinpoint"/>
+        <attribute name="astParent" type="joinpoint" tooltip="Alias of attribute 'parent'"/>
+        <attribute name="getAncestor" type="joinpoint">
+            <parameter name="type" type="String"/>
         </attribute>
-		<attribute name="line"  				type="int">
+        <attribute name="line" type="int">
             <def/>
             <def type="String"/>
         </attribute>
-		<attribute name="descendants" 			type="joinpoint[]"/>
-		<attribute name="left" 					type="joinpoint[]" tooltip="Sibling nodes to the left of this node"/>
-		<attribute name="right" 				type="joinpoint[]" tooltip="Sibling nodes to the right of this node"/>		
-		<attribute name="isStatement"  			type="boolean" tooltip="true if this node is considered a statement"/>
-		<attribute name="isBlock"  				type="boolean" tooltip="true if this node is considered a block of statements"/>
-   		<attribute name="modifiers"				type="String[]" tooltip="an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array"/>	   		
-		<attribute name="hasModifier"			type="Boolean" tooltip="true if this node has the given modifier">
-            <parameter name="modifier" type="String"/>		
+        <attribute name="descendants" type="joinpoint[]"/>
+        <attribute name="left" type="joinpoint[]" tooltip="Sibling nodes to the left of this node"/>
+        <attribute name="right" type="joinpoint[]" tooltip="Sibling nodes to the right of this node"/>
+        <attribute name="isStatement" type="boolean" tooltip="true if this node is considered a statement"/>
+        <attribute name="isBlock" type="boolean" tooltip="true if this node is considered a block of statements"/>
+        <attribute name="modifiers" type="String[]"
+                   tooltip="an array of modifiers (e.g., final, static) applied to this node. If no modifiers are applied, or if the node does not support modifiers, returns an empty array"/>
+        <attribute name="hasModifier" type="Boolean" tooltip="true if this node has the given modifier">
+            <parameter name="modifier" type="String"/>
         </attribute>
-		<attribute name="isFinal"				type="Boolean" tooltip="true if this node has the modifier 'final'"/>
-		<attribute name="isStatic"				type="Boolean" tooltip="true if this node has the modifier 'static'"/>
-		<attribute name="annotations"			type="annotation[]" tooltip="an array of the annotations of this node"/>		
-		<attribute name="id"					type="String" tooltip="unique identifier for node"/>		
-		<attribute name="isInsideLoopHeader"	type="boolean" tooltip="true if the node is inside a loop header, false otherwise"/>				
-		
+        <attribute name="isFinal" type="Boolean" tooltip="true if this node has the modifier 'final'"/>
+        <attribute name="isStatic" type="Boolean" tooltip="true if this node has the modifier 'static'"/>
+        <attribute name="annotations" type="annotation[]" tooltip="an array of the annotations of this node"/>
+        <attribute name="id" type="String" tooltip="unique identifier for node"/>
+        <attribute name="isInsideLoopHeader" type="boolean"
+                   tooltip="true if the node is inside a loop header, false otherwise"/>
+
     </global>
-    
-    
+
+
     <!-- APPLICATION -->
     <artifact class="app" default="name">
-        <attribute name="folder"  type="String"/>
-        <attribute name="showAST"   type ="String">
+        <attribute name="folder" type="String"/>
+        <attribute name="showAST" type="String">
             <parameter name="Title" type="String"/>
         </attribute>
-        <attribute name="manifest"  type="androidManifest"/>		
-        <attribute name="files"  type="file[]"/>				
+        <attribute name="manifest" type="androidManifest"/>
+        <attribute name="files" type="file[]"/>
     </artifact>
-    
-    
+
+
     <!-- XML NODE -->
     <artifact class="xmlNode">
-        <attribute name="elements"  type="xmlElement[]"/>
-        <attribute name="elements" type="xmlElement[]">
+        <attribute name="elements" type="xmlElement[]"/>
+        <attribute name="elementsByName" type="xmlElement[]">
             <parameter name="name" type="String"/>
         </attribute>
-        <attribute name="text"  type="String">
+        <attribute name="text" type="String">
             <def/>
         </attribute>
     </artifact>
@@ -64,12 +66,12 @@
 
     <!-- ANDROID MANIFEST -->
     <artifact class="androidManifest">
-        <attribute name="asJson"  type="Object"/>
+        <attribute name="asJson" type="Object"/>
     </artifact>
-    
+
     <!-- XML ELEMENT -->
     <artifact class="xmlElement" default="name">
-        <attribute name="name"  type="String" tooltip="the name (i.e., tag) of this element"/>		
+        <attribute name="name" type="String" tooltip="the name (i.e., tag) of this element"/>
         <attribute name="attribute" type="String" tooltip="the value associated with the given attribute">
             <parameter name="name" type="String"/>
         </attribute>
@@ -78,175 +80,182 @@
 
     <!-- FILE -->
     <artifact class="file" default="name">
-        <attribute name="name"  type="String"/>	
-        <attribute name="path"	type="String"/>
-        <attribute name="dir"	type="String"/>
-        <attribute name="package"	type="String"/>
-        <attribute name="numClasses"	type="int"/>
-        <attribute name="numInterfaces"	type="int"/>
-		<attribute name="mainClass"	type="type" tooltip="Main class of the file. Java files must have a top level class with the same name as the file."/>		
-<!-- 		<attribute name="numInnerClasses"	type="int"/> -->
-<!-- 		<attribute name="numInnerInterfaces"	type="int"/> -->
-<!-- 		<attribute name="numInnerPackages"	type="int"/> -->
+        <attribute name="name" type="String"/>
+        <attribute name="path" type="String"/>
+        <attribute name="dir" type="String"/>
+        <attribute name="packageName" type="String"/>
+        <attribute name="numClasses" type="int"/>
+        <attribute name="numInterfaces" type="int"/>
+        <attribute name="mainClass" type="type"
+                   tooltip="Main class of the file. Java files must have a top level class with the same name as the file."/>
+        <!-- 		<attribute name="numInnerClasses"	type="int"/> -->
+        <!-- 		<attribute name="numInnerInterfaces"	type="int"/> -->
+        <!-- 		<attribute name="numInnerPackages"	type="int"/> -->
     </artifact>
-    
-    
+
+
     <artifact class="TypeContainer">
     </artifact>
-    
+
     <!-- TYPE -->
     <artifact class="type" default="name">
-        <attribute name="name"				type="String" tooltip="the simple name of the class"/>	
-        <attribute name="qualifiedName"		type="String" tooltip="the qualified name of this class, includes packages"/>	
-        <attribute name="superClass"		type="String" tooltip="name of the superclass this class extends"/>
-        <attribute name="superClassJp"		type="typeReference" tooltip="the superclass this class extends, or undefined if the class extends java.lang.Object"/>
-        <attribute name="package"			type="String" tooltip="package name of this class"/>
-        <attribute name="interfaces"		type="String[]" tooltip="list of names of interfaces that this class implements" />
-        <attribute name="interfacesTypes"	type="interface[]" tooltip="returns the interface join points that this class implements" />   		
-        <attribute name="javadoc"			type="String" />
-        <attribute name="isSubtypeOf"       type="Boolean" tooltip="verify if the type is extends OR implements the given type">
+        <attribute name="name" type="String" tooltip="the simple name of the class"/>
+        <attribute name="qualifiedName" type="String" tooltip="the qualified name of this class, includes packages"/>
+        <attribute name="superClass" type="String" tooltip="name of the superclass this class extends"/>
+        <attribute name="superClassJp" type="typeReference"
+                   tooltip="the superclass this class extends, or undefined if the class extends java.lang.Object"/>
+        <attribute name="packageName" type="String" tooltip="package name of this class"/>
+        <attribute name="interfaces" type="String[]" tooltip="list of names of interfaces that this class implements"/>
+        <attribute name="interfacesTypes" type="interfaceType[]"
+                   tooltip="returns the interface join points that this class implements"/>
+        <!--<attribute name="interfacesTypes"	type="interface[]" tooltip="returns the interface join points that this class implements" />-->
+        <attribute name="javadoc" type="String"/>
+        <attribute name="isSubtypeOf" type="Boolean"
+                   tooltip="verify if the type is extends OR implements the given type">
             <parameter name="type" type="String"/>
         </attribute>
     </artifact>
-    
+
     <!-- NAMED TYPE -->
     <artifact class="NamedType" default="name">
-        <attribute name="name"				type="String" tooltip="the simple name of the type"/>	
-   		<attribute name="qualifiedName"		type="String" tooltip="the qualified name of this type, includes packages"/>	
-   		<attribute name="superClass"		type="String" tooltip="name of the superclass this type extends"/>
-   		<attribute name="package"			type="String" tooltip="package name of this type"/>
-   		<attribute name="interfaces"		type="String[]" tooltip="list of names of interfaces that this type implements" />
-<!--    		<attribute name="modifiers"			type="String[]" tooltip="the modifiers of this type" />  -->
-   		<attribute name="javadoc"			type="String" />
-        <attribute name="isSubtypeOf"       type="Boolean" tooltip="verify if the type is extends OR implements the given type">
+        <attribute name="name" type="String" tooltip="the simple name of the type"/>
+        <attribute name="qualifiedName" type="String" tooltip="the qualified name of this type, includes packages"/>
+        <attribute name="superClass" type="String" tooltip="name of the superclass this type extends"/>
+        <attribute name="packageName" type="String" tooltip="package name of this type"/>
+        <attribute name="interfaces" type="String[]" tooltip="list of names of interfaces that this type implements"/>
+        <attribute name="javadoc" type="String"/>
+        <attribute name="isSubtypeOf" type="Boolean"
+                   tooltip="verify if the type is extends OR implements the given type">
             <parameter name="type" type="String"/>
         </attribute>
     </artifact>
-    
+
     <artifact class="libMethod" default="name">
-        <attribute name="name"				type="String" tooltip="the simple name of the type"/>
-        <attribute name="declarator"		type="NamedType"/>
-        <attribute name="returnType"		type="String"/>
+        <attribute name="name" type="String" tooltip="the simple name of the type"/>
+        <attribute name="declarator" type="NamedType"/>
+        <attribute name="returnType" type="String"/>
     </artifact>
-    
+
     <!-- CLASS -->
     <artifact class="class" default="name">
-    <attribute name="isTopLevel" type="boolean"/>   
-<!--   		<attribute name="interfaces"		type="String[]" tooltip="list of names of interfaces that this class implements" /> -->
-<!--    		<attribute name="modifiers"			type="String[]" /> -->
-<!--    		<attribute name="javadoc"			type="String" /> -->
+        <attribute name="isTopLevel" type="boolean"/>
+        <!--   		<attribute name="interfaces"		type="String[]" tooltip="list of names of interfaces that this class implements" /> -->
+        <!--    		<attribute name="modifiers"			type="String[]" /> -->
+        <!--    		<attribute name="javadoc"			type="String" /> -->
     </artifact>
-    
-    <artifact class="interface" default="name">
-<!--    		<attribute name="name"				type="String"/>	 -->
-<!--    		<attribute name="qualifiedName"		type="String"/>	 -->
-<!--    		<attribute name="package"			type="String"/> -->
-<!--    		<attribute name="modifiers"			type="String[]" /> -->
-<!--    		<attribute name="interfaces"		type="String[]" /> -->
+
+    <artifact class="interfaceType" default="name">
+        <!--    		<attribute name="name"				type="String"/>	 -->
+        <!--    		<attribute name="qualifiedName"		type="String"/>	 -->
+        <!--    		<attribute name="package"			type="String"/> -->
+        <!--    		<attribute name="modifiers"			type="String[]" /> -->
+        <!--    		<attribute name="interfaces"		type="String[]" /> -->
     </artifact>
-    
+
     <!-- EXECUTABLE -->
     <artifact class="executable" default="name">
-        <attribute name="name"			type="String">
+        <attribute name="name" type="String">
             <def/>
-        </attribute>	
-        <attribute name="returnType"		type="String"/>
-        <attribute name="body" 			type="body"/>   		
-        <attribute name="params"         type="declaration[]"/>   		
-        <attribute name="returnRef"      type="typeReference"/>   		
+        </attribute>
+        <attribute name="returnType" type="String"/>
+        <attribute name="body" type="body"/>
+        <attribute name="params" type="declaration[]"/>
+        <attribute name="returnRef" type="typeReference"/>
     </artifact>
-    
+
     <!-- METHOD -->
     <artifact class="method" default="name">
         <!-- <attribute name="isStatic"			type="boolean"/> -->
-        <attribute name="declarator" 		    type="string"/>
-        <attribute name="privacy" 			    type="string">
+        <attribute name="declarator" type="string"/>
+        <attribute name="privacy" type="string">
             <def/>
         </attribute>
-        <attribute name="toReference"           type="string"/>
-        <attribute name="toQualifiedReference"  type="string"/>
-        <attribute name="isOverriding"          type="Boolean">
+        <attribute name="toReference" type="string"/>
+        <attribute name="toQualifiedReference" type="string"/>
+        <attribute name="isOverriding" type="Boolean">
             <parameter name="method" type="method"/>
         </attribute>
     </artifact>
-    
+
     <artifact class="constructor" default="name">
-           <attribute name="declarator" 		type="string"/>
+        <attribute name="declarator" type="string"/>
     </artifact>
-    
-        <!-- DECLARATION -->
+
+    <!-- DECLARATION -->
     <artifact class="field" default="name">
-        <attribute name="declarator" 		type="string"/>
-        <attribute name="staticAccess" 		type="string"/>
+        <attribute name="declarator" type="string"/>
+        <attribute name="staticAccess" type="string"/>
     </artifact>
-    
- 	<artifact class="body">
-		<attribute name="lastStmt" 				type="statement" tooltip="The last statement of the body, or undefined if it has no statements"/>
-<!-- 		<attribute name="line" 				type="int"/> -->
-<!-- 		<attribute name="endLine" 			type="int"/> -->
- 	</artifact>
-    
+
+    <artifact class="body">
+        <attribute name="lastStmt" type="statement"
+                   tooltip="The last statement of the body, or undefined if it has no statements"/>
+        <!-- 		<attribute name="line" 				type="int"/> -->
+        <!-- 		<attribute name="endLine" 			type="int"/> -->
+    </artifact>
+
     <!-- localVariable -->
     <artifact class="localVariable" default="name">
-        <attribute name="name"				type="String"/>
-        <attribute name="type"				type="String"/>
-        <attribute name="typeReference"		type="typeReference"/>
-        <!-- <attribute name="typeJp"			type="type"/>	 -->	
-        <attribute name="isArray"			type="Boolean"/>
-        <attribute name="isPrimitive"		type="Boolean"/>
-        <attribute name="completeType"		type="String"/>	
-        <attribute name="init"				type="expression" tooltip="Initialization of this variable, if present, or undefined of unintialized">
-            <def/>
-        </attribute>	
-    </artifact>
-    
-    <artifact class="literal" default="value">
-        <attribute name="value"				type="String">
+        <attribute name="name" type="String"/>
+        <attribute name="type" type="String"/>
+        <attribute name="typeReference" type="typeReference"/>
+        <!-- <attribute name="typeJp"			type="type"/>	 -->
+        <attribute name="isArray" type="Boolean"/>
+        <attribute name="isPrimitive" type="Boolean"/>
+        <attribute name="completeType" type="String"/>
+        <attribute name="init" type="expression"
+                   tooltip="Initialization of this variable, if present, or undefined of unintialized">
             <def/>
         </attribute>
     </artifact>
-    
-    
-    <!-- DECLARATION -->
-    <artifact class="declaration" default="name">
-        <attribute name="name"				type="String"/>
-        <attribute name="type"				type="String"/>
-        <attribute name="typeReference"		type="typeReference"/>
-        <attribute name="isArray"			type="Boolean"/>
-        <attribute name="isPrimitive"		type="Boolean"/>
-        <attribute name="completeType"		type="String"/>	
-        <attribute name="init" 				type="expression">
+
+    <artifact class="literal" default="value">
+        <attribute name="value" type="String">
             <def/>
-        </attribute>		
-    </artifact>
-    
-    <!-- STATEMENT -->	
-    <artifact class="statement" default="kind">
-        <attribute name="kind"			type="string"/>
-        <!--  <attribute name="line"				type="int"/> -->
-        <attribute name="endLine"			type="int"/> 
-    </artifact>
-    
-    <artifact class="callStatement">
-        <attribute name="call"			type="call"/>
-    </artifact>	
-    
-    
-    <!-- LOOP -->	
-    <artifact class="loop" default="type">
-<!--    		<attribute name="type"				type="{for,while,do-while,foreach}"/> -->
-        <attribute name="type"				type="LoopType"/>
-        <attribute name="rank" 				type="String"/>
-        <attribute name="nestedLevel"		type="int"/>
-        <attribute name="isInnermost"		type="boolean"/>
-        <attribute name="isOutermost"		type="boolean"/>
-        <attribute name="controlVar"		type="String"/>
-        <attribute name="cond"				type="expression"/>   		
-        <!-- attribute name="line"				type="int"/>
-        <attribute name="endLine"			type="int"/-->   		
+        </attribute>
     </artifact>
 
-    <!-- ARGUMENT -->	
+
+    <!-- DECLARATION -->
+    <artifact class="declaration" default="name">
+        <attribute name="name" type="String"/>
+        <attribute name="type" type="String"/>
+        <attribute name="typeReference" type="typeReference"/>
+        <attribute name="isArray" type="Boolean"/>
+        <attribute name="isPrimitive" type="Boolean"/>
+        <attribute name="completeType" type="String"/>
+        <attribute name="init" type="expression">
+            <def/>
+        </attribute>
+    </artifact>
+
+    <!-- STATEMENT -->
+    <artifact class="statement" default="kind">
+        <attribute name="kind" type="string"/>
+        <!--  <attribute name="line"				type="int"/> -->
+        <attribute name="endLine" type="int"/>
+    </artifact>
+
+    <artifact class="callStatement">
+        <attribute name="call" type="call"/>
+    </artifact>
+
+
+    <!-- LOOP -->
+    <artifact class="loop" default="type">
+        <!--    		<attribute name="type"				type="{for,while,do-while,foreach}"/> -->
+        <attribute name="type" type="LoopType"/>
+        <attribute name="rank" type="String"/>
+        <attribute name="nestedLevel" type="int"/>
+        <attribute name="isInnermost" type="boolean"/>
+        <attribute name="isOutermost" type="boolean"/>
+        <attribute name="controlVar" type="String"/>
+        <attribute name="cond" type="expression"/>
+        <!-- attribute name="line"				type="int"/>
+        <attribute name="endLine"			type="int"/-->
+    </artifact>
+
+    <!-- ARGUMENT -->
     <!-- 
     <artifact class="argument" default="index">
            <attribute name="index"				type="int"/>	
@@ -254,53 +263,56 @@
            <attribute name="expr"				type="expression"/>	
     </artifact>
      -->
-    
-    <!-- IF -->	
+
+    <!-- IF -->
     <artifact class="if">
-<!-- 		<attribute name="line"				type="int"/> -->
-<!--    		<attribute name="endLine"			type="int"/> -->
-        <attribute name="rank" 				type="string"/>
-        <attribute name="cond"				type="expression"/>	<!---->
-        <attribute name="then"				type="body"/>			<!---->
-        <attribute name="else"				type="body"/>			
+        <!-- 		<attribute name="line"				type="int"/> -->
+        <!--    		<attribute name="endLine"			type="int"/> -->
+        <attribute name="rank" type="string"/>
+        <attribute name="cond" type="expression"/>    <!---->
+        <attribute name="then" type="body"/>            <!---->
+        <attribute name="else" type="body"/>
     </artifact>
 
 
-	<artifact class="try">
-   		<attribute name="body" 				type="body"/>
-   		<attribute name="catches" 			type="catch[]"/>   		
-	</artifact>
-	
-	<artifact class="catch">
-   		<attribute name="body" 				type="body"/>
-	</artifact>	
-	
-	
-	<artifact class="switch">
-   		<attribute name="cases" 			type="case[]"/>
-	</artifact>		
+    <artifact class="try">
+        <attribute name="body" type="body"/>
+        <attribute name="catches" type="catch[]"/>
+    </artifact>
 
-	<artifact class="case">
-		<attribute name="expr" 				type="expression" tooltip="the expression associated with this case, of undefined if it is the default case"/>
-   		<attribute name="isDefault" 		type="boolean" tooltip="true if this is the default case, false otherwise"/>
-   		<attribute name="stmts" 			type="statement[]" tooltip="the statements of this case"/>   		
-	</artifact>			
-	
+    <artifact class="catch">
+        <attribute name="body" type="body"/>
+    </artifact>
+
+
+    <artifact class="switch">
+        <attribute name="cases" type="case[]"/>
+    </artifact>
+
+    <artifact class="case">
+        <attribute name="expr" type="expression"
+                   tooltip="the expression associated with this case, of undefined if it is the default case"/>
+        <attribute name="isDefault" type="boolean" tooltip="true if this is the default case, false otherwise"/>
+        <attribute name="stmts" type="statement[]" tooltip="the statements of this case"/>
+    </artifact>
+
     <!-- VAR -->
     <artifact class="var" default="name">
-        <attribute name="name"				type="string"/>
-<!-- 		<attribute name="reference"			type="{read,write,decl}"/>	 -->
-        <attribute name="reference"			type="RefType"/>	
-           <!-- attribute name="type"				type="string"/-->
-        <attribute name="isArray"			type="boolean"/>
-        <attribute name="isPrimitive"		type="boolean"/>
-        <attribute name="isField"			type="boolean"/>
-		<attribute name="inLoopHeader"		type="boolean" tooltip="Equivalent to the global attribute 'isInsideLoopHeader'"/>
-        <attribute name="referenceChain"	type="joinpoint[]" tooltip="the chain of references of this variable (e.g., this.field)"/>		
-        <attribute name="declaration"		type="joinpoint"/>
+        <attribute name="name" type="string"/>
+        <!-- 		<attribute name="reference"			type="{read,write,decl}"/>	 -->
+        <attribute name="reference" type="RefType"/>
+        <!-- attribute name="type"				type="string"/-->
+        <attribute name="isArray" type="boolean"/>
+        <attribute name="isPrimitive" type="boolean"/>
+        <attribute name="isField" type="boolean"/>
+        <attribute name="inLoopHeader" type="boolean"
+                   tooltip="Equivalent to the global attribute 'isInsideLoopHeader'"/>
+        <attribute name="referenceChain" type="joinpoint[]"
+                   tooltip="the chain of references of this variable (e.g., this.field)"/>
+        <attribute name="declaration" type="joinpoint"/>
 
         <!-- <attribute name="modifiers"			type="string[]"/>			 -->
-                    
+
         <!-- <attribute name="num_reads"			type="integer"/>			
         <attribute name="num_writes"		type="integer"/>			
         <attribute name="num_accesses"		type="integer"/>			
@@ -320,140 +332,141 @@
                    
            <attribute name="line"				type="integer"/> -->
     </artifact>
-    
+
     <!-- ANNOTATION -->
     <!-- 
     <artifact class="annotation" default="name">
         <attribute name="name"			type="String"/>
     </artifact>
      -->
-    
+
     <!-- VAR -->
     <artifact class="arrayAccess" default="name">
-        <attribute name="reference"			type="RefType"/>
+        <attribute name="reference" type="RefType"/>
     </artifact>
-    
+
     <!-- CALL -->
     <artifact class="call" default="name">
-        <attribute name="name"				type="string"/>
-        <attribute name="decl"				type="method"/>
-        <attribute name="simpleDecl"		type="string"/>			
-        <attribute name="qualifiedDecl"		type="string"/>	
-        <attribute name="declarator"		type="string"/>
-        <attribute name="executable"		type="string">
-            <def/>
-            <def type="method"/>
-        </attribute>		
-        <attribute name="target"			type="string">
-            <def/>
-            <def type="expression"/>
-        </attribute>
-        <attribute name="targetType"		type="type"/>
-        <attribute name="returnType"		type="string"/>
-        <attribute name="returnTypeJp"		type="typeReference"/>		
+        <attribute name="name" type="string"/>
+        <attribute name="decl" type="method"/>
+        <attribute name="simpleDecl" type="string"/>
+        <attribute name="qualifiedDecl" type="string"/>
+        <attribute name="declarator" type="string"/>
+        <attribute name="executable" type="string"/>
+        <attribute name="target" type="string"/>
+        <attribute name="targetType" type="type"/>
+        <attribute name="returnType" type="string"/>
+        <attribute name="returnTypeJp" type="typeReference"/>
         <!-- <attribute name="arguments"			type="argument[]"/> -->
-        <attribute name="arguments"			type="expression[]">
+        <attribute name="arguments" type="expression[]">
             <def type="expression[]"/>
-        </attribute>		
+        </attribute>
     </artifact>
-    
+
     <!-- NEW -->
     <artifact class="new" default="name">
-        <attribute name="name"				type="string"/>
-        <attribute name="arguments"			type="expression[]">
+        <attribute name="name" type="string"/>
+        <attribute name="arguments" type="expression[]">
             <def type="expression[]"/>
         </attribute>
     </artifact>
-        
+
     <!-- BINARY EXPRESSION -->
-    <artifact class="binaryExpression" 	default="operator">
-        <attribute name="operator"			type="string">
+    <artifact class="binaryExpression" default="operator">
+        <attribute name="operator" type="string">
             <def/>
         </attribute>
-        <attribute name="operands"		type="expression[]"/>
-        <attribute name="lhs"			type="expression"/>
-        <attribute name="rhs"			type="expression"/>
-        
+        <attribute name="operands" type="expression[]"/>
+        <attribute name="lhs" type="expression"/>
+        <attribute name="rhs" type="expression"/>
+
     </artifact>
-    
+
     <!-- UNARY EXPRESSION -->
-    <artifact class="unaryExpression" 	default="operator">
-        <attribute name="operand"			type="expression"/>
-        <attribute name="operator"			type="string">
+    <artifact class="unaryExpression" default="operator">
+        <attribute name="operand" type="expression"/>
+        <attribute name="operator" type="string">
             <def/>
         </attribute>
     </artifact>
 
-    <!-- TERNARY -->	
+    <!-- TERNARY -->
     <artifact class="ternary">
-        <attribute name="condition"		type="expression" tooltip="the condition of the ternary expression"/>
-        <attribute name="cond"			type="expression" tooltip="alias for attribute 'condition'"/>
-        <attribute name="then"				type="expression"/>		
-        <attribute name="else"				type="expression"/>
+        <attribute name="condition" type="expression" tooltip="the condition of the ternary expression"/>
+        <attribute name="cond" type="expression" tooltip="alias for attribute 'condition'"/>
+        <attribute name="then" type="expression"/>
+        <attribute name="else" type="expression"/>
     </artifact>
-    
+
     <!-- ASSIGNMENT -->
-    <artifact class="assignment" 		default="operator">
-        <attribute name="operator"			type="string">
+    <artifact class="assignment" default="operator">
+        <attribute name="operator" type="string">
             <def/>
         </attribute>
-        <attribute name="lhs"				type="expression">
+        <attribute name="lhs" type="expression">
             <def/>
         </attribute>
-        <attribute name="rhs"				type="expression">
+        <attribute name="rhs" type="expression">
             <def/>
-        </attribute>				
+        </attribute>
     </artifact>
-    
+
     <!-- OP_ASSIGNMENT -->
-    <artifact class="opAssignment" 		default="operator">
+    <artifact class="opAssignment" default="operator">
 
     </artifact>
-        
+
     <!-- EXPRESSION -->
-    <artifact class="expression" 		default="exprType">
-        <attribute name="kind"			type="string"/> <!-- literal|binaryExpression|var|arrayAccess|call -->
-        <attribute name="type" 				type="String"/> <!-- int, List,...-->
-        <attribute name="qualifiedType" 	type="String"/> <!-- int, java.util.List,...-->		
-        <attribute name="typeReference" 	type="typeReference"/> <!-- int, List,...-->		
-        <attribute name="test" 				type="int"> <!-- int, List,...-->
+    <artifact class="expression" default="exprType">
+        <attribute name="kind" type="string"/> <!-- literal|binaryExpression|var|arrayAccess|call -->
+        <attribute name="type" type="String"/> <!-- int, List,...-->
+        <attribute name="qualifiedType" type="String"/> <!-- int, java.util.List,...-->
+        <attribute name="typeReference" type="typeReference"/> <!-- int, List,...-->
+        <attribute name="test" type="int"> <!-- int, List,...-->
             <def/>
             <def type="expression"/>
-        </attribute>		
+        </attribute>
     </artifact>
-    
+
     <artifact class="comment" default="type">
-<!-- 		<attribute name="type" 				type="{file,inline,block,javadoc,pragma}"/> int, List,... -->
-        <attribute name="type" 				type="CommentType"/>
-        <attribute name="content"			type="String"/>
+        <!-- 		<attribute name="type" 				type="{file,inline,block,javadoc,pragma}"/> int, List,... -->
+        <attribute name="type" type="CommentType"/>
+        <attribute name="content" type="String"/>
     </artifact>
-    
+
     <artifact class="pragma" default="name">
-        <attribute name="name"			type="String"/>
+        <attribute name="name" type="String"/>
     </artifact>
 
     <!-- REFERENCE -->
     <artifact class="reference" default="name">
-        <attribute name="name"			type="String" tooltip="Name of the element of the reference"/>
-        <attribute name="declaration"	type="joinpoint" tooltip="The element that is being referenced"/>		
+        <attribute name="name" type="String" tooltip="Name of the element of the reference"/>
+        <attribute name="declaration" type="joinpoint" tooltip="The element that is being referenced"/>
         <!-- <attribute name="type"			type="typeReference" tooltip="Type of the element of the reference"/>	 -->
-        <attribute name="type" type="String" tooltip="Type of the element of the reference"/>				
+        <attribute name="type" type="String" tooltip="Type of the element of the reference"/>
     </artifact>
 
     <artifact class="typeReference" default="name">
-        <attribute name="isPrimitive"	type="boolean" tooltip="true if this is a reference to a primitive type, false otherwise"/>		
-        <attribute name="isArray"		type="boolean" tooltip="true if this is a reference to an array type, false otherwise"/>				
-        <attribute name="isNumeric"	type="boolean" tooltip="true if this is a reference to a numeric type, primitive or class (i.e., byte, Byte, char, Character, short, Short, int, Integer, long, Long, float, Float, double and Double)"/>		
-        <attribute name="isBoolean"	type="boolean" tooltip="true if this is a reference to a boolean type, primitive or class (i.e., boolean, Boolean)"/>		
-        <attribute name="package"		type="String" tooltip="package name of this type"/>
-        <attribute name="packageNames"	type="String[]" tooltip="the package name of this type as an array, where each element is a part of the package"/>   		
-        <attribute name="qualifiedName"	type="String" tooltip="fully qualified name of the type"/>
+        <attribute name="isPrimitive" type="boolean"
+                   tooltip="true if this is a reference to a primitive type, false otherwise"/>
+        <attribute name="isArray" type="boolean"
+                   tooltip="true if this is a reference to an array type, false otherwise"/>
+        <attribute name="isNumeric" type="boolean"
+                   tooltip="true if this is a reference to a numeric type, primitive or class (i.e., byte, Byte, char, Character, short, Short, int, Integer, long, Long, float, Float, double and Double)"/>
+        <attribute name="isBoolean" type="boolean"
+                   tooltip="true if this is a reference to a boolean type, primitive or class (i.e., boolean, Boolean)"/>
+        <attribute name="packageName" type="String" tooltip="package name of this type"/>
+        <attribute name="packageNames" type="String[]"
+                   tooltip="the package name of this type as an array, where each element is a part of the package"/>
+        <attribute name="qualifiedName" type="String" tooltip="fully qualified name of the type"/>
     </artifact>
 
+    <!--
     <typedef name="Pair">
         <attribute name="left"				type="string"/>
         <attribute name="right"				type="string"/>
     </typedef>
+    -->
     <enum name="LoopType">
         <value name="FOR" string="for"/>
         <value name="FOREACH" string="foreach"/>
@@ -473,13 +486,13 @@
         <value name="READWRITE" string="readwrite"/>
         <value name="DECL" string="decl"/>
     </enum>
-        <!-- PACKAGE -->
-<!-- 	<artifact class="package" default="name"> -->
-<!-- 		<attribute name="name"  type="String"/>	 -->
-<!-- 		<attribute name="numClasses"	type="int"/> -->
-<!-- 		<attribute name="numInterfaces"	type="int"/> -->
-<!-- 		<attribute name="numInnerClasses"	type="int"/> -->
-<!-- 		<attribute name="numInnerInterfaces"	type="int"/> -->
-<!-- 		<attribute name="numInnerPackages"	type="int"/> -->
-<!-- 	</artifact> -->
+    <!-- PACKAGE -->
+    <!-- 	<artifact class="package" default="name"> -->
+    <!-- 		<attribute name="name"  type="String"/>	 -->
+    <!-- 		<attribute name="numClasses"	type="int"/> -->
+    <!-- 		<attribute name="numInterfaces"	type="int"/> -->
+    <!-- 		<attribute name="numInnerClasses"	type="int"/> -->
+    <!-- 		<attribute name="numInnerInterfaces"	type="int"/> -->
+    <!-- 		<attribute name="numInnerPackages"	type="int"/> -->
+    <!-- 	</artifact> -->
 </artifacts>

@@ -1,11 +1,9 @@
-laraImport("lara.code.TimerBase");
-laraImport("lara.code.Logger");
+import TimerBase from "@specs-feup/lara/api/lara/code/TimerBase.js";
+import IdGenerator from "@specs-feup/lara/api/lara/util/IdGenerator.js";
+import Platforms from "@specs-feup/lara/api/lara/Platforms.js";
+import Logger from "./Logger.js";
 
-laraImport("lara.util.IdGenerator");
-laraImport("lara.Platforms");
-laraImport("lara.util.TimeUnits");
-
-class Timer extends TimerBase {
+export default class Timer extends TimerBase {
     time($start, prefix, $end) {
         if (!this._timeValidate($start, $end, "executable")) {
             return;

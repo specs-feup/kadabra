@@ -46,7 +46,7 @@ public class JavaIssueTest {
     public void testInnerClassMethod() {
         newTester()
                 .set(JavaWeaverKeys.NO_CLASSPATH)
-                .test("IssueInnerClass.js", "Muscle.java.test");
+                .test("IssueInnerClass.mjs", "Muscle.java.test");
     }
 
 }

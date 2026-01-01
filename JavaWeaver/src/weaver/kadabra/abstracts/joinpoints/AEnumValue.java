@@ -456,6 +456,15 @@ public abstract class AEnumValue extends AField {
 
     /**
      * 
+     * @param modifiers 
+     */
+    @Override
+    public void setModifiersImpl(String[] modifiers) {
+        this.aField.setModifiersImpl(modifiers);
+    }
+
+    /**
+     * 
      */
     @Override
     public Optional<? extends AField> getSuper() {

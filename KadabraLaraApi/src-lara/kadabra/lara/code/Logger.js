@@ -1,9 +1,9 @@
-laraImport("lara.code.LoggerBase");
-laraImport("lara.util.PrintOnce");
+import PrintOnce from "@specs-feup/lara/api/lara/util/PrintOnce.js";
+import LoggerBase from "@specs-feup/lara/api/lara/code/LoggerBase.js";
 
-class Logger extends LoggerBase {
+export default class Logger extends LoggerBase {
     constructor(isGlobal = false, filename = undefined) {
-		super(isGlobal, filename);
+        super(isGlobal, filename);
 
         /**
          * Redefines print format flags according to Java standard

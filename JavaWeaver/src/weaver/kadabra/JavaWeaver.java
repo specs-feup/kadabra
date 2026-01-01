@@ -1,6 +1,5 @@
 package weaver.kadabra;
 
-import kadabra.resources.KadabraAPIResources;
 import kadabra.resources.LaraAPIResources;
 import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecutor;
@@ -11,10 +10,12 @@ import org.lara.interpreter.weaver.interf.AGear;
 import org.lara.interpreter.weaver.interf.JoinPoint;
 import org.lara.interpreter.weaver.options.WeaverOption;
 import org.lara.interpreter.weaver.options.WeaverOptionBuilder;
+import org.lara.interpreter.weaver.utils.LaraResourceProvider;
 import org.lara.language.specification.dsl.LanguageSpecification;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.jadx.DecompilationFailedException;
 import pt.up.fe.specs.jadx.SpecsJadx;
+import pt.up.fe.specs.kadabra.weaver.KadabraApiJsResource;
 import pt.up.fe.specs.kadabra.weaver.LaraCoreApiResource;
 import pt.up.fe.specs.kadabra.weaver.LaraWeaverApiResource;
 import pt.up.fe.specs.lara.lcl.LaraCommonLanguageApiResource;
@@ -68,6 +69,9 @@ public class JavaWeaver extends AJavaWeaver {
         KadabraLog.setDebug(true);
     }
 
+    private static final String KADABRA_API_NAME = "@specs-feup/kadabra";
+
+
     // private static final Set<String> WEAVER_NAMES = SpecsCollections.asSet("kadabra");
     private static final Set<String> LANGUAGES = SpecsCollections.asSet("java");
 
@@ -109,6 +113,11 @@ public class JavaWeaver extends AJavaWeaver {
      */
     @Override
     public boolean begin(List<File> sources, File outputDir, DataStore args) {
+        // Add 'woven_code' to the end of the outputDir
+        if (args.get(JavaWeaverKeys.WOVEN_FOLDER)) {
+            outputDir = new File(outputDir, "woven_code");
+        }
+
         this.args = args;
         classPath = new ArrayList<>();
         this.outputDir = outputDir;
@@ -595,14 +604,24 @@ public class JavaWeaver extends AJavaWeaver {
     }
 
     @Override
+    public String getWeaverApiName() {
+        return KADABRA_API_NAME;
+    }
+
+    @Override
     public List<ResourceProvider> getAspectsAPI() {
         // TODO: refactor in a similar to Clava, which uses .getApis() function
         return ResourceProvider.getResourcesFromEnum(
-                Arrays.asList(LaraAPIResources.class, LaraCommonLanguageApiResource.class, KadabraAPIResources.class,
+                Arrays.asList(LaraAPIResources.class, LaraCommonLanguageApiResource.class,
                         LaraCoreApiResource.class,
                         LaraWeaverApiResource.class));
 
         // return ResourceProvider.getResources(LaraAPIResources.class);
+    }
+
+    @Override
+    protected List<LaraResourceProvider> getWeaverNpmResources() {
+        return Arrays.asList(KadabraApiJsResource.values());
     }
 
     private void callAstyle() {

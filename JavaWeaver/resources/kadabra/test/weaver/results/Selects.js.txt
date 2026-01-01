@@ -1,0 +1,33 @@
+New expr: new String("hello")
+New expr: new String("World")
+New expr: new String("Bye")
+{
+    /**
+     * Inserted by Kadabra
+     */
+    // Comment1;
+    String b = new String("bodyTest");
+}
+{
+    /**
+     * Inserted by Kadabra
+     */
+    // Comment2;
+}
+Param b
+Param is primitive? true
+Param f
+Param is primitive? true
+Return is primitive? true
+Param b
+Param is primitive? false
+Param f
+Param is primitive? false
+Return is primitive? false
+a ? 1 : 0
+Statements test
+body
+callStatement
+assignment
+body
+callStatement

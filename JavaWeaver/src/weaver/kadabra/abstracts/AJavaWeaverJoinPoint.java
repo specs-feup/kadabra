@@ -1,18 +1,8 @@
 package weaver.kadabra.abstracts;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
+import com.google.common.base.Preconditions;
 import org.lara.interpreter.weaver.interf.JoinPoint;
 import org.lara.interpreter.weaver.interf.SelectOp;
-
-import com.google.common.base.Preconditions;
-
 import pt.up.fe.specs.util.SpecsEnums;
 import pt.up.fe.specs.util.SpecsLogs;
 import pt.up.fe.specs.util.exceptions.NotImplementedException;
@@ -21,30 +11,20 @@ import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.CtLoop;
 import spoon.reflect.code.CtStatement;
 import spoon.reflect.cu.SourcePosition;
-import spoon.reflect.declaration.CtAnnotation;
-import spoon.reflect.declaration.CtElement;
-import spoon.reflect.declaration.CtExecutable;
-import spoon.reflect.declaration.CtType;
-import spoon.reflect.declaration.ModifierKind;
+import spoon.reflect.declaration.*;
 import weaver.kadabra.JavaWeaver;
-import weaver.kadabra.abstracts.joinpoints.AAnnotation;
-import weaver.kadabra.abstracts.joinpoints.ACallStatement;
-import weaver.kadabra.abstracts.joinpoints.AExecutable;
-import weaver.kadabra.abstracts.joinpoints.AExpression;
-import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
-import weaver.kadabra.abstracts.joinpoints.AStatement;
-import weaver.kadabra.abstracts.joinpoints.AType;
+import weaver.kadabra.abstracts.joinpoints.*;
 import weaver.kadabra.spoon.extensions.launcher.JWEnvironment;
 import weaver.kadabra.util.KadabraLog;
 import weaver.utils.JoinPoints;
 import weaver.utils.SpoonUtils;
 import weaver.utils.weaving.ActionUtils;
 import weaver.utils.weaving.SelectUtils;
-import weaver.utils.weaving.converters.CtElement2JoinPoint;
-import weaver.utils.weaving.converters.CtExecutable2AExecutable;
-import weaver.utils.weaving.converters.CtExpression2AExpression;
-import weaver.utils.weaving.converters.CtStatement2AStatement;
-import weaver.utils.weaving.converters.CtType2AType;
+import weaver.utils.weaving.converters.*;
+
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Abstract class which can be edited by the developer. This class will not be overwritten.
@@ -54,6 +34,17 @@ import weaver.utils.weaving.converters.CtType2AType;
 public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
 
     // public static final Map<CtElement, CtElement> CLONED_NODES = new HashMap<>();
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof JoinPoint jp) {
+            return same(jp);
+        }
+
+        return false;
+    }
+
 
     /**
      * Compares the two join points based on their node reference of the used compiler/parsing tool.<br>
@@ -167,7 +158,6 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
     }
 
     /**
-     *
      * @param ancestorType
      * @return
      */
@@ -512,7 +502,7 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
     // }
 
     /**
-     * 
+     *
      */
     @Override
     public String[] getModifiersArrayImpl() {
@@ -560,7 +550,9 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
     @Override
     public Boolean getIsStaticImpl() {
         return SpoonUtils.getModifiers(getNode()).contains(ModifierKind.STATIC);
-    };
+    }
+
+    ;
 
     @Override
     public AAnnotation[] getAnnotationsArrayImpl() {
@@ -667,6 +659,28 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
             SpecsLogs.debug(() -> "Could not remove modifier '" + modifier + "', not present in node");
         }
 
+    }
+
+    @Override
+    public void setModifiersImpl(String[] modifiers) {
+        
+        Set<ModifierKind> modifiersSet = new HashSet<>();
+        
+        for (String modifier : modifiers) {
+            // Convert modifier to enum
+            var modifierEnum = SpecsEnums.valueOfTry(ModifierKind.class, modifier.toUpperCase());
+            
+            if (modifierEnum.isEmpty()) {
+                SpecsLogs.info("Could not obtain modifier from string '" + modifier + "'. Available modifiers: "
+                + Arrays.toString(ModifierKind.values()));
+                return;
+            }
+            
+            // Add modifier to modifiersSet
+            modifiersSet.add(modifierEnum.get());
+        }
+        
+        SpoonUtils.setModifiers(getNode(), modifiersSet);
     }
 
     @Override

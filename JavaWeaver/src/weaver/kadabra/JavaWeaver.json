@@ -361,6 +361,19 @@
 										"name": "code",
 										"defaultValue": ""
 									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
+										"defaultValue": ""
+									}]
 					}]
 		},
 		{
@@ -415,7 +428,7 @@
 						"children": [
 									{
 										"type": "String",
-										"name": "package"
+										"name": "packageName"
 									}]
 					},
 					{
@@ -790,6 +803,19 @@
 										"name": "code",
 										"defaultValue": ""
 									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
+										"defaultValue": ""
+									}]
 					}]
 		},
 		{
@@ -818,7 +844,7 @@
 						"children": [
 									{
 										"type": "xmlElement[]",
-										"name": "elements"
+										"name": "elementsByName"
 									},
 									{
 										"type": "String",
@@ -1207,6 +1233,19 @@
 										"name": "code",
 										"defaultValue": ""
 									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
+										"defaultValue": ""
+									}]
 					}]
 		},
 		{
@@ -1504,12 +1543,12 @@
 									{
 										"type": "statement",
 										"name": "location",
-										"defaultValue": "null"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
 										"name": "position",
-										"defaultValue": "before"
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -1655,6 +1694,19 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
 										"defaultValue": ""
 									}]
 					}]
@@ -2083,6 +2135,19 @@
 										"name": "code",
 										"defaultValue": ""
 									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
+										"defaultValue": ""
+									}]
 					}]
 		},
 		{
@@ -2373,8 +2438,8 @@
 										"defaultValue": ""
 									},
 									{
-										"type": "interface",
-										"name": "interface",
+										"type": "interfaceType",
+										"name": "interfaceType",
 										"defaultValue": ""
 									},
 									{
@@ -2403,7 +2468,7 @@
 									{
 										"type": "String[]",
 										"name": "implement",
-										"defaultValue": "[]"
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -2423,7 +2488,7 @@
 						"type": "action",
 						"children": [
 									{
-										"type": "interface",
+										"type": "interfaceType",
 										"name": "newInterface"
 									},
 									{
@@ -2434,14 +2499,14 @@
 									{
 										"type": "String[]",
 										"name": "extend",
-										"defaultValue": "[]"
+										"defaultValue": ""
 									}]
 					},
 					{
 						"type": "action",
 						"children": [
 									{
-										"type": "interface",
+										"type": "interfaceType",
 										"name": "newInterface"
 									},
 									{
@@ -2593,6 +2658,19 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
 										"defaultValue": ""
 									}]
 					}]
@@ -2910,12 +2988,12 @@
 									{
 										"type": "statement",
 										"name": "location",
-										"defaultValue": "null"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
 										"name": "position",
-										"defaultValue": "before"
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -3061,6 +3139,19 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
 										"defaultValue": ""
 									}]
 					}]
@@ -3459,6 +3550,19 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
 										"defaultValue": ""
 									}]
 					}]
@@ -3909,6 +4013,19 @@
 										"name": "code",
 										"defaultValue": ""
 									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
+										"defaultValue": ""
+									}]
 					}]
 		},
 		{
@@ -4266,12 +4383,12 @@
 									{
 										"type": "statement",
 										"name": "location",
-										"defaultValue": "null"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
 										"name": "position",
-										"defaultValue": "before"
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -4417,6 +4534,19 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
 										"defaultValue": ""
 									}]
 					}]
@@ -4897,6 +5027,19 @@
 										"name": "code",
 										"defaultValue": ""
 									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
+										"defaultValue": ""
+									}]
 					}]
 		},
 		{
@@ -5283,6 +5426,19 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
 										"defaultValue": ""
 									}]
 					}]
@@ -5713,6 +5869,45 @@
 						"type": "action",
 						"children": [
 									{
+										"type": "call",
+										"name": "setExecutable"
+									},
+									{
+										"type": "method",
+										"name": "executable",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "call",
+										"name": "setTarget"
+									},
+									{
+										"type": "expression",
+										"name": "target",
+										"defaultValue": "null"
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "call",
+										"name": "setTarget"
+									},
+									{
+										"type": "String",
+										"name": "target",
+										"defaultValue": "null"
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
 										"type": "void",
 										"name": "extract"
 									},
@@ -5724,12 +5919,12 @@
 									{
 										"type": "statement",
 										"name": "location",
-										"defaultValue": "null"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
 										"name": "position",
-										"defaultValue": "before"
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -5875,6 +6070,19 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
 										"defaultValue": ""
 									}]
 					}]
@@ -6271,6 +6479,19 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
 										"defaultValue": ""
 									}]
 					}]
@@ -6708,6 +6929,19 @@
 										"name": "code",
 										"defaultValue": ""
 									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
+										"defaultValue": ""
+									}]
 					}]
 		},
 		{
@@ -7077,6 +7311,19 @@
 										"name": "code",
 										"defaultValue": ""
 									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
+										"defaultValue": ""
+									}]
 					}]
 		},
 		{
@@ -7108,7 +7355,7 @@
 						"tooltip": "returns the interface join points that this class implements",
 						"children": [
 									{
-										"type": "interface[]",
+										"type": "interfaceType[]",
 										"name": "interfacesTypes"
 									}]
 					},
@@ -7149,7 +7396,7 @@
 						"children": [
 									{
 										"type": "String",
-										"name": "package"
+										"name": "packageName"
 									}]
 					},
 					{
@@ -7438,7 +7685,7 @@
 						"type": "action",
 						"children": [
 									{
-										"type": "interface",
+										"type": "interfaceType",
 										"name": "extractInterface"
 									},
 									{
@@ -7448,13 +7695,13 @@
 									},
 									{
 										"type": "String",
-										"name": "package",
+										"name": "packageName",
 										"defaultValue": ""
 									},
 									{
 										"type": "method",
 										"name": "method",
-										"defaultValue": "null"
+										"defaultValue": ""
 									},
 									{
 										"type": "boolean",
@@ -7498,8 +7745,8 @@
 										"defaultValue": ""
 									},
 									{
-										"type": "interface",
-										"name": "interface",
+										"type": "interfaceType",
+										"name": "interfaceType",
 										"defaultValue": ""
 									},
 									{
@@ -7521,8 +7768,13 @@
 										"defaultValue": "['public']"
 									},
 									{
-										"type": "Pair[]",
-										"name": "param",
+										"type": "String[]",
+										"name": "paramLeft",
+										"defaultValue": "[]"
+									},
+									{
+										"type": "String[]",
+										"name": "paramRight",
 										"defaultValue": "[]"
 									}]
 					},
@@ -7566,8 +7818,8 @@
 										"name": "addImplement"
 									},
 									{
-										"type": "interface",
-										"name": "interface",
+										"type": "interfaceType",
+										"name": "interfaceType",
 										"defaultValue": ""
 									}]
 					},
@@ -7579,7 +7831,7 @@
 										"name": "addInterface"
 									},
 									{
-										"type": "interface",
+										"type": "interfaceType",
 										"name": "newInterface",
 										"defaultValue": ""
 									}]
@@ -7620,7 +7872,7 @@
 									{
 										"type": "String[]",
 										"name": "modifiers",
-										"defaultValue": "['private']"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -7648,7 +7900,7 @@
 									{
 										"type": "String[]",
 										"name": "modifiers",
-										"defaultValue": "['private']"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -7672,7 +7924,7 @@
 									{
 										"type": "String[]",
 										"name": "modifiers",
-										"defaultValue": "['public']"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -7685,9 +7937,14 @@
 										"defaultValue": ""
 									},
 									{
-										"type": "Pair[]",
-										"name": "param",
-										"defaultValue": "[]"
+										"type": "String[]",
+										"name": "paramLeft",
+										"defaultValue": ""
+									},
+									{
+										"type": "String[]",
+										"name": "paramRight",
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -7706,7 +7963,7 @@
 									{
 										"type": "String[]",
 										"name": "modifiers",
-										"defaultValue": "['public']"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -7719,16 +7976,21 @@
 										"defaultValue": ""
 									},
 									{
-										"type": "Pair[]",
-										"name": "param",
-										"defaultValue": "[]"
+										"type": "String[]",
+										"name": "paramLeft",
+										"defaultValue": ""
+									},
+									{
+										"type": "String[]",
+										"name": "paramRight",
+										"defaultValue": ""
 									}]
 					},
 					{
 						"type": "action",
 						"children": [
 									{
-										"type": "interface",
+										"type": "interfaceType",
 										"name": "removeInterface"
 									},
 									{
@@ -7880,6 +8142,19 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
 										"defaultValue": ""
 									}]
 					}]
@@ -8284,6 +8559,19 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
 										"defaultValue": ""
 									}]
 					}]
@@ -8720,6 +9008,19 @@
 										"name": "code",
 										"defaultValue": ""
 									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
+										"defaultValue": ""
+									}]
 					}]
 		},
 		{
@@ -9106,6 +9407,19 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
 										"defaultValue": ""
 									}]
 					}]
@@ -9544,6 +9858,19 @@
 										"name": "code",
 										"defaultValue": ""
 									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
+										"defaultValue": ""
+									}]
 					}]
 		},
 		{
@@ -9574,7 +9901,7 @@
 						"tooltip": "returns the interface join points that this class implements",
 						"children": [
 									{
-										"type": "interface[]",
+										"type": "interfaceType[]",
 										"name": "interfacesTypes"
 									}]
 					},
@@ -9615,7 +9942,7 @@
 						"children": [
 									{
 										"type": "String",
-										"name": "package"
+										"name": "packageName"
 									}]
 					},
 					{
@@ -9909,7 +10236,7 @@
 						"type": "action",
 						"children": [
 									{
-										"type": "interface",
+										"type": "interfaceType",
 										"name": "extractInterface"
 									},
 									{
@@ -9919,13 +10246,13 @@
 									},
 									{
 										"type": "String",
-										"name": "package",
+										"name": "packageName",
 										"defaultValue": ""
 									},
 									{
 										"type": "method",
 										"name": "method",
-										"defaultValue": "null"
+										"defaultValue": ""
 									},
 									{
 										"type": "boolean",
@@ -9969,8 +10296,8 @@
 										"defaultValue": ""
 									},
 									{
-										"type": "interface",
-										"name": "interface",
+										"type": "interfaceType",
+										"name": "interfaceType",
 										"defaultValue": ""
 									},
 									{
@@ -9992,8 +10319,13 @@
 										"defaultValue": "['public']"
 									},
 									{
-										"type": "Pair[]",
-										"name": "param",
+										"type": "String[]",
+										"name": "paramLeft",
+										"defaultValue": "[]"
+									},
+									{
+										"type": "String[]",
+										"name": "paramRight",
 										"defaultValue": "[]"
 									}]
 					},
@@ -10037,8 +10369,8 @@
 										"name": "addImplement"
 									},
 									{
-										"type": "interface",
-										"name": "interface",
+										"type": "interfaceType",
+										"name": "interfaceType",
 										"defaultValue": ""
 									}]
 					},
@@ -10050,7 +10382,7 @@
 										"name": "addInterface"
 									},
 									{
-										"type": "interface",
+										"type": "interfaceType",
 										"name": "newInterface",
 										"defaultValue": ""
 									}]
@@ -10091,7 +10423,7 @@
 									{
 										"type": "String[]",
 										"name": "modifiers",
-										"defaultValue": "['private']"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -10119,7 +10451,7 @@
 									{
 										"type": "String[]",
 										"name": "modifiers",
-										"defaultValue": "['private']"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -10143,7 +10475,7 @@
 									{
 										"type": "String[]",
 										"name": "modifiers",
-										"defaultValue": "['public']"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -10156,9 +10488,14 @@
 										"defaultValue": ""
 									},
 									{
-										"type": "Pair[]",
-										"name": "param",
-										"defaultValue": "[]"
+										"type": "String[]",
+										"name": "paramLeft",
+										"defaultValue": ""
+									},
+									{
+										"type": "String[]",
+										"name": "paramRight",
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -10177,7 +10514,7 @@
 									{
 										"type": "String[]",
 										"name": "modifiers",
-										"defaultValue": "['public']"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -10190,16 +10527,21 @@
 										"defaultValue": ""
 									},
 									{
-										"type": "Pair[]",
-										"name": "param",
-										"defaultValue": "[]"
+										"type": "String[]",
+										"name": "paramLeft",
+										"defaultValue": ""
+									},
+									{
+										"type": "String[]",
+										"name": "paramRight",
+										"defaultValue": ""
 									}]
 					},
 					{
 						"type": "action",
 						"children": [
 									{
-										"type": "interface",
+										"type": "interfaceType",
 										"name": "removeInterface"
 									},
 									{
@@ -10351,6 +10693,19 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
 										"defaultValue": ""
 									}]
 					}]
@@ -10805,6 +11160,19 @@
 										"name": "code",
 										"defaultValue": ""
 									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
+										"defaultValue": ""
+									}]
 					}]
 		},
 		{
@@ -11231,6 +11599,19 @@
 										"name": "code",
 										"defaultValue": ""
 									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
+										"defaultValue": ""
+									}]
 					}]
 		},
 		{
@@ -11528,12 +11909,12 @@
 									{
 										"type": "statement",
 										"name": "location",
-										"defaultValue": "null"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
 										"name": "position",
-										"defaultValue": "before"
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -11679,6 +12060,19 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
 										"defaultValue": ""
 									}]
 					}]
@@ -12133,6 +12527,19 @@
 										"name": "code",
 										"defaultValue": ""
 									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
+										"defaultValue": ""
+									}]
 					}]
 		},
 		{
@@ -12496,12 +12903,12 @@
 									{
 										"type": "statement",
 										"name": "location",
-										"defaultValue": "null"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
 										"name": "position",
-										"defaultValue": "before"
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -12649,6 +13056,19 @@
 										"name": "code",
 										"defaultValue": ""
 									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
+										"defaultValue": ""
+									}]
 					}]
 		},
 		{
@@ -12704,7 +13124,7 @@
 						"children": [
 									{
 										"type": "String",
-										"name": "package"
+										"name": "packageName"
 									}]
 					},
 					{
@@ -12938,7 +13358,7 @@
 					},
 					{
 						"type": "select",
-						"clazz": "interface",
+						"clazz": "interfaceType",
 						"alias": "",
 						"tooltip": "Represents Java interfaces"
 					},
@@ -12989,7 +13409,7 @@
 										"name": "addInterface"
 									},
 									{
-										"type": "interface",
+										"type": "interfaceType",
 										"name": "newInterface",
 										"defaultValue": ""
 									}]
@@ -13012,8 +13432,8 @@
 										"defaultValue": ""
 									},
 									{
-										"type": "interface",
-										"name": "interface",
+										"type": "interfaceType",
+										"name": "interfaceType",
 										"defaultValue": ""
 									},
 									{
@@ -13042,7 +13462,7 @@
 									{
 										"type": "String[]",
 										"name": "implement",
-										"defaultValue": "[]"
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -13062,7 +13482,7 @@
 						"type": "action",
 						"children": [
 									{
-										"type": "interface",
+										"type": "interfaceType",
 										"name": "newInterface"
 									},
 									{
@@ -13073,14 +13493,14 @@
 									{
 										"type": "String[]",
 										"name": "extend",
-										"defaultValue": "[]"
+										"defaultValue": ""
 									}]
 					},
 					{
 						"type": "action",
 						"children": [
 									{
-										"type": "interface",
+										"type": "interfaceType",
 										"name": "newInterface"
 									},
 									{
@@ -13093,7 +13513,7 @@
 						"type": "action",
 						"children": [
 									{
-										"type": "interface",
+										"type": "interfaceType",
 										"name": "removeInterface"
 									},
 									{
@@ -13245,6 +13665,19 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
 										"defaultValue": ""
 									}]
 					}]
@@ -13682,11 +14115,24 @@
 										"name": "code",
 										"defaultValue": ""
 									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
+										"defaultValue": ""
+									}]
 					}]
 		},
 		{
 			"type": "joinpoint",
-			"name": "interface",
+			"name": "interfaceType",
 			"defaultAttr": "name",
 			"extends": "type"		,
 			"children": [
@@ -13704,7 +14150,7 @@
 						"tooltip": "returns the interface join points that this class implements",
 						"children": [
 									{
-										"type": "interface[]",
+										"type": "interfaceType[]",
 										"name": "interfacesTypes"
 									}]
 					},
@@ -13745,7 +14191,7 @@
 						"children": [
 									{
 										"type": "String",
-										"name": "package"
+										"name": "packageName"
 									}]
 					},
 					{
@@ -14040,8 +14486,8 @@
 										"name": "addImplement"
 									},
 									{
-										"type": "interface",
-										"name": "interface",
+										"type": "interfaceType",
+										"name": "interfaceType",
 										"defaultValue": ""
 									}]
 					},
@@ -14053,7 +14499,7 @@
 										"name": "addInterface"
 									},
 									{
-										"type": "interface",
+										"type": "interfaceType",
 										"name": "newInterface",
 										"defaultValue": ""
 									}]
@@ -14094,7 +14540,7 @@
 									{
 										"type": "String[]",
 										"name": "modifiers",
-										"defaultValue": "['private']"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -14122,7 +14568,7 @@
 									{
 										"type": "String[]",
 										"name": "modifiers",
-										"defaultValue": "['private']"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -14146,7 +14592,7 @@
 									{
 										"type": "String[]",
 										"name": "modifiers",
-										"defaultValue": "['public']"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -14159,9 +14605,14 @@
 										"defaultValue": ""
 									},
 									{
-										"type": "Pair[]",
-										"name": "param",
-										"defaultValue": "[]"
+										"type": "String[]",
+										"name": "paramLeft",
+										"defaultValue": ""
+									},
+									{
+										"type": "String[]",
+										"name": "paramRight",
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -14180,7 +14631,7 @@
 									{
 										"type": "String[]",
 										"name": "modifiers",
-										"defaultValue": "['public']"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -14193,16 +14644,21 @@
 										"defaultValue": ""
 									},
 									{
-										"type": "Pair[]",
-										"name": "param",
-										"defaultValue": "[]"
+										"type": "String[]",
+										"name": "paramLeft",
+										"defaultValue": ""
+									},
+									{
+										"type": "String[]",
+										"name": "paramRight",
+										"defaultValue": ""
 									}]
 					},
 					{
 						"type": "action",
 						"children": [
 									{
-										"type": "interface",
+										"type": "interfaceType",
 										"name": "removeInterface"
 									},
 									{
@@ -14356,6 +14812,19 @@
 										"name": "code",
 										"defaultValue": ""
 									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
+										"defaultValue": ""
+									}]
 					}]
 		},
 		{
@@ -14411,7 +14880,7 @@
 						"children": [
 									{
 										"type": "String",
-										"name": "package"
+										"name": "packageName"
 									}]
 					},
 					{
@@ -14790,6 +15259,19 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
 										"defaultValue": ""
 									}]
 					}]
@@ -15186,6 +15668,19 @@
 										"name": "code",
 										"defaultValue": ""
 									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
+										"defaultValue": ""
+									}]
 					}]
 		},
 		{
@@ -15504,12 +15999,12 @@
 									{
 										"type": "statement",
 										"name": "location",
-										"defaultValue": "null"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
 										"name": "position",
-										"defaultValue": "before"
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -15655,6 +16150,19 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
 										"defaultValue": ""
 									}]
 					}]
@@ -16120,6 +16628,19 @@
 										"name": "code",
 										"defaultValue": ""
 									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
+										"defaultValue": ""
+									}]
 					}]
 		},
 		{
@@ -16477,7 +16998,7 @@
 									{
 										"type": "boolean",
 										"name": "unique",
-										"defaultValue": "true"
+										"defaultValue": ""
 									},
 									{
 										"type": "joinpoint",
@@ -16641,6 +17162,19 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
 										"defaultValue": ""
 									}]
 					}]
@@ -17176,6 +17710,19 @@
 										"name": "code",
 										"defaultValue": ""
 									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
+										"defaultValue": ""
+									}]
 					}]
 		},
 		{
@@ -17502,12 +18049,12 @@
 									{
 										"type": "statement",
 										"name": "location",
-										"defaultValue": "null"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
 										"name": "position",
-										"defaultValue": "before"
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -17653,6 +18200,19 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
 										"defaultValue": ""
 									}]
 					}]
@@ -18116,6 +18676,19 @@
 										"name": "code",
 										"defaultValue": ""
 									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
+										"defaultValue": ""
+									}]
 					}]
 		},
 		{
@@ -18528,6 +19101,19 @@
 										"name": "code",
 										"defaultValue": ""
 									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
+										"defaultValue": ""
+									}]
 					}]
 		},
 		{
@@ -18918,6 +19504,19 @@
 										"name": "code",
 										"defaultValue": ""
 									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
+										"defaultValue": ""
+									}]
 					}]
 		},
 		{
@@ -19306,6 +19905,19 @@
 										"name": "code",
 										"defaultValue": ""
 									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
+										"defaultValue": ""
+									}]
 					}]
 		},
 		{
@@ -19616,12 +20228,12 @@
 									{
 										"type": "statement",
 										"name": "location",
-										"defaultValue": "null"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
 										"name": "position",
-										"defaultValue": "before"
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -19767,6 +20379,19 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
 										"defaultValue": ""
 									}]
 					}]
@@ -20170,6 +20795,19 @@
 										"name": "code",
 										"defaultValue": ""
 									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
+										"defaultValue": ""
+									}]
 					}]
 		},
 		{
@@ -20556,6 +21194,19 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
 										"defaultValue": ""
 									}]
 					}]
@@ -20959,6 +21610,19 @@
 										"name": "code",
 										"defaultValue": ""
 									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
+										"defaultValue": ""
+									}]
 					}]
 		},
 		{
@@ -21305,12 +21969,12 @@
 									{
 										"type": "statement",
 										"name": "location",
-										"defaultValue": "null"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
 										"name": "position",
-										"defaultValue": "before"
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -21456,6 +22120,19 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
 										"defaultValue": ""
 									}]
 					}]
@@ -21755,12 +22432,12 @@
 									{
 										"type": "statement",
 										"name": "location",
-										"defaultValue": "null"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
 										"name": "position",
-										"defaultValue": "before"
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -21906,6 +22583,19 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
 										"defaultValue": ""
 									}]
 					}]
@@ -22304,6 +22994,19 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
 										"defaultValue": ""
 									}]
 					}]
@@ -22715,6 +23418,19 @@
 										"name": "code",
 										"defaultValue": ""
 									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
+										"defaultValue": ""
+									}]
 					}]
 		},
 		{
@@ -22738,7 +23454,7 @@
 						"tooltip": "returns the interface join points that this class implements",
 						"children": [
 									{
-										"type": "interface[]",
+										"type": "interfaceType[]",
 										"name": "interfacesTypes"
 									}]
 					},
@@ -22779,7 +23495,7 @@
 						"children": [
 									{
 										"type": "String",
-										"name": "package"
+										"name": "packageName"
 									}]
 					},
 					{
@@ -23074,8 +23790,8 @@
 										"name": "addImplement"
 									},
 									{
-										"type": "interface",
-										"name": "interface",
+										"type": "interfaceType",
+										"name": "interfaceType",
 										"defaultValue": ""
 									}]
 					},
@@ -23087,7 +23803,7 @@
 										"name": "addInterface"
 									},
 									{
-										"type": "interface",
+										"type": "interfaceType",
 										"name": "newInterface",
 										"defaultValue": ""
 									}]
@@ -23128,7 +23844,7 @@
 									{
 										"type": "String[]",
 										"name": "modifiers",
-										"defaultValue": "['private']"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -23156,7 +23872,7 @@
 									{
 										"type": "String[]",
 										"name": "modifiers",
-										"defaultValue": "['private']"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -23180,7 +23896,7 @@
 									{
 										"type": "String[]",
 										"name": "modifiers",
-										"defaultValue": "['public']"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -23193,9 +23909,14 @@
 										"defaultValue": ""
 									},
 									{
-										"type": "Pair[]",
-										"name": "param",
-										"defaultValue": "[]"
+										"type": "String[]",
+										"name": "paramLeft",
+										"defaultValue": ""
+									},
+									{
+										"type": "String[]",
+										"name": "paramRight",
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -23214,7 +23935,7 @@
 									{
 										"type": "String[]",
 										"name": "modifiers",
-										"defaultValue": "['public']"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
@@ -23227,16 +23948,21 @@
 										"defaultValue": ""
 									},
 									{
-										"type": "Pair[]",
-										"name": "param",
-										"defaultValue": "[]"
+										"type": "String[]",
+										"name": "paramLeft",
+										"defaultValue": ""
+									},
+									{
+										"type": "String[]",
+										"name": "paramRight",
+										"defaultValue": ""
 									}]
 					},
 					{
 						"type": "action",
 						"children": [
 									{
-										"type": "interface",
+										"type": "interfaceType",
 										"name": "removeInterface"
 									},
 									{
@@ -23390,6 +24116,19 @@
 										"name": "code",
 										"defaultValue": ""
 									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
+										"defaultValue": ""
+									}]
 					}]
 		},
 		{
@@ -23441,7 +24180,7 @@
 						"children": [
 									{
 										"type": "String",
-										"name": "package"
+										"name": "packageName"
 									}]
 					},
 					{
@@ -23843,6 +24582,19 @@
 										"name": "code",
 										"defaultValue": ""
 									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
+										"defaultValue": ""
+									}]
 					}]
 		},
 		{
@@ -24175,12 +24927,12 @@
 									{
 										"type": "statement",
 										"name": "location",
-										"defaultValue": "null"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
 										"name": "position",
-										"defaultValue": "before"
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -24326,6 +25078,19 @@
 									{
 										"type": "String",
 										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
 										"defaultValue": ""
 									}]
 					}]
@@ -24691,12 +25456,12 @@
 									{
 										"type": "statement",
 										"name": "location",
-										"defaultValue": "null"
+										"defaultValue": ""
 									},
 									{
 										"type": "String",
 										"name": "position",
-										"defaultValue": "before"
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -24844,6 +25609,19 @@
 										"name": "code",
 										"defaultValue": ""
 									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
+										"defaultValue": ""
+									}]
 					}]
 		},
 		{
@@ -24897,7 +25675,7 @@
 						"children": [
 									{
 										"type": "xmlElement[]",
-										"name": "elements"
+										"name": "elementsByName"
 									},
 									{
 										"type": "String",
@@ -25304,6 +26082,19 @@
 										"name": "code",
 										"defaultValue": ""
 									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
+										"defaultValue": ""
+									}]
 					}]
 		},
 		{
@@ -25324,7 +26115,7 @@
 						"children": [
 									{
 										"type": "xmlElement[]",
-										"name": "elements"
+										"name": "elementsByName"
 									},
 									{
 										"type": "String",
@@ -25713,27 +26504,18 @@
 										"name": "code",
 										"defaultValue": ""
 									}]
-					}]
-		},
-		{
-			"type": "typedef",
-			"name": "Pair"
-			,
-			"children": [
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "String",
-										"name": "left"
-									}]
 					},
 					{
-						"type": "attribute",
+						"type": "action",
 						"children": [
 									{
-										"type": "String",
-										"name": "right"
+										"type": "void",
+										"name": "setModifiers"
+									},
+									{
+										"type": "String[]",
+										"name": "modifiers",
+										"defaultValue": ""
 									}]
 					}]
 		},

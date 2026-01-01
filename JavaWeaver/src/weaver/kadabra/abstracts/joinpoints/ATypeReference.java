@@ -120,23 +120,23 @@ public abstract class ATypeReference extends AReference {
     /**
      * package name of this type
      */
-    public abstract String getPackageImpl();
+    public abstract String getPackageNameImpl();
 
     /**
      * package name of this type
      */
-    public final Object getPackage() {
+    public final Object getPackageName() {
         try {
         	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "package", Optional.empty());
+        		eventTrigger().triggerAttribute(Stage.BEGIN, this, "packageName", Optional.empty());
         	}
-        	String result = this.getPackageImpl();
+        	String result = this.getPackageNameImpl();
         	if(hasListeners()) {
-        		eventTrigger().triggerAttribute(Stage.END, this, "package", Optional.ofNullable(result));
+        		eventTrigger().triggerAttribute(Stage.END, this, "packageName", Optional.ofNullable(result));
         	}
         	return result!=null?result:getUndefinedValue();
         } catch(Exception e) {
-        	throw new AttributeException(get_class(), "package", e);
+        	throw new AttributeException(get_class(), "packageName", e);
         }
     }
 
@@ -549,6 +549,15 @@ public abstract class ATypeReference extends AReference {
 
     /**
      * 
+     * @param modifiers 
+     */
+    @Override
+    public void setModifiersImpl(String[] modifiers) {
+        this.aReference.setModifiersImpl(modifiers);
+    }
+
+    /**
+     * 
      */
     @Override
     public Optional<? extends AReference> getSuper() {
@@ -600,7 +609,7 @@ public abstract class ATypeReference extends AReference {
         attributes.add("isBoolean");
         attributes.add("isNumeric");
         attributes.add("isPrimitive");
-        attributes.add("package");
+        attributes.add("packageName");
         attributes.add("packageNames");
         attributes.add("qualifiedName");
     }
@@ -650,7 +659,7 @@ public abstract class ATypeReference extends AReference {
         ISBOOLEAN("isBoolean"),
         ISNUMERIC("isNumeric"),
         ISPRIMITIVE("isPrimitive"),
-        PACKAGE("package"),
+        PACKAGENAME("packageName"),
         PACKAGENAMES("packageNames"),
         QUALIFIEDNAME("qualifiedName"),
         DECLARATION("declaration"),
