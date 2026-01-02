@@ -39,9 +39,9 @@ dependencies {
     implementation ':LARAI'
     implementation ':WeaverInterface'
 
-    implementation group: 'fr.inria.gforge.spoon', name: 'spoon-core', version: '11.2.1'
-    implementation group: 'com.google.guava', name: 'guava', version: '33.4.0-jre'
-    implementation group: 'org.ow2.asm', name: 'asm', version: '9.8'
+    implementation 'fr.inria.gforge.spoon:spoon-core:11.2.1'
+    implementation 'com.google.guava:guava:33.4.0-jre'
+    implementation 'org.ow2.asm:asm:9.8'
 
     weaverGeneratorRuntime ":WeaverGenerator"
 }
