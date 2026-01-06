@@ -1,11 +1,11 @@
 /**
  * Copyright 2016 SPeCS.
- * 
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- * 
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ * <p>
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License. under the License.
@@ -13,17 +13,9 @@
 
 package weaver.utils.weaving;
 
-import java.io.IOException;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import com.google.common.collect.ImmutableSet;
 import com.google.common.reflect.ClassPath;
 import com.google.common.reflect.ClassPath.ClassInfo;
-
 import pt.up.fe.specs.util.SpecsCollections;
 import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.CtInvocation;
@@ -35,35 +27,37 @@ import weaver.kadabra.abstracts.joinpoints.ACall;
 import weaver.kadabra.abstracts.joinpoints.AExpression;
 import weaver.kadabra.abstracts.joinpoints.AStatement;
 import weaver.kadabra.abstracts.joinpoints.AVar;
-import weaver.kadabra.joinpoints.JApp;
-import weaver.kadabra.joinpoints.JCall;
-import weaver.kadabra.joinpoints.JExpression;
-import weaver.kadabra.joinpoints.JLibClass;
-import weaver.kadabra.joinpoints.JStatement;
-import weaver.kadabra.joinpoints.JVar;
+import weaver.kadabra.joinpoints.*;
 import weaver.kadabra.util.KadabraLog;
 import weaver.utils.scanners.NodeConverter;
 import weaver.utils.scanners.NodeSearcher;
+
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class SelectUtils {
 
     /**
      * Select an element of type J, from a starting element, and convert the element into a join point of type J
-     * 
+     *
      * @param startNode
      * @param searchClass
      * @param converter
      * @return
      */
     public static <J extends CtElement, JP extends AJavaWeaverJoinPoint> List<JP> select(CtElement startNode,
-            Class<J> searchClass, NodeConverter<J, JP> converter) {
+                                                                                         Class<J> searchClass, NodeConverter<J, JP> converter) {
         return SelectUtils.select(startNode, searchClass, converter, Collections.emptyList(), Collections.emptyList());
 
     }
 
     /**
      * Select an element of type J, from a starting element, and convert the element into a join point of type J
-     * 
+     *
      * @param startNode
      * @param searchClass
      * @param converter
@@ -72,15 +66,15 @@ public class SelectUtils {
      * @return
      */
     public static <J extends CtElement, JP extends AJavaWeaverJoinPoint> List<JP> select(CtElement startNode,
-            Class<J> searchClass, NodeConverter<J, JP> converter, Collection<Class<? extends CtElement>> ignore,
-            Collection<Class<? extends CtElement>> prune) {
+                                                                                         Class<J> searchClass, NodeConverter<J, JP> converter, Collection<Class<? extends CtElement>> ignore,
+                                                                                         Collection<Class<? extends CtElement>> prune) {
         return NodeSearcher.searchAndConvert(searchClass, startNode, converter, ignore, prune);
 
     }
 
     /**
      * Convert a list of Spoon nodes to a list of elements of type T
-     * 
+     *
      * @param elements
      * @param converter
      * @return
@@ -96,11 +90,12 @@ public class SelectUtils {
 
     /**
      * Convert a list of {@link CtStatement} to a list of join points of type {@link AStatement}
-     * 
+     *
      * @param elements
      * @param converter
      * @return
      */
+    /*
     public static List<AStatement> statementList2JoinPointList(
             Collection<CtStatement> elements) {
 
@@ -109,9 +104,9 @@ public class SelectUtils {
 
         return joinPoints;
     }
-
+     */
     public static <T extends CtElement, V extends AJavaWeaverJoinPoint> List<V> node2JoinPointList(T element,
-            NodeConverter<T, V> converter) {
+                                                                                                   NodeConverter<T, V> converter) {
 
         final V joinPoint = SelectUtils.node2JoinPoint(element, converter);
         final List<V> joinPoints = SpecsCollections.newArrayList();
@@ -120,15 +115,16 @@ public class SelectUtils {
         return joinPoints;
     }
 
-    public static List<AStatement> statement2JoinPointList(
-            CtStatement statement) {
+    /*
+        public static List<AStatement> statement2JoinPointList(
+                CtStatement statement) {
 
-        final AStatement joinPoint = SelectUtils.statement2JoinPoint(statement);
-        final List<AStatement> joinPoints = SpecsCollections.newArrayList();
-        joinPoints.add(joinPoint);
-        return joinPoints;
-    }
-
+            final AStatement joinPoint = SelectUtils.statement2JoinPoint(statement);
+            final List<AStatement> joinPoints = SpecsCollections.newArrayList();
+            joinPoints.add(joinPoint);
+            return joinPoints;
+        }
+    */
     public static List<AExpression> expression2JoinPointList(
             CtExpression<?> element) {
 
@@ -143,13 +139,13 @@ public class SelectUtils {
         return JExpression.newInstance(element);
     }
 
-    public static AStatement statement2JoinPoint(CtStatement element) {
+    public static AJavaWeaverJoinPoint statement2JoinPoint(CtStatement element) {
 
         return JStatement.newInstance(element);
     }
 
     public static <T extends CtElement, V extends AJavaWeaverJoinPoint> V node2JoinPoint(T element,
-            NodeConverter<T, V> converter) {
+                                                                                         NodeConverter<T, V> converter) {
 
         return converter.toJoinPoint(element);
     }
