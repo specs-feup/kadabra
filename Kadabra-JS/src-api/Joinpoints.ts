@@ -981,6 +981,10 @@ export class FieldAccess extends Var {
   static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
     name: "name",
   };
+  /**
+   * The base expression of this fieldAccess. E.g., for the field access a.b.c, returns the expression representing a.b
+   */
+  get base(): Expression { return wrapJoinPoint(this._javaObject.getBase()) }
 }
 
 export class If extends Statement {
