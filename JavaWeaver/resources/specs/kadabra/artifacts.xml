@@ -61,7 +61,7 @@
 
     <!-- ANDROID MANIFEST -->
     <artifact class="androidManifest">
-        <attribute name="asJson" type="Object"/>
+        <attribute name="asJson" type="String"/>
     </artifact>
 
     <!-- XML ELEMENT -->
