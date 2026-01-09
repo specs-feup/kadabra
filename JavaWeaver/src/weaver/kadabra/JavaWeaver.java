@@ -254,7 +254,16 @@ public class JavaWeaver extends AJavaWeaver {
 
     @Override
     public void writeCode(File outputFolder) {
-        writeCode(currentOutputDir, outputFolder);
+        // Set output folder
+        spoon.setSourceOutputDirectory(outputFolder);
+        // Generate code to output folder
+        spoon.prettyprint();
+
+        // Write XML files
+        jApp.getAndroidResources().write(outputFolder);
+
+        // Replaced
+        //writeCode(currentOutputDir, outputFolder);
     }
 
     public void writeCode(File inputFolder, File outputFolder) {

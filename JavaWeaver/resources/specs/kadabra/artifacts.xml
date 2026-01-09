@@ -61,7 +61,7 @@
 
     <!-- ANDROID MANIFEST -->
     <artifact class="androidManifest">
-        <attribute name="asJson" type="Object"/>
+        <attribute name="asJson" type="String"/>
     </artifact>
 
     <!-- XML ELEMENT -->
@@ -394,6 +394,11 @@
         <attribute name="qualifiedType" type="String"/> <!-- int, java.util.List,...-->
         <attribute name="typeReference" type="typeReference"/> <!-- int, List,...-->
         <attribute name="test" type="int"/> <!-- int, List,...-->
+    </artifact>
+
+    <artifact class="fieldAccess" default="name">
+        <attribute name="base" type="expression"
+                   tooltip="The base expression of this fieldAccess. E.g., for the field access a.b.c, returns the expression representing a.b"/>
     </artifact>
 
     <artifact class="comment" default="type">

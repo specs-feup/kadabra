@@ -42,6 +42,7 @@ dependencies {
     implementation 'fr.inria.gforge.spoon:spoon-core:11.2.1'
     implementation 'com.google.guava:guava:33.4.0-jre'
     implementation 'org.ow2.asm:asm:9.8'
+    implementation 'org.json:json:20251224'
 
     weaverGeneratorRuntime ":WeaverGenerator"
 }
@@ -86,13 +87,13 @@ tasks.register('generateWeaver', JavaExec) {
     mainClass = 'org.lara.interpreter.weaver.generator.commandline.WeaverGenerator'
 
     args = [
-        '-w', 'JavaWeaver',
-        '-x', './resources/specs/kadabra',
-        '-o', './src',
-        '-p', 'weaver.kadabra',
-        '-n', 'spoon.reflect.declaration.CtElement',
-        "-e",
-        '-j'
+            '-w', 'JavaWeaver',
+            '-x', './resources/specs/kadabra',
+            '-o', './src',
+            '-p', 'weaver.kadabra',
+            '-n', 'spoon.reflect.declaration.CtElement',
+            "-e",
+            '-j'
     ]
 }
 

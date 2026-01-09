@@ -1,11 +1,11 @@
 /**
  * Copyright 2017 SPeCS.
- * 
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- * 
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ * <p>
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License. under the License.
@@ -13,42 +13,22 @@
 
 package weaver.utils.weaving.converters;
 
+import pt.up.fe.specs.util.classmap.FunctionClassMap;
+import spoon.reflect.code.*;
+import spoon.reflect.declaration.*;
+import spoon.reflect.reference.CtReference;
+import spoon.reflect.reference.CtTypeReference;
+import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
+import weaver.kadabra.joinpoints.*;
+import weaver.kadabra.spoon.extensions.nodes.CtApp;
+
 import java.lang.reflect.Array;
 import java.util.List;
 import java.util.Optional;
 
-import pt.up.fe.specs.util.classmap.FunctionClassMap;
-import spoon.reflect.code.CtBlock;
-import spoon.reflect.code.CtCatch;
-import spoon.reflect.code.CtComment;
-import spoon.reflect.code.CtExpression;
-import spoon.reflect.code.CtStatement;
-import spoon.reflect.declaration.CtCompilationUnit;
-import spoon.reflect.declaration.CtElement;
-import spoon.reflect.declaration.CtEnumValue;
-import spoon.reflect.declaration.CtExecutable;
-import spoon.reflect.declaration.CtField;
-import spoon.reflect.declaration.CtType;
-import spoon.reflect.declaration.CtVariable;
-import spoon.reflect.reference.CtReference;
-import spoon.reflect.reference.CtTypeReference;
-import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
-import weaver.kadabra.joinpoints.JApp;
-import weaver.kadabra.joinpoints.JBody;
-import weaver.kadabra.joinpoints.JCatch;
-import weaver.kadabra.joinpoints.JComment;
-import weaver.kadabra.joinpoints.JDeclaration;
-import weaver.kadabra.joinpoints.JEnumValue;
-import weaver.kadabra.joinpoints.JField;
-import weaver.kadabra.joinpoints.JFile;
-import weaver.kadabra.joinpoints.JGenericJoinPoint;
-import weaver.kadabra.joinpoints.JReference;
-import weaver.kadabra.joinpoints.JTypeReference;
-import weaver.kadabra.spoon.extensions.nodes.CtApp;
-
 /**
  * Converts a given element to the correct Join point type
- * 
+ *
  * @author tiago
  *
  */
@@ -110,7 +90,7 @@ public class CtElement2JoinPoint {
     }
 
     public static <T extends AJavaWeaverJoinPoint> T[] convertList(List<? extends CtElement> elements,
-            Class<T> jpClass) {
+                                                                   Class<T> jpClass) {
 
         @SuppressWarnings("unchecked")
         T[] jps = (T[]) Array.newInstance(jpClass, elements.size());
