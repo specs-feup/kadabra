@@ -6,8 +6,7 @@ const mutation1 = new BinaryExpressionMutation(">", "==");
 const mutation2 = new BinaryExpressionMutation("!=");
 
 const mutator = new IterativeMutator(mutation1, mutation2);
-const jps = Query.root().descendants;
-mutator.addJps(...jps);
+mutator.addJps(Query.root().descendants);
 
 // Generate all mutations
 while (mutator.mutateSource()) {
