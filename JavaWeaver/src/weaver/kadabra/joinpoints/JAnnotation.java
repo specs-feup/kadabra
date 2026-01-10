@@ -15,14 +15,15 @@ package weaver.kadabra.joinpoints;
 
 import spoon.reflect.declaration.CtAnnotation;
 import spoon.reflect.declaration.CtElement;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.AAnnotation;
 
 public class JAnnotation extends AAnnotation {
 
     private final CtAnnotation<?> annotation;
 
-    public JAnnotation(CtAnnotation<?> annotation) {
-        super(new JExpression<>(annotation));
+    public JAnnotation(CtAnnotation<?> annotation, JavaWeaver weaver) {
+        super(new JExpression<>(annotation, weaver), weaver);
 
         this.annotation = annotation;
     }

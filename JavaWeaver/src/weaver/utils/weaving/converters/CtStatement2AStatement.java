@@ -13,10 +13,45 @@
 
 package weaver.utils.weaving.converters;
 
-import pt.up.fe.specs.util.classmap.FunctionClassMap;
-import spoon.reflect.code.*;
+import pt.up.fe.specs.util.classmap.BiFunctionClassMap;
+import spoon.reflect.code.CtAssert;
+import spoon.reflect.code.CtAssignment;
+import spoon.reflect.code.CtBlock;
+import spoon.reflect.code.CtBreak;
+import spoon.reflect.code.CtCase;
+import spoon.reflect.code.CtComment;
+import spoon.reflect.code.CtContinue;
+import spoon.reflect.code.CtIf;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtLocalVariable;
+import spoon.reflect.code.CtLoop;
+import spoon.reflect.code.CtOperatorAssignment;
+import spoon.reflect.code.CtReturn;
+import spoon.reflect.code.CtStatement;
+import spoon.reflect.code.CtSwitch;
+import spoon.reflect.code.CtThrow;
+import spoon.reflect.code.CtTry;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
-import weaver.kadabra.joinpoints.*;
+import weaver.kadabra.abstracts.joinpoints.AStatement;
+import weaver.kadabra.joinpoints.JAssert;
+import weaver.kadabra.joinpoints.JAssignment;
+import weaver.kadabra.joinpoints.JBody;
+import weaver.kadabra.joinpoints.JBreak;
+import weaver.kadabra.joinpoints.JCase;
+import weaver.kadabra.joinpoints.JComment;
+import weaver.kadabra.joinpoints.JContinue;
+import weaver.kadabra.joinpoints.JExpressionStatement;
+import weaver.kadabra.joinpoints.JIf;
+import weaver.kadabra.joinpoints.JLocalVariable;
+import weaver.kadabra.joinpoints.JLoop;
+import weaver.kadabra.joinpoints.JOpAssignment;
+import weaver.kadabra.joinpoints.JReturn;
+import weaver.kadabra.joinpoints.JSnippetStmt;
+import weaver.kadabra.joinpoints.JStatement;
+import weaver.kadabra.joinpoints.JSwitch;
+import weaver.kadabra.joinpoints.JThrow;
+import weaver.kadabra.joinpoints.JTry;
 import weaver.kadabra.spoon.extensions.nodes.CtKadabraSnippetStatement;
 
 /**
@@ -26,16 +61,13 @@ import weaver.kadabra.spoon.extensions.nodes.CtKadabraSnippetStatement;
  *
  */
 public class CtStatement2AStatement {
-    private static final FunctionClassMap<CtStatement, AJavaWeaverJoinPoint> CONVERTER = new FunctionClassMap<>(
-            JStatement::new);
+    private static final BiFunctionClassMap<CtStatement, JavaWeaver, AJavaWeaverJoinPoint> CONVERTER = new BiFunctionClassMap<>();
 
     static {
-
-        CONVERTER.put(CtInvocation.class, CtExpression2AExpression::ctInvokation);
+        CONVERTER.put(CtInvocation.class, JExpressionStatement::newInstance);
         CONVERTER.put(CtAssignment.class, JExpressionStatement::newInstance);
         CONVERTER.put(CtIf.class, JIf::newInstance);
         CONVERTER.put(CtLoop.class, JLoop::newInstance);
-        // CONVERTER.put(CtOperatorAssignment.class, JOpAssignmentAux::newInstance);
         CONVERTER.put(CtAssignment.class, JAssignment::newInstance);
         CONVERTER.put(CtOperatorAssignment.class, JOpAssignment::new);
         CONVERTER.put(CtReturn.class, JReturn::newInstance);
@@ -50,11 +82,15 @@ public class CtStatement2AStatement {
         CONVERTER.put(CtCase.class, JCase::newInstance);
         CONVERTER.put(CtBreak.class, JBreak::newInstance);
         CONVERTER.put(CtContinue.class, JContinue::newInstance);
+        CONVERTER.put(CtStatement.class, CtStatement2AStatement::defaultFactory);
+    }
+
+    public static AStatement defaultFactory(CtStatement element, JavaWeaver weaver) {
+        return new JStatement(element, weaver);
     }
 
     // Package protected so only CtElement2JoinPoint can use this method
-    public static AJavaWeaverJoinPoint convert(CtStatement element) {
-        return CONVERTER.apply(element);
-
+    public static AJavaWeaverJoinPoint convert(CtStatement element, JavaWeaver weaver) {
+        return CONVERTER.apply(element, weaver);
     }
 }

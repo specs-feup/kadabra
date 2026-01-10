@@ -25,6 +25,7 @@ import spoon.reflect.factory.ConstructorFactory;
 import spoon.reflect.factory.Factory;
 import spoon.reflect.factory.MethodFactory;
 import spoon.reflect.reference.CtTypeReference;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 import weaver.kadabra.exceptions.JavaWeaverException;
 import weaver.kadabra.spoon.extensions.launcher.JWEnvironment;
@@ -53,7 +54,7 @@ public class ActionUtils {
     }
 
     public static AJavaWeaverJoinPoint insert(String position, CtElement newElement,
-                                              final CtElement node) {
+            final CtElement node, JavaWeaver weaver) {
 
         Location posIntert = Location.valueOf(position.toUpperCase());
         if (posIntert.equals(Location.REPLACE) && newElement == null) {
@@ -69,30 +70,18 @@ public class ActionUtils {
         switch (Location.getLocation(position)) {
             case BEFORE:
                 if (!(newElement instanceof CtStatement)) {
-                    // // If new element is a KadabraSnippet, convert to StatementSnippet
-                    // if (newElement instanceof CtKadabraSnippetElement) {
-                    // newElement = SnippetFactory.createSnippetStatement(
-                    // ((CtKadabraSnippetElement) newElement).getValue(), node.getFactory());
-                    // } else {
                     KadabraLog.info("Can only insert statements before nodes, tried to insert a '"
                             + newElement.getClass() + "':" + newElement);
                     return null;
-                    // }
 
                 }
                 referenceStmt.insertBefore((CtStatement) newElement);
                 break;
             case AFTER:
                 if (!(newElement instanceof CtStatement)) {
-                    // // If new element is a KadabraSnippet, convert to StatementSnippet
-                    // if (newElement instanceof CtKadabraSnippetElement) {
-                    // newElement = SnippetFactory.createSnippetStatement(
-                    // ((CtKadabraSnippetElement) newElement).getValue(), node.getFactory());
-                    // } else {
                     KadabraLog.info("Can only insert statements after nodes, tried to insert a '"
                             + newElement.getClass() + "': " + newElement);
                     return null;
-                    // }
                 }
                 referenceStmt.insertAfter((CtStatement) newElement);
                 break;
@@ -113,62 +102,34 @@ public class ActionUtils {
                         + "; used '" + position + "'");
         }
 
-        var joinPoint = CtElement2JoinPoint.convert(newElement);
+        var joinPoint = CtElement2JoinPoint.convert(newElement, weaver);
         return joinPoint;
     }
 
     /**
      * Inject code before/after/around a given statement
      * <p>
-     * <b>NOTE:</b> this method searches for a parent statement (or the given node) that has a block as its parent
+     * <b>NOTE:</b> this method searches for a parent statement (or the given node)
+     * that has a block as its parent
      *
      * @param position   position of the insertion: before, after or around
      * @param snippetStr the code to inject
      * @param node       the node used as reference for the insertion
      */
-    // public static void insert(String position, String snippetStr, CtStatement statement) {
-    //
-    // final CtElement parent = statement.getParent();
-    public static AJavaWeaverJoinPoint insert(String position, String snippetStr, CtElement node) {
+    public static AJavaWeaverJoinPoint insert(String position, String snippetStr, CtElement node, JavaWeaver weaver) {
 
         var snippet = snippetStr.trim().isEmpty() ? null
                 : SnippetFactory.createSnippetStatement(snippetStr, node.getFactory());
-        //
-        // var snippet = snippetStr.trim().isEmpty() ? null
-        // : SnippetFactory.createSnippetElement(node.getFactory(), snippetStr);
 
         if (snippet == null) {
             SpecsCheck.checkArgument(Location.valueOf(position.toUpperCase()).equals(Location.REPLACE),
                     () -> "Can only use empty string as insert argument when it is a 'replace'");
         }
-        return insert(position, snippet, node);
-
-        /*
-        Location posIntert = Location.valueOf(position.toUpperCase());
-        if (posIntert.equals(Location.REPLACE) && snippetStr.trim().isEmpty()) {
-            // Then it is just to remove the given element
-            node.delete();
-            return null;
-        }
-        final CtCodeSnippetStatement snippet = SnippetFactory.createSnippetStatement(snippetStr, node.getFactory());
-        final CtStatement parent = SpoonUtils.getInsertableParent(node);
-        insert(position, snippet, parent);
-        String[] lines = snippetStr.split("\r\n|\r|\n");
-        reportLOCs(weavingProfiler, lines.length, true);
-        
-        return CtElement2JoinPoint.convert(snippet);
-        // return SelectUtils.node2JoinPoint(snippet, JSnippet::newInstance);
-        
-        // snippet.setParent(parent); <-- get parent of parent for this, if not dealt by spoon
-        // System.out.println("injected");
-        // This also helps to avoid the warning:
-        // WARN spoon.support.StandardEnvironment - warning: ignoring
-        // inconsistent parent for CtCodeSnippetStatementImpl
-        
-         */
+        return insert(position, snippet, node, weaver);
     }
 
-    public static <T> AJavaWeaverJoinPoint replaceExpression(String position, String snippetStr, CtExpression<T> node) {
+    public static <T> AJavaWeaverJoinPoint replaceExpression(String position, String snippetStr, CtExpression<T> node,
+            JavaWeaver weaver) {
 
         var snippet = snippetStr.trim().isEmpty() ? null
                 : SnippetFactory.createSnippetExpression(node.getFactory(), snippetStr);
@@ -178,26 +139,11 @@ public class ActionUtils {
                     () -> "Can only use empty string as an expression insert argument when it is a 'replace'");
         }
 
-        return replaceExpression(position, snippet, node);
-        /*
-        Location posIntert = Location.valueOf(position.toUpperCase());
-        if (posIntert.equals(Location.REPLACE) && snippetStr.trim().isEmpty()) {
-            // Then it is just to remove the given element
-            node.delete();
-            return null;
-        }
-        final CtCodeSnippetExpression<T> snippet = SnippetFactory.createSnippetExpression(node.getFactory(),
-                snippetStr);
-        node.replace(snippet);
-        String[] lines = snippetStr.split("\r\n|\r|\n");
-        reportLOCs(weaverProfiler, lines.length, true);
-        
-        return CtElement2JoinPoint.convert(snippet);
-        */
+        return replaceExpression(position, snippet, node, weaver);
     }
 
     public static <T> AJavaWeaverJoinPoint replaceExpression(String position, CtExpression<?> expression,
-                                                             CtExpression<T> target) {
+            CtExpression<T> target, JavaWeaver weaver) {
 
         CtElement snippet = expression;
         CtElement node = target;
@@ -209,52 +155,39 @@ public class ActionUtils {
             return null;
         }
 
-        // var snippet2 = SnippetFactory.createSnippetStatement(snippet.toString(), node.getFactory());
-        // var snippet2 = SnippetFactory.createSnippetExpression(node.getFactory(), snippet.toString());
-        // node.replace(snippet2);
-        // System.out.println("NODE: " + node);
-        // System.out.println("PARENT INIT:" + node.isParentInitialized());
-
         // Special case if expression is a block statement
         if (SpoonUtils.isStatementInBlock(node)) {
             var code = snippet.toString();
             snippet = SnippetFactory.createSnippetStatement(code, node.getFactory());
-            // System.out.println("SPECIAL");
         }
 
         node.replace(snippet);
 
-        // System.out.println("SNIPPET INIT:" + snippet.isParentInitialized());
-        // System.out.println("SNIPPET: " + snippet.getClass());
-
-        // Removes parent from original node
-        // Dropped - apparently Spoon nodes do not loose their parents
-        // node.setParent(null);
-
-        var joinPoint = CtElement2JoinPoint.convert(snippet);
+        var joinPoint = CtElement2JoinPoint.convert(snippet, weaver);
 
         return joinPoint;
     }
 
     /**
-     * Use this method to insert arbitrary code around a CtTypeMember: methods, fields, constructors, innerTypes, and
-     * anonymous executables
+     * Use this method to insert arbitrary code around a CtTypeMember: methods,
+     * fields, constructors, innerTypes, and anonymous executables
      *
      * @param referenceNode
      * @param codeSnippet
      * @param location
      * @param weavingProfiler
      */
-    public static AJavaWeaverJoinPoint insertMember(CtElement referenceNode, String codeSnippet, String location) {
+    public static AJavaWeaverJoinPoint insertMember(CtElement referenceNode, String codeSnippet, String location,
+            JavaWeaver weaver) {
 
         Factory factory = referenceNode.getFactory();
-        // CtCodeSnippetStatement snippet = SnippetFactory.createSnippetStatement(codeSnippet, factory);
         CtKadabraSnippetElement snippet = SnippetFactory.createSnippetElement(factory, codeSnippet);
 
-        return insertMember(referenceNode, snippet, location);
+        return insertMember(referenceNode, snippet, location, weaver);
     }
 
-    public static AJavaWeaverJoinPoint insertMember(CtElement referenceNode, CtElement snippet, String location) {
+    public static AJavaWeaverJoinPoint insertMember(CtElement referenceNode, CtElement snippet, String location,
+            JavaWeaver weaver) {
 
         location = location.toUpperCase();
         Factory factory = referenceNode.getFactory();
@@ -262,7 +195,6 @@ public class ActionUtils {
 
         switch (Location.getLocation(location)) {
             case BEFORE:
-                // AnnotationsTable.getStaticTable().addBefore(referenceNode, snippet);
                 env.getTable().addBefore(referenceNode, snippet);
                 break;
             case AFTER:
@@ -270,30 +202,18 @@ public class ActionUtils {
                 break;
             case AROUND:
             case REPLACE:
-
-                // System.out.println("PARENT: " + referenceNode.getParent().getClass());
-                // System.out.println("REPLACING WITH '" + snippet + "'");
-                // // Insert before node
-                // env.getTable().addBefore(referenceNode, snippet);
-                //
-                // // Set same parent
-                // snippet.setParent(referenceNode.getParent());
-                //
-                // // Remove node from tree
-                // referenceNode.replace(Collections.emptyList());
-
                 env.getTable().addReplace(referenceNode, snippet);
-
                 break;
             default:
                 throw new RuntimeException("Code insertion must only be done: " + Arrays.toString(Location.values())
                         + "; used '" + location + "'");
         }
 
-        return CtElement2JoinPoint.convert(snippet);
+        return CtElement2JoinPoint.convert(snippet, weaver);
     }
 
-    public static AJavaWeaverJoinPoint insertInTable(CtElement referenceNode, String codeSnippet, String location) {
+    public static AJavaWeaverJoinPoint insertInTable(CtElement referenceNode, String codeSnippet, String location,
+            JavaWeaver weaver) {
         location = location.toUpperCase();
         Factory factory = referenceNode.getFactory();
 
@@ -301,7 +221,6 @@ public class ActionUtils {
         CtCodeSnippetStatement snippet = SnippetFactory.createSnippetStatement(codeSnippet, factory);
         switch (Location.getLocation(location)) {
             case BEFORE:
-                // AnnotationsTable.getStaticTable().addBefore(referenceNode, snippet);
                 env.getTable().addBefore(referenceNode, snippet);
                 break;
             case AFTER:
@@ -316,11 +235,11 @@ public class ActionUtils {
                         + "; used '" + location + "'");
         }
 
-        return CtElement2JoinPoint.convert(snippet);
+        return CtElement2JoinPoint.convert(snippet, weaver);
     }
 
     public static CtInterface<Object> compilationUnitWithInterface(String name, String[] _extends, File outputDir,
-                                                                   Factory factory) {
+            Factory factory) {
 
         CtCompilationUnit cu = newCompilationUnit(name, outputDir, factory);
 
@@ -358,7 +277,7 @@ public class ActionUtils {
     }
 
     public static CtCompilationUnit compilationUnitWithClass(String name, String extend, String[] _implements,
-                                                             File outputDir, Factory factory) {
+            File outputDir, Factory factory) {
         final CtClass<Object> newClass = newClass(name, extend, _implements, factory);
         CtCompilationUnit cu = newCompilationUnit(name, outputDir, factory);
         cu.addDeclaredType(newClass);
@@ -387,19 +306,18 @@ public class ActionUtils {
 
         String property = System.getProperty("file.separator");
         String filePath = new File(outputDir, name.replace(".", property) + ".java").getAbsolutePath();
-        // return compilationUnitF.create(filePath);
         return compilationUnitF.getOrCreate(filePath);
     }
 
     public static CtField<Object> newField(CtType<?> node, String name, String fieldType, String initialValue,
-                                           String[] modifiers) {
+            String[] modifiers) {
         final Factory factory = node.getFactory();
         final CtTypeReference<Object> fieldTypeRef = TypeUtils.typeOf(fieldType, factory);
         return newFieldWithSnippet(node, name, fieldTypeRef, initialValue, modifiers);
     }
 
     public static <T> CtField<T> newFieldWithType(CtType<?> node, String baseName, CtTypeReference<T> fieldType,
-                                                  T initialValue, String[] modifiers) {
+            T initialValue, String[] modifiers) {
         CtExpression<T> init = null;
         if (initialValue != null) {
             init = SpoonUtils.createLiteral(initialValue, node.getFactory());
@@ -408,19 +326,18 @@ public class ActionUtils {
     }
 
     public static <T> CtField<T> newFieldWithType(CtType<?> node, String baseName, CtTypeReference<T> fieldType,
-                                                  CtExpression<T> initialValue,
-                                                  String[] modifiers) {
+            CtExpression<T> initialValue,
+            String[] modifiers) {
         final CtField<T> newField = createField(node, baseName, fieldType, modifiers);
         if (initialValue != null) {
-            // CtExpression<T> init = node.getFactory().Code().createLiteral(initialValue);
             newField.setDefaultExpression(initialValue);
         }
         return newField;
     }
 
     public static <T> CtField<T> newFieldWithSnippet(CtType<?> node, String baseName, CtTypeReference<T> fieldType,
-                                                     String initialValue,
-                                                     String[] modifiers) {
+            String initialValue,
+            String[] modifiers) {
         final CtField<T> newField = createField(node, baseName, fieldType, modifiers);
         if (initialValue != null) {
             final CtExpression<T> snippet = SnippetFactory.snippetExpression(initialValue.toString(),
@@ -431,7 +348,7 @@ public class ActionUtils {
     }
 
     private static <T> CtField<T> createField(CtType<?> node, String baseName, CtTypeReference<T> fieldType,
-                                              String[] modifiers) {
+            String[] modifiers) {
         final Set<ModifierKind> modifiersSet = SpoonUtils.setOfModifiers(modifiers, ModifierKind.PRIVATE);
 
         String name = baseName;
@@ -447,8 +364,9 @@ public class ActionUtils {
         return newField;
     }
 
-    public static CtMethod<Object> newMethod(CtType<?> node, String name, String returnType, String[] paramLeft, String[] paramRight,
-                                             String[] modifiers, String code) {
+    public static CtMethod<Object> newMethod(CtType<?> node, String name, String returnType, String[] paramLeft,
+            String[] paramRight,
+            String[] modifiers, String code) {
         final Factory factory = node.getFactory();
         final MethodFactory methodF = factory.Method();
         final CtTypeReference<Object> returnTypeRef = TypeUtils.typeOf(returnType, factory);
@@ -458,10 +376,10 @@ public class ActionUtils {
         // Current Best approach for inserting parameters in a method and
         // directly associate to parent method
 
-        SpecsCheck.checkArgument(paramLeft.length == paramRight.length, () -> "Param left and param right must have same size");
+        SpecsCheck.checkArgument(paramLeft.length == paramRight.length,
+                () -> "Param left and param right must have same size");
 
         for (int i = 0; i < paramLeft.length; i++) {
-            // final CtTypeReference<Object> typeRef = factory.Type().createReference(pair.getLeft());
             final CtTypeReference<Object> typeRef = TypeUtils.typeOf(paramLeft[i], factory);
 
             methodF.createParameter(newMethod, typeRef, paramRight[i]);
@@ -475,13 +393,15 @@ public class ActionUtils {
         return newMethod;
     }
 
-    public static CtConstructor<?> newConstructor(CtClass<?> node, String[] paramLeft, String[] paramRight, String[] modifiers) {
+    public static CtConstructor<?> newConstructor(CtClass<?> node, String[] paramLeft, String[] paramRight,
+            String[] modifiers) {
         final Factory factory = node.getFactory();
         final Set<ModifierKind> modifiersSet = SpoonUtils.setOfModifiers(modifiers, ModifierKind.PUBLIC);
         ConstructorFactory constFac = factory.Constructor();
         CtConstructor<?> constr = constFac.create(node, modifiersSet, Collections.emptyList(), null);
 
-        SpecsCheck.checkArgument(paramLeft.length == paramRight.length, () -> "Param left and param right must have same size");
+        SpecsCheck.checkArgument(paramLeft.length == paramRight.length,
+                () -> "Param left and param right must have same size");
 
         for (int i = 0; i < paramLeft.length; i++) {
             final CtTypeReference<Object> typeRef = factory.Type().createReference(paramLeft[i]);
@@ -496,7 +416,7 @@ public class ActionUtils {
     }
 
     public static <N extends CtElement, JP extends AJavaWeaverJoinPoint> JP cloneJP(N node,
-                                                                                    NodeConverter<N, JP> converter) {
+            NodeConverter<N, JP> converter) {
         N newNode = node.getFactory().Core().clone(node);
         return converter.toJoinPoint(newNode);
 

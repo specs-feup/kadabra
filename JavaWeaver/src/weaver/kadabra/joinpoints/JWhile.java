@@ -14,6 +14,7 @@
 package weaver.kadabra.joinpoints;
 
 import spoon.reflect.code.CtWhile;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.AExpression;
 import weaver.kadabra.enums.LoopType;
 import weaver.utils.weaving.converters.CtElement2JoinPoint;
@@ -22,18 +23,18 @@ public class JWhile extends JLoop {
 
     CtWhile node;
 
-    private JWhile(CtWhile node) {
-        super(node, LoopType.WHILE);
+    private JWhile(CtWhile node, JavaWeaver weaver) {
+        super(node, LoopType.WHILE, weaver);
         this.node = node;
     }
 
-    public static JWhile newInstance(CtWhile node) {
-        return new JWhile(node);
+    public static JWhile newInstance(CtWhile node, JavaWeaver weaver) {
+        return new JWhile(node, weaver);
     }
 
     @Override
     public AExpression getCondImpl() {
-        return (AExpression) CtElement2JoinPoint.convert(node.getLoopingExpression());
+        return (AExpression) CtElement2JoinPoint.convert(node.getLoopingExpression(), getWeaverEngine());
     }
 
     @Override

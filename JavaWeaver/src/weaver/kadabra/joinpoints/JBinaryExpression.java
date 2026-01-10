@@ -16,6 +16,7 @@ package weaver.kadabra.joinpoints;
 import pt.up.fe.specs.util.SpecsLogs;
 import spoon.reflect.code.BinaryOperatorKind;
 import spoon.reflect.code.CtBinaryOperator;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.ABinaryExpression;
 import weaver.kadabra.abstracts.joinpoints.AExpression;
 import weaver.utils.element.OperatorUtils;
@@ -25,13 +26,13 @@ public class JBinaryExpression<T> extends ABinaryExpression {
 
     public CtBinaryOperator<T> node;
 
-    public JBinaryExpression(CtBinaryOperator<T> expr) {
-        super(new JExpression<>(expr));
+    public JBinaryExpression(CtBinaryOperator<T> expr, JavaWeaver weaver) {
+        super(new JExpression<>(expr, weaver), weaver);
         node = expr;
     }
 
-    public static <T> JBinaryExpression<T> newInstance(CtBinaryOperator<T> expr) {
-        return new JBinaryExpression<>(expr);
+    public static <T> JBinaryExpression<T> newInstance(CtBinaryOperator<T> expr, JavaWeaver weaver) {
+        return new JBinaryExpression<>(expr, weaver);
     }
 
     @Override
@@ -65,12 +66,12 @@ public class JBinaryExpression<T> extends ABinaryExpression {
 
     @Override
     public AExpression getLhsImpl() {
-        return SelectUtils.expression2JoinPoint(node.getLeftHandOperand());
+        return SelectUtils.expression2JoinPoint(node.getLeftHandOperand(), getWeaverEngine());
     }
 
     @Override
     public AExpression getRhsImpl() {
-        return SelectUtils.expression2JoinPoint(node.getRightHandOperand());
+        return SelectUtils.expression2JoinPoint(node.getRightHandOperand(), getWeaverEngine());
     }
 
 }

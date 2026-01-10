@@ -16,55 +16,22 @@ package weaver.kadabra.joinpoints;
 import com.google.common.reflect.ClassPath.ClassInfo;
 
 import spoon.reflect.declaration.CtElement;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.ALibClass;
 
 public class JLibClass extends ALibClass {
 
-    // private ClassInfo info;
-    // private Class<?> libClass;
-
-    private JLibClass(ClassInfo info) {
-        super(JNamedType.newInstance(info));
+    private JLibClass(ClassInfo info, JavaWeaver weaver) {
+        super(JNamedType.newInstance(info, weaver), weaver);
         // this.info = info;
     }
 
-    public static JLibClass newInstance(ClassInfo info) {
-        return new JLibClass(info);
+    public static JLibClass newInstance(ClassInfo info, JavaWeaver weaver) {
+        return new JLibClass(info, weaver);
     }
 
     @Override
     public CtElement getNode() {
-
         return null;
     }
-
-    /*
-    @Override
-    public List<? extends ALibMethod> selectLibMethod() {
-        Class<?> libClass = getLibClass();
-        if (libClass != null) {
-            try {
-                Method[] methods = libClass.getDeclaredMethods();
-                List<JLibMethod> jMethods = Arrays.stream(methods).map(JLibMethod::newInstance)
-                        .collect(Collectors.toList());
-                return jMethods;
-            } catch (Throwable e) {
-                KadabraLog.warning("Failed to load methods from class " + info.getName() + ": " + e.getMessage());
-            }
-        }
-        return Collections.emptyList();
-    }
-    
-    private Class<?> getLibClass() {
-        if (libClass == null) {
-            try {
-                libClass = info.load();
-            } catch (Throwable e) {
-                KadabraLog.warning("Failed to load class " + info.getName() + ": " + e.getMessage());
-            }
-        }
-        return libClass;
-    }
-    */
-
 }

@@ -20,6 +20,7 @@ import spoon.reflect.code.CtIf;
 import spoon.reflect.code.CtStatement;
 import spoon.reflect.declaration.CtElement;
 import tdrc.utils.StringUtils;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.ABody;
 import weaver.kadabra.abstracts.joinpoints.AExpression;
 import weaver.kadabra.abstracts.joinpoints.AIf;
@@ -33,24 +34,14 @@ public class JIf extends AIf {
     private final CtIf node;
     private String rank;
 
-    private JIf(CtIf node) {
-        super(new JStatement(node));
+    private JIf(CtIf node, JavaWeaver weaver) {
+        super(new JStatement(node, weaver), weaver);
         this.node = node;
     }
 
-    public static JIf newInstance(CtIf node) {
-        return new JIf(node);
+    public static JIf newInstance(CtIf node, JavaWeaver weaver) {
+        return new JIf(node, weaver);
     }
-
-    // @Override
-    // public int getLine() {
-    // return node.getPosition().getLine();
-    // }
-    //
-    // @Override
-    // public int getEndLine() {
-    // return node.getPosition().getEndLine();
-    // }
 
     @Override
     public String getRankImpl() {
@@ -70,7 +61,7 @@ public class JIf extends AIf {
 
     @Override
     public AExpression getCondImpl() {
-        return (AExpression) CtElement2JoinPoint.convert(node.getCondition());
+        return (AExpression) CtElement2JoinPoint.convert(node.getCondition(), getWeaverEngine());
     }
 
     @Override
@@ -84,7 +75,7 @@ public class JIf extends AIf {
             throw new JavaWeaverException("The then statement must always be a block");
         }
 
-        return (ABody) CtElement2JoinPoint.convert(thenStatement);
+        return (ABody) CtElement2JoinPoint.convert(thenStatement, getWeaverEngine());
     }
 
     @Override
@@ -99,7 +90,7 @@ public class JIf extends AIf {
             throw new JavaWeaverException("The else statement must always be a block");
         }
 
-        return (ABody) CtElement2JoinPoint.convert(elseStatement);
+        return (ABody) CtElement2JoinPoint.convert(elseStatement, getWeaverEngine());
     }
 
 }

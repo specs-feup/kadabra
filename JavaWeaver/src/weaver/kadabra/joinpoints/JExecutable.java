@@ -18,6 +18,7 @@ import org.lara.interpreter.weaver.interf.JoinPoint;
 import spoon.reflect.code.CtBlock;
 import spoon.reflect.declaration.CtExecutable;
 import spoon.reflect.factory.Factory;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.ABody;
 import weaver.kadabra.abstracts.joinpoints.ADeclaration;
@@ -34,12 +35,13 @@ public class JExecutable<R> extends AExecutable {
 
     private CtExecutable<R> node;
 
-    private JExecutable(CtExecutable<R> node) {
+    private JExecutable(CtExecutable<R> node, JavaWeaver weaver) {
+        super(weaver);
         this.node = node;
     }
 
-    public static <R> JExecutable<R> newInstance(CtExecutable<R> node) {
-        return new JExecutable<>(node);
+    public static <R> JExecutable<R> newInstance(CtExecutable<R> node, JavaWeaver weaver) {
+        return new JExecutable<>(node, weaver);
     }
 
     @Override
@@ -66,7 +68,7 @@ public class JExecutable<R> extends AExecutable {
             return null;
         }
 
-        return (ABody) CtElement2JoinPoint.convert(body);
+        return CtElement2JoinPoint.convert(body, getWeaverEngine(), ABody.class);
     }
 
     @Override
@@ -81,13 +83,15 @@ public class JExecutable<R> extends AExecutable {
 
     @Override
     public ADeclaration[] getParamsArrayImpl() {
-        return SelectUtils.nodeList2JoinPointList(node.getParameters(), JDeclaration::newInstance)
+        return SelectUtils
+                .nodeList2JoinPointList(node.getParameters(),
+                        (node -> JDeclaration.newInstance(node, getWeaverEngine())))
                 .toArray(length -> new ADeclaration[0]);
     }
 
     @Override
     public ATypeReference getReturnRefImpl() {
-        return (ATypeReference) CtElement2JoinPoint.convert(node.getType());
+        return (ATypeReference) CtElement2JoinPoint.convert(node.getType(), getWeaverEngine());
     }
 
     @Override
@@ -103,19 +107,13 @@ public class JExecutable<R> extends AExecutable {
     public AJavaWeaverJoinPoint insertImplExecutable(String position, String code) {
         Factory factory = getNode().getFactory();
 
-        // System.out.println("CODE:'" + code + "'");
-        // var snippetNode = factory.Code()
-        // .createCodeSnippetStatement(code).compile();
-        //
-        // System.out.println("SNIPPET CLASS: " + snippetNode.getClass());
-
         CtKadabraSnippetElement snippet = SnippetFactory.createSnippetElement(factory, code);
 
-        return ActionUtils.insertMember(node, snippet, position);
+        return ActionUtils.insertMember(node, snippet, position, getWeaverEngine());
     }
 
     public AJavaWeaverJoinPoint insertImplExecutable(String position, AJoinPoint code) {
-        return ActionUtils.insertMember(node, code.getNode(), position);
+        return ActionUtils.insertMember(node, code.getNode(), position, getWeaverEngine());
     }
 
 }

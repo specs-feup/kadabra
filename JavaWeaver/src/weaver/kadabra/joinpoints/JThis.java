@@ -15,14 +15,15 @@ package weaver.kadabra.joinpoints;
 
 import spoon.reflect.code.CtThisAccess;
 import spoon.reflect.declaration.CtElement;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.AThis;
 
 public class JThis extends AThis {
 
     private final CtThisAccess<?> thisNode;
 
-    public JThis(CtThisAccess<?> thisNode) {
-        super(new JExpression<>(thisNode));
+    public JThis(CtThisAccess<?> thisNode, JavaWeaver weaver) {
+        super(new JExpression<>(thisNode, weaver), weaver);
 
         this.thisNode = thisNode;
     }

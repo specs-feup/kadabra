@@ -16,6 +16,7 @@ package weaver.kadabra.joinpoints;
 import org.json.XML;
 import pt.up.fe.specs.util.xml.XmlDocument;
 import spoon.reflect.declaration.CtElement;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.AAndroidManifest;
 import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
 
@@ -23,8 +24,8 @@ public class JAndroidManifest extends AAndroidManifest {
 
     private final XmlDocument manifest;
 
-    public JAndroidManifest(XmlDocument manifest) {
-        super(new JXmlNode(manifest));
+    public JAndroidManifest(XmlDocument manifest, JavaWeaver weaver) {
+        super(new JXmlNode(manifest, weaver), weaver);
         this.manifest = manifest;
     }
 

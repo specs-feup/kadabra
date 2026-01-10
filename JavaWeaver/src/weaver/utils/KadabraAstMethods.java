@@ -20,6 +20,7 @@ import org.lara.interpreter.weaver.interf.WeaverEngine;
 import spoon.reflect.code.CtBodyHolder;
 import spoon.reflect.declaration.CtCompilationUnit;
 import spoon.reflect.declaration.CtElement;
+import weaver.kadabra.JavaWeaver;
 import weaver.utils.weaving.converters.CtElement2JoinPoint;
 
 public class KadabraAstMethods extends AAstMethods<CtElement> {
@@ -29,13 +30,18 @@ public class KadabraAstMethods extends AAstMethods<CtElement> {
     }
 
     @Override
+    protected JavaWeaver getWeaverEngine() {
+        return (JavaWeaver) super.getWeaverEngine();
+    }
+
+    @Override
     public Class<CtElement> getNodeClass() {
         return CtElement.class;
     }
 
     @Override
     protected JoinPoint toJavaJoinPointImpl(CtElement node) {
-        return CtElement2JoinPoint.convert(node);
+        return CtElement2JoinPoint.convert(node, this.getWeaverEngine());
     }
 
     @Override

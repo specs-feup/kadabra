@@ -15,19 +15,20 @@ package weaver.kadabra.joinpoints;
 
 import spoon.reflect.code.CtContinue;
 import spoon.reflect.declaration.CtElement;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.AContinue;
 
 public class JContinue extends AContinue {
 
     private CtContinue node;
 
-    private JContinue(CtContinue node) {
-        super(new JStatement(node));
+    private JContinue(CtContinue node, JavaWeaver weaver) {
+        super(new JStatement(node, weaver), weaver);
         this.node = node;
     }
 
-    public static JContinue newInstance(CtContinue node) {
-        return new JContinue(node);
+    public static JContinue newInstance(CtContinue node, JavaWeaver weaver) {
+        return new JContinue(node, weaver);
     }
 
     @Override

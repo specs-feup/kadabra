@@ -13,11 +13,12 @@
 
 package weaver.utils.weaving.converters;
 
-import pt.up.fe.specs.util.classmap.FunctionClassMap;
+import pt.up.fe.specs.util.classmap.BiFunctionClassMap;
 import spoon.reflect.declaration.CtAnonymousExecutable;
 import spoon.reflect.declaration.CtConstructor;
 import spoon.reflect.declaration.CtExecutable;
 import spoon.reflect.declaration.CtMethod;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.AExecutable;
 import weaver.kadabra.joinpoints.JAnonymousExec;
 import weaver.kadabra.joinpoints.JConstructor;
@@ -31,20 +32,23 @@ import weaver.kadabra.joinpoints.JMethod;
  *
  */
 public class CtExecutable2AExecutable {
-    private static final FunctionClassMap<CtExecutable<?>, AExecutable> CONVERTER = new FunctionClassMap<>(
-            JExecutable::newInstance);
+    private static final BiFunctionClassMap<CtExecutable<?>, JavaWeaver, AExecutable> CONVERTER = new BiFunctionClassMap<>();
 
     static {
 
         CONVERTER.put(CtMethod.class, JMethod::newInstance);
         CONVERTER.put(CtConstructor.class, JConstructor::newInstance);
         CONVERTER.put(CtAnonymousExecutable.class, JAnonymousExec::newInstance);
+        CONVERTER.put(CtExecutable.class, CtExecutable2AExecutable::defaultFactory);
+    }
+
+    public static AExecutable defaultFactory(CtExecutable<?> element, JavaWeaver weaver) {
+        return JExecutable.newInstance(element, weaver);
     }
 
     // Package protected so only CtElement2JoinPoint can use this method
-    public static AExecutable convert(CtExecutable<?> element) {
-        AExecutable converted = CONVERTER.apply(element);
+    public static AExecutable convert(CtExecutable<?> element, JavaWeaver weaver) {
+        AExecutable converted = CONVERTER.apply(element, weaver);
         return converted;
-
     }
 }
