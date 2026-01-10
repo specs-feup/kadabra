@@ -15,6 +15,7 @@ package weaver.kadabra.joinpoints;
 
 import pt.up.fe.specs.util.xml.XmlDocument;
 import spoon.reflect.declaration.CtElement;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.AAndroidManifest;
 import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
 
@@ -22,8 +23,8 @@ public class JAndroidManifest extends AAndroidManifest {
 
     private final XmlDocument manifest;
 
-    public JAndroidManifest(XmlDocument manifest) {
-        super(new JXmlNode(manifest));
+    public JAndroidManifest(XmlDocument manifest, JavaWeaver weaver) {
+        super(new JXmlNode(manifest, weaver), weaver);
         this.manifest = manifest;
     }
 
@@ -35,12 +36,14 @@ public class JAndroidManifest extends AAndroidManifest {
     @Override
     public Object getAsJsonImpl() {
         // return getWeaverEngine().getScriptEngine()
-        //         .eval("var lara_android_manifest = " + XML.toJSONObject(manifest.toString()).toString(4)
-        //                 + "; lara_android_manifest;");
+        // .eval("var lara_android_manifest = " +
+        // XML.toJSONObject(manifest.toString()).toString(4)
+        // + "; lara_android_manifest;");
         throw new UnsupportedOperationException(
-            "'getAsJson' is currently under refactor. If you need this feature, please open an issue so we can prioritize it.");
-        // TODO: Implement this method properly. A way of doing it would be to return the JSON object as a string and then parse it on the TS side. See below.
-        //return XML.toJSONObject(manifest.toString()).toString(4);
+                "'getAsJson' is currently under refactor. If you need this feature, please open an issue so we can prioritize it.");
+        // TODO: Implement this method properly. A way of doing it would be to return
+        // the JSON object as a string and then parse it on the TS side. See below.
+        // return XML.toJSONObject(manifest.toString()).toString(4);
     }
 
     @Override

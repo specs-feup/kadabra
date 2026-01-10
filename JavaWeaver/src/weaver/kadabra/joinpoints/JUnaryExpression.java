@@ -16,6 +16,7 @@ package weaver.kadabra.joinpoints;
 import pt.up.fe.specs.util.SpecsLogs;
 import spoon.reflect.code.CtUnaryOperator;
 import spoon.reflect.code.UnaryOperatorKind;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.AExpression;
 import weaver.kadabra.abstracts.joinpoints.AUnaryExpression;
 import weaver.utils.element.OperatorUtils;
@@ -25,13 +26,13 @@ public class JUnaryExpression<T> extends AUnaryExpression {
 
     public CtUnaryOperator<T> node;
 
-    public JUnaryExpression(CtUnaryOperator<T> expr) {
-        super(new JExpression<>(expr));
+    public JUnaryExpression(CtUnaryOperator<T> expr, JavaWeaver weaver) {
+        super(new JExpression<>(expr, weaver), weaver);
         node = expr;
     }
 
-    public static <T> JUnaryExpression<T> newInstance(CtUnaryOperator<T> expr) {
-        return new JUnaryExpression<>(expr);
+    public static <T> JUnaryExpression<T> newInstance(CtUnaryOperator<T> expr, JavaWeaver weaver) {
+        return new JUnaryExpression<>(expr, weaver);
     }
 
     @Override
@@ -64,7 +65,7 @@ public class JUnaryExpression<T> extends AUnaryExpression {
 
     @Override
     public AExpression getOperandImpl() {
-        return SelectUtils.expression2JoinPoint(node.getOperand());
+        return SelectUtils.expression2JoinPoint(node.getOperand(), getWeaverEngine());
     }
 
 }

@@ -17,6 +17,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import spoon.reflect.code.CtComment;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.APragma;
 import weaver.kadabra.enums.CommentType;
 
@@ -24,22 +25,22 @@ public class JPragma extends APragma {
 
     private final CtComment comment;
 
-    public JPragma(CtComment comment) {
-        super(JComment.newInstance(comment));
+    public JPragma(CtComment comment, JavaWeaver weaver) {
+        super(JComment.newInstance(comment, weaver), weaver);
         this.comment = comment;
     }
 
-    public JPragma(JComment comment) {
-        super(comment);
+    public JPragma(JComment comment, JavaWeaver weaver) {
+        super(comment, weaver);
         this.comment = comment.getNode();
     }
 
-    public static JPragma newInstance(CtComment comment) {
-        return new JPragma(comment);
+    public static JPragma newInstance(CtComment comment, JavaWeaver weaver) {
+        return new JPragma(comment, weaver);
     }
 
-    public static JPragma newInstance(JComment comment) {
-        return new JPragma(comment);
+    public static JPragma newInstance(JComment comment, JavaWeaver weaver) {
+        return new JPragma(comment, weaver);
     }
 
     @Override

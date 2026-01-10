@@ -14,6 +14,7 @@
 package weaver.kadabra.joinpoints;
 
 import spoon.reflect.code.CtLiteral;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.ALiteral;
 import weaver.utils.SpoonLiterals;
 
@@ -21,15 +22,13 @@ public class JLiteral<T> extends ALiteral {
 
     private CtLiteral<T> node;
 
-    private JLiteral(CtLiteral<T> node) {
-        super(new JExpression<>(node));
+    private JLiteral(CtLiteral<T> node, JavaWeaver weaver) {
+        super(new JExpression<>(node, weaver), weaver);
         this.node = node;
-        // System.out.println("VALUE TYPE: " + node.getValue().getClass());
-        // System.out.println("TYPE:" + getTypeImpl());
     }
 
-    public static <T> JLiteral<T> newInstance(CtLiteral<T> node) {
-        return new JLiteral<>(node);
+    public static <T> JLiteral<T> newInstance(CtLiteral<T> node, JavaWeaver weaver) {
+        return new JLiteral<>(node, weaver);
     }
 
     @Override

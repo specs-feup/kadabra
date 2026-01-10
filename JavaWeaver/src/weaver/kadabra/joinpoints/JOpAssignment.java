@@ -16,6 +16,7 @@ package weaver.kadabra.joinpoints;
 import pt.up.fe.specs.util.SpecsLogs;
 import spoon.reflect.code.CtOperatorAssignment;
 import spoon.reflect.declaration.CtElement;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.AOpAssignment;
 import weaver.utils.element.OperatorUtils;
 
@@ -23,8 +24,8 @@ public class JOpAssignment<T, V extends T> extends AOpAssignment {
 
     private final CtOperatorAssignment<T, V> node;
 
-    public JOpAssignment(CtOperatorAssignment<T, V> node) {
-        super(new JAssignment<>(node));
+    public JOpAssignment(CtOperatorAssignment<T, V> node, JavaWeaver weaver) {
+        super(new JAssignment<>(node, weaver), weaver);
         this.node = node;
     }
 

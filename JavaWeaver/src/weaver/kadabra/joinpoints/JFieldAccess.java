@@ -15,19 +15,20 @@ package weaver.kadabra.joinpoints;
 
 import spoon.reflect.code.CtFieldAccess;
 import spoon.reflect.declaration.CtElement;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.AFieldAccess;
 
 public class JFieldAccess<T> extends AFieldAccess {
 
     private final CtFieldAccess<T> node;
 
-    protected JFieldAccess(CtFieldAccess<T> var) {
-        super(new JVar<>(var));
+    protected JFieldAccess(CtFieldAccess<T> var, JavaWeaver weaver) {
+        super(new JVar<>(var, weaver), weaver);
         node = var;
     }
 
-    public static <T> JFieldAccess<T> newInstance(CtFieldAccess<T> var) {
-        return new JFieldAccess<>(var);
+    public static <T> JFieldAccess<T> newInstance(CtFieldAccess<T> var, JavaWeaver weaver) {
+        return new JFieldAccess<>(var, weaver);
     }
 
     @Override
@@ -39,25 +40,4 @@ public class JFieldAccess<T> extends AFieldAccess {
     public String getNameImpl() {
         return node.toString();
     }
-
-    // @Override
-    // public String[] getModifiersArrayImpl() {
-    // var decl = getDeclarationImpl();
-    // if (decl == null) {
-    // return new String[0];
-    // }
-    //
-    // return JoinPoints.getModifiersInternal(decl).stream()
-    // .map(ModifierKind::name)
-    // .toArray(length -> new String[length]);
-    // }
-
-    // @Override
-    // public Boolean getIsFinalImpl() {
-    // System.out.println("Get modifiers attribute: " + Arrays.asList(getModifiersArrayImpl()));
-    // System.out.println("Get modifiers internal: " + getModifiersInternal());
-    // return super.getIsFinalImpl();
-    // // return getModifiersInternal().contains(ModifierKind.FINAL);
-    // }
-
 }

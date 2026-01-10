@@ -15,24 +15,24 @@ package weaver.kadabra.joinpoints;
 
 import spoon.reflect.declaration.CtAnonymousExecutable;
 import spoon.reflect.declaration.CtElement;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.AAnonymousExec;
 
 public class JAnonymousExec extends AAnonymousExec {
 
     private CtAnonymousExecutable node;
 
-    private JAnonymousExec(CtAnonymousExecutable executable) {
-        super(JExecutable.newInstance(executable));
+    public JAnonymousExec(CtAnonymousExecutable executable, JavaWeaver weaver) {
+        super(JExecutable.newInstance(executable, weaver), weaver);
         this.node = executable;
     }
 
-    public static JAnonymousExec newInstance(CtAnonymousExecutable executable) {
-        return new JAnonymousExec(executable);
+    public static JAnonymousExec newInstance(CtAnonymousExecutable executable, JavaWeaver weaver) {
+        return new JAnonymousExec(executable, weaver);
     }
 
     @Override
     public CtElement getNode() {
-
         return node;
     }
 

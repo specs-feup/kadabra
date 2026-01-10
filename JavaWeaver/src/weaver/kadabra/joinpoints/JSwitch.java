@@ -14,6 +14,7 @@
 package weaver.kadabra.joinpoints;
 
 import spoon.reflect.code.CtSwitch;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.ACase;
 import weaver.kadabra.abstracts.joinpoints.ASwitch;
 import weaver.utils.weaving.converters.CtElement2JoinPoint;
@@ -22,13 +23,13 @@ public class JSwitch<S> extends ASwitch {
 
     private final CtSwitch<S> node;
 
-    private JSwitch(CtSwitch<S> node) {
-        super(new JStatement(node));
+    private JSwitch(CtSwitch<S> node, JavaWeaver weaver) {
+        super(new JStatement(node, weaver), weaver);
         this.node = node;
     }
 
-    public static <S> JSwitch<S> newInstance(CtSwitch<S> node) {
-        return new JSwitch<>(node);
+    public static <S> JSwitch<S> newInstance(CtSwitch<S> node, JavaWeaver weaver) {
+        return new JSwitch<>(node, weaver);
     }
 
     @Override
@@ -38,7 +39,7 @@ public class JSwitch<S> extends ASwitch {
 
     @Override
     public ACase[] getCasesArrayImpl() {
-        return CtElement2JoinPoint.convertList(node.getCases(), ACase.class);
+        return CtElement2JoinPoint.convertList(node.getCases(), getWeaverEngine(), ACase.class);
     }
 
 }

@@ -13,7 +13,7 @@
 
 package weaver.utils.weaving.converters;
 
-import pt.up.fe.specs.util.classmap.FunctionClassMap;
+import pt.up.fe.specs.util.classmap.BiFunctionClassMap;
 import spoon.reflect.code.CtAssert;
 import spoon.reflect.code.CtAssignment;
 import spoon.reflect.code.CtBlock;
@@ -31,6 +31,7 @@ import spoon.reflect.code.CtStatement;
 import spoon.reflect.code.CtSwitch;
 import spoon.reflect.code.CtThrow;
 import spoon.reflect.code.CtTry;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.AStatement;
 import weaver.kadabra.joinpoints.JAssert;
 import weaver.kadabra.joinpoints.JAssignment;
@@ -59,17 +60,13 @@ import weaver.kadabra.spoon.extensions.nodes.CtKadabraSnippetStatement;
  *
  */
 public class CtStatement2AStatement {
-    private static final FunctionClassMap<CtStatement, AStatement> CONVERTER = new FunctionClassMap<>(
-            JStatement::new);
+    private static final BiFunctionClassMap<CtStatement, JavaWeaver, AStatement> CONVERTER = new BiFunctionClassMap<>();
 
     static {
-
-        // CONVERTER.put(CtUnaryOperator.class, JExpressionStatement::newInstance);
         CONVERTER.put(CtInvocation.class, JExpressionStatement::newInstance);
         CONVERTER.put(CtAssignment.class, JExpressionStatement::newInstance);
         CONVERTER.put(CtIf.class, JIf::newInstance);
         CONVERTER.put(CtLoop.class, JLoop::newInstance);
-        // CONVERTER.put(CtOperatorAssignment.class, JOpAssignmentAux::newInstance);
         CONVERTER.put(CtAssignment.class, JAssignment::newInstance);
         CONVERTER.put(CtOperatorAssignment.class, JOpAssignment::new);
         CONVERTER.put(CtReturn.class, JReturn::newInstance);
@@ -84,11 +81,15 @@ public class CtStatement2AStatement {
         CONVERTER.put(CtCase.class, JCase::newInstance);
         CONVERTER.put(CtBreak.class, JBreak::newInstance);
         CONVERTER.put(CtContinue.class, JContinue::newInstance);
+        CONVERTER.put(CtStatement.class, CtStatement2AStatement::defaultFactory);
+    }
+
+    public static AStatement defaultFactory(CtStatement element, JavaWeaver weaver) {
+        return new JStatement(element, weaver);
     }
 
     // Package protected so only CtElement2JoinPoint can use this method
-    public static AStatement convert(CtStatement element) {
-        return CONVERTER.apply(element);
-
+    public static AStatement convert(CtStatement element, JavaWeaver weaver) {
+        return CONVERTER.apply(element, weaver);
     }
 }

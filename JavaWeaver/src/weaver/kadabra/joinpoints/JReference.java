@@ -15,19 +15,21 @@ package weaver.kadabra.joinpoints;
 
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.reference.CtReference;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.AReference;
 import weaver.utils.weaving.converters.CtElement2JoinPoint;
 
 public class JReference extends AReference {
 
-    public static JReference newInstance(CtReference node) {
-        return new JReference(node);
+    public static JReference newInstance(CtReference node, JavaWeaver weaver) {
+        return new JReference(node, weaver);
     }
 
     private final CtReference node;
 
-    public JReference(CtReference node) {
+    public JReference(CtReference node, JavaWeaver weaver) {
+        super(weaver);
         this.node = node;
     }
 
@@ -52,7 +54,7 @@ public class JReference extends AReference {
             return null;
         }
 
-        return CtElement2JoinPoint.convert(decl);
+        return CtElement2JoinPoint.convert(decl, getWeaverEngine());
     }
 
     @Override
@@ -67,20 +69,6 @@ public class JReference extends AReference {
 
         return type;
     }
-
-    // @Override
-    // public ATypeReference getTypeImpl() {
-    // return new JTypeReference<>(node);
-    // String type = node.getClass().getSimpleName();
-    // if (type.startsWith("Ct")) {
-    // type = type.substring(2);
-    // }
-    // if (type.endsWith("ReferenceImpl")) {
-    // type = type.substring(0, type.length() - "ReferenceImpl".length());
-    // }
-    //
-    // return type;
-    // }
 
     @Override
     public String toString() {

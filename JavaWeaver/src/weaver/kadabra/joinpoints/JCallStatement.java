@@ -15,12 +15,14 @@ package weaver.kadabra.joinpoints;
 
 import spoon.reflect.code.CtInvocation;
 import spoon.reflect.declaration.CtElement;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.ACall;
 import weaver.kadabra.abstracts.joinpoints.ACallStatement;
 import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
 
 /**
- * This is a "synthetic" join point, to emulate statements around single statement calls.
+ * This is a "synthetic" join point, to emulate statements around single
+ * statement calls.
  * 
  * @author JoaoBispo
  *
@@ -30,8 +32,8 @@ public class JCallStatement<T> extends ACallStatement {
 
     private final CtInvocation<T> call;
 
-    public JCallStatement(CtInvocation<T> call) {
-        super(new JStatement(call));
+    public JCallStatement(CtInvocation<T> call, JavaWeaver weaver) {
+        super(new JStatement(call, weaver), weaver);
         this.call = call;
     }
 
@@ -42,7 +44,7 @@ public class JCallStatement<T> extends ACallStatement {
 
     @Override
     public ACall getCallImpl() {
-        return JCall.newInstance(call);
+        return JCall.newInstance(call, getWeaverEngine());
     }
 
     @Override
@@ -60,7 +62,8 @@ public class JCallStatement<T> extends ACallStatement {
     }
 
     /**
-     * TODO: This is an example where the getSrcCodeImpl() in AJavaWeaverJoinPoint does not call the overridden
+     * TODO: This is an example where the getSrcCodeImpl() in AJavaWeaverJoinPoint
+     * does not call the overridden
      * getCodeImpl()
      */
     @Override

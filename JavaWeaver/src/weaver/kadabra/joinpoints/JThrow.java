@@ -14,19 +14,20 @@
 package weaver.kadabra.joinpoints;
 
 import spoon.reflect.code.CtThrow;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.AThrow;
 
 public class JThrow extends AThrow {
 
     private final CtThrow node;
 
-    private JThrow(CtThrow node) {
-        super(new JStatement(node));
+    private JThrow(CtThrow node, JavaWeaver weaver) {
+        super(new JStatement(node, weaver), weaver);
         this.node = node;
     }
 
-    public static JThrow newInstance(CtThrow node) {
-        return new JThrow(node);
+    public static JThrow newInstance(CtThrow node, JavaWeaver weaver) {
+        return new JThrow(node, weaver);
     }
 
     @Override

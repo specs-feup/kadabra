@@ -18,6 +18,7 @@ import org.lara.interpreter.weaver.interf.JoinPoint;
 import spoon.reflect.code.CtStatement;
 import spoon.reflect.declaration.CtElement;
 import tdrc.utils.StringUtils;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.AStatement;
@@ -28,14 +29,14 @@ public class JStatement extends AStatement {
 
     private final CtStatement node;
 
-    public JStatement(CtStatement node) {
-
+    public JStatement(CtStatement node, JavaWeaver weaver) {
+        super(weaver);
         this.node = node;
     }
 
-    public static AStatement newInstance(CtStatement node) {
+    public static AStatement newInstance(CtStatement node, JavaWeaver weaver) {
 
-        return CtStatement2AStatement.convert(node);
+        return CtStatement2AStatement.convert(node, weaver);
     }
 
     @Override
@@ -49,11 +50,11 @@ public class JStatement extends AStatement {
     }
 
     public AJavaWeaverJoinPoint insertImplJStatement(String position, CtElement code) {
-        return ActionUtils.insert(position, code, node);
+        return ActionUtils.insert(position, code, node, getWeaverEngine());
     }
 
     public AJavaWeaverJoinPoint insertImplJStatement(String position, String code) {
-        return ActionUtils.insert(position, code, node);
+        return ActionUtils.insert(position, code, node, getWeaverEngine());
     }
 
     @Override
@@ -86,26 +87,4 @@ public class JStatement extends AStatement {
         String tempType = node.getClass().getSimpleName().replace("Ct", "").replace("Impl", "");
         return StringUtils.firstCharToLower(tempType);
     }
-
-    /*
-    @Override
-    public List<? extends ABinaryExpression> selectBinaryExpr() {
-        return selectBinaryExpression();
-    }
-    
-    @Override
-    public List<? extends ABinaryExpression> selectBinaryExpression() {
-        @SuppressWarnings("unchecked")
-        List<? extends ABinaryExpression> select = SelectUtils.select(node, CtBinaryOperator.class,
-                JBinaryExpression::newInstance);
-        return select;
-    }
-    
-    @Override
-    public List<? extends AArrayAccess> selectArrayAccess() {
-        @SuppressWarnings("unchecked")
-        List<? extends AArrayAccess> select = SelectUtils.select(node, CtArrayAccess.class, JArrayAccess::newInstance);
-        return select; // TODO Auto-generated method stub
-    }
-    */
 }

@@ -16,6 +16,7 @@ package weaver.kadabra.joinpoints;
 import spoon.reflect.code.CtArrayAccess;
 import spoon.reflect.code.CtArrayWrite;
 import spoon.reflect.code.CtExpression;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.AArrayAccess;
 import weaver.kadabra.abstracts.joinpoints.ATypeReference;
 import weaver.kadabra.enums.RefType;
@@ -24,14 +25,14 @@ public class JArrayAccess<T, E extends CtExpression<?>> extends AArrayAccess {
 
     private final CtArrayAccess<T, E> node;
 
-    protected JArrayAccess(CtArrayAccess<T, E> acess) {
-        super(new JExpression<>(acess));
-        node = acess;
+    protected JArrayAccess(CtArrayAccess<T, E> access, JavaWeaver weaver) {
+        super(new JExpression<>(access, weaver), weaver);
+        this.node = access;
     }
 
-    public static <T, E extends CtExpression<?>> JArrayAccess<T, E> newInstance(CtArrayAccess<T, E> access) {
-
-        return new JArrayAccess<>(access);
+    public static <T, E extends CtExpression<?>> JArrayAccess<T, E> newInstance(CtArrayAccess<T, E> access,
+            JavaWeaver weaver) {
+        return new JArrayAccess<>(access, weaver);
     }
 
     @Override
@@ -41,8 +42,7 @@ public class JArrayAccess<T, E extends CtExpression<?>> extends AArrayAccess {
 
     @Override
     public ATypeReference getTypeReferenceImpl() {
-        return new JTypeReference<>(node.getType());
-        // return CtTypeReferenceUtils.getType(node.getType());
+        return new JTypeReference<>(node.getType(), getWeaverEngine());
     }
 
     @Override

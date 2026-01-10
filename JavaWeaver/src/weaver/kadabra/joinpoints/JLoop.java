@@ -28,6 +28,7 @@ import spoon.reflect.code.CtWhile;
 import spoon.reflect.declaration.CtAnonymousExecutable;
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtExecutable;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.ALoop;
@@ -45,28 +46,28 @@ public abstract class JLoop extends ALoop {
     private Integer nestedLevel;
     protected String rank;
 
-    public static JLoop newInstance(CtLoop node) {
+    public static JLoop newInstance(CtLoop node, JavaWeaver weaver) {
         SpoonUtils.sanitizeBody(node);
         if (node instanceof CtFor) {
 
-            return JFor.newInstance((CtFor) node);
+            return JFor.newInstance((CtFor) node, weaver);
         } else if (node instanceof CtWhile) {
 
-            return JWhile.newInstance((CtWhile) node);
+            return JWhile.newInstance((CtWhile) node, weaver);
         } else if (node instanceof CtDo) {
 
-            return JDoWhile.newInstance((CtDo) node);
+            return JDoWhile.newInstance((CtDo) node, weaver);
 
         } else if (node instanceof CtForEach) {
 
-            return JForEach.newInstance((CtForEach) node);
+            return JForEach.newInstance((CtForEach) node, weaver);
         }
         throw new RuntimeException("Type of for loop not yet implemented: " + node.getClass());
 
     }
 
-    protected JLoop(CtLoop node, LoopType type) {
-        super(new JStatement(node));
+    protected JLoop(CtLoop node, LoopType type, JavaWeaver weaver) {
+        super(new JStatement(node, weaver), weaver);
         this.node = node;
         this.type = type;
         nestedLevel = null;
@@ -81,11 +82,11 @@ public abstract class JLoop extends ALoop {
     @Override
     public AJoinPoint[] insertImpl(String position, JoinPoint code) {
         return new AJoinPoint[] {
-                ActionUtils.insert(position, (CtElement) code.getNode(), node) };
+                ActionUtils.insert(position, (CtElement) code.getNode(), node, getWeaverEngine()) };
     }
 
     public AJavaWeaverJoinPoint insertImplJLoop(String position, String code) {
-        return ActionUtils.insert(position, code, node);
+        return ActionUtils.insert(position, code, node, getWeaverEngine());
     }
 
     @Override
@@ -161,15 +162,4 @@ public abstract class JLoop extends ALoop {
         KadabraLog.warning("Control variable can only be retrieved from 'for' loops");
         return null;
     }
-
-    // @Override
-    // public int getLine() {
-    //
-    // return node.getPosition().getLine();
-    // }
-    //
-    // @Override
-    // public int getEndLine() {
-    // return node.getPosition().getEndLine();
-    // }
 }

@@ -14,21 +14,23 @@
 package weaver.kadabra.joinpoints;
 
 import spoon.reflect.declaration.CtElement;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 
 public class JGenericJoinPoint extends AJavaWeaverJoinPoint {
 
     private CtElement node;
 
-    public static JGenericJoinPoint newDummy() {
-        return new JGenericJoinPoint(null);
+    public static JGenericJoinPoint newDummy(JavaWeaver weaver) {
+        return new JGenericJoinPoint(null, weaver);
     }
 
-    public static JGenericJoinPoint newInstance(CtElement node) {
-        return new JGenericJoinPoint(node);
+    public static JGenericJoinPoint newInstance(CtElement node, JavaWeaver weaver) {
+        return new JGenericJoinPoint(node, weaver);
     }
 
-    public JGenericJoinPoint(CtElement node) {
+    public JGenericJoinPoint(CtElement node, JavaWeaver weaver) {
+        super(weaver);
         this.node = node;
     }
 

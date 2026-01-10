@@ -19,6 +19,7 @@ import spoon.reflect.cu.CompilationUnit;
 import spoon.reflect.declaration.*;
 import spoon.reflect.factory.Factory;
 import spoon.reflect.reference.CtTypeReference;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.*;
 import weaver.utils.generators.FunctionalClassGenerator;
 import weaver.utils.generators.MapGenerator;
@@ -34,9 +35,8 @@ public class JClass<T> extends AClass {
     private final CtClass<T> originClass;
     private final CtCompilationUnit parent;
 
-    private JClass(CtClass<T> node, CtCompilationUnit parent) {
-        super(JType.newInstance(node, parent));
-        // super(JType.newInstance(node));
+    private JClass(CtClass<T> node, CtCompilationUnit parent, JavaWeaver weaver) {
+        super(JType.newInstance(node, parent, weaver), weaver);
         this.originClass = node;
         this.parent = parent;
     }
@@ -46,13 +46,12 @@ public class JClass<T> extends AClass {
         return originClass.getQualifiedName();
     }
 
-    public static <T> JClass<T> newInstance(CtClass<T> node, CtCompilationUnit parent) {
-        return new JClass<>(node, parent);
+    public static <T> JClass<T> newInstance(CtClass<T> node, CtCompilationUnit parent, JavaWeaver weaver) {
+        return new JClass<>(node, parent, weaver);
     }
 
-    public static <T> JClass<T> newInstance(CtClass<T> node) {
-
-        return new JClass<>(node, node.getPosition().getCompilationUnit());
+    public static <T> JClass<T> newInstance(CtClass<T> node, JavaWeaver weaver) {
+        return new JClass<>(node, node.getPosition().getCompilationUnit(), weaver);
     }
 
     @Override
@@ -65,7 +64,6 @@ public class JClass<T> extends AClass {
 
         Factory factory = originClass.getFactory();
         CtCodeSnippetStatement snippetStmt = SnippetFactory.createSnippetStatement(code, factory);
-        // CtBlock<Void> newBlock = factory.Code().createCtBlock(snippetStmt);
         CtBlock<Void> newBlock = factory.Core().createBlock();
         newBlock.addStatement(snippetStmt);
         CtAnonymousExecutable createAnonymous = factory.Method().createAnonymous(originClass, newBlock);
@@ -77,13 +75,13 @@ public class JClass<T> extends AClass {
 
         CtClass<?> generate = MapGenerator.generate(originClass.getFactory(), name, keyType, _interface, methodName);
         originClass.addNestedType(generate);
-        JClass<?> jClass = new JClass<>(generate, parent);
+        JClass<?> jClass = new JClass<>(generate, parent, getWeaverEngine());
         return jClass;
     }
 
     @Override
     public AInterfaceType extractInterfaceImpl(String name, String _package, AMethod method, boolean associate,
-                                               boolean newFile) {
+            boolean newFile) {
 
         Factory factory = originClass.getFactory();
         // First create the interface
@@ -110,7 +108,6 @@ public class JClass<T> extends AClass {
                     parent.getFile().getParentFile(), factory);
         } else {
             newInterface = ActionUtils.newInterface(name, null, originClass.getFactory());
-            // file.addInterface(new JInterface(newInterface));
         }
 
         if (associate) {
@@ -120,13 +117,14 @@ public class JClass<T> extends AClass {
         // Then add the method signature
         final JMethod<?> jMethod = (JMethod<?>) method;
         final CtMethod<?> ctMethod = jMethod.getNode();
-        // To be replaced in Spoon 5.0 with: create(newInterface, ctMethod, true); newMethod.setBody(null);
+        // To be replaced in Spoon 5.0 with: create(newInterface, ctMethod, true);
+        // newMethod.setBody(null);
         final CtMethod<?> newMethod = copyMethod(newInterface, ctMethod, factory);
         newMethod.removeModifier(ModifierKind.STATIC); // methods in interfaces are non-static!
         newMethod.removeModifier(ModifierKind.PRIVATE); // we want this method to be public
         newMethod.addModifier(ModifierKind.PUBLIC);
         newMethod.setParent(newInterface);
-        JInterfaceType<?> newInstance = JInterfaceType.newInstance(newInterface);
+        JInterfaceType<?> newInstance = JInterfaceType.newInstance(newInterface, getWeaverEngine());
         return newInstance;
     }
 
@@ -146,28 +144,27 @@ public class JClass<T> extends AClass {
         JMethod<?> gMethod = (JMethod<?>) generatorMethod;
         CtMethod<?> gMethodNode = gMethod.getNode();
 
-        JMethod<?> jMethod = FunctionalClassGenerator.generate(iMethodNode, gMethodNode, this.originClass);
+        JMethod<?> jMethod = FunctionalClassGenerator.generate(getWeaverEngine(), iMethodNode, gMethodNode,
+                this.originClass);
         return jMethod;
     }
 
     @Override
     public AConstructor newConstructorImpl(String[] modifiers, String[] paramLeft, String[] paramRight) {
         CtConstructor<?> newConstructor = ActionUtils.newConstructor(originClass, paramLeft, paramRight, modifiers);
-        JConstructor<?> newInstance = SelectUtils.node2JoinPoint(newConstructor, JConstructor::newInstance);
+        JConstructor<?> newInstance = SelectUtils.node2JoinPoint(newConstructor,
+                (node -> JConstructor.newInstance(node, getWeaverEngine())));
         return newInstance;
     }
 
     @Override
     public AJoinPoint getParentImpl() {
         var spoonParent = getNode().getParent();
-        // System.out.println("Spoon parent: " + spoonParent.getClass());
-        // System.out.println("Kadabra parent: " + parent.getClass());
-        // System.out.println("IS package? " + (spoonParent instanceof CtPackage));
         if (spoonParent != null && !(spoonParent instanceof CtPackage)) {
-            return CtElement2JoinPoint.convert(spoonParent);
+            return CtElement2JoinPoint.convert(spoonParent, getWeaverEngine());
         }
 
-        return new JFile(parent);
+        return new JFile(parent, getWeaverEngine());
     }
 
     @Override

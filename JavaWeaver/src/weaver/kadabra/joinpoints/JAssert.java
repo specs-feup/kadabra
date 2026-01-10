@@ -14,19 +14,20 @@
 package weaver.kadabra.joinpoints;
 
 import spoon.reflect.code.CtAssert;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.AAssert;
 
 public class JAssert<T> extends AAssert {
 
     private final CtAssert<T> node;
 
-    private JAssert(CtAssert<T> node) {
-        super(new JStatement(node));
+    private JAssert(CtAssert<T> node, JavaWeaver weaver) {
+        super(new JStatement(node, weaver), weaver);
         this.node = node;
     }
 
-    public static <T> JAssert<T> newInstance(CtAssert<T> node) {
-        return new JAssert<>(node);
+    public static <T> JAssert<T> newInstance(CtAssert<T> node, JavaWeaver weaver) {
+        return new JAssert<>(node, weaver);
     }
 
     @Override
