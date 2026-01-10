@@ -15,19 +15,20 @@ package weaver.kadabra.joinpoints;
 
 import spoon.reflect.code.CtBreak;
 import spoon.reflect.declaration.CtElement;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.ABreak;
 
 public class JBreak extends ABreak {
 
     private CtBreak node;
 
-    private JBreak(CtBreak node) {
-        super(new JStatement(node));
+    private JBreak(CtBreak node, JavaWeaver weaver) {
+        super(new JStatement(node, weaver), weaver);
         this.node = node;
     }
 
-    public static JBreak newInstance(CtBreak node) {
-        return new JBreak(node);
+    public static JBreak newInstance(CtBreak node, JavaWeaver weaver) {
+        return new JBreak(node, weaver);
     }
 
     @Override

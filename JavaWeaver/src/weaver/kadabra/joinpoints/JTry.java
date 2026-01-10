@@ -16,6 +16,7 @@ package weaver.kadabra.joinpoints;
 import java.util.stream.Collectors;
 
 import spoon.reflect.code.CtTry;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.ABody;
 import weaver.kadabra.abstracts.joinpoints.ACatch;
 import weaver.kadabra.abstracts.joinpoints.ATry;
@@ -25,13 +26,13 @@ public class JTry extends ATry {
 
     private CtTry node;
 
-    private JTry(CtTry node) {
-        super(new JStatement(node));
+    private JTry(CtTry node, JavaWeaver weaver) {
+        super(new JStatement(node, weaver), weaver);
         this.node = node;
     }
 
-    public static JTry newInstance(CtTry node) {
-        return new JTry(node);
+    public static JTry newInstance(CtTry node, JavaWeaver weaver) {
+        return new JTry(node, weaver);
     }
 
     @Override
@@ -41,14 +42,15 @@ public class JTry extends ATry {
 
     @Override
     public ABody getBodyImpl() {
-        return CtElement2JoinPoint.convert(node.getBody(), ABody.class);
+        return CtElement2JoinPoint.convert(node.getBody(), getWeaverEngine(), ABody.class);
     }
 
     @Override
     public ACatch[] getCatchesArrayImpl() {
 
         return node.getCatchers().stream()
-                .map(catchNode -> CtElement2JoinPoint.convert(catchNode, ACatch.class))
+                .map(catchNode -> CtElement2JoinPoint.convert(catchNode,
+                        getWeaverEngine(), ACatch.class))
                 .collect(Collectors.toList())
                 .toArray(new ACatch[0]);
 

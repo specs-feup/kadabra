@@ -22,6 +22,7 @@ import spoon.reflect.code.CtLocalVariable;
 import spoon.reflect.code.CtStatement;
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtField;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.AExpression;
 import weaver.kadabra.abstracts.joinpoints.AField;
 import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
@@ -37,13 +38,13 @@ public class JFor extends JLoop {
 
     CtFor node;
 
-    private JFor(CtFor node) {
-        super(node, LoopType.FOR);
+    private JFor(CtFor node, JavaWeaver weaver) {
+        super(node, LoopType.FOR, weaver);
         this.node = node;
     }
 
-    public static JFor newInstance(CtFor node) {
-        return new JFor(node);
+    public static JFor newInstance(CtFor node, JavaWeaver weaver) {
+        return new JFor(node, weaver);
     }
 
     @Override
@@ -82,7 +83,7 @@ public class JFor extends JLoop {
         }
         // invalidate current rank
         rank = null;
-        JField<Integer> newInstance = JField.newInstance(tileField);
+        JField<Integer> newInstance = JField.newInstance(tileField, getWeaverEngine());
         return newInstance;
     }
 
@@ -92,15 +93,9 @@ public class JFor extends JLoop {
 
     }
 
-    // @Override
-    // public List<? extends AExpression> selectCond() {
-    // return SelectUtils.expression2JoinPointList(node.getExpression());
-    //
-    // }
-
     @Override
     public AExpression getCondImpl() {
-        return (AExpression) CtElement2JoinPoint.convert(node.getExpression());
+        return (AExpression) CtElement2JoinPoint.convert(node.getExpression(), getWeaverEngine());
     }
 
     /**

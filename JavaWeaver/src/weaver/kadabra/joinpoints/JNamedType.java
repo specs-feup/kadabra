@@ -18,6 +18,7 @@ import java.util.Arrays;
 import com.google.common.reflect.ClassPath.ClassInfo;
 
 import spoon.reflect.declaration.CtElement;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.ANamedType;
 
 public class JNamedType extends ANamedType {
@@ -25,12 +26,13 @@ public class JNamedType extends ANamedType {
     private ClassInfo info;
     private Class<?> libClass;
 
-    private JNamedType(ClassInfo info) {
+    private JNamedType(ClassInfo info, JavaWeaver weaver) {
+        super(weaver);
         this.info = info;
     }
 
-    public static JNamedType newInstance(ClassInfo info) {
-        return new JNamedType(info);
+    public static JNamedType newInstance(ClassInfo info, JavaWeaver weaver) {
+        return new JNamedType(info, weaver);
     }
 
     @Override
@@ -58,11 +60,6 @@ public class JNamedType extends ANamedType {
         Class<?>[] interfaces = getLibClass().getInterfaces();
         return Arrays.stream(interfaces).map(i -> i.getName()).toArray(String[]::new);
     }
-
-    // @Override
-    // public String[] getModifiersArrayImpl() {
-    // return null;
-    // }
 
     @Override
     public String getJavadocImpl() {

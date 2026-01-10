@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import spoon.reflect.code.CtConstructorCall;
 import spoon.reflect.code.CtExpression;
 import spoon.reflect.declaration.CtElement;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.AExpression;
 import weaver.kadabra.abstracts.joinpoints.ANew;
 import weaver.utils.weaving.SelectUtils;
@@ -26,14 +27,14 @@ public class JNew<T> extends ANew {
 
     private final CtConstructorCall<T> constructorCall;
 
-    public JNew(CtConstructorCall<T> constructorCall) {
-        super(new JExpression<>(constructorCall));
+    public JNew(CtConstructorCall<T> constructorCall, JavaWeaver weaver) {
+        super(new JExpression<>(constructorCall, weaver), weaver);
 
         this.constructorCall = constructorCall;
     }
 
-    public static <T> JNew<T> newInstance(CtConstructorCall<T> node) {
-        return new JNew<>(node);
+    public static <T> JNew<T> newInstance(CtConstructorCall<T> node, JavaWeaver weaver) {
+        return new JNew<>(node, weaver);
     }
 
     @Override
@@ -49,7 +50,8 @@ public class JNew<T> extends ANew {
     @Override
     public AExpression[] getArgumentsArrayImpl() {
         return SelectUtils.nodeList2JoinPointList(constructorCall.getArguments(),
-                arg -> JExpression.newInstance(arg))
+                arg -> JExpression.newInstance(arg,
+                        getWeaverEngine()))
                 .toArray(new AExpression[0]);
     }
 

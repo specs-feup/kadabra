@@ -19,6 +19,7 @@ import java.util.List;
 import pt.up.fe.specs.util.SpecsIo;
 import pt.up.fe.specs.util.SpecsLogs;
 import pt.up.fe.specs.util.xml.XmlDocument;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.joinpoints.JXmlNode;
 
 /**
@@ -48,7 +49,6 @@ public class AndroidResources {
         if (androidManifest != null) {
             File manifestFile = new File(realOutputFolder, srcFolder.getName() + "/main/AndroidManifest.xml");
             androidManifest.write(manifestFile);
-            // System.out.println("WROTE " + manifestFile.getAbsolutePath());
         }
     }
 
@@ -83,9 +83,9 @@ public class AndroidResources {
         return this.androidManifest;
     }
 
-    public static JXmlNode parseXml(String xmlCode) {
+    public static JXmlNode parseXml(String xmlCode, JavaWeaver weaver) {
         var xmlNode = XmlDocument.newInstance(xmlCode);
-        return new JXmlNode(xmlNode);
+        return new JXmlNode(xmlNode, weaver);
     }
 
     /**
@@ -105,27 +105,14 @@ public class AndroidResources {
             }
 
             var relativePath = SpecsIo.getRelativePath(srcFolder.getParentFile(), source);
-            // System.out.println("SRC FOLDER: " + srcFolder);
-            // System.out.println("SOURCE: " + source);
-            // System.out.println("RELATIVE PATH: " + relativePath);
             return new AndroidResources(srcFolder, relativePath);
         }
 
         return new AndroidResources(null, "");
-
-        // var srcFolder = sources.stream()
-        // .map(AndroidResources::getSrcFolder)
-        // .filter(src -> src != null)
-        // .findFirst()
-        // .orElse(null);
-        //
-        // return new AndroidResources(srcFolder);
     }
 
     private static File getSrcFolder(File path) {
         var candidateFolder = path;
-        // System.out.println("PATH: " + path);
-        // System.out.println("FILES: " + SpecsIo.getFilesRecursive(path));
         // Get parent in source is a file
         if (candidateFolder.isFile()) {
             candidateFolder = candidateFolder.getParentFile();
@@ -148,16 +135,5 @@ public class AndroidResources {
 
     private static boolean hasAndroidManifest(File srcFolder) {
         return new File(srcFolder, "main/AndroidManifest.xml").isFile();
-        /*        
-        var mainFolder = new File(srcFolder, "main");
-        
-        if (!mainFolder.isDirectory()) {
-            return false;
-        }
-        
-        var androidManifest = new File(mainFolder, "AndroidManifest.xml");
-        
-        return androidManifest.isFile();
-        */
     }
 }

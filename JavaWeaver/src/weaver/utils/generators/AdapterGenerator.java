@@ -38,6 +38,7 @@ import spoon.reflect.factory.Factory;
 import spoon.reflect.reference.CtExecutableReference;
 import spoon.reflect.reference.CtFieldReference;
 import spoon.reflect.reference.CtTypeReference;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.agent.MethodAdapter;
 import weaver.kadabra.exceptions.JavaWeaverException;
 import weaver.kadabra.joinpoints.JClass;
@@ -55,7 +56,8 @@ public class AdapterGenerator {
 
     /**
      * Generate an adapter for a target class based on a given method signature.<br>
-     * <b>NOTE:</B> the method signature has to be: byte[] <anyName>(String,byte[] [,<anyType>]);
+     * <b>NOTE:</B> the method signature has to be: byte[] <anyName>(String,byte[]
+     * [,<anyType>]);
      * 
      * @param name
      * @param adapterMethod
@@ -63,7 +65,8 @@ public class AdapterGenerator {
      * @param targetClass
      * @return
      */
-    public static JClass<?> generate(String name, CtMethod<?> adapterMethod, CtMethod<?> targetMethod,
+    public static JClass<?> generate(JavaWeaver weaver, String name, CtMethod<?> adapterMethod,
+            CtMethod<?> targetMethod,
             boolean reuseIfExists) {
         validateTransformerMethod(adapterMethod);
 
@@ -92,7 +95,7 @@ public class AdapterGenerator {
         }
 
         addSuperAdaptInvocation(factory, adaptMethod);
-        JClass<?> jClass = SelectUtils.node2JoinPoint(mainType, c -> JClass.newInstance(c, cu));
+        JClass<?> jClass = SelectUtils.node2JoinPoint(mainType, c -> JClass.newInstance(c, cu, weaver));
         return jClass;
     }
 
@@ -126,8 +129,7 @@ public class AdapterGenerator {
         CtInvocation<T> invoke = factory.Code().createInvocation(adapterClassAccess, adapterRef);
         invoke.addArgument(factory.Code().createVariableRead(mvParam.getReference(), false));
         invoke.addArgument(factory.Code().createVariableRead(accessParam.getReference(), false));
-        // CtReturn<T> returnStmt = factory.Core().createReturn();
-        // returnStmt.setReturnedExpression(invoke);
+
         method.getBody().addStatement(invoke);
         return invoke;
     }
@@ -177,7 +179,6 @@ public class AdapterGenerator {
     private static void generateConstructor(CtMethod<?> targetMethod, Factory factory, CtClass<?> mainType) {
         // Create the constructor
 
-        // CtSuperAccess<?> createSuperAccess = factory.Core().createSuperAccess();
         CtExecutableReference<MethodAdapter> superConstrRef;
         try {
             superConstrRef = factory.Constructor()
@@ -194,7 +195,6 @@ public class AdapterGenerator {
         CtLiteral<String> literalMethodName = factory.Code().createLiteral(targetMethod.getSimpleName());
         CtInvocation<?> superInvoke = factory.Code().createInvocation(null, superConstrRef, targetClassAccess,
                 literalMethodName);
-        // CtBlock<?> constrBody = factory.Code().createCtBlock(superInvoke);
         CtConstructor<?> adaptConstr = factory.Constructor().create(mainType, publicMod, Collections.emptyList(),
                 Collections.emptySet(), factory.Core().createBlock());
 
@@ -205,12 +205,6 @@ public class AdapterGenerator {
         Factory factory = adaptMethodNode.getFactory();
         CtTypeReference<MethodVisitor> mVType = factory.Type().createReference(MethodVisitor.class);
         CtTypeReference<Integer> intType = factory.Type().integerPrimitiveType();
-
-        // First verify if return type is void -> can be anything, doesn't matter
-        // if (!adaptMethodNode.getType().isAssignableFrom(byteArrayType)) {
-        // throw new JavaWeaverException(
-        // "The adapt method must return byte[], i.e., an array of bytes of the new class");
-        // }
 
         List<CtParameter<?>> parameters = adaptMethodNode.getParameters();
         // Verify if num args >= 2
@@ -226,13 +220,12 @@ public class AdapterGenerator {
         if (!actualMVType.isSubtypeOf(mVType)) {
             throw new JavaWeaverException(
                     "The first argument of adapt method is not of type " + MethodVisitor.class.getName());// + ".\n" +
-            // "The adapt method must have at least two arguments: MethodVisitor mv, int access");
         }
+
         // Second argument should be of type byte[]
         if (!accessType.isSubtypeOf(intType)) {
             throw new JavaWeaverException(
                     "The second argument of adapt method is not of type int.");// \n" +
-            // "The adapt method must have at least two arguments: MethodVisitor mv, int access");
         }
     }
 

@@ -16,6 +16,7 @@ package weaver.kadabra.joinpoints;
 import spoon.reflect.code.CtBlock;
 import spoon.reflect.code.CtCodeSnippetStatement;
 import spoon.reflect.code.CtStatement;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.ABody;
 import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
@@ -28,13 +29,13 @@ public class JBody<T> extends ABody {
 
     private final CtBlock<T> node;
 
-    private JBody(CtBlock<T> block) {
-        super(new JStatement(block));
+    private JBody(CtBlock<T> block, JavaWeaver weaver) {
+        super(new JStatement(block, weaver), weaver);
         node = block;
     }
 
-    public static <T> JBody<T> newInstance(CtBlock<T> block) {
-        return new JBody<>(block);
+    public static <T> JBody<T> newInstance(CtBlock<T> block, JavaWeaver weaver) {
+        return new JBody<>(block, weaver);
     }
 
     @Override
@@ -46,26 +47,19 @@ public class JBody<T> extends ABody {
         final CtCodeSnippetStatement snippet = SnippetFactory.createSnippetStatement(code, node.getFactory());
 
         switch (Location.valueOf(position.toUpperCase())) {
-        // case BEFORE:
-        // node.insertBegin(snippet);
-        // break;
-        // case AFTER:
-        // node.insertEnd(snippet);
-        // break;
-        case AROUND:
-        case REPLACE:
-            node.getStatements().clear();
-            node.addStatement(snippet);
-            snippet.setParent(node);
-            break;
-        default:
-            throw new RuntimeException(
-                    "Code insertion on a block can only be done around (i.e., complete code replacement)");
+            case AROUND:
+            case REPLACE:
+                node.getStatements().clear();
+                node.addStatement(snippet);
+                snippet.setParent(node);
+                break;
+            default:
+                throw new RuntimeException(
+                        "Code insertion on a block can only be done around (i.e., complete code replacement)");
         }
         snippet.setParent(node);
 
-        return CtElement2JoinPoint.convert(snippet);
-        // return SelectUtils.node2JoinPoint(snippet, JSnippet::newInstance);
+        return CtElement2JoinPoint.convert(snippet, getWeaverEngine());
     }
 
     @Override
@@ -100,7 +94,8 @@ public class JBody<T> extends ABody {
             return null;
         }
 
-        return CtElement2JoinPoint.convert(node.getStatement(node.getStatements().size() - 1), AStatement.class);
+        return CtElement2JoinPoint.convert(node.getStatement(node.getStatements().size() - 1), getWeaverEngine(),
+                AStatement.class);
     }
 
     private boolean hasStatements() {

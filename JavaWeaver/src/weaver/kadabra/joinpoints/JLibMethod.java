@@ -15,6 +15,7 @@ package weaver.kadabra.joinpoints;
 
 import java.lang.reflect.Method;
 import spoon.reflect.declaration.CtElement;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.ALibMethod;
 import weaver.kadabra.abstracts.joinpoints.ANamedType;
 import weaver.kadabra.exceptions.JavaWeaverException;
@@ -23,12 +24,13 @@ public class JLibMethod extends ALibMethod {
 
     private Method method;
 
-    private JLibMethod(Method m) {
+    private JLibMethod(Method m, JavaWeaver weaver) {
+        super(weaver);
         method = m;
     }
 
-    public static JLibMethod newInstance(Method m) {
-        return new JLibMethod(m);
+    public static JLibMethod newInstance(Method m, JavaWeaver weaver) {
+        return new JLibMethod(m, weaver);
     }
 
     @Override

@@ -15,23 +15,24 @@ package weaver.kadabra.joinpoints;
 
 import spoon.reflect.cu.CompilationUnit;
 import spoon.reflect.declaration.CtInterface;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.AInterfaceType;
 
 public class JInterfaceType<T> extends AInterfaceType {
 
     CtInterface<T> node;
 
-    private JInterfaceType(CtInterface<T> node, CompilationUnit parent) {
-        super(JType.newInstance(node, parent));
+    private JInterfaceType(CtInterface<T> node, CompilationUnit parent, JavaWeaver weaver) {
+        super(JType.newInstance(node, parent, weaver), weaver);
         this.node = node;
     }
 
-    public static <T> JInterfaceType<T> newInstance(CtInterface<T> node, CompilationUnit parent) {
-        return new JInterfaceType<>(node, parent);
+    public static <T> JInterfaceType<T> newInstance(CtInterface<T> node, CompilationUnit parent, JavaWeaver weaver) {
+        return new JInterfaceType<>(node, parent, weaver);
     }
 
-    public static <T> JInterfaceType<T> newInstance(CtInterface<T> node) {
-        return new JInterfaceType<>(node, node.getPosition().getCompilationUnit());
+    public static <T> JInterfaceType<T> newInstance(CtInterface<T> node, JavaWeaver weaver) {
+        return new JInterfaceType<>(node, node.getPosition().getCompilationUnit(), weaver);
     }
 
     @Override

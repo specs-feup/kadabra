@@ -15,14 +15,15 @@ package weaver.kadabra.joinpoints;
 
 import pt.up.fe.specs.util.xml.XmlElement;
 import spoon.reflect.declaration.CtElement;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.AXmlElement;
 
 public class JXmlElement extends AXmlElement {
 
     private final XmlElement element;
 
-    public JXmlElement(XmlElement element) {
-        super(new JXmlNode(element));
+    public JXmlElement(XmlElement element, JavaWeaver weaver) {
+        super(new JXmlNode(element, weaver), weaver);
 
         this.element = element;
     }

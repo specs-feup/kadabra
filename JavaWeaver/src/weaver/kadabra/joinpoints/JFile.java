@@ -21,6 +21,7 @@ import spoon.reflect.declaration.*;
 import spoon.support.reflect.declaration.CtImportImpl;
 import spoon.support.reflect.reference.CtTypeReferenceImpl;
 import spoon.support.visitor.equals.EqualsVisitor;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.*;
 import weaver.utils.generators.MapGenerator;
@@ -35,62 +36,22 @@ public class JFile extends AFile {
 
     private final CtCompilationUnit node;
 
-    public JFile(CtCompilationUnit node) {
+    public JFile(CtCompilationUnit node, JavaWeaver weaver) {
+        super(weaver);
         this.node = node;
     }
-
-    // public JFile(CtKadabraCompilationUnit node) {
-    // this.node = node.getCu();
-    // }
-
-    // @Override
-    // public String getCodeImpl() {
-    // return node.toString();
-    // }
 
     @Override
     public void addImportImpl(String qualifiedName) {
         var imports = node.getImports();
-        // System.out.println("IMPORTS BEFORE:\n" + imports);
         var packageReferece = new CtTypeReferenceImpl();
         packageReferece.setSimpleName(qualifiedName);
-        // System.out.println("Reference:" + packageReferece);
         var newImport = new CtImportImpl().setReference(packageReferece);
 
-        // System.out.println("NEW IMPORT: " + newImport);
         imports.add(newImport);
 
         node.setImports(new ArrayList<>(imports));
-        // System.out.println("IMPORTS AFTER:\n" + node.getImports());
     }
-
-    /*
-    @Override
-    public void addImportImpl(String qualifiedName) {
-        var importList = node.getImports();
-        // Add to a set, keeping order
-        var updatedSet = new LinkedHashSet<>(importList);
-    
-        // CtImportImpl
-        var ref = new CtTypeReferenceImpl<>();
-        ref.setSimpleName(qualifiedName);
-        var newImport = new CtImportImpl();
-        newImport.setReference(ref);
-        updatedSet.add(newImport);
-        node.setImports(updatedSet);
-    
-        // // If new import, replace
-        // if (updatedSet.add(newImport)) {
-        // node.setImports(updatedSet);
-        // }
-    
-        // ref.setPackage(new CtPackageReferenceImpl())
-        // System.out.println("REF: " + ref);
-        // ref.setSimpleName(qualifiedName);
-        // TODO Auto-generated method stub
-        // super.addImportImpl(qualifiedName);
-    }
-    */
 
     @Override
     public boolean compareNodes(AJoinPoint aJoinPoint) {
@@ -109,7 +70,7 @@ public class JFile extends AFile {
         List<CtType<?>> others = other.getDeclaredTypes();
 
         for (Iterator<? extends CtElement> firstIt = elements.iterator(), secondIt = others.iterator(); (firstIt
-                .hasNext()) && (secondIt.hasNext()); ) {
+                .hasNext()) && (secondIt.hasNext());) {
             boolean isNotEqual = EqualsVisitor.equals(firstIt.next(), secondIt.next());
             if (isNotEqual) {
                 return false;
@@ -182,19 +143,11 @@ public class JFile extends AFile {
         return node.getDeclaredTypes().stream();
     }
 
-    // @Override
-    // public void addImportImpl(String _class) {
-    // // System.out.println("for file: " + getName() + " importing: " + _class);
-    // CtTypeReference<?> reference = node.getFactory().Class().get(_class).getReference();
-    // Import newImport = node.getFactory().CompilationUnit().createImport(reference);
-    // ((CompilationUnitImpl) node).getManualImports().add(newImport);
-    // }
-
     @Override
     public AClass newClassImpl(String name, String extend, String[] implement) {
         final CtClass<Object> newClass = ActionUtils.newClass(name, extend, implement, node.getFactory());
         node.getDeclaredTypes().add(newClass);
-        JClass<Object> newInstance = JClass.newInstance(newClass, node);
+        JClass<Object> newInstance = JClass.newInstance(newClass, node, getWeaverEngine());
         return newInstance;
     }
 
@@ -207,7 +160,7 @@ public class JFile extends AFile {
     public AInterfaceType newInterfaceImpl(String name, String[] extend) {
         final CtInterface<Object> newInterface = ActionUtils.newInterface(name, extend, node.getFactory());
         node.getDeclaredTypes().add(newInterface);
-        JInterfaceType<Object> newInstance = JInterfaceType.newInstance(newInterface);
+        JInterfaceType<Object> newInstance = JInterfaceType.newInstance(newInterface, getWeaverEngine());
         return newInstance;
     }
 
@@ -240,7 +193,7 @@ public class JFile extends AFile {
 
         CtClass<?> newClass = MapGenerator.generate(node.getFactory(), name, keyType, _interface, methodName);
         node.getDeclaredTypes().add(newClass);
-        AClass newInstance = JClass.newInstance(newClass, node);
+        AClass newInstance = JClass.newInstance(newClass, node, getWeaverEngine());
         return newInstance;
     }
 
@@ -254,7 +207,7 @@ public class JFile extends AFile {
         List<AJoinPoint> children = new ArrayList<>();
 
         for (var file : getNode().getDeclaredTypes()) {
-            AJavaWeaverJoinPoint type = CtElement2JoinPoint.convertTry(file).orElse(null);
+            AJavaWeaverJoinPoint type = CtElement2JoinPoint.convertTry(file, getWeaverEngine()).orElse(null);
             if (type == null) {
                 continue;
             }
@@ -264,16 +217,6 @@ public class JFile extends AFile {
 
         return children.toArray(new AJoinPoint[0]);
     }
-
-    // @Override
-    // public AJoinPoint childImpl(Integer index) {
-    // return getChildrenArrayImpl()[index];
-    // }
-
-    // @Override
-    // public Integer getNumChildrenImpl() {
-    // return getChildrenArrayImpl().length;
-    // }
 
     @Override
     public String toString() {
@@ -293,16 +236,17 @@ public class JFile extends AFile {
             return null;
         }
 
-        // Name of file can be empty, in that case just return the first type if present, otherwise throw exception
+        // Name of file can be empty, in that case just return the first type if
+        // present, otherwise throw exception
         if (fileName.isBlank()) {
             SpecsLogs.info("file.mainClass: file name is empty, returning first class that is found in file");
-            return CtElement2JoinPoint.convert(declaredTypes.get(0), AType.class);
+            return CtElement2JoinPoint.convert(declaredTypes.get(0), getWeaverEngine(), AType.class);
         }
 
         var declaredTypesNames = new ArrayList<String>();
         for (var declaredType : declaredTypes) {
             if (fileName.equals(declaredType.getSimpleName())) {
-                return CtElement2JoinPoint.convert(declaredType, AType.class);
+                return CtElement2JoinPoint.convert(declaredType, getWeaverEngine(), AType.class);
             }
         }
 

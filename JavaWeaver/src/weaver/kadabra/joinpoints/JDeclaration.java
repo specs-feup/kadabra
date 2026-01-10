@@ -16,6 +16,7 @@ package weaver.kadabra.joinpoints;
 import spoon.reflect.code.CtExpression;
 import spoon.reflect.declaration.CtVariable;
 import spoon.reflect.reference.CtTypeReference;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.ADeclaration;
 import weaver.kadabra.abstracts.joinpoints.AExpression;
 import weaver.kadabra.abstracts.joinpoints.ATypeReference;
@@ -27,12 +28,13 @@ public class JDeclaration<T> extends ADeclaration {
 
     protected CtVariable<T> node;
 
-    private JDeclaration(CtVariable<T> node) {
+    private JDeclaration(CtVariable<T> node, JavaWeaver weaver) {
+        super(weaver);
         this.node = node;
     }
 
-    public static <T> JDeclaration<T> newInstance(CtVariable<T> node) {
-        return new JDeclaration<>(node);
+    public static <T> JDeclaration<T> newInstance(CtVariable<T> node, JavaWeaver weaver) {
+        return new JDeclaration<>(node, weaver);
     }
 
     @Override
@@ -42,16 +44,8 @@ public class JDeclaration<T> extends ADeclaration {
 
     @Override
     public ATypeReference getTypeReferenceImpl() {
-
         CtTypeReference<?> type2 = node.getType();
-        return type2 != null ? new JTypeReference<>(type2) : null;
-        /*
-        if (type2 == null) {
-            return "unknown";
-        }
-        String type = CtTypeReferenceUtils.getType(type2);
-        return type != null ? type : "unknown";
-        */
+        return type2 != null ? new JTypeReference<>(type2, getWeaverEngine()) : null;
     }
 
     @Override
@@ -92,7 +86,7 @@ public class JDeclaration<T> extends ADeclaration {
             return null;
         }
 
-        return (AExpression) CtElement2JoinPoint.convert(init);
+        return CtElement2JoinPoint.convert(init, getWeaverEngine(), AExpression.class);
     }
 
     @Override

@@ -26,14 +26,21 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * Abstract class which can be edited by the developer. This class will not be overwritten.
+ * Abstract class which can be edited by the developer. This class will not be
+ * overwritten.
  *
  * @author Lara Weaver Generator
  */
 public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
 
-    // public static final Map<CtElement, CtElement> CLONED_NODES = new HashMap<>();
+    public AJavaWeaverJoinPoint(JavaWeaver weaver) {
+        super(weaver);
+    }
 
+    @Override
+    public JavaWeaver getWeaverEngine() {
+        return (JavaWeaver) super.getWeaverEngine();
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -44,12 +51,13 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
         return false;
     }
 
-
     /**
-     * Compares the two join points based on their node reference of the used compiler/parsing tool.<br>
+     * Compares the two join points based on their node reference of the used
+     * compiler/parsing tool.<br>
      * This is the default implementation for comparing two join points. <br>
-     * <b>Note for developers:</b> A weaver may override this implementation in the editable abstract join point, so the
-     * changes are made for all join points, or override this method in specific join points.
+     * <b>Note for developers:</b> A weaver may override this implementation in the
+     * editable abstract join point, so the changes are made for all join points, or
+     * override this method in specific join points.
      */
     @Override
     public boolean compareNodes(AJoinPoint aJoinPoint) {
@@ -63,44 +71,11 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
 
     @Override
     public String getCodeImpl() {
-        // return getNode().getFactory().getEnvironment().createPrettyPrinter().printElement(getNode());
-
-        return JavaWeaver.getJavaWeaver().getSourceCodePrinter().getSourceCode(getNode());
-
-        // return new DefaultJavaPrettyPrinter(getNode().getFactory().getEnvironment()).printElement(getNode());
-
-        // return new SourceCodePrinter(getNode().getFactory().getEnvironment()).printElement(getNode());
-
-        // DefaultJavaPrettyPrinter printer = JavaWeaver.getJavaWeaver().getPrinter();
-        // var node = getNode();
-        // String errorMessage = "";
-        // try {
-        // // we do not want to compute imports of for CtImport and CtReference
-        // // as it may change the print of a reference
-        // if (!(node instanceof CtImport) && !(node instanceof CtReference)) {
-        // printer.getImportsContext().computeImports(this);
-        // }
-        // printer.scan(node);
-        // } catch (ParentNotInitializedException ignore) {
-        // SpecsLogs.debug("Could not get code for " + this + ": " + ignore);
-        // // throw new RuntimeException("Could not get code for node " + this, ignore);
-        // // LOGGER.error(ERROR_MESSAGE_TO_STRING, ignore);
-        // // errorMessage = ERROR_MESSAGE_TO_STRING;
-        // }
-        // // in line-preservation mode, newlines are added at the beginning to matches the lines
-        // // removing them from the toString() representation
-        // return printer.toString().replaceFirst("^\\s+", "") + errorMessage;
-
-        // return getNode().toString(); // temporary
-        // return getNode().toString() + "\n"; // temporary
+        return getWeaverEngine().getSourceCodePrinter().getSourceCode(getNode());
     }
 
     @Override
     public abstract CtElement getNode();
-
-    // public CtElement getParent() {
-    // return getNode().getParent();
-    // }
 
     @Override
     public void setLineImpl(int value) {
@@ -137,12 +112,8 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
             return null;
         }
 
-        // System.out.println("JP: " + getClass());
-        // System.out.println("NODE: " + getNode().getClass());
-        // System.out.println("PARENT J: " + parent.getClass());
+        var parentJp = CtElement2JoinPoint.convert(parent, getWeaverEngine());
 
-        var parentJp = CtElement2JoinPoint.convert(parent);
-        // System.out.println("PARENT JP: " + parentJp.getClass());
         // Special case: if parent is a CallStatement, return the Call instead
         if (parentJp instanceof ACallStatement) {
             return ((ACallStatement) parentJp).getCallImpl();
@@ -172,54 +143,31 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
     public AJoinPoint getAncestorImpl(String type) {
         Preconditions.checkNotNull(type, "Missing type of ancestor in attribute 'ancestor'");
 
-        // System.out.println("Getting ancestor '" + type + "' of " + getJoinPointType());
-
         AJoinPoint currentNode = getParentImpl();
         while (currentNode != null) {
-            // System.out.println("Parent " + currentNode.getJoinPointType() + " is '" + type + "'?");
             if (currentNode.instanceOf(type)) {
-                // System.out.println("Yes!");
                 return currentNode;
             }
-            // System.out.println("No..");
             currentNode = currentNode.getParentImpl();
         }
 
         return currentNode;
-
-        // CtElement currentNode = getNode().getParent();
-        // while (currentNode != null) {
-        // System.out.println("CURRENT NODE: " + currentNode.getClass());
-        //
-        // AJavaWeaverJoinPoint parentJp = CtElement2JoinPoint.convert(currentNode);
-        //
-        // if (parentJp.instanceOf(type)) {
-        // return parentJp;
-        // }
-        // // String joinPointType = parentJp.getJoinPointType();
-        // // if (joinPointType.equals(type)) {
-        // // return parentJp;
-        // // }
-        // currentNode = currentNode.getParent();
-        // }
-        //
-        // return null;
     }
 
     protected AExpression toAExpression(CtExpression<?> expression) {
-        return CtExpression2AExpression.convertToExpression(expression);
+        return CtExpression2AExpression.convertToExpression(expression, getWeaverEngine());
     }
 
     protected AJavaWeaverJoinPoint toAStatement(CtStatement statement) {
-        return CtStatement2AStatement.convert(statement);
+        return CtStatement2AStatement.convert(statement, getWeaverEngine());
     }
 
     protected AType toAType(CtType<?> type) {
-        return CtType2AType.convert(type);
+        return CtType2AType.convert(type, getWeaverEngine());
     }
 
     protected AExecutable toAExecutable(CtExecutable<?> exec) {
-        return CtExecutable2AExecutable.convert(exec);
+        return CtExecutable2AExecutable.convert(exec, getWeaverEngine());
     }
 
     @Override
@@ -233,25 +181,11 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
         }
 
         return position.getLine();
-        // // Check if this joinpoint is a statement
-        // if (this instanceof AStatement) {
-        // return ((AStatement) this).getLineImpl();
-        // }
-        //
-        // // Try to obtain a statement
-        // AJavaWeaverJoinPoint stmtAncestor = ancestorImpl("statement");
-        // if (stmtAncestor instanceof AStatement) {
-        // return ((AStatement) stmtAncestor).getLineImpl();
-        // }
-        //
-        // SpecsLogs.msgInfo("attribute 'line' not implemented for join point " + getJoinPointType()
-        // + " that is not inside a statement");
-        //
-        // return -1;
     }
 
     /**
-     * Required, because original insertImpl returns JoinPoint, but abstract join points return AJoinPoint.
+     * Required, because original insertImpl returns JoinPoint, but abstract join
+     * points return AJoinPoint.
      */
     @Override
     public AJoinPoint[] insertImpl(String position, String code) {
@@ -280,20 +214,13 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
         return insertImpl("after", code)[0];
     }
 
-    // @Override
-    // public AJoinPoint[] insertImpl(String position, String code) {
-    // return insertImpl("after", code);
-    // }
-
     @Override
     public AJoinPoint insertReplaceImpl(AJoinPoint jp) {
-        // return insertImpl("replace", jp)[0];
         return replaceWithImpl(jp);
     }
 
     @Override
     public AJoinPoint insertReplaceImpl(String code) {
-        // return insertImpl("replace", code)[0];
         return replaceWithImpl(code);
     }
 
@@ -307,11 +234,6 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
         return insertImpl("replace", code)[0];
     }
 
-    // @Override
-    // public <T extends JoinPoint> AJoinPoint[] insertImpl(String position, T JoinPoint) {
-    // throw new NotImplementedException(this);
-    // }
-
     @Override
     public AJoinPoint[] insertImpl(String position, JoinPoint JoinPoint) {
         throw new NotImplementedException(this);
@@ -319,48 +241,7 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
 
     @Override
     public AJoinPoint[] getDescendantsArrayImpl() {
-
         return getJpDescendantsStream().toArray(size -> new AJoinPoint[size]);
-        /*
-        if (this instanceof JApp) {
-            JApp app = (JApp) this;
-        
-            List<AJoinPoint> descendants = new ArrayList<>();
-            for (AFile file : app.selectFile()) {
-                descendants.add(file);
-                descendants.addAll(Arrays.asList(file.getDescendantsArrayImpl()));
-            }
-            // for (ALibClass libClass : app.selectLibClass()) {
-            // descendants.addAll(Arrays.asList(libClass.getDescendantsArrayImpl()));
-            // }
-        
-            return descendants.toArray(new AJoinPoint[0]);
-        }
-        
-        if (this instanceof JFile) {
-            JFile jfile = (JFile) this;
-        
-            List<AJoinPoint> descendants = new ArrayList<>();
-            for (var file : jfile.getNode().getCu().getDeclaredTypes()) {
-                AJavaWeaverJoinPoint type = CtElement2JoinPoint.convertTry(file).orElse(null);
-                if (type == null) {
-                    continue;
-                }
-        
-                descendants.add(type);
-                descendants.addAll(Arrays.asList(type.getDescendantsArrayImpl()));
-            }
-        
-            return descendants.toArray(new AJoinPoint[0]);
-        }
-        
-        return getNode().getElements(element -> true)
-                .stream()
-                .map(CtElement2JoinPoint::convertTry)
-                .filter(Optional::isPresent)
-                .map(Optional::get)
-                .toArray(size -> new AJoinPoint[size]);
-        */
     }
 
     @Override
@@ -374,10 +255,6 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
         return getNode() instanceof CtBlock;
     }
 
-    // @Override
-    // public Boolean getIsBlockStatementImpl() {
-    // return SpoonUtils.isStatementInBlock(getNode());
-    // }
     @Override
     public AJoinPoint copyImpl() {
         // Clone the node
@@ -385,10 +262,7 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
         // Set the parent
         copy.setParent(getNode().getParent());
 
-        // CLONED_NODES.put(copy, getNode());
-
-        return CtElement2JoinPoint.convert(copy);
-        // throw new RuntimeException(".copy not implemented yet for join point " + getJoinPointType());
+        return CtElement2JoinPoint.convert(copy, getWeaverEngine());
     }
 
     private List<? extends CtElement> getChildrenNodes() {
@@ -397,8 +271,6 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
 
     @Override
     public Stream<JoinPoint> getJpChildrenStream() {
-        // return getChildrenNodes().stream()
-        // .map(CtElement2JoinPoint::convert);
         return Arrays.stream(getChildrenArrayImpl());
     }
 
@@ -410,20 +282,18 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
     @Override
     public AJoinPoint[] getChildrenArrayImpl() {
         return getChildrenNodes().stream()
-                .map(CtElement2JoinPoint::convert)
+                .map(node -> CtElement2JoinPoint.convert(node, getWeaverEngine()))
                 .toArray(size -> new AJoinPoint[size]);
     }
 
     @Override
     public AJoinPoint childImpl(Integer index) {
         return getChildrenArrayImpl()[index];
-        // return CtElement2JoinPoint.convert(getChildrenNodes().get(index));
     }
 
     @Override
     public Integer getNumChildrenImpl() {
         return getChildrenArrayImpl().length;
-        // return getChildrenNodes().size();
     }
 
     @Override
@@ -436,70 +306,27 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
         }
 
         // This method is more robust regarding the initial node
-        return SpoonUtils.toAst(getNode(), "");
+        return SpoonUtils.toAst(getNode(), "", getWeaverEngine());
     }
 
     @Override
     public String toString() {
-        // return getJoinPointType();
         return getNode().toString();
     }
 
     @Override
     public void removeImpl() {
         // Delete from annotations
-        JWEnvironment env = ActionUtils.getKadabraEnvironment(JavaWeaver.getFactory().getSpoonFactory());
+        JWEnvironment env = ActionUtils.getKadabraEnvironment(getWeaverEngine().getFactory().getSpoonFactory());
         // TODO: This remove can be optimized
-        // System.out.println("NODE HAS PARENT? " + getNode().isParentInitialized());
-        // System.out.println("NODE PARENT? " + getNode().getParent());
         env.getTable().remove(getNode());
 
-        // getNode().replace(Collections.emptyList()); // Spoon 6
-        getNode().delete(); // Spoon 8
-
+        getNode().delete();
     }
 
-    // /**
-    // * If node implements CtModifiable, returns the modifiers. Otherwise, returns empty set.
-    // *
-    // * @return
-    // */
-    // // @SuppressWarnings("unchecked")
-    // public Set<ModifierKind> getModifiersInternal() {
-    // var node = getNode();
-    //
-    // if (node instanceof CtModifiable) {
-    // return ((CtModifiable) node).getModifiers();
-    // }
-    //
-    // return Collections.emptySet();
-    // //
-    // // // Choose best method
-    // // Method invokingMethod = SpecsSystem.getMethod(getNode().getClass(), "getModifiers");
-    // //
-    // // // Could not find method, return empty set
-    // // if (invokingMethod == null) {
-    // // return Collections.emptySet();
-    // //
-    // // }
-    // //
-    // // // Invoke method
-    // // try {
-    // // return (Set<ModifierKind>) invokingMethod.invoke(getNode());
-    // // } catch (Exception e) {
-    // // throw new RuntimeException("Exception while calling getModifiers(): ", e);
-    // // }
-    // }
-
-    /**
-     *
-     */
     @Override
     public String[] getModifiersArrayImpl() {
         return modifiersToString(SpoonUtils.getModifiers(getNode()));
-        // return JoinPoints.getModifiersInternal(this).stream()
-        // .map(ModifierKind::name)
-        // .toArray(length -> new String[length]);
     }
 
     public String[] modifiersToString(Collection<ModifierKind> modifiers) {
@@ -519,21 +346,10 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
         }
 
         return SpoonUtils.getModifiers(getNode()).contains(modifierKind);
-        // var modifierLowerCase = modifier.toLowerCase();
-        //
-        // return Arrays.stream(getModifiersArrayImpl())
-        // .map(String::toLowerCase)
-        // .filter(currentModifier -> currentModifier.equals(modifierLowerCase))
-        // .findFirst()
-        // .isPresent();
     }
 
     @Override
     public Boolean getIsFinalImpl() {
-        // System.out.println("JP: " + getNode().getShortRepresentation() + ":" +
-        // JoinPoints.getModifiersInternal(this));
-        // System.out.println("JP: " + getClass() + ":" + JoinPoints.getModifiersInternal(this));
-        // System.out.println("NODE: " + getNode().getClass() + ":" + JoinPoints.getModifiersInternal(this));
         return SpoonUtils.getModifiers(getNode()).contains(ModifierKind.FINAL);
     }
 
@@ -542,13 +358,11 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
         return SpoonUtils.getModifiers(getNode()).contains(ModifierKind.STATIC);
     }
 
-    ;
-
     @Override
     public AAnnotation[] getAnnotationsArrayImpl() {
 
         return getNode().getAnnotations().stream()
-                .map(annotation -> (AAnnotation) SelectUtils.expression2JoinPoint(annotation))
+                .map(annotation -> (AAnnotation) SelectUtils.expression2JoinPoint(annotation, getWeaverEngine()))
                 .collect(Collectors.toList())
                 .toArray(size -> new AAnnotation[size]);
     }

@@ -46,10 +46,12 @@ import static weaver.specification.JavaWeaverResource.*;
 /**
  * LARA Weaving Engine that uses Spoon as the Java compiler/processor <br>
  * Weaver Implementation for JavaWeaver<br>
- * Since the generated abstract classes are always overwritten, their implementation should be done by extending those
- * abstract classes with user-defined classes.<br>
- * The abstract class {@link weaver.abstracts.AJoinPoint} can be used to add user-defined methods and fields which the
- * user intends to add for all join points and are not intended to be used in LARA aspects.
+ * Since the generated abstract classes are always overwritten, their
+ * implementation should be done by extending those abstract classes with
+ * user-defined classes.<br>
+ * The abstract class {@link weaver.abstracts.AJoinPoint} can be used to add
+ * user-defined methods and fields which the user intends to add for all join
+ * points and are not intended to be used in LARA aspects.
  *
  * @author Lara C.
  */
@@ -58,7 +60,6 @@ public class JavaWeaver extends AJavaWeaver {
         KadabraLog.setDebug(true);
     }
 
-    // private static final Set<String> WEAVER_NAMES = SpecsCollections.asSet("kadabra");
     private static final Set<String> LANGUAGES = SpecsCollections.asSet("java");
 
     // Fields
@@ -76,7 +77,7 @@ public class JavaWeaver extends AJavaWeaver {
     private boolean noClassPath = false; // Continues even if an error of missing lib occurs
     private OutputType outType = OutputType.COMPILATION_UNITS;
     private final Report reportGear;
-    // private final JavaWeaverGear dependeciesGear = new JavaWeaverGear();
+
     private File temp;
 
     public JavaWeaver() {
@@ -86,7 +87,8 @@ public class JavaWeaver extends AJavaWeaver {
     }
 
     /**
-     * Set a file/folder in the weaver if it is valid file/folder type for the weaver.
+     * Set a file/folder in the weaver if it is valid file/folder type for the
+     * weaver.
      *
      * @param sources   the file with the source code
      * @param outputDir output directory for the generated file(s)
@@ -107,19 +109,11 @@ public class JavaWeaver extends AJavaWeaver {
         reset();
         parseOptions(args);
 
-        // if (prettyPrint) {
-        // tempOutFolder = new File(IoUtils.getCanonicalPath(outputDir) + "_temp");
-        // outputDir = tempOutFolder;
-        // }
-
         if (prettyPrint) {
 
             this.outputDir.mkdirs();
-            temp = getTemporaryWeaverFolder();// new File("_jw_temp");
+            temp = getTemporaryWeaverFolder();
             outputDir = temp;
-            // this.setOutputProcessor(temp, spoon, spoon.getEnvironment());
-            //
-            // this.setInputSources(Arrays.asList(temp), spoon);
         }
 
         // Pass only Java files to spoon
@@ -127,14 +121,10 @@ public class JavaWeaver extends AJavaWeaver {
         var javaSources = getJavaSources(sources);
         spoon = newSpoon(javaSources, outputDir);
 
-        // spoon = newSpoon(sources, outputDir);
         this.currentOutputDir = outputDir;
         buildAndProcess();
-        /* turning off path verifier as it is giving errors for new classes and code */
-        // spoon.getEnvironment().setNoClasspath(true);
-        // spoon.getEnvironment().setNoClasspath(false);
-        jApp = JApp.newInstance(spoon, sources);
-        // spoon.getEnvironment().setAutoImports(false);
+
+        jApp = JApp.newInstance(spoon, sources, this);
 
         return true;
     }
@@ -210,7 +200,8 @@ public class JavaWeaver extends AJavaWeaver {
     }
 
     /**
-     * Closes the weaver to the specified output directory location, if the weaver generates new file(s)
+     * Closes the weaver to the specified output directory location, if the weaver
+     * generates new file(s)
      *
      * @return if close was successful
      */
@@ -234,12 +225,9 @@ public class JavaWeaver extends AJavaWeaver {
             if (prettyPrint) {
                 spoon.prettyprint();
                 spoon = newSpoon(Arrays.asList(temp), outputDir);
-                // spoon.getEnvironment().setNoClasspath(true);
-                // spoon.getEnvironment().setNoClasspath(false);
                 buildAndProcess();
                 spoon.prettyprint();
             } else {
-                // System.out.println("PRESERVE? " + spoon.getEnvironment().isPreserveLineNumbers());
                 spoon.prettyprint();
             }
         }
@@ -281,8 +269,6 @@ public class JavaWeaver extends AJavaWeaver {
         spoon.prettyprint();
 
         var newSpoon = newSpoon(Arrays.asList(inputFolder), outputFolder);
-        // newSpoon.getEnvironment().setNoClasspath(true);
-        // newSpoon.getEnvironment().setNoClasspath(false);
         buildAndProcess(newSpoon);
         newSpoon.prettyprint();
 
@@ -293,7 +279,8 @@ public class JavaWeaver extends AJavaWeaver {
     /**
      * Returns a list of Gears associated to this weaver engine
      *
-     * @return a list of implementations of {@link AGear} or null if no gears are available
+     * @return a list of implementations of {@link AGear} or null if no gears are
+     *         available
      */
     @Override
     public List<AGear> getGears() {
@@ -305,48 +292,23 @@ public class JavaWeaver extends AJavaWeaver {
     private void reset() {
         SpoonUtils.resetCounter();
         table.reset();
-        /*RESET GEARS*/
+        /* RESET GEARS */
         reportGear.reset();
     }
 
     /**
-     * Instantiates a new {@link JWSpoonLauncher} based on the given input sources and the properties of this
-     * {@link JavaWeaver} instance.
+     * Instantiates a new {@link JWSpoonLauncher} based on the given input sources
+     * and the properties of this {@link JavaWeaver} instance.
      *
      * @param sources the input sources to parse
      * @return
      */
     private JWSpoonLauncher newSpoon(List<File> sources, File outputDir) {
-        // Launcher.LOGGER.setLevel(Level.INFO);
-        // Logger.getRootLogger().setLevel(Level.TRACE);
-
-        // try {
-        // Launcher.LOGGER.addAppender(new FileAppender(new SimpleLayout(), "logg.txt"));
-        // } catch (IOException e1) {
-        // SpecsLogs.warn("Error message:\n", e1);
-        // }
-
-        // try {
-        // BasicConfigurator.configure(new FileAppender(new SimpleLayout(), "logg.txt"));
-        // } catch (IOException e1) {
-        // SpecsLogs.warn("Error message:\n", e1);
-        // }
-
         JWSpoonLauncher spoon = new JWSpoonLauncher(sources);
 
-        // String[] spoonArgs = { "--level", "ERROR" };
-        // spoon.setArgs(spoonArgs);
-
         Environment environment = spoon.getFactory().getEnvironment();
-        // System.out.println("LEVE: " + environment.getLevel());
-        // environment.setLevel("WARN");
-        // System.out.println("NEW LEVE: " + environment.getLevel());
-        // environment.setLevel("WARN");
-        // System.out.println("LEVEL: " + Launcher.LOGGER.getLevel());
-        // Launcher.LOGGER.setLevel(Level.TRACE);
-        // System.out.println("LEVEL NEW: " + Launcher.LOGGER.getLevel());
 
-        spoon.setArgs(new String[]{"--output-type", outType.toString()}); // required to define the type of output...
+        spoon.setArgs(new String[] { "--output-type", outType.toString() }); // required to define the type of output...
 
         if (!classPath.isEmpty()) {
 
@@ -357,7 +319,6 @@ public class JavaWeaver extends AJavaWeaver {
                 processedClasspath.addAll(classPath);
                 var additionalJars = classPath.stream()
                         .filter(classPath -> classPath.isDirectory())
-                        // .flatMap(folder -> SpecsIo.getFiles(folder, "jar").stream())
                         .flatMap(folder -> SpecsIo.getFilesRecursive(folder, "jar").stream())
                         .collect(Collectors.toList());
                 SpecsLogs.debug("Adding JARs to classpath: " + additionalJars);
@@ -366,38 +327,24 @@ public class JavaWeaver extends AJavaWeaver {
                 List<String> filesStr = processedClasspath.stream().map(SpecsIo::getCanonicalPath)
                         .collect(Collectors.toList());
                 String[] classPathArray = filesStr.toArray(new String[0]);
-                // KadabraLog.info(filesStr);
                 environment.setSourceClasspath(classPathArray);
-                // KadabraLog.info(Arrays.toString(environment.getSourceClasspath());
             } catch (Exception e) {
                 throw new JavaWeaverException("setting the classpath", e);
             }
         }
-        // environment.disableConsistencyChecks(); // Spoon 8
-        // environment.setSelfChecks(false); // Spoon 6
-        // environment.setSelfChecks(true);
-        // environment.setAutoImports(true);
-        environment.setCommentEnabled(true);
-        // environment.setGenerateJavadoc(true);
 
+        environment.setCommentEnabled(true);
         setOutputProcessor(outputDir, spoon, environment);
-        // the output type: compilation units)
         environment.setNoClasspath(noClassPath);
-        // environment.setNoClasspath(false);
         setInputSources(sources, spoon);
         spoon.addProcessor(new IfProcessor());
-        // spoon.addProcessor(new CommentProcessor());
 
         // Set fully qualified names
-        // environment.setAutoImports(true);
-        // environment.setAutoImports(!args.get(JavaWeaverKeys.FULLY_QUALIFIED_NAMES));
         if (args.get(JavaWeaverKeys.FULLY_QUALIFIED_NAMES)) {
             environment.setAutoImports(false);
         } else {
             environment.setAutoImports(true);
         }
-
-        // environment.setPreserveLineNumbers(false);
 
         environment.setCopyResources(args.get(JavaWeaverKeys.COPY_RESOURCES));
 
@@ -420,11 +367,11 @@ public class JavaWeaver extends AJavaWeaver {
     }
 
     private static void setOutputProcessor(File outputDir, Launcher spoon, Environment environment) {
-        // JavaOutputProcessor outProcessor = spoon.createOutputWriter(outputDir, environment); // Spoon 6
-        JavaOutputProcessor outProcessor = spoon.createOutputWriter(); // Spoon 8
-        environment.setDefaultFileGenerator(outProcessor); // Define output folder (needed for the output type: classes)
 
-        // spoon.setOutputDirectory(IoUtils.getCanonicalPath(outputDir)); // Define output folder AGAIN (needed for the
+        JavaOutputProcessor outProcessor = spoon.createOutputWriter();
+        // Define output folder (needed for the output type: classes)
+        environment.setDefaultFileGenerator(outProcessor);
+
         spoon.setSourceOutputDirectory(SpecsIo.getCanonicalPath(outputDir));// Define output folder AGAIN
         spoon.setBinaryOutputDirectory(SpecsIo.getCanonicalPath(outputDir)); // Define output folder AGAIN (needed for
     }
@@ -436,7 +383,6 @@ public class JavaWeaver extends AJavaWeaver {
      */
     private void parseOptions(DataStore args) {
 
-        // System.out.println("IN JavaWeaver.parseOptions\n" + args);
         if (args.hasValue(JavaWeaverKeys.CLEAR_OUTPUT_FOLDER)) {
             clearOutputFolder = args.get(JavaWeaverKeys.CLEAR_OUTPUT_FOLDER);
         }
@@ -526,15 +472,8 @@ public class JavaWeaver extends AJavaWeaver {
         return "KADABRA";
     }
 
-    /**
-     * Get weaver with this type
-     **/
-    public static JavaWeaver getJavaWeaver() {
-        return (JavaWeaver) getThreadLocalWeaver();
-    }
-
-    public static SpoonFactory getFactory() {
-        return new SpoonFactory(getJavaWeaver().spoon.getFactory());
+    public SpoonFactory getFactory() {
+        return new SpoonFactory(spoon.getFactory());
     }
 
     @Override
