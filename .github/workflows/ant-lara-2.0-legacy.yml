@@ -4,64 +4,63 @@
 name: Java CI - Lara 2.0 Legacy
 
 on:
-  push:
-    branches: [ lara-2.0-legacy ]
-  pull_request:
-    branches: [ lara-2.0-legacy ]
+    push:
+        branches: [lara-2.0-legacy]
+    pull_request:
+        branches: [lara-2.0-legacy]
 
-  # Daily at midnight
-  schedule:
-    - cron: '0 0 * * *'
+    # Daily at midnight
+    schedule:
+        - cron: "0 0 * * *"
 
 permissions:
-  checks: write
+    checks: write
 
 jobs:
-  build:
+    build:
+        runs-on: ubuntu-latest
 
-    runs-on: ubuntu-latest
+        #defaults:
+        #  run:
+        #    working-directory: ./..
 
-    #defaults:
-    #  run:
-    #    working-directory: ./..
+        steps:
+            - uses: actions/checkout@v6
+              # Because of scheduled runs, by default run on default branch
+              with:
+                  ref: lara-2.0-legacy
 
-    steps:
-    - uses: actions/checkout@v4
-      # Because of scheduled runs, by default run on default branch
-      with:
-        ref: lara-2.0-legacy
+            - name: Cache ivy dependencies
+              id: cache-nivy
+              uses: actions/cache@v3
+              env:
+                  cache-name: cache-ivy-dependencies
+              with:
+                  # ivy dependencies cache files are stored in `~/.ivy2` on Linux/macOS
+                  path: ~/.ivy2
+                  key: ${{ runner.os }}-build-${{ env.cache-name }}
 
-    - name: Cache ivy dependencies
-      id: cache-nivy
-      uses: actions/cache@v3
-      env:
-          cache-name: cache-ivy-dependencies
-      with:
-          # ivy dependencies cache files are stored in `~/.ivy2` on Linux/macOS
-          path: ~/.ivy2
-          key: ${{ runner.os }}-build-${{ env.cache-name }}        
+            - name: Set up JDK 17
+              uses: actions/setup-java@v3
+              with:
+                  java-version: "17"
+                  distribution: "temurin"
 
-    - name: Set up JDK 17
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-        
-    - name: Generate build.xml
-      run: | 
-        wget -N http://specs.fe.up.pt/tools/eclipse-build.jar
-        java -jar eclipse-build.jar https://github.com/specs-feup/specs-java-libs https://github.com/specs-feup/lara-framework?commit=lara-2.0-legacy ./
-        wget -N -O /usr/share/ant/lib/ivy-2.5.0.jar specs.fe.up.pt/libs/ivy-2.5.0.jar
-    - name: Build with Ant
-      run: |
-        ant -noinput -buildfile build.xml
+            - name: Generate build.xml
+              run: |
+                  wget -N http://specs.fe.up.pt/tools/eclipse-build.jar
+                  java -jar eclipse-build.jar https://github.com/specs-feup/specs-java-libs https://github.com/specs-feup/lara-framework?commit=lara-2.0-legacy ./
+                  wget -N -O /usr/share/ant/lib/ivy-2.5.0.jar specs.fe.up.pt/libs/ivy-2.5.0.jar
+            - name: Build with Ant
+              run: |
+                  ant -noinput -buildfile build.xml
 
-    - name: Publish Test Report 
-      uses: mikepenz/action-junit-report@v3.0.1
-      if: always() # always run even if the previous step fails
-      with:
-        report_paths: '**/reports-eclipse-build/TEST-*.xml'
-        #report_paths: 'junit-reports/*.xml'      
-        #report_paths: '**/reports-eclipse-build/*.xml'              
-        summary: true
-        #exclude_sources: ''        
+            - name: Publish Test Report
+              uses: mikepenz/action-junit-report@v3.0.1
+              if: always() # always run even if the previous step fails
+              with:
+                  report_paths: "**/reports-eclipse-build/TEST-*.xml"
+                  #report_paths: 'junit-reports/*.xml'
+                  #report_paths: '**/reports-eclipse-build/*.xml'
+                  summary: true
+                  #exclude_sources: ''
