@@ -76,17 +76,17 @@ jobs:
                       local ref_to_use=""
                       
                       # Priority 1: Same branch name
-                      if git ls-remote --heads "$url" "refs/heads/${BRANCH_NAME}" >/dev/null; then
-                      ref_to_use="${BRANCH_NAME}"
-                      echo "Using matching branch '${BRANCH_NAME}' in ${repo}"
+                      if [ -n "$(git ls-remote --heads "$url" "refs/heads/${BRANCH_NAME}")" ]; then
+                          ref_to_use="${BRANCH_NAME}"
+                          echo "Using matching branch '${BRANCH_NAME}' in ${repo}"
                       # Priority 2: PR target branch (if this is a PR)
-                      elif [ -n "${BASE_BRANCH}" ] && git ls-remote --heads "$url" "refs/heads/${BASE_BRANCH}" >/dev/null; then
-                      ref_to_use="${BASE_BRANCH}"
-                      echo "Using PR target branch '${BASE_BRANCH}' in ${repo}"
+                      elif [ -n "${BASE_BRANCH}" ] && [ -n "$(git ls-remote --heads "$url" "refs/heads/${BASE_BRANCH}")" ]; then
+                          ref_to_use="${BASE_BRANCH}"
+                          echo "Using PR target branch '${BASE_BRANCH}' in ${repo}"
                       # Priority 3: Default branch
                       else
-                      ref_to_use="${default_branch}"
-                      echo "Using default branch '${default_branch}' for ${repo}"
+                          ref_to_use="${default_branch}"
+                          echo "Using default branch '${default_branch}' for ${repo}"
                       fi
                       
                       echo "${prefix}_ref=${ref_to_use}" >> "$GITHUB_OUTPUT"
