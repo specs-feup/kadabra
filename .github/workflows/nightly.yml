@@ -6,7 +6,7 @@
 name: nightly
 
 on:
-    push:
+    pull_request:
 
     # Every Monday at 09h00
     schedule:
