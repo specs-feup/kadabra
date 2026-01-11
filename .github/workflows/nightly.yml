@@ -18,7 +18,7 @@ permissions:
 
 env:
     JAVA_VERSION: 17
-    KADABRA_BRANCH: ${{ github.head_ref || github.ref_name }}
+    BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
 
 jobs:
     build-java:
@@ -51,7 +51,7 @@ jobs:
               id: repo-refs
               shell: bash
               env:
-                  BRANCH_NAME: ${{ env.KADABRA_BRANCH }}
+                  BRANCH_NAME: ${{ env.BRANCH_NAME }}
                   BASE_BRANCH: ${{ github.base_ref }}
               run: |
                   set -euo pipefail
@@ -97,7 +97,7 @@ jobs:
 
             - name: Echo checks
               run: |
-                  echo "Kadabra branch: ${{ env.KADABRA_BRANCH }}"
+                  echo "Weaver branch: ${{ env.BRANCH_NAME }}"
                   echo "PR target branch (if any): ${{ github.base_ref }}"
                   echo "Lara framework ref: ${{ steps.repo-refs.outputs.lara_ref }}"
                   echo "Lara framework default: ${{ steps.repo-refs.outputs.lara_default }}"
