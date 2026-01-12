@@ -1,0 +1,119 @@
+name: "Copilot Setup Steps"
+
+# Automatically run the setup steps when they are changed
+# Allows for streamlined validation,
+# and allow manual testing through the repository's "Actions" tab
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - .github/workflows/copilot-setup-steps.yml
+  pull_request:
+    paths:
+      - .github/workflows/copilot-setup-steps.yml
+
+env:
+  BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+
+jobs:
+  # The job MUST be called `copilot-setup-steps`
+  # otherwise it will not be picked up by Copilot.
+  copilot-setup-steps:
+    runs-on: ubuntu-latest
+
+    # Permissions set just for the setup steps
+    # Copilot has permissions to its branch
+
+    permissions:
+      # To allow us to clone the repo for setup
+      contents: read
+
+    # The setup steps - install our dependencies
+    steps:
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: current
+
+      - name: Checkout Kadabra
+        uses: actions/checkout@v6
+        with:
+          path: kadabra
+
+      - name: Determine repository refs
+        id: repo-refs
+        shell: bash
+        env:
+          BRANCH_NAME: ${{ env.BRANCH_NAME }}
+          BASE_BRANCH: ${{ github.base_ref }}
+        run: |
+          set -euo pipefail
+
+          # For each dependency repository, determine which branch to checkout.
+          # Priority order:
+          # 1. A branch with the same name as the current branch
+          # 2. If this is a PR, the target branch (base_ref)
+          # 3. The default branch of the repository
+
+          determine_ref() {
+            local prefix=$1
+            local repo=$2
+            local url="https://github.com/${repo}.git"
+
+            # Get the default branch
+            local default_branch
+            default_branch=$(git ls-remote --symref "$url" HEAD | awk '/^ref:/ {print $2}' | sed 's@refs/heads/@@')
+            echo "${prefix}_default=${default_branch}" >> "$GITHUB_OUTPUT"
+            echo "Default branch for ${repo} is '${default_branch}'"
+
+            local ref_to_use=""
+            
+            # Priority 1: Same branch name
+            if [ -n "$(git ls-remote --heads "$url" "refs/heads/${BRANCH_NAME}")" ]; then
+              ref_to_use="${BRANCH_NAME}"
+              echo "Using matching branch '${BRANCH_NAME}' in ${repo}"
+            # Priority 2: PR target branch (if this is a PR)
+            elif [ -n "${BASE_BRANCH}" ] && [ -n "$(git ls-remote --heads "$url" "refs/heads/${BASE_BRANCH}")" ]; then
+              ref_to_use="${BASE_BRANCH}"
+              echo "Using PR target branch '${BASE_BRANCH}' in ${repo}"
+            # Priority 3: Default branch
+            else
+              ref_to_use="${default_branch}"
+              echo "Using default branch '${default_branch}' for ${repo}"
+            fi
+            
+            echo "${prefix}_ref=${ref_to_use}" >> "$GITHUB_OUTPUT"
+          }
+
+          determine_ref "lara" "specs-feup/lara-framework"
+          determine_ref "specs" "specs-feup/specs-java-libs"
+
+      - name: Echo checks
+        run: |
+          echo "Weaver branch: ${{ env.BRANCH_NAME }}"
+          echo "PR target branch (if any): ${{ github.base_ref }}"
+          echo "Lara framework ref: ${{ steps.repo-refs.outputs.lara_ref }}"
+          echo "Lara framework default: ${{ steps.repo-refs.outputs.lara_default }}"
+          echo "Specs-java-libs ref: ${{ steps.repo-refs.outputs.specs_ref }}"
+          echo "Specs-java-libs default: ${{ steps.repo-refs.outputs.specs_default }}"
+
+      - name: Checkout lara-framework
+        uses: actions/checkout@v6
+        with:
+          repository: specs-feup/lara-framework
+          path: lara-framework
+          ref: ${{ steps.repo-refs.outputs.lara_ref }}
+
+      - name: Checkout specs-java-libs
+        uses: actions/checkout@v6
+        with:
+          repository: specs-feup/specs-java-libs
+          path: specs-java-libs
+          ref: ${{ steps.repo-refs.outputs.specs_ref }}

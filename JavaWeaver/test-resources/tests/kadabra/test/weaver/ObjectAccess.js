@@ -5,10 +5,10 @@ console.log("Call: " + Query.search("method").search("call").first().code);
 console.log(
     "Arg type type: " +
         Query.search("method", { name: "test" }).search("call").first()
-            .arguments[0].typeReference
+            .arguments[0].name
 );
 console.log(
     "Arg type package: " +
         Query.search("method", { name: "test" }).search("call").first()
-            .arguments[0].typeReference.packageName
+            .arguments[0].base.code
 );

@@ -1,21 +1,17 @@
 /**
  * Copyright 2015 SPeCS.
- * 
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- * 
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ * <p>
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License. under the License.
  */
 
 package weaver.kadabra.joinpoints;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 import pt.up.fe.specs.util.SpecsLogs;
 import spoon.reflect.code.CtCodeSnippetExpression;
@@ -24,13 +20,7 @@ import spoon.reflect.code.CtInvocation;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.reference.CtExecutableReference;
 import spoon.reflect.reference.CtTypeReference;
-import weaver.kadabra.abstracts.joinpoints.ACall;
-import weaver.kadabra.abstracts.joinpoints.AExpression;
-import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
-import weaver.kadabra.abstracts.joinpoints.AMethod;
-import weaver.kadabra.abstracts.joinpoints.AStatement;
-import weaver.kadabra.abstracts.joinpoints.AType;
-import weaver.kadabra.abstracts.joinpoints.ATypeReference;
+import weaver.kadabra.abstracts.joinpoints.*;
 import weaver.kadabra.exceptions.JavaWeaverException;
 import weaver.utils.SpoonUtils;
 import weaver.utils.weaving.ActionUtils;
@@ -38,6 +28,10 @@ import weaver.utils.weaving.SelectUtils;
 import weaver.utils.weaving.SnippetFactory;
 import weaver.utils.weaving.converters.CtElement2JoinPoint;
 import weaver.utils.weaving.converters.CtType2AType;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class JCall<T> extends ACall {
 
@@ -57,7 +51,6 @@ public class JCall<T> extends ACall {
      */
     @Override
     public AJoinPoint getParentImpl() {
-
         if (SpoonUtils.isStatementInBlock(node)) {
             return new JCallStatement<>(node);
         }

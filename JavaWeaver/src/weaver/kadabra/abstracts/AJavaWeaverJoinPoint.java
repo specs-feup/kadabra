@@ -210,7 +210,7 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
         return CtExpression2AExpression.convertToExpression(expression);
     }
 
-    protected AStatement toAStatement(CtStatement statement) {
+    protected AJavaWeaverJoinPoint toAStatement(CtStatement statement) {
         return CtStatement2AStatement.convert(statement);
     }
 
@@ -653,23 +653,23 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
 
     @Override
     public void setModifiersImpl(String[] modifiers) {
-        
+
         Set<ModifierKind> modifiersSet = new HashSet<>();
-        
+
         for (String modifier : modifiers) {
             // Convert modifier to enum
             var modifierEnum = SpecsEnums.valueOfTry(ModifierKind.class, modifier.toUpperCase());
-            
+
             if (modifierEnum.isEmpty()) {
                 SpecsLogs.info("Could not obtain modifier from string '" + modifier + "'. Available modifiers: "
-                + Arrays.toString(ModifierKind.values()));
+                        + Arrays.toString(ModifierKind.values()));
                 return;
             }
-            
+
             // Add modifier to modifiersSet
             modifiersSet.add(modifierEnum.get());
         }
-        
+
         SpoonUtils.setModifiers(getNode(), modifiersSet);
     }
 

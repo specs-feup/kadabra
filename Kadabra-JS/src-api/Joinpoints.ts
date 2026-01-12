@@ -751,7 +751,7 @@ export class AndroidManifest extends XmlNode {
   static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
     name: null,
   };
-  get asJson(): object { return wrapJoinPoint(this._javaObject.getAsJson()) }
+  get asJson(): string { return wrapJoinPoint(this._javaObject.getAsJson()) }
 }
 
 export class Annotation extends Expression {
@@ -981,6 +981,10 @@ export class FieldAccess extends Var {
   static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
     name: "name",
   };
+  /**
+   * The base expression of this fieldAccess. E.g., for the field access a.b.c, returns the expression representing a.b
+   */
+  get base(): Expression { return wrapJoinPoint(this._javaObject.getBase()) }
 }
 
 export class If extends Statement {

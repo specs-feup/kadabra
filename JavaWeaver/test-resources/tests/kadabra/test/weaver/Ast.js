@@ -1,5 +1,6 @@
 import Query from "@specs-feup/lara/api/weaver/Query.js";
 import { KadabraNodes } from "@specs-feup/kadabra/api/kadabra/KadabraNodes.js";
+
 // Print AST
 console.log(Query.search("file").first().ast);
 

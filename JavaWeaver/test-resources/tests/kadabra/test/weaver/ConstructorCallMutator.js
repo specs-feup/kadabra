@@ -5,105 +5,99 @@ import Weaver from "@specs-feup/lara/api/weaver/Weaver.js";
 import { arrayFromArgs } from "@specs-feup/lara/api/lara/core/LaraCore.js";
 
 function saveFile() {
-    const outputFolder = Io.mkdir("./mutatedFilesTest/");
-    Io.deleteFolderContents(outputFolder);
+  const outputFolder = Io.mkdir("./mutatedFilesTest/");
+  Io.deleteFolderContents(outputFolder);
 
-    // Write modified code
-    Weaver.writeCode(outputFolder);
+  // Write modified code
+  Weaver.writeCode(outputFolder);
 
-    // Print contents
-    for (const mutatedFile of Io.getFiles(outputFolder, "*.java")) {
-        console.log("<File '" + mutatedFile.getName() + "'>");
-        console.log(Io.readFile(mutatedFile));
-    }
+  // Print contents
+  for (const mutatedFile of Io.getFiles(outputFolder, "*.java")) {
+    console.log("<File '" + mutatedFile.getName() + "'>");
+    console.log(Io.readFile(mutatedFile));
+  }
 
-    Io.deleteFolder(outputFolder);
+  Io.deleteFolder(outputFolder);
 }
 
 /**
  *  @param {$joinPoint} $joinPoint - A join point to use as startpoint to search for constructor calls to replace with null.
  */
 class ConstructorCallMutator extends Mutator {
-    constructor($joinPoint) {
-        super();
+  constructor($joinPoint) {
+    super();
 
-        if ($joinPoint === undefined) {
-            $joinPoint = Query.root();
-        }
-
-        // Instance variables
-        this.$joinPoint = $joinPoint;
-        this.extraArgs = arrayFromArgs(arguments, 1);
-
-        this.toMutate = [];
-        this.totalMutations = -1;
-        this.currentIndex = 0;
-
-        this.$referenceParent = undefined;
-        this.$originalParent = undefined;
-
-        // Checks
-        if (this.extraArgs.length != 0)
-            throw new Error(
-                "Expected only 1 argument but received " +
-                    (this.extraArgs.length + 1)
-            );
-
-        for (const $ref of Query.searchFrom(this.$joinpoint, "reference")
-            .get()
-            .reverse()) {
-            // Check it is a constructor call reference
-            if (
-                $ref.name === "<init>" &&
-                $ref.type === "Executable" &&
-                $ref.parent.srcCode !== "super()"
-            )
-                this.toMutate.push($ref);
-        }
-
-        this.totalMutations = this.toMutate.length;
-        if (this.totalMutations == 0)
-            console.log("Found no suitable code to mutate");
+    if ($joinPoint === undefined) {
+      $joinPoint = Query.root();
     }
 
-    hasMutations() {
-        return this.currentIndex < this.totalMutations;
+    // Instance variables
+    this.$joinPoint = $joinPoint;
+    this.extraArgs = arrayFromArgs(arguments, 1);
+
+    this.toMutate = [];
+    this.totalMutations = -1;
+    this.currentIndex = 0;
+
+    this.$reference = undefined;
+    this.$original = undefined;
+
+    // Checks
+    if (this.extraArgs.length != 0)
+      throw new Error(
+        "Expected only 1 argument but received " + (this.extraArgs.length + 1)
+      );
+
+    for (const $ref of Query.searchFrom(this.$joinpoint, "new")
+      .get()
+      .reverse()) {
+      // TODO: Not sure if this check is still needed
+      if ($ref.name === "<init>" && $ref.parent.srcCode !== "super()") {
+        this.toMutate.push($ref);
+      }
     }
 
-    mutatePrivate() {
-        this.$referenceParent = this.toMutate[this.currentIndex++].parent;
+    this.totalMutations = this.toMutate.length;
+    if (this.totalMutations == 0)
+      console.log("Found no suitable code to mutate");
+  }
 
-        this.$originalParent = this.$referenceParent.copy();
-        this.$referenceParent = this.$referenceParent.insertReplace("null");
+  hasMutations() {
+    return this.currentIndex < this.totalMutations;
+  }
 
-        console.log("/*--------------------------------------*/");
-        console.log(
-            "Mutating operator n." +
-                this.currentIndex +
-                ": " +
-                this.$originalParent +
-                " to " +
-                this.$referenceParent
-        );
-        console.log("/*--------------------------------------*/");
-    }
+  mutatePrivate() {
+    this.$reference = this.toMutate[this.currentIndex++];
 
-    restorePrivate() {
-        this.$referenceParent = this.$referenceParent.insertReplace(
-            this.$originalParent
-        );
-        this.$originalParent = undefined;
-        this.$referenceParent = undefined;
-    }
+    this.$original = this.$reference.copy();
+    this.$reference = this.$reference.insertReplace("null");
+
+    console.log("/*--------------------------------------*/");
+    console.log(
+      "Mutating operator n." +
+        this.currentIndex +
+        ": " +
+        this.$original +
+        " to " +
+        this.$reference
+    );
+    console.log("/*--------------------------------------*/");
+  }
+
+  restorePrivate() {
+    this.$reference = this.$reference.insertReplace(this.$original);
+    this.$original = undefined;
+    this.$reference = undefined;
+  }
 }
 
 const mutator = new ConstructorCallMutator(Query.root());
 
 while (mutator.hasMutations()) {
-    // Mutate
-    mutator.mutate();
+  // Mutate
+  mutator.mutate();
 
-    saveFile();
-    // Restore operator
-    mutator.restore();
+  saveFile();
+  // Restore operator
+  mutator.restore();
 }

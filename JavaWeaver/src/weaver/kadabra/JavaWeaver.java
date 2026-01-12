@@ -95,6 +95,11 @@ public class JavaWeaver extends AJavaWeaver {
      */
     @Override
     protected boolean begin(List<File> sources, File outputDir, DataStore args) {
+        // Add 'woven_code' to the end of the outputDir
+        if (args.get(JavaWeaverKeys.WOVEN_FOLDER)) {
+            outputDir = new File(outputDir, "woven_code");
+        }
+
         this.args = args;
         classPath = new ArrayList<>();
         this.outputDir = outputDir;
@@ -254,10 +259,16 @@ public class JavaWeaver extends AJavaWeaver {
 
     @Override
     public void writeCode(File outputFolder) {
-        writeCode(currentOutputDir, outputFolder);
+        // Set output folder
+        spoon.setSourceOutputDirectory(outputFolder);
+        // Generate code to output folder
+        spoon.prettyprint();
+
+        // Write XML files
+        jApp.getAndroidResources().write(outputFolder);
     }
 
-    public void writeCode(File inputFolder, File outputFolder) {
+    public void rebuild(File inputFolder, File outputFolder) {
         if (clearOutputFolder) {
             try {
                 FileUtils.cleanDirectory(outputFolder);

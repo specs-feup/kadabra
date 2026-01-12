@@ -10,6 +10,7 @@ mutator.addJps(Query.root().descendants);
 
 // Generate all mutations
 while (mutator.mutateSource()) {
+
     // Print
     console.log(mutator.getMutatedPoint().getAncestor("statement").srcCode);
 
