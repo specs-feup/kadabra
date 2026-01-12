@@ -751,7 +751,7 @@ export class AndroidManifest extends XmlNode {
   static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
     name: null,
   };
-  get asJson(): object { return wrapJoinPoint(this._javaObject.getAsJson()) }
+  get asJson(): string { return wrapJoinPoint(this._javaObject.getAsJson()) }
 }
 
 export class Annotation extends Expression {
