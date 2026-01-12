@@ -95,6 +95,11 @@ public class JavaWeaver extends AJavaWeaver {
      */
     @Override
     protected boolean begin(List<File> sources, File outputDir, DataStore args) {
+        // Add 'woven_code' to the end of the outputDir
+        if (args.get(JavaWeaverKeys.WOVEN_FOLDER)) {
+            outputDir = new File(outputDir, "woven_code");
+        }
+
         this.args = args;
         classPath = new ArrayList<>();
         this.outputDir = outputDir;
