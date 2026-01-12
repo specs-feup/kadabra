@@ -31,8 +31,6 @@ public class CtStatement2AStatement {
 
     static {
 
-        // CONVERTER.put(CtUnaryOperator.class, JExpressionStatement::newInstance);
-        //CONVERTER.put(CtInvocation.class, JExpressionStatement::newInstance);
         CONVERTER.put(CtInvocation.class, CtExpression2AExpression::ctInvokation);
         CONVERTER.put(CtAssignment.class, JExpressionStatement::newInstance);
         CONVERTER.put(CtIf.class, JIf::newInstance);

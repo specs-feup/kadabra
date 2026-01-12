@@ -261,12 +261,9 @@ public class JavaWeaver extends AJavaWeaver {
 
         // Write XML files
         jApp.getAndroidResources().write(outputFolder);
-
-        // Replaced
-        //writeCode(currentOutputDir, outputFolder);
     }
 
-    public void writeCode(File inputFolder, File outputFolder) {
+    public void rebuild(File inputFolder, File outputFolder) {
         if (clearOutputFolder) {
             try {
                 FileUtils.cleanDirectory(outputFolder);

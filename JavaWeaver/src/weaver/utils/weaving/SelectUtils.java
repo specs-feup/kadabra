@@ -61,8 +61,7 @@ public class SelectUtils {
      * @param startNode
      * @param searchClass
      * @param converter
-     * @param ignore
-     *            sub-types that should not be selected
+     * @param ignore      sub-types that should not be selected
      * @return
      */
     public static <J extends CtElement, JP extends AJavaWeaverJoinPoint> List<JP> select(CtElement startNode,
@@ -91,19 +90,9 @@ public class SelectUtils {
     /**
      * Convert a list of {@link CtStatement} to a list of join points of type {@link AStatement}
      *
-     * @param elements
+     * @param element
      * @param converter
      * @return
-     */
-    /*
-    public static List<AStatement> statementList2JoinPointList(
-            Collection<CtStatement> elements) {
-
-        final List<AStatement> joinPoints = elements.stream().map(SelectUtils::statement2JoinPoint)
-                .collect(Collectors.toList());
-
-        return joinPoints;
-    }
      */
     public static <T extends CtElement, V extends AJavaWeaverJoinPoint> List<V> node2JoinPointList(T element,
                                                                                                    NodeConverter<T, V> converter) {
@@ -115,16 +104,6 @@ public class SelectUtils {
         return joinPoints;
     }
 
-    /*
-        public static List<AStatement> statement2JoinPointList(
-                CtStatement statement) {
-
-            final AStatement joinPoint = SelectUtils.statement2JoinPoint(statement);
-            final List<AStatement> joinPoints = SpecsCollections.newArrayList();
-            joinPoints.add(joinPoint);
-            return joinPoints;
-        }
-    */
     public static List<AExpression> expression2JoinPointList(
             CtExpression<?> element) {
 
