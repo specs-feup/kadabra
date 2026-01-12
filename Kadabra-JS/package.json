@@ -1,6 +1,6 @@
 {
     "name": "@specs-feup/kadabra",
-    "version": "1.1.0",
+    "version": "1.5.1",
     "description": "A Java source-to-source compiler written in Typescript",
     "type": "module",
     "files": [
