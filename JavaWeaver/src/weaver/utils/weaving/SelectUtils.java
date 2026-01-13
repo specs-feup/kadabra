@@ -96,24 +96,6 @@ public class SelectUtils {
         return joinPoints;
     }
 
-    /**
-     * Convert a list of {@link CtStatement} to a list of join points of type
-     * {@link AStatement}
-     * 
-     * @param elements
-     * @param converter
-     * @return
-     */
-    public static List<AStatement> statementList2JoinPointList(
-            Collection<CtStatement> elements, JavaWeaver weaver) {
-
-        final List<AStatement> joinPoints = elements.stream()
-                .map(statement -> SelectUtils.statement2JoinPoint(statement, weaver))
-                .collect(Collectors.toList());
-
-        return joinPoints;
-    }
-
     public static <T extends CtElement, V extends AJavaWeaverJoinPoint> List<V> node2JoinPointList(T element,
             NodeConverter<T, V> converter) {
 
@@ -121,15 +103,6 @@ public class SelectUtils {
         final List<V> joinPoints = SpecsCollections.newArrayList();
         joinPoints.add(joinPoint);
 
-        return joinPoints;
-    }
-
-    public static List<AStatement> statement2JoinPointList(
-            CtStatement statement, JavaWeaver weaver) {
-
-        final AStatement joinPoint = SelectUtils.statement2JoinPoint(statement, weaver);
-        final List<AStatement> joinPoints = SpecsCollections.newArrayList();
-        joinPoints.add(joinPoint);
         return joinPoints;
     }
 
@@ -146,7 +119,7 @@ public class SelectUtils {
         return JExpression.newInstance(element, weaver);
     }
 
-    public static AStatement statement2JoinPoint(CtStatement element, JavaWeaver weaver) {
+    public static AJavaWeaverJoinPoint statement2JoinPoint(CtStatement element, JavaWeaver weaver) {
         return JStatement.newInstance(element, weaver);
     }
 

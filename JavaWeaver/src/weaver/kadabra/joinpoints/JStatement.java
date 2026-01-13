@@ -34,8 +34,7 @@ public class JStatement extends AStatement {
         this.node = node;
     }
 
-    public static AStatement newInstance(CtStatement node, JavaWeaver weaver) {
-
+    public static AJavaWeaverJoinPoint newInstance(CtStatement node, JavaWeaver weaver) {
         return CtStatement2AStatement.convert(node, weaver);
     }
 

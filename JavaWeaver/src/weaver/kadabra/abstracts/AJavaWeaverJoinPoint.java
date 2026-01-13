@@ -158,7 +158,7 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
         return CtExpression2AExpression.convertToExpression(expression, getWeaverEngine());
     }
 
-    protected AStatement toAStatement(CtStatement statement) {
+    protected AJavaWeaverJoinPoint toAStatement(CtStatement statement) {
         return CtStatement2AStatement.convert(statement, getWeaverEngine());
     }
 
