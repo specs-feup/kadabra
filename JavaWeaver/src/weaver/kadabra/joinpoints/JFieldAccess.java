@@ -15,8 +15,10 @@ package weaver.kadabra.joinpoints;
 
 import spoon.reflect.code.CtFieldAccess;
 import spoon.reflect.declaration.CtElement;
+import weaver.kadabra.abstracts.joinpoints.AExpression;
 import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.AFieldAccess;
+import weaver.utils.weaving.converters.CtElement2JoinPoint;
 
 public class JFieldAccess<T> extends AFieldAccess {
 
@@ -37,7 +39,7 @@ public class JFieldAccess<T> extends AFieldAccess {
     }
 
     @Override
-    public String getNameImpl() {
-        return node.toString();
+    public AExpression getBaseImpl() {
+        return CtElement2JoinPoint.convert(node.getTarget(), getWeaverEngine(), AExpression.class);
     }
 }

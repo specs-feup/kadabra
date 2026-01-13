@@ -67,7 +67,7 @@ abstract class IntermediateTimer extends TimerBase<Joinpoint> {
         $target: Joinpoint,
         when: insertOptions = "before"
     ) {
-        return $target.insert(when, code) as Joinpoint;
+        return $target.insert(when, code)[0] as Joinpoint;
     }
 }
 

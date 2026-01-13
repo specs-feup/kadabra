@@ -58,7 +58,6 @@ public class JCall<T> extends ACall {
      */
     @Override
     public AJoinPoint getParentImpl() {
-
         if (SpoonUtils.isStatementInBlock(node)) {
             return new JCallStatement<>(node, getWeaverEngine());
         }

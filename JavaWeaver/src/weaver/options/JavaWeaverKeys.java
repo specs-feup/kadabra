@@ -1,11 +1,11 @@
 /**
  * Copyright 2016 SPeCS.
- * 
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- * 
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ * <p>
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License. under the License.
@@ -27,27 +27,32 @@ import spoon.OutputType;
 
 public interface JavaWeaverKeys {
 
-    static DataKey<Boolean> WRITE_CODE = KeyFactory.bool("write_code")
-            .setLabel("Writes the AST Java code to the output folder").setDefault(() -> true);
-    static DataKey<Boolean> CLEAR_OUTPUT_FOLDER = KeyFactory.bool("clear_output").setLabel("Clear the output folder");
-    static DataKey<Boolean> FORMAT = KeyFactory.bool("format").setLabel("Format Code and organize imports");
-    static DataKey<Boolean> NO_CLASSPATH = KeyFactory.bool("noclasspath").setLabel("Compile with incomplete classpath");
-    static DataKey<Boolean> REPORT = KeyFactory.bool("report kadabra").setLabel("Report Metrics");
-    static DataKey<Boolean> FULLY_QUALIFIED_NAMES = KeyFactory.bool("fully_qualified_names")
-            .setLabel("Fully Qualified Names");
-    static DataKey<Boolean> COPY_RESOURCES = KeyFactory.bool("copy_resources")
-            .setLabel("Copy resources to output folder");
-    static DataKey<Integer> JAVA_COMPLIANCE_LEVEL = KeyFactory.integer("java_compliance_level")
-            .setLabel("Java compliance level (e.g., 8)").setDefault(() -> 11);
+        static DataKey<Boolean> WRITE_CODE = KeyFactory.bool("write_code")
+                        .setLabel("Writes the AST Java code to the output folder").setDefault(() -> true);
+        static DataKey<Boolean> CLEAR_OUTPUT_FOLDER = KeyFactory.bool("clear_output")
+                        .setLabel("Clear the output folder");
+        static DataKey<Boolean> FORMAT = KeyFactory.bool("format").setLabel("Format Code and organize imports");
+        static DataKey<Boolean> NO_CLASSPATH = KeyFactory.bool("noclasspath")
+                        .setLabel("Compile with incomplete classpath");
+        static DataKey<Boolean> REPORT = KeyFactory.bool("report kadabra").setLabel("Report Metrics");
+        static DataKey<Boolean> FULLY_QUALIFIED_NAMES = KeyFactory.bool("fully_qualified_names")
+                        .setLabel("Fully Qualified Names");
+        static DataKey<Boolean> COPY_RESOURCES = KeyFactory.bool("copy_resources")
+                        .setLabel("Copy resources to output folder");
+        static DataKey<Integer> JAVA_COMPLIANCE_LEVEL = KeyFactory.integer("java_compliance_level")
+                        .setLabel("Java compliance level (e.g., 8)").setDefault(() -> 11);
 
-    static DataKey<FileList> INCLUDE_DIRS = LaraIKeyFactory
-            .fileList("java includes dir", JFileChooser.FILES_AND_DIRECTORIES, Arrays.asList("jar"))
-            .setLabel("Add Classpaths");
-    static DataKey<OutputType> OUTPUT_TYPE = KeyFactory.enumeration("outputType", OutputType.class)
-            .setDefault(() -> OutputType.COMPILATION_UNITS)
-            .setLabel("Output Type");
+        static DataKey<FileList> INCLUDE_DIRS = LaraIKeyFactory
+                        .fileList("java includes dir", JFileChooser.FILES_AND_DIRECTORIES, Arrays.asList("jar"))
+                        .setLabel("Add Classpaths");
+        static DataKey<OutputType> OUTPUT_TYPE = KeyFactory.enumeration("outputType", OutputType.class)
+                        .setDefault(() -> OutputType.COMPILATION_UNITS)
+                        .setLabel("Output Type");
 
-    static DataKey<StringList> APK_PACKAGE_FILTER = KeyFactory.stringList("apkPackageFilter")
-            .setLabel("APK Package Filter");
+        static DataKey<StringList> APK_PACKAGE_FILTER = KeyFactory.stringList("apkPackageFilter")
+                        .setLabel("APK Package Filter");
 
+        static DataKey<Boolean> WOVEN_FOLDER = KeyFactory.bool("woven_folder")
+                        .setLabel("If enabled, automatically appends /woven_code to the end of the output folder")
+                        .setDefault(() -> false);
 }

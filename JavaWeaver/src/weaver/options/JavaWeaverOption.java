@@ -1,11 +1,11 @@
 /**
  * Copyright 2016 SPeCS.
- * 
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- * 
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ * <p>
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License. under the License.
@@ -25,6 +25,7 @@ public enum JavaWeaverOption {
     JavaComplianceLevel("JCL", "Java compliance level (e.g., 8)", JavaWeaverKeys.JAVA_COMPLIANCE_LEVEL),
     FullNames("Q", "Uses fully qualified names", JavaWeaverKeys.FULLY_QUALIFIED_NAMES),
     WriteCode("WC", "Writes the AST code to the output folder", JavaWeaverKeys.WRITE_CODE),
+    WovenFolder("WF", JavaWeaverKeys.WOVEN_FOLDER.getLabel(), JavaWeaverKeys.WOVEN_FOLDER),
     CopyResources("CR", "Copy resources to output folder", JavaWeaverKeys.COPY_RESOURCES),
     Format("F", "Format Code and organize imports", JavaWeaverKeys.FORMAT),
     Clear("C", "Clear output folder", JavaWeaverKeys.CLEAR_OUTPUT_FOLDER),
@@ -44,7 +45,7 @@ public enum JavaWeaverOption {
     }
 
     private JavaWeaverOption(String shortOpt, OptionArguments args, String argName, String description,
-            DataKey<?> dataKey) {
+                             DataKey<?> dataKey) {
         opt = WeaverOptionBuilder.build(shortOpt, name(), args, argName, description, dataKey);
     }
 

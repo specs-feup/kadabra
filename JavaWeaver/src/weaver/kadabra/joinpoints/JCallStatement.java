@@ -25,8 +25,6 @@ import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
  * statement calls.
  * 
  * @author JoaoBispo
- *
- * @param <T>
  */
 public class JCallStatement<T> extends ACallStatement {
 
