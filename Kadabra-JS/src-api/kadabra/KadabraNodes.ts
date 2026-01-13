@@ -4,6 +4,7 @@ import {
 } from "@specs-feup/lara/api/LaraJoinPoint.js";
 import { Joinpoint, LocalVariable } from "../Joinpoints.js";
 import KadabraJavaTypes from "./KadabraJavaTypes.js";
+import Weaver from "@specs-feup/lara/api/weaver/Weaver.js";
 
 export class KadabraNodes {
   /**
@@ -40,6 +41,7 @@ export class KadabraNodes {
   ) {
     return wrapJoinPoint(
       KadabraJavaTypes.KadabraJoinPoints.literal(
+        Weaver.getWeaverEngine(),
         unwrapJoinPoint(literal),
         unwrapJoinPoint(type)
       )
@@ -56,6 +58,7 @@ export class KadabraNodes {
   static nullLiteral(referenceJp?: Joinpoint) {
     return wrapJoinPoint(
       KadabraJavaTypes.KadabraJoinPoints.nullLiteral(
+        Weaver.getWeaverEngine(),
         unwrapJoinPoint(referenceJp)
       )
     );
@@ -85,6 +88,7 @@ export class KadabraNodes {
   ) {
     return wrapJoinPoint(
       KadabraJavaTypes.KadabraJoinPoints.unaryOperator(
+        Weaver.getWeaverEngine(),
         unwrapJoinPoint(operator),
         unwrapJoinPoint(operand)
       )
@@ -125,11 +129,14 @@ export class KadabraNodes {
     lhs: Joinpoint,
     rhs: Joinpoint
   ) {
-    return wrapJoinPoint(KadabraJavaTypes.KadabraJoinPoints.binaryOperator(
-      unwrapJoinPoint(operator),
-      unwrapJoinPoint(lhs),
-      unwrapJoinPoint(rhs)
-    ));
+    return wrapJoinPoint(
+      KadabraJavaTypes.KadabraJoinPoints.binaryOperator(
+        Weaver.getWeaverEngine(),
+        unwrapJoinPoint(operator),
+        unwrapJoinPoint(lhs),
+        unwrapJoinPoint(rhs)
+      )
+    );
   }
 
   /**
@@ -141,7 +148,13 @@ export class KadabraNodes {
    * @returns An assignment statement.
    */
   static assignment(lhs: Joinpoint, rhs: Joinpoint) {
-    return wrapJoinPoint(KadabraJavaTypes.KadabraJoinPoints.assignment(unwrapJoinPoint(lhs), unwrapJoinPoint(rhs)));
+    return wrapJoinPoint(
+      KadabraJavaTypes.KadabraJoinPoints.assignment(
+        Weaver.getWeaverEngine(),
+        unwrapJoinPoint(lhs),
+        unwrapJoinPoint(rhs)
+      )
+    );
   }
 
   /**
@@ -154,10 +167,13 @@ export class KadabraNodes {
    *
    */
   static var(localVariable: LocalVariable, isWrite: boolean = false) {
-    return wrapJoinPoint(KadabraJavaTypes.KadabraJoinPoints.var(
-      unwrapJoinPoint(localVariable),
-      unwrapJoinPoint(isWrite)
-    ));
+    return wrapJoinPoint(
+      KadabraJavaTypes.KadabraJoinPoints.var(
+        Weaver.getWeaverEngine(),
+        unwrapJoinPoint(localVariable),
+        unwrapJoinPoint(isWrite)
+      )
+    );
   }
 
   /**
@@ -168,7 +184,12 @@ export class KadabraNodes {
    * @returns An expression representing the code snippet.
    */
   static snippetExpr(code: string) {
-    return wrapJoinPoint(KadabraJavaTypes.KadabraJoinPoints.snippetExpression(unwrapJoinPoint(code)));
+    return wrapJoinPoint(
+      KadabraJavaTypes.KadabraJoinPoints.snippetExpression(
+        Weaver.getWeaverEngine(),
+        unwrapJoinPoint(code)
+      )
+    );
   }
 
   /**
@@ -179,6 +200,11 @@ export class KadabraNodes {
    * @returns The parsed XML node.
    */
   static xmlNode(xmlCode: string) {
-    return wrapJoinPoint(KadabraJavaTypes.AndroidResources.parseXml(unwrapJoinPoint(xmlCode)));
+    return wrapJoinPoint(
+      KadabraJavaTypes.AndroidResources.parseXml(
+        unwrapJoinPoint(xmlCode),
+        Weaver.getWeaverEngine()
+      )
+    );
   }
 }
