@@ -1,0 +1,151 @@
+<?xml version="1.0"?>
+<joinpoints root_class="app">
+
+    <!-- APPLICATION -->
+    <joinpoint class="app" tooltip="Root node that represents the application"/>
+
+    <joinpoint class="libClass" extends="NamedType"
+               tooltip="class that is part of a library, included in the classpath"/>
+
+    <joinpoint class="libMethod" tooltip="method of a class that is part of a library included in the classpath"/>
+
+    <joinpoint class="xmlNode"/>
+
+    <joinpoint class="androidManifest" extends="xmlNode"/>
+
+    <joinpoint class="xmlElement" extends="xmlNode"/>
+
+
+    <joinpoint class="file" tooltip="Represents a source-code file"/> <!--  extends="TypeContainer">-->
+
+    <joinpoint class="NamedType"/>
+
+    <joinpoint class="type"
+               tooltip="base join point that class, interface and enum extend"/> <!-- 	extends="TypeContainer" -->
+
+
+    <!-- 	<joinpoint class="TypeContainer"> -->
+
+    <!-- 	</joinpoint> -->
+
+    <!-- CLASS -->
+    <joinpoint class="class" tooltip="join point representation of a class" extends="type"/>
+
+    <!-- INTERFACE -->
+    <joinpoint class="interfaceType" extends="type"/>
+
+    <joinpoint class="enum" extends="class"/>
+
+    <!-- FIELD -->
+    <joinpoint class="field" extends="declaration"/>
+
+    <!-- ENUM_VALUE -->
+    <joinpoint class="enumValue" extends="field"/>
+
+    <joinpoint class="executable"/>
+
+    <!-- METHOD -->
+    <joinpoint class="method" extends="executable"/>
+
+    <!-- CONSTRUCTOR -->
+    <joinpoint class="constructor" extends="executable">
+    </joinpoint>
+
+    <!-- ANONYMOUS EXECUTABLE -->
+    <joinpoint class="anonymousExec" extends="executable"/>
+
+    <!-- BODY -->
+    <joinpoint class="body" extends="statement"/>
+
+
+    <!-- DECLARATION -->
+    <joinpoint class="localVariable" extends="statement"/>
+    <!-- DECLARATION -->
+    <joinpoint class="declaration"/>
+
+    <!-- LOOP -->
+    <joinpoint class="loop" extends="statement"/>
+
+    <!-- IF -->
+    <joinpoint class="if" extends="statement"/>
+
+
+    <!-- TRY -->
+    <joinpoint class="try" extends="statement"/>
+
+    <!-- CATCH -->
+    <joinpoint class="catch"/>
+
+    <!-- STATEMENT -->
+    <joinpoint class="statement"/>
+
+    <joinpoint class="callStatement" extends="statement"/>
+
+    <joinpoint class="assignment" extends="statement"/>
+
+    <joinpoint class="opAssignment" extends="assignment"/>
+
+    <!-- EXPRESSION -->
+    <joinpoint class="expression"/>
+
+    <!-- ANNOTATION -->
+    <joinpoint class="annotation" extends="expression"/>
+
+    <!-- VAR -->
+    <joinpoint class="var" extends="expression"/>
+
+    <!-- FIELD ACCESS -->
+    <joinpoint class="fieldAccess" extends="var"/>
+
+    <!-- LITERAL -->
+    <joinpoint class="literal" extends="expression"/>
+
+    <!-- CALL -->
+    <joinpoint class="call" extends="expression"/>
+
+    <!-- BINARY EXPRESSION -->
+    <joinpoint class="binaryExpression" extends="expression"/>
+
+    <!-- UNARY EXPRESSION -->
+    <joinpoint class="unaryExpression" extends="expression"/>
+
+
+    <joinpoint class="ternary" extends="expression"/>
+
+
+    <!-- ARRAY ACCESS -->
+    <joinpoint class="arrayAccess" extends="expression"/>
+
+    <!-- NEW -->
+    <joinpoint class="new" extends="expression"/>
+
+    <!-- THIS -->
+    <joinpoint class="this" extends="expression"/>
+
+    <!-- SNIPPET EXPRESSION -->
+    <joinpoint class="snippetExpr" extends="expression"/>
+
+    <!-- RETURN -->
+    <joinpoint class="return" extends="statement"/>
+
+    <joinpoint class="comment" extends="statement"/>
+    <joinpoint class="pragma" extends="comment"/>
+
+    <joinpoint class="assert" extends="statement"/>
+
+    <joinpoint class="throw" extends="statement"/>
+    <joinpoint class="switch" extends="statement"/>
+    <joinpoint class="case" extends="statement"/>
+
+    <joinpoint class="continue" extends="statement"/>
+    <joinpoint class="break" extends="statement"/>
+
+    <joinpoint class="snippetStmt" extends="statement"/>
+
+    <!-- REFERENCE -->
+    <joinpoint class="reference" tooltip="Points to a named program element reference"/>
+
+    <!-- TYPE REFERENCE -->
+    <joinpoint class="typeReference" extends="reference" tooltip="Reference to a type"/>
+
+</joinpoints>

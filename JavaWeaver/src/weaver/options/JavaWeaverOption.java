@@ -29,7 +29,6 @@ public enum JavaWeaverOption {
     CopyResources("CR", "Copy resources to output folder", JavaWeaverKeys.COPY_RESOURCES),
     Format("F", "Format Code and organize imports", JavaWeaverKeys.FORMAT),
     Clear("C", "Clear output folder", JavaWeaverKeys.CLEAR_OUTPUT_FOLDER),
-    Log("L", "Show logging information", JavaWeaverKeys.SHOW_LOG_INFO),
     Report("R", "Report Strategy Metrics", JavaWeaverKeys.REPORT),
     OutputType("T", "Type of output", JavaWeaverKeys.OUTPUT_TYPE),
     ApkPackageFilter("APF", OptionArguments.ONE_ARG, "filters", "List of filters for APK decompilation",

@@ -13,16 +13,12 @@
 
 package weaver.kadabra.joinpoints;
 
-import java.util.List;
-
 import spoon.reflect.code.CtArrayAccess;
 import spoon.reflect.code.CtArrayWrite;
 import spoon.reflect.code.CtExpression;
 import weaver.kadabra.abstracts.joinpoints.AArrayAccess;
-import weaver.kadabra.abstracts.joinpoints.AExpression;
 import weaver.kadabra.abstracts.joinpoints.ATypeReference;
 import weaver.kadabra.enums.RefType;
-import weaver.utils.weaving.SelectUtils;
 
 public class JArrayAccess<T, E extends CtExpression<?>> extends AArrayAccess {
 
@@ -58,17 +54,4 @@ public class JArrayAccess<T, E extends CtExpression<?>> extends AArrayAccess {
     public CtArrayAccess<T, E> getNode() {
         return node;
     }
-
-    @Override
-    public List<? extends AExpression> selectTarget() {
-        List<? extends AExpression> select = SelectUtils.expression2JoinPointList(node.getTarget());
-        return select;
-    }
-
-    @Override
-    public List<? extends AExpression> selectIndex() {
-        List<? extends AExpression> select = SelectUtils.expression2JoinPointList(node.getIndexExpression());
-        return select;
-    }
-
 }

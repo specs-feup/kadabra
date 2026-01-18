@@ -14,7 +14,6 @@
 package weaver.kadabra.joinpoints;
 
 import org.lara.interpreter.weaver.interf.JoinPoint;
-import pt.up.fe.specs.util.SpecsCollections;
 import spoon.Launcher;
 import spoon.reflect.declaration.CtClass;
 import spoon.reflect.declaration.CtElement;
@@ -23,12 +22,9 @@ import spoon.reflect.factory.Factory;
 import spoon.support.gui.SpoonModelTree;
 import weaver.kadabra.abstracts.joinpoints.*;
 import weaver.kadabra.spoon.extensions.nodes.CtApp;
-import weaver.kadabra.util.KadabraLog;
 import weaver.utils.android.AndroidResources;
 import weaver.utils.generators.MapGenerator;
 import weaver.utils.weaving.ActionUtils;
-import weaver.utils.weaving.SelectUtils;
-
 import javax.swing.*;
 import java.io.File;
 import java.util.Collections;
@@ -42,7 +38,6 @@ public class JApp extends AApp {
     public final Launcher spoon;
     private final Set<File> sources;
     private final AndroidResources androidResources;
-    private List<JLibClass> libClasses;
 
     private JApp(Launcher spoon, List<File> sources) {
         this.spoon = spoon;
@@ -64,32 +59,13 @@ public class JApp extends AApp {
         return androidResources;
     }
 
-    @Override
-    public List<? extends AFile> selectFile() {
+    private List<? extends AFile> retrieveFiles() {
 
-        // var cus = spoon.getFactory().CompilationUnit().getMap().values();
-        // System.out.println("CUS:\n" + cus);
-
-        // return getJpChildrenStream()
-        // .map(jp -> (AFile) jp)
-        // .collect(Collectors.toList());
         final List<JFile> files = spoon.getFactory().CompilationUnit().getMap().values().stream()
-                // .filter(cu -> sources.contains(cu.getFile()))
                 .map(JFile::new)
-                // .filter(jfile -> sources.contains(jfile.getP))
                 .collect(Collectors.toList());
 
         return files;
-    }
-
-    @Override
-    public List<? extends ALibClass> selectLibClass() {
-        if (libClasses == null) {
-            KadabraLog.warning("Loading classpath, this may take a while...");
-            libClasses = SelectUtils.selectLibClasses(this);
-            KadabraLog.warning("done!");
-        }
-        return libClasses;
     }
 
     @Override
@@ -112,7 +88,7 @@ public class JApp extends AApp {
         }
         // KadabraLog.debug("GENERATING NEW CLASS: " + name);
         var cu = ActionUtils.compilationUnitWithClass(name, extend, implement,
-                spoon.getModelBuilder().getBinaryOutputDirectory(), spoon.getFactory(), getWeaverProfiler());
+                spoon.getModelBuilder().getBinaryOutputDirectory(), spoon.getFactory());
         CtClass<?> mainClass = (CtClass<?>) cu.getMainType();
         AClass newInstance = JClass.newInstance(mainClass, cu);
         return newInstance;
@@ -128,8 +104,7 @@ public class JApp extends AApp {
     public AInterfaceType newInterfaceImpl(String name, String[] extend) {
         final CtInterface<Object> newInterface = ActionUtils.compilationUnitWithInterface(name, extend,
                 spoon.getModelBuilder().getBinaryOutputDirectory(),
-                spoon.getFactory(),
-                getWeaverProfiler());
+                spoon.getFactory());
         JInterfaceType<Object> newInstance = JInterfaceType.newInstance(newInterface);
         return newInstance;
     }
@@ -139,8 +114,7 @@ public class JApp extends AApp {
 
         File outDir = spoon.getModelBuilder().getBinaryOutputDirectory();
         Factory factory = spoon.getFactory();
-        var cu = MapGenerator.generate(factory, name, keyType, _interface, methodName, outDir,
-                getWeaverProfiler());
+        var cu = MapGenerator.generate(factory, name, keyType, _interface, methodName, outDir);
         JClass<?> newInstance = JClass.newInstance((CtClass<?>) cu.getMainType(), cu);
         return newInstance;
     }
@@ -195,29 +169,14 @@ public class JApp extends AApp {
     @Override
     public String getCodeImpl() {
         String separator = "/************/";
-        return selectFile().stream()
+        return retrieveFiles().stream()
                 .map(AFile::getSrcCodeImpl)
                 .collect(Collectors.joining("\n" + separator + "\n", "", "\n"));
     }
 
     @Override
     public AJoinPoint[] getChildrenArrayImpl() {
-        return selectFile().toArray(size -> new AJoinPoint[size]);
-    }
-
-    // @Override
-    // public AJoinPoint childImpl(Integer index) {
-    // return selectFile().get(index);
-    // }
-
-    // @Override
-    // public Integer getNumChildrenImpl() {
-    // return selectFile().size();
-    // }
-
-    @Override
-    public List<? extends AAndroidManifest> selectAndroidManifest() {
-        return SpecsCollections.asListT(AAndroidManifest.class, getManifestImpl());
+        return retrieveFiles().toArray(size -> new AJoinPoint[size]);
     }
 
     @Override
@@ -237,7 +196,7 @@ public class JApp extends AApp {
     //
     @Override
     public AFile[] getFilesArrayImpl() {
-        return selectFile().toArray(size -> new AFile[size]);
+        return retrieveFiles().toArray(size -> new AFile[size]);
         // return getJpChildrenStream().toArray(size -> new AFile[size]);
     }
 

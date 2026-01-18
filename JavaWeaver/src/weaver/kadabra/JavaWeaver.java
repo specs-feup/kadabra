@@ -1,8 +1,5 @@
 package weaver.kadabra;
 
-import kadabra.resources.LaraAPIResources;
-import org.apache.commons.exec.CommandLine;
-import org.apache.commons.exec.DefaultExecutor;
 import org.apache.commons.io.FileUtils;
 import org.lara.interpreter.joptions.config.interpreter.LaraiKeys;
 import org.lara.interpreter.weaver.ast.AstMethods;
@@ -10,20 +7,14 @@ import org.lara.interpreter.weaver.interf.AGear;
 import org.lara.interpreter.weaver.interf.JoinPoint;
 import org.lara.interpreter.weaver.options.WeaverOption;
 import org.lara.interpreter.weaver.options.WeaverOptionBuilder;
-import org.lara.interpreter.weaver.utils.LaraResourceProvider;
 import org.lara.language.specification.dsl.LanguageSpecification;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.jadx.DecompilationFailedException;
 import pt.up.fe.specs.jadx.SpecsJadx;
-import pt.up.fe.specs.kadabra.weaver.KadabraApiJsResource;
-import pt.up.fe.specs.kadabra.weaver.LaraCoreApiResource;
-import pt.up.fe.specs.kadabra.weaver.LaraWeaverApiResource;
-import pt.up.fe.specs.lara.lcl.LaraCommonLanguageApiResource;
 import pt.up.fe.specs.spoon.SpoonFactory;
 import pt.up.fe.specs.util.SpecsCollections;
 import pt.up.fe.specs.util.SpecsIo;
 import pt.up.fe.specs.util.SpecsLogs;
-import pt.up.fe.specs.util.providers.ResourceProvider;
 import pt.up.fe.specs.util.utilities.LineStream;
 import spoon.Launcher;
 import spoon.OutputType;
@@ -33,8 +24,6 @@ import spoon.support.JavaOutputProcessor;
 import spoon.support.SerializationModelStreamer;
 import weaver.kadabra.abstracts.weaver.AJavaWeaver;
 import weaver.kadabra.exceptions.JavaWeaverException;
-import weaver.kadabra.gears.KadabraMetrics;
-import weaver.kadabra.gears.LoggingGear;
 import weaver.kadabra.gears.Report;
 import weaver.kadabra.joinpoints.JApp;
 import weaver.kadabra.spoon.extensions.launcher.JWSpoonLauncher;
@@ -69,9 +58,6 @@ public class JavaWeaver extends AJavaWeaver {
         KadabraLog.setDebug(true);
     }
 
-    private static final String KADABRA_API_NAME = "@specs-feup/kadabra";
-
-
     // private static final Set<String> WEAVER_NAMES = SpecsCollections.asSet("kadabra");
     private static final Set<String> LANGUAGES = SpecsCollections.asSet("java");
 
@@ -89,18 +75,14 @@ public class JavaWeaver extends AJavaWeaver {
 
     private boolean noClassPath = false; // Continues even if an error of missing lib occurs
     private OutputType outType = OutputType.COMPILATION_UNITS;
-    private final LoggingGear loggingGear;
     private final Report reportGear;
     // private final JavaWeaverGear dependeciesGear = new JavaWeaverGear();
     private File temp;
 
     public JavaWeaver() {
-        loggingGear = new LoggingGear();
-        loggingGear.setActive(false);
         reportGear = new Report();
         reportGear.setActive(false);
         table = AnnotationsTable.getStaticTable();
-        this.setWeaverProfiler(new KadabraMetrics());
     }
 
     /**
@@ -112,7 +94,7 @@ public class JavaWeaver extends AJavaWeaver {
      * @return true if the file type is valid
      */
     @Override
-    public boolean begin(List<File> sources, File outputDir, DataStore args) {
+    protected boolean begin(List<File> sources, File outputDir, DataStore args) {
         // Add 'woven_code' to the end of the outputDir
         if (args.get(JavaWeaverKeys.WOVEN_FOLDER)) {
             outputDir = new File(outputDir, "woven_code");
@@ -228,22 +210,12 @@ public class JavaWeaver extends AJavaWeaver {
     }
 
     /**
-     * Return a JoinPoint instance of the language root, i.e., an instance of AApp
-     *
-     * @return an instance of the join point root/program
-     */
-    @Override
-    public JoinPoint select() {
-        return jApp;
-    }
-
-    /**
      * Closes the weaver to the specified output directory location, if the weaver generates new file(s)
      *
      * @return if close was successful
      */
     @Override
-    public boolean close() {
+    protected boolean close() {
 
         if (clearOutputFolder) {
             if (!args.hasValue(LaraiKeys.OUTPUT_FOLDER)) {
@@ -287,10 +259,16 @@ public class JavaWeaver extends AJavaWeaver {
 
     @Override
     public void writeCode(File outputFolder) {
-        writeCode(currentOutputDir, outputFolder);
+        // Set output folder
+        spoon.setSourceOutputDirectory(outputFolder);
+        // Generate code to output folder
+        spoon.prettyprint();
+
+        // Write XML files
+        jApp.getAndroidResources().write(outputFolder);
     }
 
-    public void writeCode(File inputFolder, File outputFolder) {
+    public void rebuild(File inputFolder, File outputFolder) {
         if (clearOutputFolder) {
             try {
                 FileUtils.cleanDirectory(outputFolder);
@@ -312,55 +290,6 @@ public class JavaWeaver extends AJavaWeaver {
         jApp.getAndroidResources().write(outputFolder);
     }
 
-    public boolean closeOld() {
-
-        if (clearOutputFolder) {
-            try {
-                FileUtils.cleanDirectory(outputDir);
-            } catch (final IOException e) {
-                KadabraLog.warning("Output folder could not be cleaned before code generation: " + e.getMessage());
-            }
-        }
-        spoon.prettyprint();
-
-        if (prettyPrint) {
-            callAstyle();
-            /*
-             * if recompile
-            Launcher tempSpoon = newSpoon(Arrays.asList(tempOutFolder), outputDir);
-            tempSpoon.buildModel();
-            tempSpoon.prettyprint();
-            try {
-            FileUtils.cleanDirectory(tempOutFolder);
-            } catch (final IOException e) {
-            KadabraLog.warning("Temporary Output folder could not be cleaned: " + e.getMessage());
-            }*/
-        }
-        // // spoon.getEnvironment().setNoClasspath(true);
-        // SpoonCompiler compiler = spoon.createCompiler(Arrays.asList(new FileSystemFolder(outputDir)));
-        // // compiler.set
-        // System.out.println("rebuild");
-        // compiler.build();
-        // System.out.println("generating");
-        // compiler.generateProcessedSourceFiles(OutputType.COMPILATION_UNITS, null);
-        // // spoon.prettyprint();
-        // }
-
-        if (reportGear.isActive()) {
-
-            KadabraLog.info("REPORT: ");
-            KadabraLog.info("Advised Join Points: " + reportGear.getAdvisedJoinPoints().size());
-        }
-        // if (dependeciesGear.isTimerUsed()) {
-        // String contents = IoUtils.getResource(JavaWeaverGear.TIMER_CLASS);
-        //
-        // File timerFile = IoUtils.safeFolder(new File(outputDir, "weaver/kadabra/monitor"));
-        // timerFile = new File(timerFile, "KadabraTimer.java");
-        // IoUtils.write(timerFile, contents);
-        // }
-        return true;
-    }
-
     /**
      * Returns a list of Gears associated to this weaver engine
      *
@@ -370,8 +299,6 @@ public class JavaWeaver extends AJavaWeaver {
     public List<AGear> getGears() {
         List<AGear> gears = new ArrayList<>();
         gears.add(reportGear);
-        gears.add(loggingGear);
-        // gears.add(dependeciesGear);
         return gears;
     }
 
@@ -379,7 +306,6 @@ public class JavaWeaver extends AJavaWeaver {
         SpoonUtils.resetCounter();
         table.reset();
         /*RESET GEARS*/
-        loggingGear.reset();
         reportGear.reset();
     }
 
@@ -523,9 +449,6 @@ public class JavaWeaver extends AJavaWeaver {
         if (args.hasValue(JavaWeaverKeys.OUTPUT_TYPE)) {
             outType = args.get(JavaWeaverKeys.OUTPUT_TYPE);
         }
-        if (args.hasValue(JavaWeaverKeys.SHOW_LOG_INFO)) {
-            loggingGear.setActive(args.get(JavaWeaverKeys.SHOW_LOG_INFO));
-        }
         if (args.hasValue(JavaWeaverKeys.FORMAT)) {
             prettyPrint = args.get(JavaWeaverKeys.FORMAT);
         }
@@ -603,56 +526,6 @@ public class JavaWeaver extends AJavaWeaver {
         return "KADABRA";
     }
 
-    @Override
-    public String getWeaverApiName() {
-        return KADABRA_API_NAME;
-    }
-
-    @Override
-    public List<ResourceProvider> getAspectsAPI() {
-        // TODO: refactor in a similar to Clava, which uses .getApis() function
-        return ResourceProvider.getResourcesFromEnum(
-                Arrays.asList(LaraAPIResources.class, LaraCommonLanguageApiResource.class,
-                        LaraCoreApiResource.class,
-                        LaraWeaverApiResource.class));
-
-        // return ResourceProvider.getResources(LaraAPIResources.class);
-    }
-
-    @Override
-    protected List<LaraResourceProvider> getWeaverNpmResources() {
-        return Arrays.asList(KadabraApiJsResource.values());
-    }
-
-    private void callAstyle() {
-
-        CommandLine astyle;
-        if (System.getProperty("os.name").startsWith("Windows")) {
-            astyle = new CommandLine("CMD");
-            astyle.addArgument("/C");
-            astyle.addArgument("astyle");
-            // }
-        } else {
-            astyle = new CommandLine("astyle");
-        }
-        astyle.addArgument("-nq"); // q:quiet, n:no backup files
-
-        List<File> files = SpecsIo.getFilesRecursive(outputDir, "java");
-        files.forEach(x -> astyle.addArgument(x.getAbsolutePath()));
-
-        // astyle.addArgument(Driver.getOptionValue("outdir") + "/*.c");
-        // astyle.addArgument(Driver.getOptionValue("outdir") + "/*.h");
-
-        SpecsLogs.msgLib("[Kadabra] Formatting code: " + astyle.toString());
-        DefaultExecutor executor = new DefaultExecutor();
-        try {
-            executor.setWorkingDirectory(outputDir);
-            executor.execute(astyle);
-        } catch (IOException e) {
-            SpecsLogs.warn("[Kadabra] Formatting code: " + e.getMessage());
-        }
-    }
-
     /**
      * Get weaver with this type
      **/
@@ -663,16 +536,6 @@ public class JavaWeaver extends AJavaWeaver {
     public static SpoonFactory getFactory() {
         return new SpoonFactory(getJavaWeaver().spoon.getFactory());
     }
-
-    @Override
-    public ResourceProvider getIcon() {
-        return () -> "specs/kadabra/kadabra_icon_300dpi.png";
-    }
-
-    // @Override
-    // public Set<String> getWeaverNames() {
-    // return WEAVER_NAMES;
-    // }
 
     @Override
     public Set<String> getLanguages() {
@@ -687,5 +550,10 @@ public class JavaWeaver extends AJavaWeaver {
     @Override
     public Object getRootNode() {
         return new CtApp(spoon);
+    }
+
+    @Override
+    public JoinPoint getRootJp() {
+        return jApp;
     }
 }

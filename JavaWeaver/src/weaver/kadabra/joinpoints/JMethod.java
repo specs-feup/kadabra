@@ -137,7 +137,7 @@ public class JMethod<T> extends AMethod {
     public AClass createAdapterImpl(AMethod adaptMethod, String name, boolean reuseIfExists) {
         JMethod<?> jMethod = (JMethod<?>) adaptMethod;
         CtMethod<?> adaptMethodNode = jMethod.getNode();
-        JClass<?> jClass = AdapterGenerator.generate(name, adaptMethodNode, node, getWeaverProfiler(), reuseIfExists);
+        JClass<?> jClass = AdapterGenerator.generate(name, adaptMethodNode, node, reuseIfExists);
         return jClass;
     }
 
@@ -169,7 +169,7 @@ public class JMethod<T> extends AMethod {
     }
 
     @Override
-    public void defPrivacyImpl(String value) {
+    public void setPrivacyImpl(String value) {
         node.addModifier(ModifierKind.valueOf(value.toString()));
     }
 
@@ -188,11 +188,11 @@ public class JMethod<T> extends AMethod {
         // CtCodeSnippetStatement snippet = SnippetFactory.createSnippetStatement(code, factory);
         CtKadabraSnippetElement snippet = SnippetFactory.createSnippetElement(factory, code);
 
-        return ActionUtils.insertMember(node, snippet, position, getWeaverEngine().getWeaverProfiler());
+        return ActionUtils.insertMember(node, snippet, position);
     }
 
     public AJavaWeaverJoinPoint insertImplJMethod(String position, AJoinPoint code) {
-        return ActionUtils.insertMember(node, code.getNode(), position, getWeaverEngine().getWeaverProfiler());
+        return ActionUtils.insertMember(node, code.getNode(), position);
     }
 
     @Override

@@ -21,10 +21,8 @@ import weaver.kadabra.exceptions.JavaWeaverException;
 import weaver.kadabra.util.KadabraLog;
 import weaver.utils.SpoonUtils;
 import weaver.utils.weaving.ActionUtils;
-import weaver.utils.weaving.SelectUtils;
 import weaver.utils.weaving.converters.CtExpression2AExpression;
 
-import java.util.List;
 import java.util.Optional;
 
 public class JExpression<T> extends AExpression {
@@ -64,12 +62,12 @@ public class JExpression<T> extends AExpression {
     }
 
     @Override
-    public void defTestImpl(AExpression value) {
-        defTestImpl(value.getLineImpl());
+    public void setTestImpl(AExpression value) {
+        setTestImpl(value.getLineImpl());
     }
 
     @Override
-    public void defTestImpl(Integer value) {
+    public void setTestImpl(int value) {
         test = value;
     }
 
@@ -137,14 +135,6 @@ public class JExpression<T> extends AExpression {
     }
 
     @Override
-    public List<? extends AExpression> selectExpr() {
-
-        List<AExpression> select = SelectUtils.select(node, CtExpression.class,
-                this::toAExpression);
-        return select;
-    }
-
-    @Override
     public void extractImpl(String varName, AStatement location, String position) {
 
         Optional<CtStatement> targetO = getTarget(location);
@@ -153,7 +143,7 @@ public class JExpression<T> extends AExpression {
             throw new JavaWeaverException("Could not get the target location");
         }
 
-        targetO.ifPresent(t -> SpoonUtils.extract(node, varName, t, position, getWeaverProfiler()));
+        targetO.ifPresent(t -> SpoonUtils.extract(node, varName, t, position));
     }
 
     private Optional<CtStatement> getTarget(AStatement location) {
@@ -175,43 +165,15 @@ public class JExpression<T> extends AExpression {
     }
 
     @Override
-    public List<? extends AVar> selectVar() {
-
-        @SuppressWarnings("unchecked")
-        List<? extends AVar> select = SelectUtils.select(node, CtVariableAccess.class, JVar::newInstance);
-        return select;
-    }
-
-    @Override
-    public List<? extends AArrayAccess> selectArrayAccess() {
-        @SuppressWarnings("unchecked")
-        List<? extends AArrayAccess> select = SelectUtils.select(node, CtArrayAccess.class, JArrayAccess::newInstance);
-        return select; // TODO Auto-generated method stub
-    }
-
-    @Override
-    public List<? extends ABinaryExpression> selectBinaryExpr() {
-        return selectBinaryExpression();
-    }
-
-    @Override
-    public List<? extends ABinaryExpression> selectBinaryExpression() {
-        @SuppressWarnings("unchecked")
-        List<? extends ABinaryExpression> select = SelectUtils.select(node, CtBinaryOperator.class,
-                JBinaryExpression::newInstance);
-        return select;
-    }
-
-    @Override
     public AJoinPoint[] insertImpl(String position, String code) {
         return new AJoinPoint[]{insertImplJExpression(position, code)};
     }
 
     public AJavaWeaverJoinPoint insertImplJExpression(String position, String code) {
         if (position.equals("replace") || position.equals("around")) {
-            return ActionUtils.replaceExpression(position, code, node, getWeaverProfiler());
+            return ActionUtils.replaceExpression(position, code, node);
         } else {
-            return ActionUtils.insert(position, code, node, getWeaverProfiler());
+            return ActionUtils.insert(position, code, node);
         }
     }
 
@@ -244,9 +206,9 @@ public class JExpression<T> extends AExpression {
 
             CtExpression<?> expression = (CtExpression<?>) ctElement;
 
-            return ActionUtils.replaceExpression(position, expression, node, getWeaverProfiler());
+            return ActionUtils.replaceExpression(position, expression, node);
         } else {
-            return ActionUtils.insert(position, ctElement, node, getWeaverProfiler());
+            return ActionUtils.insert(position, ctElement, node);
         }
     }
 

@@ -13,7 +13,6 @@
 
 package weaver.utils.generators;
 
-import org.lara.interpreter.profile.WeaverProfiler;
 import org.specs.generators.java.types.JavaTypeFactory;
 import spoon.reflect.code.CtConstructorCall;
 import spoon.reflect.declaration.CtClass;
@@ -55,13 +54,11 @@ public class MapGenerator {
     // private final String defaultName;
     private final CtClass<?> funcMapClass;
 
-    private WeaverProfiler weaverProfiler;
 
     private MapGenerator(Factory factory, String keyType, AInterfaceType _interface,
-                         String methodName, CtClass<?> funcMapClass, WeaverProfiler weaverProfiler) { // AMethod method
+                         String methodName, CtClass<?> funcMapClass) { // AMethod method
         // String upperName = method.getName().toUpperCase();
         String upperName = methodName.toUpperCase();
-        this.weaverProfiler = weaverProfiler;
         this.factory = factory;
         this.keyType = keyType;
         keyTypeParam = new Pair(keyType, "key");
@@ -83,9 +80,9 @@ public class MapGenerator {
      * @return
      */
     public static CtClass<?> generate(Factory factory, String name, String keyType, AInterfaceType _interface,
-                                      String methodName, WeaverProfiler weaverProfiler) {
-        CtClass<?> newMapClass = ActionUtils.newClass(name, null, null, factory, weaverProfiler);
-        generate(keyType, _interface, methodName, newMapClass, weaverProfiler);
+                                      String methodName) {
+        CtClass<?> newMapClass = ActionUtils.newClass(name, null, null, factory);
+        generate(keyType, _interface, methodName, newMapClass);
         return newMapClass;
     }
 
@@ -100,10 +97,10 @@ public class MapGenerator {
      * @return
      */
     public static CtCompilationUnit generate(Factory factory, String name, String keyType, AInterfaceType _interface,
-                                             String methodName, File outputDir, WeaverProfiler weaverProfiler) {
-        var cu = ActionUtils.compilationUnitWithClass(name, null, null, outputDir, factory, weaverProfiler);
+                                             String methodName, File outputDir) {
+        var cu = ActionUtils.compilationUnitWithClass(name, null, null, outputDir, factory);
         CtClass<?> funcMapClass = (CtClass<?>) cu.getMainType();
-        generate(keyType, _interface, methodName, funcMapClass, weaverProfiler);
+        generate(keyType, _interface, methodName, funcMapClass);
         return cu;
     }
 
@@ -117,9 +114,9 @@ public class MapGenerator {
      * @param funcMapClass
      */
     public static void generate(String keyType, AInterfaceType _interface,
-                                String methodName, CtClass<?> funcMapClass, WeaverProfiler weaverProfiler) {
+                                String methodName, CtClass<?> funcMapClass) {
         MapGenerator functionalMapperGenerator = new MapGenerator(funcMapClass.getFactory(), keyType,
-                _interface, methodName, funcMapClass, weaverProfiler);
+                _interface, methodName, funcMapClass);
         functionalMapperGenerator.generate();
     }
 
@@ -144,7 +141,7 @@ public class MapGenerator {
 
         /* Declare map with the declaringType and the interface */
         CtTypeReference<Object> mapRef = SpoonUtils.newCtTypeReference(Map.class, factory, declTypeRef, interfaceRef);
-        CtField<Object> mapField = addField(mapName, funcMapClass, mapRef, weaverProfiler);
+        CtField<Object> mapField = addField(mapName, funcMapClass, mapRef);
         initMap(mapField);
 
         /* Declare default method implementation */
@@ -230,9 +227,8 @@ public class MapGenerator {
 
     // private static <T extends Object> CtField<T> addField(String mapName, CtClass<?> funcMapClass,
     private static CtField<Object> addField(String mapName, CtClass<?> funcMapClass,
-                                            CtTypeReference<Object> type, WeaverProfiler weaverProfiler) {
-        CtField<Object> field = ActionUtils.newFieldWithSnippet(funcMapClass, mapName, type, null, DEFAULT_MODIFIERS,
-                weaverProfiler);
+                                            CtTypeReference<Object> type) {
+        CtField<Object> field = ActionUtils.newFieldWithSnippet(funcMapClass, mapName, type, null, DEFAULT_MODIFIERS);
         field.addModifier(ModifierKind.FINAL);
         return field;
     }
@@ -243,8 +239,7 @@ public class MapGenerator {
         String[] paramLeft = {keyTypeParam.getLeft(), defaultParam.getLeft()};
         String[] paramRight = {keyTypeParam.getRight(), defaultParam.getRight()};
         String codeStr = "return " + mapName + ".getOrDefault(key, " + defaultMethod + ");";
-        ActionUtils.newMethod(funcMapClass, GET, _interface.getQualifiedNameImpl(), paramLeft, paramRight, DEFAULT_MODIFIERS, codeStr,
-                weaverProfiler);
+        ActionUtils.newMethod(funcMapClass, GET, _interface.getQualifiedNameImpl(), paramLeft, paramRight, DEFAULT_MODIFIERS, codeStr);
 
         // addStatement(factory, getter.getBody(), codeStr);
     }
@@ -253,8 +248,7 @@ public class MapGenerator {
         String[] paramLeft = {keyTypeParam.getLeft()};
         String[] paramRight = {keyTypeParam.getRight()};
         String codeStr = "return " + mapName + ".get(key);";
-        ActionUtils.newMethod(funcMapClass, GET, _interface.getQualifiedNameImpl(), paramLeft, paramRight, DEFAULT_MODIFIERS, codeStr,
-                weaverProfiler);
+        ActionUtils.newMethod(funcMapClass, GET, _interface.getQualifiedNameImpl(), paramLeft, paramRight, DEFAULT_MODIFIERS, codeStr);
 
         // addStatement(factory, getter.getBody(), codeStr);
     }
@@ -263,7 +257,7 @@ public class MapGenerator {
         String[] paramLeft = {keyTypeParam.getLeft()};
         String[] paramRight = {keyTypeParam.getRight()};
         String codeStr = "return " + mapName + ".containsKey(key);";
-        ActionUtils.newMethod(funcMapClass, CONTAINS, "boolean", paramLeft, paramRight, DEFAULT_MODIFIERS, codeStr, weaverProfiler);
+        ActionUtils.newMethod(funcMapClass, CONTAINS, "boolean", paramLeft, paramRight, DEFAULT_MODIFIERS, codeStr);
 
     }
 
@@ -273,7 +267,7 @@ public class MapGenerator {
         String[] paramRight = {keyTypeParam.getRight(), localVarName};
 
         String codeStr = mapName + ".put(key," + localVarName + ");";
-        ActionUtils.newMethod(funcMapClass, ADD, "void", paramLeft, paramRight, DEFAULT_MODIFIERS, codeStr, weaverProfiler);
+        ActionUtils.newMethod(funcMapClass, ADD, "void", paramLeft, paramRight, DEFAULT_MODIFIERS, codeStr);
     }
 
 }

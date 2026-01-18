@@ -14,10 +14,7 @@
 package weaver.kadabra.joinpoints;
 
 import java.lang.reflect.Method;
-import java.util.List;
-
 import spoon.reflect.declaration.CtElement;
-import weaver.kadabra.abstracts.joinpoints.ADeclaration;
 import weaver.kadabra.abstracts.joinpoints.ALibMethod;
 import weaver.kadabra.abstracts.joinpoints.ANamedType;
 import weaver.kadabra.exceptions.JavaWeaverException;
@@ -32,11 +29,6 @@ public class JLibMethod extends ALibMethod {
 
     public static JLibMethod newInstance(Method m) {
         return new JLibMethod(m);
-    }
-
-    @Override
-    public List<? extends ADeclaration> selectParam() {
-        throw new JavaWeaverException("Select declaration in LibMethod not implemented");
     }
 
     @Override

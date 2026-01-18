@@ -7,6 +7,7 @@ export namespace KadabraJavaClasses {
     /* eslint-disable @typescript-eslint/no-empty-object-type */
     export interface ArgumentsParser extends JavaClasses.JavaClass {}
     export interface KadabraLauncher extends JavaClasses.JavaClass {}
+    export interface JavaWeaverKeys extends JavaClasses.JavaClass {}
     export interface KadabraJoinPoints extends JavaClasses.JavaClass {}
     export interface OperatorUtils extends JavaClasses.JavaClass {}
     export interface AndroidResources extends JavaClasses.JavaClass {}
@@ -26,6 +27,11 @@ export default class KadabraJavaTypes {
         return JavaTypes.getType(
             "weaver.gui.KadabraLauncher"
         ) as KadabraJavaClasses.KadabraLauncher;
+    }
+    static get JavaWeaverKeys() {
+        return JavaTypes.getType(
+            "weaver.options.JavaWeaverKeys"
+        ) as KadabraJavaClasses.JavaWeaverKeys;
     }
     static get KadabraJoinPoints() {
         return JavaTypes.getType(

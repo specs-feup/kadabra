@@ -13,9 +13,6 @@
 
 package weaver.kadabra.joinpoints;
 
-import java.util.Arrays;
-import java.util.List;
-
 import spoon.reflect.code.CtConditional;
 import spoon.reflect.declaration.CtElement;
 import weaver.kadabra.abstracts.joinpoints.AExpression;
@@ -59,20 +56,5 @@ public class JTernary<T> extends ATernary {
     @Override
     public AExpression getElseImpl() {
         return (AExpression) CtElement2JoinPoint.convert(conditional.getElseExpression());
-    }
-
-    @Override
-    public List<? extends AExpression> selectCondition() {
-        return Arrays.asList(getConditionImpl());
-    }
-
-    @Override
-    public List<? extends AExpression> selectThen() {
-        return Arrays.asList(getThenImpl());
-    }
-
-    @Override
-    public List<? extends AExpression> selectElse() {
-        return Arrays.asList(getElseImpl());
     }
 }

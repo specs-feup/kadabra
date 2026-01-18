@@ -13,8 +13,6 @@
 
 package weaver.utils.transformations;
 
-import org.lara.interpreter.profile.WeaverProfiler;
-
 import spoon.reflect.code.BinaryOperatorKind;
 import spoon.reflect.code.CtBinaryOperator;
 import spoon.reflect.code.CtBlock;
@@ -144,11 +142,9 @@ public class LoopTiling {
         CtCodeSnippetExpression<Integer> initExpr = SnippetFactory
                 .createSnippetExpression(ctFor.getFactory(), block);
         CtTypeReference<Integer> intType = ctFor.getFactory().Type().INTEGER_PRIMITIVE;
-        WeaverProfiler weaverProfiler = jFor.getWeaverProfiler();
         if (unique) {
 
-            CtField<Integer> tileField = ActionUtils.newFieldWithType(ancestor, tileName, intType, initExpr, mods,
-                    weaverProfiler);
+            CtField<Integer> tileField = ActionUtils.newFieldWithType(ancestor, tileName, intType, initExpr, mods);
             return tileField;
         }
 
@@ -161,8 +157,7 @@ public class LoopTiling {
                 return iField;
             }
         }
-        CtField<Integer> tileField = ActionUtils.newFieldWithType(ancestor, tileName, intType, initExpr, mods,
-                weaverProfiler);
+        CtField<Integer> tileField = ActionUtils.newFieldWithType(ancestor, tileName, intType, initExpr, mods);
         return tileField;
 
     }

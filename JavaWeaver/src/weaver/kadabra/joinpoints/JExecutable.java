@@ -13,15 +13,10 @@
 
 package weaver.kadabra.joinpoints;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 import org.lara.interpreter.weaver.interf.JoinPoint;
 
 import spoon.reflect.code.CtBlock;
 import spoon.reflect.declaration.CtExecutable;
-import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.factory.Factory;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.ABody;
@@ -30,7 +25,6 @@ import weaver.kadabra.abstracts.joinpoints.AExecutable;
 import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.ATypeReference;
 import weaver.kadabra.spoon.extensions.nodes.CtKadabraSnippetElement;
-import weaver.utils.scanners.NodeConverter;
 import weaver.utils.weaving.ActionUtils;
 import weaver.utils.weaving.SelectUtils;
 import weaver.utils.weaving.SnippetFactory;
@@ -54,14 +48,9 @@ public class JExecutable<R> extends AExecutable {
     }
 
     @Override
-    public void defNameImpl(String value) {
-        node.setSimpleName(value);
-    }
-
-    @Override
     public String setNameImpl(String name) {
         var currentName = node.getSimpleName();
-        defNameImpl(name);
+        node.setSimpleName(name);
         return currentName;
     }
 
@@ -78,27 +67,6 @@ public class JExecutable<R> extends AExecutable {
         }
 
         return (ABody) CtElement2JoinPoint.convert(body);
-    }
-
-    @Override
-    public List<? extends ABody> selectBody() {
-        var body = getBodyImpl();
-
-        // final CtBlock<?> body = node.getBody();
-        if (body == null) {
-            return Collections.emptyList();
-        }
-        // return SelectUtils.node2JoinPointList(body, JBody::newInstance);
-
-        return Arrays.asList(body);
-    }
-
-    @Override
-    public List<? extends ADeclaration> selectParam() {
-        List<CtParameter<?>> parameters = node.getParameters();
-        NodeConverter<CtParameter<?>, JDeclaration<?>> converter = JDeclaration::newInstance;
-        final List<JDeclaration<?>> params = SelectUtils.nodeList2JoinPointList(parameters, converter);
-        return params;
     }
 
     @Override
@@ -143,11 +111,11 @@ public class JExecutable<R> extends AExecutable {
 
         CtKadabraSnippetElement snippet = SnippetFactory.createSnippetElement(factory, code);
 
-        return ActionUtils.insertMember(node, snippet, position, getWeaverEngine().getWeaverProfiler());
+        return ActionUtils.insertMember(node, snippet, position);
     }
 
     public AJavaWeaverJoinPoint insertImplExecutable(String position, AJoinPoint code) {
-        return ActionUtils.insertMember(node, code.getNode(), position, getWeaverEngine().getWeaverProfiler());
+        return ActionUtils.insertMember(node, code.getNode(), position);
     }
 
 }

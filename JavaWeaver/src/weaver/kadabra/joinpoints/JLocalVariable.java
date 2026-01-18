@@ -13,8 +13,6 @@
 
 package weaver.kadabra.joinpoints;
 
-import java.util.List;
-
 import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.CtLocalVariable;
 import weaver.kadabra.abstracts.joinpoints.AExpression;
@@ -77,11 +75,6 @@ public class JLocalVariable<T> extends ALocalVariable {
     }
 
     @Override
-    public List<? extends AExpression> selectInit() {
-        return declaration.selectInit();
-    }
-
-    @Override
     public CtLocalVariable<T> getNode() {
         return node;
     }
@@ -98,17 +91,12 @@ public class JLocalVariable<T> extends ALocalVariable {
 
     @SuppressWarnings("unchecked")
     @Override
-    public void defInitImpl(AExpression value) {
+    public void setInitImpl(AExpression value) {
         if (value == null) {
             declaration.getNode().setDefaultExpression(null);
             return;
         }
         declaration.getNode().setDefaultExpression((CtExpression<T>) value.getNode());
-    }
-
-    @Override
-    public void setInitImpl(AExpression init) {
-        defInitImpl(init);
     }
 
 }

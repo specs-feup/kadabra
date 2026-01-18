@@ -13,27 +13,19 @@
 
 package weaver.kadabra.joinpoints;
 
-import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import com.google.common.reflect.ClassPath.ClassInfo;
 
 import spoon.reflect.declaration.CtElement;
 import weaver.kadabra.abstracts.joinpoints.ALibClass;
-import weaver.kadabra.abstracts.joinpoints.ALibMethod;
-import weaver.kadabra.util.KadabraLog;
 
 public class JLibClass extends ALibClass {
 
-    private ClassInfo info;
-    private Class<?> libClass;
+    // private ClassInfo info;
+    // private Class<?> libClass;
 
     private JLibClass(ClassInfo info) {
         super(JNamedType.newInstance(info));
-        this.info = info;
+        // this.info = info;
     }
 
     public static JLibClass newInstance(ClassInfo info) {
@@ -46,6 +38,7 @@ public class JLibClass extends ALibClass {
         return null;
     }
 
+    /*
     @Override
     public List<? extends ALibMethod> selectLibMethod() {
         Class<?> libClass = getLibClass();
@@ -61,7 +54,7 @@ public class JLibClass extends ALibClass {
         }
         return Collections.emptyList();
     }
-
+    
     private Class<?> getLibClass() {
         if (libClass == null) {
             try {
@@ -72,5 +65,6 @@ public class JLibClass extends ALibClass {
         }
         return libClass;
     }
+    */
 
 }

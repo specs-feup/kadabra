@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.lara.interpreter.profile.WeaverProfiler;
 import org.objectweb.asm.MethodVisitor;
 
 import spoon.reflect.code.CtAssignment;
@@ -65,7 +64,7 @@ public class AdapterGenerator {
      * @return
      */
     public static JClass<?> generate(String name, CtMethod<?> adapterMethod, CtMethod<?> targetMethod,
-            WeaverProfiler profiler, boolean reuseIfExists) {
+            boolean reuseIfExists) {
         validateTransformerMethod(adapterMethod);
 
         List<CtParameter<?>> parameters = adapterMethod.getParameters();
@@ -77,7 +76,7 @@ public class AdapterGenerator {
         String newAdapterName = targetClass.getPackage().getQualifiedName() + "." + name;
         String abstractAdapterName = MethodAdapter.class.getName();
         var cu = ActionUtils.compilationUnitWithClass(newAdapterName, abstractAdapterName, null, targetDir,
-                factory, profiler);
+                factory);
         CtClass<?> mainType = (CtClass<?>) cu.getMainType();
 
         generateConstructor(targetMethod, factory, mainType);

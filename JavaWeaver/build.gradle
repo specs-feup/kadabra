@@ -1,28 +1,26 @@
 plugins {
     id 'distribution'
+    id 'java'
+    id 'application'
 }
 
-// Java project
-apply plugin: 'java'
-
-// Executable
-apply plugin: 'application'
-
 java {
+    withSourcesJar()
+
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
 }
-
 
 // Repositories providers
 repositories {
     mavenCentral()
 
-    // Gearman
-    maven { url="https://oss.sonatype.org/content/repositories/snapshots" }
-
     // Jadx
     google()
+}
+
+configurations {
+    weaverGeneratorRuntime
 }
 
 dependencies {
@@ -31,35 +29,23 @@ dependencies {
     implementation ':JadxPlus'
     implementation ':JavaGenerator'
     implementation ':jOptions'
-    implementation ':LogbackPlus'
     implementation ':SpecsUtils'
     implementation ':tdrcLibrary'
-    implementation ':JsEngine'
 
     implementation ':KadabraAPI'
-    implementation ':KadabraLaraApi'
 
     implementation ':LanguageSpecification'
-    implementation ':LaraCommonLanguageApi'
-    implementation ':LaraDoc'
-    implementation ':LaraFramework'
     implementation ':LaraUtils'
     implementation ':LARAI'
     implementation ':WeaverInterface'
-    implementation ':JavaWeaverSpecs'
 
-    implementation "org.apache.commons:commons-lang3:3.6"
-    implementation "org.apache.commons:commons-exec:1.3"
-    implementation "fr.inria.gforge.spoon:spoon-core:10.1.1"
-    implementation "org.json:json:20190722"
-    implementation group: 'com.google.guava', name: 'guava', version: '19.0'
-    implementation group: 'org.ow2.asm', name: 'asm', version: '7.1'
+    implementation 'fr.inria.gforge.spoon:spoon-core:11.2.1'
+    implementation 'com.google.guava:guava:33.4.0-jre'
+    implementation 'org.ow2.asm:asm:9.8'
+    implementation 'org.json:json:20251224'
+
+    weaverGeneratorRuntime ":WeaverGenerator"
 }
-
-java {
-    withSourcesJar()
-}
-
 
 // Project sources
 sourceSets {
@@ -68,11 +54,8 @@ sourceSets {
             srcDir 'src'
             srcDir 'api'
         }
-
         resources {
-            srcDir 'api'
             srcDir 'resources'
-            srcDir 'src'
         }
     }
 
@@ -80,26 +63,38 @@ sourceSets {
         java {
             srcDir 'test'
         }
-
-        resources {
-            srcDir 'src-lara'
-            srcDir 'resources'
-        }
     }
-
-
 }
 
 application {
     mainClass.set("weaver.gui.KadabraLauncher")
 }
 
-
 // Kadabra
-task kadabra(type: JavaExec) {
+tasks.register('kadabra', JavaExec) {
     group = "Execution"
     description = "Launches Kadabra"
     classpath = sourceSets.main.runtimeClasspath
     mainClass = application.mainClass
     args = []
 }
+
+// Weaver Generator
+tasks.register('generateWeaver', JavaExec) {
+    group = "Execution"
+    description = "Generates the join point classes from the Language Specification"
+    classpath = configurations.weaverGeneratorRuntime
+    mainClass = 'org.lara.interpreter.weaver.generator.commandline.WeaverGenerator'
+
+    args = [
+            '-w', 'JavaWeaver',
+            '-x', './resources/specs/kadabra',
+            '-o', './src',
+            '-p', 'weaver.kadabra',
+            '-n', 'spoon.reflect.declaration.CtElement',
+            "-e",
+            '-j'
+    ]
+}
+
+compileJava.dependsOn generateWeaver

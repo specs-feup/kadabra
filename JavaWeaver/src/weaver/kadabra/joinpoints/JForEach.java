@@ -13,15 +13,10 @@
 
 package weaver.kadabra.joinpoints;
 
-import java.util.Collections;
-import java.util.List;
-
 import pt.up.fe.specs.util.SpecsLogs;
 import spoon.reflect.code.CtForEach;
 import weaver.kadabra.abstracts.joinpoints.AExpression;
-import weaver.kadabra.abstracts.joinpoints.AStatement;
 import weaver.kadabra.enums.LoopType;
-import weaver.utils.weaving.SelectUtils;
 
 public class JForEach extends JLoop {
 
@@ -37,38 +32,10 @@ public class JForEach extends JLoop {
     }
 
     @Override
-    public List<? extends AStatement> selectInit() {
-
-        SpecsLogs.info(
-                "The foreach loop does not contain an init. The select 'init' should only be used in 'for' loops");
-        return Collections.emptyList();
-    }
-
-    // @Override
-    // public List<? extends AExpression> selectCond() {
-    // SpecsLogs.warn(
-    // "The foreach loop does not contain a condition. The select 'cond' should only be used in 'for' loops");
-    // return Collections.emptyList();
-    // }
-
-    @Override
     public AExpression getCondImpl() {
         SpecsLogs.info(
                 "The foreach loop does not contain a condition. The select 'cond' should only be used in 'for', 'while' and 'do while' loops");
 
         return null;
     }
-
-    @Override
-    public List<? extends AStatement> selectStep() {
-        SpecsLogs.info(
-                "The foreach loop does not contain a step. The select 'step' should only be used in 'for' loops");
-        return Collections.emptyList();
-    }
-
-    @Override
-    public List<? extends AExpression> selectExpr() {
-        return SelectUtils.expression2JoinPointList(node.getExpression());
-    }
-
 }

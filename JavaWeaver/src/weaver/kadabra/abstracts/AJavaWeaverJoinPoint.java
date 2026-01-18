@@ -2,7 +2,6 @@ package weaver.kadabra.abstracts;
 
 import com.google.common.base.Preconditions;
 import org.lara.interpreter.weaver.interf.JoinPoint;
-import org.lara.interpreter.weaver.interf.SelectOp;
 import pt.up.fe.specs.util.SpecsEnums;
 import pt.up.fe.specs.util.SpecsLogs;
 import pt.up.fe.specs.util.exceptions.NotImplementedException;
@@ -104,7 +103,7 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
     // }
 
     @Override
-    public void defLineImpl(Integer value) {
+    public void setLineImpl(int value) {
         CtElement node = getNode();
         if (node == null) {
             KadabraLog.warning("Cannot change line in this join point: " + getJoinPointType());
@@ -118,8 +117,8 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
     }
 
     @Override
-    public void defLineImpl(String value) {
-        defLineImpl(Integer.parseInt(value));
+    public void setLineImpl(String value) {
+        setLineImpl(Integer.parseInt(value));
     }
 
     @Override
@@ -211,7 +210,7 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
         return CtExpression2AExpression.convertToExpression(expression);
     }
 
-    protected AStatement toAStatement(CtStatement statement) {
+    protected AJavaWeaverJoinPoint toAStatement(CtStatement statement) {
         return CtStatement2AStatement.convert(statement);
     }
 
@@ -316,15 +315,6 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
     @Override
     public AJoinPoint[] insertImpl(String position, JoinPoint JoinPoint) {
         throw new NotImplementedException(this);
-    }
-
-    /**
-     * Generic select function, used by the default select implementations.
-     */
-    @Override
-    public <T extends AJoinPoint> List<? extends T> select(Class<T> joinPointClass, SelectOp op) {
-        throw new RuntimeException(
-                "Generic select function not implemented yet. Implement it in order to use the default implementations of select");
     }
 
     @Override
@@ -663,23 +653,23 @@ public abstract class AJavaWeaverJoinPoint extends AJoinPoint {
 
     @Override
     public void setModifiersImpl(String[] modifiers) {
-        
+
         Set<ModifierKind> modifiersSet = new HashSet<>();
-        
+
         for (String modifier : modifiers) {
             // Convert modifier to enum
             var modifierEnum = SpecsEnums.valueOfTry(ModifierKind.class, modifier.toUpperCase());
-            
+
             if (modifierEnum.isEmpty()) {
                 SpecsLogs.info("Could not obtain modifier from string '" + modifier + "'. Available modifiers: "
-                + Arrays.toString(ModifierKind.values()));
+                        + Arrays.toString(ModifierKind.values()));
                 return;
             }
-            
+
             // Add modifier to modifiersSet
             modifiersSet.add(modifierEnum.get());
         }
-        
+
         SpoonUtils.setModifiers(getNode(), modifiersSet);
     }
 

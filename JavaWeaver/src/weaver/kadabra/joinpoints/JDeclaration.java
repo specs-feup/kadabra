@@ -13,9 +13,6 @@
 
 package weaver.kadabra.joinpoints;
 
-import java.util.Collections;
-import java.util.List;
-
 import spoon.reflect.code.CtExpression;
 import spoon.reflect.declaration.CtVariable;
 import spoon.reflect.reference.CtTypeReference;
@@ -23,7 +20,6 @@ import weaver.kadabra.abstracts.joinpoints.ADeclaration;
 import weaver.kadabra.abstracts.joinpoints.AExpression;
 import weaver.kadabra.abstracts.joinpoints.ATypeReference;
 import weaver.utils.element.CtTypeReferenceUtils;
-import weaver.utils.weaving.SelectUtils;
 import weaver.utils.weaving.TypeUtils;
 import weaver.utils.weaving.converters.CtElement2JoinPoint;
 
@@ -75,17 +71,6 @@ public class JDeclaration<T> extends ADeclaration {
     }
 
     @Override
-    public List<? extends AExpression> selectInit() {
-        final CtExpression<?> expr = node.getDefaultExpression();
-        if (expr == null) {
-            return Collections.emptyList();
-        }
-
-        final List<AExpression> exprs = SelectUtils.expression2JoinPointList(expr);
-        return exprs;
-    }
-
-    @Override
     public CtVariable<T> getNode() {
         return node;
     }
@@ -112,17 +97,12 @@ public class JDeclaration<T> extends ADeclaration {
 
     @Override
     @SuppressWarnings("unchecked")
-    public void defInitImpl(AExpression value) {
+    public void setInitImpl(AExpression value) {
         if (value == null) {
             node.setDefaultExpression(null);
             return;
         }
 
         node.setDefaultExpression((CtExpression<T>) value.getNode());
-    }
-
-    @Override
-    public void setInitImpl(AExpression value) {
-        defInitImpl(value);
     }
 }

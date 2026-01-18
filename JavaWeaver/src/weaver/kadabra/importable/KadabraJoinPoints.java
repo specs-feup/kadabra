@@ -14,9 +14,9 @@
 package weaver.kadabra.importable;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 import org.lara.interpreter.weaver.interf.JoinPoint;
-import org.lara.interpreter.weaver.utils.JoinPointsUtils;
 
 import pt.up.fe.specs.util.SpecsCheck;
 import spoon.reflect.code.BinaryOperatorKind;
@@ -187,8 +187,8 @@ public class KadabraJoinPoints {
     }
 
     public static Object assignment(Object lhs, Object rhs) {
-        SpecsCheck.checkNotNull(lhs, () -> "lhs cannot be null");
-        SpecsCheck.checkNotNull(rhs, () -> "rhs cannot be null");
+        Objects.requireNonNull(lhs, () -> "lhs cannot be null");
+        Objects.requireNonNull(rhs, () -> "rhs cannot be null");
         SpecsCheck.checkArgument(lhs instanceof JoinPoint,
                 () -> "Lhs must be a join point, it is a " + lhs.getClass().getSimpleName());
         SpecsCheck.checkArgument(rhs instanceof JoinPoint,
@@ -209,10 +209,8 @@ public class KadabraJoinPoints {
 
     }
 
-    public static Object var(Object localVariable, boolean isWrite) {
-        var localVarJp = JoinPointsUtils.toJavaJoinPoint(localVariable, "localVariable", JLocalVariable.class);
-
-        var localVarSpoon = localVarJp.getNode();
+    public static Object var(JLocalVariable localVariable, boolean isWrite) {
+        var localVarSpoon = localVariable.getNode();
         return CtElement2JoinPoint.convert(JavaWeaver.getFactory().var(localVarSpoon, isWrite));
     }
 

@@ -1,8 +1,13 @@
+import { fileURLToPath } from "url";
+import { dirname } from "path";
 import typescriptEslint from "typescript-eslint";
 import tsdoc from "eslint-plugin-tsdoc";
 import jest from "eslint-plugin-jest";
 import js from "@eslint/js";
 import eslintConfigPrettier from "eslint-config-prettier";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 export default [
   js.configs.recommended,
@@ -24,6 +29,7 @@ export default [
 
       parserOptions: {
         project: ["./*/tsconfig.json", "./tsconfig.*.json"],
+        tsconfigRootDir: __dirname,
       },
     },
 

@@ -14,10 +14,8 @@
 package weaver.kadabra.joinpoints;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import pt.up.fe.specs.util.SpecsLogs;
 import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.CtFor;
 import spoon.reflect.code.CtLocalVariable;
@@ -28,13 +26,11 @@ import weaver.kadabra.abstracts.joinpoints.AExpression;
 import weaver.kadabra.abstracts.joinpoints.AField;
 import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.ALoop;
-import weaver.kadabra.abstracts.joinpoints.AStatement;
 import weaver.kadabra.enums.LoopType;
 import weaver.kadabra.exceptions.JavaWeaverException;
 import weaver.utils.SpoonUtils;
 import weaver.utils.transformations.LoopTiling;
 import weaver.utils.weaving.AttributeUtils;
-import weaver.utils.weaving.SelectUtils;
 import weaver.utils.weaving.converters.CtElement2JoinPoint;
 
 public class JFor extends JLoop {
@@ -96,12 +92,6 @@ public class JFor extends JLoop {
 
     }
 
-    @Override
-    public List<? extends AStatement> selectInit() {
-
-        return SelectUtils.statementList2JoinPointList(node.getForInit());
-    }
-
     // @Override
     // public List<? extends AExpression> selectCond() {
     // return SelectUtils.expression2JoinPointList(node.getExpression());
@@ -111,19 +101,6 @@ public class JFor extends JLoop {
     @Override
     public AExpression getCondImpl() {
         return (AExpression) CtElement2JoinPoint.convert(node.getExpression());
-    }
-
-    @Override
-    public List<? extends AStatement> selectStep() {
-        final List<CtStatement> forUpdate = node.getForUpdate();
-        return SelectUtils.statementList2JoinPointList(forUpdate);
-    }
-
-    @Override
-    public List<? extends AExpression> selectExpr() {
-        SpecsLogs.warn(
-                "The for loop does not contain a single expression. The select 'expr' should only be used in 'for-each' loops");
-        return Collections.emptyList();
     }
 
     /**

@@ -20,7 +20,6 @@ import java.util.List;
 import spoon.reflect.factory.Factory;
 import spoon.reflect.reference.CtArrayTypeReference;
 import spoon.reflect.reference.CtTypeReference;
-import tdrc.utils.StringUtils;
 import weaver.utils.element.CtTypeReferenceUtils;
 
 public class TypeUtils {
@@ -125,7 +124,7 @@ public class TypeUtils {
     public static String getTypeString(CtArrayTypeReference<?> type) {
 	String typeStr = CtTypeReferenceUtils.getType(type);
 	int dimension = type.getDimensionCount();
-	return typeStr + StringUtils.repeat("[]", dimension);
+	return typeStr + "[]".repeat(dimension);
 	// int dimension = 1;
 	// CtTypeReference<?> typeRef = type;
 	// while ((typeRef = type.getComponentType()) != null) {

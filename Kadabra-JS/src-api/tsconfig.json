@@ -3,14 +3,6 @@
   "compilerOptions": {
     "outDir": "../api"
   },
-  "exclude": [
-    "node_modules",
-    "**/*.spec.ts",
-    "**/*.test.ts"
-  ],
-  "references": [
-    {
-      "path": "../src-code"
-    }
-  ]
+  "exclude": ["node_modules", "**/*.spec.ts", "**/*.test.ts"],
+  "references": [{ "path": "../src-code" }]
 }

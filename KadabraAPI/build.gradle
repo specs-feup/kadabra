@@ -1,15 +1,14 @@
 plugins {
- 	id 'distribution'
+    id 'distribution'
+    id 'java'
 }
 
-// Java project
-apply plugin: 'java'
-
 java {
+    withSourcesJar()
+
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
 }
-
 
 // Repositories providers
 repositories {
@@ -17,31 +16,25 @@ repositories {
 }
 
 dependencies {
-	testImplementation "junit:junit:4.13.1"     
-	implementation ':SpecsUtils'
-	implementation ':tdrcLibrary'
+   testImplementation "junit:junit:4.13.1"
+   implementation ':SpecsUtils'
+   implementation ':tdrcLibrary'
 
-	implementation group: 'org.ow2.asm', name: 'asm', version: '5.1'			
-	implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'			
-	implementation group: 'org.javatuples', name: 'javatuples', version: '1.2'			
+   implementation 'org.ow2.asm:asm:9.8'
+   implementation 'org.javatuples:javatuples:1.2'
 }
-
-java {
-	withSourcesJar()
-}
-
 
 // Project sources
 sourceSets {
-   main {
-      java {
-         srcDir 'src'
-      }
-   }   
-   
-   test {
-      java {
-         srcDir 'test'
-      }
-   }   
+    main {
+        java {
+            srcDir 'src'
+        }
+    }
+
+    test {
+        java {
+            srcDir 'test'
+        }
+    }
 }

@@ -37,8 +37,6 @@ import autotuner.measurer.Measurer;
  */
 public abstract class KnobExplorationSupervisor2<D extends Comparable<D>, M> extends ExplorationSupervisor<D, Void, M> {
 
-    private ExplorationSupervisor<D, Void, M> supervisor;
-
     public KnobExplorationSupervisor2(int warmup, int samples) {
         super(warmup, samples);
     }

@@ -20,19 +20,15 @@ import java.util.List;
 
 import org.lara.interpreter.weaver.interf.JoinPoint;
 
-import spoon.reflect.code.CtBlock;
 import spoon.reflect.code.CtDo;
 import spoon.reflect.code.CtFor;
 import spoon.reflect.code.CtForEach;
 import spoon.reflect.code.CtLoop;
-import spoon.reflect.code.CtStatement;
 import spoon.reflect.code.CtWhile;
 import spoon.reflect.declaration.CtAnonymousExecutable;
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtExecutable;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
-import weaver.kadabra.abstracts.joinpoints.ABody;
-import weaver.kadabra.abstracts.joinpoints.AExpression;
 import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.ALoop;
 import weaver.kadabra.enums.LoopType;
@@ -41,7 +37,6 @@ import weaver.utils.SpoonUtils;
 import weaver.utils.element.RankCalculator;
 import weaver.utils.scanners.NodeSearcher;
 import weaver.utils.weaving.ActionUtils;
-import weaver.utils.weaving.SelectUtils;
 
 public abstract class JLoop extends ALoop {
 
@@ -86,11 +81,11 @@ public abstract class JLoop extends ALoop {
     @Override
     public AJoinPoint[] insertImpl(String position, JoinPoint code) {
         return new AJoinPoint[] {
-                ActionUtils.insert(position, (CtElement) code.getNode(), node, getWeaverProfiler()) };
+                ActionUtils.insert(position, (CtElement) code.getNode(), node) };
     }
 
     public AJavaWeaverJoinPoint insertImplJLoop(String position, String code) {
-        return ActionUtils.insert(position, code, node, getWeaverProfiler());
+        return ActionUtils.insert(position, code, node);
     }
 
     @Override
@@ -111,25 +106,6 @@ public abstract class JLoop extends ALoop {
     @Override
     public String getTypeImpl() {
         return type.getName();
-    }
-
-    @Override
-    public List<? extends ABody> selectBody() {
-        final CtStatement body = node.getBody();
-        // The SpoonUtils.sanitizeBody ensures that the body of the loop is in
-        // fact a CtBlock
-        return SelectUtils.node2JoinPointList((CtBlock<?>) body, JBody::newInstance);
-        // return Collections.emptyList();
-    }
-
-    @Override
-    public List<? extends AExpression> selectCond() {
-        var cond = getCondImpl();
-        if (cond == null) {
-            return Collections.emptyList();
-        }
-
-        return Arrays.asList(cond);
     }
 
     @Override

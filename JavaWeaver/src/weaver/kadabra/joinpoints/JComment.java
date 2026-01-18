@@ -54,7 +54,7 @@ public class JComment extends AComment {
     }
 
     public AJavaWeaverJoinPoint insertImplJComment(String position, String code) {
-        return ActionUtils.insertInTable(comment, code, position, getWeaverProfiler());
+        return ActionUtils.insertInTable(comment, code, position);
     }
 
     @Override

@@ -13,7 +13,6 @@
 
 package weaver.utils.weaving;
 
-import org.lara.interpreter.profile.WeaverProfiler;
 import pt.up.fe.specs.util.SpecsCheck;
 import spoon.compiler.Environment;
 import spoon.reflect.code.CtBlock;
@@ -27,7 +26,6 @@ import spoon.reflect.factory.Factory;
 import spoon.reflect.factory.MethodFactory;
 import spoon.reflect.reference.CtTypeReference;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
-import weaver.kadabra.entities.Pair;
 import weaver.kadabra.exceptions.JavaWeaverException;
 import weaver.kadabra.spoon.extensions.launcher.JWEnvironment;
 import weaver.kadabra.spoon.extensions.nodes.CtKadabraSnippetElement;
@@ -55,7 +53,7 @@ public class ActionUtils {
     }
 
     public static AJavaWeaverJoinPoint insert(String position, CtElement newElement,
-                                              final CtElement node, WeaverProfiler weavingProfiler) {
+                                              final CtElement node) {
 
         Location posIntert = Location.valueOf(position.toUpperCase());
         if (posIntert.equals(Location.REPLACE) && newElement == null) {
@@ -116,10 +114,6 @@ public class ActionUtils {
         }
 
         var joinPoint = CtElement2JoinPoint.convert(newElement);
-
-        String[] lines = joinPoint.getSrcCodeImpl().split("\r\n|\r|\n");
-        reportLOCs(weavingProfiler, lines.length, true);
-
         return joinPoint;
     }
 
@@ -135,8 +129,7 @@ public class ActionUtils {
     // public static void insert(String position, String snippetStr, CtStatement statement) {
     //
     // final CtElement parent = statement.getParent();
-    public static AJavaWeaverJoinPoint insert(String position, String snippetStr, CtElement node,
-                                              WeaverProfiler weavingProfiler) {
+    public static AJavaWeaverJoinPoint insert(String position, String snippetStr, CtElement node) {
 
         var snippet = snippetStr.trim().isEmpty() ? null
                 : SnippetFactory.createSnippetStatement(snippetStr, node.getFactory());
@@ -148,7 +141,7 @@ public class ActionUtils {
             SpecsCheck.checkArgument(Location.valueOf(position.toUpperCase()).equals(Location.REPLACE),
                     () -> "Can only use empty string as insert argument when it is a 'replace'");
         }
-        return insert(position, snippet, node, weavingProfiler);
+        return insert(position, snippet, node);
 
         /*
         Location posIntert = Location.valueOf(position.toUpperCase());
@@ -175,8 +168,7 @@ public class ActionUtils {
          */
     }
 
-    public static <T> AJavaWeaverJoinPoint replaceExpression(String position, String snippetStr, CtExpression<T> node,
-                                                             WeaverProfiler weaverProfiler) {
+    public static <T> AJavaWeaverJoinPoint replaceExpression(String position, String snippetStr, CtExpression<T> node) {
 
         var snippet = snippetStr.trim().isEmpty() ? null
                 : SnippetFactory.createSnippetExpression(node.getFactory(), snippetStr);
@@ -186,7 +178,7 @@ public class ActionUtils {
                     () -> "Can only use empty string as an expression insert argument when it is a 'replace'");
         }
 
-        return replaceExpression(position, snippet, node, weaverProfiler);
+        return replaceExpression(position, snippet, node);
         /*
         Location posIntert = Location.valueOf(position.toUpperCase());
         if (posIntert.equals(Location.REPLACE) && snippetStr.trim().isEmpty()) {
@@ -205,7 +197,7 @@ public class ActionUtils {
     }
 
     public static <T> AJavaWeaverJoinPoint replaceExpression(String position, CtExpression<?> expression,
-                                                             CtExpression<T> target, WeaverProfiler weaverProfiler) {
+                                                             CtExpression<T> target) {
 
         CtElement snippet = expression;
         CtElement node = target;
@@ -240,8 +232,6 @@ public class ActionUtils {
         // node.setParent(null);
 
         var joinPoint = CtElement2JoinPoint.convert(snippet);
-        String[] lines = joinPoint.getSrcCodeImpl().split("\r\n|\r|\n");
-        reportLOCs(weaverProfiler, lines.length, true);
 
         return joinPoint;
     }
@@ -255,18 +245,16 @@ public class ActionUtils {
      * @param location
      * @param weavingProfiler
      */
-    public static AJavaWeaverJoinPoint insertMember(CtElement referenceNode, String codeSnippet, String location,
-                                                    WeaverProfiler weavingProfiler) {
+    public static AJavaWeaverJoinPoint insertMember(CtElement referenceNode, String codeSnippet, String location) {
 
         Factory factory = referenceNode.getFactory();
         // CtCodeSnippetStatement snippet = SnippetFactory.createSnippetStatement(codeSnippet, factory);
         CtKadabraSnippetElement snippet = SnippetFactory.createSnippetElement(factory, codeSnippet);
 
-        return insertMember(referenceNode, snippet, location, weavingProfiler);
+        return insertMember(referenceNode, snippet, location);
     }
 
-    public static AJavaWeaverJoinPoint insertMember(CtElement referenceNode, CtElement snippet, String location,
-                                                    WeaverProfiler weavingProfiler) {
+    public static AJavaWeaverJoinPoint insertMember(CtElement referenceNode, CtElement snippet, String location) {
 
         location = location.toUpperCase();
         Factory factory = referenceNode.getFactory();
@@ -302,16 +290,10 @@ public class ActionUtils {
                         + "; used '" + location + "'");
         }
 
-        var joinPoint = CtElement2JoinPoint.convert(snippet);
-        String[] lines = joinPoint.getCodeImpl().split("\r\n|\r|\n");
-        // String[] lines = codeSnippet.split("\r\n|\r|\n");
-        reportLOCs(weavingProfiler, lines.length, true);
-
         return CtElement2JoinPoint.convert(snippet);
     }
 
-    public static AJavaWeaverJoinPoint insertInTable(CtElement referenceNode, String codeSnippet, String location,
-                                                     WeaverProfiler weavingProfiler) {
+    public static AJavaWeaverJoinPoint insertInTable(CtElement referenceNode, String codeSnippet, String location) {
         location = location.toUpperCase();
         Factory factory = referenceNode.getFactory();
 
@@ -333,25 +315,22 @@ public class ActionUtils {
                 throw new RuntimeException("Code insertion must only be done: " + Arrays.toString(Location.values())
                         + "; used '" + location + "'");
         }
-        String[] lines = codeSnippet.split("\r\n|\r|\n");
-        reportLOCs(weavingProfiler, lines.length, true);
 
         return CtElement2JoinPoint.convert(snippet);
     }
 
     public static CtInterface<Object> compilationUnitWithInterface(String name, String[] _extends, File outputDir,
-                                                                   Factory factory, WeaverProfiler weavingProfiler) {
+                                                                   Factory factory) {
 
         CtCompilationUnit cu = newCompilationUnit(name, outputDir, factory);
 
-        CtInterface<Object> newInterface = newInterface(name, _extends, factory, weavingProfiler);
+        CtInterface<Object> newInterface = newInterface(name, _extends, factory);
 
         cu.addDeclaredType(newInterface);
         return newInterface;
     }
 
-    public static CtInterface<Object> newInterface(String name, String[] _extends, Factory factory,
-                                                   WeaverProfiler weavingProfiler) {
+    public static CtInterface<Object> newInterface(String name, String[] _extends, Factory factory) {
         int packageSeparator = name.lastIndexOf(".");
         String simpleName = packageSeparator < 0 ? name : name.substring(packageSeparator + 1);
         String _package = packageSeparator < 0 ? "" : name.substring(0, packageSeparator);
@@ -375,20 +354,18 @@ public class ActionUtils {
                 newInterface.addSuperInterface(extInterface.getReference());
             }
         }
-        reportLOCs(weavingProfiler, 2, false); // interface header and brackets
         return newInterface;
     }
 
     public static CtCompilationUnit compilationUnitWithClass(String name, String extend, String[] _implements,
-                                                             File outputDir, Factory factory, WeaverProfiler weavingProfiler) {
-        final CtClass<Object> newClass = newClass(name, extend, _implements, factory, weavingProfiler);
+                                                             File outputDir, Factory factory) {
+        final CtClass<Object> newClass = newClass(name, extend, _implements, factory);
         CtCompilationUnit cu = newCompilationUnit(name, outputDir, factory);
         cu.addDeclaredType(newClass);
         return cu;
     }
 
-    public static CtClass<Object> newClass(String name, String extend, String[] _implements, Factory factory,
-                                           WeaverProfiler weavingProfiler) {
+    public static CtClass<Object> newClass(String name, String extend, String[] _implements, Factory factory) {
         CtTypeReference<Object> typeOf = TypeUtils.typeOf(name, factory);
         final CtClass<Object> newClass = factory.Class().create(typeOf.getQualifiedName());
         newClass.addModifier(ModifierKind.PUBLIC);
@@ -402,7 +379,6 @@ public class ActionUtils {
                 newClass.addSuperInterface(implementRef);
             }
         }
-        reportLOCs(weavingProfiler, 2, false); // class header and brackets
         return newClass;
     }
 
@@ -416,49 +392,46 @@ public class ActionUtils {
     }
 
     public static CtField<Object> newField(CtType<?> node, String name, String fieldType, String initialValue,
-                                           String[] modifiers, WeaverProfiler weavingProfiler) {
+                                           String[] modifiers) {
         final Factory factory = node.getFactory();
         final CtTypeReference<Object> fieldTypeRef = TypeUtils.typeOf(fieldType, factory);
-        return newFieldWithSnippet(node, name, fieldTypeRef, initialValue, modifiers, weavingProfiler);
+        return newFieldWithSnippet(node, name, fieldTypeRef, initialValue, modifiers);
     }
 
     public static <T> CtField<T> newFieldWithType(CtType<?> node, String baseName, CtTypeReference<T> fieldType,
-                                                  T initialValue, String[] modifiers, WeaverProfiler weavingProfiler) {
+                                                  T initialValue, String[] modifiers) {
         CtExpression<T> init = null;
         if (initialValue != null) {
             init = SpoonUtils.createLiteral(initialValue, node.getFactory());
         }
-        return newFieldWithType(node, baseName, fieldType, init, modifiers, weavingProfiler);
+        return newFieldWithType(node, baseName, fieldType, init, modifiers);
     }
 
     public static <T> CtField<T> newFieldWithType(CtType<?> node, String baseName, CtTypeReference<T> fieldType,
                                                   CtExpression<T> initialValue,
-                                                  String[] modifiers, WeaverProfiler weavingProfiler) {
-        final CtField<T> newField = createField(node, baseName, fieldType, modifiers, weavingProfiler);
+                                                  String[] modifiers) {
+        final CtField<T> newField = createField(node, baseName, fieldType, modifiers);
         if (initialValue != null) {
             // CtExpression<T> init = node.getFactory().Code().createLiteral(initialValue);
             newField.setDefaultExpression(initialValue);
         }
-        reportLOCs(weavingProfiler, 1, false);
         return newField;
     }
 
     public static <T> CtField<T> newFieldWithSnippet(CtType<?> node, String baseName, CtTypeReference<T> fieldType,
                                                      String initialValue,
-                                                     String[] modifiers, WeaverProfiler weavingProfiler) {
-        final CtField<T> newField = createField(node, baseName, fieldType, modifiers, weavingProfiler);
+                                                     String[] modifiers) {
+        final CtField<T> newField = createField(node, baseName, fieldType, modifiers);
         if (initialValue != null) {
             final CtExpression<T> snippet = SnippetFactory.snippetExpression(initialValue.toString(),
                     node.getFactory());
             newField.setDefaultExpression(snippet);
-            String[] lines = initialValue.split("\r\n|\r|\n");
-            reportLOCs(weavingProfiler, lines.length - 1, false); // 1 is already for the field declaration
         }
         return newField;
     }
 
     private static <T> CtField<T> createField(CtType<?> node, String baseName, CtTypeReference<T> fieldType,
-                                              String[] modifiers, WeaverProfiler weavingProfiler) {
+                                              String[] modifiers) {
         final Set<ModifierKind> modifiersSet = SpoonUtils.setOfModifiers(modifiers, ModifierKind.PRIVATE);
 
         String name = baseName;
@@ -471,19 +444,11 @@ public class ActionUtils {
         }
         final CtField<T> newField = node.getFactory().Field().create(null, modifiersSet, fieldType, name);
         node.addFieldAtTop(newField);
-        reportLOCs(weavingProfiler, 1, false);
         return newField;
     }
 
-    private static void reportLOCs(WeaverProfiler weavingProfiler, int LOCs, boolean isInsert) {
-        // if (weavingProfiler != null) {
-        // TODO - see why some join points do not have the WeaverEngine setted
-        weavingProfiler.reportLOCs(LOCs, isInsert);
-        // }
-    }
-
     public static CtMethod<Object> newMethod(CtType<?> node, String name, String returnType, String[] paramLeft, String[] paramRight,
-                                             String[] modifiers, String code, WeaverProfiler weavingProfiler) {
+                                             String[] modifiers, String code) {
         final Factory factory = node.getFactory();
         final MethodFactory methodF = factory.Method();
         final CtTypeReference<Object> returnTypeRef = TypeUtils.typeOf(returnType, factory);
@@ -507,13 +472,10 @@ public class ActionUtils {
         createBlock.addStatement(statement);
 
         newMethod.setBody(createBlock);
-        String[] lines = code.split("\r\n|\r|\n");
-        reportLOCs(weavingProfiler, lines.length, false); // does not count the 2 LOC for the method header and brackets
         return newMethod;
     }
 
-    public static CtConstructor<?> newConstructor(CtClass<?> node, String[] paramLeft, String[] paramRight, String[] modifiers,
-                                                  WeaverProfiler weavingProfiler) {
+    public static CtConstructor<?> newConstructor(CtClass<?> node, String[] paramLeft, String[] paramRight, String[] modifiers) {
         final Factory factory = node.getFactory();
         final Set<ModifierKind> modifiersSet = SpoonUtils.setOfModifiers(modifiers, ModifierKind.PUBLIC);
         ConstructorFactory constFac = factory.Constructor();
@@ -526,7 +488,6 @@ public class ActionUtils {
             constFac.createParameter(constr, typeRef, paramRight[i]);
         }
         constr.setBody(factory.Core().createBlock());
-        reportLOCs(weavingProfiler, 2, false); // 2 for the method header and the brackets
         return constr;
     }
 

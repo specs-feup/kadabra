@@ -6,192 +6,206 @@
 name: nightly
 
 on:
-  push:
+    pull_request:
 
-  # Daily at midnight
-  schedule:
-    - cron: '0 0 * * *'
+    # Every Monday at 09h00
+    schedule:
+        - cron: "0 9 * * 1"
 
 permissions:
-  checks: write
-  contents: write
+    checks: write
+    contents: write
 
 env:
-  JAVA_VERSION: 17
-  BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
-  # Setting default branch to staging assuming PRs will be done against the staging versions of the repository
-  # main versions will just receive what comes from the staging
-  DEFAULT_BRANCH: ${{ github.base_ref || 'staging' }}
-  STAGING_BRANCH: 'staging'
-  #SPECS_JAVA_LIBS_BRANCH: ${{ 'master' }}
-  #LARA_FRAMEWORK_BRANCH: ${{ github.head_ref || github.ref_name }}
+    JAVA_VERSION: 17
+    BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
 
 jobs:
-  build-java:
-    name: Build Java
-    runs-on: ubuntu-latest
+    build-java:
+        name: Build Java
+        runs-on: ubuntu-latest
 
-    outputs:
-      branch-exists-lara-framework: ${{ steps.Branch-lara-framework.outputs.value }}
-      branch-exists-specs-java-libs: ${{ steps.Branch-specs-java-libs.outputs.value }}
+        outputs:
+            lara_ref: ${{ steps.repo-refs.outputs.lara_ref }}
+            specs_ref: ${{ steps.repo-refs.outputs.specs_ref }}
 
-    steps:
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: ${{ env.JAVA_VERSION }}
-    
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20.x"
+        steps:
+            - name: Setup Java
+              uses: actions/setup-java@v4
+              with:
+                  distribution: "temurin"
+                  java-version: ${{ env.JAVA_VERSION }}
 
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: current
-          dependency-graph: generate-and-submit
+            - name: Setup Gradle
+              uses: gradle/actions/setup-gradle@v4
+              with:
+                  gradle-version: current
+                  dependency-graph: generate-and-submit
 
-      - name: Checkout Kadabra
-        uses: actions/checkout@v4
-        with:
-          path: kadabra
+            - name: Checkout Kadabra
+              uses: actions/checkout@v6
+              with:
+                  path: kadabra
 
-      - name: Check if branch exists on lara-framework
-        id: Branch-lara-framework
-        run: echo "value=$(git ls-remote --heads https://github.com/specs-feup/lara-framework.git refs/heads/${{ env.BRANCH_NAME }} | wc -l)" >> $GITHUB_OUTPUT
+            - name: Determine repository refs
+              id: repo-refs
+              shell: bash
+              env:
+                  BRANCH_NAME: ${{ env.BRANCH_NAME }}
+                  BASE_BRANCH: ${{ github.base_ref }}
+              run: |
+                  set -euo pipefail
 
-      - name: Check if branch exists on specs-java-libs
-        id: Branch-specs-java-libs
-        run: echo "value=$(git ls-remote --heads https://github.com/specs-feup/specs-java-libs.git refs/heads/${{ env.BRANCH_NAME }} | wc -l)" >> $GITHUB_OUTPUT
+                  # For each dependency repository, determine which branch to checkout.
+                  # Priority order:
+                  # 1. A branch with the same name as the current branch
+                  # 2. If this is a PR, the target branch (base_ref)
+                  # 3. The default branch of the repository
 
-      - name: Echo checks
-        run: |
-          echo "Branch-lara-framework: ${{ steps.Branch-lara-framework.outputs.value }}"
-          echo "Branch-specs-java-libs: ${{ steps.Branch-specs-java-libs.outputs.value }}"
-          echo "Branch name: ${{ env.BRANCH_NAME }}"
-          echo "Default branch: ${{ env.DEFAULT_BRANCH }}"
-          echo "Branch base_ref: ${{ github.base_ref }}"          
+                  determine_ref() {
+                      local prefix=$1
+                      local repo=$2
+                      local url="https://github.com/${repo}.git"
 
-      - name: Checkout lara-framework
-        uses: actions/checkout@v4
-        with:
-          repository: specs-feup/lara-framework
-          path: lara-framework
-          ref: ${{ steps.Branch-lara-framework.outputs.value == '1' && env.BRANCH_NAME || env.STAGING_BRANCH }}
+                      # Get the default branch
+                      local default_branch
+                      default_branch=$(git ls-remote --symref "$url" HEAD | awk '/^ref:/ {print $2}' | sed 's@refs/heads/@@')
+                      echo "${prefix}_default=${default_branch}" >> "$GITHUB_OUTPUT"
+                      echo "Default branch for ${repo} is '${default_branch}'"
 
-      - name: Checkout specs-java-libs
-        uses: actions/checkout@v4
-        with:
-          repository: specs-feup/specs-java-libs
-          path: specs-java-libs
-          # This is causing problems in PRs, for now it will always be the default branch
-          #ref: ${{ steps.Branch-specs-java-libs.outputs.value == '1' && env.BRANCH_NAME || env.STAGING_BRANCH }}
+                      local ref_to_use=""
+                      
+                      # Priority 1: Same branch name
+                      if [ -n "$(git ls-remote --heads "$url" "refs/heads/${BRANCH_NAME}")" ]; then
+                          ref_to_use="${BRANCH_NAME}"
+                          echo "Using matching branch '${BRANCH_NAME}' in ${repo}"
+                      # Priority 2: PR target branch (if this is a PR)
+                      elif [ -n "${BASE_BRANCH}" ] && [ -n "$(git ls-remote --heads "$url" "refs/heads/${BASE_BRANCH}")" ]; then
+                          ref_to_use="${BASE_BRANCH}"
+                          echo "Using PR target branch '${BASE_BRANCH}' in ${repo}"
+                      # Priority 3: Default branch
+                      else
+                          ref_to_use="${default_branch}"
+                          echo "Using default branch '${default_branch}' for ${repo}"
+                      fi
+                      
+                      echo "${prefix}_ref=${ref_to_use}" >> "$GITHUB_OUTPUT"
+                  }
 
-      - name: Prep TS sources
-        run: |
-          cd kadabra/Kadabra-JS
-          npm install
-      
-      - name: Lint TS sources
-        run: |
-          cd kadabra/Kadabra-JS
-          npm run lint
-      
-      - name: Build TS sources
-        run: |
-          cd kadabra/Kadabra-JS
-          npm run build
-          npm run java-dist
-      
-      - name: Build with Gradle
-        run: |
-          cd kadabra/JavaWeaver
-          gradle installDist
+                  determine_ref "lara" "specs-feup/lara-framework"
+                  determine_ref "specs" "specs-feup/specs-java-libs"
 
-      - name: Test with Gradle
-        run: |
-          cd kadabra/JavaWeaver
-          gradle test
-        env:
-          GITHUB_DEPENDENCY_GRAPH_ENABLED: false
+            - name: Echo checks
+              run: |
+                  echo "Weaver branch: ${{ env.BRANCH_NAME }}"
+                  echo "PR target branch (if any): ${{ github.base_ref }}"
+                  echo "Lara framework ref: ${{ steps.repo-refs.outputs.lara_ref }}"
+                  echo "Lara framework default: ${{ steps.repo-refs.outputs.lara_default }}"
+                  echo "Specs-java-libs ref: ${{ steps.repo-refs.outputs.specs_ref }}"
+                  echo "Specs-java-libs default: ${{ steps.repo-refs.outputs.specs_default }}"
 
-      - name: Publish Test Report
-        uses: mikepenz/action-junit-report@v4
-        if: always()
-        with:
-            report_paths: './**/build/test-results/test/TEST-*.xml'
-            summary: true
+            - name: Checkout lara-framework
+              uses: actions/checkout@v6
+              with:
+                  repository: specs-feup/lara-framework
+                  path: lara-framework
+                  ref: ${{ steps.repo-refs.outputs.lara_ref }}
 
-      - name: Upload JavaWeaver artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: java-binaries
-          path: kadabra/JavaWeaver/build/install/JavaWeaver
+            - name: Checkout specs-java-libs
+              uses: actions/checkout@v6
+              with:
+                  repository: specs-feup/specs-java-libs
+                  path: specs-java-libs
+                  ref: ${{ steps.repo-refs.outputs.specs_ref }}
 
+            - name: Build with Gradle
+              run: |
+                  cd kadabra/JavaWeaver
+                  gradle installDist
 
-# Uncomment after adding Kadabra-JS
-#  build-js:
-#    name: Build JS
-#    needs: build-java
-#    strategy:
-#      fail-fast: false
-#      matrix:
-#        #node-version: ['latest', '20.x', '18.x']
-#        node-version: ['20.x', '18.x']
-#        os: [ubuntu-latest, windows-latest, macos-latest]
-#
-#    runs-on: ${{ matrix.os }}
-#
-#    steps:
-#      - name: Setup Java
-#        uses: actions/setup-java@v4
-#        with:
-#          distribution: 'temurin'
-#          java-version: ${{ env.JAVA_VERSION }}
-#
-#      - name: Setup Node.js
-#        uses: actions/setup-node@v4
-#        with:
-#          node-version: ${{ matrix.node-version }}
-#
-#      - name: Checkout Kadabra
-#        uses: actions/checkout@v4
-#        with:
-#          path: kadabra
-#
-#      - name: Checkout lara-framework
-#        uses: actions/checkout@v4
-#        with:
-#          repository: specs-feup/lara-framework
-#          path: lara-framework
-#          ref: ${{ needs.build-java.outputs.branch-exists-lara-framework == '1' && env.BRANCH_NAME || env.DEFAULT_BRANCH }}
-#
-#      - name: Setup js workspace
-#        run: |
-#          echo '{ "name": "SPeCS Workspace", "type": "module", "workspaces": [ "kadabra/Kadabra-JS", "lara-framework/Lara-JS" ] }' > package.json
-#          npm install
-#
-#      - name: Build Lara-JS
-#        run: |
-#          cd lara-framework/Lara-JS
-#          npm run build
-#
-#      - name: Build Kadabra-JS
-#        run: |
-#          cd kadabra/Kadabra-JS
-#          npm run build
-#
-#      - name: Pull java-binaries
-#        uses: actions/download-artifact@v4
-#        with:
-#          name: java-binaries
-#          path: kadabra/Kadabra-JS/java-binaries
-#
-#      # TODO: Uncomment this after adding tests to the flow
-#      #- name: Test JS
-#      #  run: |
-#      #    cd alpakka/Alpakka-JS
-#      #    npm run test
-#
+            - name: Test with Gradle
+              run: |
+                  cd kadabra/JavaWeaver
+                  gradle test
+              env:
+                  GITHUB_DEPENDENCY_GRAPH_ENABLED: false
+
+            - name: Publish Test Report
+              uses: mikepenz/action-junit-report@v4
+              if: always()
+              with:
+                  report_paths: "./**/build/test-results/test/TEST-*.xml"
+                  summary: true
+
+            - name: Upload JavaWeaver artifacts
+              uses: actions/upload-artifact@v4
+              with:
+                  name: java-binaries
+                  path: kadabra/JavaWeaver/build/install/JavaWeaver
+
+    build-js:
+        name: Build JS
+        needs: build-java
+        strategy:
+            fail-fast: false
+            matrix:
+                #node-version: ['latest', '22.x', '20.x']
+                node-version: ["22.x", "20.x"]
+                os: [ubuntu-latest, windows-latest, macos-latest]
+
+        runs-on: ${{ matrix.os }}
+
+        steps:
+            - name: Setup Java
+              uses: actions/setup-java@v4
+              with:
+                  distribution: "temurin"
+                  java-version: ${{ env.JAVA_VERSION }}
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: ${{ matrix.node-version }}
+
+            - name: Checkout Kadabra
+              uses: actions/checkout@v6
+              with:
+                  path: kadabra
+
+            - name: Checkout lara-framework
+              uses: actions/checkout@v6
+              with:
+                  repository: specs-feup/lara-framework
+                  path: lara-framework
+                  ref: ${{ needs.build-java.outputs.lara_ref }}
+
+            - name: Setup js workspace
+              run: |
+                  echo '{ "name": "SPeCS Workspace", "type": "module", "workspaces": [ "kadabra/Kadabra-JS", "lara-framework/Lara-JS" ] }' > package.json
+                  npm install
+
+            - name: Build Lara-JS
+              run: |
+                  cd lara-framework/Lara-JS
+                  npm run build
+
+            - name: Lint TS sources
+              run: |
+                  cd kadabra/Kadabra-JS
+                  npm run lint
+
+            - name: Build Kadabra-JS
+              run: |
+                  cd kadabra/Kadabra-JS
+                  npm run build
+
+            - name: Pull java-binaries
+              uses: actions/download-artifact@v4
+              with:
+                  name: java-binaries
+                  path: kadabra/Kadabra-JS/java-binaries
+
+            - name: Test JS
+              run: |
+                  cd kadabra/Kadabra-JS
+                  npm run test

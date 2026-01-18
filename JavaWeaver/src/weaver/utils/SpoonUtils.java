@@ -21,8 +21,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.lara.interpreter.profile.WeaverProfiler;
-
 import pt.up.fe.specs.util.utilities.StringLines;
 import spoon.compiler.Environment;
 import spoon.reflect.code.CtBlock;
@@ -248,7 +246,7 @@ public class SpoonUtils {
     }
 
     public static <T> CtLocalVariable<T> extract(CtExpression<T> expression, String varName, CtStatement target,
-            String position, WeaverProfiler weaverProfiler) {
+            String position) {
         Factory factory = expression.getFactory();
 
         CtTypeReference<T> type = expression.getType();
@@ -264,7 +262,7 @@ public class SpoonUtils {
         newVar.setDefaultExpression(expression);
 
         // and insert the variable declaration before/after the given target statement
-        ActionUtils.insert(position, newVar, target, weaverProfiler);
+        ActionUtils.insert(position, newVar, target);
         return newVar;
     }
 

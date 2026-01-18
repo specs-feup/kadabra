@@ -13,35 +13,14 @@
 
 package weaver.kadabra.joinpoints;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import spoon.reflect.code.CtAssignment;
 import spoon.reflect.code.CtBlock;
 import spoon.reflect.code.CtCodeSnippetStatement;
-import spoon.reflect.code.CtComment;
-import spoon.reflect.code.CtIf;
-import spoon.reflect.code.CtLocalVariable;
-import spoon.reflect.code.CtLoop;
-import spoon.reflect.code.CtReturn;
 import spoon.reflect.code.CtStatement;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
-import weaver.kadabra.abstracts.joinpoints.AAssignment;
 import weaver.kadabra.abstracts.joinpoints.ABody;
-import weaver.kadabra.abstracts.joinpoints.ACall;
-import weaver.kadabra.abstracts.joinpoints.AComment;
-import weaver.kadabra.abstracts.joinpoints.AIf;
 import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
-import weaver.kadabra.abstracts.joinpoints.ALocalVariable;
-import weaver.kadabra.abstracts.joinpoints.ALoop;
-import weaver.kadabra.abstracts.joinpoints.APragma;
-import weaver.kadabra.abstracts.joinpoints.AReturn;
 import weaver.kadabra.abstracts.joinpoints.AStatement;
-import weaver.utils.scanners.NodeSearcher;
 import weaver.utils.weaving.ActionUtils.Location;
-import weaver.utils.weaving.SelectUtils;
 import weaver.utils.weaving.SnippetFactory;
 import weaver.utils.weaving.converters.CtElement2JoinPoint;
 
@@ -56,60 +35,6 @@ public class JBody<T> extends ABody {
 
     public static <T> JBody<T> newInstance(CtBlock<T> block) {
         return new JBody<>(block);
-    }
-    // public JBody(CtStatement node) {
-    // this.node = node;
-    // }
-
-    @Override
-    public List<? extends ALoop> selectLoop() {
-        final List<JLoop> loops = SelectUtils.select(node, CtLoop.class, JLoop::newInstance);
-        return loops;
-    }
-
-    @Override
-    public List<? extends AIf> selectIf() {
-        final List<JIf> ifs = SelectUtils.select(node, CtIf.class, JIf::newInstance);
-        return ifs;
-    }
-
-    // @Override
-    // public List<? extends AVar> selectVar() {
-    // final List<JVar> vars = WeavingUtils.select(node,
-    // CtVariableAccess.class, JVar::new);
-    // return vars;
-    //
-    // }
-
-    @Override
-    public List<? extends ACall> selectCall() {
-        return SelectUtils.selectCall(node);
-        // final List<JCall<?>> calls = SelectUtils.select(node, CtInvocation.class, JCall::newInstance);
-        // return calls;
-    }
-
-    @Override
-    public List<? extends APragma> selectPragma() {
-        List<CtComment> comments = NodeSearcher.list(CtComment.class, node, Collections.emptyList())
-                .stream()
-                .filter(JPragma::isPragma)
-                .collect(Collectors.toList());
-        final List<JPragma> pragmas = SelectUtils.nodeList2JoinPointList(comments, JPragma::newInstance);
-        return pragmas;
-    }
-
-    @Override
-    public List<? extends AComment> selectComment() {
-        final List<JComment> comments = SelectUtils.select(node, CtComment.class, JComment::newInstance);
-        return comments;
-    }
-
-    @Override
-    public List<? extends ALocalVariable> selectDeclaration() {
-        final List<ALocalVariable> comments = SelectUtils.select(node, CtLocalVariable.class,
-                JLocalVariable::newInstance);
-        return comments;
-
     }
 
     @Override
@@ -170,52 +95,12 @@ public class JBody<T> extends ABody {
     }
 
     @Override
-    public List<? extends AStatement> selectStatement() {
-        if (node.getStatements() == null || node.getStatements().isEmpty()) {
-            return Collections.emptyList();
-        }
-        return SelectUtils.nodeList2JoinPointList(node.getStatements(), this::toAStatement);
-    }
-
-    @Override
-    public List<? extends AStatement> selectStmt() {
-        return selectStatement();
-    }
-
-    @Override
-    public List<? extends AStatement> selectFirstStmt() {
-        if (!hasStatements()) {
-            return new ArrayList<>();
-        }
-
-        CtStatement statement = node.getStatements().get(0);
-        return SelectUtils.statement2JoinPointList(statement);
-    }
-
-    @Override
-    public List<? extends AStatement> selectLastStmt() {
-        if (!hasStatements()) {
-            return new ArrayList<>();
-        }
-
-        CtStatement statement = node.getStatement(node.getStatements().size() - 1);
-        return SelectUtils.statement2JoinPointList(statement);
-    }
-
-    @Override
     public AStatement getLastStmtImpl() {
         if (!hasStatements()) {
             return null;
         }
 
         return CtElement2JoinPoint.convert(node.getStatement(node.getStatements().size() - 1), AStatement.class);
-    }
-
-    @Override
-    public List<? extends AReturn> selectReturn() {
-        @SuppressWarnings("unchecked")
-        List<? extends AReturn> selected = SelectUtils.select(node, CtReturn.class, JReturn::newInstance);
-        return selected;
     }
 
     private boolean hasStatements() {
@@ -226,24 +111,6 @@ public class JBody<T> extends ABody {
     public CtBlock<T> getNode() {
         return node;
     }
-
-    @Override
-    public List<? extends AAssignment> selectAssignment() {
-        @SuppressWarnings("unchecked")
-        List<? extends AAssignment> select = SelectUtils.select(node, CtAssignment.class, JAssignment::newInstance);
-        return select;
-    }
-
-    // @Override
-    // public int getLine() {
-    //
-    // return node.getPosition().getLine();
-    // }
-    //
-    // @Override
-    // public int getEndLine() {
-    // return node.getPosition().getEndLine();
-    // }
 
     @Override
     public String toString() {
