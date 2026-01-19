@@ -21,6 +21,7 @@ export class KadabraNodes {
   ) {
     return wrapJoinPoint(
       KadabraJavaTypes.KadabraJoinPoints.comment(
+        Weaver.getWeaverEngine(),
         unwrapJoinPoint(comment),
         unwrapJoinPoint(type)
       )
