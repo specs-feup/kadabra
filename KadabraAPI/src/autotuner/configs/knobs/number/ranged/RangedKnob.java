@@ -13,9 +13,8 @@
 
 package autotuner.configs.knobs.number.ranged;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import pt.up.fe.specs.util.SpecsCollections;
 
 /**
  * Representation of a range that contains an upper limit, lower limit and the current value
@@ -84,7 +83,7 @@ public interface RangedKnob<T extends Number> {
     }
 
     default List<T> getSurrounding(T reference, boolean includeSelf) {
-        List<T> sides = SpecsCollections.newArrayList();
+        List<T> sides = new ArrayList<>();
         T next = descend(reference);
         if (inBounds(next)) {
             sides.add(next);

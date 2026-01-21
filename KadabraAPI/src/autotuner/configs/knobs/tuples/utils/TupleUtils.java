@@ -13,6 +13,7 @@
 
 package autotuner.configs.knobs.tuples.utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.javatuples.Pair;
@@ -20,11 +21,9 @@ import org.javatuples.Quartet;
 import org.javatuples.Quintet;
 import org.javatuples.Triplet;
 
-import pt.up.fe.specs.util.SpecsCollections;
-
 public class TupleUtils {
     public static <L, R> List<Pair<L, R>> combine(List<L> lefts, List<R> rights) {
-        List<Pair<L, R>> pairs = SpecsCollections.newArrayList();
+        List<Pair<L, R>> pairs = new ArrayList<>();
         for (L left : lefts) {
             for (R right : rights) {
                 pairs.add(Pair.with(left, right));
@@ -34,7 +33,7 @@ public class TupleUtils {
     }
 
     public static <L, M, R> List<Triplet<L, M, R>> combine(List<L> lefts, List<M> middles, List<R> rights) {
-        List<Triplet<L, M, R>> triplets = SpecsCollections.newArrayList();
+        List<Triplet<L, M, R>> triplets = new ArrayList<>();
         for (L left : lefts) {
             for (M middle : middles) {
                 for (R right : rights) {
@@ -46,7 +45,7 @@ public class TupleUtils {
     }
 
     public static <A, B, C, D> List<Quartet<A, B, C, D>> combine(List<A> as, List<B> bs, List<C> cs, List<D> ds) {
-        List<Quartet<A, B, C, D>> quartet = SpecsCollections.newArrayList();
+        List<Quartet<A, B, C, D>> quartet = new ArrayList<>();
         for (A a : as) {
             for (B b : bs) {
                 for (C c : cs) {
@@ -61,7 +60,7 @@ public class TupleUtils {
 
     public static <A, B, C, D, E> List<Quintet<A, B, C, D, E>> combine(List<A> as, List<B> bs, List<C> cs, List<D> ds,
             List<E> es) {
-        List<Quintet<A, B, C, D, E>> quintet = SpecsCollections.newArrayList();
+        List<Quintet<A, B, C, D, E>> quintet = new ArrayList<>();
         for (A a : as) {
             for (B b : bs) {
                 for (C c : cs) {

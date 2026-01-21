@@ -15,6 +15,7 @@ package knob.configs;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.javatuples.Pair;
@@ -25,7 +26,6 @@ import autotuner.configs.factory.ConfigFactory;
 import autotuner.configs.knobs.number.ranged.FloatStep;
 import autotuner.configs.knobs.number.ranged.IntegerStep;
 import autotuner.configs.knobs.number.ranged.RangedKnob;
-import pt.up.fe.specs.util.SpecsCollections;
 
 public class TestConfigs {
 
@@ -133,7 +133,7 @@ public class TestConfigs {
 
     public static List<Pair<Integer, Float>> EXPECTED_ARRAY;
     {
-        EXPECTED_ARRAY = SpecsCollections.newArrayList();
+        EXPECTED_ARRAY = new ArrayList<>();
         EXPECTED_ARRAY.add(Pair.with(0, 0.5f));
         EXPECTED_ARRAY.add(Pair.with(0, -0.5f));
         EXPECTED_ARRAY.add(Pair.with(2, 0.0f));

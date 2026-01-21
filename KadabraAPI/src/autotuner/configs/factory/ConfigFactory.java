@@ -13,6 +13,7 @@
 
 package autotuner.configs.factory;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -41,7 +42,6 @@ import autotuner.configs.knobs.tuples.full.Full3D;
 import autotuner.configs.knobs.tuples.linear.Linear2D;
 import autotuner.configs.knobs.tuples.linear.Linear3D;
 import autotuner.configs.knobs.tuples.utils.TupleUtils;
-import pt.up.fe.specs.util.SpecsCollections;
 import tdrc.tuple.Tuple;
 
 public class ConfigFactory {
@@ -307,7 +307,7 @@ public class ConfigFactory {
     }
 
     public static <T extends Number> List<T> getAllValues(RangedKnob<T> range) {
-        List<T> values = SpecsCollections.newArrayList();
+        List<T> values = new ArrayList<>();
         T lower = range.getLowerLimit();
         values.add(lower);
         while (range.canClimb(lower)) {
@@ -318,7 +318,7 @@ public class ConfigFactory {
     }
 
     public static <T> List<T> getAllValues(Configuration<T> config) {
-        List<T> values = SpecsCollections.newArrayList();
+        List<T> values = new ArrayList<>();
         T first2 = config.getFirst();
         values.add(first2);
         while (config.hasNext(first2)) {

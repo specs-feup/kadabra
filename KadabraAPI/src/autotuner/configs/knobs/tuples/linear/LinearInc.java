@@ -13,13 +13,13 @@
 
 package autotuner.configs.knobs.tuples.linear;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.javatuples.Tuple;
 
 import autotuner.configs.Configuration;
 import autotuner.configs.knobs.number.ranged.RangedKnob;
-import pt.up.fe.specs.util.SpecsCollections;
 
 public abstract class LinearInc<T extends Tuple> implements Configuration<T> {
     private List<RangedKnob<? extends Number>> knobs;
@@ -28,7 +28,7 @@ public abstract class LinearInc<T extends Tuple> implements Configuration<T> {
 
     public LinearInc() {
 
-        this.knobs = SpecsCollections.newArrayList();
+        this.knobs = new ArrayList<>();
         reset();
     }
 

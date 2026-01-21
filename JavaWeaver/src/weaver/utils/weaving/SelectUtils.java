@@ -16,7 +16,6 @@ package weaver.utils.weaving;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.reflect.ClassPath;
 import com.google.common.reflect.ClassPath.ClassInfo;
-import pt.up.fe.specs.util.SpecsCollections;
 import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.CtInvocation;
 import spoon.reflect.code.CtStatement;
@@ -33,6 +32,7 @@ import weaver.utils.scanners.NodeConverter;
 import weaver.utils.scanners.NodeSearcher;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -98,7 +98,7 @@ public class SelectUtils {
                                                                                                    NodeConverter<T, V> converter) {
 
         final V joinPoint = SelectUtils.node2JoinPoint(element, converter);
-        final List<V> joinPoints = SpecsCollections.newArrayList();
+        final List<V> joinPoints = new ArrayList<>();
         joinPoints.add(joinPoint);
 
         return joinPoints;
@@ -108,7 +108,7 @@ public class SelectUtils {
             CtExpression<?> element) {
 
         final AExpression joinPoint = SelectUtils.expression2JoinPoint(element);
-        final List<AExpression> joinPoints = SpecsCollections.newArrayList();
+        final List<AExpression> joinPoints = new ArrayList<>();
         joinPoints.add(joinPoint);
         return joinPoints;
     }
@@ -130,11 +130,11 @@ public class SelectUtils {
     }
 
     public static List<? extends AVar> selectVar(CtStatement node) {
-        // List<Class<? extends CtElement>> ignoreTypes = SpecsCollections.newArrayList();
+        // List<Class<? extends CtElement>> ignoreTypes = new ArrayList<>();
         // ignoreTypes.add(CtFieldReference.class);
-        List<Class<? extends CtElement>> ignoreTypes = SpecsCollections.newArrayList();
+        List<Class<? extends CtElement>> ignoreTypes = new ArrayList<>();
         // ignoreTypes.add(CtFieldReference.class);
-        List<Class<? extends CtElement>> prune = SpecsCollections.newArrayList();
+        List<Class<? extends CtElement>> prune = new ArrayList<>();
         // prune.add(CtFieldAccess.class);
         List<AVar> select = select(node, CtVariableAccess.class, JVar::newInstance, ignoreTypes, prune);
         return select;
