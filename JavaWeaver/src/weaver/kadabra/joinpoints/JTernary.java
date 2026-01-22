@@ -15,6 +15,7 @@ package weaver.kadabra.joinpoints;
 
 import spoon.reflect.code.CtConditional;
 import spoon.reflect.declaration.CtElement;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.AExpression;
 import weaver.kadabra.abstracts.joinpoints.ATernary;
 import weaver.utils.weaving.converters.CtElement2JoinPoint;
@@ -23,14 +24,14 @@ public class JTernary<T> extends ATernary {
 
     private final CtConditional<T> conditional;
 
-    public JTernary(CtConditional<T> conditional) {
-        super(new JExpression<>(conditional));
+    public JTernary(CtConditional<T> conditional, JavaWeaver weaver) {
+        super(new JExpression<>(conditional, weaver), weaver);
 
         this.conditional = conditional;
     }
 
-    public static <T> JTernary<T> newInstance(CtConditional<T> node) {
-        return new JTernary<>(node);
+    public static <T> JTernary<T> newInstance(CtConditional<T> node, JavaWeaver weaver) {
+        return new JTernary<>(node, weaver);
     }
 
     @Override
@@ -40,7 +41,7 @@ public class JTernary<T> extends ATernary {
 
     @Override
     public AExpression getConditionImpl() {
-        return (AExpression) CtElement2JoinPoint.convert(conditional.getCondition());
+        return (AExpression) CtElement2JoinPoint.convert(conditional.getCondition(), getWeaverEngine());
     }
 
     @Override
@@ -50,11 +51,11 @@ public class JTernary<T> extends ATernary {
 
     @Override
     public AExpression getThenImpl() {
-        return (AExpression) CtElement2JoinPoint.convert(conditional.getThenExpression());
+        return (AExpression) CtElement2JoinPoint.convert(conditional.getThenExpression(), getWeaverEngine());
     }
 
     @Override
     public AExpression getElseImpl() {
-        return (AExpression) CtElement2JoinPoint.convert(conditional.getElseExpression());
+        return (AExpression) CtElement2JoinPoint.convert(conditional.getElseExpression(), getWeaverEngine());
     }
 }

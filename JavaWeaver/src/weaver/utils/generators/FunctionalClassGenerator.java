@@ -39,6 +39,7 @@ import spoon.reflect.reference.CtFieldReference;
 import spoon.reflect.reference.CtParameterReference;
 import spoon.reflect.reference.CtTypeReference;
 import tdrc.utils.StringUtils;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.agent.asm.ASMUtils;
 import weaver.kadabra.agent.asm.MethodBuilder;
 import weaver.kadabra.exceptions.JavaWeaverException;
@@ -48,15 +49,15 @@ import weaver.utils.weaving.TypeUtils;
 public class FunctionalClassGenerator {
 
     /**
-     * Generates a method that invokes the methodbuilder inside a {@link MethodBuilder} lambda and then returns an
-     * invokation to ASMUtils.
+     * Generates a method that invokes the methodbuilder inside a
+     * {@link MethodBuilder} lambda and then returns an invokation to ASMUtils.
      * 
      * @param funcInterfaceMethod
      * @param methodBuilder
      * @param newMethodOwner
      * @return
      */
-    public static JMethod<?> generate(CtMethod<?> funcInterfaceMethod, CtMethod<?> methodBuilder,
+    public static JMethod<?> generate(JavaWeaver weaver, CtMethod<?> funcInterfaceMethod, CtMethod<?> methodBuilder,
             CtClass<?> newMethodOwner) {
         validateTransformerMethod(methodBuilder);
 
@@ -80,7 +81,7 @@ public class FunctionalClassGenerator {
 
         newMethod.getBody().addStatement(builderVar);
         newMethod.getBody().addStatement(returnStmt);
-        return JMethod.newInstance(newMethod);
+        return JMethod.newInstance(newMethod, weaver);
     }
 
     public static <T> CtReturn<?> generateReturnStmt(CtMethod<?> methodBuilder, CtMethod<?> funcInterfaceMethod,
@@ -109,9 +110,6 @@ public class FunctionalClassGenerator {
         arguments.add(factory.Code().createLiteral(funcInterfaceMethod.getSimpleName()));
 
         // return type
-        // CtTypeReference<?> typeRef = funcInterfaceMethod.getType();
-        // CtFieldReference<Class<?>> classRef = factory.Field().createReference(typeRef, classRef,
-        // classFieldName);
         arguments.add(generateClassFieldAccess(funcInterfaceMethod.getType()));
         for (CtParameter<?> param : funcInterfaceMethod.getParameters()) {
             arguments.add(generateClassFieldAccess(param.getType()));
@@ -121,13 +119,6 @@ public class FunctionalClassGenerator {
         returnStmt.setReturnedExpression(invocation);
         return returnStmt;
     }
-    //
-    // public static <T> CtTypeReference<T> getDeclaratorTypeRef(CtMethod<?> funcInterfaceMethod) {
-    // CtTypeReference<T> ref;
-    // ref = funcInterfaceMethod.getFactory().Type()
-    // .createReference(funcInterfaceMethod.getDeclaringType().getQualifiedName());
-    // return ref;
-    // }
 
     public static <T> CtVariableAccess<Class<?>> generateClassFieldAccess(CtTypeReference<T> typeRef) {
 
@@ -216,14 +207,7 @@ public class FunctionalClassGenerator {
 
     private static void validateTransformerMethodAux(CtMethod<?> methodBuilder) {
         Factory factory = methodBuilder.getFactory();
-        // CtTypeReference<Void> voidType = factory.Type().voidPrimitiveType();
         CtTypeReference<MethodVisitor> methodVisitorType = factory.Type().createReference(MethodVisitor.class);
-
-        // First verify if return type is void - this is not a problem since we ignore the return type
-        // if (!methodBuilder.getType().isAssignableFrom(voidType)) {
-        // throw new JavaWeaverException(
-        // "The method builder must have void return");
-        // }
 
         List<CtParameter<?>> parameters = methodBuilder.getParameters();
         // Verify if num args >= 2

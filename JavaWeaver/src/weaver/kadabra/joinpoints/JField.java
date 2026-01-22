@@ -17,6 +17,7 @@ import org.lara.interpreter.weaver.interf.JoinPoint;
 
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtField;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.AField;
 import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
@@ -26,14 +27,13 @@ public class JField<T> extends AField {
 
     private final CtField<T> node;
 
-    JField(CtField<T> field) {
-        super(JDeclaration.newInstance(field));
+    JField(CtField<T> field, JavaWeaver weaver) {
+        super(JDeclaration.newInstance(field, weaver), weaver);
         node = field;
-
     }
 
-    public static <T> JField<T> newInstance(CtField<T> field) {
-        return new JField<>(field);
+    public static <T> JField<T> newInstance(CtField<T> field, JavaWeaver weaver) {
+        return new JField<>(field, weaver);
     }
 
     @Override
@@ -46,12 +46,6 @@ public class JField<T> extends AField {
         return node.getDeclaringType().getQualifiedName();
     }
 
-    // @Override
-    // public void initImpl(String value) {
-    // CtCodeSnippetExpression<T> snippetExpression = SnippetFactory.snippetExpression(value, node.getFactory());
-    // node.setDefaultExpression(snippetExpression);
-    // }
-
     @Override
     public AJoinPoint[] insertImpl(String position, JoinPoint code) {
         return new AJoinPoint[] { insertImplJField(position, (CtElement) code.getNode()) };
@@ -63,11 +57,11 @@ public class JField<T> extends AField {
     }
 
     public AJavaWeaverJoinPoint insertImplJField(String position, CtElement code) {
-        return ActionUtils.insertMember(node, code, position);
+        return ActionUtils.insertMember(node, code, position, getWeaverEngine());
     }
 
     public AJavaWeaverJoinPoint insertImplJField(String position, String code) {
-        return ActionUtils.insertMember(node, code, position);
+        return ActionUtils.insertMember(node, code, position, getWeaverEngine());
     }
 
     @Override

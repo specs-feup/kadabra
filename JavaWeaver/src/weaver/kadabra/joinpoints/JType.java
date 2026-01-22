@@ -18,6 +18,7 @@ import pt.up.fe.specs.util.SpecsLogs;
 import spoon.refactoring.Refactoring;
 import spoon.reflect.declaration.*;
 import spoon.reflect.reference.CtTypeReference;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.*;
 import weaver.kadabra.exceptions.JavaWeaverException;
@@ -34,13 +35,11 @@ public class JType<T> extends AType {
     private CtType<T> node;
     private CtCompilationUnit parent;
 
-    private JType(CtType<T> node, CtCompilationUnit parent) {
-        // private JType(CtType<T> node) {// , CompilationUnit parent) {
+    private JType(CtType<T> node, CtCompilationUnit parent, JavaWeaver weaver) {
+        super(weaver);
         this.node = node;
         this.parent = parent;
     }
-
-    // * @deprecated use version that does not need the parent paramenter
 
     /**
      * @param <T>
@@ -48,19 +47,13 @@ public class JType<T> extends AType {
      * @param parent
      * @return
      */
-    // @Deprecated
-    public static <T> JType<T> newInstance(CtType<T> node, CtCompilationUnit parent) {
-        // return newInstance(node);
-        return new JType<>(node, parent);
+    public static <T> JType<T> newInstance(CtType<T> node, CtCompilationUnit parent, JavaWeaver weaver) {
+        return new JType<>(node, parent, weaver);
     }
-
-    // public static <T> JType<T> newInstance(CtType<T> node) {
-    // return new JType<>(node);// , parent);
-    // }
 
     @Override
     public AJoinPoint copyImpl() {
-        return CtElement2JoinPoint.convert(Refactoring.copyType(node));
+        return CtElement2JoinPoint.convert(Refactoring.copyType(node), getWeaverEngine());
     }
 
     @Override
@@ -82,7 +75,7 @@ public class JType<T> extends AType {
             return null;
         }
 
-        return (ATypeReference) CtElement2JoinPoint.convert(superclass);
+        return (ATypeReference) CtElement2JoinPoint.convert(superclass, getWeaverEngine());
 
     }
 
@@ -98,7 +91,8 @@ public class JType<T> extends AType {
     @Override
     public AInterfaceType[] getInterfacesTypesArrayImpl() {
         var els = node.getSuperInterfaces().stream()
-                .map(el -> CtElement2JoinPoint.convert(el, AInterfaceType.class))
+                .map(el -> CtElement2JoinPoint.convert(el,
+                        getWeaverEngine(), AInterfaceType.class))
                 .collect(Collectors.toList());
 
         return els.toArray(new AInterfaceType[0]);
@@ -129,12 +123,6 @@ public class JType<T> extends AType {
         node.addNestedType((CtType<?>) newInterface.getNode());
     }
 
-    // @Override
-    // public AInterface removeInterfaceImpl(AInterface _interface) {
-    // // TODO Auto-generated method stub
-    // return super.removeInterfaceImpl(_interface);
-    // }
-
     @Override
     public AInterfaceType removeInterfaceImpl(String interfaceName) {
 
@@ -143,9 +131,6 @@ public class JType<T> extends AType {
                 .findFirst()
                 .orElse(null);
 
-        // System.out.println("NESTED TYPES: " + node.getNestedTypes());
-        // var interfaceNode = node.getNestedType(interfaceName);
-
         if (interfaceNode == null) {
             SpecsLogs.info("removeInterface: could not find interface with name '" + interfaceName + "'");
             return null;
@@ -153,7 +138,6 @@ public class JType<T> extends AType {
 
         var success = node.removeSuperInterface(interfaceNode);
 
-        // var success = node.removeNestedType(interfaceNode);
         if (!success) {
             SpecsLogs.info("removeInterface: could not remove interface " + interfaceName);
             return null;
@@ -167,7 +151,7 @@ public class JType<T> extends AType {
             return null;
         }
 
-        return CtElement2JoinPoint.convert(interfaceNode.getTypeDeclaration(), AInterfaceType.class);
+        return CtElement2JoinPoint.convert(interfaceNode.getTypeDeclaration(), getWeaverEngine(), AInterfaceType.class);
     }
 
     @Override
@@ -183,14 +167,16 @@ public class JType<T> extends AType {
     }
 
     @Override
-    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, String[] paramLeft, String[] paramRight, String code) {
+    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, String[] paramLeft,
+            String[] paramRight, String code) {
         CtMethod<?> newMethod = ActionUtils.newMethod(node, name, returnType, paramLeft, paramRight, modifiers, code);
-        JMethod<?> newInstance = JMethod.newInstance(newMethod);
+        JMethod<?> newInstance = JMethod.newInstance(newMethod, getWeaverEngine());
         return newInstance;
     }
 
     @Override
-    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, String[] paramLeft, String[] paramRight) {
+    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, String[] paramLeft,
+            String[] paramRight) {
         return newMethodImpl(modifiers, returnType, name, paramLeft, paramRight, "");
     }
 
@@ -208,7 +194,7 @@ public class JType<T> extends AType {
     @Override
     public AField newFieldImpl(String[] modifiers, String fieldType, String baseName, String initialValue) {
         CtField<Object> newField = ActionUtils.newField(node, baseName, fieldType, initialValue, modifiers);
-        JField<Object> newInstance = JField.newInstance(newField);
+        JField<Object> newInstance = JField.newInstance(newField, getWeaverEngine());
         return newInstance;
     }
 
@@ -235,20 +221,20 @@ public class JType<T> extends AType {
 
     @Override
     public AJoinPoint[] insertImpl(String position, JoinPoint code) {
-        return new AJoinPoint[]{insertImplJType(position, (CtElement) code.getNode())};
+        return new AJoinPoint[] { insertImplJType(position, (CtElement) code.getNode()) };
     }
 
     @Override
     public AJoinPoint[] insertImpl(String position, String code) {
-        return new AJoinPoint[]{insertImplJType(position, code)};
+        return new AJoinPoint[] { insertImplJType(position, code) };
     }
 
     public AJavaWeaverJoinPoint insertImplJType(String position, CtElement code) {
-        return ActionUtils.insertMember(node, code, position);
+        return ActionUtils.insertMember(node, code, position, getWeaverEngine());
     }
 
     public AJavaWeaverJoinPoint insertImplJType(String position, String code) {
-        return ActionUtils.insertMember(node, code, position);
+        return ActionUtils.insertMember(node, code, position, getWeaverEngine());
     }
 
     @Override
@@ -278,25 +264,15 @@ public class JType<T> extends AType {
 
     }
 
-    // @Override
-    // public Boolean getIsFinalImpl() {
-    // return node.hasModifier(ModifierKind.FINAL);
-    // }
-    //
-    // @Override
-    // public Boolean getIsStaticImpl() {
-    // return node.hasModifier(ModifierKind.STATIC);
-    // }
-
     @Override
     public AJoinPoint getParentImpl() {
         var spoonParent = getNode().getParent();
 
         if (spoonParent != null && !(spoonParent instanceof CtPackage)) {
-            return CtElement2JoinPoint.convert(spoonParent);
+            return CtElement2JoinPoint.convert(spoonParent, getWeaverEngine());
         }
 
-        return CtElement2JoinPoint.convert(parent);
+        return CtElement2JoinPoint.convert(parent, getWeaverEngine());
     }
 
 }

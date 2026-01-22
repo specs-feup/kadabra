@@ -16,6 +16,7 @@ package weaver.kadabra.joinpoints;
 import pt.up.fe.specs.util.xml.XmlElement;
 import pt.up.fe.specs.util.xml.XmlNode;
 import spoon.reflect.declaration.CtElement;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.AXmlElement;
 import weaver.kadabra.abstracts.joinpoints.AXmlNode;
@@ -25,7 +26,8 @@ public class JXmlNode extends AXmlNode {
 
     private final XmlNode node;
 
-    public JXmlNode(XmlNode node) {
+    public JXmlNode(XmlNode node, JavaWeaver weaver) {
+        super(weaver);
         this.node = node;
     }
 
@@ -36,20 +38,20 @@ public class JXmlNode extends AXmlNode {
 
     @Override
     public AJoinPoint getParentImpl() {
-        return XmlNode2JoinPoint.convert(node.getParent());
+        return XmlNode2JoinPoint.convert(node.getParent(), getWeaverEngine());
     }
 
     @Override
     public AJoinPoint[] getChildrenArrayImpl() {
         return node.getChildren().stream()
-                .map(XmlNode2JoinPoint::convert)
+                .map(child -> XmlNode2JoinPoint.convert(child, getWeaverEngine()))
                 .toArray(length -> new AJoinPoint[length]);
     }
 
     @Override
     public AJoinPoint[] getDescendantsArrayImpl() {
         return node.getDescendants().stream()
-                .map(XmlNode2JoinPoint::convert)
+                .map(child -> XmlNode2JoinPoint.convert(child, getWeaverEngine()))
                 .toArray(length -> new AJoinPoint[length]);
     }
 
@@ -57,7 +59,8 @@ public class JXmlNode extends AXmlNode {
     public AXmlElement[] getElementsArrayImpl() {
         return node.getDescendants().stream()
                 .filter(node -> node instanceof XmlElement)
-                .map(element -> (AXmlElement) XmlNode2JoinPoint.convert(element))
+                .map(element -> (AXmlElement) XmlNode2JoinPoint.convert(element,
+                        getWeaverEngine()))
                 .toArray(length -> new AXmlElement[length]);
 
     }

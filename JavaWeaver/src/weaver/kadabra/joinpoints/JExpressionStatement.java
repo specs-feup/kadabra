@@ -14,22 +14,23 @@
 package weaver.kadabra.joinpoints;
 
 import spoon.reflect.code.CtStatement;
+import weaver.kadabra.JavaWeaver;
 
 /**
- * This class encapsulates expressions that can also be a statement, such as Invocations (JCall/CtInvocation) and
- * Assignemnt (JAssignment/CtAssignment).
- *
+ * This class encapsulates expressions that can also be a statement, such as
+ * Invocations (JCall/CtInvocation) and Assignment (JAssignment/CtAssignment).
+ * 
  * @author tiago
  *
  */
 public class JExpressionStatement extends JStatement {
 
-    public JExpressionStatement(CtStatement node) {
-        super(node);
+    public JExpressionStatement(CtStatement node, JavaWeaver weaver) {
+        super(node, weaver);
     }
 
-    public static JExpressionStatement newInstance(CtStatement node) {
-        return new JExpressionStatement(node);
+    public static JExpressionStatement newInstance(CtStatement node, JavaWeaver weaver) {
+        return new JExpressionStatement(node, weaver);
     }
 
     @Override

@@ -14,6 +14,7 @@
 package weaver.kadabra.joinpoints;
 
 import spoon.reflect.code.CtCodeSnippetExpression;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.ASnippetExpr;
 import weaver.kadabra.spoon.extensions.nodes.CtKadabraSnippetExpression;
 
@@ -21,13 +22,13 @@ public class JSnippetExpr extends ASnippetExpr {
 
     private CtKadabraSnippetExpression<?> node;
 
-    private JSnippetExpr(CtKadabraSnippetExpression<?> expr) {
-        super(new JExpression(expr.getOriginal()));
+    private JSnippetExpr(CtKadabraSnippetExpression<?> expr, JavaWeaver weaver) {
+        super(new JExpression(expr.getOriginal(), weaver), weaver);
         this.node = expr;
     }
 
-    public static JSnippetExpr newInstance(CtKadabraSnippetExpression<?> expr) {
-        return new JSnippetExpr(expr);
+    public static JSnippetExpr newInstance(CtKadabraSnippetExpression<?> expr, JavaWeaver weaver) {
+        return new JSnippetExpr(expr, weaver);
     }
 
     @Override

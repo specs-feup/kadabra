@@ -15,6 +15,7 @@ package weaver.kadabra.joinpoints;
 
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.reference.CtTypeReference;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.ATypeReference;
 
 import java.util.Set;
@@ -26,14 +27,14 @@ public class JTypeReference<T> extends ATypeReference {
 
     private final CtTypeReference<T> typeReference;
 
-    public JTypeReference(CtTypeReference<T> typeReference) {
-        super(new JReference(typeReference));
+    public JTypeReference(CtTypeReference<T> typeReference, JavaWeaver weaver) {
+        super(new JReference(typeReference, weaver), weaver);
 
         this.typeReference = typeReference;
     }
 
-    public static <T> JTypeReference<T> newInstance(CtTypeReference<T> node) {
-        return new JTypeReference<>(node);
+    public static <T> JTypeReference<T> newInstance(CtTypeReference<T> node, JavaWeaver weaver) {
+        return new JTypeReference<>(node, weaver);
     }
 
     @Override
@@ -52,16 +53,11 @@ public class JTypeReference<T> extends ATypeReference {
         try {
             return typeReference.getActualClass().isArray();
         } catch (Exception e) {
-            // Do nothing, sometimes it can launch exception, such as when the type of the class is not on the classpath
+            // Do nothing, sometimes it can launch exception, such as when the type of the
+            // class is not on the classpath
             return false;
         }
     }
-
-    // @Override
-    // public String getReferenceTypeImpl() {
-    // return getIsArrayImpl() ? typeReference.getActualClass().getComponentType().toString()
-    // : super.getReferenceTypeImpl();
-    // }
 
     @Override
     public String toString() {
@@ -114,19 +110,4 @@ public class JTypeReference<T> extends ATypeReference {
 
         return packageName != null ? packageName + "." + typeReference.getSimpleName() : typeReference.getSimpleName();
     }
-
-    // @Override
-    // public String toString() {
-    // var type = getIsArrayImpl() ? typeReference.getActualClass().getComponentType().toString()
-    // : getReferenceTypeImpl();
-    //
-    // return getNameImpl() + " - " + type;
-    //
-    // // if (getIsArrayImpl()) {
-    // // return typeReference.getActualClass().getComponentType().toString();
-    // // }
-    // //
-    // // return getReferenceTypeImpl();
-    // }
-
 }

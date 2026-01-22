@@ -14,19 +14,21 @@
 package weaver.kadabra.joinpoints;
 
 import spoon.reflect.code.CtOperatorAssignment;
+import weaver.kadabra.JavaWeaver;
 import weaver.utils.element.OperatorUtils;
 
 public class JOpAssignmentAux<T, V extends T> extends JAssignment<T, V> {
 
     private final CtOperatorAssignment<T, V> node;
 
-    private JOpAssignmentAux(CtOperatorAssignment<T, V> node) {
-        super(node);
+    private JOpAssignmentAux(CtOperatorAssignment<T, V> node, JavaWeaver weaver) {
+        super(node, weaver);
         this.node = node;
     }
 
-    public static <T, V extends T> JOpAssignmentAux<T, V> newInstance(CtOperatorAssignment<T, V> node) {
-        return new JOpAssignmentAux<>(node);
+    public static <T, V extends T> JOpAssignmentAux<T, V> newInstance(CtOperatorAssignment<T, V> node,
+            JavaWeaver weaver) {
+        return new JOpAssignmentAux<>(node, weaver);
     }
 
     @Override

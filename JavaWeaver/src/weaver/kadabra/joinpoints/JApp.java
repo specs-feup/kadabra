@@ -20,6 +20,7 @@ import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtInterface;
 import spoon.reflect.factory.Factory;
 import spoon.support.gui.SpoonModelTree;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.*;
 import weaver.kadabra.spoon.extensions.nodes.CtApp;
 import weaver.utils.android.AndroidResources;
@@ -39,20 +40,21 @@ public class JApp extends AApp {
     private final Set<File> sources;
     private final AndroidResources androidResources;
 
-    private JApp(Launcher spoon, List<File> sources) {
+    private JApp(Launcher spoon, List<File> sources, JavaWeaver weaver) {
+        super(weaver);
         this.spoon = spoon;
         this.sources = new HashSet<>(sources);
         this.androidResources = AndroidResources.newInstance(sources);
     }
 
-    public static JApp newInstance(Launcher spoon, List<File> sources) {
-        var app = new JApp(spoon, sources);
+    public static JApp newInstance(Launcher spoon, List<File> sources, JavaWeaver weaver) {
+        var app = new JApp(spoon, sources, weaver);
 
         return app;
     }
 
-    public static JApp newInstance(CtApp app) {
-        return new JApp(app.spoon, Collections.emptyList());
+    public static JApp newInstance(CtApp app, JavaWeaver weaver) {
+        return new JApp(app.spoon, Collections.emptyList(), weaver);
     }
 
     public AndroidResources getAndroidResources() {
@@ -62,7 +64,7 @@ public class JApp extends AApp {
     private List<? extends AFile> retrieveFiles() {
 
         final List<JFile> files = spoon.getFactory().CompilationUnit().getMap().values().stream()
-                .map(JFile::new)
+                .map(cu -> new JFile(cu, getWeaverEngine()))
                 .collect(Collectors.toList());
 
         return files;
@@ -83,14 +85,12 @@ public class JApp extends AApp {
     @Override
     public AClass newClassImpl(String name, String extend, String[] implement) {
         if (name == null || name.isEmpty()) {
-
             throw new NullPointerException("the name of the new class cannot be null or empty");
         }
-        // KadabraLog.debug("GENERATING NEW CLASS: " + name);
         var cu = ActionUtils.compilationUnitWithClass(name, extend, implement,
                 spoon.getModelBuilder().getBinaryOutputDirectory(), spoon.getFactory());
         CtClass<?> mainClass = (CtClass<?>) cu.getMainType();
-        AClass newInstance = JClass.newInstance(mainClass, cu);
+        AClass newInstance = JClass.newInstance(mainClass, cu, getWeaverEngine());
         return newInstance;
 
     }
@@ -105,7 +105,7 @@ public class JApp extends AApp {
         final CtInterface<Object> newInterface = ActionUtils.compilationUnitWithInterface(name, extend,
                 spoon.getModelBuilder().getBinaryOutputDirectory(),
                 spoon.getFactory());
-        JInterfaceType<Object> newInstance = JInterfaceType.newInstance(newInterface);
+        JInterfaceType<Object> newInstance = JInterfaceType.newInstance(newInterface, getWeaverEngine());
         return newInstance;
     }
 
@@ -115,7 +115,7 @@ public class JApp extends AApp {
         File outDir = spoon.getModelBuilder().getBinaryOutputDirectory();
         Factory factory = spoon.getFactory();
         var cu = MapGenerator.generate(factory, name, keyType, _interface, methodName, outDir);
-        JClass<?> newInstance = JClass.newInstance((CtClass<?>) cu.getMainType(), cu);
+        JClass<?> newInstance = JClass.newInstance((CtClass<?>) cu.getMainType(), cu, getWeaverEngine());
         return newInstance;
     }
 
@@ -124,7 +124,6 @@ public class JApp extends AApp {
         // SpoonModelTree window starts in the constructor
         SpoonModelTree tree = new SpoonModelTree(spoon.getFactory());
         tree.setTitle(title);
-        // tree.isDefaultLookAndFeelDecorated();
         tree.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         return "";
     }
@@ -182,22 +181,12 @@ public class JApp extends AApp {
     @Override
     public AAndroidManifest getManifestImpl() {
         var manifest = androidResources.getAndroidManifest();
-        // var elementAttrs = manifest.getElementsByName("uses-permission").stream()
-        // .map(element -> element.getAttribute("android:name"))
-        // .collect(Collectors.joining(", "));
-        // System.out.println("ELEMENTS: " + elementAttrs);
-        return manifest != null ? new JAndroidManifest(manifest) : null;
+        return manifest != null ? new JAndroidManifest(manifest, getWeaverEngine()) : null;
     }
 
-    // @Override
-    // public Stream<JoinPoint> getJpChildrenStream() {
-    // return spoon.getFactory().CompilationUnit().getMap().values().stream().map(JFile::new);
-    // }
-    //
     @Override
     public AFile[] getFilesArrayImpl() {
         return retrieveFiles().toArray(size -> new AFile[size]);
-        // return getJpChildrenStream().toArray(size -> new AFile[size]);
     }
 
 }

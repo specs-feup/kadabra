@@ -15,31 +15,37 @@ package weaver.utils.weaving.converters;
 
 import java.util.Optional;
 
-import pt.up.fe.specs.util.classmap.FunctionClassMap;
+import pt.up.fe.specs.util.classmap.BiFunctionClassMap;
 import pt.up.fe.specs.util.xml.XmlElement;
 import pt.up.fe.specs.util.xml.XmlNode;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 import weaver.kadabra.joinpoints.JXmlElement;
 import weaver.kadabra.joinpoints.JXmlNode;
 
 public class XmlNode2JoinPoint {
 
-    private static final FunctionClassMap<XmlNode, AJavaWeaverJoinPoint> CONVERTER = new FunctionClassMap<>(
-            JXmlNode::new);
+    private static final BiFunctionClassMap<XmlNode, JavaWeaver, AJavaWeaverJoinPoint> CONVERTER;
 
     static {
+        CONVERTER = new BiFunctionClassMap<>();
+
         CONVERTER.put(XmlElement.class, JXmlElement::new);
+        CONVERTER.put(XmlNode.class, XmlNode2JoinPoint::defaultFactory);
+    }
+
+    public static AJavaWeaverJoinPoint defaultFactory(XmlNode node, JavaWeaver weaver) {
+        return new JXmlNode(node, weaver);
+    }
+
+    public static AJavaWeaverJoinPoint convert(XmlNode node, JavaWeaver weaver) {
+        return CONVERTER.apply(node, weaver);
 
     }
 
-    public static AJavaWeaverJoinPoint convert(XmlNode node) {
-        return CONVERTER.apply(node);
-
-    }
-
-    public static Optional<AJavaWeaverJoinPoint> convertTry(XmlNode node) {
+    public static Optional<AJavaWeaverJoinPoint> convertTry(XmlNode node, JavaWeaver weaver) {
         try {
-            return Optional.ofNullable(CONVERTER.apply(node));
+            return Optional.ofNullable(CONVERTER.apply(node, weaver));
         } catch (Exception e) {
             return Optional.empty();
         }
