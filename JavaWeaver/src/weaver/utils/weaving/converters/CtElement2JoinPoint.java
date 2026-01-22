@@ -22,6 +22,7 @@ import spoon.reflect.code.CtBlock;
 import spoon.reflect.code.CtCatch;
 import spoon.reflect.code.CtComment;
 import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtInvocation;
 import spoon.reflect.code.CtStatement;
 import spoon.reflect.declaration.CtCompilationUnit;
 import spoon.reflect.declaration.CtElement;
@@ -70,6 +71,7 @@ public class CtElement2JoinPoint {
         // Elements with own converter
         CONVERTER.put(CtExecutable.class, CtExecutable2AExecutable::convert);
         CONVERTER.put(CtType.class, CtType2AType::convert);
+        CONVERTER.put(CtInvocation.class, CtStatement2AStatement::convert);
         CONVERTER.put(CtStatement.class, CtStatement2AStatement::convert);
         CONVERTER.put(CtExpression.class, CtExpression2AExpression::convert);
         CONVERTER.put(CtTypeReference.class, JTypeReference::newInstance);
