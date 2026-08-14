@@ -8,8 +8,9 @@ export const weaverConfig: WeaverConfiguration = {
   weaverFileName: "@specs-feup/lara/code/Weaver.js",
   jarPath: path.join(
     path.dirname(path.dirname(fileURLToPath(import.meta.url))),
-    "./java-binaries/"
+    "./java-binaries/",
   ),
   javaWeaverQualifiedName: "weaver.kadabra.JavaWeaver",
-  importForSideEffects: ["@specs-feup/kadabra/api/Joinpoints.js"],
+  //importForSideEffects: ["@specs-feup/kadabra/api/Joinpoints.js"],
+  importForSideEffects: [new URL("../api/Joinpoints.js", import.meta.url).href],
 };
