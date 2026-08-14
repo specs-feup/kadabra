@@ -13,6 +13,8 @@ const config = {
 
   moduleNameMapper: {
     "^@specs-feup/kadabra/api/(.+)\\.js$": "<rootDir>/$1",
+    "^@specs-feup/lara/jest/WeaverLegacyTester\\.js$":
+      "@specs-feup/lara/jest/WeaverLegacyTester.ts",
     "^(\\.{1,2}/.*)\\.js$": "$1",
   },
 
