@@ -13,6 +13,10 @@
 
 package weaver.kadabra.joinpoints;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 import pt.up.fe.specs.util.SpecsLogs;
 import spoon.reflect.code.CtCodeSnippetExpression;
 import spoon.reflect.code.CtExpression;
@@ -20,7 +24,14 @@ import spoon.reflect.code.CtInvocation;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.reference.CtExecutableReference;
 import spoon.reflect.reference.CtTypeReference;
-import weaver.kadabra.abstracts.joinpoints.*;
+import weaver.kadabra.JavaWeaver;
+import weaver.kadabra.abstracts.joinpoints.ACall;
+import weaver.kadabra.abstracts.joinpoints.AExpression;
+import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
+import weaver.kadabra.abstracts.joinpoints.AMethod;
+import weaver.kadabra.abstracts.joinpoints.AStatement;
+import weaver.kadabra.abstracts.joinpoints.AType;
+import weaver.kadabra.abstracts.joinpoints.ATypeReference;
 import weaver.kadabra.exceptions.JavaWeaverException;
 import weaver.utils.SpoonUtils;
 import weaver.utils.weaving.ActionUtils;
@@ -29,21 +40,17 @@ import weaver.utils.weaving.SnippetFactory;
 import weaver.utils.weaving.converters.CtElement2JoinPoint;
 import weaver.utils.weaving.converters.CtType2AType;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
 public class JCall<T> extends ACall {
 
     private final CtInvocation<T> node;
 
-    private JCall(CtInvocation<T> call) {
-        super(new JExpression<>(call));
+    private JCall(CtInvocation<T> call, JavaWeaver weaver) {
+        super(new JExpression<>(call, weaver), weaver);
         node = call;
     }
 
-    public static <T> JCall<T> newInstance(CtInvocation<T> call) {
-        return new JCall<>(call);
+    public static <T> JCall<T> newInstance(CtInvocation<T> call, JavaWeaver weaver) {
+        return new JCall<>(call, weaver);
     }
 
     /**
@@ -52,18 +59,11 @@ public class JCall<T> extends ACall {
     @Override
     public AJoinPoint getParentImpl() {
         if (SpoonUtils.isStatementInBlock(node)) {
-            return new JCallStatement<>(node);
+            return new JCallStatement<>(node, getWeaverEngine());
         }
 
         return super.getParentImpl();
     }
-
-    // @Override
-    // public List<? extends ABinaryExpression> selectBinaryExpr() {
-    // List<JBinaryExpression<?>> select = SelectUtils.select(node, CtBinaryOperator.class,
-    // JBinaryExpression::newInstance);
-    // return select;
-    // }
 
     @Override
     public String getNameImpl() {
@@ -102,18 +102,15 @@ public class JCall<T> extends ACall {
 
     @Override
     public AType getTargetTypeImpl() {
-        // return String.valueOf(node.getTarget().getType().getQualifiedName());
         CtTypeReference<?> type = node.getTarget().getType();
         CtType<?> typeDeclaration = type.getTypeDeclaration();
-        return CtType2AType.convert(typeDeclaration);
+        return CtType2AType.convert(typeDeclaration, getWeaverEngine());
     }
 
     @Override
     public String getReturnTypeImpl() {
         var returnType = getReturnTypeJpImpl();
         return returnType != null ? returnType.toString() : null;
-        // return getReturnTypeJpImpl().getCodeImpl();
-        // return node.getType().toString();
     }
 
     @Override
@@ -127,7 +124,7 @@ public class JCall<T> extends ACall {
             return null;
         }
 
-        return (ATypeReference) CtElement2JoinPoint.convert(declaringType);
+        return (ATypeReference) CtElement2JoinPoint.convert(declaringType, getWeaverEngine());
     }
 
     @Override
@@ -160,11 +157,6 @@ public class JCall<T> extends ACall {
         return node;
     }
 
-    // @Override
-    // public void insertImpl(String position, String code) {
-    // ActionUtils.insert(position, code, node, getWeaverProfiler());
-    // }
-
     @Override
     public ACall setTargetImpl(String value) {
         CtCodeSnippetExpression<Object> newTarget = SnippetFactory.snippetExpression(value.toString(),
@@ -187,43 +179,6 @@ public class JCall<T> extends ACall {
         return this;
     }
 
-    //
-    // public void defImpl2(String attributeStr, Object value) {
-    //
-    // Optional<CallAttributes> attribute = getTargetAttribute(attributeStr);
-    //
-    // switch (attribute.get()) {
-    // case TARGET:
-    // // System.out.println("Defining target with " + value);
-    // CtCodeSnippetExpression<Object> newTarget = SnippetFactory.snippetExpression(value.toString(),
-    // node.getFactory());
-    // node.setTarget(newTarget);
-    // break;
-    // case EXECUTABLE:
-    // if (!(value instanceof JMethod)) {
-    // throw new JavaWeaverException(
-    // "Definition of attribute " + attributeStr + " expects a join point method");
-    // }
-    //
-    // @SuppressWarnings("unchecked")
-    // JMethod<T> method = JMethod.class.cast(value);
-    // CtExecutableReference<T> reference = method.getNode().getReference();
-    // node.setExecutable(reference);
-    // break;
-    // default:
-    // throw new JavaWeaverException("Cannot define attribute " + attributeStr + " of join point call");
-    // }
-    //
-    // }
-    //
-    // private static Optional<CallAttributes> getTargetAttribute(String attributeStr) {
-    // Optional<CallAttributes> attribute = CallAttributes.fromString(attributeStr);
-    // if (!attribute.isPresent()) {
-    // throw new JavaWeaverException("The join point call does not contain any attribute named " + attributeStr);
-    // }
-    // return attribute;
-    // }
-
     @Override
     public ACall cloneImpl(AStatement location, String position) {
         if (!(location instanceof JStatement)) {
@@ -234,14 +189,14 @@ public class JCall<T> extends ACall {
         JStatement stat = (JStatement) location;
 
         CtInvocation<T> cloned = ActionUtils.cloneElement(node);
-        ActionUtils.insert(position, cloned, stat.getNode());
-        return JCall.newInstance(cloned);
+        ActionUtils.insert(position, cloned, stat.getNode(), getWeaverEngine());
+        return JCall.newInstance(cloned, getWeaverEngine());
     }
 
     @Override
     public AExpression[] getArgumentsArrayImpl() {
         final List<AExpression> exprs = SelectUtils.nodeList2JoinPointList(node.getArguments(),
-                arg -> JExpression.newInstance(arg));
+                arg -> JExpression.newInstance(arg, getWeaverEngine()));
         return exprs.toArray(size -> new AExpression[size]);
     }
 
@@ -251,6 +206,6 @@ public class JCall<T> extends ACall {
         if (decl == null || node.getExecutable().isConstructor()) {
             return null;
         }
-        return CtElement2JoinPoint.convert(decl, AMethod.class);
+        return CtElement2JoinPoint.convert(decl, getWeaverEngine(), AMethod.class);
     }
 }

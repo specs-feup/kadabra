@@ -24,6 +24,7 @@ import spoon.reflect.code.CtOperatorAssignment;
 import spoon.reflect.code.CtUnaryOperator;
 import spoon.reflect.code.CtVariableAccess;
 import spoon.reflect.declaration.CtElement;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.ATypeReference;
@@ -37,18 +38,13 @@ public class JVar<T> extends AVar {
 
     private final CtVariableAccess<T> node;
 
-    protected JVar(CtVariableAccess<T> var) {
-        super(new JExpression<>(var));
+    protected JVar(CtVariableAccess<T> var, JavaWeaver weaver) {
+        super(new JExpression<>(var, weaver), weaver);
         node = var;
     }
 
-    public static <T> JVar<T> newInstance(CtVariableAccess<T> var) {
-
-        // if (var instanceof CtFieldAccess) {
-        // return JFieldAccess.newInstance((CtFieldAccess<T>) var);
-        // }
-
-        return new JVar<>(var);
+    public static <T> JVar<T> newInstance(CtVariableAccess<T> var, JavaWeaver weaver) {
+        return new JVar<>(var, weaver);
     }
 
     @Override
@@ -77,13 +73,13 @@ public class JVar<T> extends AVar {
         if (parent instanceof CtUnaryOperator<?>) {
             final CtUnaryOperator<?> unOp = (CtUnaryOperator<?>) parent;
             switch (unOp.getKind()) {
-            case POSTINC:
-            case POSTDEC:
-            case PREINC:
-            case PREDEC:
-                return RefType.READWRITE.getName();
-            default:
-                break;
+                case POSTINC:
+                case POSTDEC:
+                case PREINC:
+                case PREDEC:
+                    return RefType.READWRITE.getName();
+                default:
+                    break;
             }
 
         }
@@ -92,8 +88,7 @@ public class JVar<T> extends AVar {
 
     @Override
     public ATypeReference getTypeReferenceImpl() {
-        return new JTypeReference<>(node.getType());
-        // return CtTypeReferenceUtils.getType(node.getType());
+        return new JTypeReference<>(node.getType(), getWeaverEngine());
     }
 
     @Override
@@ -113,8 +108,6 @@ public class JVar<T> extends AVar {
 
     @Override
     public String toString() {
-        // final String isArray = getIsArray() ? "[]" : "";
-        // return node.getVariable().toString() + " (" + getType() + isArray + ", " + getReference() + ")";
         return node.toString();
     }
 
@@ -134,16 +127,6 @@ public class JVar<T> extends AVar {
 
         return SpoonUtils.insideHeader(loop, node);
     }
-
-    // @Override
-    // public void insertImpl(String position, String code) {
-    // // final CtStatement parentStatement = node.getParent(CtStatement.class);
-    // // final CtElement parent = node.getParent();
-    //
-    // // System.out.println("PARENT: " + parent.getClass() + "");
-    // // System.out.println(parent);
-    // ActionUtils.insert(position, code, node, getWeaverProfiler());
-    // }
 
     @Override
     public CtVariableAccess<T> getNode() {
@@ -167,54 +150,6 @@ public class JVar<T> extends AVar {
             return null;
         }
 
-        return CtElement2JoinPoint.convert(decl);
+        return CtElement2JoinPoint.convert(decl, getWeaverEngine());
     }
-
-    // @Override
-    // public String[] getModifiersArrayImpl() {
-    // var decl = getDeclarationImpl();
-    // if (decl == null) {
-    // return new String[0];
-    // }
-    //
-    // return JoinPoints.getModifiersInternal(decl).stream()
-    // .map(ModifierKind::name)
-    // .toArray(length -> new String[length]);
-    // }
-
-    // @Override
-    // public Set<ModifierKind> getModifiersInternal() {
-    // var decl = getDeclarationImpl();
-    // if (decl == null) {
-    // return Collections.emptySet();
-    // }
-    //
-    // return decl.getModifiersInternal();
-    // }
-
-    // @Override
-    // public String[] getModifiersArrayImpl() {
-    // return node.getVariable().getModifiers().stream()
-    // .map(ModifierKind::name)
-    // .toArray(length -> new String[length]);
-    // }
-
-    // @Override
-    // public Boolean getIsFinalImpl() {
-    // return node.getVariable().getModifiers().contains(ModifierKind.FINAL);
-    // }
-    //
-    // @Override
-    // public Boolean getIsStaticImpl() {
-    // return node.getVariable().getModifiers().contains(ModifierKind.STATIC);
-    // }
-
-    // @Override
-    // public Boolean getIsFinalImpl() {
-    // System.out.println("Get modifiers attribute: " + Arrays.asList(getModifiersArrayImpl()));
-    // System.out.println("Get modifiers internal: " + getModifiersInternal());
-    // return super.getIsFinalImpl();
-    // // return getModifiersInternal().contains(ModifierKind.FINAL);
-    // }
-
 }

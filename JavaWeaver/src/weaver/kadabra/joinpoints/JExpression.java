@@ -15,6 +15,7 @@ package weaver.kadabra.joinpoints;
 
 import org.lara.interpreter.weaver.interf.JoinPoint;
 import spoon.reflect.code.*;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.*;
 import weaver.kadabra.exceptions.JavaWeaverException;
@@ -30,7 +31,8 @@ public class JExpression<T> extends AExpression {
     CtExpression<T> node;
     Integer test = 10;
 
-    public JExpression(CtExpression<T> expr) {
+    public JExpression(CtExpression<T> expr, JavaWeaver weaver) {
+        super(weaver);
         node = expr;
     }
 
@@ -44,21 +46,12 @@ public class JExpression<T> extends AExpression {
         return super.toString() + " - " + node.getClass().getSimpleName();
     }
 
-    public static <K> AExpression newInstanceDefault(CtExpression<K> expr) {
-        return new JExpression<>(expr);
+    public static <K> AExpression newInstanceDefault(CtExpression<K> expr, JavaWeaver weaver) {
+        return new JExpression<>(expr, weaver);
     }
 
-    public static <K> AExpression newInstance(CtExpression<K> expr) {
-        return CtExpression2AExpression.convertToExpression(expr);
-        // if (expr instanceof CtBinaryOperator) {
-        // return JBinaryExpression.newInstance((CtBinaryOperator<T>) expr);
-        // }
-        //
-        // if (expr instanceof CtInvocation) {
-        // return JCall.newInstance((CtInvocation<T>) expr);
-        // }
-
-        // return new JExpression<>(expr);
+    public static <K> AExpression newInstance(CtExpression<K> expr, JavaWeaver weaver) {
+        return CtExpression2AExpression.convertToExpression(expr, weaver);
     }
 
     @Override
@@ -85,23 +78,11 @@ public class JExpression<T> extends AExpression {
             // First child should be a TypeReference
             if (firstChild instanceof ATypeReference) {
                 return (ATypeReference) firstChild;
-                // return new JTypeReference<>((CtTypeReference<?>) firstChild);
             }
         }
 
-        // if (getNumChildrenImpl() > 0) {
-        // var firstChild = getChildrenNodes().get(0);
-        // // First child should be a TypeReference
-        // if (firstChild instanceof CtTypeReference) {
-        // return new JTypeReference<>((CtTypeReference<?>) firstChild);
-        // }
-        // }
-
         // Fallback
         var type = node.getType();
-
-        // System.out.println("FIRST CHILD: " + firstChild);
-        // System.out.println("TYPE: " + type);
 
         if (type == null) {
             KadabraLog.info("Currrent expression, of join point type '" + getJoinPointType()
@@ -109,8 +90,7 @@ public class JExpression<T> extends AExpression {
             return null;
         }
 
-        return new JTypeReference<>(type);
-        // return type.toString();
+        return new JTypeReference<>(type, getWeaverEngine());
     }
 
     @Override
@@ -120,8 +100,6 @@ public class JExpression<T> extends AExpression {
         } catch (Exception e) {
             return null;
         }
-        // var typeReference = getTypeReferenceImpl();
-        // return typeReference != null ? typeReference.toString() : null;
     }
 
     @Override
@@ -143,7 +121,7 @@ public class JExpression<T> extends AExpression {
             throw new JavaWeaverException("Could not get the target location");
         }
 
-        targetO.ifPresent(t -> SpoonUtils.extract(node, varName, t, position));
+        targetO.ifPresent(t -> SpoonUtils.extract(node, varName, t, position, getWeaverEngine()));
     }
 
     private Optional<CtStatement> getTarget(AStatement location) {
@@ -166,33 +144,21 @@ public class JExpression<T> extends AExpression {
 
     @Override
     public AJoinPoint[] insertImpl(String position, String code) {
-        return new AJoinPoint[]{insertImplJExpression(position, code)};
+        return new AJoinPoint[] { insertImplJExpression(position, code) };
     }
 
     public AJavaWeaverJoinPoint insertImplJExpression(String position, String code) {
         if (position.equals("replace") || position.equals("around")) {
-            return ActionUtils.replaceExpression(position, code, node);
+            return ActionUtils.replaceExpression(position, code, node, getWeaverEngine());
         } else {
-            return ActionUtils.insert(position, code, node);
+            return ActionUtils.insert(position, code, node, getWeaverEngine());
         }
     }
 
     @Override
     public AJoinPoint[] insertImpl(String position, JoinPoint JoinPoint) {
-        return new AJoinPoint[]{insertImplJExpression(position, (AJavaWeaverJoinPoint) JoinPoint)};
+        return new AJoinPoint[] { insertImplJExpression(position, (AJavaWeaverJoinPoint) JoinPoint) };
     }
-
-    // @Override
-    // public <U extends JoinPoint> AJoinPoint[] insertImpl(String position, U JoinPoint) {
-    // return new AJoinPoint[] { insertImplJExpression(position, (AJavaWeaverJoinPoint) JoinPoint) };
-    // };
-
-    // @Override
-    // public <U extends JoinPoint> JoinPoint[] insertImpl(
-    // String position, U JoinPoint) {
-    // System.out.println("HELLOO!!!");
-    // return null;
-    // };
 
     public AJavaWeaverJoinPoint insertImplJExpression(String position, AJavaWeaverJoinPoint joinPoint) {
         var ctElement = joinPoint.getNode();
@@ -206,9 +172,9 @@ public class JExpression<T> extends AExpression {
 
             CtExpression<?> expression = (CtExpression<?>) ctElement;
 
-            return ActionUtils.replaceExpression(position, expression, node);
+            return ActionUtils.replaceExpression(position, expression, node, getWeaverEngine());
         } else {
-            return ActionUtils.insert(position, ctElement, node);
+            return ActionUtils.insert(position, ctElement, node, getWeaverEngine());
         }
     }
 
@@ -226,15 +192,4 @@ public class JExpression<T> extends AExpression {
     public AJoinPoint insertReplaceImpl(String code) {
         return insertImplJExpression("replace", code);
     }
-
-    // @Override
-    // public String toString() {
-    // return super.toString() + " - " + getNode().getClass().getSimpleName();
-    // }
-
-    // @Override
-    // public AJoinPoint copyImpl() {
-    // return CtElement2JoinPoint.convert(SnippetFactory.createSnippetExpression(node.getFactory(), getSrcCodeImpl()));
-    // }
-
 }

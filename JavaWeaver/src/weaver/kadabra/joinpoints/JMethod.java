@@ -23,6 +23,7 @@ import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.declaration.ModifierKind;
 import spoon.reflect.factory.Factory;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.AClass;
 import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
@@ -39,22 +40,23 @@ public class JMethod<T> extends AMethod {
 
     private final CtMethod<T> node;
 
-    private JMethod(CtMethod<T> node) {
-        super(JExecutable.newInstance(node));
+    private JMethod(CtMethod<T> node, JavaWeaver weaver) {
+        super(JExecutable.newInstance(node, weaver), weaver);
         this.node = node;
     }
 
-    public static <T> JMethod<T> newInstance(CtMethod<T> node) {
-        return new JMethod<>(node);
+    public static <T> JMethod<T> newInstance(CtMethod<T> node, JavaWeaver weaver) {
+        return new JMethod<>(node, weaver);
     }
 
     @Override
     public AJoinPoint copyImpl() {
         var methodName = getNameImpl();
         var copy = Refactoring.copyMethod(node);
-        // Refactor method changes the name of the method, appends copy at the end. Restore original name
+        // Refactor method changes the name of the method, appends copy at the end.
+        // Restore original name
         copy.setSimpleName(methodName);
-        return CtElement2JoinPoint.convert(copy);
+        return CtElement2JoinPoint.convert(copy, getWeaverEngine());
     }
 
     @Override
@@ -66,22 +68,6 @@ public class JMethod<T> extends AMethod {
     public CtMethod<T> getNode() {
         return node;
     }
-
-    // @Override
-    // public Set<ModifierKind> getModifiersInternal() {
-    // return node.getModifiers();
-    // }
-
-    // @Override
-    // public String[] getModifiersArrayImpl() {
-    // return modifiersToString(node.getModifiers());
-    // // return super.getModifiersArrayImpl();
-    // }
-
-    // @Override
-    // public Boolean getIsStaticImpl() {
-    // return node.getModifiers().contains(ModifierKind.STATIC);
-    // }
 
     @Override
     public String getToReferenceImpl() {
@@ -105,7 +91,7 @@ public class JMethod<T> extends AMethod {
         }
         clone.setSimpleName(newName);
         ancestor.addMethod(clone);
-        JMethod<T> newInstance = JMethod.newInstance(clone);
+        JMethod<T> newInstance = JMethod.newInstance(clone, getWeaverEngine());
         return newInstance;
     }
 
@@ -137,7 +123,7 @@ public class JMethod<T> extends AMethod {
     public AClass createAdapterImpl(AMethod adaptMethod, String name, boolean reuseIfExists) {
         JMethod<?> jMethod = (JMethod<?>) adaptMethod;
         CtMethod<?> adaptMethodNode = jMethod.getNode();
-        JClass<?> jClass = AdapterGenerator.generate(name, adaptMethodNode, node, reuseIfExists);
+        JClass<?> jClass = AdapterGenerator.generate(getWeaverEngine(), name, adaptMethodNode, node, reuseIfExists);
         return jClass;
     }
 
@@ -146,13 +132,6 @@ public class JMethod<T> extends AMethod {
         return node.getDeclaringType().getQualifiedName();
     }
 
-    // @Override
-    // public void defImpl(String attribute, Object value) {
-    // if (attribute.equals("privacy")) {
-    // node.addModifier(ModifierKind.valueOf(value.toString()));
-    // }
-    // throw new RuntimeException("The attribute '" + attribute + "' is not available for def action");
-    // }
     @Override
     public String getPrivacyImpl() {
         Set<ModifierKind> modifiers = node.getModifiers();
@@ -185,14 +164,13 @@ public class JMethod<T> extends AMethod {
 
     public AJavaWeaverJoinPoint insertImplJMethod(String position, String code) {
         Factory factory = getNode().getFactory();
-        // CtCodeSnippetStatement snippet = SnippetFactory.createSnippetStatement(code, factory);
         CtKadabraSnippetElement snippet = SnippetFactory.createSnippetElement(factory, code);
 
-        return ActionUtils.insertMember(node, snippet, position);
+        return ActionUtils.insertMember(node, snippet, position, getWeaverEngine());
     }
 
     public AJavaWeaverJoinPoint insertImplJMethod(String position, AJoinPoint code) {
-        return ActionUtils.insertMember(node, code.getNode(), position);
+        return ActionUtils.insertMember(node, code.getNode(), position, getWeaverEngine());
     }
 
     @Override
@@ -219,26 +197,4 @@ public class JMethod<T> extends AMethod {
     public Boolean isOverridingImpl(AMethod method) {
         return node.isOverriding((CtMethod<?>) method.getNode());
     }
-
-    /*// Old insertImpl
-    CtKadabraSnippetElement snippet = SnippetFactory.createSnippetElement(factory, code);
-    SourcePosition pos2 = node.getPosition();
-    
-    // snippet.setPosition(position2);
-    if (pos2 != null) {
-       KadabraSourcePosition newPosition = new KadabraSourcePosition(pos2);
-       if (position.equals("AFTER")) {
-           newPosition.setLine(newPosition.getLine() + 1);
-           newPosition.setColumn(newPosition.getColumn() - (counter++)); // FIXME
-       }
-       snippet.setPosition(newPosition);
-    }
-    ancestor.addNestedType(snippet);
-    if (position.equals("REPLACE") || position.equals("AROUND")) {
-    
-       ancestor.removeMethod(node);
-    }
-    */
-
-    // private static int counter = 0;
 }

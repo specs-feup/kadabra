@@ -14,6 +14,7 @@
 package weaver.kadabra.joinpoints;
 
 import spoon.reflect.code.CtComment;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
 import weaver.kadabra.abstracts.joinpoints.AComment;
 import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
@@ -24,13 +25,13 @@ public class JComment extends AComment {
 
     private final CtComment comment;
 
-    private JComment(CtComment comment) {
-        super(new JStatement(comment));
+    private JComment(CtComment comment, JavaWeaver weaver) {
+        super(new JStatement(comment, weaver), weaver);
         this.comment = comment;
     }
 
-    public static JComment newInstance(CtComment comment) {
-        return new JComment(comment);
+    public static JComment newInstance(CtComment comment, JavaWeaver weaver) {
+        return new JComment(comment, weaver);
     }
 
     @Override
@@ -54,7 +55,7 @@ public class JComment extends AComment {
     }
 
     public AJavaWeaverJoinPoint insertImplJComment(String position, String code) {
-        return ActionUtils.insertInTable(comment, code, position);
+        return ActionUtils.insertInTable(comment, code, position, getWeaverEngine());
     }
 
     @Override

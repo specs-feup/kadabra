@@ -15,6 +15,7 @@ package weaver.kadabra.joinpoints;
 
 import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.CtLocalVariable;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.AExpression;
 import weaver.kadabra.abstracts.joinpoints.ALocalVariable;
 import weaver.kadabra.abstracts.joinpoints.ATypeReference;
@@ -25,14 +26,14 @@ public class JLocalVariable<T> extends ALocalVariable {
     private CtLocalVariable<T> node;
     private JDeclaration<T> declaration;
 
-    private JLocalVariable(CtLocalVariable<T> statement) {
-        super(new JStatement(statement));
+    private JLocalVariable(CtLocalVariable<T> statement, JavaWeaver weaver) {
+        super(new JStatement(statement, weaver), weaver);
         this.node = statement;
-        this.declaration = JDeclaration.newInstance(statement);
+        this.declaration = JDeclaration.newInstance(statement, weaver);
     }
 
-    public static <T> JLocalVariable<T> newInstance(CtLocalVariable<T> statement) {
-        return new JLocalVariable<>(statement);
+    public static <T> JLocalVariable<T> newInstance(CtLocalVariable<T> statement, JavaWeaver weaver) {
+        return new JLocalVariable<>(statement, weaver);
     }
 
     @Override
@@ -49,15 +50,6 @@ public class JLocalVariable<T> extends ALocalVariable {
     public String getTypeImpl() {
         return getTypeReferenceImpl().toString();
     }
-
-    // @Override
-    // public AType getTypeJpImpl() {
-    // var typeRef = (CtVariable<?>) declaration.getTypeReferenceImpl().getNode();
-    // JType<?>()
-    // typeRef.getType().getTypeDeclaration()
-    // // TODO Auto-generated method stub
-    // return null;
-    // }
 
     @Override
     public Boolean getIsArrayImpl() {
@@ -86,7 +78,7 @@ public class JLocalVariable<T> extends ALocalVariable {
             return null;
         }
 
-        return (AExpression) CtElement2JoinPoint.convert(defaultExpr);
+        return (AExpression) CtElement2JoinPoint.convert(defaultExpr, getWeaverEngine());
     }
 
     @SuppressWarnings("unchecked")

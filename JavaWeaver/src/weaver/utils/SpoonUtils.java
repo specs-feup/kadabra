@@ -41,6 +41,7 @@ import spoon.reflect.factory.Factory;
 import spoon.reflect.reference.CtLocalVariableReference;
 import spoon.reflect.reference.CtTypeReference;
 import spoon.reflect.visitor.DefaultJavaPrettyPrinter;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
 import weaver.kadabra.exceptions.JavaWeaverException;
 import weaver.kadabra.spoon.extensions.nodes.CtCommentWrapper;
@@ -246,7 +247,7 @@ public class SpoonUtils {
     }
 
     public static <T> CtLocalVariable<T> extract(CtExpression<T> expression, String varName, CtStatement target,
-            String position) {
+            String position, JavaWeaver weaver) {
         Factory factory = expression.getFactory();
 
         CtTypeReference<T> type = expression.getType();
@@ -262,7 +263,7 @@ public class SpoonUtils {
         newVar.setDefaultExpression(expression);
 
         // and insert the variable declaration before/after the given target statement
-        ActionUtils.insert(position, newVar, target);
+        ActionUtils.insert(position, newVar, target, weaver);
         return newVar;
     }
 
@@ -549,9 +550,9 @@ public class SpoonUtils {
      * @param prefix
      * @return
      */
-    public static String toAst(CtElement astNode, String prefix) {
+    public static String toAst(CtElement astNode, String prefix, JavaWeaver weaver) {
         var builder = new StringBuilder();
-        toAst(CtElement2JoinPoint.convert(astNode), prefix, builder);
+        toAst(CtElement2JoinPoint.convert(astNode, weaver), prefix, builder);
         return builder.toString();
     }
 

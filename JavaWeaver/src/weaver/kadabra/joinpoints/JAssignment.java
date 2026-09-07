@@ -16,6 +16,7 @@ package weaver.kadabra.joinpoints;
 import spoon.reflect.code.CtAssignment;
 import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.CtOperatorAssignment;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.AAssignment;
 import weaver.kadabra.abstracts.joinpoints.AExpression;
 import weaver.utils.weaving.converters.CtElement2JoinPoint;
@@ -24,16 +25,16 @@ public class JAssignment<T, V extends T> extends AAssignment {
 
     private final CtAssignment<T, V> node;
 
-    protected JAssignment(CtAssignment<T, V> node) {
-        super(new JStatement(node));
+    protected JAssignment(CtAssignment<T, V> node, JavaWeaver weaver) {
+        super(new JStatement(node, weaver), weaver);
         this.node = node;
     }
 
-    public static <T, V extends T> JAssignment<T, V> newInstance(CtAssignment<T, V> node) {
+    public static <T, V extends T> JAssignment<T, V> newInstance(CtAssignment<T, V> node, JavaWeaver weaver) {
         if (node instanceof CtOperatorAssignment) {
-            return JOpAssignmentAux.newInstance((CtOperatorAssignment<T, V>) node);
+            return JOpAssignmentAux.newInstance((CtOperatorAssignment<T, V>) node, weaver);
         }
-        return new JAssignment<>(node);
+        return new JAssignment<>(node, weaver);
     }
 
     @Override
@@ -48,12 +49,12 @@ public class JAssignment<T, V extends T> extends AAssignment {
 
     @Override
     public AExpression getLhsImpl() {
-        return (AExpression) CtElement2JoinPoint.convert(node.getAssigned());
+        return (AExpression) CtElement2JoinPoint.convert(node.getAssigned(), getWeaverEngine());
     }
 
     @Override
     public AExpression getRhsImpl() {
-        return (AExpression) CtElement2JoinPoint.convert(node.getAssignment());
+        return (AExpression) CtElement2JoinPoint.convert(node.getAssignment(), getWeaverEngine());
     }
 
     @Override

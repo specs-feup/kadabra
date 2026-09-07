@@ -14,6 +14,7 @@
 package weaver.kadabra.joinpoints;
 
 import spoon.reflect.code.CtCase;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.ACase;
 import weaver.kadabra.abstracts.joinpoints.AExpression;
 import weaver.kadabra.abstracts.joinpoints.AStatement;
@@ -23,13 +24,13 @@ public class JCase<S> extends ACase {
 
     private final CtCase<S> node;
 
-    private JCase(CtCase<S> node) {
-        super(new JStatement(node));
+    private JCase(CtCase<S> node, JavaWeaver weaver) {
+        super(new JStatement(node, weaver), weaver);
         this.node = node;
     }
 
-    public static <S> JCase<S> newInstance(CtCase<S> node) {
-        return new JCase<>(node);
+    public static <S> JCase<S> newInstance(CtCase<S> node, JavaWeaver weaver) {
+        return new JCase<>(node, weaver);
     }
 
     @Override
@@ -44,12 +45,12 @@ public class JCase<S> extends ACase {
 
     @Override
     public AStatement[] getStmtsArrayImpl() {
-        return CtElement2JoinPoint.convertList(node.getStatements(), AStatement.class);
+        return CtElement2JoinPoint.convertList(node.getStatements(), getWeaverEngine(), AStatement.class);
     }
 
     @Override
     public AExpression getExprImpl() {
-        return CtElement2JoinPoint.convert(node.getCaseExpression(), AExpression.class);
+        return CtElement2JoinPoint.convert(node.getCaseExpression(), getWeaverEngine(), AExpression.class);
     }
 
 }

@@ -15,6 +15,7 @@ package weaver.kadabra.joinpoints;
 
 import pt.up.fe.specs.util.SpecsLogs;
 import spoon.reflect.code.CtForEach;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.AExpression;
 import weaver.kadabra.enums.LoopType;
 
@@ -22,13 +23,13 @@ public class JForEach extends JLoop {
 
     CtForEach node;
 
-    private JForEach(CtForEach node) {
-        super(node, LoopType.FOREACH);
+    private JForEach(CtForEach node, JavaWeaver weaver) {
+        super(node, LoopType.FOREACH, weaver);
         this.node = node;
     }
 
-    public static JForEach newInstance(CtForEach node) {
-        return new JForEach(node);
+    public static JForEach newInstance(CtForEach node, JavaWeaver weaver) {
+        return new JForEach(node, weaver);
     }
 
     @Override

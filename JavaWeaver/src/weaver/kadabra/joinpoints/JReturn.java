@@ -14,24 +14,25 @@
 package weaver.kadabra.joinpoints;
 
 import spoon.reflect.code.CtReturn;
+import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.AReturn;
 
 public class JReturn<T> extends AReturn {
 
     private final CtReturn<T> node;
 
-    public static <T> JReturn<T> newInstance(CtReturn<T> node) {
-	return new JReturn<>(node);
+    public static <T> JReturn<T> newInstance(CtReturn<T> node, JavaWeaver weaver) {
+        return new JReturn<>(node, weaver);
     }
 
-    private JReturn(CtReturn<T> node) {
-	super(new JStatement(node));
-	this.node = node;
+    private JReturn(CtReturn<T> node, JavaWeaver weaver) {
+        super(new JStatement(node, weaver), weaver);
+        this.node = node;
     }
 
     @Override
     public CtReturn<T> getNode() {
-	return node;
+        return node;
     }
 
 }

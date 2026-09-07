@@ -39,12 +39,12 @@ public class KadabraJoinPoints {
      * Creates a new comment join point.
      * 
      * @param comment
-     *            the contents of the comment
+     *                the contents of the comment
      * @param type
-     *            the type of comment, according to CtComment.CommentType
+     *                the type of comment, according to CtComment.CommentType
      * @return
      */
-    public static JComment comment(String comment, String type) {
+    public static JComment comment(JavaWeaver weaver, String comment, String type) {
         // Convert the type
         CommentType typeEnum = null;
 
@@ -55,20 +55,20 @@ public class KadabraJoinPoints {
                     "Comment type not supported: '" + type + "'. Use one of " + Arrays.toString(CommentType.values()));
         }
 
-        return (JComment) CtElement2JoinPoint.convert(JavaWeaver.getFactory().comment(comment, typeEnum));
+        return CtElement2JoinPoint.convert(weaver.getFactory().comment(comment, typeEnum), weaver, JComment.class);
     }
 
     /**
      * Creates a new expression join point that represents the given literal.
      * 
      * @param type
-     *            the type of the literal
+     *                the type of the literal
      * @param literal
-     *            a string representing a Java literal. In the case it is signed, returns a unaryExpression instead of a
-     *            literal
+     *                a string representing a Java literal. In the case it is
+     *                signed, returns a unaryExpression instead of a literal
      * @return
      */
-    public static Object literal(String literal, String type) {
+    public static Object literal(JavaWeaver weaver, String literal, String type) {
         boolean isNegative = false;
 
         // Check if negative
@@ -78,62 +78,41 @@ public class KadabraJoinPoints {
         }
 
         // Check type of literal
-
         var decodedValue = SpoonLiterals.decodeLiteralValue(type, literal);
 
-        // If a number, check if it is a negative value
-        // boolean isNegative = decodedValue instanceof Number ? ((Number) decodedValue).doubleValue() < 0 : false;
-
-        CtExpression<?> expressionNode = JavaWeaver.getFactory().literal(decodedValue);
+        CtExpression<?> expressionNode = weaver.getFactory().literal(decodedValue);
 
         if (isNegative) {
-            expressionNode = JavaWeaver.getFactory().unaryOperator(UnaryOperatorKind.NEG, expressionNode);
+            expressionNode = weaver.getFactory().unaryOperator(UnaryOperatorKind.NEG, expressionNode);
         }
 
-        return CtElement2JoinPoint.convert(expressionNode);
+        return CtElement2JoinPoint.convert(expressionNode, weaver);
     }
 
-    public static Object nullLiteral(Object referenceJp) {
+    public static Object nullLiteral(JavaWeaver weaver, Object referenceJp) {
         if (referenceJp != null) {
             SpecsCheck.checkArgument(referenceJp instanceof JoinPoint,
                     () -> "Reference join point must be a join point, it is a "
                             + referenceJp.getClass().getSimpleName());
         }
 
-        var factory = JavaWeaver.getFactory().getSpoonFactory();
+        var factory = weaver.getFactory().getSpoonFactory();
 
         CtElement nullLiteral = factory.createLiteral(null);
 
-        //
-        // if (referenceJp != null) {
-        // var node = ((AJavaWeaverJoinPoint) referenceJp).getNode();
-        // var children = node.getDirectChildren();
-        // if (!children.isEmpty()) {
-        // var firstChild = children.get(0);
-        //
-        // if (firstChild instanceof CtTypeReference) {
-        // var copy = (CtTypeReference) firstChild.clone();
-        //
-        // var castNode = factory.Code().createTypeCast(copy, nullLiteral);
-        // }
-        // // System.out.println("FIRST CHILD: " + firstChild);
-        // // System.out.println("FIRST CHILD CLASS: " + firstChild.getClass());
-        // }
-        // }
-
-        return CtElement2JoinPoint.convert(nullLiteral);
+        return CtElement2JoinPoint.convert(nullLiteral, weaver);
     }
 
     /**
      * Creates a new unary operator for the given operation and expression.
      * 
      * @param operator
-     *            the operator of the unary expression
+     *                 the operator of the unary expression
      * @param operand
-     *            an expression join point
+     *                 an expression join point
      * @return
      */
-    public static Object unaryOperator(String operator, Object operand) {
+    public static Object unaryOperator(JavaWeaver weaver, String operator, Object operand) {
 
         SpecsCheck.checkArgument(operand instanceof JoinPoint,
                 () -> "Operand must be a join point, it " + operator.getClass().getSimpleName());
@@ -148,21 +127,23 @@ public class KadabraJoinPoints {
         // Convert string to kind
         UnaryOperatorKind opKind = OperatorUtils.parseUnary(operator);
 
-        return CtElement2JoinPoint.convert(JavaWeaver.getFactory().unaryOperator(opKind, nodeExpr));
+        return CtElement2JoinPoint.convert(weaver.getFactory().unaryOperator(opKind, nodeExpr), weaver);
     }
 
     /**
      * Creates a new unary operator for the given operation and expression.
      * 
      * @param operator
-     *            the operator of the binary expression
+     *                 the operator of the binary expression
      * @param lhs
-     *            a join point representing the left hand of the binary expression
+     *                 a join point representing the left hand of the binary
+     *                 expression
      * @param rhs
-     *            a join point representing the right hand of the binary expression
+     *                 a join point representing the right hand of the binary
+     *                 expression
      * @return
      */
-    public static Object binaryOperator(String operator, Object lhs, Object rhs) {
+    public static Object binaryOperator(JavaWeaver weaver, String operator, Object lhs, Object rhs) {
 
         SpecsCheck.checkArgument(lhs instanceof JoinPoint,
                 () -> "Lhs must be a join point, it " + operator.getClass().getSimpleName());
@@ -183,10 +164,10 @@ public class KadabraJoinPoints {
         // Convert string to kind
         BinaryOperatorKind opKind = OperatorUtils.parseBinary(operator);
 
-        return CtElement2JoinPoint.convert(JavaWeaver.getFactory().binaryOperator(opKind, nodeLhs, nodeRhs));
+        return CtElement2JoinPoint.convert(weaver.getFactory().binaryOperator(opKind, nodeLhs, nodeRhs), weaver);
     }
 
-    public static Object assignment(Object lhs, Object rhs) {
+    public static Object assignment(JavaWeaver weaver, Object lhs, Object rhs) {
         Objects.requireNonNull(lhs, () -> "lhs cannot be null");
         Objects.requireNonNull(rhs, () -> "rhs cannot be null");
         SpecsCheck.checkArgument(lhs instanceof JoinPoint,
@@ -205,13 +186,13 @@ public class KadabraJoinPoints {
         CtExpression<?> nodeLhs = (CtExpression<?>) jpLhs.getNode();
         CtExpression<?> nodeRhs = (CtExpression<?>) jpRhs.getNode();
 
-        return CtElement2JoinPoint.convert(JavaWeaver.getFactory().assignment(nodeLhs, nodeRhs));
+        return CtElement2JoinPoint.convert(weaver.getFactory().assignment(nodeLhs, nodeRhs), weaver);
 
     }
 
-    public static Object var(JLocalVariable localVariable, boolean isWrite) {
+    public static Object var(JavaWeaver weaver, JLocalVariable localVariable, boolean isWrite) {
         var localVarSpoon = localVariable.getNode();
-        return CtElement2JoinPoint.convert(JavaWeaver.getFactory().var(localVarSpoon, isWrite));
+        return CtElement2JoinPoint.convert(weaver.getFactory().var(localVarSpoon, isWrite), weaver);
     }
 
     /**
@@ -220,13 +201,8 @@ public class KadabraJoinPoints {
      * @param code
      * @return
      */
-    public static Object snippetExpression(String code) {
+    public static Object snippetExpression(JavaWeaver weaver, String code) {
         return CtElement2JoinPoint
-                .convert(SnippetFactory.createSnippetExpression(JavaWeaver.getFactory().getSpoonFactory(), code));
+                .convert(SnippetFactory.createSnippetExpression(weaver.getFactory().getSpoonFactory(), code), weaver);
     }
-
-    // public static Object literal2(String literal, String type) {
-    // var expressionNode = JavaWeaver.getFactory().literal(Integer.valueOf(1));
-    // return CtElement2JoinPoint.convert(expressionNode);
-    // }
 }
