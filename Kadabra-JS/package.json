@@ -1,41 +1,50 @@
 {
   "name": "@specs-feup/kadabra",
-  "version": "1.5.1",
+  "version": "4.0.0",
   "description": "A Java source-to-source compiler written in Typescript",
   "type": "module",
+  "bin": {
+    "kadabra": "./code/index.ts"
+  },
+  "exports": {
+    "./api/*.test.ts": null,
+    "./api/*.config.ts": null,
+    "./api/*.js": "./api/*.ts",
+    "./api/*": "./api/*.ts",
+    "./api/*.ts": "./api/*.ts",
+    "./code/*.test.ts": null,
+    "./code/*.config.ts": null,
+    "./code/*.js": "./code/*.ts",
+    "./code/*": "./code/*.ts",
+    "./code/*.ts": "./code/*.ts"
+  },
   "files": [
+    ".gitignore",
+    "LICENSE",
+    "README.md",
     "api",
     "code",
-    "jest",
-    "src-api",
-    "src-code",
     "java-binaries",
-    ".gitignore",
-    "eslint.config.js",
-    "jest.config.js",
-    "LICENSE",
+    "oxlint.config.ts",
     "package.json",
-    "README.md",
-    "tsconfig.jest.json",
     "tsconfig.json",
-    "typedoc.config.js"
+    "typedoc.config.js",
+    "vitest.config.ts"
   ],
-  "bin": {
-    "kadabra": "code/index.js"
-  },
   "scripts": {
-    "run": "node ./code/index.js",
-    "build": "tsc -b src-api src-code",
-    "build:api": "tsc -b src-api",
-    "build:code": "tsc -b src-code",
+    "run": "node ./code/index.ts",
+    "build": "tsc",
     "build:watch": "npm run build -- --watch",
-    "lint": "eslint .",
-    "test": "cross-env NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" jest --detectOpenHandles --forceExit",
-    "test:api": "npm run test -- src-api",
-    "test:code": "npm run test -- src-code",
+    "lint": "oxlint .",
+    "format": "oxfmt .",
+    "format:check": "oxfmt --check .",
+    "prepack": "node --input-type=module --eval \"import { validateJavaBinaries } from '@specs-feup/lara/scripts/validateJavaBinaries.js'; validateJavaBinaries();\"",
+    "test": "vitest run",
+    "test:api": "npm run test -- api",
+    "test:code": "npm run test -- code",
     "test:cov": "npm run test -- --coverage",
     "test:watch": "npm run test -- --watch",
-    "build-interfaces": "npx lara-build-interfaces --input ../JavaWeaver/src/weaver/kadabra/JavaWeaver.json --lara @specs-feup/lara/LaraJoinPointSpecification.json --output src-api/Joinpoints.ts"
+    "build-interfaces": "lara-build-interfaces --input ../JavaWeaver/src/weaver/kadabra/JWeaver.json --lara @specs-feup/lara/LaraJoinPointSpecification.json --output api/Joinpoints.ts"
   },
   "repository": {
     "type": "git",
@@ -55,24 +64,18 @@
   },
   "homepage": "https://github.com/specs-feup/kadabra#readme",
   "dependencies": {
-    "@specs-feup/lara": "~3.5.0"
+    "@specs-feup/lara": "^4.0.0"
   },
   "devDependencies": {
-    "@jest/globals": "~30.3.0",
     "@types/debug": "^4.1.12",
     "@types/java": "^0.9.6",
-    "@types/jest": "^30.0.0",
-    "@types/node": "^20.14.10",
+    "@types/node": "^24.0.0",
     "@types/yargs": "^17.0.35",
-    "cross-env": "^10.1.0",
-    "eslint": "^9.39.2",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-jest": "^29.12.1",
-    "eslint-plugin-tsdoc": "^0.5.0",
-    "jest": "~30.3.0",
-    "node-notifier": "^10.0.1",
-    "ts-jest": "^29.4.6",
-    "typescript": "^5.9.3",
-    "typescript-eslint": "^8.52.0"
+    "@vitest/coverage-v8": "^4.1.10",
+    "oxfmt": "^0.59.0",
+    "oxlint": "^1.74.0",
+    "oxlint-tsgolint": "^7.0.2001",
+    "typescript": "^7.0.2",
+    "vitest": "^4.1.10"
   }
 }
