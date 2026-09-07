@@ -13,14 +13,34 @@
 
 package weaver.kadabra.joinpoints;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import spoon.reflect.code.CtBlock;
 import spoon.reflect.code.CtCodeSnippetStatement;
 import spoon.reflect.cu.CompilationUnit;
-import spoon.reflect.declaration.*;
+import spoon.reflect.declaration.CtAnonymousExecutable;
+import spoon.reflect.declaration.CtClass;
+import spoon.reflect.declaration.CtConstructor;
+import spoon.reflect.declaration.CtCompilationUnit;
+import spoon.reflect.declaration.CtElement;
+import spoon.reflect.declaration.CtInterface;
+import spoon.reflect.declaration.CtMethod;
+import spoon.reflect.declaration.CtPackage;
+import spoon.reflect.declaration.CtParameter;
+import spoon.reflect.declaration.CtType;
+import spoon.reflect.declaration.ModifierKind;
 import spoon.reflect.factory.Factory;
 import spoon.reflect.reference.CtTypeReference;
-import weaver.kadabra.JavaWeaver;
-import weaver.kadabra.abstracts.joinpoints.*;
+import weaver.kadabra.JWeaver;
+import weaver.kadabra.abstracts.joinpoints.AClass;
+import weaver.kadabra.abstracts.joinpoints.AConstructor;
+import weaver.kadabra.abstracts.joinpoints.AInterfaceType;
+import weaver.kadabra.abstracts.joinpoints.AJoinpoint;
+import weaver.kadabra.abstracts.joinpoints.AMethod;
 import weaver.utils.generators.FunctionalClassGenerator;
 import weaver.utils.generators.MapGenerator;
 import weaver.utils.weaving.ActionUtils;
@@ -28,62 +48,54 @@ import weaver.utils.weaving.SelectUtils;
 import weaver.utils.weaving.SnippetFactory;
 import weaver.utils.weaving.converters.CtElement2JoinPoint;
 
-import java.util.*;
+public class JClass<Self extends JClass<Self>> extends AClass<Self> {
 
-public class JClass<T> extends AClass {
-
-    private final CtClass<T> originClass;
     private final CtCompilationUnit parent;
 
-    private JClass(CtClass<T> node, CtCompilationUnit parent, JavaWeaver weaver) {
-        super(JType.newInstance(node, parent, weaver), weaver);
-        this.originClass = node;
+    public JClass(CtClass node, JWeaver weaver) {
+        this(node, node.getPosition().getCompilationUnit(), weaver);
+    }
+
+    public JClass(CtClass node, CtCompilationUnit parent, JWeaver weaver) {
+        super(node, weaver);
         this.parent = parent;
     }
 
     @Override
-    public String toString() {
-        return originClass.getQualifiedName();
-    }
-
-    public static <T> JClass<T> newInstance(CtClass<T> node, CtCompilationUnit parent, JavaWeaver weaver) {
-        return new JClass<>(node, parent, weaver);
-    }
-
-    public static <T> JClass<T> newInstance(CtClass<T> node, JavaWeaver weaver) {
-        return new JClass<>(node, node.getPosition().getCompilationUnit(), weaver);
+    public String getToStringImpl() {
+        return getNodeImpl().getQualifiedName();
     }
 
     @Override
-    public CtClass<T> getNode() {
-        return originClass;
+    public CtClass<?> getNodeImpl() {
+        return (CtClass<?>) super.getNodeImpl();
     }
 
     @Override
     public void insertStaticImpl(String code) {
 
-        Factory factory = originClass.getFactory();
+        Factory factory = getNodeImpl().getFactory();
         CtCodeSnippetStatement snippetStmt = SnippetFactory.createSnippetStatement(code, factory);
         CtBlock<Void> newBlock = factory.Core().createBlock();
         newBlock.addStatement(snippetStmt);
-        CtAnonymousExecutable createAnonymous = factory.Method().createAnonymous(originClass, newBlock);
+        CtAnonymousExecutable createAnonymous = factory.Method().createAnonymous(getNodeImpl(), newBlock);
         createAnonymous.addModifier(ModifierKind.STATIC);
     }
 
     @Override
-    public AClass mapVersionsImpl(String name, String keyType, AInterfaceType _interface, String methodName) {
+    public AClass<?> mapVersionsImpl(String name, String keyType, AInterfaceType<?> _interface, String methodName) {
 
-        CtClass<?> generate = MapGenerator.generate(originClass.getFactory(), name, keyType, _interface, methodName);
-        originClass.addNestedType(generate);
+        CtClass<?> generate = MapGenerator.generate(getNodeImpl().getFactory(), name, keyType, _interface, methodName);
+        getNodeImpl().addNestedType(generate);
         JClass<?> jClass = new JClass<>(generate, parent, getWeaverEngine());
         return jClass;
     }
 
     @Override
-    public AInterfaceType extractInterfaceImpl(String name, String _package, AMethod method, boolean associate,
+    public AInterfaceType<?> extractInterfaceImpl(String name, String _package, AMethod<?> method, boolean associate,
             boolean newFile) {
 
-        Factory factory = originClass.getFactory();
+        Factory factory = getNodeImpl().getFactory();
         // First create the interface
 
         Collection<CompilationUnit> compilationUnits = factory.CompilationUnit().getMap().values();
@@ -102,33 +114,31 @@ public class JClass<T> extends AClass {
         }
 
         String qualifiedName = _package.isEmpty() ? name : _package + "." + name;
-        final CtInterface<Object> newInterface;
+        final CtInterface<?> newInterface;
         if (newFile) {
             newInterface = ActionUtils.compilationUnitWithInterface(qualifiedName, null,
                     parent.getFile().getParentFile(), factory);
         } else {
-            newInterface = ActionUtils.newInterface(name, null, originClass.getFactory());
+            newInterface = ActionUtils.newInterface(name, null, getNodeImpl().getFactory());
         }
 
         if (associate) {
-            originClass.addSuperInterface(newInterface.getReference());
+            getNodeImpl().addSuperInterface(newInterface.getReference());
         }
 
         // Then add the method signature
         final JMethod<?> jMethod = (JMethod<?>) method;
-        final CtMethod<?> ctMethod = jMethod.getNode();
-        // To be replaced in Spoon 5.0 with: create(newInterface, ctMethod, true);
-        // newMethod.setBody(null);
+        final CtMethod<?> ctMethod = jMethod.getNodeImpl();
         final CtMethod<?> newMethod = copyMethod(newInterface, ctMethod, factory);
         newMethod.removeModifier(ModifierKind.STATIC); // methods in interfaces are non-static!
         newMethod.removeModifier(ModifierKind.PRIVATE); // we want this method to be public
         newMethod.addModifier(ModifierKind.PUBLIC);
         newMethod.setParent(newInterface);
-        JInterfaceType<?> newInstance = JInterfaceType.newInstance(newInterface, getWeaverEngine());
+        JInterfaceType<?> newInstance = new JInterfaceType<>(newInterface, getWeaverEngine());
         return newInstance;
     }
 
-    private static CtMethod<?> copyMethod(CtInterface<Object> newInterface, CtMethod<?> ctMethod, Factory factory) {
+    private static CtMethod<?> copyMethod(CtInterface<?> newInterface, CtMethod<?> ctMethod, Factory factory) {
         Set<ModifierKind> modifiers = new HashSet<>(ctMethod.getModifiers());
         Set<CtTypeReference<? extends Throwable>> thrownTypes = new HashSet<>(ctMethod.getThrownTypes());
         List<CtParameter<?>> parameters = new ArrayList<>(ctMethod.getParameters());
@@ -138,37 +148,37 @@ public class JClass<T> extends AClass {
     }
 
     @Override
-    public AMethod newFunctionalClassImpl(AMethod interfaceMethod, AMethod generatorMethod) {
+    public AMethod<?> newFunctionalClassImpl(AMethod<?> interfaceMethod, AMethod<?> generatorMethod) {
         JMethod<?> iMethod = (JMethod<?>) interfaceMethod;
-        CtMethod<?> iMethodNode = iMethod.getNode();
+        CtMethod<?> iMethodNode = iMethod.getNodeImpl();
         JMethod<?> gMethod = (JMethod<?>) generatorMethod;
-        CtMethod<?> gMethodNode = gMethod.getNode();
+        CtMethod<?> gMethodNode = gMethod.getNodeImpl();
 
         JMethod<?> jMethod = FunctionalClassGenerator.generate(getWeaverEngine(), iMethodNode, gMethodNode,
-                this.originClass);
+                getNodeImpl());
         return jMethod;
     }
 
     @Override
-    public AConstructor newConstructorImpl(String[] modifiers, String[] paramLeft, String[] paramRight) {
-        CtConstructor<?> newConstructor = ActionUtils.newConstructor(originClass, paramLeft, paramRight, modifiers);
+    public AConstructor<?> newConstructorImpl(String[] modifiers, String[] paramLeft, String[] paramRight) {
+        CtConstructor<?> newConstructor = ActionUtils.newConstructor(getNodeImpl(), paramLeft, paramRight, modifiers);
         JConstructor<?> newInstance = SelectUtils.node2JoinPoint(newConstructor,
-                (node -> JConstructor.newInstance(node, getWeaverEngine())));
+                (node -> new JConstructor<>(node, getWeaverEngine())));
         return newInstance;
     }
 
     @Override
-    public AJoinPoint getParentImpl() {
-        var spoonParent = getNode().getParent();
+    public AJoinpoint<?> getParentImpl() {
+        var spoonParent = getNodeImpl().getParent();
         if (spoonParent != null && !(spoonParent instanceof CtPackage)) {
             return CtElement2JoinPoint.convert(spoonParent, getWeaverEngine());
         }
 
-        return new JFile(parent, getWeaverEngine());
+        return new JFile<>(parent, getWeaverEngine());
     }
 
     @Override
-    public Boolean getIsTopLevelImpl() {
-        return originClass.isTopLevel();
+    public boolean getIsTopLevelImpl() {
+        return getNodeImpl().isTopLevel();
     }
 }

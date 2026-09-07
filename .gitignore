@@ -60,3 +60,5 @@ build/
 
 
 **/node_modules/*
+# Test artifacts from the legacy weaver tests
+/src/

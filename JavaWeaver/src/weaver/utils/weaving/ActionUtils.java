@@ -25,8 +25,8 @@ import spoon.reflect.factory.ConstructorFactory;
 import spoon.reflect.factory.Factory;
 import spoon.reflect.factory.MethodFactory;
 import spoon.reflect.reference.CtTypeReference;
-import weaver.kadabra.JavaWeaver;
-import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
+import weaver.kadabra.JWeaver;
+import weaver.kadabra.abstracts.joinpoints.AJoinpoint;
 import weaver.kadabra.exceptions.JavaWeaverException;
 import weaver.kadabra.spoon.extensions.launcher.JWEnvironment;
 import weaver.kadabra.spoon.extensions.nodes.CtKadabraSnippetElement;
@@ -53,8 +53,8 @@ public class ActionUtils {
         }
     }
 
-    public static AJavaWeaverJoinPoint insert(String position, CtElement newElement,
-            final CtElement node, JavaWeaver weaver) {
+    public static AJoinpoint<?> insert(String position, CtElement newElement,
+            final CtElement node, JWeaver weaver) {
 
         Location posIntert = Location.valueOf(position.toUpperCase());
         if (posIntert.equals(Location.REPLACE) && newElement == null) {
@@ -116,7 +116,7 @@ public class ActionUtils {
      * @param snippetStr the code to inject
      * @param node       the node used as reference for the insertion
      */
-    public static AJavaWeaverJoinPoint insert(String position, String snippetStr, CtElement node, JavaWeaver weaver) {
+    public static AJoinpoint<?> insert(String position, String snippetStr, CtElement node, JWeaver weaver) {
 
         var snippet = snippetStr.trim().isEmpty() ? null
                 : SnippetFactory.createSnippetStatement(snippetStr, node.getFactory());
@@ -128,8 +128,8 @@ public class ActionUtils {
         return insert(position, snippet, node, weaver);
     }
 
-    public static <T> AJavaWeaverJoinPoint replaceExpression(String position, String snippetStr, CtExpression<T> node,
-            JavaWeaver weaver) {
+    public static <T> AJoinpoint<?> replaceExpression(String position, String snippetStr, CtExpression<T> node,
+            JWeaver weaver) {
 
         var snippet = snippetStr.trim().isEmpty() ? null
                 : SnippetFactory.createSnippetExpression(node.getFactory(), snippetStr);
@@ -142,8 +142,8 @@ public class ActionUtils {
         return replaceExpression(position, snippet, node, weaver);
     }
 
-    public static <T> AJavaWeaverJoinPoint replaceExpression(String position, CtExpression<?> expression,
-            CtExpression<T> target, JavaWeaver weaver) {
+    public static <T> AJoinpoint<?> replaceExpression(String position, CtExpression<?> expression,
+            CtExpression<T> target, JWeaver weaver) {
 
         CtElement snippet = expression;
         CtElement node = target;
@@ -177,8 +177,8 @@ public class ActionUtils {
      * @param location
      * @param weavingProfiler
      */
-    public static AJavaWeaverJoinPoint insertMember(CtElement referenceNode, String codeSnippet, String location,
-            JavaWeaver weaver) {
+    public static AJoinpoint<?> insertMember(CtElement referenceNode, String codeSnippet, String location,
+            JWeaver weaver) {
 
         Factory factory = referenceNode.getFactory();
         CtKadabraSnippetElement snippet = SnippetFactory.createSnippetElement(factory, codeSnippet);
@@ -186,8 +186,8 @@ public class ActionUtils {
         return insertMember(referenceNode, snippet, location, weaver);
     }
 
-    public static AJavaWeaverJoinPoint insertMember(CtElement referenceNode, CtElement snippet, String location,
-            JavaWeaver weaver) {
+    public static AJoinpoint<?> insertMember(CtElement referenceNode, CtElement snippet, String location,
+            JWeaver weaver) {
 
         location = location.toUpperCase();
         Factory factory = referenceNode.getFactory();
@@ -212,8 +212,8 @@ public class ActionUtils {
         return CtElement2JoinPoint.convert(snippet, weaver);
     }
 
-    public static AJavaWeaverJoinPoint insertInTable(CtElement referenceNode, String codeSnippet, String location,
-            JavaWeaver weaver) {
+    public static AJoinpoint<?> insertInTable(CtElement referenceNode, String codeSnippet, String location,
+            JWeaver weaver) {
         location = location.toUpperCase();
         Factory factory = referenceNode.getFactory();
 
@@ -415,7 +415,7 @@ public class ActionUtils {
         return node.getFactory().Core().clone(node);
     }
 
-    public static <N extends CtElement, JP extends AJavaWeaverJoinPoint> JP cloneJP(N node,
+    public static <N extends CtElement, JP extends AJoinpoint<?>> JP cloneJP(N node,
             NodeConverter<N, JP> converter) {
         N newNode = node.getFactory().Core().clone(node);
         return converter.toJoinPoint(newNode);

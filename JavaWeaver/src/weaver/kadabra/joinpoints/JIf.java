@@ -1,11 +1,11 @@
 /**
  * Copyright 2016 SPeCS.
- * 
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- * 
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ * <p>
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
@@ -15,12 +15,10 @@ package weaver.kadabra.joinpoints;
 
 import java.util.List;
 
-import spoon.reflect.code.CtBlock;
 import spoon.reflect.code.CtIf;
-import spoon.reflect.code.CtStatement;
 import spoon.reflect.declaration.CtElement;
 import tdrc.utils.StringUtils;
-import weaver.kadabra.JavaWeaver;
+import weaver.kadabra.JWeaver;
 import weaver.kadabra.abstracts.joinpoints.ABody;
 import weaver.kadabra.abstracts.joinpoints.AExpression;
 import weaver.kadabra.abstracts.joinpoints.AIf;
@@ -29,18 +27,12 @@ import weaver.utils.SpoonUtils;
 import weaver.utils.element.RankCalculator;
 import weaver.utils.weaving.converters.CtElement2JoinPoint;
 
-public class JIf extends AIf {
+public class JIf<Self extends JIf<Self>> extends AIf<Self> {
 
-    private final CtIf node;
     private String rank;
 
-    private JIf(CtIf node, JavaWeaver weaver) {
-        super(new JStatement(node, weaver), weaver);
-        this.node = node;
-    }
-
-    public static JIf newInstance(CtIf node, JavaWeaver weaver) {
-        return new JIf(node, weaver);
+    public JIf(CtIf node, JWeaver weaver) {
+        super(node, weaver);
     }
 
     @Override
@@ -48,49 +40,49 @@ public class JIf extends AIf {
         if (rank != null) {
             return rank;
         }
-        CtElement executableAncestor = SpoonUtils.getExecutableAncestor(node);
-        List<Integer> ranks = RankCalculator.calculate(node, CtIf.class, executableAncestor);
+        CtElement executableAncestor = SpoonUtils.getExecutableAncestor(getNodeImpl());
+        List<Integer> ranks = RankCalculator.calculate(getNodeImpl(), CtIf.class, executableAncestor);
         rank = StringUtils.join(ranks, ".");
         return rank;
     }
 
     @Override
-    public CtIf getNode() {
-        return node;
+    public CtIf getNodeImpl() {
+        return (CtIf) super.getNodeImpl();
     }
 
     @Override
-    public AExpression getCondImpl() {
-        return (AExpression) CtElement2JoinPoint.convert(node.getCondition(), getWeaverEngine());
+    public AExpression<?> getCondImpl() {
+        return (AExpression<?>) CtElement2JoinPoint.convert(getNodeImpl().getCondition(), getWeaverEngine());
     }
 
     @Override
-    public ABody getThenImpl() {
-        CtStatement thenStatement = node.getThenStatement();
+    public ABody<?> getThenImpl() {
+        spoon.reflect.code.CtStatement thenStatement = getNodeImpl().getThenStatement();
         if (thenStatement == null) {
             return null;
         }
 
-        if (!(thenStatement instanceof CtBlock)) {
+        if (!(thenStatement instanceof spoon.reflect.code.CtBlock)) {
             throw new JavaWeaverException("The then statement must always be a block");
         }
 
-        return (ABody) CtElement2JoinPoint.convert(thenStatement, getWeaverEngine());
+        return (ABody<?>) CtElement2JoinPoint.convert(thenStatement, getWeaverEngine());
     }
 
     @Override
-    public ABody getElseImpl() {
-        CtStatement elseStatement = node.getElseStatement();
+    public ABody<?> getElseImpl() {
+        spoon.reflect.code.CtStatement elseStatement = getNodeImpl().getElseStatement();
 
         if (elseStatement == null) {
             return null;
         }
 
-        if (!(elseStatement instanceof CtBlock)) {
+        if (!(elseStatement instanceof spoon.reflect.code.CtBlock)) {
             throw new JavaWeaverException("The else statement must always be a block");
         }
 
-        return (ABody) CtElement2JoinPoint.convert(elseStatement, getWeaverEngine());
+        return (ABody<?>) CtElement2JoinPoint.convert(elseStatement, getWeaverEngine());
     }
 
 }

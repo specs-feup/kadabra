@@ -94,7 +94,7 @@ public class CtKadabraCompilationUnit extends CtElementImpl {
         List<CtType<?>> toBePrinted = cu.getDeclaredTypes();
         Environment environment = getFactory().getEnvironment();
         PrettyPrinter printer = new KadabraPrettyPrinter(environment);
-        // PrettyPrinter printer = JavaWeaver.getJavaWeaver().getPrinter();
+        // PrettyPrinter printer = JWeaver.getJavaWeaver().getPrinter();
         printer.calculate(cu, toBePrinted);
         return printer.getResult();
     }

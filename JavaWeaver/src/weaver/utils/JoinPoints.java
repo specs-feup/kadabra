@@ -14,7 +14,7 @@
 package weaver.utils;
 
 import pt.up.fe.specs.util.utilities.StringLines;
-import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
+import weaver.kadabra.abstracts.joinpoints.AJoinpoint;
 
 /**
  * Utility methods related to join points.
@@ -24,18 +24,18 @@ import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
  */
 public class JoinPoints {
 
-    public static String toAst(AJavaWeaverJoinPoint node, String prefix) {
+    public static String toAst(AJoinpoint<?> node, String prefix) {
         var builder = new StringBuilder();
         toAst(node, prefix, builder);
         return builder.toString();
     }
 
-    private static void toAst(AJavaWeaverJoinPoint node, String prefix,
+    private static void toAst(AJoinpoint<?> node, String prefix,
             StringBuilder builder) {
 
         builder.append(prefix);
 
-        builder.append(node.getJoinPointType());
+        builder.append(node.get_class());
         var nodeString = node.toString();
 
         if (!nodeString.isBlank() && StringLines.getLines(nodeString).size() < 2) {
@@ -45,8 +45,8 @@ public class JoinPoints {
         }
         builder.append("\n");
 
-        for (var child : node.getChildrenArrayImpl()) {
-            toAst((AJavaWeaverJoinPoint) child, prefix + "  ", builder);
+        for (var child : node.getChildrenImpl()) {
+            toAst((AJoinpoint<?>) child, prefix + "  ", builder);
         }
 
     }

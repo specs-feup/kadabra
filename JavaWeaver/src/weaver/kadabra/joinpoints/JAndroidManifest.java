@@ -14,24 +14,19 @@
 package weaver.kadabra.joinpoints;
 
 import org.json.XML;
-import pt.up.fe.specs.util.xml.XmlDocument;
-import spoon.reflect.declaration.CtElement;
-import weaver.kadabra.JavaWeaver;
-import weaver.kadabra.abstracts.joinpoints.AAndroidManifest;
-import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
 
-public class JAndroidManifest extends AAndroidManifest {
+import pt.up.fe.specs.util.xml.XmlDocument;
+import weaver.kadabra.JWeaver;
+import weaver.kadabra.abstracts.joinpoints.AAndroidManifest;
+import weaver.kadabra.abstracts.joinpoints.AJoinpoint;
+
+public class JAndroidManifest<Self extends JAndroidManifest<Self>> extends AAndroidManifest<Self> {
 
     private final XmlDocument manifest;
 
-    public JAndroidManifest(XmlDocument manifest, JavaWeaver weaver) {
-        super(new JXmlNode(manifest, weaver), weaver);
+    public JAndroidManifest(XmlDocument manifest, JWeaver weaver) {
+        super(manifest, weaver);
         this.manifest = manifest;
-    }
-
-    @Override
-    public CtElement getNode() {
-        return null;
     }
 
     @Override
@@ -40,14 +35,14 @@ public class JAndroidManifest extends AAndroidManifest {
     }
 
     @Override
-    public String toString() {
+    public String getToStringImpl() {
         return "AndroidManifest";
     }
 
     @Override
-    public AJoinPoint getParentImpl() {
+    public AJoinpoint<?> getParentImpl() {
         // Parent is App
-        return (JApp) getWeaverEngine().getRootJp();
+        return (JApp<?>) getWeaverEngine().getRootJp();
     }
 
 }

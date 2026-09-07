@@ -20,7 +20,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-import org.lara.interpreter.weaver.interf.JoinPoint;
+import org.lara.interpreter.weaver.interf.JoinPoint2;
 
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtNamedElement;
@@ -40,7 +40,7 @@ public class KadabraUniqueNodeCounter {
         return reduce.orElse(0);
     }
 
-    public void addNode(String key, JoinPoint joinPoint) {
+    public void addNode(String key, JoinPoint2<?, ?> joinPoint) {
         if (!map.containsKey(key)) {
             map.put(key, new HashSet<>());
         }
@@ -50,12 +50,12 @@ public class KadabraUniqueNodeCounter {
             // } else if (joinPoint instanceof JFile) {
             // source.add(((JFile) joinPoint).getPathImpl());
         } else {
-            source.add(joinPoint.getNode());
+            source.add(joinPoint.getNodeImpl());
         }
     }
 
-    public void addIteration(String key, List<JoinPoint> joinpoints) {
-        for (JoinPoint joinPoint : joinpoints) {
+    public void addIteration(String key, List<JoinPoint2<?, ?>> joinpoints) {
+        for (JoinPoint2<?, ?> joinPoint : joinpoints) {
             addNode(key, joinPoint);
         }
     }

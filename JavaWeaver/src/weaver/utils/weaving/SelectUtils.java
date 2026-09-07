@@ -22,8 +22,8 @@ import spoon.reflect.code.CtInvocation;
 import spoon.reflect.code.CtStatement;
 import spoon.reflect.code.CtVariableAccess;
 import spoon.reflect.declaration.CtElement;
-import weaver.kadabra.JavaWeaver;
-import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
+import weaver.kadabra.JWeaver;
+import weaver.kadabra.abstracts.joinpoints.AJoinpoint;
 import weaver.kadabra.abstracts.joinpoints.ACall;
 import weaver.kadabra.abstracts.joinpoints.AExpression;
 import weaver.kadabra.abstracts.joinpoints.AStatement;
@@ -51,7 +51,7 @@ public class SelectUtils {
      * @param converter
      * @return
      */
-    public static <J extends CtElement, JP extends AJavaWeaverJoinPoint> List<JP> select(CtElement startNode,
+    public static <J extends CtElement, JP extends AJoinpoint<?>> List<JP> select(CtElement startNode,
             Class<J> searchClass, NodeConverter<J, JP> converter) {
         return SelectUtils.select(startNode, searchClass, converter, Collections.emptyList(), Collections.emptyList());
 
@@ -67,7 +67,7 @@ public class SelectUtils {
      * @param ignore      sub-types that should not be selected
      * @return
      */
-    public static <J extends CtElement, JP extends AJavaWeaverJoinPoint> List<JP> select(CtElement startNode,
+    public static <J extends CtElement, JP extends AJoinpoint<?>> List<JP> select(CtElement startNode,
             Class<J> searchClass, NodeConverter<J, JP> converter, Collection<Class<? extends CtElement>> ignore,
             Collection<Class<? extends CtElement>> prune) {
         return NodeSearcher.searchAndConvert(searchClass, startNode, converter, ignore, prune);
@@ -80,7 +80,7 @@ public class SelectUtils {
      * @param converter
      * @return
      */
-    public static <T extends CtElement, V extends AJavaWeaverJoinPoint> List<V> nodeList2JoinPointList(
+    public static <T extends CtElement, V extends AJoinpoint<?>> List<V> nodeList2JoinPointList(
             Collection<T> elements,
             NodeConverter<T, V> converter) {
 
@@ -89,7 +89,7 @@ public class SelectUtils {
         return joinPoints;
     }
 
-    public static <T extends CtElement, V extends AJavaWeaverJoinPoint> List<V> node2JoinPointList(T element,
+    public static <T extends CtElement, V extends AJoinpoint<?>> List<V> node2JoinPointList(T element,
             NodeConverter<T, V> converter) {
 
         final V joinPoint = SelectUtils.node2JoinPoint(element, converter);
@@ -99,41 +99,41 @@ public class SelectUtils {
         return joinPoints;
     }
 
-    public static List<AExpression> expression2JoinPointList(
-            CtExpression<?> element, JavaWeaver weaver) {
+    public static List<AExpression<?>> expression2JoinPointList(
+            CtExpression<?> element, JWeaver weaver) {
 
-        final AExpression joinPoint = SelectUtils.expression2JoinPoint(element, weaver);
-        final List<AExpression> joinPoints = SpecsCollections.newArrayList();
+        final AExpression<?> joinPoint = SelectUtils.expression2JoinPoint(element, weaver);
+        final List<AExpression<?>> joinPoints = SpecsCollections.newArrayList();
         joinPoints.add(joinPoint);
         return joinPoints;
     }
 
-    public static AExpression expression2JoinPoint(CtExpression<?> element, JavaWeaver weaver) {
+    public static AExpression<?> expression2JoinPoint(CtExpression<?> element, JWeaver weaver) {
         return JExpression.newInstance(element, weaver);
     }
 
-    public static AJavaWeaverJoinPoint statement2JoinPoint(CtStatement element, JavaWeaver weaver) {
-        return JStatement.newInstance(element, weaver);
+    public static AJoinpoint<?> statement2JoinPoint(CtStatement element, JWeaver weaver) {
+        return new JStatement<>(element, weaver);
     }
 
-    public static <T extends CtElement, V extends AJavaWeaverJoinPoint> V node2JoinPoint(T element,
+    public static <T extends CtElement, V extends AJoinpoint<?>> V node2JoinPoint(T element,
             NodeConverter<T, V> converter) {
 
         return converter.toJoinPoint(element);
     }
 
-    public static List<? extends AVar> selectVar(CtStatement node, JavaWeaver weaver) {
+    public static List<? extends AVar> selectVar(CtStatement node, JWeaver weaver) {
         List<Class<? extends CtElement>> ignoreTypes = SpecsCollections.newArrayList();
         List<Class<? extends CtElement>> prune = SpecsCollections.newArrayList();
-        List<AVar> select = select(node, CtVariableAccess.class, (var -> JVar.newInstance(var, weaver)), ignoreTypes,
+        List<AVar<?>> select = select(node, CtVariableAccess.class, (var -> new JVar<>(var, weaver)), ignoreTypes,
                 prune);
         return select;
 
     }
 
-    public static List<? extends ACall> selectCall(CtElement node, JavaWeaver weaver) {
+    public static List<? extends ACall> selectCall(CtElement node, JWeaver weaver) {
         final List<JCall<?>> calls = SelectUtils.select(node, CtInvocation.class,
-                (call -> JCall.newInstance(call, weaver)));
+                (call -> new JCall<>(call, weaver)));
 
         // Filter constructors
         return calls.stream()
@@ -141,10 +141,10 @@ public class SelectUtils {
                 .collect(Collectors.toList());
     }
 
-    public static List<JLibClass> selectLibClasses(JApp app) {
+    public static List<JLibClass<?>> selectLibClasses(JApp app) {
         Set<ClassInfo> allClassesInfo = getAllClassesInfo(app);
-        List<JLibClass> libClasses = allClassesInfo.stream()
-                .map(libClass -> JLibClass.newInstance(libClass, app.getWeaverEngine()))
+        List<JLibClass<?>> libClasses = allClassesInfo.stream()
+                .map(libClass -> new JLibClass<>(libClass, app.getWeaverEngine()))
                 .collect(Collectors.toList());
         return libClasses;
 

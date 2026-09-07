@@ -3,10 +3,8 @@ src-weaved/*
 package.json
 
 src/weaver/kadabra/abstracts/
-!src/weaver/kadabra/abstracts/AJavaWeaverJoinPoint.java
-src/weaver/kadabra/exceptions/
 src/weaver/kadabra/enums/
 *.dotty
-JavaWeaver.json
-JavaWeaver.png
-JavaWeaver.svg
+JWeaver.json
+JWeaver.png
+JWeaver.svg

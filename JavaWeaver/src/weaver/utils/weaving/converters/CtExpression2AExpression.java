@@ -27,9 +27,9 @@ import spoon.reflect.code.CtUnaryOperator;
 import spoon.reflect.code.CtVariableAccess;
 import spoon.reflect.declaration.CtAnnotation;
 import spoon.support.reflect.code.CtCodeSnippetExpressionImpl;
-import weaver.kadabra.JavaWeaver;
-import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
+import weaver.kadabra.JWeaver;
 import weaver.kadabra.abstracts.joinpoints.AExpression;
+import weaver.kadabra.abstracts.joinpoints.AJoinpoint;
 import weaver.kadabra.joinpoints.JAnnotation;
 import weaver.kadabra.joinpoints.JArrayAccess;
 import weaver.kadabra.joinpoints.JBinaryExpression;
@@ -54,68 +54,66 @@ import weaver.utils.SpoonUtils;
  *
  */
 public class CtExpression2AExpression {
-    private static final BiFunctionClassMap<CtExpression<?>, JavaWeaver, AExpression> CONVERTER = new BiFunctionClassMap<>();
+    private static final BiFunctionClassMap<CtExpression<?>, JWeaver, AExpression<?>> CONVERTER = new BiFunctionClassMap<>();
 
     static {
 
-        CONVERTER.put(CtBinaryOperator.class, JBinaryExpression::newInstance);
-        CONVERTER.put(CtUnaryOperator.class, JUnaryExpression::newInstance);
-        CONVERTER.put(CtFieldAccess.class, JFieldAccess::newInstance);
-        CONVERTER.put(CtVariableAccess.class, JVar::newInstance);
-        CONVERTER.put(CtArrayAccess.class, JArrayAccess::newInstance);
-        CONVERTER.put(CtLiteral.class, JLiteral::newInstance);
-        CONVERTER.put(CtConstructorCall.class, JNew::newInstance);
-        CONVERTER.put(CtConditional.class, JTernary::newInstance);
+        CONVERTER.put(CtBinaryOperator.class, JBinaryExpression::new);
+        CONVERTER.put(CtUnaryOperator.class, JUnaryExpression::new);
+        CONVERTER.put(CtFieldAccess.class, JFieldAccess::new);
+        CONVERTER.put(CtVariableAccess.class, JVar::new);
+        CONVERTER.put(CtArrayAccess.class, JArrayAccess::new);
+        CONVERTER.put(CtLiteral.class, JLiteral::new);
+        CONVERTER.put(CtConstructorCall.class, JNew::new);
+        CONVERTER.put(CtConditional.class, JTernary::new);
         CONVERTER.put(CtAnnotation.class, JAnnotation::new);
         CONVERTER.put(CtThisAccess.class, JThis::new);
         CONVERTER.put(CtCodeSnippetExpressionImpl.class,
-                (ctElement, weaver) -> JSnippetExpr.newInstance(new CtKadabraSnippetExpression<Object>(ctElement),
-                        weaver));
+                (ctElement, weaver) -> new JSnippetExpr<>(new CtKadabraSnippetExpression<>(ctElement), weaver));
         CONVERTER.put(CtExpression.class, CtExpression2AExpression::defaultFactory);
     }
 
-    public static AExpression defaultFactory(CtExpression<?> element, JavaWeaver weaver) {
-        return JExpression.newInstanceDefault(element, weaver);
+    public static AExpression<?> defaultFactory(CtExpression<?> element, JWeaver weaver) {
+        return new JExpression<>(element, weaver);
     }
 
-    private static final BiFunctionClassMap<CtExpression<?>, JavaWeaver, AExpression> CONVERTER_EXPR = new BiFunctionClassMap<>(
+    private static final BiFunctionClassMap<CtExpression<?>, JWeaver, AExpression<?>> CONVERTER_EXPR = new BiFunctionClassMap<>(
             CONVERTER);
 
     static {
-        CONVERTER_EXPR.put(CtInvocation.class, JCall::newInstance);
+        CONVERTER_EXPR.put(CtInvocation.class, JCall::new);
     }
 
-    private static final BiFunctionClassMap<CtExpression<?>, JavaWeaver, AJavaWeaverJoinPoint> CONVERTER_GENERAL = new BiFunctionClassMap<>(
+    private static final BiFunctionClassMap<CtExpression<?>, JWeaver, AJoinpoint<?>> CONVERTER_GENERAL = new BiFunctionClassMap<>(
             CONVERTER);
 
     static {
         CONVERTER_GENERAL.put(CtInvocation.class, CtExpression2AExpression::ctInvokation);
-        // CONVERTER_GENERAL.put(CtInvocation.class, JCall::newInstance);
     }
 
     // Package protected so only CtElement2JoinPoint can use this method
-    public static AExpression convertToExpression(CtExpression<?> element, JavaWeaver weaver) {
+    public static AExpression<?> convertToExpression(CtExpression<?> element, JWeaver weaver) {
         return CONVERTER_EXPR.apply(element, weaver);
     }
 
     /**
      * Converts the element CtExpression a join point, it does not always return an
      * AExpression (e.g., super(); is a AStatement)
-     * 
+     *
      * @param element
      * @return
      */
-    public static AJavaWeaverJoinPoint convert(CtExpression<?> element, JavaWeaver weaver) {
+    public static AJoinpoint<?> convert(CtExpression<?> element, JWeaver weaver) {
         return CONVERTER_GENERAL.apply(element, weaver);
 
     }
 
-    public static <T> AJavaWeaverJoinPoint ctInvokation(CtInvocation<T> call, JavaWeaver weaver) {
+    public static AJoinpoint<?> ctInvokation(CtInvocation<?> call, JWeaver weaver) {
         // Special case: if call is also a statement, return JCallStatement
         if (SpoonUtils.isStatementInBlock(call)) {
             return new JCallStatement<>(call, weaver);
         }
 
-        return JCall.newInstance(call, weaver);
+        return new JCall<>(call, weaver);
     }
 }

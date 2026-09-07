@@ -1,11 +1,11 @@
 /**
  * Copyright 2017 SPeCS.
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
@@ -13,63 +13,57 @@
 
 package weaver.kadabra.joinpoints;
 
+import org.lara.interpreter.weaver.interf.enums.InsertPosition;
+
 import spoon.reflect.code.CtComment;
-import weaver.kadabra.JavaWeaver;
-import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
+import weaver.kadabra.JWeaver;
 import weaver.kadabra.abstracts.joinpoints.AComment;
-import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
+import weaver.kadabra.abstracts.joinpoints.AJoinpoint;
 import weaver.kadabra.enums.CommentType;
 import weaver.utils.weaving.ActionUtils;
 
-public class JComment extends AComment {
+public class JComment<Self extends JComment<Self>> extends AComment<Self> {
 
-    private final CtComment comment;
-
-    private JComment(CtComment comment, JavaWeaver weaver) {
-        super(new JStatement(comment, weaver), weaver);
-        this.comment = comment;
-    }
-
-    public static JComment newInstance(CtComment comment, JavaWeaver weaver) {
-        return new JComment(comment, weaver);
+    public JComment(CtComment comment, JWeaver weaver) {
+        super(comment, weaver);
     }
 
     @Override
-    public String getTypeImpl() {
-        return CommentType.valueOf(comment.getCommentType().name()).getName();
+    public CommentType getTypeImpl() {
+        return CommentType.valueOf(getNodeImpl().getCommentType().name());
     }
 
     @Override
     public String getContentImpl() {
-        return comment.getContent();
+        return getNodeImpl().getContent();
     }
 
     @Override
-    public CtComment getNode() {
-        return comment;
+    public CtComment getNodeImpl() {
+        return (CtComment) super.getNodeImpl();
     }
 
     @Override
-    public AJoinPoint[] insertImpl(String position, String code) {
-        return new AJoinPoint[] { insertImplJComment(position, code) };
+    public AJoinpoint<?>[] insertImpl(InsertPosition position, String code) {
+        return new AJoinpoint<?>[] { insertImplJComment(position, code) };
     }
 
-    public AJavaWeaverJoinPoint insertImplJComment(String position, String code) {
-        return ActionUtils.insertInTable(comment, code, position, getWeaverEngine());
-    }
-
-    @Override
-    public AJoinPoint insertBeforeImpl(String code) {
-        return insertImplJComment("before", code);
+    public AJoinpoint<?> insertImplJComment(InsertPosition position, String code) {
+        return ActionUtils.insertInTable(getNodeImpl(), code, position.name().toLowerCase(), getWeaverEngine());
     }
 
     @Override
-    public AJoinPoint insertAfterImpl(String code) {
-        return insertImplJComment("after", code);
+    public AJoinpoint<?> insertBeforeImpl(String code) {
+        return insertImplJComment(InsertPosition.BEFORE, code);
     }
 
     @Override
-    public AJoinPoint insertReplaceImpl(String code) {
-        return insertImplJComment("replace", code);
+    public AJoinpoint<?> insertAfterImpl(String code) {
+        return insertImplJComment(InsertPosition.AFTER, code);
+    }
+
+    @Override
+    public AJoinpoint<?> insertReplaceImpl(String code) {
+        return insertImplJComment(InsertPosition.REPLACE, code);
     }
 }

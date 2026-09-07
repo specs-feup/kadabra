@@ -14,13 +14,13 @@
 package weaver.utils;
 
 import org.lara.interpreter.weaver.ast.AAstMethods;
-import org.lara.interpreter.weaver.interf.JoinPoint;
+import org.lara.interpreter.weaver.interf.JoinPoint2;
 import org.lara.interpreter.weaver.interf.WeaverEngine;
 
 import spoon.reflect.code.CtBodyHolder;
 import spoon.reflect.declaration.CtCompilationUnit;
 import spoon.reflect.declaration.CtElement;
-import weaver.kadabra.JavaWeaver;
+import weaver.kadabra.JWeaver;
 import weaver.utils.weaving.converters.CtElement2JoinPoint;
 
 public class KadabraAstMethods extends AAstMethods<CtElement> {
@@ -30,8 +30,8 @@ public class KadabraAstMethods extends AAstMethods<CtElement> {
     }
 
     @Override
-    protected JavaWeaver getWeaverEngine() {
-        return (JavaWeaver) super.getWeaverEngine();
+    protected JWeaver getWeaverEngine() {
+        return (JWeaver) super.getWeaverEngine();
     }
 
     @Override
@@ -40,7 +40,7 @@ public class KadabraAstMethods extends AAstMethods<CtElement> {
     }
 
     @Override
-    protected JoinPoint toJavaJoinPointImpl(CtElement node) {
+    protected JoinPoint2<?, ?> toJavaJoinPointImpl(CtElement node) {
         return CtElement2JoinPoint.convert(node, this.getWeaverEngine());
     }
 

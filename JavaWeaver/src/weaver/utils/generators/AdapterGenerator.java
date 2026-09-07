@@ -38,7 +38,7 @@ import spoon.reflect.factory.Factory;
 import spoon.reflect.reference.CtExecutableReference;
 import spoon.reflect.reference.CtFieldReference;
 import spoon.reflect.reference.CtTypeReference;
-import weaver.kadabra.JavaWeaver;
+import weaver.kadabra.JWeaver;
 import weaver.kadabra.agent.MethodAdapter;
 import weaver.kadabra.exceptions.JavaWeaverException;
 import weaver.kadabra.joinpoints.JClass;
@@ -65,7 +65,7 @@ public class AdapterGenerator {
      * @param targetClass
      * @return
      */
-    public static JClass<?> generate(JavaWeaver weaver, String name, CtMethod<?> adapterMethod,
+    public static JClass<?> generate(JWeaver weaver, String name, CtMethod<?> adapterMethod,
             CtMethod<?> targetMethod,
             boolean reuseIfExists) {
         validateTransformerMethod(adapterMethod);
@@ -95,7 +95,7 @@ public class AdapterGenerator {
         }
 
         addSuperAdaptInvocation(factory, adaptMethod);
-        JClass<?> jClass = SelectUtils.node2JoinPoint(mainType, c -> JClass.newInstance(c, cu, weaver));
+        JClass<?> jClass = SelectUtils.node2JoinPoint(mainType, c -> new JClass<>(c, cu, weaver));
         return jClass;
     }
 

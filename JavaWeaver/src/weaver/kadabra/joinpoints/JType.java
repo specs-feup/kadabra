@@ -13,53 +13,55 @@
 
 package weaver.kadabra.joinpoints;
 
-import org.lara.interpreter.weaver.interf.JoinPoint;
+import java.util.Collections;
+
+import org.lara.interpreter.weaver.interf.enums.InsertPosition;
+
 import pt.up.fe.specs.util.SpecsLogs;
 import spoon.refactoring.Refactoring;
-import spoon.reflect.declaration.*;
-import spoon.reflect.reference.CtTypeReference;
-import weaver.kadabra.JavaWeaver;
-import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
-import weaver.kadabra.abstracts.joinpoints.*;
+import spoon.reflect.declaration.CtClass;
+import spoon.reflect.declaration.CtCompilationUnit;
+import spoon.reflect.declaration.CtElement;
+import spoon.reflect.declaration.CtPackage;
+import spoon.reflect.declaration.CtType;
+import spoon.reflect.declaration.ModifierKind;
+import weaver.kadabra.JWeaver;
+import weaver.kadabra.abstracts.joinpoints.AClass;
+import weaver.kadabra.abstracts.joinpoints.AField;
+import weaver.kadabra.abstracts.joinpoints.AInterfaceType;
+import weaver.kadabra.abstracts.joinpoints.AJoinpoint;
+import weaver.kadabra.abstracts.joinpoints.AMethod;
+import weaver.kadabra.abstracts.joinpoints.AType;
+import weaver.kadabra.abstracts.joinpoints.ATypeReference;
 import weaver.kadabra.exceptions.JavaWeaverException;
 import weaver.kadabra.spoon.extensions.nodes.CtKadabraSnippetElement;
 import weaver.utils.SpoonUtils;
 import weaver.utils.weaving.ActionUtils;
 import weaver.utils.weaving.SnippetFactory;
 import weaver.utils.weaving.converters.CtElement2JoinPoint;
-import java.util.*;
-import java.util.stream.Collectors;
 
-public class JType<T> extends AType {
+public class JType<Self extends JType<Self>> extends AType<Self> {
 
-    private CtType<T> node;
     private CtCompilationUnit parent;
 
-    private JType(CtType<T> node, CtCompilationUnit parent, JavaWeaver weaver) {
-        super(weaver);
-        this.node = node;
+    public JType(CtType node, JWeaver weaver) {
+        this(node, node.getPosition().getCompilationUnit(), weaver);
+    }
+
+    public JType(CtType node, CtCompilationUnit parent, JWeaver weaver) {
+        super(node, weaver);
         this.parent = parent;
     }
 
-    /**
-     * @param <T>
-     * @param node
-     * @param parent
-     * @return
-     */
-    public static <T> JType<T> newInstance(CtType<T> node, CtCompilationUnit parent, JavaWeaver weaver) {
-        return new JType<>(node, parent, weaver);
-    }
-
     @Override
-    public AJoinPoint copyImpl() {
-        return CtElement2JoinPoint.convert(Refactoring.copyType(node), getWeaverEngine());
+    public AJoinpoint<?> copyImpl() {
+        return CtElement2JoinPoint.convert(Refactoring.copyType((CtType) getNodeImpl()), getWeaverEngine());
     }
 
     @Override
     public String getSuperClassImpl() {
 
-        final CtTypeReference<?> superclass = node.getSuperclass();
+        final spoon.reflect.reference.CtTypeReference<?> superclass = getNodeImpl().getSuperclass();
         if (superclass == null) {
             return Object.class.getCanonicalName();
         }
@@ -69,49 +71,49 @@ public class JType<T> extends AType {
     }
 
     @Override
-    public ATypeReference getSuperClassJpImpl() {
-        final CtTypeReference<?> superclass = node.getSuperclass();
+    public ATypeReference<?> getSuperClassJpImpl() {
+        final spoon.reflect.reference.CtTypeReference<?> superclass = getNodeImpl().getSuperclass();
         if (superclass == null) {
             return null;
         }
 
-        return (ATypeReference) CtElement2JoinPoint.convert(superclass, getWeaverEngine());
+        return (ATypeReference<?>) CtElement2JoinPoint.convert(superclass, getWeaverEngine());
 
     }
 
     @Override
-    public String[] getInterfacesArrayImpl() {
+    public String[] getInterfacesImpl() {
 
-        final List<String> els = node.getSuperInterfaces().stream()
+        final var els = getNodeImpl().getSuperInterfaces().stream()
                 .map(el -> el.getQualifiedName())
-                .collect(Collectors.toList());
+                .collect(java.util.stream.Collectors.toList());
         return els.toArray(new String[0]);
     }
 
     @Override
-    public AInterfaceType[] getInterfacesTypesArrayImpl() {
-        var els = node.getSuperInterfaces().stream()
+    public AInterfaceType<?>[] getInterfacesTypesImpl() {
+        var els = getNodeImpl().getSuperInterfaces().stream()
                 .map(el -> CtElement2JoinPoint.convert(el,
                         getWeaverEngine(), AInterfaceType.class))
-                .collect(Collectors.toList());
+                .collect(java.util.stream.Collectors.toList());
 
         return els.toArray(new AInterfaceType[0]);
     }
 
     @Override
     public String getNameImpl() {
-        return node.getSimpleName();
+        return getNodeImpl().getSimpleName();
     }
 
     @Override
     public String getQualifiedNameImpl() {
-        return node.getQualifiedName();
+        return getNodeImpl().getQualifiedName();
     }
 
     @Override
     public String getPackageNameImpl() {
 
-        CtPackage package1 = node.getPackage();
+        CtPackage package1 = getNodeImpl().getPackage();
         if (package1 == null) {
             return "";
         }
@@ -119,14 +121,14 @@ public class JType<T> extends AType {
     }
 
     @Override
-    public void addInterfaceImpl(AInterfaceType newInterface) {
-        node.addNestedType((CtType<?>) newInterface.getNode());
+    public void addInterfaceImpl(AInterfaceType<?> newInterface) {
+        getNodeImpl().addNestedType((CtType<?>) newInterface.getNodeImpl());
     }
 
     @Override
-    public AInterfaceType removeInterfaceImpl(String interfaceName) {
+    public AInterfaceType<?> removeInterfaceImpl(String interfaceName) {
 
-        var interfaceNode = node.getSuperInterfaces().stream()
+        var interfaceNode = getNodeImpl().getSuperInterfaces().stream()
                 .filter(si -> si.getQualifiedName().equals(interfaceName))
                 .findFirst()
                 .orElse(null);
@@ -136,7 +138,7 @@ public class JType<T> extends AType {
             return null;
         }
 
-        var success = node.removeSuperInterface(interfaceNode);
+        var success = getNodeImpl().removeSuperInterface(interfaceNode);
 
         if (!success) {
             SpecsLogs.info("removeInterface: could not remove interface " + interfaceName);
@@ -155,27 +157,27 @@ public class JType<T> extends AType {
     }
 
     @Override
-    public void addClassImpl(AClass newClass) {
-        node.addNestedType((CtType<?>) newClass.getNode());
+    public void addClassImpl(AClass<?> newClass) {
+        getNodeImpl().addNestedType((CtType<?>) newClass.getNodeImpl());
     }
 
     @Override
-    public void addImplementImpl(AInterfaceType _interface) {
+    public void addImplementImpl(AInterfaceType<?> _interface) {
 
-        CtType<?> type = (CtType<?>) _interface.getNode();
-        node.addSuperInterface(type.getReference());
+        CtType<?> type = (CtType<?>) _interface.getNodeImpl();
+        getNodeImpl().addSuperInterface(type.getReference());
     }
 
     @Override
-    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, String[] paramLeft,
+    public AMethod<?> newMethodImpl(String[] modifiers, String returnType, String name, String[] paramLeft,
             String[] paramRight, String code) {
-        CtMethod<?> newMethod = ActionUtils.newMethod(node, name, returnType, paramLeft, paramRight, modifiers, code);
-        JMethod<?> newInstance = JMethod.newInstance(newMethod, getWeaverEngine());
-        return newInstance;
+        spoon.reflect.declaration.CtMethod<?> newMethod = ActionUtils.newMethod(getNodeImpl(), name, returnType,
+                paramLeft, paramRight, modifiers, code);
+        return new JMethod<>(newMethod, getWeaverEngine());
     }
 
     @Override
-    public AMethod newMethodImpl(String[] modifiers, String returnType, String name, String[] paramLeft,
+    public AMethod<?> newMethodImpl(String[] modifiers, String returnType, String name, String[] paramLeft,
             String[] paramRight) {
         return newMethodImpl(modifiers, returnType, name, paramLeft, paramRight, "");
     }
@@ -187,25 +189,25 @@ public class JType<T> extends AType {
 
     @Override
     public void insertCodeImpl(String code) {
-        CtKadabraSnippetElement method = SnippetFactory.createSnippetElement(node.getFactory(), code);
-        node.addNestedType(method);
+        CtKadabraSnippetElement method = SnippetFactory.createSnippetElement(getNodeImpl().getFactory(), code);
+        getNodeImpl().addNestedType(method);
     }
 
     @Override
-    public AField newFieldImpl(String[] modifiers, String fieldType, String baseName, String initialValue) {
-        CtField<Object> newField = ActionUtils.newField(node, baseName, fieldType, initialValue, modifiers);
-        JField<Object> newInstance = JField.newInstance(newField, getWeaverEngine());
-        return newInstance;
+    public AField<?> newFieldImpl(String[] modifiers, String fieldType, String baseName, String initialValue) {
+        spoon.reflect.declaration.CtField<Object> newField = ActionUtils.newField(getNodeImpl(), baseName, fieldType,
+                initialValue, modifiers);
+        return new JField<>(newField, getWeaverEngine());
     }
 
     @Override
-    public AField newFieldImpl(String[] modifiers, String fieldType, String baseName) {
+    public AField<?> newFieldImpl(String[] modifiers, String fieldType, String baseName) {
         return newFieldImpl(modifiers, fieldType, baseName, null);
     }
 
     @Override
     public String getJavadocImpl() {
-        String docComment = node.getDocComment();
+        String docComment = getNodeImpl().getDocComment();
 
         return docComment != null ? docComment : "";
     }
@@ -220,53 +222,54 @@ public class JType<T> extends AType {
     }
 
     @Override
-    public AJoinPoint[] insertImpl(String position, JoinPoint code) {
-        return new AJoinPoint[] { insertImplJType(position, (CtElement) code.getNode()) };
+    public AJoinpoint<?>[] insertImpl(InsertPosition position, AJoinpoint<?> code) {
+        return new AJoinpoint<?>[] { insertImplJType(position, (CtElement) code.getNodeImpl()) };
     }
 
     @Override
-    public AJoinPoint[] insertImpl(String position, String code) {
-        return new AJoinPoint[] { insertImplJType(position, code) };
+    public AJoinpoint<?>[] insertImpl(InsertPosition position, String code) {
+        return new AJoinpoint<?>[] { insertImplJType(position, code) };
     }
 
-    public AJavaWeaverJoinPoint insertImplJType(String position, CtElement code) {
-        return ActionUtils.insertMember(node, code, position, getWeaverEngine());
+    public AJoinpoint<?> insertImplJType(InsertPosition position, CtElement code) {
+        return ActionUtils.insertMember(getNodeImpl(), code, position.name().toLowerCase(), getWeaverEngine());
     }
 
-    public AJavaWeaverJoinPoint insertImplJType(String position, String code) {
-        return ActionUtils.insertMember(node, code, position, getWeaverEngine());
-    }
-
-    @Override
-    public AJoinPoint insertBeforeImpl(String code) {
-        return insertImplJType("before", code);
+    public AJoinpoint<?> insertImplJType(InsertPosition position, String code) {
+        return ActionUtils.insertMember(getNodeImpl(), code, position.name().toLowerCase(), getWeaverEngine());
     }
 
     @Override
-    public AJoinPoint insertAfterImpl(String code) {
-        return insertImplJType("after", code);
+    public AJoinpoint<?> insertBeforeImpl(String code) {
+        return insertImplJType(InsertPosition.BEFORE, code);
     }
 
     @Override
-    public AJoinPoint insertReplaceImpl(String code) {
-        return insertImplJType("replace", code);
+    public AJoinpoint<?> insertAfterImpl(String code) {
+        return insertImplJType(InsertPosition.AFTER, code);
     }
 
     @Override
-    public CtType<T> getNode() {
-        return node;
+    public AJoinpoint<?> insertReplaceImpl(String code) {
+        return insertImplJType(InsertPosition.REPLACE, code);
     }
 
     @Override
-    public Boolean isSubtypeOfImpl(String type) {
+    public CtType<?> getNodeImpl() {
+        return (CtType<?>) super.getNodeImpl();
+    }
 
-        return node.isSubtypeOf(SpoonUtils.newCtTypeReference(type, node.getFactory(), Collections.emptyList()));
+    @Override
+    public Boolean getIsSubtypeOfImpl(String type) {
+
+        return getNodeImpl().isSubtypeOf(SpoonUtils.newCtTypeReference(type, getNodeImpl().getFactory(),
+                Collections.emptyList()));
 
     }
 
     @Override
-    public AJoinPoint getParentImpl() {
-        var spoonParent = getNode().getParent();
+    public AJoinpoint<?> getParentImpl() {
+        var spoonParent = getNodeImpl().getParent();
 
         if (spoonParent != null && !(spoonParent instanceof CtPackage)) {
             return CtElement2JoinPoint.convert(spoonParent, getWeaverEngine());

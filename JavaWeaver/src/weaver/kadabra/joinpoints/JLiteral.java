@@ -1,11 +1,11 @@
 /**
  * Copyright 2018 SPeCS.
- * 
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- * 
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ * <p>
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
@@ -14,42 +14,37 @@
 package weaver.kadabra.joinpoints;
 
 import spoon.reflect.code.CtLiteral;
-import weaver.kadabra.JavaWeaver;
+
+import weaver.kadabra.JWeaver;
 import weaver.kadabra.abstracts.joinpoints.ALiteral;
 import weaver.utils.SpoonLiterals;
 
-public class JLiteral<T> extends ALiteral {
+public class JLiteral<Self extends JLiteral<Self>> extends ALiteral<Self> {
 
-    private CtLiteral<T> node;
-
-    private JLiteral(CtLiteral<T> node, JavaWeaver weaver) {
-        super(new JExpression<>(node, weaver), weaver);
-        this.node = node;
-    }
-
-    public static <T> JLiteral<T> newInstance(CtLiteral<T> node, JavaWeaver weaver) {
-        return new JLiteral<>(node, weaver);
+    public JLiteral(CtLiteral node, JWeaver weaver) {
+        super(node, weaver);
     }
 
     @Override
     public String getValueImpl() {
-        return String.valueOf(node.getValue());
+        return String.valueOf(getNodeImpl().getValue());
     }
 
     @Override
-    public CtLiteral<T> getNode() {
-        return node;
+    public CtLiteral<?> getNodeImpl() {
+        return (CtLiteral<?>) super.getNodeImpl();
     }
 
     @Override
-    public String toString() {
+    public String getToStringImpl() {
         return getValueImpl();
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void setValueImpl(String value) {
-        @SuppressWarnings("unchecked") // decode literal value transform the value into T
-        T decodedValue = (T) SpoonLiterals.decodeLiteralValue(getTypeImpl().toString(), value);
-        node.setValue(decodedValue);
+        // decode literal value transforms the value into the literal's type
+        Object decodedValue = SpoonLiterals.decodeLiteralValue(getTypeImpl().toString(), value);
+        ((CtLiteral) getNodeImpl()).setValue(decodedValue);
     }
 }
