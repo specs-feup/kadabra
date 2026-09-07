@@ -15,58 +15,59 @@ package weaver.kadabra.joinpoints;
 
 import pt.up.fe.specs.util.xml.XmlElement;
 import pt.up.fe.specs.util.xml.XmlNode;
-import spoon.reflect.declaration.CtElement;
-import weaver.kadabra.JavaWeaver;
-import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
+
+import weaver.kadabra.JWeaver;
+import weaver.kadabra.abstracts.joinpoints.AJoinpoint;
 import weaver.kadabra.abstracts.joinpoints.AXmlElement;
 import weaver.kadabra.abstracts.joinpoints.AXmlNode;
 import weaver.utils.weaving.converters.XmlNode2JoinPoint;
 
-public class JXmlNode extends AXmlNode {
+public class JXmlNode<Self extends JXmlNode<Self>> extends AXmlNode<Self> {
 
     private final XmlNode node;
 
-    public JXmlNode(XmlNode node, JavaWeaver weaver) {
-        super(weaver);
+    public JXmlNode(XmlNode node, JWeaver weaver) {
+        super((spoon.reflect.declaration.CtElement) null, weaver);
         this.node = node;
     }
 
     @Override
-    public CtElement getNode() {
+    public spoon.reflect.declaration.CtElement getNodeImpl() {
+        // XML nodes have no Spoon node
         return null;
     }
 
     @Override
-    public AJoinPoint getParentImpl() {
+    public AJoinpoint<?> getParentImpl() {
         return XmlNode2JoinPoint.convert(node.getParent(), getWeaverEngine());
     }
 
     @Override
-    public AJoinPoint[] getChildrenArrayImpl() {
+    public AJoinpoint<?>[] getChildrenImpl() {
         return node.getChildren().stream()
                 .map(child -> XmlNode2JoinPoint.convert(child, getWeaverEngine()))
-                .toArray(length -> new AJoinPoint[length]);
+                .toArray(length -> new AJoinpoint[length]);
     }
 
     @Override
-    public AJoinPoint[] getDescendantsArrayImpl() {
+    public AJoinpoint<?>[] getDescendantsImpl() {
         return node.getDescendants().stream()
                 .map(child -> XmlNode2JoinPoint.convert(child, getWeaverEngine()))
-                .toArray(length -> new AJoinPoint[length]);
+                .toArray(length -> new AJoinpoint[length]);
     }
 
     @Override
-    public AXmlElement[] getElementsArrayImpl() {
+    public AXmlElement<?>[] getElementsImpl() {
         return node.getDescendants().stream()
-                .filter(node -> node instanceof XmlElement)
-                .map(element -> (AXmlElement) XmlNode2JoinPoint.convert(element,
+                .filter(descendant -> descendant instanceof XmlElement)
+                .map(element -> (AXmlElement<?>) XmlNode2JoinPoint.convert(element,
                         getWeaverEngine()))
                 .toArray(length -> new AXmlElement[length]);
 
     }
 
     @Override
-    public AXmlElement[] elementsByNameArrayImpl(String name) {
+    public AXmlElement<?>[] getElementsByNameImpl(String name) {
         return node.getElementsByName(name).toArray(length -> new AXmlElement[length]);
     }
 

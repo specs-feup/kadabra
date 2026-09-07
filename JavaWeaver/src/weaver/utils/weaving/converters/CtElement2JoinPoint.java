@@ -33,8 +33,8 @@ import spoon.reflect.declaration.CtType;
 import spoon.reflect.declaration.CtVariable;
 import spoon.reflect.reference.CtReference;
 import spoon.reflect.reference.CtTypeReference;
-import weaver.kadabra.JavaWeaver;
-import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
+import weaver.kadabra.JWeaver;
+import weaver.kadabra.abstracts.joinpoints.AJoinpoint;
 import weaver.kadabra.joinpoints.JApp;
 import weaver.kadabra.joinpoints.JBody;
 import weaver.kadabra.joinpoints.JCatch;
@@ -43,7 +43,7 @@ import weaver.kadabra.joinpoints.JDeclaration;
 import weaver.kadabra.joinpoints.JEnumValue;
 import weaver.kadabra.joinpoints.JField;
 import weaver.kadabra.joinpoints.JFile;
-import weaver.kadabra.joinpoints.JGenericJoinPoint;
+import weaver.kadabra.joinpoints.JJoinpoint;
 import weaver.kadabra.joinpoints.JReference;
 import weaver.kadabra.joinpoints.JTypeReference;
 import weaver.kadabra.spoon.extensions.nodes.CtApp;
@@ -55,18 +55,18 @@ import weaver.kadabra.spoon.extensions.nodes.CtApp;
  *
  */
 public class CtElement2JoinPoint {
-    private static final BiFunctionClassMap<CtElement, JavaWeaver, AJavaWeaverJoinPoint> CONVERTER = new BiFunctionClassMap<>();
+    private static final BiFunctionClassMap<CtElement, JWeaver, AJoinpoint<?>> CONVERTER = new BiFunctionClassMap<>();
 
     static {
         // Elements without specific converter
         CONVERTER.put(CtCatch.class, JCatch::new);
-        CONVERTER.put(CtBlock.class, JBody::newInstance);
-        CONVERTER.put(CtEnumValue.class, JEnumValue::newInstance);
-        CONVERTER.put(CtField.class, JField::newInstance);
-        CONVERTER.put(CtVariable.class, JDeclaration::newInstance);
-        CONVERTER.put(CtComment.class, JComment::newInstance);
+        CONVERTER.put(CtBlock.class, JBody::new);
+        CONVERTER.put(CtEnumValue.class, JEnumValue::new);
+        CONVERTER.put(CtField.class, JField::new);
+        CONVERTER.put(CtVariable.class, JDeclaration::new);
+        CONVERTER.put(CtComment.class, JComment::new);
         CONVERTER.put(CtCompilationUnit.class, JFile::new);
-        CONVERTER.put(CtApp.class, JApp::newInstance);
+        CONVERTER.put(CtApp.class, JApp::new);
 
         // Elements with own converter
         CONVERTER.put(CtExecutable.class, CtExecutable2AExecutable::convert);
@@ -74,17 +74,17 @@ public class CtElement2JoinPoint {
         CONVERTER.put(CtInvocation.class, CtStatement2AStatement::convert);
         CONVERTER.put(CtStatement.class, CtStatement2AStatement::convert);
         CONVERTER.put(CtExpression.class, CtExpression2AExpression::convert);
-        CONVERTER.put(CtTypeReference.class, JTypeReference::newInstance);
-        CONVERTER.put(CtReference.class, JReference::newInstance);
+        CONVERTER.put(CtTypeReference.class, JTypeReference::new);
+        CONVERTER.put(CtReference.class, JReference::new);
 
         CONVERTER.put(CtElement.class, CtElement2JoinPoint::defaultFactory);
     }
 
-    public static AJavaWeaverJoinPoint defaultFactory(CtElement element, JavaWeaver weaver) {
-        return JGenericJoinPoint.newInstance(element, weaver);
+    public static AJoinpoint<?> defaultFactory(CtElement element, JWeaver weaver) {
+        return new JJoinpoint<>(element, weaver);
     }
 
-    public static AJavaWeaverJoinPoint convert(CtElement element, JavaWeaver weaver) {
+    public static AJoinpoint<?> convert(CtElement element, JWeaver weaver) {
         if (element == null) {
             return null;
         }
@@ -92,12 +92,12 @@ public class CtElement2JoinPoint {
         return CONVERTER.apply(element, weaver);
     }
 
-    public static <T extends AJavaWeaverJoinPoint> T convert(CtElement element, JavaWeaver weaver, Class<T> jpClass) {
+    public static <T extends AJoinpoint<?>> T convert(CtElement element, JWeaver weaver, Class<T> jpClass) {
         var jp = convert(element, weaver);
         return jpClass.cast(jp);
     }
 
-    public static Optional<AJavaWeaverJoinPoint> convertTry(CtElement element, JavaWeaver weaver) {
+    public static Optional<AJoinpoint<?>> convertTry(CtElement element, JWeaver weaver) {
         try {
             return Optional.ofNullable(CONVERTER.apply(element, weaver));
         } catch (Exception e) {
@@ -105,8 +105,8 @@ public class CtElement2JoinPoint {
         }
     }
 
-    public static <T extends AJavaWeaverJoinPoint> T[] convertList(List<? extends CtElement> elements,
-            JavaWeaver weaver, Class<T> jpClass) {
+    public static <T extends AJoinpoint<?>> T[] convertList(List<? extends CtElement> elements,
+            JWeaver weaver, Class<T> jpClass) {
 
         @SuppressWarnings("unchecked")
         T[] jps = (T[]) Array.newInstance(jpClass, elements.size());

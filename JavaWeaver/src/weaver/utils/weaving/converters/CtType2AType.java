@@ -17,7 +17,7 @@ import pt.up.fe.specs.util.classmap.BiFunctionClassMap;
 import spoon.reflect.declaration.CtClass;
 import spoon.reflect.declaration.CtInterface;
 import spoon.reflect.declaration.CtType;
-import weaver.kadabra.JavaWeaver;
+import weaver.kadabra.JWeaver;
 import weaver.kadabra.abstracts.joinpoints.AType;
 import weaver.kadabra.joinpoints.JClass;
 import weaver.kadabra.joinpoints.JInterfaceType;
@@ -30,20 +30,20 @@ import weaver.kadabra.joinpoints.JType;
  *
  */
 public class CtType2AType {
-    private static final BiFunctionClassMap<CtType<?>, JavaWeaver, AType> CONVERTER = new BiFunctionClassMap<>();
+    private static final BiFunctionClassMap<CtType<?>, JWeaver, AType<?>> CONVERTER = new BiFunctionClassMap<>();
 
     static {
-        CONVERTER.put(CtClass.class, JClass::newInstance);
-        CONVERTER.put(CtInterface.class, JInterfaceType::newInstance);
+        CONVERTER.put(CtClass.class, JClass::new);
+        CONVERTER.put(CtInterface.class, JInterfaceType::new);
         CONVERTER.put(CtType.class, CtType2AType::defaultFactory);
     }
 
-    public static AType defaultFactory(CtType<?> element, JavaWeaver weaver) {
-        return JType.newInstance(element, null, weaver);
+    public static AType<?> defaultFactory(CtType<?> element, JWeaver weaver) {
+        return new JType<>(element, weaver);
     }
 
     // Package protected so only CtElement2JoinPoint can use this method
-    public static AType convert(CtType<?> element, JavaWeaver weaver) {
+    public static AType<?> convert(CtType<?> element, JWeaver weaver) {
         return CONVERTER.apply(element, weaver);
     }
 }

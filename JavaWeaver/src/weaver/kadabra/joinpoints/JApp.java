@@ -13,14 +13,14 @@
 
 package weaver.kadabra.joinpoints;
 
-import org.lara.interpreter.weaver.interf.JoinPoint;
+import weaver.kadabra.abstracts.joinpoints.AApp;
 import spoon.Launcher;
 import spoon.reflect.declaration.CtClass;
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtInterface;
 import spoon.reflect.factory.Factory;
 import spoon.support.gui.SpoonModelTree;
-import weaver.kadabra.JavaWeaver;
+import weaver.kadabra.JWeaver;
 import weaver.kadabra.abstracts.joinpoints.*;
 import weaver.kadabra.spoon.extensions.nodes.CtApp;
 import weaver.utils.android.AndroidResources;
@@ -34,37 +34,41 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class JApp extends AApp {
+public class JApp<Self extends JApp<Self>> extends AApp<Self> {
 
     public final Launcher spoon;
     private final Set<File> sources;
     private final AndroidResources androidResources;
 
-    private JApp(Launcher spoon, List<File> sources, JavaWeaver weaver) {
-        super(weaver);
-        this.spoon = spoon;
+    public JApp(CtApp node, JWeaver weaver) {
+        this(node, Collections.emptyList(), weaver);
+    }
+
+    public JApp(CtApp node, List sources, JWeaver weaver) {
+        super(node, weaver);
+        this.spoon = node.spoon;
         this.sources = new HashSet<>(sources);
         this.androidResources = AndroidResources.newInstance(sources);
     }
 
-    public static JApp newInstance(Launcher spoon, List<File> sources, JavaWeaver weaver) {
-        var app = new JApp(spoon, sources, weaver);
+    public static JApp<?> newInstance(Launcher spoon, List<File> sources, JWeaver weaver) {
+        var app = new JApp<>(new CtApp(spoon), sources, weaver);
 
         return app;
     }
 
-    public static JApp newInstance(CtApp app, JavaWeaver weaver) {
-        return new JApp(app.spoon, Collections.emptyList(), weaver);
+    public static JApp<?> newInstance(CtApp app, JWeaver weaver) {
+        return new JApp<>(app, weaver);
     }
 
     public AndroidResources getAndroidResources() {
         return androidResources;
     }
 
-    private List<? extends AFile> retrieveFiles() {
+    private List<JFile<?>> retrieveFiles() {
 
-        final List<JFile> files = spoon.getFactory().CompilationUnit().getMap().values().stream()
-                .map(cu -> new JFile(cu, getWeaverEngine()))
+        final List<JFile<?>> files = spoon.getFactory().CompilationUnit().getMap().values().stream()
+                .map(cu -> new JFile<>(cu, getWeaverEngine()))
                 .collect(Collectors.toList());
 
         return files;
@@ -78,58 +82,59 @@ public class JApp extends AApp {
     }
 
     @Override
-    public AClass newClassImpl(String name) {
+    public AClass<?> newClassImpl(String name) {
         return newClassImpl(name, null, null);
     }
 
     @Override
-    public AClass newClassImpl(String name, String extend, String[] implement) {
+    public AClass<?> newClassImpl(String name, String extend, String[] implement) {
         if (name == null || name.isEmpty()) {
             throw new NullPointerException("the name of the new class cannot be null or empty");
         }
         var cu = ActionUtils.compilationUnitWithClass(name, extend, implement,
                 spoon.getModelBuilder().getBinaryOutputDirectory(), spoon.getFactory());
         CtClass<?> mainClass = (CtClass<?>) cu.getMainType();
-        AClass newInstance = JClass.newInstance(mainClass, cu, getWeaverEngine());
+        AClass<?> newInstance = new JClass<>(mainClass, cu, getWeaverEngine());
         return newInstance;
 
     }
 
     @Override
-    public AInterfaceType newInterfaceImpl(String name) {
+    public AInterfaceType<?> newInterfaceImpl(String name) {
         return newInterfaceImpl(name, null);
     }
 
     @Override
-    public AInterfaceType newInterfaceImpl(String name, String[] extend) {
-        final CtInterface<Object> newInterface = ActionUtils.compilationUnitWithInterface(name, extend,
+    public AInterfaceType<?> newInterfaceImpl(String name, String[] extend) {
+        final CtInterface<?> newInterface = ActionUtils.compilationUnitWithInterface(name, extend,
                 spoon.getModelBuilder().getBinaryOutputDirectory(),
                 spoon.getFactory());
-        JInterfaceType<Object> newInstance = JInterfaceType.newInstance(newInterface, getWeaverEngine());
+        JInterfaceType<?> newInstance = new JInterfaceType<>(newInterface, getWeaverEngine());
         return newInstance;
     }
 
     @Override
-    public AClass mapVersionsImpl(String name, String keyType, AInterfaceType _interface, String methodName) {
+    public AClass<?> mapVersionsImpl(String name, String keyType, AInterfaceType<?> _interface, String methodName) {
 
         File outDir = spoon.getModelBuilder().getBinaryOutputDirectory();
         Factory factory = spoon.getFactory();
         var cu = MapGenerator.generate(factory, name, keyType, _interface, methodName, outDir);
-        JClass<?> newInstance = JClass.newInstance((CtClass<?>) cu.getMainType(), cu, getWeaverEngine());
+        JClass<?> newInstance = new JClass<>((CtClass<?>) cu.getMainType(), cu, getWeaverEngine());
         return newInstance;
     }
 
     @Override
-    public String showASTImpl(String title) {
+    public String getShowASTImpl(String Title) {
         // SpoonModelTree window starts in the constructor
         SpoonModelTree tree = new SpoonModelTree(spoon.getFactory());
-        tree.setTitle(title);
+        tree.setTitle(Title);
         tree.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         return "";
     }
 
     @Override
-    public CtElement getNode() {
+    public CtElement getNodeImpl() {
+        // App has no AST node of its own
         return null;
     }
 
@@ -137,13 +142,13 @@ public class JApp extends AApp {
      * App is the root node, so it has not parent.
      */
     @Override
-    public AJoinPoint getParentImpl() {
+    public AJoinpoint<?> getParentImpl() {
         return null;
     }
 
     @Override
-    public boolean compareNodes(AJoinPoint aJoinPoint) {
-        return equals(aJoinPoint);
+    public boolean getCompareNodesImpl(AJoinpoint<?> aJoinPoint) {
+        return this == aJoinPoint;
     }
 
     public Launcher getSpoon() {
@@ -152,17 +157,8 @@ public class JApp extends AApp {
     }
 
     @Override
-    public String toString() {
+    public String getToStringImpl() {
         return "Java application"; // from " + getFolderImpl();
-    }
-
-    @Override
-    public boolean same(JoinPoint iJoinPoint) {
-        if (this.get_class().equals(iJoinPoint.get_class())) {
-
-            return this.compareNodes((AJoinPoint) iJoinPoint);
-        }
-        return false;
     }
 
     @Override
@@ -174,18 +170,18 @@ public class JApp extends AApp {
     }
 
     @Override
-    public AJoinPoint[] getChildrenArrayImpl() {
-        return retrieveFiles().toArray(size -> new AJoinPoint[size]);
+    public AJoinpoint<?>[] getChildrenImpl() {
+        return retrieveFiles().toArray(size -> new AJoinpoint[size]);
     }
 
     @Override
-    public AAndroidManifest getManifestImpl() {
+    public AAndroidManifest<?> getManifestImpl() {
         var manifest = androidResources.getAndroidManifest();
-        return manifest != null ? new JAndroidManifest(manifest, getWeaverEngine()) : null;
+        return manifest != null ? new JAndroidManifest<>(manifest, getWeaverEngine()) : null;
     }
 
     @Override
-    public AFile[] getFilesArrayImpl() {
+    public AFile<?>[] getFilesImpl() {
         return retrieveFiles().toArray(size -> new AFile[size]);
     }
 

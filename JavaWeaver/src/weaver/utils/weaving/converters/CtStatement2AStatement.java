@@ -31,8 +31,8 @@ import spoon.reflect.code.CtStatement;
 import spoon.reflect.code.CtSwitch;
 import spoon.reflect.code.CtThrow;
 import spoon.reflect.code.CtTry;
-import weaver.kadabra.JavaWeaver;
-import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
+import weaver.kadabra.JWeaver;
+import weaver.kadabra.abstracts.joinpoints.AJoinpoint;
 import weaver.kadabra.abstracts.joinpoints.AStatement;
 import weaver.kadabra.joinpoints.JAssert;
 import weaver.kadabra.joinpoints.JAssignment;
@@ -41,7 +41,6 @@ import weaver.kadabra.joinpoints.JBreak;
 import weaver.kadabra.joinpoints.JCase;
 import weaver.kadabra.joinpoints.JComment;
 import weaver.kadabra.joinpoints.JContinue;
-import weaver.kadabra.joinpoints.JExpressionStatement;
 import weaver.kadabra.joinpoints.JIf;
 import weaver.kadabra.joinpoints.JLocalVariable;
 import weaver.kadabra.joinpoints.JLoop;
@@ -61,36 +60,35 @@ import weaver.kadabra.spoon.extensions.nodes.CtKadabraSnippetStatement;
  *
  */
 public class CtStatement2AStatement {
-    private static final BiFunctionClassMap<CtStatement, JavaWeaver, AJavaWeaverJoinPoint> CONVERTER = new BiFunctionClassMap<>();
+    private static final BiFunctionClassMap<CtStatement, JWeaver, AJoinpoint<?>> CONVERTER = new BiFunctionClassMap<>();
 
     static {
         CONVERTER.put(CtInvocation.class, CtExpression2AExpression::ctInvokation);
-        CONVERTER.put(CtAssignment.class, JExpressionStatement::newInstance);
-        CONVERTER.put(CtIf.class, JIf::newInstance);
+        CONVERTER.put(CtIf.class, JIf::new);
         CONVERTER.put(CtLoop.class, JLoop::newInstance);
-        CONVERTER.put(CtAssignment.class, JAssignment::newInstance);
+        CONVERTER.put(CtAssignment.class, JAssignment::new);
         CONVERTER.put(CtOperatorAssignment.class, JOpAssignment::new);
-        CONVERTER.put(CtReturn.class, JReturn::newInstance);
-        CONVERTER.put(CtKadabraSnippetStatement.class, JSnippetStmt::newInstance);
-        CONVERTER.put(CtLocalVariable.class, JLocalVariable::newInstance);
-        CONVERTER.put(CtTry.class, JTry::newInstance);
-        CONVERTER.put(CtAssert.class, JAssert::newInstance);
-        CONVERTER.put(CtComment.class, JComment::newInstance);
-        CONVERTER.put(CtBlock.class, JBody::newInstance);
-        CONVERTER.put(CtThrow.class, JThrow::newInstance);
-        CONVERTER.put(CtSwitch.class, JSwitch::newInstance);
-        CONVERTER.put(CtCase.class, JCase::newInstance);
-        CONVERTER.put(CtBreak.class, JBreak::newInstance);
-        CONVERTER.put(CtContinue.class, JContinue::newInstance);
+        CONVERTER.put(CtReturn.class, JReturn::new);
+        CONVERTER.put(CtKadabraSnippetStatement.class, JSnippetStmt::new);
+        CONVERTER.put(CtLocalVariable.class, JLocalVariable::new);
+        CONVERTER.put(CtTry.class, JTry::new);
+        CONVERTER.put(CtAssert.class, JAssert::new);
+        CONVERTER.put(CtComment.class, JComment::new);
+        CONVERTER.put(CtBlock.class, JBody::new);
+        CONVERTER.put(CtThrow.class, JThrow::new);
+        CONVERTER.put(CtSwitch.class, JSwitch::new);
+        CONVERTER.put(CtCase.class, JCase::new);
+        CONVERTER.put(CtBreak.class, JBreak::new);
+        CONVERTER.put(CtContinue.class, JContinue::new);
         CONVERTER.put(CtStatement.class, CtStatement2AStatement::defaultFactory);
     }
 
-    public static AStatement defaultFactory(CtStatement element, JavaWeaver weaver) {
-        return new JStatement(element, weaver);
+    public static AStatement<?> defaultFactory(CtStatement element, JWeaver weaver) {
+        return new JStatement<>(element, weaver);
     }
 
     // Package protected so only CtElement2JoinPoint can use this method
-    public static AJavaWeaverJoinPoint convert(CtStatement element, JavaWeaver weaver) {
+    public static AJoinpoint<?> convert(CtStatement element, JWeaver weaver) {
         return CONVERTER.apply(element, weaver);
     }
 }

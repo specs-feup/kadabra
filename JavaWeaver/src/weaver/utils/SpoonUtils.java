@@ -41,8 +41,8 @@ import spoon.reflect.factory.Factory;
 import spoon.reflect.reference.CtLocalVariableReference;
 import spoon.reflect.reference.CtTypeReference;
 import spoon.reflect.visitor.DefaultJavaPrettyPrinter;
-import weaver.kadabra.JavaWeaver;
-import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
+import weaver.kadabra.JWeaver;
+import weaver.kadabra.abstracts.joinpoints.AJoinpoint;
 import weaver.kadabra.exceptions.JavaWeaverException;
 import weaver.kadabra.spoon.extensions.nodes.CtCommentWrapper;
 import weaver.kadabra.spoon.extensions.printer.KadabraPrettyPrinter;
@@ -247,7 +247,7 @@ public class SpoonUtils {
     }
 
     public static <T> CtLocalVariable<T> extract(CtExpression<T> expression, String varName, CtStatement target,
-            String position, JavaWeaver weaver) {
+            String position, JWeaver weaver) {
         Factory factory = expression.getFactory();
 
         CtTypeReference<T> type = expression.getType();
@@ -469,7 +469,7 @@ public class SpoonUtils {
         // System.out.println("IS PARENT: " + node.hasParent(node));
         // System.out.println("IS PARENT INITIALIZED: " + node.isParentInitialized());
 
-        // var originalNode = AJavaWeaverJoinPoint.CLONED_NODES.get(node);
+        // var originalNode = AJoinpoint<?>.CLONED_NODES.get(node);
         // var nodeToCompare = originalNode == null ? node : originalNode;
 
         // return node.getElements(element -> element.getParent() == nodeToCompare);
@@ -550,14 +550,14 @@ public class SpoonUtils {
      * @param prefix
      * @return
      */
-    public static String toAst(CtElement astNode, String prefix, JavaWeaver weaver) {
+    public static String toAst(CtElement astNode, String prefix, JWeaver weaver) {
         var builder = new StringBuilder();
         toAst(CtElement2JoinPoint.convert(astNode, weaver), prefix, builder);
         return builder.toString();
     }
 
     /**
-     * Input is a AJoinPoint node to preserve the child hierarchy returned by the join points. If we simply used
+     * Input is a AJoinpoint<?> node to preserve the child hierarchy returned by the join points. If we simply used
      * CtElement and converted to JoinPoint, it would break custom code that uses the same CtElement node for multiple
      * join points (e.g., JCallStatement).
      * 
@@ -565,12 +565,12 @@ public class SpoonUtils {
      * @param prefix
      * @param builder
      */
-    private static void toAst(AJoinPoint node, String prefix,
+    private static void toAst(AJoinpoint<?> node, String prefix,
             StringBuilder builder) {
 
         builder.append(prefix);
 
-        builder.append(node.getJoinPointType());
+        builder.append(node.get_class());
         var nodeString = node.toString();
 
         if (!nodeString.isBlank() && StringLines.getLines(nodeString).size() < 2) {
@@ -583,7 +583,7 @@ public class SpoonUtils {
         // for (var child : node.getChildrenNodes()) {
         // toAst(child, prefix + " ", builder);
         // }
-        for (var child : node.getChildrenArrayImpl()) {
+        for (var child : node.getChildrenImpl()) {
             toAst(child, prefix + "  ", builder);
         }
 

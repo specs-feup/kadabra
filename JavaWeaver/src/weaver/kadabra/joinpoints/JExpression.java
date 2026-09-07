@@ -13,49 +13,48 @@
 
 package weaver.kadabra.joinpoints;
 
-import org.lara.interpreter.weaver.interf.JoinPoint;
-import spoon.reflect.code.*;
-import weaver.kadabra.JavaWeaver;
-import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
-import weaver.kadabra.abstracts.joinpoints.*;
+import java.util.Optional;
+
+import org.lara.interpreter.weaver.interf.enums.InsertPosition;
+
+import weaver.kadabra.JWeaver;
+import weaver.kadabra.abstracts.joinpoints.AExpression;
+import weaver.kadabra.abstracts.joinpoints.AStatement;
+import weaver.kadabra.abstracts.joinpoints.AJoinpoint;
+import weaver.kadabra.abstracts.joinpoints.ATypeReference;
 import weaver.kadabra.exceptions.JavaWeaverException;
 import weaver.kadabra.util.KadabraLog;
 import weaver.utils.SpoonUtils;
 import weaver.utils.weaving.ActionUtils;
 import weaver.utils.weaving.converters.CtExpression2AExpression;
 
-import java.util.Optional;
+public class JExpression<Self extends JExpression<Self>> extends AExpression<Self> {
 
-public class JExpression<T> extends AExpression {
+    int test = 10;
 
-    CtExpression<T> node;
-    Integer test = 10;
-
-    public JExpression(CtExpression<T> expr, JavaWeaver weaver) {
-        super(weaver);
-        node = expr;
+    public JExpression(spoon.reflect.code.CtExpression expr, JWeaver weaver) {
+        super(expr, weaver);
     }
 
     @Override
-    public Integer getTestImpl() {
+    public String getToStringImpl() {
+        if (getClass() == JExpression.class) {
+            return getNodeImpl().toString() + " - " + getNodeImpl().getClass().getSimpleName();
+        }
+        return super.getToStringImpl();
+    }
+
+    @Override
+    public int getTestImpl() {
         return test;
     }
 
-    @Override
-    public String toString() {
-        return super.toString() + " - " + node.getClass().getSimpleName();
-    }
-
-    public static <K> AExpression newInstanceDefault(CtExpression<K> expr, JavaWeaver weaver) {
-        return new JExpression<>(expr, weaver);
-    }
-
-    public static <K> AExpression newInstance(CtExpression<K> expr, JavaWeaver weaver) {
+    public static AExpression<?> newInstance(spoon.reflect.code.CtExpression<?> expr, JWeaver weaver) {
         return CtExpression2AExpression.convertToExpression(expr, weaver);
     }
 
     @Override
-    public void setTestImpl(AExpression value) {
+    public void setTestImpl(AExpression<?> value) {
         setTestImpl(value.getLineImpl());
     }
 
@@ -70,22 +69,22 @@ public class JExpression<T> extends AExpression {
     }
 
     @Override
-    public ATypeReference getTypeReferenceImpl() {
-        var children = getChildrenArrayImpl();
+    public ATypeReference<?> getTypeReferenceImpl() {
+        var children = getChildrenImpl();
 
         if (children.length > 0) {
             var firstChild = children[0];
             // First child should be a TypeReference
-            if (firstChild instanceof ATypeReference) {
-                return (ATypeReference) firstChild;
+            if (firstChild instanceof ATypeReference<?> typeReference) {
+                return typeReference;
             }
         }
 
         // Fallback
-        var type = node.getType();
+        var type = getNodeImpl().getType();
 
         if (type == null) {
-            KadabraLog.info("Currrent expression, of join point type '" + getJoinPointType()
+            KadabraLog.info("Currrent expression, of join point type '" + get_class()
                     + "', does not have a type defined: '" + getCodeImpl() + "'");
             return null;
         }
@@ -113,83 +112,85 @@ public class JExpression<T> extends AExpression {
     }
 
     @Override
-    public void extractImpl(String varName, AStatement location, String position) {
+    public void extractImpl(String varName, AStatement<?> location, String position) {
 
-        Optional<CtStatement> targetO = getTarget(location);
+        Optional<spoon.reflect.code.CtStatement> targetO = getTarget(location);
 
         if (!targetO.isPresent()) {
             throw new JavaWeaverException("Could not get the target location");
         }
 
-        targetO.ifPresent(t -> SpoonUtils.extract(node, varName, t, position, getWeaverEngine()));
+        targetO.ifPresent(t -> SpoonUtils.extract(getNodeImpl(), varName, t, position, getWeaverEngine()));
     }
 
-    private Optional<CtStatement> getTarget(AStatement location) {
+    private Optional<spoon.reflect.code.CtStatement> getTarget(AStatement<?> location) {
         if (location == null) {
-            return SpoonUtils.getAncestorIncludeSelf(node, CtStatement.class);
+            return SpoonUtils.getAncestorIncludeSelf(getNodeImpl(), spoon.reflect.code.CtStatement.class);
         }
 
-        Object stmt = location.getNode();
-        if (stmt instanceof CtStatement) {
-            return Optional.of((CtStatement) stmt);
+        Object stmt = location.getNodeImpl();
+        if (stmt instanceof spoon.reflect.code.CtStatement) {
+            return Optional.of((spoon.reflect.code.CtStatement) stmt);
         }
 
         return Optional.empty();
     }
 
     @Override
-    public CtExpression<T> getNode() {
-        return node;
+    public spoon.reflect.code.CtExpression<?> getNodeImpl() {
+        return (spoon.reflect.code.CtExpression<?>) super.getNodeImpl();
     }
 
     @Override
-    public AJoinPoint[] insertImpl(String position, String code) {
-        return new AJoinPoint[] { insertImplJExpression(position, code) };
+    public AJoinpoint<?>[] insertImpl(InsertPosition position, String code) {
+        return new AJoinpoint<?>[] { insertImplJExpression(position, code) };
     }
 
-    public AJavaWeaverJoinPoint insertImplJExpression(String position, String code) {
-        if (position.equals("replace") || position.equals("around")) {
-            return ActionUtils.replaceExpression(position, code, node, getWeaverEngine());
+    public AJoinpoint<?> insertImplJExpression(InsertPosition position, String code) {
+        if (position == InsertPosition.REPLACE) {
+            return ActionUtils.replaceExpression(position.name().toLowerCase(), code, getNodeImpl(),
+                    getWeaverEngine());
         } else {
-            return ActionUtils.insert(position, code, node, getWeaverEngine());
+            return ActionUtils.insert(position.name().toLowerCase(), code, getNodeImpl(), getWeaverEngine());
         }
     }
 
     @Override
-    public AJoinPoint[] insertImpl(String position, JoinPoint JoinPoint) {
-        return new AJoinPoint[] { insertImplJExpression(position, (AJavaWeaverJoinPoint) JoinPoint) };
+    public AJoinpoint<?>[] insertImpl(InsertPosition position, AJoinpoint<?> joinPoint) {
+        return new AJoinpoint<?>[] { insertImplJExpression(position, joinPoint) };
     }
 
-    public AJavaWeaverJoinPoint insertImplJExpression(String position, AJavaWeaverJoinPoint joinPoint) {
-        var ctElement = joinPoint.getNode();
+    public AJoinpoint<?> insertImplJExpression(InsertPosition position, AJoinpoint<?> joinPoint) {
+        var ctElement = joinPoint.getNodeImpl();
 
-        if (position.equals("replace") || position.equals("around")) {
-            if (!(ctElement instanceof CtExpression<?>)) {
-                KadabraLog.info("Cannot replace a join point of type " + joinPoint.getJoinPointType()
+        if (position == InsertPosition.REPLACE) {
+            if (!(ctElement instanceof spoon.reflect.code.CtExpression<?>)) {
+                KadabraLog.info("Cannot replace a join point of type " + joinPoint.get_class()
                         + " inside an expression, it has to be another expression");
                 return null;
             }
 
-            CtExpression<?> expression = (CtExpression<?>) ctElement;
+            spoon.reflect.code.CtExpression<?> expression = (spoon.reflect.code.CtExpression<?>) ctElement;
 
-            return ActionUtils.replaceExpression(position, expression, node, getWeaverEngine());
+            return ActionUtils.replaceExpression(position.name().toLowerCase(), expression, getNodeImpl(),
+                    getWeaverEngine());
         } else {
-            return ActionUtils.insert(position, ctElement, node, getWeaverEngine());
+            return ActionUtils.insert(position.name().toLowerCase(), ctElement, getNodeImpl(), getWeaverEngine());
         }
     }
 
     @Override
-    public AJoinPoint insertBeforeImpl(String code) {
-        return insertImplJExpression("before", code);
+    public AJoinpoint<?> insertBeforeImpl(String code) {
+        return insertImplJExpression(InsertPosition.BEFORE, code);
     }
 
     @Override
-    public AJoinPoint insertAfterImpl(String code) {
-        return insertImplJExpression("after", code);
+    public AJoinpoint<?> insertAfterImpl(String code) {
+        return insertImplJExpression(InsertPosition.AFTER, code);
     }
 
     @Override
-    public AJoinPoint insertReplaceImpl(String code) {
-        return insertImplJExpression("replace", code);
+    public AJoinpoint<?> insertReplaceImpl(String code) {
+        return insertImplJExpression(InsertPosition.REPLACE, code);
     }
 }

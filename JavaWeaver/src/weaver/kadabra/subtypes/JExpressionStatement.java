@@ -11,26 +11,24 @@
  * specific language governing permissions and limitations under the License.
  */
 
-package weaver.kadabra.joinpoints;
+package weaver.kadabra.subtypes;
 
-import spoon.reflect.code.CtStatement;
-import weaver.kadabra.JavaWeaver;
+import weaver.kadabra.JWeaver;
+import weaver.kadabra.joinpoints.JStatement;
 
 /**
  * This class encapsulates expressions that can also be a statement, such as
  * Invocations (JCall/CtInvocation) and Assignment (JAssignment/CtAssignment).
- * 
- * @author tiago
+ * <p>
+ * This class lives outside the 'joinpoints' package because it is not a
+ * declared join point in the specification.
  *
+ * @author tiago
  */
-public class JExpressionStatement extends JStatement {
+public class JExpressionStatement<Self extends JExpressionStatement<Self>> extends JStatement<Self> {
 
-    public JExpressionStatement(CtStatement node, JavaWeaver weaver) {
+    public JExpressionStatement(spoon.reflect.code.CtStatement node, JWeaver weaver) {
         super(node, weaver);
-    }
-
-    public static JExpressionStatement newInstance(CtStatement node, JavaWeaver weaver) {
-        return new JExpressionStatement(node, weaver);
     }
 
     @Override

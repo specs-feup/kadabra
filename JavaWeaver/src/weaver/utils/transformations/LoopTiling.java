@@ -34,7 +34,7 @@ import spoon.reflect.factory.Factory;
 import spoon.reflect.reference.CtExecutableReference;
 import spoon.reflect.reference.CtTypeReference;
 import weaver.kadabra.exceptions.JavaWeaverException;
-import weaver.kadabra.joinpoints.JFor;
+import weaver.kadabra.subtypes.JFor;
 import weaver.kadabra.util.KadabraLog;
 import weaver.utils.SpoonUtils;
 import weaver.utils.element.RankCalculator;
@@ -84,7 +84,7 @@ public class LoopTiling {
      */
     public static CtField<Integer> tile(JFor jFor, String tileName, String block, boolean unique,
             CtStatement aroundStatement) {
-        CtFor ctFor = jFor.getNode();
+        CtFor ctFor = jFor.getNodeImpl();
         if (!isTileFriendly(ctFor)) {
             KadabraLog.warning("Cannot apply tile to loop "
                     + RankCalculator.calculateString(ctFor, CtLoop.class) + ". It is not tile friendly");
@@ -114,7 +114,7 @@ public class LoopTiling {
 
     private static CtField<Integer> createTileField(JFor jFor, String tileName, String block, boolean unique) {
 
-        return SpoonUtils.getAncestorTry(jFor.getNode(), CtType.class)
+        return SpoonUtils.getAncestorTry(jFor.getNodeImpl(), CtType.class)
                 .map(ancestor -> buildField(jFor, tileName, block, unique, ancestor))
                 .orElseThrow(LoopTiling::noTypeFound);
 
@@ -138,7 +138,7 @@ public class LoopTiling {
     private static CtField<Integer> buildField(JFor jFor, String tileName, String block, boolean unique,
             CtType<?> ancestor) {
         String[] mods = { "public", "static" };
-        CtFor ctFor = jFor.getNode();
+        CtFor ctFor = jFor.getNodeImpl();
         CtCodeSnippetExpression<Integer> initExpr = SnippetFactory
                 .createSnippetExpression(ctFor.getFactory(), block);
         CtTypeReference<Integer> intType = ctFor.getFactory().Type().INTEGER_PRIMITIVE;

@@ -14,41 +14,37 @@
 package weaver.kadabra.joinpoints;
 
 import spoon.reflect.code.CtInvocation;
-import spoon.reflect.declaration.CtElement;
-import weaver.kadabra.JavaWeaver;
+
+import weaver.kadabra.JWeaver;
 import weaver.kadabra.abstracts.joinpoints.ACall;
 import weaver.kadabra.abstracts.joinpoints.ACallStatement;
-import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
+import weaver.kadabra.abstracts.joinpoints.AJoinpoint;
 
 /**
  * This is a "synthetic" join point, to emulate statements around single
  * statement calls.
  *
- * @param <T>
  * @author JoaoBispo
  */
-public class JCallStatement<T> extends ACallStatement {
+public class JCallStatement<Self extends JCallStatement<Self>> extends ACallStatement<Self> {
 
-    private final CtInvocation<T> call;
-
-    public JCallStatement(CtInvocation<T> call, JavaWeaver weaver) {
-        super(new JStatement(call, weaver), weaver);
-        this.call = call;
+    public JCallStatement(CtInvocation call, JWeaver weaver) {
+        super(call, weaver);
     }
 
     @Override
-    public CtElement getNode() {
-        return call;
+    public CtInvocation<?> getNodeImpl() {
+        return (CtInvocation<?>) super.getNodeImpl();
     }
 
     @Override
-    public ACall getCallImpl() {
-        return JCall.newInstance(call, getWeaverEngine());
+    public ACall<?> getCallImpl() {
+        return new JCall<>(getNodeImpl(), getWeaverEngine());
     }
 
     @Override
-    public AJoinPoint[] getChildrenArrayImpl() {
-        var children = new AJoinPoint[1];
+    public AJoinpoint<?>[] getChildrenImpl() {
+        var children = new AJoinpoint[1];
         children[0] = getCallImpl();
         return children;
     }
@@ -61,7 +57,7 @@ public class JCallStatement<T> extends ACallStatement {
     }
 
     /**
-     * TODO: This is an example where the getSrcCodeImpl() in AJavaWeaverJoinPoint
+     * TODO: This is an example where the getSrcCodeImpl() in JJoinpoint
      * does not call the overridden getCodeImpl()
      */
     @Override

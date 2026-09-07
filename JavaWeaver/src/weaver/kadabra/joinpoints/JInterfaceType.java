@@ -13,26 +13,15 @@
 
 package weaver.kadabra.joinpoints;
 
-import spoon.reflect.cu.CompilationUnit;
 import spoon.reflect.declaration.CtInterface;
-import weaver.kadabra.JavaWeaver;
+
+import weaver.kadabra.JWeaver;
 import weaver.kadabra.abstracts.joinpoints.AInterfaceType;
 
-public class JInterfaceType<T> extends AInterfaceType {
+public class JInterfaceType<Self extends JInterfaceType<Self>> extends AInterfaceType<Self> {
 
-    CtInterface<T> node;
-
-    private JInterfaceType(CtInterface<T> node, CompilationUnit parent, JavaWeaver weaver) {
-        super(JType.newInstance(node, parent, weaver), weaver);
-        this.node = node;
-    }
-
-    public static <T> JInterfaceType<T> newInstance(CtInterface<T> node, CompilationUnit parent, JavaWeaver weaver) {
-        return new JInterfaceType<>(node, parent, weaver);
-    }
-
-    public static <T> JInterfaceType<T> newInstance(CtInterface<T> node, JavaWeaver weaver) {
-        return new JInterfaceType<>(node, node.getPosition().getCompilationUnit(), weaver);
+    public JInterfaceType(CtInterface node, JWeaver weaver) {
+        super(node, weaver);
     }
 
     @Override
@@ -41,13 +30,12 @@ public class JInterfaceType<T> extends AInterfaceType {
     }
 
     @Override
-    public CtInterface<T> getNode() {
-
-        return node;
+    public CtInterface<?> getNodeImpl() {
+        return (CtInterface<?>) super.getNodeImpl();
     }
 
     @Override
-    public String toString() {
-        return node.getQualifiedName();
+    public String getToStringImpl() {
+        return getNodeImpl().getQualifiedName();
     }
 }

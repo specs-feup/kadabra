@@ -1,11 +1,11 @@
 /**
  * Copyright 2015 SPeCS Research Group.
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
@@ -15,7 +15,7 @@ package weaver.kadabra.joinpoints;
 
 import java.util.Set;
 
-import org.lara.interpreter.weaver.interf.JoinPoint;
+import org.lara.interpreter.weaver.interf.enums.InsertPosition;
 
 import spoon.refactoring.Refactoring;
 import spoon.reflect.declaration.CtMethod;
@@ -23,10 +23,9 @@ import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.declaration.ModifierKind;
 import spoon.reflect.factory.Factory;
-import weaver.kadabra.JavaWeaver;
-import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
+import weaver.kadabra.JWeaver;
 import weaver.kadabra.abstracts.joinpoints.AClass;
-import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
+import weaver.kadabra.abstracts.joinpoints.AJoinpoint;
 import weaver.kadabra.abstracts.joinpoints.AMethod;
 import weaver.kadabra.spoon.extensions.nodes.CtKadabraSnippetElement;
 import weaver.utils.SpoonUtils;
@@ -36,23 +35,16 @@ import weaver.utils.weaving.SnippetFactory;
 import weaver.utils.weaving.TypeUtils;
 import weaver.utils.weaving.converters.CtElement2JoinPoint;
 
-public class JMethod<T> extends AMethod {
+public class JMethod<Self extends JMethod<Self>> extends AMethod<Self> {
 
-    private final CtMethod<T> node;
-
-    private JMethod(CtMethod<T> node, JavaWeaver weaver) {
-        super(JExecutable.newInstance(node, weaver), weaver);
-        this.node = node;
-    }
-
-    public static <T> JMethod<T> newInstance(CtMethod<T> node, JavaWeaver weaver) {
-        return new JMethod<>(node, weaver);
+    public JMethod(CtMethod node, JWeaver weaver) {
+        super(node, weaver);
     }
 
     @Override
-    public AJoinPoint copyImpl() {
+    public AJoinpoint<?> copyImpl() {
         var methodName = getNameImpl();
-        var copy = Refactoring.copyMethod(node);
+        var copy = Refactoring.copyMethod((CtMethod) getNodeImpl());
         // Refactor method changes the name of the method, appends copy at the end.
         // Restore original name
         copy.setSimpleName(methodName);
@@ -60,81 +52,81 @@ public class JMethod<T> extends AMethod {
     }
 
     @Override
-    public String toString() {
+    public String getToStringImpl() {
         return getNameImpl();
     }
 
     @Override
-    public CtMethod<T> getNode() {
-        return node;
+    public CtMethod<?> getNodeImpl() {
+        return (CtMethod<?>) super.getNodeImpl();
     }
 
     @Override
     public String getToReferenceImpl() {
 
-        return node.getDeclaringType().getSimpleName() + "::" + node.getSimpleName();
+        return getNodeImpl().getDeclaringType().getSimpleName() + "::" + getNodeImpl().getSimpleName();
     }
 
     @Override
     public String getToQualifiedReferenceImpl() {
-        return node.getDeclaringType().getQualifiedName() + "::" + node.getSimpleName();
+        return getNodeImpl().getDeclaringType().getQualifiedName() + "::" + getNodeImpl().getSimpleName();
     }
 
     @Override
-    public JMethod<T> cloneImpl(String newName) {
+    public AMethod<?> cloneImpl(String newName) {
 
-        CtMethod<T> clone = ActionUtils.cloneElement(node);
-        CtType<?> ancestor = SpoonUtils.getAncestor(node, CtType.class);
+        CtMethod<?> clone = ActionUtils.cloneElement(getNodeImpl());
+        CtType<?> ancestor = SpoonUtils.getAncestor(getNodeImpl(), CtType.class);
         int inc = 0;
         while (!ancestor.getMethodsByName(newName).isEmpty()) {
             newName = newName + (inc++);
         }
         clone.setSimpleName(newName);
         ancestor.addMethod(clone);
-        JMethod<T> newInstance = JMethod.newInstance(clone, getWeaverEngine());
-        return newInstance;
+        return new JMethod<>(clone, getWeaverEngine());
     }
 
     @Override
     public void addCommentImpl(String comment) {
-        String docComment = node.getDocComment();
+        String docComment = getNodeImpl().getDocComment();
         if (docComment == null || docComment.isEmpty()) {
             docComment = comment;
         } else {
             docComment += "\n" + comment;
         }
-        node.setDocComment(docComment);
+        getNodeImpl().setDocComment(docComment);
     }
 
     @Override
     public void addParameterImpl(String type, String name) {
-        Factory factory = node.getFactory();
+        Factory factory = getNodeImpl().getFactory();
         CtParameter<Object> parameter = factory.Core().createParameter();
         parameter.setType(TypeUtils.typeOf(type, factory));
         parameter.setSimpleName(name);
-        node.addParameter(parameter);
+        getNodeImpl().addParameter(parameter);
     }
 
     @Override
-    public AClass createAdapterImpl(AMethod adaptMethod, String name) {
+    public AClass<?> createAdapterImpl(AMethod<?> adaptMethod, String name) {
         return createAdapterImpl(adaptMethod, name, false);
     }
 
-    public AClass createAdapterImpl(AMethod adaptMethod, String name, boolean reuseIfExists) {
+    public AClass<?> createAdapterImpl(AMethod<?> adaptMethod, String name, boolean reuseIfExists) {
         JMethod<?> jMethod = (JMethod<?>) adaptMethod;
-        CtMethod<?> adaptMethodNode = jMethod.getNode();
-        JClass<?> jClass = AdapterGenerator.generate(getWeaverEngine(), name, adaptMethodNode, node, reuseIfExists);
+        CtMethod<?> adaptMethodNode = jMethod.getNodeImpl();
+        JClass<?> jClass = AdapterGenerator.generate(getWeaverEngine(), name, adaptMethodNode, getNodeImpl(),
+                reuseIfExists);
         return jClass;
     }
 
     @Override
     public String getDeclaratorImpl() {
-        return node.getDeclaringType().getQualifiedName();
+        return getNodeImpl().getDeclaringType().getQualifiedName();
     }
 
     @Override
     public String getPrivacyImpl() {
-        Set<ModifierKind> modifiers = node.getModifiers();
+        Set<ModifierKind> modifiers = getNodeImpl().getModifiers();
         if (modifiers.contains(ModifierKind.PRIVATE)) {
             return "private";
         }
@@ -149,52 +141,53 @@ public class JMethod<T> extends AMethod {
 
     @Override
     public void setPrivacyImpl(String value) {
-        node.addModifier(ModifierKind.valueOf(value.toString()));
+        getNodeImpl().addModifier(ModifierKind.valueOf(value.toString()));
     }
 
     @Override
-    public AJoinPoint[] insertImpl(String position, String code) {
-        return new AJoinPoint[] { insertImplJMethod(position, code) };
+    public AJoinpoint<?>[] insertImpl(InsertPosition position, String code) {
+        return new AJoinpoint<?>[] { insertImplJMethod(position, code) };
     }
 
     @Override
-    public AJoinPoint[] insertImpl(String position, JoinPoint code) {
-        return new AJoinPoint[] { insertImplJMethod(position, (AJoinPoint) code) };
+    public AJoinpoint<?>[] insertImpl(InsertPosition position, AJoinpoint<?> code) {
+        return new AJoinpoint<?>[] { insertImplJMethod(position, code) };
     }
 
-    public AJavaWeaverJoinPoint insertImplJMethod(String position, String code) {
-        Factory factory = getNode().getFactory();
+    public AJoinpoint<?> insertImplJMethod(InsertPosition position, String code) {
+        Factory factory = getNodeImpl().getFactory();
         CtKadabraSnippetElement snippet = SnippetFactory.createSnippetElement(factory, code);
 
-        return ActionUtils.insertMember(node, snippet, position, getWeaverEngine());
+        return ActionUtils.insertMember(getNodeImpl(), snippet, position.name().toLowerCase(), getWeaverEngine());
     }
 
-    public AJavaWeaverJoinPoint insertImplJMethod(String position, AJoinPoint code) {
-        return ActionUtils.insertMember(node, code.getNode(), position, getWeaverEngine());
-    }
-
-    @Override
-    public AJoinPoint insertAfterImpl(String code) {
-        return insertImplJMethod("after", code);
+    public AJoinpoint<?> insertImplJMethod(InsertPosition position, AJoinpoint<?> code) {
+        return ActionUtils.insertMember(getNodeImpl(), code.getNodeImpl(), position.name().toLowerCase(),
+                getWeaverEngine());
     }
 
     @Override
-    public AJoinPoint insertBeforeImpl(String code) {
-        return insertImplJMethod("before", code);
+    public AJoinpoint<?> insertAfterImpl(String code) {
+        return insertImplJMethod(InsertPosition.AFTER, code);
     }
 
     @Override
-    public AJoinPoint insertReplaceImpl(String code) {
-        return insertImplJMethod("replace", code);
+    public AJoinpoint<?> insertBeforeImpl(String code) {
+        return insertImplJMethod(InsertPosition.BEFORE, code);
     }
 
     @Override
-    public AJoinPoint insertReplaceImpl(AJoinPoint jp) {
-        return insertImplJMethod("replace", jp);
+    public AJoinpoint<?> insertReplaceImpl(String code) {
+        return insertImplJMethod(InsertPosition.REPLACE, code);
     }
 
     @Override
-    public Boolean isOverridingImpl(AMethod method) {
-        return node.isOverriding((CtMethod<?>) method.getNode());
+    public AJoinpoint<?> insertReplaceImpl(AJoinpoint<?> jp) {
+        return insertImplJMethod(InsertPosition.REPLACE, jp);
+    }
+
+    @Override
+    public boolean getIsOverridingImpl(AMethod<?> method) {
+        return getNodeImpl().isOverriding((CtMethod<?>) method.getNodeImpl());
     }
 }

@@ -13,45 +13,37 @@
 
 package weaver.kadabra.joinpoints;
 
-import spoon.reflect.declaration.CtElement;
-import spoon.reflect.reference.CtTypeReference;
-import weaver.kadabra.JavaWeaver;
-import weaver.kadabra.abstracts.joinpoints.ATypeReference;
-
 import java.util.Set;
 
-public class JTypeReference<T> extends ATypeReference {
+import spoon.reflect.reference.CtTypeReference;
+
+import weaver.kadabra.JWeaver;
+import weaver.kadabra.abstracts.joinpoints.ATypeReference;
+
+public class JTypeReference<Self extends JTypeReference<Self>> extends ATypeReference<Self> {
 
     private static final Set<String> NUMERIC_PRIMITIVES = Set.of("byte", "char", "short", "int", "long", "float",
             "double");
 
-    private final CtTypeReference<T> typeReference;
-
-    public JTypeReference(CtTypeReference<T> typeReference, JavaWeaver weaver) {
-        super(new JReference(typeReference, weaver), weaver);
-
-        this.typeReference = typeReference;
-    }
-
-    public static <T> JTypeReference<T> newInstance(CtTypeReference<T> node, JavaWeaver weaver) {
-        return new JTypeReference<>(node, weaver);
+    public JTypeReference(CtTypeReference typeReference, JWeaver weaver) {
+        super(typeReference, weaver);
     }
 
     @Override
-    public CtElement getNode() {
-        return typeReference;
+    public CtTypeReference<?> getNodeImpl() {
+        return (CtTypeReference<?>) super.getNodeImpl();
     }
 
     @Override
-    public Boolean getIsPrimitiveImpl() {
-        return typeReference.isPrimitive();
+    public boolean getIsPrimitiveImpl() {
+        return getNodeImpl().isPrimitive();
     }
 
     @Override
-    public Boolean getIsArrayImpl() {
+    public boolean getIsArrayImpl() {
 
         try {
-            return typeReference.getActualClass().isArray();
+            return getNodeImpl().getActualClass().isArray();
         } catch (Exception e) {
             // Do nothing, sometimes it can launch exception, such as when the type of the
             // class is not on the classpath
@@ -60,21 +52,21 @@ public class JTypeReference<T> extends ATypeReference {
     }
 
     @Override
-    public String toString() {
+    public String getToStringImpl() {
         return getNameImpl();
     }
 
     @Override
     public String getPackageNameImpl() {
-        var ctPackage = typeReference.getPackage();
+        var ctPackage = getNodeImpl().getPackage();
 
         return ctPackage != null ? ctPackage.getQualifiedName() : null;
     }
 
     @Override
-    public String[] getPackageNamesArrayImpl() {
+    public String[] getPackageNamesImpl() {
         var packageName = getPackageNameImpl();
-        return packageName != null ? getPackageNameImpl().split(".") : new String[0];
+        return packageName != null ? packageName.split("\\.") : new String[0];
     }
 
     @Override
@@ -94,7 +86,7 @@ public class JTypeReference<T> extends ATypeReference {
     }
 
     @Override
-    public Boolean getIsBooleanImpl() {
+    public boolean getIsBooleanImpl() {
         var qualifiedName = getQualifiedNameImpl();
 
         if (getIsPrimitiveImpl()) {
@@ -108,6 +100,6 @@ public class JTypeReference<T> extends ATypeReference {
     public String getQualifiedNameImpl() {
         var packageName = getPackageNameImpl();
 
-        return packageName != null ? packageName + "." + typeReference.getSimpleName() : typeReference.getSimpleName();
+        return packageName != null ? packageName + "." + getNodeImpl().getSimpleName() : getNodeImpl().getSimpleName();
     }
 }

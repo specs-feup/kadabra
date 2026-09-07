@@ -13,60 +13,63 @@
 
 package weaver.kadabra.joinpoints;
 
-import org.apache.commons.lang3.NotImplementedException;
-import org.lara.interpreter.weaver.interf.JoinPoint;
-import pt.up.fe.specs.util.SpecsIo;
-import pt.up.fe.specs.util.SpecsLogs;
-import spoon.reflect.declaration.*;
-import spoon.support.reflect.declaration.CtImportImpl;
-import spoon.support.reflect.reference.CtTypeReferenceImpl;
-import spoon.support.visitor.equals.EqualsVisitor;
-import weaver.kadabra.JavaWeaver;
-import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
-import weaver.kadabra.abstracts.joinpoints.*;
-import weaver.utils.generators.MapGenerator;
-import weaver.utils.weaving.ActionUtils;
-import weaver.utils.weaving.converters.CtElement2JoinPoint;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class JFile extends AFile {
+import org.apache.commons.lang3.NotImplementedException;
 
-    private final CtCompilationUnit node;
+import pt.up.fe.specs.util.SpecsIo;
+import pt.up.fe.specs.util.SpecsLogs;
+import spoon.reflect.declaration.CtClass;
+import spoon.reflect.declaration.CtCompilationUnit;
+import spoon.reflect.declaration.CtElement;
+import spoon.reflect.declaration.CtInterface;
+import spoon.reflect.declaration.CtType;
+import spoon.support.visitor.equals.EqualsVisitor;
+import weaver.kadabra.JWeaver;
+import weaver.kadabra.abstracts.joinpoints.AClass;
+import weaver.kadabra.abstracts.joinpoints.AInterfaceType;
+import weaver.kadabra.abstracts.joinpoints.AJoinpoint;
+import weaver.kadabra.abstracts.joinpoints.AType;
+import weaver.kadabra.abstracts.joinpoints.AFile;
+import weaver.utils.generators.MapGenerator;
+import weaver.utils.weaving.ActionUtils;
+import weaver.utils.weaving.converters.CtElement2JoinPoint;
 
-    public JFile(CtCompilationUnit node, JavaWeaver weaver) {
-        super(weaver);
-        this.node = node;
+public class JFile<Self extends JFile<Self>> extends AFile<Self> {
+
+    public JFile(CtCompilationUnit node, JWeaver weaver) {
+        super(node, weaver);
     }
 
     @Override
     public void addImportImpl(String qualifiedName) {
-        var imports = node.getImports();
-        var packageReferece = new CtTypeReferenceImpl();
+        var imports = getNodeImpl().getImports();
+        var packageReferece = new spoon.support.reflect.reference.CtTypeReferenceImpl();
         packageReferece.setSimpleName(qualifiedName);
-        var newImport = new CtImportImpl().setReference(packageReferece);
+        var newImport = new spoon.support.reflect.declaration.CtImportImpl().setReference(packageReferece);
 
         imports.add(newImport);
 
-        node.setImports(new ArrayList<>(imports));
+        getNodeImpl().setImports(new ArrayList<>(imports));
     }
 
     @Override
-    public boolean compareNodes(AJoinPoint aJoinPoint) {
+    public boolean getCompareNodesImpl(AJoinpoint<?> aJoinPoint) {
 
-        if (!(aJoinPoint instanceof JFile)) {
+        if (!(aJoinPoint instanceof JFile<?>)) {
             return false;
         }
         // Verify source file equality
-        CtCompilationUnit other = ((JFile) aJoinPoint).node;
-        if (!node.getFile().equals(other.getFile())) {
+        CtCompilationUnit other = ((JFile<?>) aJoinPoint).getNodeImpl();
+        if (!getNodeImpl().getFile().equals(other.getFile())) {
             return false;
         }
 
         // Use a biscan visitor to verify if both contains the same types
-        List<CtType<?>> elements = node.getDeclaredTypes();
+        List<CtType<?>> elements = getNodeImpl().getDeclaredTypes();
         List<CtType<?>> others = other.getDeclaredTypes();
 
         for (Iterator<? extends CtElement> firstIt = elements.iterator(), secondIt = others.iterator(); (firstIt
@@ -82,50 +85,40 @@ public class JFile extends AFile {
 
     @Override
     public String getPackageNameImpl() {
-        CtType<?> type = node.getMainType();
+        CtType<?> type = getNodeImpl().getMainType();
         return type.getPackage().getQualifiedName();
     }
 
     @Override
     public String getNameImpl() {
-        return node.getFile().getName();
+        return getNodeImpl().getFile().getName();
     }
 
     @Override
     public String getPathImpl() {
-        return node.getFile().getAbsolutePath();
+        return getNodeImpl().getFile().getAbsolutePath();
     }
 
     @Override
     public String getDirImpl() {
-        return node.getFile().getParent();
+        return getNodeImpl().getFile().getParent();
     }
 
     @Override
-    public Integer getNumClassesImpl() {
+    public int getNumClassesImpl() {
         final int classes = (int) streamOfClasses().count();
         return classes;
     }
 
     @Override
-    public Integer getNumInterfacesImpl() {
+    public int getNumInterfacesImpl() {
         final int interfs = (int) streamOfInterfaces().count();
         return interfs;
     }
 
     @Override
-    public CtCompilationUnit getNode() {
-        return node;
-    }
-
-    @Override
-    public boolean same(JoinPoint iJoinPoint) {
-
-        if (!(iJoinPoint instanceof JFile)) {
-            return false;
-        }
-        JFile other = (JFile) iJoinPoint;
-        return node.equals(other.node);
+    public CtCompilationUnit getNodeImpl() {
+        return (CtCompilationUnit) super.getNodeImpl();
     }
 
     private Stream<CtInterface<?>> streamOfInterfaces() {
@@ -140,74 +133,74 @@ public class JFile extends AFile {
     }
 
     private Stream<CtType<?>> streamOfTypes() {
-        return node.getDeclaredTypes().stream();
+        return getNodeImpl().getDeclaredTypes().stream();
     }
 
     @Override
-    public AClass newClassImpl(String name, String extend, String[] implement) {
-        final CtClass<Object> newClass = ActionUtils.newClass(name, extend, implement, node.getFactory());
-        node.getDeclaredTypes().add(newClass);
-        JClass<Object> newInstance = JClass.newInstance(newClass, node, getWeaverEngine());
+    public AClass<?> newClassImpl(String name, String extend, String[] implement) {
+        final CtClass<?> newClass = ActionUtils.newClass(name, extend, implement, getNodeImpl().getFactory());
+        getNodeImpl().getDeclaredTypes().add(newClass);
+        JClass<?> newInstance = new JClass<>(newClass, getNodeImpl(), getWeaverEngine());
         return newInstance;
     }
 
     @Override
-    public AClass newClassImpl(String name) {
+    public AClass<?> newClassImpl(String name) {
         return newClassImpl(name, null, null);
     }
 
     @Override
-    public AInterfaceType newInterfaceImpl(String name, String[] extend) {
-        final CtInterface<Object> newInterface = ActionUtils.newInterface(name, extend, node.getFactory());
-        node.getDeclaredTypes().add(newInterface);
-        JInterfaceType<Object> newInstance = JInterfaceType.newInstance(newInterface, getWeaverEngine());
+    public AInterfaceType<?> newInterfaceImpl(String name, String[] extend) {
+        final CtInterface<?> newInterface = ActionUtils.newInterface(name, extend, getNodeImpl().getFactory());
+        getNodeImpl().getDeclaredTypes().add(newInterface);
+        JInterfaceType<?> newInstance = new JInterfaceType<>(newInterface, getWeaverEngine());
         return newInstance;
     }
 
     @Override
-    public AInterfaceType newInterfaceImpl(String name) {
+    public AInterfaceType<?> newInterfaceImpl(String name) {
         return newInterfaceImpl(name, null);
     }
 
     @Override
-    public void addClassImpl(AClass newClass) {
-        add((CtType<?>) newClass.getNode());
+    public void addClassImpl(AClass<?> newClass) {
+        add((CtType<?>) newClass.getNodeImpl());
     }
 
     @Override
-    public void addInterfaceImpl(AInterfaceType newInterface) {
-        add((CtType<?>) newInterface.getNode());
+    public void addInterfaceImpl(AInterfaceType<?> newInterface) {
+        add((CtType<?>) newInterface.getNodeImpl());
     }
 
     @Override
-    public AInterfaceType removeInterfaceImpl(String interfaceName) {
+    public AInterfaceType<?> removeInterfaceImpl(String interfaceName) {
         throw new NotImplementedException("Not implemented yet");
     }
 
     private void add(CtType<?> type) {
-        node.getDeclaredTypes().add(type);
+        getNodeImpl().getDeclaredTypes().add(type);
     }
 
     @Override
-    public AClass mapVersionsImpl(String name, String keyType, AInterfaceType _interface, String methodName) {
+    public AClass<?> mapVersionsImpl(String name, String keyType, AInterfaceType<?> _interface, String methodName) {
 
-        CtClass<?> newClass = MapGenerator.generate(node.getFactory(), name, keyType, _interface, methodName);
-        node.getDeclaredTypes().add(newClass);
-        AClass newInstance = JClass.newInstance(newClass, node, getWeaverEngine());
+        CtClass<?> newClass = MapGenerator.generate(getNodeImpl().getFactory(), name, keyType, _interface, methodName);
+        getNodeImpl().getDeclaredTypes().add(newClass);
+        AClass<?> newInstance = new JClass<>(newClass, getNodeImpl(), getWeaverEngine());
         return newInstance;
     }
 
     @Override
-    public AJoinPoint getParentImpl() {
-        return (AJoinPoint) getWeaverEngine().getRootJp();
+    public AJoinpoint<?> getParentImpl() {
+        return getWeaverEngine().getRootJp();
     }
 
     @Override
-    public AJoinPoint[] getChildrenArrayImpl() {
-        List<AJoinPoint> children = new ArrayList<>();
+    public AJoinpoint<?>[] getChildrenImpl() {
+        List<AJoinpoint<?>> children = new ArrayList<>();
 
-        for (var file : getNode().getDeclaredTypes()) {
-            AJavaWeaverJoinPoint type = CtElement2JoinPoint.convertTry(file, getWeaverEngine()).orElse(null);
+        for (var file : getNodeImpl().getDeclaredTypes()) {
+            var type = CtElement2JoinPoint.convertTry(file, getWeaverEngine()).orElse(null);
             if (type == null) {
                 continue;
             }
@@ -215,20 +208,20 @@ public class JFile extends AFile {
             children.add(type);
         }
 
-        return children.toArray(new AJoinPoint[0]);
+        return children.toArray(new AJoinpoint[0]);
     }
 
     @Override
-    public String toString() {
+    public String getToStringImpl() {
         return getNameImpl();
     }
 
     @Override
-    public AType getMainClassImpl() {
+    public AType<?> getMainClassImpl() {
 
         var fileName = SpecsIo.removeExtension(getNameImpl());
 
-        var declaredTypes = node.getDeclaredTypes();
+        var declaredTypes = getNodeImpl().getDeclaredTypes();
 
         if (declaredTypes.isEmpty()) {
             SpecsLogs

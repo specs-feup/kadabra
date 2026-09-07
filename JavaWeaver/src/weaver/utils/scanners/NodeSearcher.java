@@ -8,7 +8,7 @@ import java.util.List;
 import spoon.processing.Processor;
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.visitor.CtScanner;
-import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
+import weaver.kadabra.abstracts.joinpoints.AJoinpoint;
 import weaver.utils.weaving.SelectUtils;
 
 /**
@@ -174,12 +174,12 @@ public class NodeSearcher extends CtScanner {
 	return elements;
     }
 
-    public static <T extends CtElement, V extends AJavaWeaverJoinPoint> List<V> searchAndConvert(Class<T> searchClass,
+    public static <T extends CtElement, V extends AJoinpoint<?>> List<V> searchAndConvert(Class<T> searchClass,
 	    CtElement root, NodeConverter<T, V> converter) {
 	return searchAndConvert(searchClass, root, converter, Collections.emptyList(), Collections.emptyList());
     }
 
-    public static <T extends CtElement, V extends AJavaWeaverJoinPoint> List<V> searchAndConvert(Class<T> searchClass,
+    public static <T extends CtElement, V extends AJoinpoint<?>> List<V> searchAndConvert(Class<T> searchClass,
 	    CtElement root, NodeConverter<T, V> converter, Collection<Class<? extends CtElement>> ignore,
 	    Collection<Class<? extends CtElement>> prune) {
 
@@ -198,7 +198,7 @@ public class NodeSearcher extends CtScanner {
 	super.enter(e);
     }
 
-    // public static <T extends CtElement, V extends AJoinPoint> List<V>
+    // public static <T extends CtElement, V extends AJoinpoint<?>> List<V>
     // nodes2JoinPointList(Class<T> searchClass,
     // Class<V> convertClass,
     // CtElement root,

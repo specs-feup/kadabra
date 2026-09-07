@@ -39,7 +39,7 @@ import spoon.reflect.reference.CtFieldReference;
 import spoon.reflect.reference.CtParameterReference;
 import spoon.reflect.reference.CtTypeReference;
 import tdrc.utils.StringUtils;
-import weaver.kadabra.JavaWeaver;
+import weaver.kadabra.JWeaver;
 import weaver.kadabra.agent.asm.ASMUtils;
 import weaver.kadabra.agent.asm.MethodBuilder;
 import weaver.kadabra.exceptions.JavaWeaverException;
@@ -57,7 +57,7 @@ public class FunctionalClassGenerator {
      * @param newMethodOwner
      * @return
      */
-    public static JMethod<?> generate(JavaWeaver weaver, CtMethod<?> funcInterfaceMethod, CtMethod<?> methodBuilder,
+    public static JMethod<?> generate(JWeaver weaver, CtMethod<?> funcInterfaceMethod, CtMethod<?> methodBuilder,
             CtClass<?> newMethodOwner) {
         validateTransformerMethod(methodBuilder);
 
@@ -81,7 +81,7 @@ public class FunctionalClassGenerator {
 
         newMethod.getBody().addStatement(builderVar);
         newMethod.getBody().addStatement(returnStmt);
-        return JMethod.newInstance(newMethod, weaver);
+        return new JMethod<>(newMethod, weaver);
     }
 
     public static <T> CtReturn<?> generateReturnStmt(CtMethod<?> methodBuilder, CtMethod<?> funcInterfaceMethod,

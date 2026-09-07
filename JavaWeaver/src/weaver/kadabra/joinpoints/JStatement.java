@@ -13,76 +13,73 @@
 
 package weaver.kadabra.joinpoints;
 
-import org.lara.interpreter.weaver.interf.JoinPoint;
+import org.lara.interpreter.weaver.interf.enums.InsertPosition;
+
 import spoon.reflect.code.CtStatement;
 import spoon.reflect.declaration.CtElement;
 import tdrc.utils.StringUtils;
-import weaver.kadabra.JavaWeaver;
-import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
-import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
+import weaver.kadabra.JWeaver;
+import weaver.kadabra.abstracts.joinpoints.AJoinpoint;
 import weaver.kadabra.abstracts.joinpoints.AStatement;
 import weaver.utils.weaving.ActionUtils;
 import weaver.utils.weaving.converters.CtStatement2AStatement;
 
-public class JStatement extends AStatement {
+public class JStatement<Self extends JStatement<Self>> extends AStatement<Self> {
 
-    private final CtStatement node;
-
-    public JStatement(CtStatement node, JavaWeaver weaver) {
-        super(weaver);
-        this.node = node;
+    public JStatement(CtStatement node, JWeaver weaver) {
+        super(node, weaver);
     }
 
-    public static AJavaWeaverJoinPoint newInstance(CtStatement node, JavaWeaver weaver) {
+    public static AJoinpoint<?> newInstance(CtStatement node, JWeaver weaver) {
         return CtStatement2AStatement.convert(node, weaver);
     }
 
     @Override
-    public AJoinPoint[] insertImpl(String position, JoinPoint code) {
-        return new AJoinPoint[] { insertImplJStatement(position, (CtElement) code.getNode()) };
+    public AJoinpoint<?>[] insertImpl(InsertPosition position, AJoinpoint<?> code) {
+        return new AJoinpoint<?>[] { insertImplJStatement(position, (CtElement) code.getNodeImpl()) };
     }
 
     @Override
-    public AJoinPoint[] insertImpl(String position, String code) {
-        return new AJoinPoint[] { insertImplJStatement(position, code) };
+    public AJoinpoint<?>[] insertImpl(InsertPosition position, String code) {
+        return new AJoinpoint<?>[] { insertImplJStatement(position, code) };
     }
 
-    public AJavaWeaverJoinPoint insertImplJStatement(String position, CtElement code) {
-        return ActionUtils.insert(position, code, node, getWeaverEngine());
+    public AJoinpoint<?> insertImplJStatement(InsertPosition position, CtElement code) {
+        return ActionUtils.insert(position.name().toLowerCase(), code, getNodeImpl(), getWeaverEngine());
     }
 
-    public AJavaWeaverJoinPoint insertImplJStatement(String position, String code) {
-        return ActionUtils.insert(position, code, node, getWeaverEngine());
-    }
-
-    @Override
-    public AJoinPoint insertBeforeImpl(String code) {
-        return insertImplJStatement("before", code);
+    public AJoinpoint<?> insertImplJStatement(InsertPosition position, String code) {
+        return ActionUtils.insert(position.name().toLowerCase(), code, getNodeImpl(), getWeaverEngine());
     }
 
     @Override
-    public AJoinPoint insertAfterImpl(String code) {
-        return insertImplJStatement("after", code);
+    public AJoinpoint<?> insertBeforeImpl(String code) {
+        return insertImplJStatement(InsertPosition.BEFORE, code);
     }
 
     @Override
-    public AJoinPoint insertReplaceImpl(String code) {
-        return insertImplJStatement("replace", code);
+    public AJoinpoint<?> insertAfterImpl(String code) {
+        return insertImplJStatement(InsertPosition.AFTER, code);
     }
 
     @Override
-    public CtStatement getNode() {
-        return node;
+    public AJoinpoint<?> insertReplaceImpl(String code) {
+        return insertImplJStatement(InsertPosition.REPLACE, code);
     }
 
     @Override
-    public Integer getEndLineImpl() {
-        return node.getPosition().getEndLine();
+    public CtStatement getNodeImpl() {
+        return (CtStatement) super.getNodeImpl();
+    }
+
+    @Override
+    public int getEndLineImpl() {
+        return getNodeImpl().getPosition().getEndLine();
     }
 
     @Override
     public String getKindImpl() {
-        String tempType = node.getClass().getSimpleName().replace("Ct", "").replace("Impl", "");
+        String tempType = getNodeImpl().getClass().getSimpleName().replace("Ct", "").replace("Impl", "");
         return StringUtils.firstCharToLower(tempType);
     }
 }

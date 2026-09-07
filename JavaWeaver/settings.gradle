@@ -9,9 +9,10 @@ includeBuild("${specsJavaLibsRoot}/jOptions")
 includeBuild("${specsJavaLibsRoot}/SpecsUtils")
 includeBuild("${specsJavaLibsRoot}/tdrcLibrary")
 
+includeBuild("${laraFrameworkRoot}/LangSpec2")
 includeBuild("${laraFrameworkRoot}/LaraUtils")
 includeBuild("${laraFrameworkRoot}/LARAI")
+includeBuild("${laraFrameworkRoot}/WeaverGen2")
 includeBuild("${laraFrameworkRoot}/WeaverInterface")
-includeBuild("${laraFrameworkRoot}/WeaverGenerator")
 
 includeBuild("../KadabraAPI")

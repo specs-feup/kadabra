@@ -19,7 +19,7 @@ import java.util.List;
 import pt.up.fe.specs.util.SpecsIo;
 import pt.up.fe.specs.util.SpecsLogs;
 import pt.up.fe.specs.util.xml.XmlDocument;
-import weaver.kadabra.JavaWeaver;
+import weaver.kadabra.JWeaver;
 import weaver.kadabra.joinpoints.JXmlNode;
 
 /**
@@ -83,7 +83,7 @@ public class AndroidResources {
         return this.androidManifest;
     }
 
-    public static JXmlNode parseXml(String xmlCode, JavaWeaver weaver) {
+    public static JXmlNode parseXml(String xmlCode, JWeaver weaver) {
         var xmlNode = XmlDocument.newInstance(xmlCode);
         return new JXmlNode(xmlNode, weaver);
     }

@@ -14,32 +14,25 @@
 package weaver.kadabra.joinpoints;
 
 import spoon.reflect.code.CtFieldAccess;
-import spoon.reflect.declaration.CtElement;
+
+import weaver.kadabra.JWeaver;
 import weaver.kadabra.abstracts.joinpoints.AExpression;
-import weaver.kadabra.JavaWeaver;
 import weaver.kadabra.abstracts.joinpoints.AFieldAccess;
 import weaver.utils.weaving.converters.CtElement2JoinPoint;
 
-public class JFieldAccess<T> extends AFieldAccess {
+public class JFieldAccess<Self extends JFieldAccess<Self>> extends AFieldAccess<Self> {
 
-    private final CtFieldAccess<T> node;
-
-    protected JFieldAccess(CtFieldAccess<T> var, JavaWeaver weaver) {
-        super(new JVar<>(var, weaver), weaver);
-        node = var;
-    }
-
-    public static <T> JFieldAccess<T> newInstance(CtFieldAccess<T> var, JavaWeaver weaver) {
-        return new JFieldAccess<>(var, weaver);
+    public JFieldAccess(CtFieldAccess node, JWeaver weaver) {
+        super(node, weaver);
     }
 
     @Override
-    public CtElement getNode() {
-        return node;
+    public CtFieldAccess<?> getNodeImpl() {
+        return (CtFieldAccess<?>) super.getNodeImpl();
     }
 
     @Override
-    public AExpression getBaseImpl() {
-        return CtElement2JoinPoint.convert(node.getTarget(), getWeaverEngine(), AExpression.class);
+    public AExpression<?> getBaseImpl() {
+        return CtElement2JoinPoint.convert(getNodeImpl().getTarget(), getWeaverEngine(), AExpression.class);
     }
 }

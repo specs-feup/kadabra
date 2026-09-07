@@ -1,7 +1,7 @@
 package weaver.utils.scanners;
 
 import spoon.reflect.declaration.CtElement;
-import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
+import weaver.kadabra.abstracts.joinpoints.AJoinpoint;
 
 /**
  * Copyright 2015 SPeCS Research Group.
@@ -19,7 +19,7 @@ import weaver.kadabra.abstracts.AJavaWeaverJoinPoint;
  * the License. under the License.
  */
 @FunctionalInterface
-public interface NodeConverter<T extends CtElement, V extends AJavaWeaverJoinPoint> {
+public interface NodeConverter<T extends CtElement, V extends AJoinpoint<?>> {
 
 	V toJoinPoint(T e);
 

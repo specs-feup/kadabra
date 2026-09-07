@@ -17,10 +17,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.lara.interpreter.weaver.interf.AGear;
-import org.lara.interpreter.weaver.interf.JoinPoint;
+import org.lara.interpreter.weaver.interf.JoinPoint2;
 import org.lara.interpreter.weaver.interf.events.data.ActionEvent;
 
-import weaver.kadabra.abstracts.joinpoints.AJoinPoint;
+import weaver.kadabra.abstracts.joinpoints.AJoinpoint;
 import weaver.kadabra.util.KadabraLog;
 
 public class Report extends AGear {
@@ -29,13 +29,13 @@ public class Report extends AGear {
 
     @Override
     public void onAction(ActionEvent data) {
-        JoinPoint joinPoint = data.getJoinPoint();
-        if (!(joinPoint instanceof AJoinPoint)) {
+        var joinPoint = data.getJoinPoint();
+        if (!(joinPoint instanceof AJoinpoint<?>)) {
             KadabraLog.warning("Report: unrecognized type of join point: " + joinPoint.getClass());
             return;
         }
-        AJoinPoint aJP = (AJoinPoint) joinPoint;
-        advisedJoinPoints.add(aJP.getNode());
+        AJoinpoint<?> aJP = (AJoinpoint<?>) joinPoint;
+        advisedJoinPoints.add(aJP.getNodeImpl());
     }
 
     public Set<Object> getAdvisedJoinPoints() {
